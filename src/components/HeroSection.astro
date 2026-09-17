@@ -1,32 +1,47 @@
 ---
-
+/**
+ * HeroSection Component - rockcoveragecalculator.com
+ * Catchy, problem-solving, answerable headline and instant contractor rule.
+ * Emotional & professional touch: eliminates the fear of running short or overpaying.
+ */
 ---
 <section class="hero" id="hero">
   <div class="hero-bg">
     <div class="hero-gradient"></div>
     <div class="hero-particles" aria-hidden="true">
       {Array.from({length: 20}).map((_, i) => (
-        <div class="rock-particle" style={`left: ${5 + Math.random() * 90}%; bottom: ${Math.random() * 30}%; animation-delay: ${Math.random() * 3}s; animation-duration: ${2 + Math.random() * 2}s; opacity: ${0.2 + Math.random() * 0.4}`}></div>
+        <div class="rock-particle" style={`left: ${5 + (i * 4.7) % 90}%; bottom: ${(i * 3.3) % 30}%; animation-delay: ${(i * 0.2) % 3}s; animation-duration: ${2.5 + (i * 0.15) % 2}s; opacity: ${0.2 + (i * 0.03) % 0.4}`}></div>
       ))}
     </div>
   </div>
+
   <div class="container hero-content">
     <div class="hero-badge">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 7.5V16.5L12 22L20 16.5V7.5L12 2Z"/></svg>
-      Professional Aggregate Estimator
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L4 7.5V16.5L12 22L20 16.5V7.5L12 2Z"/>
+      </svg>
+      <span>Quarry-Calibrated Aggregate Estimator</span>
     </div>
+
     <h1 class="hero-title">
-      <span class="hero-word">Calculate</span>
-      <span class="hero-word">Rock</span>
-      <span class="hero-word text-gold">Coverage</span>
-      <br />
-      <span class="hero-word">with</span>
-      <span class="hero-word">Quarry-Grade</span>
-      <span class="hero-word">Precision</span>
+      Never Run Short. Never Overpay.<br />
+      <span class="text-gold">Calculate Exact Rock Coverage.</span>
     </h1>
+
     <p class="hero-subtitle">
-      Determine the exact cubic yards, tons, and bags of rock, gravel, or stone needed for any project. Select your shape, pick your material, set your depth, and get field-ready estimates in seconds.
+      Stop guessing tons and cubic yards. Whether you are surfacing a gravel driveway, edging a flower bed, or laying patio sub-base, get the exact scale weight, 50-lb bag count, and real delivery costs in seconds before ordering from the quarry.
     </p>
+
+    <!-- Quick Answer Pill Bar for Instant AEO / User Answer -->
+    <div class="hero-quick-rule">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 16v-4"/>
+        <path d="M12 8h.01"/>
+      </svg>
+      <span><strong>Instant Rule:</strong> (Length x Width x Depth in inches) / 324 = Cubic Yards &bull; 1 Ton covers ~100 sq ft at 2" deep</span>
+    </div>
+
     <div class="hero-stats">
       <div class="hero-stat">
         <span class="hero-stat-value">12</span>
@@ -40,16 +55,39 @@
       <div class="hero-stat-divider"></div>
       <div class="hero-stat">
         <span class="hero-stat-value">3D</span>
-        <span class="hero-stat-label">Visualization</span>
+        <span class="hero-stat-label">Visualizer</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">ASTM</span>
+        <span class="hero-stat-label">Calibrated</span>
       </div>
     </div>
-    <a href="#calculator" class="hero-cta">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-      Start Calculating
-    </a>
+
+    <div class="hero-cta-group">
+      <a href="#calculator" class="hero-cta">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="3"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="3" x2="9" y2="21"/>
+        </svg>
+        <span>Calculate My Project</span>
+      </a>
+      <a href="#rock-coverage-guide" class="hero-secondary-cta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        <span>View Density Guide</span>
+      </a>
+    </div>
   </div>
+
   <div class="scroll-indicator" aria-hidden="true">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5"/><path d="M7 7l5 5 5-5" opacity="0.4"/></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M7 13l5 5 5-5"/>
+      <path d="M7 7l5 5 5-5" opacity="0.4"/>
+    </svg>
   </div>
 </section>
 
@@ -63,35 +101,45 @@
     justify-content: center;
     text-align: center;
     overflow: hidden;
-    padding: var(--space-20) 0 var(--space-12);
+    padding: var(--space-20) 0 var(--space-16);
   }
 
   .hero-bg {
     position: absolute;
     inset: 0;
+    pointer-events: none;
     z-index: 0;
   }
 
   .hero-gradient {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 20%, rgba(212,168,83,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 70% 70%, rgba(106,143,170,0.04) 0%, transparent 50%),
-      radial-gradient(ellipse 50% 50% at 30% 80%, rgba(196,124,90,0.03) 0%, transparent 50%),
-      linear-gradient(180deg, var(--slate-950) 0%, var(--slate-900) 40%, var(--slate-950) 100%);
+    background: 
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212, 168, 83, 0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 60%, rgba(106, 143, 170, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 60%, rgba(212, 168, 83, 0.06) 0%, transparent 60%);
   }
 
-  .hero-particles {
+  .rock-particle {
     position: absolute;
-    inset: 0;
-    pointer-events: none;
+    width: 6px;
+    height: 6px;
+    background: var(--gold-500);
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: floatUp 4s infinite ease-in-out;
+  }
+
+  @keyframes floatUp {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+    50% { transform: translateY(-20px) rotate(180deg); opacity: 0.6; }
   }
 
   .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 800px;
+    max-width: 860px;
+    margin: 0 auto;
   }
 
   .hero-badge {
@@ -100,15 +148,14 @@
     gap: var(--space-2);
     padding: var(--space-2) var(--space-4);
     background: var(--gold-glow);
-    border: 1px solid rgba(212,168,83,0.2);
+    border: 1px solid rgba(212, 168, 83, 0.25);
     border-radius: var(--radius-full);
-    font-size: 0.725rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 700;
     color: var(--gold-400);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: var(--space-8);
-    animation: fadeInUp 0.6s cubic-bezier(0.2, 0, 0, 1) both;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-6);
   }
 
   .hero-badge svg {
@@ -116,20 +163,43 @@
   }
 
   .hero-title {
-    font-size: clamp(2.25rem, 6vw, 4rem);
+    font-size: clamp(2.1rem, 5.5vw, 3.75rem);
     font-weight: 900;
-    letter-spacing: -0.04em;
-    line-height: 1.1;
-    margin-bottom: var(--space-6);
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+    margin-bottom: var(--space-5);
+    color: var(--text-primary);
   }
 
   .hero-subtitle {
-    font-size: clamp(0.95rem, 1.5vw, 1.125rem);
+    font-size: clamp(0.95rem, 1.4vw, 1.125rem);
     color: var(--text-secondary);
     line-height: 1.7;
-    max-width: 620px;
-    margin: 0 auto var(--space-10);
-    animation: fadeInUp 0.6s cubic-bezier(0.2, 0, 0, 1) 0.4s both;
+    max-width: 680px;
+    margin: 0 auto var(--space-6);
+  }
+
+  .hero-quick-rule {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--surface-overlay);
+    border: 1px solid var(--surface-glass-border);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: 0.825rem;
+    color: var(--text-primary);
+    margin-bottom: var(--space-8);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .hero-quick-rule svg {
+    color: var(--gold-400);
+    flex-shrink: 0;
+  }
+
+  .hero-quick-rule strong {
+    color: var(--gold-400);
   }
 
   .hero-stats {
@@ -137,8 +207,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-6);
-    margin-bottom: var(--space-10);
-    animation: fadeInUp 0.6s cubic-bezier(0.2, 0, 0, 1) 0.5s both;
+    margin-bottom: var(--space-8);
   }
 
   .hero-stat {
@@ -149,24 +218,32 @@
   }
 
   .hero-stat-value {
-    font-family: var(--font-mono);
     font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--gold-400);
+    font-weight: 800;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
   }
 
   .hero-stat-label {
     font-size: 0.7rem;
     font-weight: 600;
-    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    color: var(--text-muted);
   }
 
   .hero-stat-divider {
     width: 1px;
-    height: 32px;
+    height: 28px;
     background: var(--slate-700);
+  }
+
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
   }
 
   .hero-cta {
@@ -178,26 +255,42 @@
     color: var(--text-inverse);
     font-weight: 700;
     font-size: 0.95rem;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 4px 20px rgba(212,168,83,0.25), 0 0 0 0 rgba(212,168,83,0);
-    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    animation: fadeInUp 0.6s cubic-bezier(0.2, 0, 0, 1) 0.6s both;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-gold);
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
   }
 
   .hero-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(212,168,83,0.35), 0 0 0 4px rgba(212,168,83,0.1);
+    box-shadow: 0 8px 30px rgba(212, 168, 83, 0.35);
     color: var(--text-inverse);
   }
 
-  .hero-cta:active {
-    transform: translateY(0);
+  .hero-secondary-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    background: var(--surface-overlay);
+    border: 1px solid var(--surface-glass-border);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: var(--radius-md);
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+  }
+
+  .hero-secondary-cta:hover {
+    background: var(--slate-700);
+    border-color: var(--slate-500);
+    color: var(--text-primary);
   }
 
   .scroll-indicator {
     position: absolute;
-    bottom: var(--space-8);
+    bottom: var(--space-6);
     left: 50%;
     transform: translateX(-50%);
     color: var(--text-muted);
@@ -207,15 +300,22 @@
   @media (max-width: 640px) {
     .hero {
       min-height: 75vh;
-      padding: var(--space-16) 0 var(--space-10);
+      padding: var(--space-12) 0 var(--space-8);
     }
 
     .hero-stats {
-      gap: var(--space-4);
+      gap: var(--space-3);
     }
 
     .hero-stat-value {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
+    }
+
+    .hero-quick-rule {
+      font-size: 0.75rem;
+      flex-direction: column;
+      text-align: center;
+      border-radius: var(--radius-md);
     }
   }
 </style>

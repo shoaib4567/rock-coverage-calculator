@@ -140,14 +140,20 @@ import IconRock from './icons/IconRock.astro';
           <button class="waste-chip" data-waste="20" role="radio" aria-checked="false">20%</button>
         </div>
       </div>
-
       <!-- RIGHT: Results & Visualization Panel -->
       <div class="results-container animate-fade-in-up animate-delay-2">
         <!-- Hero KPIs -->
         <div class="calc-panel">
-          <div class="calc-panel-title">
-            <IconScale size={22} class="panel-icon" />
-            <h3>Your Results</h3>
+          <div class="calc-panel-title results-title-bar">
+            <div class="results-title-left">
+              <IconScale size={22} class="panel-icon" />
+              <h3>Your Results</h3>
+            </div>
+            <a href="#visualizer" class="viz-live-badge" title="Jump to interactive 3D rock bed simulation">
+              <span class="live-dot"></span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <span>3D Bed Live</span>
+            </a>
           </div>
 
           <div class="kpi-grid">
@@ -212,39 +218,119 @@ import IconRock from './icons/IconRock.astro';
           </div>
         </div>
 
-        <!-- Cost Estimator -->
+        <!-- Advanced Project Cost & Custom Rates Estimator -->
         <div class="breakdown-section">
           <div class="breakdown-header">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-            <h4>Cost Estimator</h4>
+            <h4>Custom Rates & Cost Estimator</h4>
           </div>
-          <div class="cost-row">
-            <span style="font-size: 0.825rem; color: var(--text-secondary);">Price per cubic yard</span>
-            <div class="input-field" style="max-width: 140px;">
-              <span style="color: var(--text-muted); font-weight: 600;">$</span>
-              <input type="number" id="cost-input" placeholder="0.00" step="0.01" min="0">
+          <div class="cost-fields-grid">
+            <div class="cost-input-cell">
+              <label for="cost-material-rate">Material Rate</label>
+              <div class="input-field mini">
+                <span class="currency">$</span>
+                <input type="number" id="cost-material-rate" placeholder="55.00" value="55.00" step="1" min="0">
+                <span class="unit-label" id="cost-unit-basis">/ ton</span>
+              </div>
+            </div>
+            <div class="cost-input-cell">
+              <label for="cost-delivery-fee">Delivery / Freight Drop</label>
+              <div class="input-field mini">
+                <span class="currency">$</span>
+                <input type="number" id="cost-delivery-fee" placeholder="75.00" value="75.00" step="5" min="0">
+              </div>
+            </div>
+            <div class="cost-input-cell">
+              <label for="cost-labor-rate">Labor & Spreading</label>
+              <div class="input-field mini">
+                <span class="currency">$</span>
+                <input type="number" id="cost-labor-rate" placeholder="35.00" value="35.00" step="5" min="0">
+                <span class="unit-label">/ ton</span>
+              </div>
+            </div>
+            <div class="cost-input-cell">
+              <label for="cost-fabric-rate">Fabric & Edging Supplies</label>
+              <div class="input-field mini">
+                <span class="currency">$</span>
+                <input type="number" id="cost-fabric-rate" placeholder="40.00" value="40.00" step="5" min="0">
+              </div>
+            </div>
+            <div class="cost-input-cell">
+              <label for="cost-tax-rate">Sales Tax (%)</label>
+              <div class="input-field mini">
+                <input type="number" id="cost-tax-rate" placeholder="7.0" value="7.0" step="0.5" min="0">
+                <span class="unit-label">%</span>
+              </div>
             </div>
           </div>
-          <div class="cost-total">
-            <span class="total-label">Estimated Total</span>
-            <span id="cost-total" class="total-value">$0.00</span>
+
+          <!-- Itemized Cost Summary -->
+          <div class="cost-summary-box">
+            <div class="cost-line-item">
+              <span>Rock Aggregate:</span>
+              <span id="cost-summary-material" class="cost-val">$0.00</span>
+            </div>
+            <div class="cost-line-item">
+              <span>Delivery / Freight:</span>
+              <span id="cost-summary-delivery" class="cost-val">$0.00</span>
+            </div>
+            <div class="cost-line-item">
+              <span>Labor & Spreading:</span>
+              <span id="cost-summary-labor" class="cost-val">$0.00</span>
+            </div>
+            <div class="cost-line-item">
+              <span>Fabric & Edging Supplies:</span>
+              <span id="cost-summary-fabric" class="cost-val">$0.00</span>
+            </div>
+            <div class="cost-line-item">
+              <span>Sales Tax:</span>
+              <span id="cost-summary-tax" class="cost-val">$0.00</span>
+            </div>
+            <div class="cost-grand-total-row">
+              <span class="grand-label">Total Estimated Investment</span>
+              <span id="cost-total" class="grand-val">$0.00</span>
+            </div>
           </div>
         </div>
 
         <!-- Action Buttons -->
         <div class="action-row">
-          <button id="btn-print" class="btn btn-primary">
+          <button id="btn-save-project" class="btn btn-primary" title="Save this calculation to your project list">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save Project Zone
+          </button>
+          <button id="btn-print" class="btn btn-secondary">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="3" width="14" height="18" rx="1"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="10" x2="14" y2="10" opacity="0.5"/></svg>
             Print Spec Sheet
           </button>
           <button id="btn-csv" class="btn btn-secondary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
             Export CSV
           </button>
           <button id="btn-share" class="btn btn-ghost">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
             Share Link
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saved Projects Drawer Section -->
+    <div id="saved-projects-section" class="saved-projects-panel" style="margin-top: var(--space-10);">
+      <div class="saved-projects-header">
+        <div class="saved-title-group">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <h3>Saved Project Zones</h3>
+          <span id="saved-count-badge" class="saved-count-pill">0 Zones</span>
+        </div>
+        <div class="saved-actions-group">
+          <button id="btn-export-saved-csv" class="btn btn-secondary btn-sm" title="Export all saved zones into a single Bill of Materials CSV">Export All Zones CSV</button>
+          <button id="btn-clear-saved" class="btn btn-ghost btn-sm" title="Clear all saved project zones">Clear All</button>
+        </div>
+      </div>
+      <div id="saved-projects-list" class="saved-projects-container">
+        <div class="saved-empty-state">
+          <p>No project zones saved yet. Click "Save Project Zone" above to add your walkway, driveway, or garden bed to your multi-zone project list.</p>
         </div>
       </div>
     </div>

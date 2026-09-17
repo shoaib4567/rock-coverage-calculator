@@ -53,6 +53,17 @@ const canonicalURL = 'https://rockcoveragecalculator.com';
       "priceCurrency": "USD"
     }
   })} />
+
+  <!-- Early Theme Initialization -->
+  <script is:inline>
+    (function() {
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const theme = savedTheme || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <slot />

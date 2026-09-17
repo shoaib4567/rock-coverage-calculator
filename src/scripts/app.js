@@ -1,7 +1,7 @@
 /**
- * Main Application Controller — rockcoveragecalculator.com
+ * Main Application Controller - rockcoveragecalculator.com
  * Orchestrates DOM events, live state reactivity, visualization sync,
- * export hooks, and 3D scene management.
+ * export hooks, theme switching, advanced pricing, and multi-zone saved projects.
  */
 
 import { RockEngine } from './engine.js';
@@ -20,9 +20,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     materialId: 'pea-gravel',
     depthInches: 3,
     wastePercent: 10,
-    costPerUnit: 0,
-    costUnit: 'cuyd' // cuyd or ton
+    costMaterialRate: 55,
+    costDeliveryFee: 75,
+    costLaborRate: 35,
+    costFabricRate: 40,
+    costTaxRate: 7.0
   };
+
+  // Saved Projects storage
+  let savedProjects = [];
+  try {
+    const rawSaved = localStorage.getItem('rock_saved_projects');
+    if (rawSaved) savedProjects = JSON.parse(rawSaved);
+  } catch (e) {
+    savedProjects = [];
+  }
 
   // Restore from URL
   const savedState = RockExporter.decodeState();
@@ -52,20 +64,52 @@ document.addEventListener('DOMContentLoaded', async () => {
   const depthStatus = document.getElementById('depth-status');
 
   // Cost elements
-  const costInput = document.getElementById('cost-input');
+  const costMaterialInput = document.getElementById('cost-material-rate');
+  const costDeliveryInput = document.getElementById('cost-delivery-fee');
+  const costLaborInput = document.getElementById('cost-labor-rate');
+  const costFabricInput = document.getElementById('cost-fabric-rate');
+  const costTaxInput = document.getElementById('cost-tax-rate');
+
+  const costSummaryMaterial = document.getElementById('cost-summary-material');
+  const costSummaryDelivery = document.getElementById('cost-summary-delivery');
+  const costSummaryLabor = document.getElementById('cost-summary-labor');
+  const costSummaryFabric = document.getElementById('cost-summary-fabric');
+  const costSummaryTax = document.getElementById('cost-summary-tax');
   const costTotal = document.getElementById('cost-total');
 
   // Action buttons
+  const btnSaveProject = document.getElementById('btn-save-project');
   const btnPrint = document.getElementById('btn-print');
   const btnCSV = document.getElementById('btn-csv');
   const btnShare = document.getElementById('btn-share');
 
-  // 3D Scene
+  // Saved projects elements
+  const savedProjectsList = document.getElementById('saved-projects-list');
+  const savedCountBadge = document.getElementById('saved-count-badge');
+  const btnClearSaved = document.getElementById('btn-clear-saved');
+  const btnExportSavedCSV = document.getElementById('btn-export-saved-csv');
+
+  // Theme toggle
+  const themeToggleBtn = document.getElementById('theme-toggle');
+
+  /* ── Theme Toggle Event ── */
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const target = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', target);
+      try {
+        localStorage.setItem('theme', target);
+      } catch (e) {}
+    });
+  }
+
+  /* ── 3D Scene Initialization ── */
   let rockScene = null;
   try {
     rockScene = await initRockScene('rock-scene-canvas');
   } catch (e) {
-    console.warn('3D scene initialization failed:', e);
+    console.warn('3D scene initialization error:', e);
   }
 
   /* ── Shape Tab Switching ── */
@@ -152,7 +196,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   shapeTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       setShape(tab.dataset.shape);
-      // Shape morph animation
       const svg = tab.querySelector('svg');
       if (svg) {
         svg.classList.add('shape-morph');
@@ -164,35 +207,53 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ── Unit Toggle ── */
   unitButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      state.unit = btn.dataset.unit;
-      unitButtons.forEach(b => b.classList.toggle('active', b === btn));
-      // Update unit labels
-      dimContainer.querySelectorAll('.unit-label').forEach(l => l.textContent = state.unit);
-      // Re-read inputs with new unit conversion
-      dimContainer.querySelectorAll('input').forEach(inp => {
-        const raw = parseFloat(inp.value);
-        if (!isNaN(raw) && raw >= 0) {
-          state.dims[inp.dataset.key] = RockEngine.toFeet(raw, state.unit);
-        }
+      const oldUnit = state.unit;
+      const newUnit = btn.dataset.unit;
+      if (oldUnit === newUnit) return;
+
+      unitButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Convert existing dims to new unit for display
+      Object.keys(state.dims).forEach(k => {
+        const ft = state.dims[k];
+        state.dims[k] = RockEngine.fromFeet(ft, newUnit);
       });
+
+      state.unit = newUnit;
+
+      // Update unit labels on inputs
+      if (dimContainer) {
+        dimContainer.querySelectorAll('.unit-label').forEach(el => {
+          el.textContent = newUnit;
+        });
+        dimContainer.querySelectorAll('input').forEach(inp => {
+          const key = inp.dataset.key;
+          inp.value = RockEngine.formatNumber(state.dims[key]);
+        });
+      }
+
       recalculate();
     });
   });
 
-  /* ── Material Selection ── */
+  /* ── Material Picker ── */
   materialCards.forEach(card => {
     card.addEventListener('click', () => {
+      materialCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
       state.materialId = card.dataset.material;
-      materialCards.forEach(c => c.classList.toggle('active', c === card));
+
+      // Card selection pulse
+      card.classList.add('selected-pulse');
+      setTimeout(() => card.classList.remove('selected-pulse'), 400);
+
       recalculate();
     });
   });
 
-  /* ── Depth Slider ── */
+  /* ── Depth Slider & Presets ── */
   if (depthSlider) {
-    depthSlider.value = state.depthInches;
-    updateDepthDisplay();
-
     depthSlider.addEventListener('input', (e) => {
       state.depthInches = parseFloat(e.target.value);
       updateDepthDisplay();
@@ -200,50 +261,51 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  depthPresets.forEach(preset => {
-    preset.addEventListener('click', () => {
-      state.depthInches = parseFloat(preset.dataset.depth);
-      if (depthSlider) depthSlider.value = state.depthInches;
+  depthPresets.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const depth = parseFloat(btn.dataset.depth);
+      state.depthInches = depth;
+      if (depthSlider) depthSlider.value = depth;
       updateDepthDisplay();
-      depthPresets.forEach(p => p.classList.toggle('active', p === preset));
       recalculate();
     });
   });
 
   function updateDepthDisplay() {
-    if (depthValue) depthValue.textContent = state.depthInches;
-    if (depthSlider) {
-      const pct = ((state.depthInches - 1) / 11) * 100;
-      depthSlider.style.setProperty('--slider-fill', `${pct}%`);
+    if (depthValue) {
+      depthValue.textContent = state.depthInches;
     }
-    depthPresets.forEach(p => {
-      p.classList.toggle('active', parseFloat(p.dataset.depth) === state.depthInches);
+    depthPresets.forEach(btn => {
+      btn.classList.toggle('active', parseFloat(btn.dataset.depth) === state.depthInches);
     });
   }
 
-  /* ── Waste Factor ── */
+  /* ── Waste Factor Chips ── */
   wasteChips.forEach(chip => {
     chip.addEventListener('click', () => {
-      state.wastePercent = parseInt(chip.dataset.waste);
-      wasteChips.forEach(c => c.classList.toggle('active', c === chip));
+      wasteChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      state.wastePercent = parseInt(chip.dataset.waste, 10);
       recalculate();
     });
   });
 
-  /* ── Cost Input ── */
-  if (costInput) {
-    costInput.addEventListener('input', (e) => {
-      state.costPerUnit = parseFloat(e.target.value) || 0;
-      recalculate();
-    });
-  }
+  /* ── Cost Input Event Listeners ── */
+  const costInputs = [costMaterialInput, costDeliveryInput, costLaborInput, costFabricInput, costTaxInput];
+  costInputs.forEach(inp => {
+    if (inp) {
+      inp.addEventListener('input', () => {
+        recalculate();
+      });
+    }
+  });
 
-  /* ── Export Buttons ── */
+  /* ── Export & Sharing Actions ── */
   if (btnPrint) {
     btnPrint.addEventListener('click', () => {
       const material = getMaterialById(state.materialId);
       const result = RockEngine.calculate(state.shape, state.dims, state.depthInches, material, state.wastePercent);
-      RockExporter.printQuarryTicket(result, state.dims);
+      RockExporter.printSpecSheet(result);
     });
   }
 
@@ -258,10 +320,189 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (btnShare) {
     btnShare.addEventListener('click', () => {
       RockExporter.copyShareLink(state);
-      btnShare.textContent = 'Copied!';
+      btnShare.textContent = 'Copied Link!';
       setTimeout(() => {
         btnShare.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> Share Link`;
       }, 2000);
+    });
+  }
+
+  /* ── Saved Projects System ── */
+  if (btnSaveProject) {
+    btnSaveProject.addEventListener('click', () => {
+      const material = getMaterialById(state.materialId);
+      const result = RockEngine.calculate(state.shape, state.dims, state.depthInches, material, state.wastePercent);
+      
+      const defaultName = `${material.name} - Zone ${savedProjects.length + 1}`;
+      const name = window.prompt('Enter a name for this project zone:', defaultName) || defaultName;
+
+      // Calculate cost
+      const matRate = parseFloat(costMaterialInput?.value) || 55;
+      const deliveryFee = parseFloat(costDeliveryInput?.value) || 75;
+      const laborRate = parseFloat(costLaborInput?.value) || 35;
+      const fabricCost = parseFloat(costFabricInput?.value) || 40;
+      const taxRate = parseFloat(costTaxInput?.value) || 7.0;
+
+      const subtotal = (result.weightTons * matRate) + deliveryFee + (result.weightTons * laborRate) + fabricCost;
+      const totalCost = subtotal + subtotal * (taxRate / 100);
+
+      const zone = {
+        id: Date.now(),
+        name,
+        shape: state.shape,
+        dims: { ...state.dims },
+        unit: state.unit,
+        materialId: state.materialId,
+        materialName: material.name,
+        depthInches: state.depthInches,
+        wastePercent: state.wastePercent,
+        areaSqFt: result.areaSqFt,
+        volumeCuYd: result.volumeCuYd,
+        weightTons: result.weightTons,
+        bags: result.bags,
+        totalCost,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      };
+
+      savedProjects.push(zone);
+      persistAndRenderSaved();
+
+      // Visual feedback
+      btnSaveProject.textContent = 'Saved!';
+      setTimeout(() => {
+        btnSaveProject.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Project Zone`;
+      }, 1800);
+    });
+  }
+
+  if (btnClearSaved) {
+    btnClearSaved.addEventListener('click', () => {
+      if (savedProjects.length === 0) return;
+      if (window.confirm('Clear all saved project zones?')) {
+        savedProjects = [];
+        persistAndRenderSaved();
+      }
+    });
+  }
+
+  if (btnExportSavedCSV) {
+    btnExportSavedCSV.addEventListener('click', () => {
+      if (savedProjects.length === 0) {
+        alert('No saved project zones to export.');
+        return;
+      }
+
+      const rows = [
+        ['Zone Name', 'Date', 'Shape', 'Material', 'Depth (in)', 'Area (sq ft)', 'Volume (cu yd)', 'Weight (tons)', '0.5 cu ft Bags', 'Estimated Cost'],
+        ...savedProjects.map(z => [
+          `"${z.name}"`,
+          `"${z.date}"`,
+          z.shape,
+          `"${z.materialName}"`,
+          z.depthInches,
+          z.areaSqFt.toFixed(1),
+          z.volumeCuYd.toFixed(2),
+          z.weightTons.toFixed(2),
+          z.bags,
+          `"$${z.totalCost.toFixed(2)}"`
+        ])
+      ];
+
+      // Grand totals row
+      const totalArea = savedProjects.reduce((acc, z) => acc + z.areaSqFt, 0);
+      const totalYards = savedProjects.reduce((acc, z) => acc + z.volumeCuYd, 0);
+      const totalTons = savedProjects.reduce((acc, z) => acc + z.weightTons, 0);
+      const totalBags = savedProjects.reduce((acc, z) => acc + z.bags, 0);
+      const totalCost = savedProjects.reduce((acc, z) => acc + z.totalCost, 0);
+
+      rows.push([]);
+      rows.push(['TOTALS (ALL ZONES)', '', '', '', '', totalArea.toFixed(1), totalYards.toFixed(2), totalTons.toFixed(2), totalBags, `"$${totalCost.toFixed(2)}"`]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + rows.map(e => e.join(',')).join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `rock_project_master_zones_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
+
+  function persistAndRenderSaved() {
+    try {
+      localStorage.setItem('rock_saved_projects', JSON.stringify(savedProjects));
+    } catch (e) {}
+
+    if (savedCountBadge) {
+      savedCountBadge.textContent = `${savedProjects.length} ${savedProjects.length === 1 ? 'Zone' : 'Zones'}`;
+    }
+
+    if (!savedProjectsList) return;
+
+    if (savedProjects.length === 0) {
+      savedProjectsList.innerHTML = `
+        <div class="saved-empty-state">
+          <p>No project zones saved yet. Click "Save Project Zone" above to add your walkway, driveway, or garden bed to your multi-zone project list.</p>
+        </div>
+      `;
+      return;
+    }
+
+    savedProjectsList.innerHTML = savedProjects.map(z => `
+      <div class="saved-zone-card">
+        <div class="saved-zone-info">
+          <div class="saved-zone-name">${z.name}</div>
+          <div class="saved-zone-meta">${z.materialName} &bull; ${z.depthInches}" deep &bull; ${z.date}</div>
+        </div>
+        <div class="saved-zone-stats">
+          <div class="saved-stat-badge">${z.areaSqFt.toFixed(0)} sq ft</div>
+          <div class="saved-stat-badge">${z.weightTons.toFixed(2)} tons</div>
+          <div class="saved-stat-badge">${z.volumeCuYd.toFixed(2)} yd³</div>
+          <div class="saved-stat-badge">$${z.totalCost.toFixed(2)}</div>
+        </div>
+        <div class="saved-zone-actions">
+          <button class="btn btn-secondary btn-sm btn-load-zone" data-id="${z.id}" title="Load zone into calculator">Load</button>
+          <button class="btn btn-ghost btn-sm btn-del-zone" data-id="${z.id}" title="Delete zone">Delete</button>
+        </div>
+      </div>
+    `).join('');
+
+    // Bind load and delete events
+    savedProjectsList.querySelectorAll('.btn-load-zone').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = parseInt(btn.dataset.id, 10);
+        const zone = savedProjects.find(z => z.id === id);
+        if (zone) {
+          state.shape = zone.shape;
+          state.dims = { ...zone.dims };
+          state.unit = zone.unit;
+          state.materialId = zone.materialId;
+          state.depthInches = zone.depthInches;
+          state.wastePercent = zone.wastePercent;
+
+          // Update UI
+          shapeTabs.forEach(t => t.classList.toggle('active', t.dataset.shape === state.shape));
+          materialCards.forEach(c => c.classList.toggle('active', c.dataset.material === state.materialId));
+          unitButtons.forEach(b => b.classList.toggle('active', b.dataset.unit === state.unit));
+          wasteChips.forEach(c => c.classList.toggle('active', parseInt(c.dataset.waste, 10) === state.wastePercent));
+          if (depthSlider) depthSlider.value = state.depthInches;
+          updateDepthDisplay();
+          renderDimensionInputs(state.shape);
+          recalculate();
+
+          // Scroll to calculator
+          document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    savedProjectsList.querySelectorAll('.btn-del-zone').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = parseInt(btn.dataset.id, 10);
+        savedProjects = savedProjects.filter(z => z.id !== id);
+        persistAndRenderSaved();
+      });
     });
   }
 
@@ -330,29 +571,39 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    // Cost calculator
-    if (costTotal && state.costPerUnit > 0) {
-      const total = state.costUnit === 'ton'
-        ? result.weightTons * state.costPerUnit
-        : result.volumeCuYd * state.costPerUnit;
-      costTotal.textContent = `$${total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    } else if (costTotal) {
-      costTotal.textContent = '$0.00';
-    }
+    // Advanced Cost & Service Estimator
+    const matRate = parseFloat(costMaterialInput?.value) || 55;
+    const deliveryFee = parseFloat(costDeliveryInput?.value) || 75;
+    const laborRate = parseFloat(costLaborInput?.value) || 35;
+    const fabricCost = parseFloat(costFabricInput?.value) || 40;
+    const taxRate = parseFloat(costTaxInput?.value) || 7.0;
+
+    const materialCost = result.weightTons * matRate;
+    const laborCost = result.weightTons * laborRate;
+    const subtotal = materialCost + deliveryFee + laborCost + fabricCost;
+    const salesTax = subtotal * (taxRate / 100);
+    const grandTotal = subtotal + salesTax;
+
+    if (costSummaryMaterial) costSummaryMaterial.textContent = `$${materialCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costSummaryDelivery) costSummaryDelivery.textContent = `$${deliveryFee.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costSummaryLabor) costSummaryLabor.textContent = `$${laborCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costSummaryFabric) costSummaryFabric.textContent = `$${fabricCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costSummaryTax) costSummaryTax.textContent = `$${salesTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costTotal) costTotal.textContent = `$${grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
     // Update visualizations
     try {
       RockVisualizer.renderBlueprint('blueprint-container', state.shape, state.dims, state.unit);
-    } catch (e) { /* silent */ }
+    } catch (e) {}
 
     try {
       RockVisualizer.renderCrossSection('cross-section-container', state.depthInches, material.swatchColor, material.name);
-    } catch (e) { /* silent */ }
+    } catch (e) {}
 
     try {
       const chartData = RockEngine.coverageChartData(material, result.areaSqFt, 'area');
       RockVisualizer.renderCoverageChart('coverage-chart', chartData, state.depthInches);
-    } catch (e) { /* silent */ }
+    } catch (e) {}
 
     // Update 3D scene
     if (rockScene) {
@@ -363,7 +614,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           material.swatchColor,
           sizeMap[material.category] || 1
         );
-      } catch (e) { /* silent */ }
+      } catch (e) {}
     }
   }
 
@@ -379,16 +630,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     valueEl.classList.add('updating');
     setTimeout(() => valueEl.classList.remove('updating'), 300);
 
-    const duration = 400;
+    const duration = 350;
     const startTime = performance.now();
 
     function update(now) {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-      const val = current + (target - val) * eased;
+      const eased = 1 - Math.pow(1 - progress, 3);
 
-      // Use target directly for final frame
       if (progress >= 1) {
         valueEl.textContent = RockEngine.formatNumber(target);
         return;
@@ -407,7 +656,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     btn.addEventListener('click', () => {
       const item = btn.parentElement;
       const isOpen = item.classList.contains('open');
-      // Close all
       document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
       if (!isOpen) item.classList.add('open');
     });
@@ -416,20 +664,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ── Initialize ── */
   renderDimensionInputs(state.shape);
   updateDepthDisplay();
+  persistAndRenderSaved();
 
   // Set initial active states
   materialCards.forEach(c => {
     c.classList.toggle('active', c.dataset.material === state.materialId);
   });
   wasteChips.forEach(c => {
-    c.classList.toggle('active', parseInt(c.dataset.waste) === state.wastePercent);
+    c.classList.toggle('active', parseInt(c.dataset.waste, 10) === state.wastePercent);
   });
 
   // Initial calculation
   recalculate();
 
-  // Hero word animation
-  document.querySelectorAll('.hero-word').forEach((word, i) => {
-    word.style.animationDelay = `${i * 0.1}s`;
-  });
 });

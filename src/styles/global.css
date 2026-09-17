@@ -110,6 +110,57 @@
   --container-narrow: 960px;
 }
 
+/* --- Light Mode Design Tokens --- */
+[data-theme="light"] {
+  --slate-950: #f4f6fa;
+  --slate-900: #ffffff;
+  --slate-850: #edf1f7;
+  --slate-800: #e2e8f0;
+  --slate-750: #cbd5e1;
+  --slate-700: #94a3b8;
+  --slate-600: #64748b;
+  --slate-500: #475569;
+  --slate-400: #334155;
+  --slate-300: #1e293b;
+  --slate-200: #0f172a;
+  --slate-100: #020617;
+
+  --gold-500: #b8860b;
+  --gold-400: #996515;
+  --gold-300: #7b5210;
+  --gold-200: #5c3e0a;
+  --gold-600: #8c6200;
+  --gold-glow: rgba(184, 134, 11, 0.12);
+  --gold-glow-strong: rgba(184, 134, 11, 0.25);
+
+  --surface-base: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-overlay: #f1f5f9;
+  --surface-glass: rgba(255, 255, 255, 0.92);
+  --surface-glass-border: rgba(148, 163, 184, 0.35);
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+  --text-gold: #996515;
+
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.1);
+  --shadow-xl: 0 20px 40px rgba(15, 23, 42, 0.12);
+  --shadow-gold: 0 4px 18px rgba(184, 134, 11, 0.22);
+}
+
+[data-theme="light"] body::before {
+  opacity: 0.015;
+}
+
+[data-theme="light"] .site-header {
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom-color: rgba(148, 163, 184, 0.25);
+}
+
 /* --- Reset --- */
 *, *::before, *::after {
   box-sizing: border-box;

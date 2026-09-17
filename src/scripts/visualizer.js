@@ -319,120 +319,215 @@ export const RockVisualizer = {
     if (!container) return;
 
     const svgNS = 'http://www.w3.org/2000/svg';
-    const w = container.clientWidth || 400;
-    const h = 200;
-    const maxDepthVis = 12; // inches max visual
-    const depthRatio = Math.min(depthInches / maxDepthVis, 1);
-    const rockH = depthRatio * 120; // max rock layer height
-    const groundY = h - 30;
-    const fabricY = groundY - 5;
+    const vbW = 500;
+    const vbH = 240;
+    const maxDepthVis = 12;
+    const depthRatio = Math.min(Math.max(depthInches, 0.5) / maxDepthVis, 1);
+    const rockH = Math.max(depthRatio * 130, 20); // visual height of rock layer
+    const groundY = 200;
+    const fabricY = groundY - 6;
     const rockTopY = fabricY - rockH;
 
     container.innerHTML = '';
 
     const svg = document.createElementNS(svgNS, 'svg');
-    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    svg.setAttribute('viewBox', `0 0 ${vbW} ${vbH}`);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
     svg.setAttribute('class', 'cross-section-svg');
     svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', `Side profile showing ${depthInches}" rock depth`);
+    svg.setAttribute('aria-label', `Side elevation cross section showing ${depthInches} inches of ${materialName}`);
 
-    // Subgrade (ground)
+    // Definitions (patterns and gradients)
+    const defs = document.createElementNS(svgNS, 'defs');
+
+    // Earth pattern
+    const earthPattern = document.createElementNS(svgNS, 'pattern');
+    earthPattern.setAttribute('id', 'soil-hatch');
+    earthPattern.setAttribute('width', '16');
+    earthPattern.setAttribute('height', '16');
+    earthPattern.setAttribute('patternUnits', 'userSpaceOnUse');
+    earthPattern.innerHTML = `
+      <rect width="16" height="16" fill="#1e1812"/>
+      <path d="M0 16 L16 0 M-4 4 L4 -4 M12 20 L20 12" stroke="#2d2218" stroke-width="1.5"/>
+    `;
+    defs.appendChild(earthPattern);
+
+    // Rock gradient
+    const rockGrad = document.createElementNS(svgNS, 'linearGradient');
+    rockGrad.setAttribute('id', 'rock-layer-grad');
+    rockGrad.setAttribute('x1', '0%');
+    rockGrad.setAttribute('y1', '0%');
+    rockGrad.setAttribute('x2', '0%');
+    rockGrad.setAttribute('y2', '100%');
+    rockGrad.innerHTML = `
+      <stop offset="0%" stop-color="${materialColor}" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="${materialColor}" stop-opacity="0.25"/>
+    `;
+    defs.appendChild(rockGrad);
+    svg.appendChild(defs);
+
+    const leftX = 65;
+    const rightX = vbW - 35;
+    const bedW = rightX - leftX;
+
+    // Subgrade soil layer
     const subgrade = document.createElementNS(svgNS, 'rect');
-    subgrade.setAttribute('x', 30);
+    subgrade.setAttribute('x', leftX);
     subgrade.setAttribute('y', groundY);
-    subgrade.setAttribute('width', w - 60);
-    subgrade.setAttribute('height', 30);
-    subgrade.setAttribute('class', 'subgrade');
-    subgrade.setAttribute('rx', '2');
+    subgrade.setAttribute('width', bedW);
+    subgrade.setAttribute('height', vbH - groundY);
+    subgrade.setAttribute('fill', 'url(#soil-hatch)');
+    subgrade.setAttribute('stroke', '#3d3023');
+    subgrade.setAttribute('stroke-width', '1');
     svg.appendChild(subgrade);
 
-    // Subgrade label
-    const sgLabel = document.createElementNS(svgNS, 'text');
-    sgLabel.setAttribute('x', w / 2);
-    sgLabel.setAttribute('y', groundY + 18);
-    sgLabel.setAttribute('class', 'layer-label');
-    sgLabel.setAttribute('text-anchor', 'middle');
-    sgLabel.textContent = 'SUBGRADE';
-    svg.appendChild(sgLabel);
+    // Subgrade text
+    const sgText = document.createElementNS(svgNS, 'text');
+    sgText.setAttribute('x', leftX + bedW / 2);
+    sgText.setAttribute('y', groundY + 24);
+    sgText.setAttribute('text-anchor', 'middle');
+    sgText.setAttribute('fill', '#adbdce');
+    sgText.setAttribute('font-size', '11');
+    sgText.setAttribute('font-weight', '700');
+    sgText.setAttribute('letter-spacing', '0.08em');
+    sgText.textContent = 'COMPACTED SUBGRADE SOIL';
+    svg.appendChild(sgText);
 
-    // Fabric layer
+    // Geotextile fabric line
     const fabric = document.createElementNS(svgNS, 'line');
-    fabric.setAttribute('x1', 30);
+    fabric.setAttribute('x1', leftX - 6);
     fabric.setAttribute('y1', fabricY);
-    fabric.setAttribute('x2', w - 30);
+    fabric.setAttribute('x2', rightX + 6);
     fabric.setAttribute('y2', fabricY);
-    fabric.setAttribute('class', 'fabric-layer');
+    fabric.setAttribute('stroke', '#4a9e8e');
+    fabric.setAttribute('stroke-width', '2.5');
+    fabric.setAttribute('stroke-dasharray', '6 3');
     svg.appendChild(fabric);
 
-    // Rock layer
-    if (rockH > 2) {
-      const rockLayer = document.createElementNS(svgNS, 'rect');
-      rockLayer.setAttribute('x', 30);
-      rockLayer.setAttribute('y', rockTopY);
-      rockLayer.setAttribute('width', w - 60);
-      rockLayer.setAttribute('height', rockH);
-      rockLayer.setAttribute('fill', materialColor);
-      rockLayer.setAttribute('opacity', '0.25');
-      rockLayer.setAttribute('rx', '2');
-      svg.appendChild(rockLayer);
+    // Fabric label pill
+    const fabBadge = document.createElementNS(svgNS, 'text');
+    fabBadge.setAttribute('x', leftX + bedW / 2);
+    fabBadge.setAttribute('y', fabricY - 5);
+    fabBadge.setAttribute('text-anchor', 'middle');
+    fabBadge.setAttribute('fill', '#4ade80');
+    fabBadge.setAttribute('font-size', '9.5');
+    fabBadge.setAttribute('font-weight', '600');
+    fabBadge.setAttribute('letter-spacing', '0.05em');
+    fabBadge.textContent = 'GEOTEXTILE WEED BARRIER FABRIC';
+    svg.appendChild(fabBadge);
 
-      // Rock particles
-      const particleCount = Math.min(Math.floor(rockH * 2), 40);
-      for (let i = 0; i < particleCount; i++) {
-        const px = 40 + Math.random() * (w - 80);
-        const py = rockTopY + 5 + Math.random() * (rockH - 10);
-        const pr = 2 + Math.random() * 4;
-        const particle = document.createElementNS(svgNS, 'ellipse');
-        particle.setAttribute('cx', px);
-        particle.setAttribute('cy', py);
-        particle.setAttribute('rx', pr);
-        particle.setAttribute('ry', pr * 0.7);
-        particle.setAttribute('transform', `rotate(${Math.random() * 360}, ${px}, ${py})`);
-        particle.setAttribute('class', 'rock-particle');
-        particle.setAttribute('fill', materialColor);
-        particle.setAttribute('opacity', String(0.3 + Math.random() * 0.4));
-        svg.appendChild(particle);
-      }
+    // Left & Right Edging Restraints
+    [leftX, rightX].forEach((ex, idx) => {
+      const stake = document.createElementNS(svgNS, 'rect');
+      stake.setAttribute('x', idx === 0 ? ex - 6 : ex);
+      stake.setAttribute('y', rockTopY - 8);
+      stake.setAttribute('width', '6');
+      stake.setAttribute('height', groundY - rockTopY + 28);
+      stake.setAttribute('fill', '#64748b');
+      stake.setAttribute('stroke', '#94a3b8');
+      stake.setAttribute('stroke-width', '1');
+      stake.setAttribute('rx', '1');
+      svg.appendChild(stake);
+    });
 
-      // Rock layer label
-      const rlLabel = document.createElementNS(svgNS, 'text');
-      rlLabel.setAttribute('x', w / 2);
-      rlLabel.setAttribute('y', rockTopY + rockH / 2 + 4);
-      rlLabel.setAttribute('class', 'layer-label');
-      rlLabel.setAttribute('text-anchor', 'middle');
-      rlLabel.textContent = materialName.toUpperCase();
-      svg.appendChild(rlLabel);
+    // Rock fill layer
+    const rockBed = document.createElementNS(svgNS, 'rect');
+    rockBed.setAttribute('x', leftX);
+    rockBed.setAttribute('y', rockTopY);
+    rockBed.setAttribute('width', bedW);
+    rockBed.setAttribute('height', rockH);
+    rockBed.setAttribute('fill', 'url(#rock-layer-grad)');
+    rockBed.setAttribute('stroke', materialColor);
+    rockBed.setAttribute('stroke-width', '1.5');
+    svg.appendChild(rockBed);
+
+    // Faceted stone particles
+    const particleCount = Math.min(Math.floor(rockH * 1.8), 45);
+    for (let i = 0; i < particleCount; i++) {
+      const px = leftX + 15 + Math.random() * (bedW - 30);
+      const py = rockTopY + 8 + Math.random() * (rockH - 16);
+      const pr = 3 + Math.random() * 6;
+      const rockP = document.createElementNS(svgNS, 'polygon');
+      const pts = [
+        [px, py - pr],
+        [px + pr * 0.9, py - pr * 0.3],
+        [px + pr * 0.7, py + pr * 0.8],
+        [px - pr * 0.7, py + pr * 0.7],
+        [px - pr * 0.9, py - pr * 0.2]
+      ].map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+      rockP.setAttribute('points', pts);
+      rockP.setAttribute('fill', materialColor);
+      rockP.setAttribute('stroke', '#d1dce8');
+      rockP.setAttribute('stroke-width', '0.5');
+      rockP.setAttribute('opacity', (0.4 + Math.random() * 0.5).toFixed(2));
+      svg.appendChild(rockP);
     }
 
-    // Depth ruler
-    const rulerX = 18;
+    // Rock layer label badge
+    const rlGroup = document.createElementNS(svgNS, 'g');
+    const badgeW = 160;
+    const badgeH = 22;
+    const badgeX = leftX + bedW / 2 - badgeW / 2;
+    const badgeY = rockTopY + rockH / 2 - badgeH / 2;
+
+    const rlBg = document.createElementNS(svgNS, 'rect');
+    rlBg.setAttribute('x', badgeX);
+    rlBg.setAttribute('y', badgeY);
+    rlBg.setAttribute('width', badgeW);
+    rlBg.setAttribute('height', badgeH);
+    rlBg.setAttribute('rx', '4');
+    rlBg.setAttribute('fill', 'rgba(15, 20, 25, 0.85)');
+    rlBg.setAttribute('stroke', 'rgba(212, 168, 83, 0.4)');
+    rlBg.setAttribute('stroke-width', '1');
+    rlGroup.appendChild(rlBg);
+
+    const rlText = document.createElementNS(svgNS, 'text');
+    rlText.setAttribute('x', leftX + bedW / 2);
+    rlText.setAttribute('y', badgeY + 15);
+    rlText.setAttribute('text-anchor', 'middle');
+    rlText.setAttribute('fill', '#e8edf3');
+    rlText.setAttribute('font-size', '11');
+    rlText.setAttribute('font-weight', '700');
+    rlText.textContent = `${materialName.toUpperCase()} (${depthInches}")`;
+    rlGroup.appendChild(rlText);
+    svg.appendChild(rlGroup);
+
+    // Left Depth Ruler Caliper
+    const rulerX = 32;
     const rulerLine = document.createElementNS(svgNS, 'line');
     rulerLine.setAttribute('x1', rulerX);
     rulerLine.setAttribute('y1', rockTopY);
     rulerLine.setAttribute('x2', rulerX);
     rulerLine.setAttribute('y2', fabricY);
-    rulerLine.setAttribute('class', 'depth-ruler');
+    rulerLine.setAttribute('stroke', '#d4a853');
+    rulerLine.setAttribute('stroke-width', '2');
     svg.appendChild(rulerLine);
 
-    // Ruler arrows
+    // Caliper arrows top and bottom
     [rockTopY, fabricY].forEach(yy => {
-      const arrow = document.createElementNS(svgNS, 'line');
-      arrow.setAttribute('x1', rulerX - 4);
-      arrow.setAttribute('y1', yy);
-      arrow.setAttribute('x2', rulerX + 4);
-      arrow.setAttribute('y2', yy);
-      arrow.setAttribute('class', 'depth-ruler');
-      svg.appendChild(arrow);
+      const cap = document.createElementNS(svgNS, 'line');
+      cap.setAttribute('x1', rulerX - 8);
+      cap.setAttribute('y1', yy);
+      cap.setAttribute('x2', rulerX + 8);
+      cap.setAttribute('y2', yy);
+      cap.setAttribute('stroke', '#d4a853');
+      cap.setAttribute('stroke-width', '2');
+      svg.appendChild(cap);
     });
 
-    // Depth label
-    const depthLabel = document.createElementNS(svgNS, 'text');
-    depthLabel.setAttribute('x', rulerX);
-    depthLabel.setAttribute('y', rockTopY - 8);
-    depthLabel.setAttribute('class', 'depth-label');
-    depthLabel.setAttribute('text-anchor', 'middle');
-    depthLabel.textContent = `${depthInches}"`;
-    svg.appendChild(depthLabel);
+    // Ruler Text
+    const rulerLabel = document.createElementNS(svgNS, 'text');
+    rulerLabel.setAttribute('x', rulerX - 4);
+    rulerLabel.setAttribute('y', (rockTopY + fabricY) / 2 + 4);
+    rulerLabel.setAttribute('text-anchor', 'end');
+    rulerLabel.setAttribute('fill', '#d4a853');
+    rulerLabel.setAttribute('font-size', '12');
+    rulerLabel.setAttribute('font-family', 'var(--font-mono)');
+    rulerLabel.setAttribute('font-weight', '700');
+    rulerLabel.textContent = `${depthInches}"`;
+    svg.appendChild(rulerLabel);
 
     container.appendChild(svg);
   },

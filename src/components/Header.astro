@@ -11,11 +11,23 @@ import IconRock from './icons/IconRock.astro';
           <span class="logo-secondary">Calculator</span>
         </span>
       </a>
-      <div class="header-links">
-        <a href="#calculator" class="nav-link">Calculator</a>
-        <a href="#rock-coverage-guide" class="nav-link">Coverage Guide</a>
-        <a href="#how-it-works" class="nav-link">How It Works</a>
-        <a href="#faq" class="nav-link">FAQ</a>
+      <div class="header-actions">
+        <div class="header-links">
+          <a href="#calculator" class="nav-link">Calculator</a>
+          <a href="#rock-coverage-guide" class="nav-link">Coverage Guide</a>
+          <a href="#visualizer" class="nav-link">3D Preview</a>
+          <a href="#how-it-works" class="nav-link">How It Works</a>
+          <a href="#faq" class="nav-link">FAQ</a>
+        </div>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light or dark mode" title="Toggle Light/Dark Theme">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
       </div>
     </nav>
   </div>
@@ -77,9 +89,51 @@ import IconRock from './icons/IconRock.astro';
     text-transform: uppercase;
   }
 
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
   .header-links {
     display: flex;
     gap: var(--space-6);
+  }
+
+  .theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background: var(--surface-overlay);
+    border: 1px solid var(--surface-glass-border);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+    flex-shrink: 0;
+  }
+
+  .theme-toggle-btn:hover {
+    color: var(--gold-400);
+    border-color: var(--gold-500);
+  }
+
+  /* Sun/Moon Toggle Logic */
+  .sun-icon {
+    display: block;
+  }
+  .moon-icon {
+    display: none;
+  }
+
+  :global([data-theme="light"]) .sun-icon {
+    display: none;
+  }
+
+  :global([data-theme="light"]) .moon-icon {
+    display: block;
   }
 
   .nav-link {
@@ -112,13 +166,19 @@ import IconRock from './icons/IconRock.astro';
     width: 100%;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .header-links {
-      gap: var(--space-4);
+      gap: var(--space-3);
     }
 
     .nav-link {
       font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .header-links {
+      display: none;
     }
 
     .logo-primary {
