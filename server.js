@@ -27,14 +27,20 @@ const MIME_TYPES = {
 
 const server = http.createServer((req, res) => {
   let reqPath = req.url.split('?')[0];
-  if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
-
   const safePath = path.normalize(reqPath).replace(/^(\.\.[\/\\])+/, '');
   let filePath = path.join(DIST_DIR, safePath);
 
+  // If path has no extension, check if it's a directory with index.html or if appending .html matches
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+    filePath = path.join(filePath, 'index.html');
+  } else if (!fs.existsSync(filePath) && fs.existsSync(filePath + '.html')) {
+    filePath = filePath + '.html';
+  } else if (!fs.existsSync(filePath) && fs.existsSync(path.join(DIST_DIR, safePath, 'index.html'))) {
+    filePath = path.join(DIST_DIR, safePath, 'index.html');
+  }
+
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      // Fallback to index.html for SPA / routes
       filePath = path.join(DIST_DIR, 'index.html');
     }
 

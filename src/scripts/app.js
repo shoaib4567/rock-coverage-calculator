@@ -46,8 +46,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     savedProjects = [];
   }
 
-  // Restore from URL if shared
+  // Restore from URL if shared, or initialize from #calculator dataset
   const savedState = RockExporter.decodeState();
+  const calcSection = document.getElementById('calculator');
   if (savedState) {
     if (savedState.rawDims) {
       Object.assign(state, savedState);
@@ -55,6 +56,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       state.rawDims = { ...savedState.dims };
       Object.assign(state, savedState);
     }
+  } else if (calcSection) {
+    if (calcSection.dataset.initialMaterial) state.materialId = calcSection.dataset.initialMaterial;
+    if (calcSection.dataset.initialDepth) state.depthInches = parseFloat(calcSection.dataset.initialDepth);
+    if (calcSection.dataset.initialUnit) state.unit = calcSection.dataset.initialUnit;
+    if (calcSection.dataset.initialShape) state.shape = calcSection.dataset.initialShape;
   }
 
   /* ── DOM References ── */
@@ -662,6 +668,33 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   /* ── Initial Startup ── */
+  // Sync material card active state
+  materialCards.forEach(card => {
+    const isTarget = card.dataset.material === state.materialId;
+    card.classList.toggle('active', isTarget);
+    card.setAttribute('aria-checked', isTarget ? 'true' : 'false');
+  });
+
+  // Sync unit toggle
+  unitButtons.forEach(btn => {
+    const isTarget = btn.dataset.unit === state.unit;
+    btn.classList.toggle('active', isTarget);
+    btn.setAttribute('aria-checked', isTarget ? 'true' : 'false');
+  });
+
+  // Sync depth controls
+  if (depthSlider) depthSlider.value = state.depthInches;
+  if (depthValue) depthValue.textContent = state.depthInches;
+  depthPresets.forEach(preset => {
+    preset.classList.toggle('active', parseFloat(preset.dataset.depth) === state.depthInches);
+  });
+
+  // Sync waste toggle
+  wasteChips.forEach(chip => {
+    chip.classList.toggle('active', parseInt(chip.dataset.waste, 10) === state.wastePercent);
+  });
+
   setShape(state.shape);
   persistAndRenderSaved();
+  recalculate();
 });

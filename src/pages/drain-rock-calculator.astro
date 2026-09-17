@@ -1,0 +1,308 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Calculator from '../components/Calculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/landscape-rock-calculator' },
+  { name: 'Drain Rock Calculator', url: '/drain-rock-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Drain Rock' },
+  { label: 'ASTM Grade', value: '#57 Washed Angular Stone (3/4")' },
+  { label: 'Void Space Ratio', value: '35% to 40% Open Void' },
+  { label: 'Application', value: 'French Drains & Retaining Wall Backfill' }
+];
+
+const quickStats = [
+  { value: '35-40%', label: 'Hydraulic Void Space', desc: 'Allows rapid subsurface stormwater flow without clogging' },
+  { value: 'Zero Fines', label: 'Washed Spec', desc: 'Silt and quarry dust washed away to preserve pipe perforations' },
+  { value: '4" Pipe Deduct', label: 'Trench Displacement', desc: 'Deducts 0.087 cu ft per linear foot of pipe installed' }
+];
+
+const faqItems = [
+  {
+    q: 'How much drain rock do I need for a 50 foot French drain?',
+    a: 'A standard residential French drain is 12 inches wide and 18 inches deep. For a 50-foot run, total trench volume is 75 cubic feet (2.78 cubic yards). Deducting 4.4 cubic feet for a 4-inch perforated drainage pipe yields approximately 2.62 cubic yards of #57 washed drain rock, or roughly 3.6 tons.'
+  },
+  {
+    q: 'Why must drain rock be washed with zero fines?',
+    a: 'Unwashed aggregate (such as crusher run or road base) contains stone dust and sand fines. When stormwater enters the trench, these fine particles wash into the perforated pipe slots and geotextile pores, silting up the system and causing catastrophic drain failure within two years.'
+  },
+  {
+    q: 'Is round river pebble or angular crushed stone better for French drains?',
+    a: 'Crushed angular stone (#57 limestone or granite) is superior for structural French drains because the angular facets interlock to maintain open vertical drainage channels under soil compaction. Smooth round pea gravel can be used for light surface trenches but shifts excessively beneath surface loads.'
+  },
+  {
+    q: 'Should I wrap the perforated pipe or wrap the entire gravel trench?',
+    a: 'Civil engineering standards dictate wrapping the entire gravel trench (the "burrito wrap" method) using 4 oz non-woven needle-punched geotextile fabric. Wrapping only the pipe allows surrounding native silt to clog the gravel bed, neutralizing water storage capacity.'
+  }
+];
+---
+
+<BaseLayout
+  title="Drain Rock Calculator - French Drain & Perforated Pipe Trench Volume"
+  description="Calculate exact cubic yards and tons of washed drain rock for French drains, retaining walls, and footing trenches. Accounts for pipe displacement and void space."
+  canonicalPath="/drain-rock-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Drain Rock Calculator",
+      "url": "https://rockcoveragecalculator.com/drain-rock-calculator",
+      "description": "Engineered calculator for French drain backfill, perforated pipe trench gravel volume, and subsurface stormwater drainage.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Drain Rock"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Drain Rock Calculator"
+      highlightWord="Calculator"
+      badge="Civil Drainage & French Drain Sizing"
+      subtitle="Engineered cubic yard and scale tonnage calculations for #57 washed stone, French drain trenches, foundation weeping tile backfill, and retaining wall relief zones."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <Calculator 
+      initialMaterial="crushed-limestone" 
+      initialDepth={6} 
+      headline="Drain Rock & Trench Backfill Calculator"
+      subtitle="Input trench length, width, and aggregate fill depth to compute required washed stone tonnage."
+    />
+
+    <Visualizer />
+
+    <!-- Engineering Guide on Drainage Stone -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Hydraulic Principles of Drain Rock Backfill</h2>
+          <p>
+            Subsurface drainage systems rely entirely on the high permeability and interconnected void ratios of uniform, clean aggregate. In civil engineering specifications, <strong>Drain Rock</strong> is formally designated as ASTM C33 size number 57 (or #67 washed stone), with particle sizes ranging from 1/2 inch to 1 inch.
+          </p>
+
+          <div class="formula-box">
+            <code>Trench Volume (Cubic Feet) = Length (ft) × Width (ft) × Depth (ft)</code>
+            <br />
+            <code>Net Rock Needed (Cubic Yards) = [Trench Vol - Pipe Displacement (cu ft)] / 27</code>
+          </div>
+
+          <h3>4-Inch and 6-Inch Perforated Pipe Displacement Values</h3>
+          <p>
+            When installing French drains or curtain drains, the interior volume of the perforated corrugated or SDR-35 PVC pipe displaces rock. Use these standard engineering deductions per 100 linear feet of trench:
+          </p>
+          <ul>
+            <li><strong>4-Inch Outside Diameter Pipe:</strong> Deducts 8.7 cubic feet (0.32 cubic yards) per 100 linear feet.</li>
+            <li><strong>6-Inch Outside Diameter Pipe:</strong> Deducts 19.6 cubic feet (0.73 cubic yards) per 100 linear feet.</li>
+          </ul>
+
+          <div class="table-wrapper">
+            <table class="guide-table">
+              <thead>
+                <tr>
+                  <th>Trench Dimensions</th>
+                  <th>Total Trench Volume</th>
+                  <th>Rock Needed (4" Pipe)</th>
+                  <th>Weight in Tons</th>
+                  <th>Target Drainage Capacity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>25 ft × 12" W × 18" D</td><td>37.5 cu ft</td><td>1.31 yd³</td><td>1.80 tons</td><td>Downspout runoff (moderate)</td></tr>
+                <tr><td>50 ft × 12" W × 18" D</td><td>75.0 cu ft</td><td>2.62 yd³</td><td>3.60 tons</td><td>Foundation groundwater intercept</td></tr>
+                <tr><td>100 ft × 12" W × 18" D</td><td>150.0 cu ft</td><td>5.23 yd³</td><td>7.20 tons</td><td>Full curtain drain system</td></tr>
+                <tr><td>50 ft × 18" W × 24" D</td><td>150.0 cu ft</td><td>5.39 yd³</td><td>7.40 tons</td><td>Heavy hillside groundwater cut</td></tr>
+                <tr><td>100 ft × 18" W × 24" D</td><td>300.0 cu ft</td><td>10.78 yd³</td><td>14.80 tons</td><td>Commercial civil detention trench</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>The "Burrito Wrap" Geotextile Trench Method</h3>
+          <p>
+            A French drain fails when native silt or clay penetrates the drain rock void network. To ensure a 30-year operational lifespan, adhere strictly to the full trench encapsulation protocol:
+          </p>
+          <ol class="steps-list">
+            <li>
+              <strong>Excavate with 1% Minimum Invert Slope:</strong> Dig the trench floor with a continuous 1/8-inch drop per linear foot (1% grade) toward your daylight discharge or dry well.
+            </li>
+            <li>
+              <strong>Line Trench with Non-Woven Geotextile:</strong> Drape 4 oz or 6 oz needle-punched non-woven fabric into the trench, leaving at least 12 inches of fabric overhang on each side. Never use cheap woven weed barrier, as its woven slits plug rapidly under muddy water.
+            </li>
+            <li>
+              <strong>Bedding Layer:</strong> Pour 2 to 3 inches of washed #57 stone on the trench floor before placing the pipe.
+            </li>
+            <li>
+              <strong>Pipe Placement:</strong> Lay perforated pipe holes-down (between 4 o'clock and 8 o'clock positions). This forces rising groundwater to flood the pipe from below, maintaining maximum hydraulic gradient.
+            </li>
+            <li>
+              <strong>Aggregate Infill & Overlap:</strong> Fill with washed stone to within 4 inches of the surface. Fold the fabric flaps over the top with a complete 12-inch overlap, and cap with coarse sand or decorative stone.
+            </li>
+          </ol>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Drain Rock</h2>
+          <div class="faq-accordion">
+            {faqItems.map((item, index) => (
+              <details class="faq-detail" open={index === 0}>
+                <summary class="faq-summary">
+                  <span>{item.q}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav currentPage="/drain-rock-calculator" />
+  </main>
+
+  <Footer />
+  <script src="../scripts/app.js"></script>
+</BaseLayout>
+
+<style>
+  .content-guide-section {
+    padding: var(--space-12) 0;
+    background: var(--bg-body);
+  }
+
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .content-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-card h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-3) 0;
+  }
+
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-table th, .guide-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .steps-list {
+    padding-left: var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  .steps-list li {
+    margin-bottom: var(--space-3);
+  }
+
+  .faq-detail {
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    list-style: none;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-detail[open] .faq-summary svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding-top: var(--space-3);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+</style>

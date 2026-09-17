@@ -4,13 +4,38 @@ import IconRuler from './icons/IconRuler.astro';
 import IconScale from './icons/IconScale.astro';
 import IconDepth from './icons/IconDepth.astro';
 import IconRock from './icons/IconRock.astro';
+
+interface Props {
+  initialMaterial?: string;
+  initialDepth?: number;
+  initialUnit?: string;
+  initialShape?: string;
+  headline?: string;
+  subtitle?: string;
+}
+
+const {
+  initialMaterial = 'pea-gravel',
+  initialDepth = 3,
+  initialUnit = 'ft',
+  initialShape = 'rectangle',
+  headline = 'Interactive Coverage Calculator',
+  subtitle = 'Select your area shape, choose a rock type, set the depth, and get instant results with purchasing recommendations.'
+} = Astro.props;
 ---
-<section class="section" id="calculator">
+<section 
+  class="section" 
+  id="calculator"
+  data-initial-material={initialMaterial}
+  data-initial-depth={initialDepth}
+  data-initial-unit={initialUnit}
+  data-initial-shape={initialShape}
+>
   <div class="container">
     <div class="section-header">
-      <h2>Interactive Coverage Calculator</h2>
+      <h2>{headline}</h2>
       <div class="section-divider"></div>
-      <p>Select your area shape, choose a rock type, set the depth, and get instant results with purchasing recommendations.</p>
+      <p>{subtitle}</p>
     </div>
 
     <div class="calc-wrapper">

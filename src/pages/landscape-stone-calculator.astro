@@ -1,0 +1,303 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Calculator from '../components/Calculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/landscape-rock-calculator' },
+  { name: 'Landscape Stone Calculator', url: '/landscape-stone-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Landscape Stone' },
+  { label: 'Crushed Fractions', value: '3/4" Clean, #57, and Base Dense Stone' },
+  { label: 'Bulk Density', value: '1.40 to 1.50 Tons/yd³' },
+  { label: 'Compaction Drop', value: '15% to 20% Volume Loss under Roller' }
+];
+
+const quickStats = [
+  { value: '1.40 t/yd³', label: 'Crushed Limestone', desc: 'Standard bulk density for clean fractured angular aggregate' },
+  { value: '20% Overage', label: 'Compacted Base', desc: 'Volume compaction factor required for driveway and patio sub-base' },
+  { value: '100 sq ft', label: 'Coverage at 3"', desc: 'Yield per cubic yard of uncompacted landscape stone' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of crushed stone do I need for a 20x20 patio sub-base?',
+    a: 'A 20x20 foot patio has an area of 400 square feet. A standard pedestrian patio requires a 4-inch compacted sub-base of crushed stone (#411 or crusher run). At 4 inches, you need 4.94 cubic yards. Factoring in a 20% mechanical compaction loss, order 5.9 cubic yards, which converts to approximately 8.9 tons of stone.'
+  },
+  {
+    q: 'What is the difference between clean crushed stone and stone with fines?',
+    a: 'Clean crushed stone (such as #57 limestone) has all fine rock dust screened and washed away, leaving angular rocks that drain water freely. Stone with fines (crusher run, quarry process, or DGA) contains graded particle sizes from 3/4-inch down to fine stone flour, which compacts into an impermeable, cement-like rigid base.'
+  },
+  {
+    q: 'How much does a cubic yard of 3/4 inch landscape stone weigh?',
+    a: 'A cubic yard of dry 3/4-inch crushed landscape stone weighs approximately 2,800 pounds (1.4 tons). Moisture from rainfall can increase scale ticket weight to 2,950 pounds (1.48 tons) per cubic yard.'
+  },
+  {
+    q: 'Can 3/4 inch crushed stone be used on sloped landscape pathways?',
+    a: 'Yes. Angular crushed stone is the preferred material for sloped walkways. Unlike rounded river pea gravel that rolls under foot like marbles, angular crushed stones lock together mechanically when walked on, preventing downhill aggregate drift.'
+  }
+];
+---
+
+<BaseLayout
+  title="Landscape Stone Calculator - Crushed Stone, Base & Coverage"
+  description="Calculate cubic yards, tons, and bags of landscape stone and crushed aggregate. Sizing guides for 3/4 inch clean stone, patio base, and driveway sub-grade."
+  canonicalPath="/landscape-stone-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Landscape Stone Calculator",
+      "url": "https://rockcoveragecalculator.com/landscape-stone-calculator",
+      "description": "Calculates crushed landscape stone coverage, compaction volume factors, and quarry scale tonnage for structural and decorative stone installations.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Landscape Stone"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Landscape Stone Calculator"
+      highlightWord="Calculator"
+      badge="Crushed Stone & Structural Aggregate Engine"
+      subtitle="Accurate volumetric, tonnage, and compaction estimations for crushed limestone, blue granite, driveway road base, and walkway bedding stones."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <Calculator 
+      initialMaterial="crushed-limestone" 
+      initialDepth={3} 
+      headline="Landscape Stone Coverage Calculator"
+      subtitle="Calculate cubic yards and scale tonnage for clean crushed stone and dense graded bases."
+    />
+
+    <Visualizer />
+
+    <!-- Technical Guide on Landscape Stone -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Crushed Stone Mechanics: Angular Interlock vs Compaction</h2>
+          <p>
+            In the quarry and aggregate industry, <strong>Landscape Stone</strong> designates mechanically crushed sedimentary or igneous bedrock that has been processed through primary jaw crushers and secondary cone crushers. This manufacturing process produces sharply fractured, multifaceted stone particles that behave fundamentally differently than smooth alluvial gravel.
+          </p>
+
+          <div class="formula-box">
+            <code>Loose Quarry Volume = [Area (sq ft) × Installed Depth (inches)] / 324</code>
+            <br />
+            <code>Compacted Base Order = Loose Volume × 1.20 (20% Mechanical Compaction Factor)</code>
+          </div>
+
+          <h3>Sieve Classifications for Common Landscape Stones</h3>
+          <p>
+            Quarries categorize crushed landscape stone according to standard ASTM sieve sizes. Selecting the correct fraction ensures appropriate stability and drainage for your specific application:
+          </p>
+          <ul>
+            <li><strong>#57 Crushed Stone (1/2" to 1"):</strong> The universal standard for clean drainage stone, driveway topping, and foundation border beds. Retains open void spaces for rapid drainage.</li>
+            <li><strong>#8 Stone (3/8" Pea Crushed Chips):</strong> Excellent for walking paths, between flagstone pavers, and garden seating areas. Easy to wheelbarrow and level with a landscape rake.</li>
+            <li><strong>#411 Limestone / Crusher Run (3/4" down to dust):</strong> Dense-graded aggregate with fines. When compacted with a vibratory plate compactor, the stone dust fills all voids, creating an impermeable solid pavement base.</li>
+          </ul>
+
+          <div class="table-wrapper">
+            <table class="guide-table">
+              <thead>
+                <tr>
+                  <th>Installed Depth</th>
+                  <th>Sq Ft per Cubic Yard</th>
+                  <th>Sq Ft per Ton (Clean 3/4")</th>
+                  <th>Sq Ft per Ton (Compacted Base)</th>
+                  <th>Primary Field Application</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1.0 inch</td><td>324 sq ft</td><td>231 sq ft</td><td>192 sq ft</td><td>Top dressing existing walkways</td></tr>
+                <tr><td>2.0 inches</td><td>162 sq ft</td><td>116 sq ft</td><td>96 sq ft</td><td>Pedestrian pathways and garden beds</td></tr>
+                <tr><td>3.0 inches</td><td>108 sq ft</td><td>77 sq ft</td><td>64 sq ft</td><td>Standard residential landscape coverage</td></tr>
+                <tr><td>4.0 inches</td><td>81 sq ft</td><td>58 sq ft</td><td>48 sq ft</td><td>Patio and walkway sub-base layer</td></tr>
+                <tr><td>6.0 inches</td><td>54 sq ft</td><td>39 sq ft</td><td>32 sq ft</td><td>Driveway base course & heavy parking</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>How to Build a Non-Shifting Crushed Stone Pathway</h3>
+          <ol class="steps-list">
+            <li>
+              <strong>Trenching:</strong> Excavate the pathway 4 inches below adjacent turf. Crown the subgrade center slightly so water sheds to the edges.
+            </li>
+            <li>
+              <strong>Geotextile Foundation:</strong> Lay a non-woven 4 oz polypropylene geotextile fabric. Pin edges securely with sod staples.
+            </li>
+            <li>
+              <strong>Base Compaction:</strong> Install 2.5 inches of #411 dense-graded road base. Moisten lightly with a hose and compact with a gas plate compactor until completely firm.
+            </li>
+            <li>
+              <strong>Clean Stone Wearing Course:</strong> Spread a 1.5-inch wearing surface of clean #8 or #57 crushed limestone. Rake smooth. The clean stones bite into the dense base, providing a firm surface that does not rut under foot traffic.
+            </li>
+          </ol>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Landscape Stone</h2>
+          <div class="faq-accordion">
+            {faqItems.map((item, index) => (
+              <details class="faq-detail" open={index === 0}>
+                <summary class="faq-summary">
+                  <span>{item.q}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav currentPage="/landscape-stone-calculator" />
+  </main>
+
+  <Footer />
+  <script src="../scripts/app.js"></script>
+</BaseLayout>
+
+<style>
+  .content-guide-section {
+    padding: var(--space-12) 0;
+    background: var(--bg-body);
+  }
+
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .content-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-card h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-3) 0;
+  }
+
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-table th, .guide-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .steps-list {
+    padding-left: var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  .steps-list li {
+    margin-bottom: var(--space-3);
+  }
+
+  .faq-detail {
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    list-style: none;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-detail[open] .faq-summary svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding-top: var(--space-3);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+</style>

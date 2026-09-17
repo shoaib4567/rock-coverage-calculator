@@ -1,0 +1,396 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Calculator from '../components/Calculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/landscape-rock-calculator' },
+  { name: 'River Rock Calculator', url: '/river-rock-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'River Rock Size' },
+  { label: 'Size Fractions', value: '3/4", 1-3", and 2-4" Grades' },
+  { label: 'Bulk Density', value: '1.35 Tons/yd³ (2,700 lbs)' },
+  { label: 'Layer Rule', value: 'Minimum Depth = 2× Max Particle Size' }
+];
+
+const quickStats = [
+  { value: '3,600 Vol', label: 'High Intent Query', desc: 'Leading natural stone calculation in North America' },
+  { value: '80 sq ft', label: '1-3" Stone Spread', desc: 'Average square foot coverage per ton at 3" depth' },
+  { value: '4"-6" Depth', label: 'Swale & Creek Bed', desc: 'Engineered depth required for high water velocity' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of 1-3 inch river rock do I need for 300 square feet?',
+    a: 'For 300 square feet covered with 1-3 inch river rock at the mandatory 3.5-inch minimum installation depth, you need 3.24 cubic yards. Factoring in an average bulk density of 1.35 tons per yard and a 10% void margin, you should order 4.8 tons of stone.'
+  },
+  {
+    q: 'Why does larger river rock require a deeper installation depth?',
+    a: 'Rounded alluvial river stones cannot be compacted flat like angular gravel. If you spread 2-inch river stone at only 2 inches of depth, irregular stone orientations leave large visual voids that expose landscape fabric. Field engineering requires a depth equal to at least twice the maximum stone diameter.'
+  },
+  {
+    q: 'What size river rock should I use for a dry creek bed or drainage swale?',
+    a: 'Use a graded blend of 2-4 inch and 4-8 inch river rock for the creek channel bed to withstand stormwater velocity without dislodging. Line the outer banks with smaller 1-3 inch river stone and accent boulders along turns to recreate natural geological erosion.'
+  },
+  {
+    q: 'Can I walk barefoot on 3/4 inch river rock pathways?',
+    a: 'Yes. 3/4-inch river rock features naturally smoothed, water-tumbled edges that are comfortable underfoot and paw-friendly for pets. Unlike crushed gravel with sharp fractured faces, rounded river pebbles shift gently under load without puncturing skin.'
+  }
+];
+---
+
+<BaseLayout
+  title="River Rock Calculator - Sizing & Coverage for 1-3, 2 & 3/4 Rock"
+  description="Calculate cubic yards, tons, and bags of river rock across all standard sizes (1-3 inch, 2 inch, and 3/4 inch). Accurate coverage for dry creek beds, swales, and gardens."
+  canonicalPath="/river-rock-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "River Rock Calculator",
+      "url": "https://rockcoveragecalculator.com/river-rock-calculator",
+      "description": "Calculates river rock quantities, tonnage, and yardage by particle size fractions including 1-3 inch, 2 inch, and 3/4 inch stone.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "River Rock Size"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="River Rock Calculator"
+      highlightWord="Calculator"
+      badge="Alluvial Stone Sizing & Grading"
+      subtitle="Accurate volumetric and tonnage calculations for 3/4 inch, 1-3 inch, and 2-4 inch river rock in dry creek beds, drainage swales, and architectural gardens."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <Calculator 
+      initialMaterial="river-rock" 
+      initialDepth={3.5} 
+      headline="River Rock Sizing & Coverage Calculator"
+      subtitle="Choose your area geometry, select river rock grading, and compute exact quarry scale tickets."
+    />
+
+    <Visualizer />
+
+    <!-- River Rock Sizing Technical Guide -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>River Rock Sizing Fractions and Sieve Grading</h2>
+          <p>
+            River rock consists of naturally rounded alluvial stones smoothed over millennia by glacial run-off and river flow. Unlike manufactured crushed stone with uniform angular edges, river rock features wide variability in individual particle shapes. Because of this natural asymmetry, standard quarry sorting uses screen sieves that grade stone into specific dimensional brackets.
+          </p>
+
+          <div class="size-cards-grid">
+            <div class="size-card">
+              <div class="size-badge">Fine Grade</div>
+              <h3>3/4 Inch River Rock</h3>
+              <div class="size-spec">Sieve Spec: 1/2" to 3/4" (12mm to 19mm)</div>
+              <p>Best for garden walking paths, patio seating areas, and dog runs. Comfortable under foot with minimal roll. Recommended depth: 2.0 to 2.5 inches.</p>
+              <div class="size-stat">Coverage: ~110 sq ft / ton at 2"</div>
+            </div>
+            <div class="size-card active-card">
+              <div class="size-badge featured">Most Popular</div>
+              <h3>1 to 3 Inch River Rock</h3>
+              <div class="size-spec">Sieve Spec: 1" to 3" (25mm to 76mm)</div>
+              <p>The contractor standard for residential landscape beds, foundation planting borders, and downspout splash basins. Recommended depth: 3.0 to 4.0 inches.</p>
+              <div class="size-stat">Coverage: ~75-80 sq ft / ton at 3.5"</div>
+            </div>
+            <div class="size-card">
+              <div class="size-badge">Heavy Flow</div>
+              <h3>2 to 4 Inch River Rock</h3>
+              <div class="size-spec">Sieve Spec: 2" to 4" (50mm to 100mm)</div>
+              <p>Engineered for dry creek beds, erosion control swales, and retention pond shorelines. High stormwater ballast. Recommended depth: 4.0 to 6.0 inches.</p>
+              <div class="size-stat">Coverage: ~45-50 sq ft / ton at 5"</div>
+            </div>
+          </div>
+
+          <h3>The "Two-Stone Rule" for Depth Calibration</h3>
+          <p>
+            The single most critical technical principle in river rock installation is the <strong>Two-Stone Rule</strong>. Because river rocks are rounded or egg-shaped, individual pieces do not interlock. When laid in a single layer, gaps between spherical stones expose the ground fabric beneath.
+          </p>
+          <div class="formula-box">
+            <code>Minimum Depth (Inches) = Maximum Sieve Size (Inches) × 2.0</code>
+          </div>
+          <p>
+            For example, 1-3 inch river rock has a maximum particle diameter of 3 inches. Applying the rule: 3" × 2 = 6" maximum depth, but a field-compressed depth of 3.5 to 4 inches ensures at least two stone thicknesses interlace across the entire bed surface.
+          </p>
+
+          <div class="table-wrapper">
+            <table class="guide-table">
+              <thead>
+                <tr>
+                  <th>Stone Grade</th>
+                  <th>Recommended Depth</th>
+                  <th>Sq Ft per Cubic Yard</th>
+                  <th>Sq Ft per Ton</th>
+                  <th>Bulk Density</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>3/4" River Rock</td><td>2.0 inches</td><td>162 sq ft</td><td>120 sq ft</td><td>1.35 t/yd³ (2,700 lbs)</td></tr>
+                <tr><td>1" to 3" River Rock</td><td>3.5 inches</td><td>92 sq ft</td><td>68 sq ft</td><td>1.35 t/yd³ (2,700 lbs)</td></tr>
+                <tr><td>2" River Rock</td><td>4.0 inches</td><td>81 sq ft</td><td>60 sq ft</td><td>1.35 t/yd³ (2,700 lbs)</td></tr>
+                <tr><td>2" to 4" River Rock</td><td>5.0 inches</td><td>65 sq ft</td><td>48 sq ft</td><td>1.38 t/yd³ (2,760 lbs)</td></tr>
+                <tr><td>3" to 5" River Cobble</td><td>6.0 inches</td><td>54 sq ft</td><td>39 sq ft</td><td>1.40 t/yd³ (2,800 lbs)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>How to Build an Engineered Dry Creek Bed with River Rock</h3>
+          <ol class="steps-list">
+            <li>
+              <strong>Excavate a Parabolic Trench:</strong> Dig out the creek channel with sloping sides, creating a center depth of 8 to 12 inches and a width of 3 to 6 feet. Avoid vertical trench walls.
+            </li>
+            <li>
+              <strong>Heavy Non-Woven Geotextile:</strong> Line the channel with 6 oz non-woven needle-punched geotextile fabric. Non-woven fabric offers superior puncture resistance against large angular river stones.
+            </li>
+            <li>
+              <strong>Strategic Anchor Boulders:</strong> Position 12-inch to 24-inch natural granite boulders along channel curves where water velocity is highest to deflect flood momentum.
+            </li>
+            <li>
+              <strong>Layered Infill:</strong> Line the central flow channel with 4-8 inch stone, infill with 2-4 inch river rock, and blend outer margins with 1-3 inch river rock for a natural mountain stream aesthetic.
+            </li>
+          </ol>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About River Rock Coverage</h2>
+          <div class="faq-accordion">
+            {faqItems.map((item, index) => (
+              <details class="faq-detail" open={index === 0}>
+                <summary class="faq-summary">
+                  <span>{item.q}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav currentPage="/river-rock-calculator" />
+  </main>
+
+  <Footer />
+  <script src="../scripts/app.js"></script>
+</BaseLayout>
+
+<style>
+  .content-guide-section {
+    padding: var(--space-12) 0;
+    background: var(--bg-body);
+  }
+
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .content-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-card h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-3) 0;
+  }
+
+  .size-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+  }
+
+  @media (max-width: 850px) {
+    .size-cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .size-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .size-card.active-card {
+    border-color: var(--accent-gold);
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .size-badge {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(139, 157, 168, 0.15);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-3);
+  }
+
+  .size-badge.featured {
+    background: rgba(212, 168, 83, 0.2);
+    color: var(--accent-gold);
+  }
+
+  .size-card h3 {
+    margin: 0 0 var(--space-2) 0;
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+  }
+
+  .size-spec {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--accent-gold);
+    margin-bottom: var(--space-2);
+  }
+
+  .size-card p {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: var(--space-4);
+  }
+
+  .size-stat {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--text-primary);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-table th, .guide-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .steps-list {
+    padding-left: var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  .steps-list li {
+    margin-bottom: var(--space-3);
+  }
+
+  .faq-detail {
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    list-style: none;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-detail[open] .faq-summary svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding-top: var(--space-3);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+</style>

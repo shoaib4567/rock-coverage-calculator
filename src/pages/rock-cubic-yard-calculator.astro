@@ -1,0 +1,302 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Calculator from '../components/Calculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Quantity & Conversion', url: '/rock-cubic-yard-calculator' },
+  { name: 'Rock Cubic Yard Calculator', url: '/rock-cubic-yard-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Cubic Yard (Volume)' },
+  { label: 'Conversion Base', value: '1 yd³ = 27 Cubic Feet' },
+  { label: 'Rule of 324', value: 'Sq Ft × Inches / 324 = Yards' },
+  { label: 'Hauling Unit', value: 'Commercial Dump Truck Loads' }
+];
+
+const quickStats = [
+  { value: '324 sq ft', label: '1 Inch Spread', desc: 'True theoretical coverage of 1 cubic yard at 1 inch depth' },
+  { value: '108 sq ft', label: '3 Inch Standard', desc: 'Standard residential bed coverage yield per cubic yard' },
+  { value: '5-14 yd³', label: 'Dump Truck Scale', desc: 'Single-axle (5-7 yds) up to tandem-axle (10-14 yds)' }
+];
+
+const faqItems = [
+  {
+    q: 'How do you calculate cubic yards of rock by hand?',
+    a: 'Multiply the length of the area in feet by the width in feet to find total square feet. Next, multiply that area by the depth in inches, and divide the final product by 324. For example, a 20x10 foot area at 3 inches depth is: (20 × 10 × 3) / 324 = 600 / 324 = 1.85 cubic yards.'
+  },
+  {
+    q: 'How much area does 1 cubic yard of rock cover at 2 inches and 3 inches?',
+    a: 'At a depth of 2 inches, 1 cubic yard covers exactly 162 square feet. At a depth of 3 inches, 1 cubic yard covers exactly 108 square feet. At 4 inches, it covers 81 square feet.'
+  },
+  {
+    q: 'Why do you divide by 324 when calculating cubic yards of rock?',
+    a: 'One cubic yard equals 27 cubic feet. When depth is measured in inches, you must divide depth by 12 to convert it to feet. Combining the two conversion steps: 27 cubic feet multiplied by 12 inches per foot equals 324. Dividing square feet multiplied by inches by 324 directly yields cubic yards.'
+  },
+  {
+    q: 'How many cubic yards of rock can a standard pickup truck carry?',
+    a: 'A standard half-ton pickup truck (F-150, Silverado 1500) can carry approximately 0.5 to 0.75 cubic yards of rock before exceeding its payload capacity (typically 1,500 to 2,000 lbs). A full cubic yard of rock weighs 2,600 to 2,900 lbs, requiring a heavy three-quarter-ton or one-ton pickup.'
+  }
+];
+---
+
+<BaseLayout
+  title="Rock Cubic Yard Calculator - Exact Volume & Truckload Sizing"
+  description="Calculate exact cubic yards of rock, gravel, and stone needed for any project. Full mathematical breakdown, depth-to-coverage tables, and dump truck capacities."
+  canonicalPath="/rock-cubic-yard-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Rock Cubic Yard Calculator",
+      "url": "https://rockcoveragecalculator.com/rock-cubic-yard-calculator",
+      "description": "Volumetric calculator converting square footage and layer depth into exact cubic yards with dump truck delivery recommendations.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Cubic Yard"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Rock Cubic Yard Calculator"
+      highlightWord="Calculator"
+      badge="Volumetric Conversion & Hauling Capacity"
+      subtitle="Convert square footage, radius, or custom irregular area dimensions into exact cubic yards for quarry ordering and bulk dump truck deliveries."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <Calculator 
+      initialMaterial="pea-gravel" 
+      initialDepth={3} 
+      headline="Cubic Yard Volume Calculator"
+      subtitle="Enter your project measurements in feet, inches, or yards to compute net bulk yardage."
+    />
+
+    <Visualizer />
+
+    <!-- Technical Guide on Cubic Yard Sizing -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>The Mathematical Derivation of a Cubic Yard of Rock</h2>
+          <p>
+            In bulk landscaping and civil earthmoving, <strong>Cubic Yards</strong> represent the universal unit of trade. A cubic yard describes a three-dimensional volume measuring three feet wide by three feet long by three feet deep, containing exactly 27 cubic feet (3 ft × 3 ft × 3 ft = 27 cubic feet).
+          </p>
+
+          <div class="formula-box">
+            <code>Area (sq ft) = Length (ft) × Width (ft)</code>
+            <br />
+            <code>Volume (Cubic Feet) = Area (sq ft) × [Depth (inches) / 12]</code>
+            <br />
+            <code>Cubic Yards = Volume (Cubic Feet) / 27 = [Area × Depth] / 324</code>
+          </div>
+
+          <h3>The "324 Constant" Explained</h3>
+          <p>
+            Professional landscape estimators utilize the constant <strong>324</strong> as a field calculation shortcut. Because aggregate layer depth is commonly specified in inches while project perimeters are measured in feet, converting inches to feet requires dividing by 12, and converting cubic feet to cubic yards requires dividing by 27. Since $12 \times 27 = 324$, multiplying square footage directly by depth in inches and dividing by 324 produces exact cubic yards in a single calculation step.
+          </p>
+
+          <div class="table-wrapper">
+            <table class="guide-table">
+              <thead>
+                <tr>
+                  <th>Installed Depth</th>
+                  <th>Sq Ft Coverage per 1 yd³</th>
+                  <th>Sq Ft Coverage per 5 yd³</th>
+                  <th>Sq Ft Coverage per 10 yd³</th>
+                  <th>Formula Multiplier</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1.0 inch</td><td>324 sq ft</td><td>1,620 sq ft</td><td>3,240 sq ft</td><td>Divide sq ft by 324</td></tr>
+                <tr><td>1.5 inches</td><td>216 sq ft</td><td>1,080 sq ft</td><td>2,160 sq ft</td><td>Divide sq ft by 216</td></tr>
+                <tr><td>2.0 inches</td><td>162 sq ft</td><td>810 sq ft</td><td>1,620 sq ft</td><td>Divide sq ft by 162</td></tr>
+                <tr><td>2.5 inches</td><td>130 sq ft</td><td>648 sq ft</td><td>1,296 sq ft</td><td>Divide sq ft by 130</td></tr>
+                <tr><td>3.0 inches</td><td>108 sq ft</td><td>540 sq ft</td><td>1,080 sq ft</td><td>Divide sq ft by 108</td></tr>
+                <tr><td>4.0 inches</td><td>81 sq ft</td><td>405 sq ft</td><td>810 sq ft</td><td>Divide sq ft by 81</td></tr>
+                <tr><td>6.0 inches</td><td>54 sq ft</td><td>270 sq ft</td><td>540 sq ft</td><td>Divide sq ft by 54</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Commercial Hauling Capacities by Dump Truck Class</h3>
+          <p>
+            When ordering bulk rock from aggregate quarries, transport cost is governed by the payload and volume capacity of the delivery vehicle. Coordinate with your supplier based on these standard truck classifications:
+          </p>
+          <ol class="steps-list">
+            <li>
+              <strong>Single-Axle Dump Truck (Class 6):</strong> Carries 5 to 7 cubic yards (maximum 7 to 9 tons payload). Ideal for tight residential suburban driveways where heavier trucks would crack asphalt or concrete curbs.
+            </li>
+            <li>
+              <strong>Tandem-Axle Dump Truck (Class 7):</strong> Carries 10 to 12 cubic yards (maximum 14 to 16 tons payload). The commercial standard for major landscape installations and long driveway resurfacing.
+            </li>
+            <li>
+              <strong>Tri-Axle Dump Truck (Class 8):</strong> Carries 14 to 18 cubic yards (maximum 20 to 22 tons payload). Used for civil projects, subdivisions, and commercial drainage installations. Requires broad street access with zero overhead utility wire obstructions.
+            </li>
+          </ol>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Cubic Yards of Rock</h2>
+          <div class="faq-accordion">
+            {faqItems.map((item, index) => (
+              <details class="faq-detail" open={index === 0}>
+                <summary class="faq-summary">
+                  <span>{item.q}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav currentPage="/rock-cubic-yard-calculator" category="quantity" />
+  </main>
+
+  <Footer />
+  <script src="../scripts/app.js"></script>
+</BaseLayout>
+
+<style>
+  .content-guide-section {
+    padding: var(--space-12) 0;
+    background: var(--bg-body);
+  }
+
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .content-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-card h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-3) 0;
+  }
+
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-table th, .guide-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .steps-list {
+    padding-left: var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  .steps-list li {
+    margin-bottom: var(--space-3);
+  }
+
+  .faq-detail {
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    list-style: none;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-detail[open] .faq-summary svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding-top: var(--space-3);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+</style>

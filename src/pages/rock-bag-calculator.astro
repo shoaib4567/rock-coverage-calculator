@@ -1,0 +1,291 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Calculator from '../components/Calculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Quantity & Conversion', url: '/rock-cubic-yard-calculator' },
+  { name: 'Rock Bag Calculator', url: '/rock-bag-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Retail Rock Bags' },
+  { label: 'Bag Standard', value: '0.5 Cubic Foot (45-50 lbs)' },
+  { label: 'Yard Equivalency', value: '54 Bags (0.5 cu ft) = 1 Yard³' },
+  { label: 'Pallet Capacity', value: '50 to 60 Bags per Shrink-Wrapped Pallet' }
+];
+
+const quickStats = [
+  { value: '54 Bags', label: 'Bags in a Cubic Yard', desc: 'Standard 0.5 cubic foot bags sold at Home Depot and Lowe\'s' },
+  { value: '2.0 sq ft', label: 'Coverage per Bag', desc: 'At recommended 3.0 inch landscape bed depth' },
+  { value: '1.5 yd³ Cutoff', label: 'Bulk Break-Even', desc: 'Volume threshold where dump truck delivery becomes cheaper' }
+];
+
+const faqItems = [
+  {
+    q: 'How many 0.5 cubic foot bags of rock do I need for 100 square feet?',
+    a: 'For 100 square feet at a 3-inch depth, you require 25 cubic feet of rock (0.93 cubic yards). Dividing 25 cubic feet by 0.5 cubic feet per bag yields 50 bags. With a 5% handling allowance for torn bags and settling, purchase 53 bags.'
+  },
+  {
+    q: 'How many 50 lb bags of rock equal one ton?',
+    a: 'One US short ton equals 2,000 pounds. Dividing 2,000 pounds by 50 pounds per bag yields exactly 40 bags. If purchasing 0.5 cubic foot bags weighing an average of 45 pounds, you need approximately 44 to 45 bags to equal one ton.'
+  },
+  {
+    q: 'When does buying bulk rock become cheaper than buying bags?',
+    a: 'Bulk aggregate becomes substantially cheaper once you need more than 1.5 cubic yards (approximately 80 bags). While 80 retail bags cost between $320 and $440, a local quarry will deliver 1.5 cubic yards in a dump truck for roughly $75 to $90 in material plus a $60 to $80 delivery fee (totaling around $150 to $170).'
+  },
+  {
+    q: 'How many bags of rock can fit in an SUV or pickup truck?',
+    a: 'A standard mid-size SUV or crossover can safely carry 8 to 12 bags (400 to 600 lbs) without overloading the rear suspension. A half-ton pickup truck (F-150) can carry 30 to 35 bags (1,500 to 1,750 lbs). Exceeding vehicle payload ratings creates severe braking and tire blowout hazards.'
+  }
+];
+---
+
+<BaseLayout
+  title="Rock Bag Calculator - How Many 0.5 Cu Ft & 50 lb Bags Do I Need?"
+  description="Calculate how many bags of rock, river stone, and gravel you need for your landscaping. Includes 0.5 cu ft and 50 lb bag formulas plus retail vs bulk cost comparisons."
+  canonicalPath="/rock-bag-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Rock Bag Calculator",
+      "url": "https://rockcoveragecalculator.com/rock-bag-calculator",
+      "description": "Calculates retail bag requirements in 0.5 cu ft and 50 lb sizes for landscape rocks, with pallet counts and bulk cost break-even analysis.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Retail Rock Bags"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Rock Bag Calculator"
+      highlightWord="Calculator"
+      badge="Retail Packaging & Break-Even Analysis"
+      subtitle="Calculate exact retail bag quantities in 0.5 cubic foot and 50 pound sizes for small garden beds, tree collars, and walkway projects."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <Calculator 
+      initialMaterial="pea-gravel" 
+      initialDepth={3} 
+      headline="Retail Rock Bag Calculator"
+      subtitle="Input your bed square footage to find total bags required and pallet load breakdowns."
+    />
+
+    <Visualizer />
+
+    <!-- Technical Guide on Bag Calculations -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Retail Packaging Standards: 0.5 Cu Ft vs 50 lb Bags</h2>
+          <p>
+            For small residential landscaping projects, retail bagged stone from home improvement centers (Home Depot, Lowe's, Menards) eliminates the need for dump truck delivery fees and massive gravel piles on driveways. However, bags are sold under two different labeling conventions: <strong>Volume Rated</strong> (0.5 cubic foot bags) and <strong>Weight Rated</strong> (50 pound bags).
+          </p>
+
+          <div class="formula-box">
+            <code>Total Cubic Feet = Area (Square Feet) × [Depth (Inches) / 12]</code>
+            <br />
+            <code>0.5 Cu Ft Bags Needed = Total Cubic Feet × 2.0 = Cubic Yards × 54</code>
+            <br />
+            <code>50 lb Bags Needed = [Total Weight (Pounds)] / 50 lbs</code>
+          </div>
+
+          <h3>The 54-Bag Cubic Yard Rule</h3>
+          <p>
+            Because one cubic yard contains exactly 27 cubic feet, simple division reveals the fundamental retail conversion metric:
+          </p>
+          <div class="formula-box">
+            <code>27 Cubic Feet / 0.5 Cubic Feet per Bag = Exactly 54 Bags per Cubic Yard</code>
+          </div>
+          <p>
+            If your calculation calls for 2.0 cubic yards of pea gravel or river rock, you need 108 bags. If purchasing 1.0 cubic foot bags (commonly used for volcanic lava rock), you need exactly 27 bags per cubic yard.
+          </p>
+
+          <div class="table-wrapper">
+            <table class="guide-table">
+              <thead>
+                <tr>
+                  <th>Landscape Area</th>
+                  <th>Depth in Inches</th>
+                  <th>Total Cubic Feet</th>
+                  <th>0.5 Cu Ft Bags</th>
+                  <th>Pallets Needed (56 Bags/Pallet)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>25 sq ft</td><td>2.0 inches</td><td>4.17 cu ft</td><td>9 bags</td><td>Small car trunk (420 lbs)</td></tr>
+                <tr><td>50 sq ft</td><td>3.0 inches</td><td>12.50 cu ft</td><td>25 bags</td><td>Half pallet (1,150 lbs)</td></tr>
+                <tr><td>100 sq ft</td><td>3.0 inches</td><td>25.00 cu ft</td><td>50 bags</td><td>1 Full pallet (2,300 lbs)</td></tr>
+                <tr><td>200 sq ft</td><td>3.0 inches</td><td>50.00 cu ft</td><td>100 bags</td><td>2 Full pallets (4,600 lbs)</td></tr>
+                <tr><td>500 sq ft</td><td>3.0 inches</td><td>125.00 cu ft</td><td>250 bags</td><td>5 Full pallets (11,500 lbs)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Economic Break-Even: When to Switch from Bags to Bulk Delivery</h3>
+          <p>
+            Before driving to a garden center to load dozens of heavy bags, evaluate the economic break-even curve. Bagged aggregate carries a 300% to 500% retail packaging markup:
+          </p>
+          <ul>
+            <li><strong>Under 35 Bags (Less than 0.65 yd³):</strong> Buy retail bags. The convenience of hauling in personal vehicles without a $65-$90 commercial delivery fee makes bags economical.</li>
+            <li><strong>35 to 70 Bags (0.65 to 1.3 yd³):</strong> Break-even zone. Bags cost $175 to $350. A bulk yard costs roughly $50 plus $75 delivery ($125 total). Bulk is cheaper, but bags allow staged weekend work without driveway mess.</li>
+            <li><strong>Over 70 Bags (More than 1.3 yd³):</strong> Always order bulk delivery. Buying 120 bags costs upwards of $600 to $700, whereas ordering 2.25 cubic yards delivered via dump truck averages $220 total, saving over $400 in material costs.</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Bagged Rock</h2>
+          <div class="faq-accordion">
+            {faqItems.map((item, index) => (
+              <details class="faq-detail" open={index === 0}>
+                <summary class="faq-summary">
+                  <span>{item.q}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav currentPage="/rock-bag-calculator" category="quantity" />
+  </main>
+
+  <Footer />
+  <script src="../scripts/app.js"></script>
+</BaseLayout>
+
+<style>
+  .content-guide-section {
+    padding: var(--space-12) 0;
+    background: var(--bg-body);
+  }
+
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .content-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-card h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-3) 0;
+  }
+
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-table th, .guide-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .faq-detail {
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    list-style: none;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-detail[open] .faq-summary svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding-top: var(--space-3);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+</style>

@@ -1,0 +1,309 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Calculator from '../components/Calculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Quantity & Conversion', url: '/rock-cubic-yard-calculator' },
+  { name: 'Rock Square Foot Calculator', url: '/rock-square-foot-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Square Foot Area' },
+  { label: 'Area Geometries', value: 'Rectangle, Circle, Ring, Triangle, L-Shape' },
+  { label: 'Thickness Rule', value: 'Depth in Inches / 12 = Foot Fraction' },
+  { label: 'Spread Benchmark', value: '100 sq ft = 0.93 yd³ at 3" Depth' }
+];
+
+const quickStats = [
+  { value: '108 sq ft', label: '1 Yard Coverage', desc: 'Coverage of 1 cubic yard at 3 inch residential depth' },
+  { value: '80 sq ft', label: '1 Ton Coverage', desc: 'Standard coverage of 2,000 lbs of stone at 3 inch depth' },
+  { value: '6 Geometries', label: 'Supported Shapes', desc: 'Precise geometric formulas without approximation errors' }
+];
+
+const faqItems = [
+  {
+    q: 'How many square feet does 1 ton of rock cover?',
+    a: 'At a standard 3-inch depth, 1 ton of typical crushed granite or river rock (density 1.35 tons/yd³) covers approximately 80 square feet. At a shallower 2-inch depth, 1 ton covers approximately 120 square feet. At a heavy 4-inch depth, 1 ton covers approximately 60 square feet.'
+  },
+  {
+    q: 'How do you calculate square footage for curved or kidney-shaped garden beds?',
+    a: 'Use the bounding box offset method. Measure the longest length of the curved bed through the center, then measure 3 to 4 cross-sectional widths at equal intervals. Average the widths together, and multiply the average width by the total length. Add 10% to account for perimeter undulations.'
+  },
+  {
+    q: 'How much rock do I need for a 1,000 square foot backyard area?',
+    a: 'For 1,000 square feet covered to a 3-inch depth, you require 9.26 cubic yards of aggregate. Factoring in an average bulk density of 1.35 tons per yard and a 10% compaction allowance, you need approximately 13.8 tons of rock.'
+  },
+  {
+    q: 'Can I install rock directly on top of old gravel or dirt?',
+    a: 'No. Loose dirt will mix with new decorative stone through pedestrian traffic and rainfall, destroying your clean stone color within months. Always excavate organic debris, rake the subgrade smooth, and install a commercial woven geotextile fabric before spreading new stone.'
+  }
+];
+---
+
+<BaseLayout
+  title="Rock Square Foot Calculator - Area Coverage & Thickness Sizing"
+  description="Calculate rock, gravel, and stone needed for any square footage. Features multi-shape geometric formulas, square-foot-to-ton tables, and depth thickness guides."
+  canonicalPath="/rock-square-foot-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Rock Square Foot Calculator",
+      "url": "https://rockcoveragecalculator.com/rock-square-foot-calculator",
+      "description": "Calculates rock coverage by square footage across multiple geometries with instant cubic yard, tonnage, and bag outputs.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Square Foot Area"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Rock Square Foot Calculator"
+      highlightWord="Calculator"
+      badge="Geometric Area Sizing & Depth Thickness"
+      subtitle="Solve rock coverage from known square footage or calculate complex multi-shape landscape beds into cubic yards, tons, and bags."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <Calculator 
+      initialMaterial="river-rock" 
+      initialDepth={3} 
+      headline="Square Footage Coverage Calculator"
+      subtitle="Select your bed shape, enter exact dimensions, and see instant volumetric yields."
+    />
+
+    <Visualizer />
+
+    <!-- Technical Guide on Square Footage Calculations -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Geometric Area Formulas for Landscape Rock Beds</h2>
+          <p>
+            Accurate rock coverage begins with rigorous geometric area determination. Because residential landscaping rarely conforms to simple rectangles, calculating accurate square footage requires decomposing irregular yard boundaries into primary geometric components.
+          </p>
+
+          <div class="formula-box">
+            <code>Rectangle Area = Length (ft) × Width (ft)</code>
+            <br />
+            <code>Circle Area = π × Radius² = 3.14159 × r²</code>
+            <br />
+            <code>Ring (Tree Collar) Area = π × (Outer Radius² - Inner Radius²)</code>
+            <br />
+            <code>Triangle Area = 0.5 × Base (ft) × Height (ft)</code>
+            <br />
+            <code>Trapezoid Area = 0.5 × (Top Width + Bottom Width) × Height</code>
+          </div>
+
+          <h3>Square Footage Coverage by Material Depth</h3>
+          <p>
+            Once total square footage is determined, application depth dictates the exact volumetric multiplier. As layer depth increases, coverage area per unit volume decreases inversely:
+          </p>
+
+          <div class="table-wrapper">
+            <table class="guide-table">
+              <thead>
+                <tr>
+                  <th>Installed Depth</th>
+                  <th>Coverage per 1 yd³</th>
+                  <th>Coverage per 1 Ton (Standard Stone)</th>
+                  <th>Coverage per 1 Ton (Lava Rock)</th>
+                  <th>Cubic Yards per 1,000 Sq Ft</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1.0 inch</td><td>324 sq ft</td><td>240 sq ft</td><td>462 sq ft</td><td>3.09 yd³</td></tr>
+                <tr><td>1.5 inches</td><td>216 sq ft</td><td>160 sq ft</td><td>308 sq ft</td><td>4.63 yd³</td></tr>
+                <tr><td>2.0 inches</td><td>162 sq ft</td><td>120 sq ft</td><td>231 sq ft</td><td>6.17 yd³</td></tr>
+                <tr><td>2.5 inches</td><td>130 sq ft</td><td>96 sq ft</td><td>185 sq ft</td><td>7.72 yd³</td></tr>
+                <tr><td>3.0 inches</td><td>108 sq ft</td><td>80 sq ft</td><td>154 sq ft</td><td>9.26 yd³</td></tr>
+                <tr><td>4.0 inches</td><td>81 sq ft</td><td>60 sq ft</td><td>115 sq ft</td><td>12.35 yd³</td></tr>
+                <tr><td>6.0 inches</td><td>54 sq ft</td><td>40 sq ft</td><td>77 sq ft</td><td>18.52 yd³</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Offset Coordinate Method for Irregular Landscape Boundaries</h3>
+          <p>
+            When calculating free-form or serpentine landscape beds, do not guess total square footage. Use the civil engineering offset line method:
+          </p>
+          <ol class="steps-list">
+            <li>
+              <strong>Establish a Baseline:</strong> Stretch a straight nylon string line through the longest center axis of the curved bed. Measure this total baseline length in feet (L).
+            </li>
+            <li>
+              <strong>Measure Perpendicular Offsets:</strong> Every 5 or 10 feet along the baseline, measure the width of the bed perpendicular to the string line (w1, w2, w3, etc.).
+            </li>
+            <li>
+              <strong>Compute Average Width:</strong> Add all perpendicular width measurements together and divide by the total number of measurements taken to establish Average Width (W_avg).
+            </li>
+            <li>
+              <strong>Calculate Net Square Footage:</strong> Multiply baseline length by average width: <code>Area = L × W_avg</code>. This technique provides within 3% accuracy of computerized CAD surveys.
+            </li>
+          </ol>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Square Footage Coverage</h2>
+          <div class="faq-accordion">
+            {faqItems.map((item, index) => (
+              <details class="faq-detail" open={index === 0}>
+                <summary class="faq-summary">
+                  <span>{item.q}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav currentPage="/rock-square-foot-calculator" category="quantity" />
+  </main>
+
+  <Footer />
+  <script src="../scripts/app.js"></script>
+</BaseLayout>
+
+<style>
+  .content-guide-section {
+    padding: var(--space-12) 0;
+    background: var(--bg-body);
+  }
+
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .content-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-card h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-3) 0;
+  }
+
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-table th, .guide-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .steps-list {
+    padding-left: var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  .steps-list li {
+    margin-bottom: var(--space-3);
+  }
+
+  .faq-detail {
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    list-style: none;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-detail[open] .faq-summary svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding-top: var(--space-3);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+</style>

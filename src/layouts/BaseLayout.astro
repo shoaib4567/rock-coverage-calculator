@@ -7,10 +7,12 @@ import '../styles/animations.css';
 interface Props {
   title: string;
   description: string;
+  canonicalPath?: string;
 }
 
-const { title, description } = Astro.props;
-const canonicalURL = 'https://rockcoveragecalculator.com';
+const { title, description, canonicalPath = '' } = Astro.props;
+const siteUrl = 'https://rockcoveragecalculator.com';
+const canonicalURL = `${siteUrl}${canonicalPath}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -64,6 +66,8 @@ const canonicalURL = 'https://rockcoveragecalculator.com';
       } catch (e) {}
     })();
   </script>
+  <!-- Additional Head Elements (Page Schemas) -->
+  <slot name="head" />
 </head>
 <body>
   <slot />

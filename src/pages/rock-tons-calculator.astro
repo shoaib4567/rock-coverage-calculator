@@ -1,0 +1,286 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Calculator from '../components/Calculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Quantity & Conversion', url: '/rock-cubic-yard-calculator' },
+  { name: 'Rock Tons Calculator', url: '/rock-tons-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Tonnage (Weight)' },
+  { label: 'Unit of Measure', value: 'US Short Ton (2,000 lbs)' },
+  { label: 'Scale Formula', value: 'Tons = Cubic Yards × Bulk Density' },
+  { label: 'Density Range', value: '0.70 to 1.60 Tons per yd³' }
+];
+
+const quickStats = [
+  { value: '2,000 lbs', label: 'Short Ton Definition', desc: 'Commercial US quarry standard weight billing unit' },
+  { value: '1.35 t/yd³', label: 'Average Stone Density', desc: 'Standard multiplier for limestone, granite, and river rock' },
+  { value: '10-15% Shift', label: 'Moisture Allowance', desc: 'Weight increase caused by rainfall saturation in stockpiles' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of rock do I need for 500 square feet?',
+    a: 'For 500 square feet at a standard 3-inch depth, you need 4.63 cubic yards of aggregate. Assuming average crushed limestone or river rock at 1.35 tons per yard, you require 6.25 tons. Adding an 8% field settling allowance, order approximately 6.75 tons.'
+  },
+  {
+    q: 'How do you convert cubic yards of rock into tons?',
+    a: 'To convert cubic yards into tons, multiply the total volume in cubic yards by the specific bulk density factor of the rock (expressed in tons per yard). For crushed granite at 1.40 tons per yard: 10 cubic yards × 1.40 = 14.0 tons. Divide the result by 2,000 if calculating from pounds.'
+  },
+  {
+    q: 'Why do quarries sell rock by the ton instead of the cubic yard?',
+    a: 'Commercial quarries utilize certified drive-on platform truck scales that measure actual payload mass in seconds (Gross truck weight minus empty Tare weight equals Net rock payload). Measuring volume in dump truck beds is prone to human error due to uneven heaped crowns and void settlement during transit.'
+  },
+  {
+    q: 'Does rain make rock heavier when buying from a quarry?',
+    a: 'Yes. Porous rocks such as lava rock, sandstone, and aggregate blends containing fine stone dust absorb significant water during heavy rain. Stockpiles can absorb between 5% and 12% additional water weight, meaning you pay for moisture on certified scale tickets.'
+  }
+];
+---
+
+<BaseLayout
+  title="Rock Tons Calculator - Convert Cubic Yards to Scale Tonnage"
+  description="Convert rock and gravel cubic yards into quarry scale tons. Features bulk density charts for 10 aggregates, moisture adjustments, and scale ticket verification."
+  canonicalPath="/rock-tons-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Rock Tons Calculator",
+      "url": "https://rockcoveragecalculator.com/rock-tons-calculator",
+      "description": "Quarry tonnage calculator converting landscape dimensions and cubic yard volume into certified scale tons for bulk stone purchasing.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Tonnage"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Rock Tons Calculator"
+      highlightWord="Calculator"
+      badge="Quarry Weight & Scale Ticket Conversion"
+      subtitle="Convert landscape area dimensions and cubic yard requirements into certified scale tonnage across all standard commercial quarry aggregates."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <Calculator 
+      initialMaterial="crushed-limestone" 
+      initialDepth={3} 
+      headline="Rock Weight & Tonnage Calculator"
+      subtitle="Compute certified quarry short tons (2,000 lbs) for bulk freight ordering."
+    />
+
+    <Visualizer />
+
+    <!-- Technical Guide on Tonnage Conversions -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Quarry Scale Mechanics: Converting Volume to Commercial Tonnage</h2>
+          <p>
+            When purchasing bulk stone from an aggregate quarry or commercial distribution yard, transactions are processed across state-certified vehicle scales. Because loose aggregate cannot be leveled and measured with measuring tapes inside dump truck beds, invoices reflect <strong>US Short Tons</strong> (1 ton = 2,000 pounds).
+          </p>
+
+          <div class="formula-box">
+            <code>Weight (Pounds) = Volume (Cubic Yards) × Density (Pounds per Cubic Yard)</code>
+            <br />
+            <code>Tons = Weight (Pounds) / 2,000 lbs = Volume (yd³) × Bulk Density Factor (t/yd³)</code>
+          </div>
+
+          <h3>Certified Scale Ticket Verification: Gross vs Tare</h3>
+          <p>
+            Every commercial quarry delivery arrives with an official certified scale ticket generated by an automated platform scale. Understanding the terms printed on your delivery receipt ensures you receive exact billing:
+          </p>
+          <ul>
+            <li><strong>Gross Weight:</strong> The total combined weight of the delivery dump truck, driver, fuel, and the loaded stone payload.</li>
+            <li><strong>Tare Weight:</strong> The baseline empty weight of the dump truck, recorded when the vehicle exits the quarry scale after dumping, or calibrated prior to loading.</li>
+            <li><strong>Net Weight:</strong> The exact mass of the aggregate delivered: <code>Net Weight = Gross Weight - Tare Weight</code>. Dividing Net Weight by 2,000 gives billed tonnage.</li>
+          </ul>
+
+          <div class="table-wrapper">
+            <table class="guide-table">
+              <thead>
+                <tr>
+                  <th>Aggregate Material</th>
+                  <th>Lbs per Cubic Yard</th>
+                  <th>Tons per Cubic Yard</th>
+                  <th>Yards per 1 Ton</th>
+                  <th>Sq Ft per Ton (at 3" Depth)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Volcanic Lava Rock</td><td>1,400 lbs</td><td>0.70 t/yd³</td><td>1.43 yd³</td><td>154 sq ft</td></tr>
+                <tr><td>Pea Gravel (3/8" Quartz)</td><td>2,700 lbs</td><td>1.35 t/yd³</td><td>0.74 yd³</td><td>80 sq ft</td></tr>
+                <tr><td>River Rock (1" to 3")</td><td>2,700 lbs</td><td>1.35 t/yd³</td><td>0.74 yd³</td><td>80 sq ft</td></tr>
+                <tr><td>White Marble Chips</td><td>2,700 lbs</td><td>1.35 t/yd³</td><td>0.74 yd³</td><td>80 sq ft</td></tr>
+                <tr><td>Crushed Limestone (#57)</td><td>2,800 lbs</td><td>1.40 t/yd³</td><td>0.71 yd³</td><td>77 sq ft</td></tr>
+                <tr><td>Crushed Blue Granite</td><td>2,850 lbs</td><td>1.42 t/yd³</td><td>0.70 yd³</td><td>76 sq ft</td></tr>
+                <tr><td>Quarry Process (DGA / Road Base)</td><td>3,000 lbs</td><td>1.50 t/yd³</td><td>0.67 yd³</td><td>72 sq ft</td></tr>
+                <tr><td>Rip Rap Embankment Stone</td><td>3,100 lbs</td><td>1.55 t/yd³</td><td>0.65 yd³</td><td>70 sq ft</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Field Adjustments: Moisture Saturation & Stockpile Compaction</h3>
+          <p>
+            When calculating required tonnage, consider the environmental condition of the quarry stockpile. In dry summer months, aggregate density matches published dry bulk density ratings. Following continuous heavy rainfall, fine dust and natural stone fissures retain surface moisture. This moisture can increase delivery weight by 8% to 12% without increasing physical coverage volume. Always plan a 10% safety margin when specifying tonnage for critical grading jobs.
+          </p>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Rock Tonnage</h2>
+          <div class="faq-accordion">
+            {faqItems.map((item, index) => (
+              <details class="faq-detail" open={index === 0}>
+                <summary class="faq-summary">
+                  <span>{item.q}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav currentPage="/rock-tons-calculator" category="quantity" />
+  </main>
+
+  <Footer />
+  <script src="../scripts/app.js"></script>
+</BaseLayout>
+
+<style>
+  .content-guide-section {
+    padding: var(--space-12) 0;
+    background: var(--bg-body);
+  }
+
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .content-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-card h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-3) 0;
+  }
+
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-table th, .guide-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .faq-detail {
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    list-style: none;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-detail[open] .faq-summary svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding-top: var(--space-3);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+</style>

@@ -1,0 +1,344 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Calculator from '../components/Calculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/landscape-rock-calculator' },
+  { name: 'Decorative Rock Calculator', url: '/decorative-rock-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Decorative Rock' },
+  { label: 'Density Range', value: '0.70 to 1.45 Tons/yd³' },
+  { label: 'Key Varieties', value: 'Lava Rock, White Marble, Beach Pebbles' },
+  { label: 'Application', value: 'Architectural Xeriscapes & Accent Beds' }
+];
+
+const quickStats = [
+  { value: '0.70 t/yd³', label: 'Lava Rock Density', desc: 'Ultra-lightweight volcanic stone with maximum spread per ton' },
+  { value: '1.35 t/yd³', label: 'White Marble Chips', desc: 'High-reflectance sparkling crystalline aggregate' },
+  { value: '2.0"-3.0"', label: 'Recommended Layer', desc: 'Sufficient depth for complete weed suppression and vivid color' }
+];
+
+const faqItems = [
+  {
+    q: 'Why does lava rock cover so much more area per ton than other decorative rocks?',
+    a: 'Lava rock is formed from vesicular volcanic basalt filled with microscopic air cavities. Consequently, its bulk density is only 0.70 to 0.85 tons per cubic yard (1,400 to 1,700 lbs), compared to standard granite or marble at 1.35 tons (2,700 lbs). One ton of lava rock covers approximately 160 square feet at 3 inches, almost double traditional stone.'
+  },
+  {
+    q: 'Will white marble chips stain or turn yellow in garden beds?',
+    a: 'White marble chips contain calcium carbonate, which can absorb tannins from decomposing oak leaves, pine needles, or lawn fertilizers. To keep marble chips brilliant white, install only non-acidic plants nearby, blow organic debris off the surface weekly, and avoid spreading iron-heavy lawn treatments across the rock zone.'
+  },
+  {
+    q: 'How many bags of Mexican beach pebbles do I need for a 100 sq ft accent border?',
+    a: 'For a 100 square foot border installed with 1-2 inch Mexican beach pebbles at a 2.5-inch depth, you need 0.77 cubic yards (approximately 21 cubic feet). This equates to 42 standard 0.5 cubic foot bags (around 2,100 lbs of stone).'
+  },
+  {
+    q: 'Can decorative rock be used in desert xeriscaping to reduce water consumption?',
+    a: 'Yes. Decorative rock mulch is the core element of water-wise xeriscaping. A 3-inch layer reduces soil surface water evaporation by up to 70% compared to bare earth, insulates root systems from intense afternoon ground heat, and eliminates the need for supplemental lawn irrigation.'
+  }
+];
+---
+
+<BaseLayout
+  title="Decorative Rock Calculator - Yards, Tons & Bags for Garden Accents"
+  description="Calculate exact coverage, cubic yards, and tonnage for decorative rocks including lava rock, white marble chips, and beach pebbles. Compare bulk densities and yields."
+  canonicalPath="/decorative-rock-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Decorative Rock Calculator",
+      "url": "https://rockcoveragecalculator.com/decorative-rock-calculator",
+      "description": "Calculates quantity, tonnage, and bag requirements for premium decorative rock, marble chips, and lava rock in xeriscaping and garden beds.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Decorative Rock"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Decorative Rock Calculator"
+      highlightWord="Calculator"
+      badge="Ornamental Stone & Xeriscaping Engine"
+      subtitle="Accurate volume and tonnage estimations for luxury decorative rocks, porous lava rock, crystalline marble chips, and imported beach pebbles."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <Calculator 
+      initialMaterial="lava-rock" 
+      initialDepth={2.5} 
+      headline="Decorative Rock Coverage Calculator"
+      subtitle="Select your preferred ornamental stone, define project boundaries, and review itemized ordering quantities."
+    />
+
+    <Visualizer />
+
+    <!-- Technical Guide on Decorative Rocks -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Density Divergence in Decorative Landscaping Aggregates</h2>
+          <p>
+            When estimating decorative landscape stone, standard gravel density assumptions frequently lead to substantial budget and tonnage miscalculations. Decorative aggregates span an enormous density spectrum, from ultra-porous volcanic scoria (lava rock) at 1,400 pounds per cubic yard to dense crystalline calcite (white marble chips) and basalt pebbles reaching 2,800 pounds per cubic yard.
+          </p>
+
+          <div class="comparison-grid">
+            <div class="comp-box">
+              <h3>Red & Black Lava Rock</h3>
+              <div class="comp-metric">Density: 0.70 t/yd³ (1,400 lbs)</div>
+              <p>Naturally porous volcanic rock with high porosity. Retains ambient moisture without decomposing. Lightweight nature makes it effortless to shovel and wheelbarrow, but caution is required on windy ridges where gusts can blow smaller chips.</p>
+              <div class="comp-yield">Yield: 140 sq ft / ton at 3"</div>
+            </div>
+            <div class="comp-box">
+              <h3>White Marble Chips</h3>
+              <div class="comp-metric">Density: 1.35 t/yd³ (2,700 lbs)</div>
+              <p>Sparkling, angular crystalline marble containing natural quartz veining. Reflects sunlight to brighten shady tree canopies and modern architectural facades. Heavy weight prevents shifting during severe rainstorms.</p>
+              <div class="comp-yield">Yield: 75 sq ft / ton at 3"</div>
+            </div>
+            <div class="comp-box">
+              <h3>Mexican Beach Pebbles</h3>
+              <div class="comp-metric">Density: 1.40 t/yd³ (2,800 lbs)</div>
+              <p>Hand-gathered volcanic basalt pebbles smoothed by Pacific Ocean surf. Deep charcoal when dry, lustrous jet-black when wet. The pinnacle of luxury zen gardens, water fountains, and modern potted planter accents.</p>
+              <div class="comp-yield">Yield: 70 sq ft / ton at 3"</div>
+            </div>
+          </div>
+
+          <h3>Decorative Rock Coverage Reference Table (3-Inch Depth)</h3>
+          <div class="table-wrapper">
+            <table class="guide-table">
+              <thead>
+                <tr>
+                  <th>Material Type</th>
+                  <th>Bulk Density</th>
+                  <th>Sq Ft Coverage / Yard</th>
+                  <th>Sq Ft Coverage / Ton</th>
+                  <th>Cost Class</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Volcanic Lava Rock</td><td>0.70 t/yd³ (1,400 lbs)</td><td>108 sq ft</td><td>154 sq ft</td><td>Moderate ($65-$95/yd)</td></tr>
+                <tr><td>White Marble Chips</td><td>1.35 t/yd³ (2,700 lbs)</td><td>108 sq ft</td><td>80 sq ft</td><td>Mid-High ($85-$120/yd)</td></tr>
+                <tr><td>Honey Creek River Pebble</td><td>1.35 t/yd³ (2,700 lbs)</td><td>108 sq ft</td><td>80 sq ft</td><td>Economy ($55-$75/yd)</td></tr>
+                <tr><td>Black Star Basalt</td><td>1.42 t/yd³ (2,840 lbs)</td><td>108 sq ft</td><td>76 sq ft</td><td>Premium ($110-$160/yd)</td></tr>
+                <tr><td>Mexican Beach Pebble</td><td>1.40 t/yd³ (2,800 lbs)</td><td>108 sq ft</td><td>77 sq ft</td><td>Luxury ($350-$550/yd)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Installation Best Practices for Ornamental Stone Beds</h3>
+          <ol class="steps-list">
+            <li>
+              <strong>Pre-Installation Soil Compaction:</strong> Tamp down underlying loam or sandy clay to prevent uneven settling. Install a heavy 5-ounce woven polypropylene weed barrier with galvanized sod staples.
+            </li>
+            <li>
+              <strong>Deep Edging Trenches:</strong> Decorative rocks roll easily when kicked or mowed near lawn edges. Dig a 4-inch deep trench around your border and install heavy-duty aluminum or commercial steel edging standing at least 1 inch above the lawn sod line.
+            </li>
+            <li>
+              <strong>Washing the Aggregate:</strong> Quarry delivery trucks carry stone coated in fine quarry silt from screening plants. Once distributed, hose down the bed thoroughly with high-pressure water to wash silt into the subgrade and reveal the vibrant mineral colors.
+            </li>
+          </ol>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Decorative Rock</h2>
+          <div class="faq-accordion">
+            {faqItems.map((item, index) => (
+              <details class="faq-detail" open={index === 0}>
+                <summary class="faq-summary">
+                  <span>{item.q}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav currentPage="/decorative-rock-calculator" />
+  </main>
+
+  <Footer />
+  <script src="../scripts/app.js"></script>
+</BaseLayout>
+
+<style>
+  .content-guide-section {
+    padding: var(--space-12) 0;
+    background: var(--bg-body);
+  }
+
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .content-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-card h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-3) 0;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+  }
+
+  @media (max-width: 850px) {
+    .comparison-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .comp-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+  }
+
+  .comp-box h3 {
+    margin: 0 0 var(--space-2) 0;
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+  }
+
+  .comp-metric {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--accent-gold);
+    margin-bottom: var(--space-2);
+    font-weight: 700;
+  }
+
+  .comp-box p {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: var(--space-3);
+  }
+
+  .comp-yield {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--text-primary);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-table th, .guide-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .steps-list {
+    padding-left: var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  .steps-list li {
+    margin-bottom: var(--space-3);
+  }
+
+  .faq-detail {
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    list-style: none;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-detail[open] .faq-summary svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding-top: var(--space-3);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+</style>
