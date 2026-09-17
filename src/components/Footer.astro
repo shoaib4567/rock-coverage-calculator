@@ -1,0 +1,136 @@
+---
+import IconRock from './icons/IconRock.astro';
+---
+<footer class="site-footer no-print">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <IconRock size={22} class="footer-icon" />
+          <span>Rock Coverage Calculator</span>
+        </div>
+        <p class="footer-tagline">
+          The contractor's go-to tool for calculating rock, gravel, and stone coverage. Built for precision and field-ready accuracy.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Calculator</h4>
+        <ul>
+          <li><a href="#calculator">Coverage Calculator</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Materials</h4>
+        <ul>
+          <li><a href="#calculator">Pea Gravel</a></li>
+          <li><a href="#calculator">Crushed Granite</a></li>
+          <li><a href="#calculator">River Rock</a></li>
+          <li><a href="#calculator">Lava Rock</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#quick-answer">Quick Coverage Chart</a></li>
+          <li><a href="#density-reference-table">Aggregate Density Table</a></li>
+          <li><a href="#depth-guidelines">Depth Sizing Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {new Date().getFullYear()} rockcoveragecalculator.com. All calculations are estimates. Verify quantities with your material supplier before ordering.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--slate-950);
+    border-top: 1px solid rgba(107,122,141,0.1);
+    padding: var(--space-16) 0 var(--space-8);
+    margin-top: var(--space-20);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--space-10);
+    margin-bottom: var(--space-10);
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .footer-icon {
+    color: var(--gold-400);
+  }
+
+  .footer-tagline {
+    font-size: 0.825rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 320px;
+  }
+
+  .footer-col h4 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .footer-col ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .footer-col a {
+    font-size: 0.825rem;
+    color: var(--text-muted);
+    transition: color 150ms ease;
+  }
+
+  .footer-col a:hover {
+    color: var(--gold-400);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(107,122,141,0.1);
+    padding-top: var(--space-6);
+  }
+
+  .footer-bottom p {
+    font-size: 0.725rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

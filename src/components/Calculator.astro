@@ -1,0 +1,252 @@
+---
+import { ROCK_MATERIALS } from '../scripts/materials-data.js';
+import IconRuler from './icons/IconRuler.astro';
+import IconScale from './icons/IconScale.astro';
+import IconDepth from './icons/IconDepth.astro';
+import IconRock from './icons/IconRock.astro';
+---
+<section class="section" id="calculator">
+  <div class="container">
+    <div class="section-header">
+      <h2>Rock Coverage Calculator</h2>
+      <div class="section-divider"></div>
+      <p>Select your area shape, choose a rock type, set the depth, and get instant results with purchasing recommendations.</p>
+    </div>
+
+    <div class="calc-wrapper">
+      <!-- LEFT: Input Panel -->
+      <div class="calc-panel animate-fade-in-up">
+        <div class="calc-panel-title">
+          <IconRuler size={22} class="panel-icon" />
+          <h3>Project Dimensions</h3>
+        </div>
+
+        <!-- Shape Selector -->
+        <div class="shape-tabs" role="tablist" aria-label="Select area shape">
+          <button class="shape-tab active" data-shape="rectangle" role="tab" aria-selected="true" aria-label="Rectangle">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="4" y="6" width="20" height="16" rx="1.5"/>
+            </svg>
+            <span>Rectangle</span>
+          </button>
+          <button class="shape-tab" data-shape="circle" role="tab" aria-selected="false" aria-label="Circle">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="14" cy="14" r="10"/>
+            </svg>
+            <span>Circle</span>
+          </button>
+          <button class="shape-tab" data-shape="ring" role="tab" aria-selected="false" aria-label="Ring">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="14" cy="14" r="10"/>
+              <circle cx="14" cy="14" r="5" stroke-dasharray="3 2"/>
+            </svg>
+            <span>Ring</span>
+          </button>
+          <button class="shape-tab" data-shape="triangle" role="tab" aria-selected="false" aria-label="Triangle">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="14,4 4,24 24,24"/>
+            </svg>
+            <span>Triangle</span>
+          </button>
+          <button class="shape-tab" data-shape="trapezoid" role="tab" aria-selected="false" aria-label="Trapezoid">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="8,6 20,6 24,22 4,22"/>
+            </svg>
+            <span>Trapezoid</span>
+          </button>
+          <button class="shape-tab" data-shape="lshape" role="tab" aria-selected="false" aria-label="L-Shape">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h12v10h8v10H4z"/>
+            </svg>
+            <span>L-Shape</span>
+          </button>
+        </div>
+
+        <!-- Unit Toggle -->
+        <div class="unit-toggle" role="radiogroup" aria-label="Measurement unit">
+          <button class="active" data-unit="ft" role="radio" aria-checked="true">Feet</button>
+          <button data-unit="in" role="radio" aria-checked="false">Inches</button>
+          <button data-unit="m" role="radio" aria-checked="false">Meters</button>
+          <button data-unit="yd" role="radio" aria-checked="false">Yards</button>
+        </div>
+
+        <!-- Dynamic Dimension Inputs -->
+        <div id="dimension-inputs" class="dim-grid">
+          <!-- Populated by app.js -->
+        </div>
+
+        <!-- Material Picker -->
+        <div class="calc-panel-title" style="margin-top: var(--space-2);">
+          <IconRock size={22} class="panel-icon" />
+          <h3>Rock Material</h3>
+        </div>
+
+        <div class="material-grid" role="radiogroup" aria-label="Select rock material">
+          {ROCK_MATERIALS.map((mat) => (
+            <button 
+              class={`material-card ${mat.id === 'pea-gravel' ? 'active' : ''}`}
+              data-material={mat.id}
+              role="radio"
+              aria-checked={mat.id === 'pea-gravel' ? 'true' : 'false'}
+              aria-label={mat.name}
+            >
+              <div class="material-swatch" style={`background: ${mat.swatchColor}; background: radial-gradient(circle at 35% 35%, ${mat.swatchColor}dd, ${mat.swatchColor}88);`}></div>
+              <div class="material-name">{mat.name}</div>
+              <div class="material-density">{mat.tonsPerCuYd} t/yd³</div>
+            </button>
+          ))}
+        </div>
+
+        <!-- Depth Control -->
+        <div class="calc-panel-title" style="margin-top: var(--space-2);">
+          <IconDepth size={22} class="panel-icon" />
+          <h3>Rock Depth</h3>
+        </div>
+
+        <div class="depth-control">
+          <div class="depth-slider-track">
+            <input 
+              type="range" 
+              id="depth-slider" 
+              class="depth-slider" 
+              min="1" max="12" step="0.5" value="3"
+              aria-label="Rock depth in inches"
+            />
+          </div>
+          <div class="depth-value-display">
+            <span id="depth-value" class="value">3</span>
+            <span class="unit">inches</span>
+          </div>
+          <div class="depth-presets" aria-label="Quick depth presets">
+            <button class="depth-preset" data-depth="1">1"</button>
+            <button class="depth-preset" data-depth="2">2"</button>
+            <button class="depth-preset active" data-depth="3">3"</button>
+            <button class="depth-preset" data-depth="4">4"</button>
+            <button class="depth-preset" data-depth="6">6"</button>
+            <button class="depth-preset" data-depth="8">8"</button>
+            <button class="depth-preset" data-depth="12">12"</button>
+          </div>
+        </div>
+
+        <!-- Waste Factor -->
+        <div class="calc-panel-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="panel-icon"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
+          <h3>Waste / Settling Factor</h3>
+        </div>
+        <div class="waste-toggle" role="radiogroup" aria-label="Waste settling factor">
+          <button class="waste-chip" data-waste="5" role="radio" aria-checked="false">5%</button>
+          <button class="waste-chip active" data-waste="10" role="radio" aria-checked="true">10%</button>
+          <button class="waste-chip" data-waste="15" role="radio" aria-checked="false">15%</button>
+          <button class="waste-chip" data-waste="20" role="radio" aria-checked="false">20%</button>
+        </div>
+      </div>
+
+      <!-- RIGHT: Results & Visualization Panel -->
+      <div class="results-container animate-fade-in-up animate-delay-2">
+        <!-- Hero KPIs -->
+        <div class="calc-panel">
+          <div class="calc-panel-title">
+            <IconScale size={22} class="panel-icon" />
+            <h3>Your Results</h3>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card" id="kpi-area">
+              <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18" opacity="0.3"/><path d="M9 3v18" opacity="0.3"/></svg>
+              <div class="kpi-value">100</div>
+              <div class="kpi-unit">sq ft</div>
+              <div class="kpi-label">Total Area</div>
+            </div>
+            <div class="kpi-card" id="kpi-volume">
+              <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5" opacity="0.5"/><path d="M2 12l10 5 10-5" opacity="0.3"/></svg>
+              <div class="kpi-value">1.03</div>
+              <div class="kpi-unit">cu yd</div>
+              <div class="kpi-label">Volume Needed</div>
+            </div>
+            <div class="kpi-card" id="kpi-weight">
+              <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3V7"/><path d="M6 7H18L20 19H4L6 7Z"/></svg>
+              <div class="kpi-value">1.39</div>
+              <div class="kpi-unit">tons</div>
+              <div class="kpi-label">Total Weight</div>
+            </div>
+            <div class="kpi-card" id="kpi-bags">
+              <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 4H16L18 8H6L8 4Z"/><rect x="6" y="8" width="12" height="12" rx="1"/></svg>
+              <div class="kpi-value">56</div>
+              <div class="kpi-unit">bags</div>
+              <div class="kpi-label">0.5 cu ft Bags</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Depth Status -->
+        <div id="depth-status" class="depth-status good">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Depth meets recommended minimum
+        </div>
+
+        <!-- Breakdown Table -->
+        <div class="breakdown-section">
+          <div class="breakdown-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 17l4-8 4 4 5-10" opacity="0.7"/></svg>
+            <h4>Volume & Weight Breakdown</h4>
+          </div>
+          <table class="breakdown-table">
+            <tbody id="breakdown-body">
+              <tr><td>Volume (cubic feet)</td><td>27.78</td></tr>
+              <tr><td>Volume (cubic yards)</td><td>1.03</td></tr>
+              <tr><td>Weight (lbs)</td><td>2,778</td></tr>
+              <tr><td>Weight (tons)</td><td>1.39</td></tr>
+              <tr><td>Density</td><td>2,700 lbs/cu yd</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Purchase Grid -->
+        <div class="breakdown-section">
+          <div class="breakdown-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 17L12 22L22 17"/><rect x="5" y="5" width="14" height="8" rx="2"/></svg>
+            <h4>Purchasing Guide</h4>
+          </div>
+          <div id="purchase-grid" class="purchase-grid" style="padding: var(--space-4);">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+
+        <!-- Cost Estimator -->
+        <div class="breakdown-section">
+          <div class="breakdown-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            <h4>Cost Estimator</h4>
+          </div>
+          <div class="cost-row">
+            <span style="font-size: 0.825rem; color: var(--text-secondary);">Price per cubic yard</span>
+            <div class="input-field" style="max-width: 140px;">
+              <span style="color: var(--text-muted); font-weight: 600;">$</span>
+              <input type="number" id="cost-input" placeholder="0.00" step="0.01" min="0">
+            </div>
+          </div>
+          <div class="cost-total">
+            <span class="total-label">Estimated Total</span>
+            <span id="cost-total" class="total-value">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-row">
+          <button id="btn-print" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="3" width="14" height="18" rx="1"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="10" x2="14" y2="10" opacity="0.5"/></svg>
+            Print Spec Sheet
+          </button>
+          <button id="btn-csv" class="btn btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            Export CSV
+          </button>
+          <button id="btn-share" class="btn btn-ghost">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+            Share Link
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

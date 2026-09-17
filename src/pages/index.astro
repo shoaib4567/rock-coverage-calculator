@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import HeroSection from '../components/HeroSection.astro';
+import Calculator from '../components/Calculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import HomeContent from '../components/HomeContent.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+---
+<BaseLayout 
+  title="Rock Coverage Calculator - Calculate Cubic Yards, Tons & Bags for Any Project"
+  description="Free rock coverage calculator for landscaping projects. Calculate cubic yards, tons, and bags of gravel, river rock, crushed stone, and 12 other aggregates. Supports 6 area shapes with 3D visualization."
+>
+  <Header />
+  <main>
+    <HeroSection />
+    <Calculator />
+    <Visualizer />
+    <HomeContent />
+    <HowItWorks />
+    <FAQ />
+  </main>
+  <Footer />
+  <script src="../scripts/app.js"></script>
+</BaseLayout>

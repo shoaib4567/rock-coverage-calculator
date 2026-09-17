@@ -1,0 +1,221 @@
+---
+
+---
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-gradient"></div>
+    <div class="hero-particles" aria-hidden="true">
+      {Array.from({length: 20}).map((_, i) => (
+        <div class="rock-particle" style={`left: ${5 + Math.random() * 90}%; bottom: ${Math.random() * 30}%; animation-delay: ${Math.random() * 3}s; animation-duration: ${2 + Math.random() * 2}s; opacity: ${0.2 + Math.random() * 0.4}`}></div>
+      ))}
+    </div>
+  </div>
+  <div class="container hero-content">
+    <div class="hero-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 7.5V16.5L12 22L20 16.5V7.5L12 2Z"/></svg>
+      Professional Aggregate Estimator
+    </div>
+    <h1 class="hero-title">
+      <span class="hero-word">Calculate</span>
+      <span class="hero-word">Rock</span>
+      <span class="hero-word text-gold">Coverage</span>
+      <br />
+      <span class="hero-word">with</span>
+      <span class="hero-word">Quarry-Grade</span>
+      <span class="hero-word">Precision</span>
+    </h1>
+    <p class="hero-subtitle">
+      Determine the exact cubic yards, tons, and bags of rock, gravel, or stone needed for any project. Select your shape, pick your material, set your depth, and get field-ready estimates in seconds.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value">12</span>
+        <span class="hero-stat-label">Rock Types</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">6</span>
+        <span class="hero-stat-label">Area Shapes</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">3D</span>
+        <span class="hero-stat-label">Visualization</span>
+      </div>
+    </div>
+    <a href="#calculator" class="hero-cta">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+      Start Calculating
+    </a>
+  </div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5"/><path d="M7 7l5 5 5-5" opacity="0.4"/></svg>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: var(--space-20) 0 var(--space-12);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 20%, rgba(212,168,83,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 70% 70%, rgba(106,143,170,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 50% at 30% 80%, rgba(196,124,90,0.03) 0%, transparent 50%),
+      linear-gradient(180deg, var(--slate-950) 0%, var(--slate-900) 40%, var(--slate-950) 100%);
+  }
+
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: var(--gold-glow);
+    border: 1px solid rgba(212,168,83,0.2);
+    border-radius: var(--radius-full);
+    font-size: 0.725rem;
+    font-weight: 600;
+    color: var(--gold-400);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: var(--space-8);
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0, 0, 1) both;
+  }
+
+  .hero-badge svg {
+    color: var(--gold-500);
+  }
+
+  .hero-title {
+    font-size: clamp(2.25rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: var(--space-6);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.95rem, 1.5vw, 1.125rem);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 620px;
+    margin: 0 auto var(--space-10);
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0, 0, 1) 0.4s both;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    margin-bottom: var(--space-10);
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0, 0, 1) 0.5s both;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .hero-stat-value {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold-400);
+  }
+
+  .hero-stat-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .hero-stat-divider {
+    width: 1px;
+    height: 32px;
+    background: var(--slate-700);
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-8);
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
+    color: var(--text-inverse);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 20px rgba(212,168,83,0.25), 0 0 0 0 rgba(212,168,83,0);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0, 0, 1) 0.6s both;
+    text-decoration: none;
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(212,168,83,0.35), 0 0 0 4px rgba(212,168,83,0.1);
+    color: var(--text-inverse);
+  }
+
+  .hero-cta:active {
+    transform: translateY(0);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: var(--space-8);
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-muted);
+    opacity: 0.4;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      min-height: 75vh;
+      padding: var(--space-16) 0 var(--space-10);
+    }
+
+    .hero-stats {
+      gap: var(--space-4);
+    }
+
+    .hero-stat-value {
+      font-size: 1.25rem;
+    }
+  }
+</style>

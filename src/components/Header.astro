@@ -1,0 +1,128 @@
+---
+import IconRock from './icons/IconRock.astro';
+---
+<header class="site-header no-print">
+  <div class="container">
+    <nav class="header-nav">
+      <a href="/" class="header-logo" aria-label="Rock Coverage Calculator Home">
+        <IconRock size={28} class="logo-icon" />
+        <span class="logo-text">
+          <span class="logo-primary">Rock Coverage</span>
+          <span class="logo-secondary">Calculator</span>
+        </span>
+      </a>
+      <div class="header-links">
+        <a href="#calculator" class="nav-link">Calculator</a>
+        <a href="#rock-coverage-guide" class="nav-link">Coverage Guide</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-overlay);
+    background: rgba(10, 13, 16, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(107,122,141,0.1);
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) 0;
+  }
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: opacity 150ms ease;
+  }
+
+  .header-logo:hover {
+    opacity: 0.85;
+    color: var(--text-primary);
+  }
+
+  .logo-icon {
+    color: var(--gold-400);
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  .logo-primary {
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-secondary {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .header-links {
+    display: flex;
+    gap: var(--space-6);
+  }
+
+  .nav-link {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: var(--space-2) 0;
+    position: relative;
+    transition: color 150ms ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold-500);
+    border-radius: 1px;
+    transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-link:hover {
+    color: var(--text-primary);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  @media (max-width: 640px) {
+    .header-links {
+      gap: var(--space-4);
+    }
+
+    .nav-link {
+      font-size: 0.75rem;
+    }
+
+    .logo-primary {
+      font-size: 0.825rem;
+    }
+  }
+</style>
