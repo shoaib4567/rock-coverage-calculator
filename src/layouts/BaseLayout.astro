@@ -1,4 +1,9 @@
 ---
+import '../styles/global.css';
+import '../styles/calculator.css';
+import '../styles/visualizer.css';
+import '../styles/animations.css';
+
 interface Props {
   title: string;
   description: string;
@@ -32,12 +37,6 @@ const canonicalURL = 'https://rockcoveragecalculator.com';
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="/src/styles/global.css" />
-  <link rel="stylesheet" href="/src/styles/calculator.css" />
-  <link rel="stylesheet" href="/src/styles/visualizer.css" />
-  <link rel="stylesheet" href="/src/styles/animations.css" />
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json" set:html={JSON.stringify({
