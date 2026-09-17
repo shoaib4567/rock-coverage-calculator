@@ -45,9 +45,38 @@ import IconRock from './icons/IconRock.astro';
     transition: background-color var(--duration-base) var(--ease-smooth), border-color var(--duration-base) var(--ease-smooth);
   }
 
+  :global(html[data-theme="light"]) .site-header,
   :global([data-theme="light"]) .site-header {
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom-color: rgba(148, 163, 184, 0.25);
+    background: rgba(255, 255, 255, 0.96) !important;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.35) !important;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .site-header .logo-primary,
+  :global([data-theme="light"]) .site-header .logo-primary {
+    color: #0f172a !important;
+  }
+
+  :global(html[data-theme="light"]) .site-header .logo-secondary,
+  :global([data-theme="light"]) .site-header .logo-secondary {
+    color: #64748b !important;
+  }
+
+  :global(html[data-theme="light"]) .site-header .nav-link,
+  :global([data-theme="light"]) .site-header .nav-link {
+    color: #334155 !important;
+  }
+
+  :global(html[data-theme="light"]) .site-header .nav-link:hover,
+  :global([data-theme="light"]) .site-header .nav-link:hover {
+    color: #0f172a !important;
+  }
+
+  :global(html[data-theme="light"]) .theme-toggle-btn,
+  :global([data-theme="light"]) .theme-toggle-btn {
+    background: #f1f5f9 !important;
+    border-color: #cbd5e1 !important;
+    color: #0f172a !important;
   }
 
   .header-nav {
