@@ -38,10 +38,16 @@ import IconRock from './icons/IconRock.astro';
     position: sticky;
     top: 0;
     z-index: var(--z-overlay);
-    background: rgba(10, 13, 16, 0.85);
+    background: var(--surface-glass);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(107,122,141,0.1);
+    border-bottom: 1px solid var(--surface-glass-border);
+    transition: background-color var(--duration-base) var(--ease-smooth), border-color var(--duration-base) var(--ease-smooth);
+  }
+
+  :global([data-theme="light"]) .site-header {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom-color: rgba(148, 163, 184, 0.25);
   }
 
   .header-nav {
