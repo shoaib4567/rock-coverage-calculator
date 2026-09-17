@@ -1,0 +1,324 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import CoverageChartCalculator from '../components/calculators/CoverageChartCalculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Rock Coverage', url: '/rock-coverage-chart' },
+  { name: 'Rock Coverage Chart', url: '/rock-coverage-chart' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Rock Coverage Chart' },
+  { label: 'Yard Spread', value: '324 sq ft at 1" Depth' },
+  { label: 'Ton Spread', value: '240 sq ft at 1" Depth (1.35 T/yd³)' },
+  { label: 'Depth Standards', value: '1", 2", 2.5", 3", 4", 6" Depths' }
+];
+
+const quickStats = [
+  { value: '324 sq ft', label: '1 Yard @ 1"', desc: 'Theoretical benchmark spread per cubic yard' },
+  { value: '108 sq ft', label: '1 Yard @ 3"', desc: 'Standard residential flower bed coverage' },
+  { value: '80 sq ft', label: '1 Ton @ 3"', desc: 'Standard coverage per 2,000 lbs quarry stone' }
+];
+
+const faqItems = [
+  {
+    q: 'How many square feet does 1 ton of rock cover?',
+    a: 'At a standard 3-inch depth, 1 ton of typical rock covers approximately 80 square feet. At a 2-inch depth (pea gravel pathways), 1 ton covers approximately 120 square feet. At a 4-inch depth (driveway gravel), 1 ton covers 60 square feet.'
+  },
+  {
+    q: 'How many square feet does 1 cubic yard of rock cover?',
+    a: 'At 1 inch depth, 1 cubic yard covers 324 square feet. At 2 inches, it covers 162 square feet. At 3 inches, it covers 108 square feet. At 4 inches, it covers 81 square feet.'
+  },
+  {
+    q: 'Why does rock coverage decrease as stone size increases?',
+    a: 'Larger stones (such as 2-4 inch river cobbles) cannot physically be spread in a 1-inch or 2-inch thin layer without leaving gaping voids that expose dirt. Larger stones require a deeper installed layer (minimum 4 to 6 inches), which reduces the total square footage spread you can achieve per ton or yard.'
+  },
+  {
+    q: 'How do I use this coverage chart to order the right amount of stone?',
+    a: 'Locate your desired depth column in the table, check the square footage covered per yard or ton, and divide your total project area by that number. For instance, for a 500 sq ft bed at 3" depth (where 1 ton covers 80 sq ft): 500 / 80 = 6.25 tons.'
+  }
+];
+---
+
+<BaseLayout
+  title="Rock Coverage Chart - Square Feet per Ton & Yard Reference"
+  description="Master rock coverage chart and dynamic calculator. Lookup exact square foot yields per cubic yard and ton across 1 to 6 inch depths for all landscaping stones."
+  canonicalPath="/rock-coverage-chart"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Rock Coverage Chart",
+      "url": "https://rockcoveragecalculator.com/rock-coverage-chart",
+      "description": "Interactive rock coverage chart and depth matrix calculator for landscape aggregates.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Rock Coverage Chart"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Rock Coverage Chart"
+      highlightWord="Chart"
+      badge="Civil Reference & Yield Matrix"
+      subtitle="Complete field-tested reference tables for square feet per cubic yard and square feet per ton across all landscape depths and stone varieties."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <CoverageChartCalculator />
+
+    <Visualizer />
+
+    <!-- Engineering Guide Section -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>The Master Aggregate Coverage Reference Guide</h2>
+          <p>
+            When planning a landscaping project, having an immediate depth-to-coverage conversion chart prevents costly ordering mistakes. Below is the master industry table showing exact square footage coverage per cubic yard and per ton across all standard installation depths.
+          </p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Depth (Inches)</th>
+                  <th>Sq Ft / Yard³</th>
+                  <th>Sq Ft / Ton (River Rock)</th>
+                  <th>Sq Ft / Ton (Crushed Stone)</th>
+                  <th>Sq Ft / Ton (Lava Rock)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1.0 Inch</strong></td>
+                  <td>324 sq ft</td>
+                  <td>240 sq ft</td>
+                  <td>231 sq ft</td>
+                  <td>381 sq ft</td>
+                </tr>
+                <tr>
+                  <td><strong>1.5 Inches</strong></td>
+                  <td>216 sq ft</td>
+                  <td>160 sq ft</td>
+                  <td>154 sq ft</td>
+                  <td>254 sq ft</td>
+                </tr>
+                <tr>
+                  <td><strong>2.0 Inches</strong></td>
+                  <td>162 sq ft</td>
+                  <td>120 sq ft</td>
+                  <td>116 sq ft</td>
+                  <td>191 sq ft</td>
+                </tr>
+                <tr>
+                  <td><strong>2.5 Inches</strong></td>
+                  <td>130 sq ft</td>
+                  <td>96 sq ft</td>
+                  <td>93 sq ft</td>
+                  <td>153 sq ft</td>
+                </tr>
+                <tr>
+                  <td><strong>3.0 Inches</strong></td>
+                  <td>108 sq ft</td>
+                  <td>80 sq ft</td>
+                  <td>77 sq ft</td>
+                  <td>127 sq ft</td>
+                </tr>
+                <tr>
+                  <td><strong>3.5 Inches</strong></td>
+                  <td>93 sq ft</td>
+                  <td>69 sq ft</td>
+                  <td>66 sq ft</td>
+                  <td>109 sq ft</td>
+                </tr>
+                <tr>
+                  <td><strong>4.0 Inches</strong></td>
+                  <td>81 sq ft</td>
+                  <td>60 sq ft</td>
+                  <td>58 sq ft</td>
+                  <td>95 sq ft</td>
+                </tr>
+                <tr>
+                  <td><strong>6.0 Inches</strong></td>
+                  <td>54 sq ft</td>
+                  <td>40 sq ft</td>
+                  <td>39 sq ft</td>
+                  <td>64 sq ft</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Why Stone Density Changes Coverage per Ton</h3>
+          <p>
+            While 1 cubic yard of any material always covers the exact same square footage at a given depth (for instance, 108 square feet at 3 inches), <strong>coverage per ton varies significantly</strong> depending on geological density:
+          </p>
+          <ul>
+            <li>
+              <strong>Lightweight Volcanic Rocks (Lava Rock):</strong> Because lava rock is porous and lightweight (0.85 tons/yd³), 1 ton gives you 1.18 cubic yards of physical material, covering a massive 127 square feet at 3 inches depth.
+            </li>
+            <li>
+              <strong>Standard Dense Rocks (Granite & Limestone):</strong> These rocks weigh between 1.35 and 1.40 tons/yd³, giving you approximately 0.71 to 0.74 cubic yards per ton, yielding 77 to 80 square feet at 3 inches depth.
+            </li>
+            <li>
+              <strong>Compacted Road Base with Fines (#411 / Crusher Run):</strong> Dense aggregate with stone dust weighs 1.50 tons/yd³ uncompacted, yielding only 72 square feet per ton at 3 inches depth.
+            </li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav activePage="rock-coverage-chart" />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+.content-guide-section {
+  padding: var(--space-12) 0;
+  background: var(--color-bg);
+}
+
+.content-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.content-card h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.content-card h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: var(--space-6) 0 var(--space-3) 0;
+}
+
+.content-card p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+
+.content-card ul {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+  padding-left: var(--space-6);
+}
+
+.content-card li {
+  margin-bottom: var(--space-2);
+}
+
+.table-container {
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+  font-weight: 600;
+}
+
+td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+tr:hover td {
+  background: rgba(202, 138, 4, 0.04);
+}
+
+.faq-card {
+  margin-top: var(--space-8);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.faq-item {
+  padding: var(--space-4);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.faq-item h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.faq-item p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+</style>

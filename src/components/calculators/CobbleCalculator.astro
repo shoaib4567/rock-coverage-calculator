@@ -1,0 +1,330 @@
+---
+// Cobblestone & Belgian Block Calculator Component
+---
+<section class="section" id="cobble-calc">
+  <div class="container">
+    <div class="section-header">
+      <h2>Cobblestone & Belgian Block Calculator</h2>
+      <div class="section-divider"></div>
+      <p>Calculate exact individual block counts, full quarry pallets, setting mortar volume, and scale tonnage for driveway paving and border curbing.</p>
+    </div>
+
+    <div class="calc-wrapper">
+      <!-- Input Panel -->
+      <div class="calc-panel animate-fade-in-up">
+        <div class="calc-panel-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="8" height="6" rx="1"/><rect x="13" y="4" width="8" height="6" rx="1"/><rect x="7" y="14" width="10" height="6" rx="1"/></svg>
+          <h3>Installation Mode & Dimensions</h3>
+        </div>
+
+        <!-- Mode Toggle -->
+        <div class="unit-toggle mode-toggle" role="tablist">
+          <button class="active" id="mode-paving" type="button">Area Paving (Apron / Patio)</button>
+          <button id="mode-curbing" type="button">Linear Curbing (Driveway Border)</button>
+        </div>
+
+        <!-- Paving Area Inputs -->
+        <div id="cobble-paving-inputs" class="dim-grid">
+          <div class="input-field">
+            <label for="cobble-length">Length</label>
+            <input type="number" id="cobble-length" value="20" min="1" step="0.5" />
+            <span class="unit-label">feet</span>
+          </div>
+          <div class="input-field">
+            <label for="cobble-width">Width</label>
+            <input type="number" id="cobble-width" value="10" min="1" step="0.5" />
+            <span class="unit-label">feet</span>
+          </div>
+        </div>
+
+        <!-- Curbing Linear Inputs (Hidden by default) -->
+        <div id="cobble-curbing-inputs" class="dim-grid" style="display: none;">
+          <div class="input-field" style="grid-column: 1 / -1;">
+            <label for="cobble-linear-ft">Total Border Run Length</label>
+            <input type="number" id="cobble-linear-ft" value="100" min="1" step="1" />
+            <span class="unit-label">linear feet</span>
+          </div>
+        </div>
+
+        <!-- Block Size Selector -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <h3>Belgian Block Size & Grade</h3>
+        </div>
+
+        <div class="block-select-grid" role="radiogroup">
+          <button type="button" class="block-btn active" data-size="regulation">
+            <div class="block-btn-title">Regulation Block</div>
+            <div class="block-btn-dim">5" × 5" × 9"</div>
+            <div class="block-btn-spec">3.2 pcs/sq ft | 31 lbs</div>
+          </button>
+          <button type="button" class="block-btn" data-size="standard-cube">
+            <div class="block-btn-title">Standard Cube</div>
+            <div class="block-btn-dim">4" × 4" × 4"</div>
+            <div class="block-btn-spec">9.0 pcs/sq ft | 9 lbs</div>
+          </button>
+          <button type="button" class="block-btn" data-size="jumbo">
+            <div class="block-btn-title">Jumbo Block</div>
+            <div class="block-btn-dim">4" × 7" × 10"</div>
+            <div class="block-btn-spec">2.1 pcs/sq ft | 42 lbs</div>
+          </button>
+        </div>
+
+        <!-- Joint & Cutting Waste Settings -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+          <h3>Joint Spacing & Cutting Buffer</h3>
+        </div>
+
+        <div class="dim-grid">
+          <div class="input-field">
+            <label for="cobble-joint">Mortar Joint Width</label>
+            <select id="cobble-joint">
+              <option value="0.25">1/4 Inch (Tight)</option>
+              <option value="0.375" selected>3/8 Inch (Standard)</option>
+              <option value="0.5">1/2 Inch (Wide)</option>
+            </select>
+          </div>
+          <div class="input-field">
+            <label for="cobble-waste">Cutting & Sorting Buffer</label>
+            <select id="cobble-waste">
+              <option value="5">5% (Straight Runs)</option>
+              <option value="8" selected>8% (Standard Driveway)</option>
+              <option value="12">12% (Curved Radii)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="results-container animate-fade-in-up animate-delay-2">
+        <div class="calc-panel">
+          <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <h3>Cobblestone Bill of Materials</h3>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <svg class="kpi-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              <div class="kpi-value" id="cobble-kpi-blocks">691</div>
+              <div class="kpi-unit">pieces</div>
+              <div class="kpi-label">Blocks to Order</div>
+            </div>
+            <div class="kpi-card">
+              <svg class="kpi-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+              <div class="kpi-value" id="cobble-kpi-pallets">6.6</div>
+              <div class="kpi-unit">pallets</div>
+              <div class="kpi-label">Quarry Pallets</div>
+            </div>
+            <div class="kpi-card">
+              <svg class="kpi-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3V7"/><path d="M6 7H18L20 19H4L6 7Z"/></svg>
+              <div class="kpi-value" id="cobble-kpi-weight">10.7</div>
+              <div class="kpi-unit">tons</div>
+              <div class="kpi-label">Total Weight</div>
+            </div>
+            <div class="kpi-card">
+              <svg class="kpi-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 17L12 22L22 17"/><rect x="5" y="5" width="14" height="8" rx="2"/></svg>
+              <div class="kpi-value" id="cobble-kpi-base">4.9</div>
+              <div class="kpi-unit">cu yd</div>
+              <div class="kpi-label">8" Sub-Base Needed</div>
+            </div>
+          </div>
+
+          <!-- Itemized Breakdown -->
+          <div class="breakdown-section" style="margin-top: var(--space-4);">
+            <table class="breakdown-table">
+              <tbody id="cobble-breakdown-body">
+                <tr><td>Installation Surface</td><td id="row-surface">200 sq ft (Paving)</td></tr>
+                <tr><td>Nominal Block Size</td><td id="row-block-size">5" × 5" × 9" Regulation</td></tr>
+                <tr><td>Average Weight per Block</td><td id="row-unit-weight">31.0 lbs</td></tr>
+                <tr><td>Pieces per Pallet</td><td id="row-pallet-pcs">105 pcs (~3,250 lbs)</td></tr>
+                <tr><td>1" Setting Bed Sand Needed</td><td id="row-sand-vol">0.62 cu yd (0.84 tons)</td></tr>
+                <tr><td>Polymeric / Mortar Joint Infill</td><td id="row-mortar">7.2 bags (50 lb)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .block-select-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    margin: var(--space-3) 0 var(--space-4) 0;
+  }
+
+  @media (max-width: 640px) {
+    .block-select-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .block-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .block-btn:hover {
+    border-color: var(--accent-gold);
+  }
+
+  .block-btn.active {
+    border-color: var(--accent-gold);
+    background: rgba(212, 168, 83, 0.08);
+  }
+
+  .block-btn-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .block-btn-dim {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--accent-gold);
+    margin: 2px 0;
+  }
+
+  .block-btn-spec {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const BLOCKS = {
+      'regulation': { name: '5" × 5" × 9" Regulation', l: 9, w: 5, h: 5, weight: 31, pcsPerPallet: 105, pcsPerLinFt: 1.26 },
+      'standard-cube': { name: '4" × 4" × 4" Standard Cube', l: 4, w: 4, h: 4, weight: 9, pcsPerPallet: 375, pcsPerLinFt: 2.74 },
+      'jumbo': { name: '4" × 7" × 10" Jumbo Block', l: 10, w: 4, h: 7, weight: 42, pcsPerPallet: 72, pcsPerLinFt: 1.14 }
+    };
+
+    let activeMode = 'paving';
+    let activeSize = 'regulation';
+
+    const modePavingBtn = document.getElementById('mode-paving');
+    const modeCurbingBtn = document.getElementById('mode-curbing');
+    const pavingInputs = document.getElementById('cobble-paving-inputs');
+    const curbingInputs = document.getElementById('cobble-curbing-inputs');
+
+    const lengthInput = document.getElementById('cobble-length');
+    const widthInput = document.getElementById('cobble-width');
+    const linearInput = document.getElementById('cobble-linear-ft');
+    const jointSelect = document.getElementById('cobble-joint');
+    const wasteSelect = document.getElementById('cobble-waste');
+    const blockBtns = document.querySelectorAll('.block-btn');
+
+    const kpiBlocks = document.getElementById('cobble-kpi-blocks');
+    const kpiPallets = document.getElementById('cobble-kpi-pallets');
+    const kpiWeight = document.getElementById('cobble-kpi-weight');
+    const kpiBase = document.getElementById('cobble-kpi-base');
+
+    const rowSurface = document.getElementById('row-surface');
+    const rowBlockSize = document.getElementById('row-block-size');
+    const rowUnitWeight = document.getElementById('row-unit-weight');
+    const rowPalletPcs = document.getElementById('row-pallet-pcs');
+    const rowSandVol = document.getElementById('row-sand-vol');
+    const rowMortar = document.getElementById('row-mortar');
+
+    if (modePavingBtn && modeCurbingBtn) {
+      modePavingBtn.addEventListener('click', () => {
+        activeMode = 'paving';
+        modePavingBtn.classList.add('active');
+        modeCurbingBtn.classList.remove('active');
+        pavingInputs.style.display = 'grid';
+        curbingInputs.style.display = 'none';
+        calculate();
+      });
+
+      modeCurbingBtn.addEventListener('click', () => {
+        activeMode = 'curbing';
+        modeCurbingBtn.classList.add('active');
+        modePavingBtn.classList.remove('active');
+        pavingInputs.style.display = 'none';
+        curbingInputs.style.display = 'grid';
+        calculate();
+      });
+    }
+
+    blockBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        blockBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSize = btn.dataset.size;
+        calculate();
+      });
+    });
+
+    [lengthInput, widthInput, linearInput, jointSelect, wasteSelect].forEach(el => {
+      if (el) el.addEventListener('input', calculate);
+    });
+
+    function calculate() {
+      const block = BLOCKS[activeSize];
+      const joint = parseFloat(jointSelect.value) || 0.375;
+      const waste = (parseFloat(wasteSelect.value) || 8) / 100;
+
+      let netBlocks = 0;
+      let areaSqFt = 0;
+
+      if (activeMode === 'paving') {
+        const len = parseFloat(lengthInput.value) || 0;
+        const wid = parseFloat(widthInput.value) || 0;
+        areaSqFt = len * wid;
+
+        // Effective area of 1 block with joint in square inches
+        const effBlockSqInches = (block.l + joint) * (block.w + joint);
+        const totalSqInches = areaSqFt * 144;
+        const theoreticalBlocks = totalSqInches / effBlockSqInches;
+        netBlocks = Math.ceil(theoreticalBlocks * (1 + waste));
+
+        if (rowSurface) rowSurface.textContent = `${areaSqFt.toFixed(1)} sq ft (Paving)`;
+      } else {
+        const linearFt = parseFloat(linearInput.value) || 0;
+        const totalInches = linearFt * 12;
+        const pitch = block.l + joint;
+        const theoreticalBlocks = totalInches / pitch;
+        netBlocks = Math.ceil(theoreticalBlocks * (1 + waste));
+        areaSqFt = (linearFt * (block.w / 12));
+
+        if (rowSurface) rowSurface.textContent = `${linearFt.toFixed(1)} linear ft (Border Curbing)`;
+      }
+
+      const totalLbs = netBlocks * block.weight;
+      const totalTons = totalLbs / 2000;
+      const pallets = (netBlocks / block.pcsPerPallet).toFixed(1);
+
+      // Sub-base (8 inches) for paved area
+      const baseCuYds = (areaSqFt * (8 / 12)) / 27;
+      // 1" bedding sand
+      const sandCuYds = (areaSqFt * (1 / 12)) / 27;
+      const sandTons = sandCuYds * 1.35;
+      // Joint mortar: approx 1 bag per 25-30 sq ft
+      const mortarBags = Math.ceil(areaSqFt / 28);
+
+      if (kpiBlocks) kpiBlocks.textContent = netBlocks.toLocaleString();
+      if (kpiPallets) kpiPallets.textContent = pallets;
+      if (kpiWeight) kpiWeight.textContent = totalTons.toFixed(1);
+      if (kpiBase) kpiBase.textContent = baseCuYds.toFixed(1);
+
+      if (rowBlockSize) rowBlockSize.textContent = block.name;
+      if (rowUnitWeight) rowUnitWeight.textContent = `${block.weight} lbs`;
+      if (rowPalletPcs) rowPalletPcs.textContent = `${block.pcsPerPallet} pcs (~${(block.pcsPerPallet * block.weight).toLocaleString()} lbs)`;
+      if (rowSandVol) rowSandVol.textContent = `${sandCuYds.toFixed(2)} cu yd (${sandTons.toFixed(2)} tons)`;
+      if (rowMortar) rowMortar.textContent = `${mortarBags} bags (50 lb)`;
+    }
+
+    calculate();
+  });
+</script>

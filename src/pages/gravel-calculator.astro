@@ -1,0 +1,316 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import GravelCalculator from '../components/calculators/GravelCalculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/gravel-calculator' },
+  { name: 'Gravel Calculator', url: '/gravel-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Gravel Calculator' },
+  { label: 'Application Grades', value: '#57 Crushed Stone, Crusher Run, Pea Gravel' },
+  { label: 'Bulk Density', value: '1.40 Tons/yd³ (2,800 lbs)' },
+  { label: 'Traffic Engineering', value: 'Vehicular (4"-6") vs Pedestrian (2"-3")' }
+];
+
+const quickStats = [
+  { value: '4"-6" Depth', label: 'Driveway Standard', desc: 'Engineered depth required to resist passenger vehicle ruts' },
+  { value: '15% Overage', label: 'Compaction Factor', desc: 'Volume loss caused by mechanical plate tamper or tire compaction' },
+  { value: '14 Tons', label: 'Tandem Truckload', desc: 'Standard bulk dump truck payload delivery capacity' }
+];
+
+const faqItems = [
+  {
+    q: 'How much gravel do I need for a 50 foot driveway?',
+    a: 'A standard single-lane driveway is 10 to 12 feet wide. For a 50x12 foot driveway (600 sq ft) with a 4-inch compacted gravel surface, you need 7.41 cubic yards. Adding a 15% compaction allowance yields approximately 8.5 cubic yards, which converts to approximately 11.9 tons of #57 crushed gravel.'
+  },
+  {
+    q: 'What is the best gravel size for a driveway?',
+    a: 'Civil contractors recommend angular 3/4-inch crushed gravel (#57 stone). Unlike rounded pea gravel that shifts and rolls beneath car tires, angular fractured stones interlock under compaction to form a stable, durable roadway surface that sheds stormwater.'
+  },
+  {
+    q: 'How thick should gravel be for a garden walkway?',
+    a: 'Install walkway gravel at a compacted depth of 2.0 to 2.5 inches. Layers thicker than 2.5 inches feel spongy and cause pedestrian footwear to sink, while layers thinner than 2 inches expose underlayment fabric and allow weeds to penetrate.'
+  },
+  {
+    q: 'Why does gravel need a crushed stone base beneath it?',
+    a: 'Pouring loose gravel directly onto native dirt will fail within one rainy season, as car tires push gravel into soft mud. A 4-inch compacted sub-base of dense graded stone (#411 crusher run) over heavy geotextile fabric creates a permanent rigid foundation that prevents ruts.'
+  }
+];
+---
+
+<BaseLayout
+  title="Gravel Calculator - Driveway & Walkway Tons & Yards Estimator"
+  description="Calculate gravel tonnage and cubic yards for driveways, walkways, and patios. Includes base vs top course calculations and 15% mechanical compaction allowances."
+  canonicalPath="/gravel-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Gravel Calculator",
+      "url": "https://rockcoveragecalculator.com/gravel-calculator",
+      "description": "Calculates gravel requirements for driveways, pathways, and patios with compaction and dual-layer engineering.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Gravel"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Gravel Calculator"
+      highlightWord="Calculator"
+      badge="Driveway & Pathway Engineering"
+      subtitle="Accurate volumetric and scale tonnage calculations for #57 crushed gravel driveways, garden pathways, and structural foundation base courses."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <GravelCalculator />
+
+    <Visualizer />
+
+    <!-- Technical Guide on Gravel Engineering -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Engineering a Long-Lasting Gravel Surface</h2>
+          <p>
+            Gravel is one of the most cost-effective and permeable surface materials available for driveways, walkways, and parking pads. However, the difference between a gravel driveway that lasts twenty years and one that turns into a rutted mud pit within six months lies in <strong>layered construction engineering</strong> and <strong>compaction allowance math</strong>.
+          </p>
+
+          <h3>The Two-Layer Driveway System</h3>
+          <p>
+            Professional roadway contractors never build a gravel driveway using a single rock grade. Heavy vehicle loads require a structured two-layer system:
+          </p>
+          <ul>
+            <li>
+              <strong>Layer 1: Subgrade Base (4 to 6 Inches of #411 Crusher Run):</strong> This dense aggregate contains particle sizes ranging from 3/4-inch down to fine stone dust. When watered and rolled with a vibratory compactor, the fines cement the angular stones together into a solid, unyielding sub-base.
+            </li>
+            <li>
+              <strong>Layer 2: Surface Wearing Course (2 Inches of Clean #57 Crushed Stone):</strong> Clean washed 3/4-inch angular stone provides a clean driving surface without dust, allows stormwater to drain rapidly, and locks together mechanically to resist tire torque.
+            </li>
+          </ul>
+
+          <div class="highlight-box">
+            <h4>The Critical Compaction Rule</h4>
+            <p>
+              When purchasing crusher run or dense graded gravel, always multiply your theoretical volume by <strong>1.15 to 1.20 (15% to 20% overage)</strong>. Compaction tamps down the air pockets between loose rocks, requiring more quarry tons to achieve your finished design elevation.
+            </p>
+          </div>
+
+          <h3>Gravel Depth & Specification Quick Reference</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Application</th>
+                  <th>Recommended Depth</th>
+                  <th>Recommended Stone Grade</th>
+                  <th>Compaction Allowance</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Residential Driveway</strong></td>
+                  <td>4" Base + 2" Top</td>
+                  <td>#411 Base + #57 Clean Top</td>
+                  <td>15% to 20%</td>
+                </tr>
+                <tr>
+                  <td><strong>Garden Walkway / Path</strong></td>
+                  <td>2.0" to 2.5"</td>
+                  <td>3/8" Pea Gravel or 1/2" Chip</td>
+                  <td>10%</td>
+                </tr>
+                <tr>
+                  <td><strong>Outdoor Fire Pit Patio</strong></td>
+                  <td>2.5"</td>
+                  <td>Decomposed Granite or Pea Stone</td>
+                  <td>10%</td>
+                </tr>
+                <tr>
+                  <td><strong>Shed / RV Parking Pad</strong></td>
+                  <td>6.0"</td>
+                  <td>#411 Crusher Run Base</td>
+                  <td>20%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav activePage="gravel-calculator" />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+.content-guide-section {
+  padding: var(--space-12) 0;
+  background: var(--color-bg);
+}
+
+.content-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.content-card h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.content-card h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: var(--space-6) 0 var(--space-3) 0;
+}
+
+.content-card p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+
+.content-card ul {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+  padding-left: var(--space-6);
+}
+
+.content-card li {
+  margin-bottom: var(--space-2);
+}
+
+.highlight-box {
+  background: var(--color-bg);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-4) var(--space-6);
+  margin: var(--space-6) 0;
+}
+
+.highlight-box h4 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.highlight-box p {
+  margin-bottom: 0;
+  font-size: var(--text-sm);
+}
+
+.table-container {
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+  font-weight: 600;
+}
+
+td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+tr:hover td {
+  background: rgba(202, 138, 4, 0.04);
+}
+
+.faq-card {
+  margin-top: var(--space-8);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.faq-item {
+  padding: var(--space-4);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.faq-item h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.faq-item p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+</style>

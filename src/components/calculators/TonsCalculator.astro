@@ -1,0 +1,658 @@
+---
+// Rock Tons Calculator & Quarry Scale Ticket Estimator
+---
+<section class="section" id="tons-calc">
+  <div class="container">
+    <div class="section-header">
+      <h2>Rock Tonnage & Quarry Scale Calculator</h2>
+      <div class="section-divider"></div>
+      <p>Convert cubic yards and coverage area into certified quarry weigh-scale tons with moisture saturation adjustment and aggregate density specs.</p>
+    </div>
+
+    <div class="calc-wrapper">
+      <!-- Input Panel -->
+      <div class="calc-panel animate-fade-in-up">
+        <div class="calc-panel-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4M12 8v8"/></svg>
+          <h3>Quantity Input Method</h3>
+        </div>
+
+        <div class="unit-toggle mode-toggle" role="tablist">
+          <button class="active" id="tons-mode-dims" type="button">Area & Depth (Sq Ft)</button>
+          <button id="tons-mode-yards" type="button">Direct Cubic Yards</button>
+        </div>
+
+        <!-- Dimensions Mode Inputs -->
+        <div id="tons-dims-container">
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="tons-length">Length</label>
+              <input type="number" id="tons-length" value="30" min="1" step="0.5" />
+              <span class="unit-label">feet</span>
+            </div>
+            <div class="input-field">
+              <label for="tons-width">Width</label>
+              <input type="number" id="tons-width" value="12" min="1" step="0.5" />
+              <span class="unit-label">feet</span>
+            </div>
+          </div>
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="tons-depth">Depth</label>
+              <input type="number" id="tons-depth" value="3.0" min="0.5" max="18" step="0.5" />
+              <span class="unit-label">inches</span>
+            </div>
+            <div class="input-field">
+              <label for="tons-waste">Quarry Delivery Buffer</label>
+              <input type="number" id="tons-waste" value="10" min="0" max="25" step="1" />
+              <span class="unit-label">% extra</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Yards Mode Inputs (Hidden by default) -->
+        <div id="tons-yards-container" style="display: none;">
+          <div class="input-field" style="margin-bottom: var(--space-4);">
+            <label for="tons-direct-yards">Cubic Yards</label>
+            <input type="number" id="tons-direct-yards" value="4.0" min="0.1" step="0.25" />
+            <span class="unit-label">yd³</span>
+          </div>
+        </div>
+
+        <!-- Aggregate Density Presets -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <h3>Quarry Aggregate Density Spec</h3>
+        </div>
+
+        <div class="density-select-grid" role="radiogroup">
+          <button type="button" class="dens-btn active" data-density="1.35" data-name="Clean River Rock / Gravel (#57)">
+            <div class="dens-title">Clean River Rock / #57 Gravel</div>
+            <div class="dens-spec">1.35 Tons/yd³ (2,700 lbs/yd³)</div>
+          </button>
+          <button type="button" class="dens-btn" data-density="1.40" data-name="Crushed Granite / Traprock">
+            <div class="dens-title">Crushed Granite / Traprock</div>
+            <div class="dens-spec">1.40 Tons/yd³ (2,800 lbs/yd³)</div>
+          </button>
+          <button type="button" class="dens-btn" data-density="1.50" data-name="Dense Graded Base / Quarry Process / #411">
+            <div class="dens-title">Crushed Base with Fines (#411 / DGA)</div>
+            <div class="dens-spec">1.50 Tons/yd³ (3,000 lbs/yd³ uncompacted)</div>
+          </button>
+          <button type="button" class="dens-btn" data-density="0.85" data-name="Volcanic Lava Rock (Red/Black)">
+            <div class="dens-title">Volcanic Lava Rock</div>
+            <div class="dens-spec">0.85 Tons/yd³ (1,700 lbs/yd³ lightweight)</div>
+          </button>
+        </div>
+
+        <!-- Stockpile Moisture Saturation Slider -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          <h3>Quarry Stockpile Moisture Saturation</h3>
+        </div>
+
+        <div class="range-container">
+          <div class="range-header">
+            <span>Moisture Absorption Weight Surcharge</span>
+            <span class="range-val" id="moisture-display">4% (Typical Stockpile)</span>
+          </div>
+          <input type="range" id="tons-moisture" min="0" max="15" value="4" step="1" />
+        </div>
+
+        <!-- Cost Per Ton Input -->
+        <div class="input-field" style="margin-top: var(--space-4);">
+          <label for="cost-per-ton">Quarry Price Per Ton</label>
+          <input type="number" id="cost-per-ton" value="48.00" min="0" step="1" />
+          <span class="unit-label">$ / ton</span>
+        </div>
+      </div>
+
+      <!-- Output Panel -->
+      <div class="calc-results-panel animate-fade-in-up">
+        <div class="results-header">
+          <div class="results-title">Scale Ticket Breakdown</div>
+          <div class="results-badge" id="ticket-badge">Clean River Rock</div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card highlight">
+            <div class="kpi-value" id="kpi-scale-tons">0.00</div>
+            <div class="kpi-label">Certified Quarry Tons</div>
+            <div class="kpi-subtext" id="kpi-scale-lbs">0 lbs total payload</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-scale-yards">0.00</div>
+            <div class="kpi-label">Volume (Cubic Yards)</div>
+            <div class="kpi-subtext" id="kpi-scale-cuft">0 cu ft volume</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-scale-cost">$0</div>
+            <div class="kpi-label">Material Freight Subtotal</div>
+            <div class="kpi-subtext" id="kpi-cost-spec">at $48.00 / ton</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-moisture-lbs">0 lbs</div>
+            <div class="kpi-label">Water Weight Surcharge</div>
+            <div class="kpi-subtext" id="kpi-moisture-spec">4% moisture content</div>
+          </div>
+        </div>
+
+        <!-- Simulated Quarry Scale Ticket -->
+        <div class="ticket-slip">
+          <div class="ticket-header">
+            <span>OFFICIAL WEIGH-SCALE RECEIPT</span>
+            <span>TICKET #74921</span>
+          </div>
+          <div class="ticket-row">
+            <span>Material Classification:</span>
+            <span id="slip-mat-name">Clean River Rock / #57</span>
+          </div>
+          <div class="ticket-row">
+            <span>Dry Base Weight:</span>
+            <span id="slip-dry-tons">0.00 Tons (0 lbs)</span>
+          </div>
+          <div class="ticket-row">
+            <span>Stockpile Moisture Allowance:</span>
+            <span id="slip-moisture">+0.00 Tons (+0 lbs)</span>
+          </div>
+          <div class="ticket-divider"></div>
+          <div class="ticket-row total">
+            <span>NET CERTIFIED SCALE WEIGHT:</span>
+            <span id="slip-net-tons">0.00 TONS</span>
+          </div>
+        </div>
+
+        <!-- Quick Conversion Matrix -->
+        <div class="breakdown-list" style="margin-top: var(--space-4);">
+          <div class="breakdown-row">
+            <span>1 Ton Yields (at 2" Depth)</span>
+            <span class="breakdown-val" id="row-yield-2in">120 sq ft</span>
+          </div>
+          <div class="breakdown-row">
+            <span>1 Ton Yields (at 3" Depth)</span>
+            <span class="breakdown-val" id="row-yield-3in">80 sq ft</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Cubic Yards Per Ton</span>
+            <span class="breakdown-val" id="row-yds-per-ton">0.74 yd³ / ton</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.calc-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .calc-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calc-panel, .calc-results-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+}
+
+.calc-panel-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  color: var(--color-text);
+}
+
+.calc-panel-title svg {
+  color: var(--color-primary);
+}
+
+.calc-panel-title h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin: 0;
+}
+
+.unit-toggle {
+  display: flex;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  margin-bottom: var(--space-4);
+}
+
+.unit-toggle button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.unit-toggle button.active {
+  background: var(--color-primary);
+  color: #000;
+}
+
+.dim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.input-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.input-field input {
+  padding: 0.65rem 0.75rem;
+  padding-right: 3.5rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--text-base);
+  font-weight: 600;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.input-field input:focus {
+  border-color: var(--color-primary);
+}
+
+.input-field .unit-label {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.65rem;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.density-select-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.dens-btn {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dens-btn:hover {
+  border-color: var(--color-primary-light);
+}
+
+.dens-btn.active {
+  border-color: var(--color-primary);
+  background: rgba(202, 138, 4, 0.08);
+}
+
+.dens-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.dens-spec {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.range-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.range-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.range-val {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.range-container input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.results-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.results-badge {
+  font-size: var(--text-xs);
+  padding: 0.25rem 0.6rem;
+  background: rgba(202, 138, 4, 0.12);
+  color: var(--color-primary);
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.kpi-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+}
+
+.kpi-card.highlight {
+  border-color: var(--color-primary);
+  background: rgba(202, 138, 4, 0.05);
+}
+
+.kpi-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+.kpi-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.kpi-subtext {
+  font-size: 0.75rem;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-top: 0.15rem;
+}
+
+.ticket-slip {
+  background: #fffbe6;
+  color: #1f2937;
+  border: 1px dashed #d97706;
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+
+:global([data-theme="dark"]) .ticket-slip {
+  background: #1c1917;
+  color: #e7e5e4;
+  border-color: #78350f;
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
+
+:global([data-theme="dark"]) .ticket-header {
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.ticket-divider {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  margin: 6px 0;
+}
+
+:global([data-theme="dark"]) .ticket-divider {
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+.ticket-row.total {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #b45309;
+}
+
+:global([data-theme="dark"]) .ticket-row.total {
+  color: #f59e0b;
+}
+
+.breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.breakdown-row:last-child {
+  border-bottom: none;
+}
+
+.breakdown-val {
+  font-weight: 600;
+  color: var(--color-text);
+}
+</style>
+
+<script>
+function initTonsCalculator() {
+  const modeDimsBtn = document.getElementById('tons-mode-dims');
+  const modeYardsBtn = document.getElementById('tons-mode-yards');
+  const dimsContainer = document.getElementById('tons-dims-container');
+  const yardsContainer = document.getElementById('tons-yards-container');
+
+  const lengthInput = document.getElementById('tons-length') as HTMLInputElement | null;
+  const widthInput = document.getElementById('tons-width') as HTMLInputElement | null;
+  const depthInput = document.getElementById('tons-depth') as HTMLInputElement | null;
+  const wasteInput = document.getElementById('tons-waste') as HTMLInputElement | null;
+  const directYardsInput = document.getElementById('tons-direct-yards') as HTMLInputElement | null;
+  const moistureInput = document.getElementById('tons-moisture') as HTMLInputElement | null;
+  const moistureDisplay = document.getElementById('moisture-display');
+  const costInput = document.getElementById('cost-per-ton') as HTMLInputElement | null;
+
+  const densBtns = document.querySelectorAll('.dens-btn');
+
+  let activeMode = 'dims';
+  let activeDensity = 1.35; // Tons/yd³
+  let activeMaterialName = 'Clean River Rock / #57';
+
+  function calculate() {
+    let totalYards = 0;
+    let totalCuFt = 0;
+
+    if (activeMode === 'dims') {
+      if (!lengthInput || !widthInput || !depthInput || !wasteInput) return;
+      const length = Math.max(0.5, parseFloat(lengthInput.value) || 0);
+      const width = Math.max(0.5, parseFloat(widthInput.value) || 0);
+      const depthInches = Math.max(0.25, parseFloat(depthInput.value) || 0);
+      const wastePercent = parseFloat(wasteInput.value) || 0;
+
+      const area = length * width;
+      const netCuFt = area * (depthInches / 12);
+      totalCuFt = netCuFt * (1 + wastePercent / 100);
+      totalYards = totalCuFt / 27;
+    } else {
+      if (!directYardsInput) return;
+      totalYards = Math.max(0.1, parseFloat(directYardsInput.value) || 0);
+      totalCuFt = totalYards * 27;
+    }
+
+    const moisturePercent = parseFloat(moistureInput?.value || '4') || 0;
+    if (moistureDisplay) {
+      if (moisturePercent === 0) moistureDisplay.textContent = '0% (Bone Dry Kiln)';
+      else if (moisturePercent <= 4) moistureDisplay.textContent = `${moisturePercent}% (Typical Quarry Stockpile)`;
+      else if (moisturePercent <= 8) moistureDisplay.textContent = `${moisturePercent}% (Damp / Recent Rain)`;
+      else moistureDisplay.textContent = `${moisturePercent}% (Fully Saturated / Heavy Rain)`;
+    }
+
+    // Dry Tonnage
+    const dryTons = totalYards * activeDensity;
+    const dryLbs = dryTons * 2000;
+
+    // Moisture weight surcharge
+    const moistureTons = dryTons * (moisturePercent / 100);
+    const moistureLbs = moistureTons * 2000;
+
+    // Net Certified Scale Weight
+    const netScaleTons = dryTons + moistureTons;
+    const netScaleLbs = dryLbs + moistureLbs;
+
+    // Cost calculation
+    const pricePerTon = Math.max(0, parseFloat(costInput?.value || '48.00') || 0);
+    const materialCost = netScaleTons * pricePerTon;
+
+    // Yield math
+    // 1 ton of this material = (2000 / (activeDensity * 2000)) = 1 / activeDensity cubic yards
+    const ydsPerTon = 1 / activeDensity;
+    const yield2in = Math.round((ydsPerTon * 324) / 2.0);
+    const yield3in = Math.round((ydsPerTon * 324) / 3.0);
+
+    // Update KPIs
+    const kpiTons = document.getElementById('kpi-scale-tons');
+    const kpiLbs = document.getElementById('kpi-scale-lbs');
+    const kpiYards = document.getElementById('kpi-scale-yards');
+    const kpiCuFt = document.getElementById('kpi-scale-cuft');
+    const kpiCost = document.getElementById('kpi-scale-cost');
+    const kpiCostSpec = document.getElementById('kpi-cost-spec');
+    const kpiMoistLbs = document.getElementById('kpi-moisture-lbs');
+    const kpiMoistSpec = document.getElementById('kpi-moisture-spec');
+    const badge = document.getElementById('ticket-badge');
+
+    if (kpiTons) kpiTons.textContent = netScaleTons.toFixed(2);
+    if (kpiLbs) kpiLbs.textContent = `${Math.round(netScaleLbs).toLocaleString()} lbs net scale`;
+    if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
+    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft volume`;
+    if (kpiCost) kpiCost.textContent = `$${Math.round(materialCost).toLocaleString()}`;
+    if (kpiCostSpec) kpiCostSpec.textContent = `at $${pricePerTon.toFixed(2)} / ton`;
+    if (kpiMoistLbs) kpiMoistLbs.textContent = `+${Math.round(moistureLbs).toLocaleString()} lbs`;
+    if (kpiMoistSpec) kpiMoistSpec.textContent = `${moisturePercent}% water absorption`;
+    if (badge) badge.textContent = activeMaterialName;
+
+    // Update Ticket Slip
+    const slipMat = document.getElementById('slip-mat-name');
+    const slipDry = document.getElementById('slip-dry-tons');
+    const slipMoist = document.getElementById('slip-moisture');
+    const slipNet = document.getElementById('slip-net-tons');
+
+    if (slipMat) slipMat.textContent = activeMaterialName;
+    if (slipDry) slipDry.textContent = `${dryTons.toFixed(2)} Tons (${Math.round(dryLbs).toLocaleString()} lbs)`;
+    if (slipMoist) slipMoist.textContent = `+${moistureTons.toFixed(2)} Tons (+${Math.round(moistureLbs).toLocaleString()} lbs)`;
+    if (slipNet) slipNet.textContent = `${netScaleTons.toFixed(2)} TONS (${Math.round(netScaleLbs).toLocaleString()} LBS)`;
+
+    // Update Yield Rows
+    const row2in = document.getElementById('row-yield-2in');
+    const row3in = document.getElementById('row-yield-3in');
+    const rowYds = document.getElementById('row-yds-per-ton');
+
+    if (row2in) row2in.textContent = `${yield2in} sq ft / ton`;
+    if (row3in) row3in.textContent = `${yield3in} sq ft / ton`;
+    if (rowYds) rowYds.textContent = `${ydsPerTon.toFixed(2)} yd³ / ton`;
+  }
+
+  // Mode button events
+  if (modeDimsBtn && modeYardsBtn && dimsContainer && yardsContainer) {
+    modeDimsBtn.addEventListener('click', () => {
+      modeDimsBtn.classList.add('active');
+      modeYardsBtn.classList.remove('active');
+      dimsContainer.style.display = 'block';
+      yardsContainer.style.display = 'none';
+      activeMode = 'dims';
+      calculate();
+    });
+
+    modeYardsBtn.addEventListener('click', () => {
+      modeYardsBtn.classList.add('active');
+      modeDimsBtn.classList.remove('active');
+      dimsContainer.style.display = 'none';
+      yardsContainer.style.display = 'block';
+      activeMode = 'yards';
+      calculate();
+    });
+  }
+
+  // Density buttons
+  densBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      densBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.35');
+      const titleEl = btn.querySelector('.dens-title');
+      if (titleEl) activeMaterialName = titleEl.textContent || 'Aggregate';
+      calculate();
+    });
+  });
+
+  // Inputs
+  [lengthInput, widthInput, depthInput, wasteInput, directYardsInput, moistureInput, costInput].forEach(input => {
+    if (input) {
+      input.addEventListener('input', calculate);
+    }
+  });
+
+  calculate();
+}
+
+document.addEventListener('DOMContentLoaded', initTonsCalculator);
+</script>

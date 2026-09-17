@@ -1,0 +1,538 @@
+---
+// Rock Square Foot Calculator & Multi-Depth Spread Comparison
+---
+<section class="section" id="sqft-calc">
+  <div class="container">
+    <div class="section-header">
+      <h2>Rock Square Footage & Multi-Depth Calculator</h2>
+      <div class="section-divider"></div>
+      <p>Calculate aggregate volume directly from square footage with multi-bed area summing and an instant side-by-side depth comparison matrix (1" to 6").</p>
+    </div>
+
+    <div class="calc-wrapper">
+      <!-- Input Panel -->
+      <div class="calc-panel animate-fade-in-up">
+        <div class="calc-panel-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          <h3>Square Footage Input Method</h3>
+        </div>
+
+        <div class="unit-toggle mode-toggle" role="tablist">
+          <button class="active" id="sqft-mode-direct" type="button">Direct Total Sq Ft</button>
+          <button id="sqft-mode-multi" type="button">Multi-Bed Zone Adder</button>
+        </div>
+
+        <!-- Direct Sq Ft Input -->
+        <div id="sqft-direct-container">
+          <div class="input-field" style="margin-bottom: var(--space-4);">
+            <label for="direct-sqft-val">Total Project Surface Area</label>
+            <input type="number" id="direct-sqft-val" value="500" min="1" step="10" />
+            <span class="unit-label">sq ft</span>
+          </div>
+        </div>
+
+        <!-- Multi-Bed Adder Inputs (Hidden by default) -->
+        <div id="sqft-multi-container" style="display: none; margin-bottom: var(--space-4);">
+          <div class="dim-grid" style="margin-bottom: var(--space-2);">
+            <div class="input-field">
+              <label for="zone-a-sqft">Zone 1: Front Beds</label>
+              <input type="number" id="zone-a-sqft" value="250" min="0" step="10" />
+              <span class="unit-label">sq ft</span>
+            </div>
+            <div class="input-field">
+              <label for="zone-b-sqft">Zone 2: Side Walkway</label>
+              <input type="number" id="zone-b-sqft" value="120" min="0" step="10" />
+              <span class="unit-label">sq ft</span>
+            </div>
+          </div>
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="zone-c-sqft">Zone 3: Backyard Swale</label>
+              <input type="number" id="zone-c-sqft" value="130" min="0" step="10" />
+              <span class="unit-label">sq ft</span>
+            </div>
+            <div class="input-field">
+              <label for="zone-d-sqft">Zone 4: Tree Rings</label>
+              <input type="number" id="zone-d-sqft" value="0" min="0" step="10" />
+              <span class="unit-label">sq ft</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Working Depth Slider -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M8 5l4-3 4 3M8 19l4 3 4-3"/></svg>
+          <h3>Target Coverage Depth</h3>
+        </div>
+
+        <div class="dim-grid">
+          <div class="input-field">
+            <label for="sqft-depth">Depth</label>
+            <input type="number" id="sqft-depth" value="3.0" min="0.5" max="12" step="0.5" />
+            <span class="unit-label">inches</span>
+          </div>
+          <div class="input-field">
+            <label for="sqft-waste">Safety Buffer</label>
+            <input type="number" id="sqft-waste" value="10" min="0" max="25" step="1" />
+            <span class="unit-label">% extra</span>
+          </div>
+        </div>
+
+        <!-- Material Density Spec -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <h3>Rock Density Type</h3>
+        </div>
+
+        <div class="density-pills" role="radiogroup">
+          <button type="button" class="sqft-mat-btn active" data-density="1.35">River Rock (1.35 T/yd³)</button>
+          <button type="button" class="sqft-mat-btn" data-density="1.40">Crushed Granite (1.40 T/yd³)</button>
+          <button type="button" class="sqft-mat-btn" data-density="0.85">Lava Rock (0.85 T/yd³)</button>
+        </div>
+      </div>
+
+      <!-- Output Panel -->
+      <div class="calc-results-panel animate-fade-in-up">
+        <div class="results-header">
+          <div class="results-title">Primary Coverage Output</div>
+          <div class="results-badge" id="sqft-badge">500 Sq Ft @ 3" Depth</div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card highlight">
+            <div class="kpi-value" id="kpi-sqft-yards">0.00</div>
+            <div class="kpi-label">Order Volume (Cubic Yards)</div>
+            <div class="kpi-subtext" id="kpi-sqft-cuft">0 cu ft volume</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-sqft-tons">0.00</div>
+            <div class="kpi-label">Quarry Weight (Tons)</div>
+            <div class="kpi-subtext" id="kpi-sqft-lbs">0 lbs total payload</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-sqft-bags">0</div>
+            <div class="kpi-label">0.5 Cu Ft Retail Bags</div>
+            <div class="kpi-subtext" id="kpi-sqft-pallets">0 full pallets</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-sqft-fabric">0</div>
+            <div class="kpi-label">Weed Barrier (Sq Ft)</div>
+            <div class="kpi-subtext" id="kpi-sqft-rolls">0 rolls (3' x 100')</div>
+          </div>
+        </div>
+
+        <!-- Live Multi-Depth Comparison Matrix -->
+        <div class="depth-matrix-card">
+          <div class="matrix-title">Side-by-Side Depth Spread Comparison for Your Area</div>
+          <div class="matrix-table-wrap">
+            <table class="matrix-table">
+              <thead>
+                <tr>
+                  <th>Depth</th>
+                  <th>Cubic Yards</th>
+                  <th>Tonnage</th>
+                  <th>0.5 ft³ Bags</th>
+                  <th>Best Use Case</th>
+                </tr>
+              </thead>
+              <tbody id="matrix-tbody">
+                <!-- Dynamically Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.calc-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .calc-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calc-panel, .calc-results-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+}
+
+.calc-panel-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  color: var(--color-text);
+}
+
+.calc-panel-title svg {
+  color: var(--color-primary);
+}
+
+.calc-panel-title h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin: 0;
+}
+
+.unit-toggle {
+  display: flex;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  margin-bottom: var(--space-4);
+}
+
+.unit-toggle button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.unit-toggle button.active {
+  background: var(--color-primary);
+  color: #000;
+}
+
+.dim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.input-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.input-field input {
+  padding: 0.65rem 0.75rem;
+  padding-right: 3.5rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--text-base);
+  font-weight: 600;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.input-field input:focus {
+  border-color: var(--color-primary);
+}
+
+.input-field .unit-label {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.65rem;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.density-pills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sqft-mat-btn {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.75rem;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.sqft-mat-btn.active {
+  border-color: var(--color-primary);
+  background: rgba(202, 138, 4, 0.08);
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.results-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.results-badge {
+  font-size: var(--text-xs);
+  padding: 0.25rem 0.6rem;
+  background: rgba(202, 138, 4, 0.12);
+  color: var(--color-primary);
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.kpi-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+}
+
+.kpi-card.highlight {
+  border-color: var(--color-primary);
+  background: rgba(202, 138, 4, 0.05);
+}
+
+.kpi-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+.kpi-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.kpi-subtext {
+  font-size: 0.75rem;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-top: 0.15rem;
+}
+
+.depth-matrix-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+}
+
+.matrix-title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.matrix-table-wrap {
+  overflow-x: auto;
+}
+
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+}
+
+.matrix-table th {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 2px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.matrix-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.matrix-table tr.active-row td {
+  background: rgba(202, 138, 4, 0.1);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+</style>
+
+<script>
+function initSquareFootCalculator() {
+  const modeDirectBtn = document.getElementById('sqft-mode-direct');
+  const modeMultiBtn = document.getElementById('sqft-mode-multi');
+  const directContainer = document.getElementById('sqft-direct-container');
+  const multiContainer = document.getElementById('sqft-multi-container');
+
+  const directSqFtInput = document.getElementById('direct-sqft-val') as HTMLInputElement | null;
+  const zoneAInput = document.getElementById('zone-a-sqft') as HTMLInputElement | null;
+  const zoneBInput = document.getElementById('zone-b-sqft') as HTMLInputElement | null;
+  const zoneCInput = document.getElementById('zone-c-sqft') as HTMLInputElement | null;
+  const zoneDInput = document.getElementById('zone-d-sqft') as HTMLInputElement | null;
+
+  const depthInput = document.getElementById('sqft-depth') as HTMLInputElement | null;
+  const wasteInput = document.getElementById('sqft-waste') as HTMLInputElement | null;
+  const matBtns = document.querySelectorAll('.sqft-mat-btn');
+
+  let activeMode = 'direct';
+  let activeDensity = 1.35; // Tons/yd³
+
+  function calculate() {
+    let totalSqFt = 0;
+
+    if (activeMode === 'direct') {
+      totalSqFt = Math.max(1, parseFloat(directSqFtInput?.value || '500') || 0);
+    } else {
+      const zA = parseFloat(zoneAInput?.value || '0') || 0;
+      const zB = parseFloat(zoneBInput?.value || '0') || 0;
+      const zC = parseFloat(zoneCInput?.value || '0') || 0;
+      const zD = parseFloat(zoneDInput?.value || '0') || 0;
+      totalSqFt = Math.max(1, zA + zB + zC + zD);
+    }
+
+    const targetDepth = Math.max(0.25, parseFloat(depthInput?.value || '3.0') || 0);
+    const wastePercent = parseFloat(wasteInput?.value || '10') || 0;
+
+    // Primary KPI calculation
+    const netCuFt = totalSqFt * (targetDepth / 12);
+    const totalCuFt = netCuFt * (1 + wastePercent / 100);
+    const totalYards = totalCuFt / 27;
+    const totalTons = totalYards * activeDensity;
+    const totalLbs = totalTons * 2000;
+    const totalBags = Math.ceil(totalCuFt / 0.5);
+    const pallets = (totalBags / 60).toFixed(1);
+
+    // Fabric rolls
+    const fabricSqFt = Math.ceil(totalSqFt * 1.10);
+    const rolls3x100 = Math.ceil(fabricSqFt / 300);
+
+    // Update KPIs
+    const kpiYards = document.getElementById('kpi-sqft-yards');
+    const kpiCuFt = document.getElementById('kpi-sqft-cuft');
+    const kpiTons = document.getElementById('kpi-sqft-tons');
+    const kpiLbs = document.getElementById('kpi-sqft-lbs');
+    const kpiBags = document.getElementById('kpi-sqft-bags');
+    const kpiPallets = document.getElementById('kpi-sqft-pallets');
+    const kpiFabric = document.getElementById('kpi-sqft-fabric');
+    const kpiRolls = document.getElementById('kpi-sqft-rolls');
+    const badge = document.getElementById('sqft-badge');
+
+    if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
+    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft total`;
+    if (kpiTons) kpiTons.textContent = totalTons.toFixed(2);
+    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lbs net`;
+    if (kpiBags) kpiBags.textContent = totalBags.toLocaleString();
+    if (kpiPallets) kpiPallets.textContent = `${pallets} pallets (60 bags/pl)`;
+    if (kpiFabric) kpiFabric.textContent = Math.round(totalSqFt).toLocaleString();
+    if (kpiRolls) kpiRolls.textContent = `${rolls3x100} roll${rolls3x100 === 1 ? '' : 's'} (3' x 100')`;
+    if (badge) badge.textContent = `${Math.round(totalSqFt)} Sq Ft @ ${targetDepth}" Depth`;
+
+    // Populate Multi-Depth Comparison Matrix
+    const matrixTbody = document.getElementById('matrix-tbody');
+    if (matrixTbody) {
+      const depths = [
+        { d: 1.0, label: '1" Depth', use: 'Light mulch refresh / fine stone' },
+        { d: 2.0, label: '2" Depth', use: 'Walkways & 3/8" pea gravel' },
+        { d: 3.0, label: '3" Depth', use: 'Standard garden beds (1"-3" rock)' },
+        { d: 4.0, label: '4" Depth', use: 'Driveways & 2"-4" river cobble' },
+        { d: 6.0, label: '6" Depth', use: 'Drainage swales & heavy ballast' }
+      ];
+
+      matrixTbody.innerHTML = depths.map(item => {
+        const rowCuFt = totalSqFt * (item.d / 12) * (1 + wastePercent / 100);
+        const rowYards = (rowCuFt / 27).toFixed(2);
+        const rowTons = ((rowCuFt / 27) * activeDensity).toFixed(2);
+        const rowBags = Math.ceil(rowCuFt / 0.5);
+        const isSelected = Math.abs(item.d - targetDepth) < 0.1;
+
+        return `
+          <tr class="${isSelected ? 'active-row' : ''}">
+            <td><strong>${item.label}</strong></td>
+            <td>${rowYards} yd³</td>
+            <td>${rowTons} T</td>
+            <td>${rowBags} bags</td>
+            <td>${item.use}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+  }
+
+  // Toggle modes
+  if (modeDirectBtn && modeMultiBtn && directContainer && multiContainer) {
+    modeDirectBtn.addEventListener('click', () => {
+      modeDirectBtn.classList.add('active');
+      modeMultiBtn.classList.remove('active');
+      directContainer.style.display = 'block';
+      multiContainer.style.display = 'none';
+      activeMode = 'direct';
+      calculate();
+    });
+
+    modeMultiBtn.addEventListener('click', () => {
+      modeMultiBtn.classList.add('active');
+      modeDirectBtn.classList.remove('active');
+      directContainer.style.display = 'none';
+      multiContainer.style.display = 'block';
+      activeMode = 'multi';
+      calculate();
+    });
+  }
+
+  // Material selection
+  matBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      matBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.35');
+      calculate();
+    });
+  });
+
+  // Input listeners
+  [directSqFtInput, zoneAInput, zoneBInput, zoneCInput, zoneDInput, depthInput, wasteInput].forEach(input => {
+    if (input) {
+      input.addEventListener('input', calculate);
+    }
+  });
+
+  calculate();
+}
+
+document.addEventListener('DOMContentLoaded', initSquareFootCalculator);
+</script>

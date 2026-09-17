@@ -1,0 +1,232 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import PeaGravelCalculator from '../components/calculators/PeaGravelCalculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/pea-gravel-calculator' },
+  { name: 'Pea Gravel Calculator', url: '/pea-gravel-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Pea Gravel' },
+  { label: 'Standard Particle Size', value: '3/8" (10mm) Smooth Quartzite' },
+  { label: 'Walkability Rule', value: 'Maximum 2.5" Depth to Prevent Sinking' },
+  { label: 'Containment', value: 'Rigid Perimeter Edging Required' }
+];
+
+const quickStats = [
+  { value: '2.0"-2.5"', label: 'Optimal Depth', desc: 'Prevents shoe sinking while providing complete ground coverage' },
+  { value: '1.38 t/yd³', label: 'Average Density', desc: 'Standard bulk density for smooth river pea pebble' },
+  { value: 'Zero Sharp Edges', label: 'Paw & Foot Friendly', desc: 'Naturally tumbled round pebbles safe for children and dogs' }
+];
+
+const faqItems = [
+  {
+    q: 'How much pea gravel do I need for a 12x12 foot fire pit patio?',
+    a: 'A 12x12 foot patio has a surface area of 144 square feet. At the contractor-recommended walkability depth of 2.5 inches, you need 1.11 cubic yards of pea gravel. Multiplying by 1.38 tons per cubic yard and adding a 10% safety buffer yields approximately 1.7 tons (or about 66 bags of 0.5 cubic feet).'
+  },
+  {
+    q: 'Why should pea gravel not be deeper than 2.5 inches on walkways?',
+    a: 'Rounded pea gravel acts like ball bearings under load because the spherical stones cannot interlock. If you install pea gravel 3 or 4 inches deep, human feet, patio chairs, and wheelbarrows sink into the stone like loose dry beach sand. Keeping the depth between 2.0 and 2.5 inches over a compacted sub-base provides comfortable, firm footing.'
+  },
+  {
+    q: 'What kind of edging is needed to keep pea gravel contained?',
+    a: 'Because pea pebbles roll easily, you must install a rigid border standing at least 1/2-inch to 1-inch above the finished gravel elevation. Heavy-gauge steel edging, extruded commercial aluminum, mortared Belgian cobblestone borders, or timber edging prevent stones from scattering across adjacent lawn grass.'
+  },
+  {
+    q: 'Does pea gravel require weed barrier fabric underneath?',
+    a: 'Yes. Always install commercial non-woven geotextile fabric beneath pea gravel. Without fabric, the small 3/8-inch pebbles will work their way into the native soil under pedestrian foot traffic, disappearing into the ground within two seasons.'
+  }
+];
+---
+
+<BaseLayout
+  title="Pea Gravel Calculator - Patio, Walkway & Fire Pit Sizing"
+  description="Calculate exact cubic yards, tons, and bags of 3/8 inch pea gravel for patios, fire pits, and walkways. Includes critical walkability depth rules and edging math."
+  canonicalPath="/pea-gravel-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Pea Gravel Calculator",
+      "url": "https://rockcoveragecalculator.com/pea-gravel-calculator",
+      "description": "Calculates pea gravel quantities for patios, walkways, and playgrounds with walkability depth limiters.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Pea Gravel"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Pea Gravel Calculator"
+      highlightWord="Calculator"
+      badge="Pedestrian Walkability & Patio Engine"
+      subtitle="Accurate volume and tonnage calculations for 3/8 inch smooth pea gravel in outdoor patios, fire pits, garden paths, and playground cushions."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <PeaGravelCalculator />
+
+    <Visualizer />
+
+    <!-- Technical Guide on Pea Gravel Installation -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>The Golden Rules of Pea Gravel Patio Construction</h2>
+          <p>
+            Smooth 3/8-inch pea gravel is one of the most aesthetically pleasing, rustic materials for residential fire pits, dining courtyards, and garden paths. Its naturally tumbled round surface is pleasant underfoot, releases a classic European gravel crunch sound when walked on, and provides 100% stormwater permeability.
+          </p>
+          <p>
+            However, pea gravel installations can quickly turn frustrating if two critical engineering rules are ignored: <strong>The Walkability Depth Limiter</strong> and <strong>Rigid Perimeter Containment</strong>.
+          </p>
+
+          <h3>Rule 1: The 2.5-Inch Walkability Limit</h3>
+          <p>
+            Unlike crushed stone whose jagged facets interlock under compaction, smooth spherical pea pebbles roll continuously under downward pressure. If you spread pea gravel 3 or 4 inches deep, the stones act like ball bearings:
+          </p>
+          <ul>
+            <li>Footwear sinks 1.5 inches deep into the gravel, creating an exhausting walking experience.</li>
+            <li>Patio chair legs and table corners sink unevenly, making furniture wobble and tip.</li>
+            <li>Pushing a lawnmower, wheelbarrow, or stroller across the surface becomes nearly impossible.</li>
+          </ul>
+          <p>
+            The contractor sweet spot is strictly <strong>2.0 to 2.5 inches</strong> of pea gravel installed over an excavated, compacted 2-inch stone dust or decomposed granite base. This gives complete visual opacity without excess depth.
+          </p>
+
+          <h3>Rule 2: Rigid Perimeter Edge Containment</h3>
+          <p>
+            Because round pebbles shift laterally when walked upon, any pea gravel surface without a solid vertical retaining border will migrate into lawn turf, flower beds, and pavement. Always calculate your perimeter linear footage and install:
+          </p>
+          <ul>
+            <li><strong>Commercial 1/8" Steel Landscape Edging:</strong> Hammered 4 inches into the ground with steel stakes.</li>
+            <li><strong>Belgian Cobblestone Soldier Border:</strong> Hand-split granite blocks set on a concrete haunch.</li>
+            <li><strong>Pressure-Treated Timber Curbing:</strong> 4×4 or 6×6 timbers spiked into the subgrade.</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav activePage="pea-gravel-calculator" />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+.content-guide-section {
+  padding: var(--space-12) 0;
+  background: var(--color-bg);
+}
+
+.content-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.content-card h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.content-card h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: var(--space-6) 0 var(--space-3) 0;
+}
+
+.content-card p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+
+.content-card ul {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+  padding-left: var(--space-6);
+}
+
+.content-card li {
+  margin-bottom: var(--space-2);
+}
+
+.faq-card {
+  margin-top: var(--space-8);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.faq-item {
+  padding: var(--space-4);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.faq-item h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.faq-item p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+</style>

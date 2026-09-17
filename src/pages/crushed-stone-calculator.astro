@@ -1,0 +1,275 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import CrushedStoneCalculator from '../components/calculators/CrushedStoneCalculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/crushed-stone-calculator' },
+  { name: 'Crushed Stone Calculator', url: '/crushed-stone-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Crushed Stone' },
+  { label: 'AASHTO Sieve Grades', value: '#57 Clean, #411 Dense, #4 Ballast' },
+  { label: 'Bulk Density', value: '1.40 to 1.50 Tons/yd³' },
+  { label: 'Angular Interlock', value: 'High Friction Angle (CBR > 80%)' }
+];
+
+const quickStats = [
+  { value: '3/4" Stone', label: 'Leading Quarry Size', desc: '#57 crushed stone is the universal standard for civil projects' },
+  { value: '2,800 lbs', label: 'Weight per Yard', desc: 'Average dry weight for clean crushed limestone and granite' },
+  { value: '40% Void', label: 'Clean Stone Drainage', desc: 'Hydraulic permeability for foundation weeping tiles and French drains' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of 3/4 inch crushed stone do I need for 100 square feet?',
+    a: 'For 100 square feet installed at a standard 3-inch depth, you need 0.93 cubic yards of aggregate. Multiplying by a standard bulk density of 1.40 tons per yard gives 1.30 tons. Factoring in a 10% safety margin for irregular subgrade, order approximately 1.45 tons.'
+  },
+  {
+    q: 'What is the difference between #57 and #411 crushed stone?',
+    a: '#57 stone is washed clean to 1/2" to 1" particle size with zero fine dust, providing maximum stormwater drainage and clean appearance. #411 stone (crusher run) contains a continuous gradation from 3/4" stones down to microscopic rock flour, enabling it to compact into a rigid, cement-like structural base.'
+  },
+  {
+    q: 'Can crushed stone be used behind concrete retaining walls?',
+    a: 'Yes. Clean #57 crushed stone is mandatory behind retaining walls to eliminate hydrostatic pressure. Dense soil or clay traps water behind walls, creating massive horizontal hydraulic pressure that causes wall bowing. Clean crushed stone allows water to drop straight down into the perforated collection pipe.'
+  },
+  {
+    q: 'How much does a tandem truckload of crushed stone cost?',
+    a: 'A standard tandem-axle dump truck carries between 14 and 16 tons of crushed stone. At average quarry prices of $35 to $55 per ton plus a $75 to $120 delivery drop fee, a full truckload typically costs between $560 and $980 delivered to your site.'
+  }
+];
+---
+
+<BaseLayout
+  title="Crushed Stone Calculator - Sieve Sizes & Tonnage (#57, #411, 3/4)"
+  description="Calculate cubic yards and quarry scale tons of crushed stone across standard sieve sizes (#57 clean, #411 crusher run, and #4 ballast). Free aggregate estimator."
+  canonicalPath="/crushed-stone-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Crushed Stone Calculator",
+      "url": "https://rockcoveragecalculator.com/crushed-stone-calculator",
+      "description": "Calculates crushed stone quantities by AASHTO sieve sizes including #57, #411, and #4 ballast.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Crushed Stone"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Crushed Stone Calculator"
+      highlightWord="Calculator"
+      badge="AASHTO Sieve Sizing & Scale Tonnage"
+      subtitle="Accurate volumetric and certified scale weight calculations for #57 clean stone, #411 dense graded base, track ballast, and heavy erosion riprap."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <CrushedStoneCalculator />
+
+    <Visualizer />
+
+    <!-- Technical Guide on Crushed Stone Sieve Specs -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Understanding Crushed Stone Sieve Numbering & Specifications</h2>
+          <p>
+            In North American aggregate quarrying, crushed stone is categorized using standardized <strong>AASHTO (American Association of State Highway and Transportation Officials)</strong> sieve numbers. Understanding these numbers ensures you order the exact material grade engineered for your specific drainage or structural application.
+          </p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sieve Grade</th>
+                  <th>Nominal Stone Size</th>
+                  <th>Dust / Fines Content</th>
+                  <th>Primary Engineered Application</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>#57 Clean Stone</strong></td>
+                  <td>1/2" to 1" (12.5 - 25mm)</td>
+                  <td>Zero (Washed)</td>
+                  <td>French drains, retaining wall backfill, driveway top dressing</td>
+                </tr>
+                <tr>
+                  <td><strong>#411 / Crusher Run</strong></td>
+                  <td>Dust up to 3/4" (0 - 19mm)</td>
+                  <td>High (Stone Flour)</td>
+                  <td>Compacted patio sub-base, asphalt roadway foundation</td>
+                </tr>
+                <tr>
+                  <td><strong>#4 Track Ballast</strong></td>
+                  <td>1.5" to 2.5" (37 - 63mm)</td>
+                  <td>Low (< 2%)</td>
+                  <td>Construction entrance stabilization, muddy site access pads</td>
+                </tr>
+                <tr>
+                  <td><strong>#1 Rip-Rap</strong></td>
+                  <td>3" to 6" (75 - 150mm)</td>
+                  <td>Zero</td>
+                  <td>Culvert stormwater outfalls, severe slope erosion defense</td>
+                </tr>
+                <tr>
+                  <td><strong>Screenings / Stone Dust</strong></td>
+                  <td>Fines up to 3/16"</td>
+                  <td>100% Fines</td>
+                  <td>Paver setting bed, horse arena footing, walking trails</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>The Angular Friction Advantage</h3>
+          <p>
+            Unlike naturally rounded river pebbles that roll freely under load, crushed stone is produced by mechanical jaw and cone crushers that fracture solid bedrock into sharp, multi-faceted angular stones. When spread and compacted, these sharp edges lock together mechanically through <strong>aggregate interlock</strong>, creating high shear strength that resists rutting under heavy vehicular tires.
+          </p>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav activePage="crushed-stone-calculator" />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+.content-guide-section {
+  padding: var(--space-12) 0;
+  background: var(--color-bg);
+}
+
+.content-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.content-card h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.content-card h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: var(--space-6) 0 var(--space-3) 0;
+}
+
+.content-card p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+
+.table-container {
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+  font-weight: 600;
+}
+
+td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+tr:hover td {
+  background: rgba(202, 138, 4, 0.04);
+}
+
+.faq-card {
+  margin-top: var(--space-8);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.faq-item {
+  padding: var(--space-4);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.faq-item h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.faq-item p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+</style>

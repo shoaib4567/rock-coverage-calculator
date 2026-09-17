@@ -1,0 +1,624 @@
+---
+// Drain Rock & French Drain Trench Calculator
+---
+<section class="section" id="drain-calc">
+  <div class="container">
+    <div class="section-header">
+      <h2>French Drain & Trench Rock Calculator</h2>
+      <div class="section-divider"></div>
+      <p>Calculate exact net #57 washed aggregate volume with perforated pipe displacement deduction, filter fabric roll requirements, and quarry tonnage.</p>
+    </div>
+
+    <div class="calc-wrapper">
+      <!-- Input Panel -->
+      <div class="calc-panel animate-fade-in-up">
+        <div class="calc-panel-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <h3>Trench Dimensions & Layout</h3>
+        </div>
+
+        <div class="dim-grid">
+          <div class="input-field" style="grid-column: 1 / -1;">
+            <label for="drain-trench-length">Total Trench Run Length</label>
+            <input type="number" id="drain-trench-length" value="50" min="1" step="1" />
+            <span class="unit-label">feet</span>
+          </div>
+          <div class="input-field">
+            <label for="drain-trench-width">Trench Width</label>
+            <input type="number" id="drain-trench-width" value="12" min="4" max="48" step="1" />
+            <span class="unit-label">inches</span>
+          </div>
+          <div class="input-field">
+            <label for="drain-trench-depth">Trench Depth</label>
+            <input type="number" id="drain-trench-depth" value="24" min="6" max="72" step="1" />
+            <span class="unit-label">inches</span>
+          </div>
+        </div>
+
+        <!-- Pipe Selection -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></svg>
+          <h3>Perforated Drain Pipe Displacement</h3>
+        </div>
+
+        <div class="pipe-select-grid" role="radiogroup">
+          <button type="button" class="pipe-btn active" data-pipe="4">
+            <div class="pipe-title">4" Perforated Pipe</div>
+            <div class="pipe-spec">Standard Residential (0.087 cu ft/ft deduct)</div>
+          </button>
+          <button type="button" class="pipe-btn" data-pipe="6">
+            <div class="pipe-title">6" High Flow Pipe</div>
+            <div class="pipe-spec">Commercial / Heavy Runoff (0.196 cu ft/ft deduct)</div>
+          </button>
+          <button type="button" class="pipe-btn" data-pipe="0">
+            <div class="pipe-title">No Pipe (Rubble Trench)</div>
+            <div class="pipe-spec">Pure rock curtain drain (0% deduct)</div>
+          </button>
+        </div>
+
+        <!-- Drain Aggregate Type -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <h3>Drain Stone Aggregate Spec</h3>
+        </div>
+
+        <div class="stone-select-grid">
+          <button type="button" class="stone-btn active" data-density="1.35" data-name="#57 Washed Crushed Stone">
+            <div class="stone-title">#57 Washed Stone (3/4")</div>
+            <div class="stone-spec">Industry Standard: 40% void flow ratio (1.35 T/yd³)</div>
+          </button>
+          <button type="button" class="stone-btn" data-density="1.40" data-name="#4 Washed Ballast (1.5-2&quot;)">
+            <div class="stone-title">#4 Washed Stone (1.5" - 2")</div>
+            <div class="stone-spec">Deep footing & foundation relief (1.40 T/yd³)</div>
+          </button>
+          <button type="button" class="stone-btn" data-density="1.30" data-name="1-3&quot; Round River Drain Rock">
+            <div class="stone-title">1" - 3" Round River Rock</div>
+            <div class="stone-spec">Smooth rounded drain gravel (1.30 T/yd³)</div>
+          </button>
+        </div>
+
+        <!-- Soil & Slope Overage Slider -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
+          <h3>Trench Excavation Over-Dig Buffer</h3>
+        </div>
+
+        <div class="range-container">
+          <div class="range-header">
+            <span>Trench Irregularity / Settlement Buffer</span>
+            <span class="range-val" id="drain-waste-display">10%</span>
+          </div>
+          <input type="range" id="drain-waste" min="0" max="25" value="10" step="1" />
+        </div>
+      </div>
+
+      <!-- Output Panel -->
+      <div class="calc-results-panel animate-fade-in-up">
+        <div class="results-header">
+          <div class="results-title">Drainage Material Breakdown</div>
+          <div class="results-badge" id="drain-pipe-badge">4" Pipe Deducted</div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card highlight">
+            <div class="kpi-value" id="kpi-drain-tons">0.00</div>
+            <div class="kpi-label">Quarry Weight (Tons)</div>
+            <div class="kpi-subtext" id="kpi-drain-lbs">0 lbs net delivery</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-drain-yards">0.00</div>
+            <div class="kpi-label">Net Drain Stone (Cubic Yards)</div>
+            <div class="kpi-subtext" id="kpi-drain-cuft">0 cu ft net backfill</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-drain-fabric">0</div>
+            <div class="kpi-label">Geotextile Fabric (Sq Ft)</div>
+            <div class="kpi-subtext" id="kpi-drain-rolls">0 rolls (4' x 100')</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-drain-pipe-ft">50</div>
+            <div class="kpi-label">Perforated Pipe Run (Ft)</div>
+            <div class="kpi-subtext" id="kpi-drain-deduct">Deducted: 4.4 cu ft</div>
+          </div>
+        </div>
+
+        <!-- Cross Section Diagram -->
+        <div class="drain-cross-section">
+          <div class="cross-header">French Drain Cross Section View</div>
+          <div class="cross-diagram">
+            <div class="cross-soil">
+              <div class="cross-fabric">
+                <div class="cross-gravel">
+                  <div class="cross-pipe">
+                    <span id="cross-pipe-label">4" Perf Pipe</span>
+                  </div>
+                  <div class="cross-bedding">Bedding: 2" Washed Stone</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cross-caption">Complete 360-degree geotextile burrito wrap with 12-inch top overlap prevents soil fines migration.</div>
+        </div>
+
+        <!-- Material Summary List -->
+        <div class="breakdown-list">
+          <div class="breakdown-row">
+            <span>Gross Trench Excavation Volume</span>
+            <span class="breakdown-val" id="row-gross-cuft">100.0 cu ft (3.7 yd³)</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Displaced Pipe Void Volume</span>
+            <span class="breakdown-val highlight-deduct" id="row-pipe-deduct">-4.4 cu ft</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Net Stone Required (with overage)</span>
+            <span class="breakdown-val" id="row-net-stone">105.2 cu ft (3.9 yd³)</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Filter Fabric Wrap Area (with 12" overlap)</span>
+            <span class="breakdown-val" id="row-fabric-sqft">350 sq ft</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.calc-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .calc-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calc-panel, .calc-results-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+}
+
+.calc-panel-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  color: var(--color-text);
+}
+
+.calc-panel-title svg {
+  color: var(--color-primary);
+}
+
+.calc-panel-title h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin: 0;
+}
+
+.dim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.input-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.input-field input {
+  padding: 0.65rem 0.75rem;
+  padding-right: 3.5rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--text-base);
+  font-weight: 600;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.input-field input:focus {
+  border-color: var(--color-primary);
+}
+
+.input-field .unit-label {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.65rem;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.pipe-select-grid, .stone-select-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.pipe-btn, .stone-btn {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pipe-btn:hover, .stone-btn:hover {
+  border-color: var(--color-primary-light);
+}
+
+.pipe-btn.active, .stone-btn.active {
+  border-color: var(--color-primary);
+  background: rgba(202, 138, 4, 0.08);
+}
+
+.pipe-title, .stone-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.pipe-spec, .stone-spec {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.range-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.range-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.range-val {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.range-container input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.results-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.results-badge {
+  font-size: var(--text-xs);
+  padding: 0.25rem 0.6rem;
+  background: rgba(202, 138, 4, 0.12);
+  color: var(--color-primary);
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.kpi-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+}
+
+.kpi-card.highlight {
+  border-color: var(--color-primary);
+  background: rgba(202, 138, 4, 0.05);
+}
+
+.kpi-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+.kpi-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.kpi-subtext {
+  font-size: 0.75rem;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-top: 0.15rem;
+}
+
+.drain-cross-section {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.cross-header {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.cross-diagram {
+  height: 120px;
+  background: #3e2723;
+  border-radius: var(--radius-md);
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.cross-fabric {
+  width: 80%;
+  height: 100%;
+  border: 2px dashed #90a4ae;
+  background: #455a64;
+  border-radius: 4px;
+  padding: 6px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cross-gravel {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #78909c 20%, #546e7a 20%);
+  background-size: 8px 8px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.cross-pipe {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #212121;
+  border: 3px solid #f57f17;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cross-pipe span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+
+.cross-bedding {
+  font-size: 0.65rem;
+  color: #cfd8dc;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.cross-caption {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+  line-height: 1.35;
+}
+
+.breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.breakdown-row:last-child {
+  border-bottom: none;
+}
+
+.breakdown-val {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.highlight-deduct {
+  color: #ef4444;
+}
+</style>
+
+<script>
+function initDrainCalculator() {
+  const lengthInput = document.getElementById('drain-trench-length') as HTMLInputElement | null;
+  const widthInput = document.getElementById('drain-trench-width') as HTMLInputElement | null;
+  const depthInput = document.getElementById('drain-trench-depth') as HTMLInputElement | null;
+  const wasteInput = document.getElementById('drain-waste') as HTMLInputElement | null;
+  const wasteDisplay = document.getElementById('drain-waste-display');
+
+  const pipeBtns = document.querySelectorAll('.pipe-btn');
+  const stoneBtns = document.querySelectorAll('.stone-btn');
+
+  let activePipeDeductPerFoot = 0.08727; // 4 inch pipe
+  let activePipeLabel = '4" Perf Pipe';
+  let activeDensity = 1.35; // Tons/yd³
+
+  function calculate() {
+    if (!lengthInput || !widthInput || !depthInput || !wasteInput) return;
+
+    const length = Math.max(1, parseFloat(lengthInput.value) || 0);
+    const widthInches = Math.max(1, parseFloat(widthInput.value) || 0);
+    const depthInches = Math.max(1, parseFloat(depthInput.value) || 0);
+    const wastePercent = parseFloat(wasteInput.value) || 0;
+
+    if (wasteDisplay) {
+      wasteDisplay.textContent = `${wastePercent}%`;
+    }
+
+    const widthFeet = widthInches / 12;
+    const depthFeet = depthInches / 12;
+
+    // Gross Trench Volume
+    const grossCuFt = length * widthFeet * depthFeet;
+    const grossYards = grossCuFt / 27;
+
+    // Pipe Displacement
+    const pipeDeductCuFt = length * activePipeDeductPerFoot;
+
+    // Net Volume before waste
+    const netCuFtBeforeWaste = Math.max(0, grossCuFt - pipeDeductCuFt);
+    
+    // Net Volume after overage/settlement
+    const netCuFt = netCuFtBeforeWaste * (1 + wastePercent / 100);
+    const netYards = netCuFt / 27;
+
+    // Tonnage
+    const netTons = netYards * activeDensity;
+    const netLbs = netTons * 2000;
+
+    // Geotextile Fabric: Trench perimeter + 12" overlap across the top
+    // Perimeter around sides & bottom = width + (2 * depth)
+    // Plus 12 inches overlap at top = + 1 foot
+    const fabricWidthFeet = widthFeet + (2 * depthFeet) + 1.0;
+    const fabricSqFt = Math.ceil(length * fabricWidthFeet * 1.05); // 5% seam overlap
+    const rolls4x100 = Math.ceil(fabricSqFt / 400);
+
+    // Update KPIs
+    const kpiTons = document.getElementById('kpi-drain-tons');
+    const kpiLbs = document.getElementById('kpi-drain-lbs');
+    const kpiYards = document.getElementById('kpi-drain-yards');
+    const kpiCuFt = document.getElementById('kpi-drain-cuft');
+    const kpiFabric = document.getElementById('kpi-drain-fabric');
+    const kpiRolls = document.getElementById('kpi-drain-rolls');
+    const kpiPipeFt = document.getElementById('kpi-drain-pipe-ft');
+    const kpiDeduct = document.getElementById('kpi-drain-deduct');
+    const pipeBadge = document.getElementById('drain-pipe-badge');
+
+    if (kpiTons) kpiTons.textContent = netTons.toFixed(2);
+    if (kpiLbs) kpiLbs.textContent = `${Math.round(netLbs).toLocaleString()} lbs net delivery`;
+    if (kpiYards) kpiYards.textContent = netYards.toFixed(2);
+    if (kpiCuFt) kpiCuFt.textContent = `${netCuFt.toFixed(1)} cu ft net stone`;
+    if (kpiFabric) kpiFabric.textContent = `${fabricSqFt.toLocaleString()}`;
+    if (kpiRolls) kpiRolls.textContent = `${rolls4x100} roll${rolls4x100 === 1 ? '' : 's'} (4' x 100')`;
+    if (kpiPipeFt) kpiPipeFt.textContent = `${Math.round(length)}`;
+    if (kpiDeduct) kpiDeduct.textContent = `Deducted: ${pipeDeductCuFt.toFixed(1)} cu ft`;
+    if (pipeBadge) pipeBadge.textContent = activePipeLabel;
+
+    // Update Breakdown Rows
+    const rowGross = document.getElementById('row-gross-cuft');
+    const rowDeduct = document.getElementById('row-pipe-deduct');
+    const rowNet = document.getElementById('row-net-stone');
+    const rowFabric = document.getElementById('row-fabric-sqft');
+
+    if (rowGross) rowGross.textContent = `${grossCuFt.toFixed(1)} cu ft (${grossYards.toFixed(2)} yd³)`;
+    if (rowDeduct) rowDeduct.textContent = `-${pipeDeductCuFt.toFixed(1)} cu ft`;
+    if (rowNet) rowNet.textContent = `${netCuFt.toFixed(1)} cu ft (${netYards.toFixed(2)} yd³)`;
+    if (rowFabric) rowFabric.textContent = `${fabricSqFt.toLocaleString()} sq ft (${rolls4x100} rolls)`;
+
+    // Update diagram label
+    const crossLabel = document.getElementById('cross-pipe-label');
+    if (crossLabel) crossLabel.textContent = activePipeLabel;
+  }
+
+  // Pipe selection listeners
+  pipeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      pipeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const pipeVal = btn.getAttribute('data-pipe');
+      if (pipeVal === '4') {
+        activePipeDeductPerFoot = 0.08727; // π*(2/12)^2
+        activePipeLabel = '4" Perf Pipe';
+      } else if (pipeVal === '6') {
+        activePipeDeductPerFoot = 0.19635; // π*(3/12)^2
+        activePipeLabel = '6" High Flow';
+      } else {
+        activePipeDeductPerFoot = 0.0;
+        activePipeLabel = 'No Pipe';
+      }
+      calculate();
+    });
+  });
+
+  // Stone selection listeners
+  stoneBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      stoneBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.35');
+      calculate();
+    });
+  });
+
+  // Input event listeners
+  [lengthInput, widthInput, depthInput, wasteInput].forEach(input => {
+    if (input) {
+      input.addEventListener('input', calculate);
+    }
+  });
+
+  calculate();
+}
+
+document.addEventListener('DOMContentLoaded', initDrainCalculator);
+</script>

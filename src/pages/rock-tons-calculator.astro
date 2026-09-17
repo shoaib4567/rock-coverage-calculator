@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
-import Calculator from '../components/Calculator.astro';
+import TonsCalculator from '../components/calculators/TonsCalculator.astro';
 import Visualizer from '../components/Visualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
@@ -92,12 +92,7 @@ const faqItems = [
       quickStats={quickStats}
     />
 
-    <Calculator 
-      initialMaterial="crushed-limestone" 
-      initialDepth={3} 
-      headline="Rock Weight & Tonnage Calculator"
-      subtitle="Compute certified quarry short tons (2,000 lbs) for bulk freight ordering."
-    />
+    <TonsCalculator />
 
     <Visualizer />
 

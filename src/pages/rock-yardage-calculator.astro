@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
-import Calculator from '../components/Calculator.astro';
+import YardageCalculator from '../components/calculators/YardageCalculator.astro';
 import Visualizer from '../components/Visualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
@@ -92,12 +92,7 @@ const faqItems = [
       quickStats={quickStats}
     />
 
-    <Calculator 
-      initialMaterial="crushed-granite" 
-      initialDepth={3} 
-      headline="Quarry Yardage & Sizing Calculator"
-      subtitle="Input square footage or shape boundaries to calculate net purchase yardage."
-    />
+    <YardageCalculator />
 
     <Visualizer />
 

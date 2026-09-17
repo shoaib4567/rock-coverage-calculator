@@ -1,0 +1,661 @@
+---
+// River Rock & Dry Creek Bed Calculator Component
+---
+<section class="section" id="river-rock-calc">
+  <div class="container">
+    <div class="section-header">
+      <h2>River Rock Sizing & Coverage Calculator</h2>
+      <div class="section-divider"></div>
+      <p>Calculate exact quarry tonnage and volume with automated Two-Stone Rule depth locking for 3/4", 1-3", and 2-4" river rock across landscape beds and dry creek swales.</p>
+    </div>
+
+    <div class="calc-wrapper">
+      <!-- Input Panel -->
+      <div class="calc-panel animate-fade-in-up">
+        <div class="calc-panel-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          <h3>Application Type & Layout</h3>
+        </div>
+
+        <!-- Mode Toggle -->
+        <div class="unit-toggle mode-toggle" role="tablist">
+          <button class="active" id="river-mode-bed" type="button">Landscape Bed (Flat)</button>
+          <button id="river-mode-creek" type="button">Dry Creek Swale (Contoured)</button>
+        </div>
+
+        <!-- Dimension Inputs -->
+        <div class="dim-grid">
+          <div class="input-field">
+            <label for="river-length">Length</label>
+            <input type="number" id="river-length" value="30" min="1" step="0.5" />
+            <span class="unit-label">feet</span>
+          </div>
+          <div class="input-field">
+            <label for="river-width">Width</label>
+            <input type="number" id="river-width" value="10" min="1" step="0.5" />
+            <span class="unit-label">feet</span>
+          </div>
+        </div>
+
+        <!-- River Rock Size Selection -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="12" r="3"/><circle cx="15" cy="9" r="4"/><circle cx="17" cy="17" r="2.5"/></svg>
+          <h3>River Rock Sizing (Two-Stone Rule)</h3>
+        </div>
+
+        <div class="size-select-grid" role="radiogroup">
+          <button type="button" class="size-btn" data-size="small" data-mindepth="2.0" data-density="1.30">
+            <div class="size-title">3/4" - 1" Small River Rock</div>
+            <div class="size-spec">Min Depth: 2" | Smooth Delaware / Ohio gravel</div>
+          </button>
+          <button type="button" class="size-btn active" data-size="medium" data-mindepth="3.0" data-density="1.35">
+            <div class="size-title">1" - 3" Medium River Rock</div>
+            <div class="size-spec">Min Depth: 3" | Most popular garden bed stone</div>
+          </button>
+          <button type="button" class="size-btn" data-size="large" data-mindepth="4.0" data-density="1.40">
+            <div class="size-title">2" - 4" Large River Rock</div>
+            <div class="size-spec">Min Depth: 4" | High-impact architectural cobble</div>
+          </button>
+          <button type="button" class="size-btn" data-size="oversized" data-mindepth="6.0" data-density="1.45">
+            <div class="size-title">3" - 5" River Boulders / Cobble</div>
+            <div class="size-spec">Min Depth: 6" | Dry creek stabilization & swales</div>
+          </button>
+        </div>
+
+        <!-- Depth Input with Two-Stone Rule Lock -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M8 5l4-3 4 3M8 19l4 3 4-3"/></svg>
+          <h3>Coverage Depth</h3>
+        </div>
+
+        <div class="depth-wrapper">
+          <div class="input-field" style="margin-bottom: var(--space-2);">
+            <label for="river-depth">Installed Layer Depth</label>
+            <input type="number" id="river-depth" value="3.0" min="1" max="12" step="0.5" />
+            <span class="unit-label">inches</span>
+          </div>
+          <div id="depth-rule-alert" class="depth-rule-note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span id="depth-rule-text">Two-Stone Rule: Minimum 3.0" depth locked for 1"-3" stone to prevent bare ground exposure.</span>
+          </div>
+        </div>
+
+        <!-- Compaction / Settling Buffer -->
+        <div class="calc-panel-title" style="margin-top: var(--space-4);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
+          <h3>Safety Margin & Contour Allowance</h3>
+        </div>
+
+        <div class="range-container">
+          <div class="range-header">
+            <span>Irregular Grade Buffer</span>
+            <span class="range-val" id="river-waste-display">10%</span>
+          </div>
+          <input type="range" id="river-waste" min="0" max="25" value="10" step="1" />
+        </div>
+      </div>
+
+      <!-- Output Panel -->
+      <div class="calc-results-panel animate-fade-in-up">
+        <div class="results-header">
+          <div class="results-title">River Rock Requirements</div>
+          <div class="results-badge" id="river-size-badge">1" - 3" River Rock</div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card highlight">
+            <div class="kpi-value" id="kpi-river-tons">0.00</div>
+            <div class="kpi-label">Quarry Weight (Tons)</div>
+            <div class="kpi-subtext" id="kpi-river-lbs">0 lbs bulk weight</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-river-yards">0.00</div>
+            <div class="kpi-label">Volume (Cubic Yards)</div>
+            <div class="kpi-subtext" id="kpi-river-cuft">0 cu ft total volume</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-river-sqft">0</div>
+            <div class="kpi-label">Surface Area (Sq Ft)</div>
+            <div class="kpi-subtext" id="kpi-river-yield">Yield: ~60 sq ft / ton</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value" id="kpi-river-bags">0</div>
+            <div class="kpi-label">0.5 Cu Ft Bags</div>
+            <div class="kpi-subtext" id="kpi-river-pallets">0 pallets (60 bags/pallet)</div>
+          </div>
+        </div>
+
+        <!-- Two-Stone Depth Visualizer -->
+        <div class="depth-visual-box">
+          <div class="visual-title">Two-Stone Rule Thickness Verification</div>
+          <div class="visual-layers">
+            <div class="visual-rock-layer" id="visual-rock-bar">
+              <span id="visual-layer-text">Layer 1 + Layer 2 Interlocking Coverage</span>
+            </div>
+            <div class="visual-fabric-layer">Heavy Duty Weed Barrier Fabric</div>
+            <div class="visual-subgrade-layer">Compacted Subsoil / Native Earth</div>
+          </div>
+          <div class="visual-note" id="visual-compliance-text">
+            Compliant: At 3" depth, stones naturally overlap 2-deep to block 100% of sunlight from weed barrier fabric.
+          </div>
+        </div>
+
+        <!-- Breakdown List -->
+        <div class="breakdown-list">
+          <div class="breakdown-row">
+            <span>Base Plan Surface Area</span>
+            <span class="breakdown-val" id="row-river-area">300 sq ft</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Swale Contour Multiplier</span>
+            <span class="breakdown-val" id="row-river-contour">1.00x (Flat Bed)</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Bulk Density Spec</span>
+            <span class="breakdown-val" id="row-river-density">1.35 Tons / yd³ (2,700 lbs)</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Weed Barrier Fabric Rolls (3' x 100')</span>
+            <span class="breakdown-val" id="row-river-fabric">1 roll (300 sq ft)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.calc-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .calc-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calc-panel, .calc-results-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+}
+
+.calc-panel-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  color: var(--color-text);
+}
+
+.calc-panel-title svg {
+  color: var(--color-primary);
+}
+
+.calc-panel-title h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin: 0;
+}
+
+.unit-toggle {
+  display: flex;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  margin-bottom: var(--space-4);
+}
+
+.unit-toggle button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.unit-toggle button.active {
+  background: var(--color-primary);
+  color: #000;
+}
+
+.dim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.input-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.input-field input {
+  padding: 0.65rem 0.75rem;
+  padding-right: 3.5rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--text-base);
+  font-weight: 600;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.input-field input:focus {
+  border-color: var(--color-primary);
+}
+
+.input-field .unit-label {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.65rem;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.size-select-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.size-btn {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.size-btn:hover {
+  border-color: var(--color-primary-light);
+}
+
+.size-btn.active {
+  border-color: var(--color-primary);
+  background: rgba(202, 138, 4, 0.08);
+}
+
+.size-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.size-spec {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.depth-rule-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5rem 0.75rem;
+  background: rgba(202, 138, 4, 0.1);
+  border: 1px solid rgba(202, 138, 4, 0.25);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--text-xs);
+}
+
+.depth-rule-note svg {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.range-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.range-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.range-val {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.range-container input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.results-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.results-badge {
+  font-size: var(--text-xs);
+  padding: 0.25rem 0.6rem;
+  background: rgba(202, 138, 4, 0.12);
+  color: var(--color-primary);
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.kpi-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+}
+
+.kpi-card.highlight {
+  border-color: var(--color-primary);
+  background: rgba(202, 138, 4, 0.05);
+}
+
+.kpi-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+.kpi-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.kpi-subtext {
+  font-size: 0.75rem;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-top: 0.15rem;
+}
+
+.depth-visual-box {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.visual-title {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.visual-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.visual-rock-layer {
+  background: linear-gradient(135deg, #78909c 25%, #607d8b 100%);
+  color: #fff;
+  padding: 10px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-align: center;
+  transition: height var(--transition-normal);
+}
+
+.visual-fabric-layer {
+  background: #374151;
+  color: #9ca3af;
+  padding: 4px;
+  font-size: 0.65rem;
+  text-align: center;
+  font-family: monospace;
+}
+
+.visual-subgrade-layer {
+  background: #5d4037;
+  color: #d7ccc8;
+  padding: 8px;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.visual-note {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+  line-height: 1.35;
+}
+
+.breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.breakdown-row:last-child {
+  border-bottom: none;
+}
+
+.breakdown-val {
+  font-weight: 600;
+  color: var(--color-text);
+}
+</style>
+
+<script>
+function initRiverRockCalculator() {
+  const lengthInput = document.getElementById('river-length') as HTMLInputElement | null;
+  const widthInput = document.getElementById('river-width') as HTMLInputElement | null;
+  const depthInput = document.getElementById('river-depth') as HTMLInputElement | null;
+  const wasteInput = document.getElementById('river-waste') as HTMLInputElement | null;
+  const wasteDisplay = document.getElementById('river-waste-display');
+
+  const modeBedBtn = document.getElementById('river-mode-bed');
+  const modeCreekBtn = document.getElementById('river-mode-creek');
+  const sizeBtns = document.querySelectorAll('.size-btn');
+
+  let activeMode = 'bed'; // 'bed' or 'creek'
+  let activeMinDepth = 3.0; // inches
+  let activeDensity = 1.35; // Tons / yd³
+  let activeSizeLabel = '1" - 3" River Rock';
+
+  function calculate() {
+    if (!lengthInput || !widthInput || !depthInput || !wasteInput) return;
+
+    const length = Math.max(1, parseFloat(lengthInput.value) || 0);
+    const width = Math.max(1, parseFloat(widthInput.value) || 0);
+    let depth = parseFloat(depthInput.value) || activeMinDepth;
+    const wastePercent = parseFloat(wasteInput.value) || 0;
+
+    if (wasteDisplay) {
+      wasteDisplay.textContent = `${wastePercent}%`;
+    }
+
+    // Two-Stone Rule Auto-Adjustment Check
+    const depthAlertText = document.getElementById('depth-rule-text');
+    const visualCompliance = document.getElementById('visual-compliance-text');
+    const visualRockBar = document.getElementById('visual-rock-bar');
+
+    if (depth < activeMinDepth) {
+      if (depthAlertText) {
+        depthAlertText.textContent = `Warning: ${depth}" is too thin for ${activeSizeLabel}. Two-Stone Rule requires at least ${activeMinDepth}" depth to prevent landscape fabric from showing through.`;
+      }
+      if (visualCompliance) {
+        visualCompliance.textContent = `Deficient: At ${depth}", large stones create visible gaps exposing underlayment fabric to UV breakdown.`;
+        visualCompliance.style.color = '#ef4444';
+      }
+    } else {
+      if (depthAlertText) {
+        depthAlertText.textContent = `Two-Stone Rule satisfied: ${depth}" depth gives a clean, interlocking 2-layer coverage for ${activeSizeLabel}.`;
+      }
+      if (visualCompliance) {
+        visualCompliance.textContent = `Compliant: At ${depth}" depth, stones naturally overlap 2-deep to block 100% of sunlight from weed barrier fabric.`;
+        visualCompliance.style.color = 'var(--color-text-muted)';
+      }
+    }
+
+    // Swale Contour Factor
+    const contourFactor = activeMode === 'creek' ? 1.30 : 1.00;
+    const baseArea = length * width;
+    const effectiveArea = baseArea * contourFactor;
+
+    // Volume calculation
+    const depthInFeet = depth / 12;
+    const netCuFtBeforeWaste = effectiveArea * depthInFeet;
+    const netCuFt = netCuFtBeforeWaste * (1 + wastePercent / 100);
+    const netYards = netCuFt / 27;
+
+    // Tonnage
+    const netTons = netYards * activeDensity;
+    const netLbs = netTons * 2000;
+
+    // Bags (0.5 cu ft bags)
+    const bagCount = Math.ceil(netCuFt / 0.5);
+    const palletCount = (bagCount / 60).toFixed(1);
+
+    // Yield
+    const yieldSqFtPerTon = netTons > 0 ? (effectiveArea / netTons).toFixed(0) : '0';
+
+    // Fabric rolls
+    const fabricSqFt = Math.ceil(effectiveArea * 1.10); // 10% overlap
+    const rolls3x100 = Math.ceil(fabricSqFt / 300);
+
+    // Update KPI UI
+    const kpiTons = document.getElementById('kpi-river-tons');
+    const kpiLbs = document.getElementById('kpi-river-lbs');
+    const kpiYards = document.getElementById('kpi-river-yards');
+    const kpiCuFt = document.getElementById('kpi-river-cuft');
+    const kpiSqFt = document.getElementById('kpi-river-sqft');
+    const kpiYield = document.getElementById('kpi-river-yield');
+    const kpiBags = document.getElementById('kpi-river-bags');
+    const kpiPallets = document.getElementById('kpi-river-pallets');
+    const badge = document.getElementById('river-size-badge');
+
+    if (kpiTons) kpiTons.textContent = netTons.toFixed(2);
+    if (kpiLbs) kpiLbs.textContent = `${Math.round(netLbs).toLocaleString()} lbs bulk weight`;
+    if (kpiYards) kpiYards.textContent = netYards.toFixed(2);
+    if (kpiCuFt) kpiCuFt.textContent = `${netCuFt.toFixed(1)} cu ft total volume`;
+    if (kpiSqFt) kpiSqFt.textContent = Math.round(effectiveArea).toLocaleString();
+    if (kpiYield) kpiYield.textContent = `Yield: ~${yieldSqFtPerTon} sq ft / ton`;
+    if (kpiBags) kpiBags.textContent = bagCount.toLocaleString();
+    if (kpiPallets) kpiPallets.textContent = `${palletCount} pallet${palletCount === '1.0' ? '' : 's'} (60 bags/pl)`;
+    if (badge) badge.textContent = activeSizeLabel;
+
+    // Update Rows
+    const rowArea = document.getElementById('row-river-area');
+    const rowContour = document.getElementById('row-river-contour');
+    const rowDensity = document.getElementById('row-river-density');
+    const rowFabric = document.getElementById('row-river-fabric');
+
+    if (rowArea) rowArea.textContent = `${Math.round(baseArea).toLocaleString()} sq ft (${length}' × ${width}')`;
+    if (rowContour) rowContour.textContent = activeMode === 'creek' ? '1.30x (Curved Swale Dish)' : '1.00x (Flat Bed)';
+    if (rowDensity) rowDensity.textContent = `${activeDensity.toFixed(2)} Tons / yd³ (${Math.round(activeDensity * 2000).toLocaleString()} lbs)`;
+    if (rowFabric) rowFabric.textContent = `${rolls3x100} roll${rolls3x100 === 1 ? '' : 's'} (${fabricSqFt.toLocaleString()} sq ft)`;
+  }
+
+  // Mode Toggles
+  if (modeBedBtn && modeCreekBtn) {
+    modeBedBtn.addEventListener('click', () => {
+      modeBedBtn.classList.add('active');
+      modeCreekBtn.classList.remove('active');
+      activeMode = 'bed';
+      calculate();
+    });
+
+    modeCreekBtn.addEventListener('click', () => {
+      modeCreekBtn.classList.add('active');
+      modeBedBtn.classList.remove('active');
+      activeMode = 'creek';
+      calculate();
+    });
+  }
+
+  // Size buttons
+  sizeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      sizeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeMinDepth = parseFloat(btn.getAttribute('data-mindepth') || '3.0');
+      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.35');
+      const titleEl = btn.querySelector('.size-title');
+      if (titleEl) activeSizeLabel = titleEl.textContent || 'River Rock';
+
+      // Auto update depth input to the minimum depth if currently less
+      if (depthInput && parseFloat(depthInput.value) < activeMinDepth) {
+        depthInput.value = activeMinDepth.toFixed(1);
+      }
+      calculate();
+    });
+  });
+
+  // Inputs
+  [lengthInput, widthInput, depthInput, wasteInput].forEach(input => {
+    if (input) {
+      input.addEventListener('input', calculate);
+    }
+  });
+
+  calculate();
+}
+
+document.addEventListener('DOMContentLoaded', initRiverRockCalculator);
+</script>

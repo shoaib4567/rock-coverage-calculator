@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
-import Calculator from '../components/Calculator.astro';
+import SquareFootCalculator from '../components/calculators/SquareFootCalculator.astro';
 import Visualizer from '../components/Visualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
@@ -92,12 +92,7 @@ const faqItems = [
       quickStats={quickStats}
     />
 
-    <Calculator 
-      initialMaterial="river-rock" 
-      initialDepth={3} 
-      headline="Square Footage Coverage Calculator"
-      subtitle="Select your bed shape, enter exact dimensions, and see instant volumetric yields."
-    />
+    <SquareFootCalculator />
 
     <Visualizer />
 

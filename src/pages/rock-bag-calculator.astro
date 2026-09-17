@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
-import Calculator from '../components/Calculator.astro';
+import BagCalculator from '../components/calculators/BagCalculator.astro';
 import Visualizer from '../components/Visualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
@@ -92,12 +92,7 @@ const faqItems = [
       quickStats={quickStats}
     />
 
-    <Calculator 
-      initialMaterial="pea-gravel" 
-      initialDepth={3} 
-      headline="Retail Rock Bag Calculator"
-      subtitle="Input your bed square footage to find total bags required and pallet load breakdowns."
-    />
+    <BagCalculator />
 
     <Visualizer />
 

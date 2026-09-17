@@ -48,10 +48,52 @@ const MATERIAL_CALCULATORS = [
     desc: 'Crushed stone, structural driveway base, walkway fines, and compaction volume.',
     density: '1.40 t/yd³',
     icon: `<polygon points="3,18 7,6 17,6 21,18"/><line x1="7" y1="12" x2="17" y2="12" opacity="0.5"/>`
+  },
+  {
+    title: 'Gravel Calculator',
+    slug: '/gravel-calculator',
+    desc: 'Driveways, pathways, and sub-base grading with 15% compaction allowance.',
+    density: '1.40 t/yd³',
+    icon: `<circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 17h14v-5l-3-4H8L5 12v5z"/>`
+  },
+  {
+    title: 'Crushed Stone Calculator',
+    slug: '/crushed-stone-calculator',
+    desc: 'AASHTO sieve grades #57, #411 crusher run, track ballast, and heavy riprap.',
+    density: '1.40-1.50 t/yd³',
+    icon: `<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/>`
+  },
+  {
+    title: 'Pea Gravel Calculator',
+    slug: '/pea-gravel-calculator',
+    desc: '3/8" smooth round gravel with walkability depth limiters and perimeter edging.',
+    density: '1.38 t/yd³',
+    icon: `<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/>`
   }
 ];
 
 const QUANTITY_CALCULATORS = [
+  {
+    title: 'How Much Rock Do I Need?',
+    slug: '/how-much-rock-do-i-need',
+    desc: 'Guided estimator matching your specific project type to optimal depth and volume.',
+    metric: 'Guided Solver',
+    icon: `<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>`
+  },
+  {
+    title: 'Rock Calculator',
+    slug: '/rock-calculator',
+    desc: 'General multi-shape aggregate estimator for rectangular, circular, and custom beds.',
+    metric: 'Multi-Shape',
+    icon: `<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>`
+  },
+  {
+    title: 'Rock Coverage Chart',
+    slug: '/rock-coverage-chart',
+    desc: 'Interactive depth matrix showing square feet per yard and square feet per ton.',
+    metric: 'Depth Matrix',
+    icon: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`
+  },
   {
     title: 'Rock Cubic Yard Calculator',
     slug: '/rock-cubic-yard-calculator',

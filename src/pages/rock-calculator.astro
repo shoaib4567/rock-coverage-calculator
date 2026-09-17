@@ -1,0 +1,326 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import GeneralRockCalculator from '../components/calculators/GeneralRockCalculator.astro';
+import Visualizer from '../components/Visualizer.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Rock Calculator', url: '/rock-calculator' }
+];
+
+const entityTags = [
+  { label: 'Primary Entity', value: 'Rock Calculator' },
+  { label: 'Units Supported', value: 'Cubic Yards, Tons, Pounds, Bags' },
+  { label: 'Geometric Shapes', value: 'Rectangle, Circle, Direct Area' },
+  { label: 'Material Library', value: 'River Rock, Crushed Stone, Lava, DG' }
+];
+
+const quickStats = [
+  { value: 'Multi-Shape', label: 'Geometry Engine', desc: 'Precise area calculations for rectangles, circles, and irregular zones' },
+  { value: '4 Presets', label: 'Density Library', desc: 'Pre-calibrated bulk densities for accurate quarry scale tons' },
+  { value: 'Zero Fluff', label: 'Contractor Math', desc: 'Instant volume and tonnage output with standard safety margins' }
+];
+
+const faqItems = [
+  {
+    q: 'How does this rock calculator work?',
+    a: 'The rock calculator computes the three-dimensional volume of your project by multiplying the length and width (or circular radius) by your target depth. It then divides by 27 to calculate cubic yards, and applies material bulk density coefficients (typically 1.35 to 1.40 tons per cubic yard) to give exact quarry weight.'
+  },
+  {
+    q: 'How many tons of rock do I need per cubic yard?',
+    a: 'For standard crushed stone or river rock, 1 cubic yard weighs approximately 1.35 to 1.40 tons (2,700 to 2,800 lbs). Lightweight porous volcanic lava rock weighs only 0.85 tons per yard, while dense-graded road base with stone dust weighs 1.50 tons per yard.'
+  },
+  {
+    q: 'How much extra rock should I order for overage?',
+    a: 'Civil contractors recommend a 10% safety overage buffer for standard rectangular landscape beds, and 12% to 15% for curved borders, irregular grade depressions, and vehicular driveways subject to roller compaction.'
+  },
+  {
+    q: 'Can I use this calculator for circular tree rings and fire pits?',
+    a: 'Yes. Select the "Circle / Ring" shape toggle, input the total diameter in feet across your circular bed, and the calculator applies the exact πr² formula to give precise volume without over-ordering.'
+  }
+];
+---
+
+<BaseLayout
+  title="Rock Calculator - Fast Cubic Yards, Tons & Bag Estimator"
+  description="Free online rock calculator for landscaping and construction. Calculate exact cubic yards, scale tons, and bags for rectangular, circular, and irregular areas."
+  canonicalPath="/rock-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Rock Calculator",
+      "url": "https://rockcoveragecalculator.com/rock-calculator",
+      "description": "General rock calculator computing cubic yards, tons, and bags across multiple geometries and aggregate densities.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "about": {
+        "@type": "Thing",
+        "name": "Rock Calculator"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Rock Calculator"
+      highlightWord="Calculator"
+      badge="Core Aggregate & Volume Engine"
+      subtitle="Fast, precise cubic yards and quarry tonnage calculations for residential garden beds, pathways, and commercial construction projects."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <GeneralRockCalculator />
+
+    <Visualizer />
+
+    <!-- Technical Guide on Rock Calculations -->
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Mastering the Mechanics of Rock Calculation</h2>
+          <p>
+            Whether you are calculating rock for a modern residential xeriscape or a commercial aggregate base, accurate material procurement requires translating physical site geometry into certified quarry units. Aggregate is extracted, crushed, washed, and sold in two primary units: <strong>Cubic Yards (Volume)</strong> and <strong>US Short Tons (Weight)</strong>.
+          </p>
+
+          <h3>The Step-by-Step Calculation Process</h3>
+          <ol class="steps-list">
+            <li>
+              <strong>Determine Total Square Footage:</strong> For rectangular beds, multiply Length in feet by Width in feet. For circular rings, multiply 3.1416 by radius squared.
+            </li>
+            <li>
+              <strong>Convert Layer Depth to Feet:</strong> Divide your depth in inches by 12. For a 3-inch depth, 3 / 12 = 0.25 feet.
+            </li>
+            <li>
+              <strong>Calculate Cubic Feet:</strong> Multiply your square footage by depth in feet. For a 400 sq ft area at 0.25 feet depth: 400 × 0.25 = 100 cubic feet.
+            </li>
+            <li>
+              <strong>Convert to Cubic Yards:</strong> Divide total cubic feet by 27 (the number of cubic feet in one cubic yard). 100 / 27 = 3.70 cubic yards.
+            </li>
+            <li>
+              <strong>Apply Quarry Density for Tonnage:</strong> Multiply cubic yards by your aggregate's specific bulk density. At 1.35 tons/yd³: 3.70 × 1.35 = 5.0 tons.
+            </li>
+          </ol>
+
+          <div class="formula-callout">
+            <div class="formula-math">Total Tons = [(Square Feet × Depth in Inches) / 324] × Bulk Density in Tons/yd³</div>
+            <div class="formula-desc">The industry standard master equation for quarry scale aggregate ordering.</div>
+          </div>
+
+          <h3>Density Comparison Across Common Rock Materials</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Rock Material</th>
+                  <th>Bulk Density (Tons/yd³)</th>
+                  <th>Weight per Yard (lbs)</th>
+                  <th>Yield at 3" Depth</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>River Rock (1"-3")</strong></td>
+                  <td>1.35 T/yd³</td>
+                  <td>2,700 lbs</td>
+                  <td>80 sq ft per ton</td>
+                </tr>
+                <tr>
+                  <td><strong>Crushed Granite (#57)</strong></td>
+                  <td>1.40 T/yd³</td>
+                  <td>2,800 lbs</td>
+                  <td>77 sq ft per ton</td>
+                </tr>
+                <tr>
+                  <td><strong>Crusher Run / DGA (#411)</strong></td>
+                  <td>1.50 T/yd³</td>
+                  <td>3,000 lbs</td>
+                  <td>72 sq ft per ton</td>
+                </tr>
+                <tr>
+                  <td><strong>Pea Gravel (3/8")</strong></td>
+                  <td>1.38 T/yd³</td>
+                  <td>2,760 lbs</td>
+                  <td>78 sq ft per ton</td>
+                </tr>
+                <tr>
+                  <td><strong>Volcanic Lava Rock</strong></td>
+                  <td>0.85 T/yd³</td>
+                  <td>1,700 lbs</td>
+                  <td>127 sq ft per ton</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav activePage="rock-calculator" />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+.content-guide-section {
+  padding: var(--space-12) 0;
+  background: var(--color-bg);
+}
+
+.content-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.content-card h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.content-card h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: var(--space-6) 0 var(--space-3) 0;
+}
+
+.content-card p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+
+.steps-list {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-4);
+  padding-left: var(--space-6);
+}
+
+.steps-list li {
+  margin-bottom: var(--space-3);
+}
+
+.formula-callout {
+  background: rgba(202, 138, 4, 0.08);
+  border: 1px solid rgba(202, 138, 4, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-6);
+  margin: var(--space-4) 0;
+}
+
+.formula-math {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-primary);
+  font-family: monospace;
+}
+
+.formula-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.table-container {
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+  font-weight: 600;
+}
+
+td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+tr:hover td {
+  background: rgba(202, 138, 4, 0.04);
+}
+
+.faq-card {
+  margin-top: var(--space-8);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.faq-item {
+  padding: var(--space-4);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.faq-item h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.faq-item p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+</style>
