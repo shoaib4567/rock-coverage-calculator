@@ -1,7 +1,8 @@
 /**
  * Main Application Controller - rockcoveragecalculator.com
  * Orchestrates DOM events, live state reactivity, visualization sync,
- * export hooks, theme switching, advanced pricing, and multi-zone saved projects.
+ * export hooks, theme switching, advanced pricing, multi-zone saved projects,
+ * accurate unit conversions (ft, in, yd, m), and synchronized 3D scene morphing.
  */
 
 import { RockEngine } from './engine.js';
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const state = {
     shape: 'rectangle',
     unit: 'ft',
-    dims: { length: 10, width: 10 },
+    rawDims: { length: 10, width: 10 },
     materialId: 'pea-gravel',
     depthInches: 3,
     wastePercent: 10,
@@ -27,6 +28,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     costTaxRate: 7.0
   };
 
+  // Helper to get normalized dimensions in feet for calculation engine and 3D
+  function getDimsInFeet() {
+    const feetDims = {};
+    Object.keys(state.rawDims).forEach(k => {
+      feetDims[k] = RockEngine.toFeet(state.rawDims[k], state.unit);
+    });
+    return feetDims;
+  }
+
   // Saved Projects storage
   let savedProjects = [];
   try {
@@ -36,10 +46,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     savedProjects = [];
   }
 
-  // Restore from URL
+  // Restore from URL if shared
   const savedState = RockExporter.decodeState();
   if (savedState) {
-    Object.assign(state, savedState);
+    if (savedState.rawDims) {
+      Object.assign(state, savedState);
+    } else if (savedState.dims) {
+      state.rawDims = { ...savedState.dims };
+      Object.assign(state, savedState);
+    }
   }
 
   /* ── DOM References ── */
@@ -112,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.warn('3D scene initialization error:', e);
   }
 
-  /* ── Shape Tab Switching ── */
+  /* ── Shape Tab Configurations ── */
   const shapeConfigs = {
     rectangle: [
       { key: 'length', label: 'Length', placeholder: '10' },
@@ -145,14 +160,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   function setShape(shape) {
     state.shape = shape;
 
-    // Set defaults
+    // Set defaults in active unit
     const configs = shapeConfigs[shape];
-    state.dims = {};
+    state.rawDims = {};
     configs.forEach(c => {
-      state.dims[c.key] = parseFloat(c.placeholder) || 0;
+      const defaultFt = parseFloat(c.placeholder) || 0;
+      const inUnit = RockEngine.fromFeet(defaultFt, state.unit);
+      state.rawDims[c.key] = Math.round(inUnit * 100) / 100;
     });
 
-    // Update tab visuals
+    // Update tab visual active state
     shapeTabs.forEach(tab => {
       tab.classList.toggle('active', tab.dataset.shape === shape);
     });
@@ -173,8 +190,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         <label for="dim-${c.key}">${c.label}</label>
         <div class="input-field">
           <input type="number" id="dim-${c.key}" data-key="${c.key}" 
-                 value="${state.dims[c.key] || c.placeholder}" 
-                 placeholder="${c.placeholder}" step="0.5" min="0">
+                 value="${RockEngine.formatInputValue(state.rawDims[c.key])}" 
+                 placeholder="${c.placeholder}" step="any" min="0">
           <span class="unit-label">${state.unit}</span>
         </div>
       </div>
@@ -185,8 +202,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       inp.addEventListener('input', (e) => {
         const raw = parseFloat(e.target.value);
         if (!isNaN(raw) && raw >= 0) {
-          let valueFt = RockEngine.toFeet(raw, state.unit);
-          state.dims[e.target.dataset.key] = valueFt;
+          state.rawDims[e.target.dataset.key] = raw;
           recalculate();
         }
       });
@@ -204,7 +220,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  /* ── Unit Toggle ── */
+  /* ── Unit Toggle (Feet, Inches, Meters, Yards) ── */
   unitButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const oldUnit = state.unit;
@@ -214,22 +230,25 @@ document.addEventListener('DOMContentLoaded', async () => {
       unitButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // Convert existing dims to new unit for display
-      Object.keys(state.dims).forEach(k => {
-        const ft = state.dims[k];
-        state.dims[k] = RockEngine.fromFeet(ft, newUnit);
+      // Convert existing dimensions to new unit
+      Object.keys(state.rawDims).forEach(k => {
+        const valInFeet = RockEngine.toFeet(state.rawDims[k], oldUnit);
+        const valInNewUnit = RockEngine.fromFeet(valInFeet, newUnit);
+        state.rawDims[k] = Math.round(valInNewUnit * 100) / 100;
       });
 
       state.unit = newUnit;
 
-      // Update unit labels on inputs
+      // Update unit labels and input values in DOM
       if (dimContainer) {
         dimContainer.querySelectorAll('.unit-label').forEach(el => {
           el.textContent = newUnit;
         });
         dimContainer.querySelectorAll('input').forEach(inp => {
           const key = inp.dataset.key;
-          inp.value = RockEngine.formatNumber(state.dims[key]);
+          if (state.rawDims[key] !== undefined) {
+            inp.value = RockEngine.formatInputValue(state.rawDims[key]);
+          }
         });
       }
 
@@ -244,7 +263,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       card.classList.add('active');
       state.materialId = card.dataset.material;
 
-      // Card selection pulse
+      // Card selection pulse animation
       card.classList.add('selected-pulse');
       setTimeout(() => card.classList.remove('selected-pulse'), 400);
 
@@ -303,16 +322,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ── Export & Sharing Actions ── */
   if (btnPrint) {
     btnPrint.addEventListener('click', () => {
+      const dimsInFeet = getDimsInFeet();
       const material = getMaterialById(state.materialId);
-      const result = RockEngine.calculate(state.shape, state.dims, state.depthInches, material, state.wastePercent);
+      const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
       RockExporter.printSpecSheet(result);
     });
   }
 
   if (btnCSV) {
     btnCSV.addEventListener('click', () => {
+      const dimsInFeet = getDimsInFeet();
       const material = getMaterialById(state.materialId);
-      const result = RockEngine.calculate(state.shape, state.dims, state.depthInches, material, state.wastePercent);
+      const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
       RockExporter.exportToCSV(result);
     });
   }
@@ -330,13 +351,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ── Saved Projects System ── */
   if (btnSaveProject) {
     btnSaveProject.addEventListener('click', () => {
+      const dimsInFeet = getDimsInFeet();
       const material = getMaterialById(state.materialId);
-      const result = RockEngine.calculate(state.shape, state.dims, state.depthInches, material, state.wastePercent);
+      const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
       
       const defaultName = `${material.name} - Zone ${savedProjects.length + 1}`;
       const name = window.prompt('Enter a name for this project zone:', defaultName) || defaultName;
 
-      // Calculate cost
+      // Calculate itemized cost
       const matRate = parseFloat(costMaterialInput?.value) || 55;
       const deliveryFee = parseFloat(costDeliveryInput?.value) || 75;
       const laborRate = parseFloat(costLaborInput?.value) || 35;
@@ -350,7 +372,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         id: Date.now(),
         name,
         shape: state.shape,
-        dims: { ...state.dims },
+        rawDims: { ...state.rawDims },
+        dims: { ...dimsInFeet },
         unit: state.unit,
         materialId: state.materialId,
         materialName: material.name,
@@ -388,44 +411,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (btnExportSavedCSV) {
     btnExportSavedCSV.addEventListener('click', () => {
       if (savedProjects.length === 0) {
-        alert('No saved project zones to export.');
+        alert('No project zones saved yet.');
         return;
       }
-
-      const rows = [
-        ['Zone Name', 'Date', 'Shape', 'Material', 'Depth (in)', 'Area (sq ft)', 'Volume (cu yd)', 'Weight (tons)', '0.5 cu ft Bags', 'Estimated Cost'],
-        ...savedProjects.map(z => [
-          `"${z.name}"`,
-          `"${z.date}"`,
-          z.shape,
-          `"${z.materialName}"`,
-          z.depthInches,
-          z.areaSqFt.toFixed(1),
-          z.volumeCuYd.toFixed(2),
-          z.weightTons.toFixed(2),
-          z.bags,
-          `"$${z.totalCost.toFixed(2)}"`
-        ])
-      ];
-
-      // Grand totals row
-      const totalArea = savedProjects.reduce((acc, z) => acc + z.areaSqFt, 0);
-      const totalYards = savedProjects.reduce((acc, z) => acc + z.volumeCuYd, 0);
-      const totalTons = savedProjects.reduce((acc, z) => acc + z.weightTons, 0);
-      const totalBags = savedProjects.reduce((acc, z) => acc + z.bags, 0);
-      const totalCost = savedProjects.reduce((acc, z) => acc + z.totalCost, 0);
-
-      rows.push([]);
-      rows.push(['TOTALS (ALL ZONES)', '', '', '', '', totalArea.toFixed(1), totalYards.toFixed(2), totalTons.toFixed(2), totalBags, `"$${totalCost.toFixed(2)}"`]);
-
-      const csvContent = 'data:text/csv;charset=utf-8,' + rows.map(e => e.join(',')).join('\n');
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
-      link.setAttribute('download', `rock_project_master_zones_${new Date().toISOString().slice(0,10)}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      let csv = 'Zone Name,Shape,Material,Depth (in),Area (sq ft),Volume (cu yd),Weight (tons),Bags (0.5 cu ft),Estimated Cost,Date\n';
+      savedProjects.forEach(z => {
+        csv += `"${z.name}","${z.shape}","${z.materialName}",${z.depthInches},${z.areaSqFt},${z.volumeCuYd},${z.weightTons},${z.bags},"${z.totalCost.toFixed(2)}","${z.date}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `rock_coverage_project_zones_${Date.now()}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
     });
   }
 
@@ -435,7 +434,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (e) {}
 
     if (savedCountBadge) {
-      savedCountBadge.textContent = `${savedProjects.length} ${savedProjects.length === 1 ? 'Zone' : 'Zones'}`;
+      savedCountBadge.textContent = `${savedProjects.length} Zone${savedProjects.length === 1 ? '' : 's'}`;
     }
 
     if (!savedProjectsList) return;
@@ -475,8 +474,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const zone = savedProjects.find(z => z.id === id);
         if (zone) {
           state.shape = zone.shape;
-          state.dims = { ...zone.dims };
-          state.unit = zone.unit;
+          state.unit = zone.unit || 'ft';
+          state.rawDims = { ...(zone.rawDims || zone.dims) };
           state.materialId = zone.materialId;
           state.depthInches = zone.depthInches;
           state.wastePercent = zone.wastePercent;
@@ -491,7 +490,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           renderDimensionInputs(state.shape);
           recalculate();
 
-          // Scroll to calculator
+          // Scroll smoothly to calculator
           document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
         }
       });
@@ -508,8 +507,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   /* ── Main Recalculation ── */
   function recalculate() {
+    const dimsInFeet = getDimsInFeet();
     const material = getMaterialById(state.materialId);
-    const result = RockEngine.calculate(state.shape, state.dims, state.depthInches, material, state.wastePercent);
+    const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
 
     // Animate KPI updates
     animateValue(kpiArea, result.areaSqFt, 'sq ft');
@@ -591,30 +591,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (costSummaryTax) costSummaryTax.textContent = `$${salesTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     if (costTotal) costTotal.textContent = `$${grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-    // Update visualizations
+    // Update 2D Blueprint with actual user inputs and active unit
     try {
-      RockVisualizer.renderBlueprint('blueprint-container', state.shape, state.dims, state.unit);
-    } catch (e) {}
+      RockVisualizer.renderBlueprint('blueprint-container', state.shape, state.rawDims, state.unit);
+    } catch (e) {
+      console.warn('Blueprint render error:', e);
+    }
 
+    // Update 2D Cross Section
     try {
       RockVisualizer.renderCrossSection('cross-section-container', state.depthInches, material.swatchColor, material.name);
-    } catch (e) {}
+    } catch (e) {
+      console.warn('Cross section render error:', e);
+    }
 
+    // Update Coverage Chart
     try {
       const chartData = RockEngine.coverageChartData(material, result.areaSqFt, 'area');
       RockVisualizer.renderCoverageChart('coverage-chart', chartData, state.depthInches);
-    } catch (e) {}
+    } catch (e) {
+      console.warn('Chart render error:', e);
+    }
 
-    // Update 3D scene
+    // Update 3D Scene with ACTUAL shape, dimensions, depth, and material!
     if (rockScene) {
       try {
-        const sizeMap = { 'gravel': 0.5, 'crushed': 0.7, 'river': 1.2, 'decorative': 0.9, 'base': 0.8, 'erosion': 1.5 };
-        rockScene.updateRocks(
-          state.depthInches,
-          material.swatchColor,
-          sizeMap[material.category] || 1
-        );
-      } catch (e) {}
+        rockScene.updateScene({
+          shape: state.shape,
+          dims: dimsInFeet,
+          depth: state.depthInches,
+          material: material
+        });
+      } catch (e) {
+        console.warn('3D scene update error:', e);
+      }
     }
   }
 
@@ -651,30 +661,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     requestAnimationFrame(update);
   }
 
-  /* ── FAQ Accordion ── */
-  document.querySelectorAll('.faq-question').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.parentElement;
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
-    });
-  });
-
-  /* ── Initialize ── */
-  renderDimensionInputs(state.shape);
-  updateDepthDisplay();
+  /* ── Initial Startup ── */
+  setShape(state.shape);
   persistAndRenderSaved();
-
-  // Set initial active states
-  materialCards.forEach(c => {
-    c.classList.toggle('active', c.dataset.material === state.materialId);
-  });
-  wasteChips.forEach(c => {
-    c.classList.toggle('active', parseInt(c.dataset.waste, 10) === state.wastePercent);
-  });
-
-  // Initial calculation
-  recalculate();
-
 });

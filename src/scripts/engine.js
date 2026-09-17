@@ -32,6 +32,23 @@ export const RockEngine = {
     return (converters[unit] || converters.ft)(value);
   },
 
+  fromFeet(valueFt, unit) {
+    const converters = {
+      ft: (v) => v,
+      in: (v) => v * 12,
+      yd: (v) => v / 3,
+      m: (v) => v / 3.28084,
+      cm: (v) => v * 30.48,
+    };
+    return (converters[unit] || converters.ft)(valueFt);
+  },
+
+  formatInputValue(val) {
+    if (val === null || val === undefined || isNaN(val)) return '';
+    const rounded = Math.round(val * 100) / 100;
+    return rounded.toString();
+  },
+
   /* ── Area Calculations (all return sq ft) ── */
 
   areaRectangle(lengthFt, widthFt) {
