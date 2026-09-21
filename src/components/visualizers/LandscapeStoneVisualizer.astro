@@ -1,0 +1,387 @@
+---
+// Landscape Stone & Mechanical Compaction Shrinkage Visualizer
+---
+<section class="section no-print" id="stone-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Plate Compactor & Compaction Shrinkage Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Simulate vibratory plate compactor shrinkage, particle void filling, and loose dump vs finished compacted thickness.</p>
+    </div>
+
+    <div class="stone-viz-grid">
+      <!-- Vibratory Plate Compactor Simulation -->
+      <div class="stone-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 2v20M8 5l4-3 4 3M8 19l4 3 4-3"/></svg>
+            <h3>Mechanical Plate Compaction Simulator</h3>
+          </div>
+          <span class="status-badge gold" id="viz-compaction-badge">20% Shrinkage</span>
+        </div>
+
+        <div class="compactor-body">
+          <div class="compactor-svg-wrap">
+            <svg class="compactor-svg" viewBox="0 0 380 220" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="comp-base-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#94a3b8"/>
+                  <stop offset="100%" stop-color="#475569"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Native Subgrade Soil -->
+              <rect x="20" y="160" width="340" height="45" fill="#1c1917" rx="2"/>
+              <text x="30" y="186" fill="#78716c" font-size="9" font-weight="600">Rigid Subgrade (Native Earth)</text>
+
+              <!-- Left Column: Loose Dump (Uncompacted) -->
+              <g id="loose-column">
+                <rect x="50" y="70" width="110" height="90" fill="url(#comp-base-grad)" stroke="#334155" stroke-width="1.5" rx="3"/>
+                <text x="105" y="115" fill="#f8fafc" font-size="10" font-weight="700" text-anchor="middle">Loose Pour</text>
+                <text x="105" y="130" fill="#fef08a" font-size="12" font-weight="800" text-anchor="middle" id="viz-loose-depth-txt">4.8" Loose</text>
+                <!-- Loose particle circles with air voids -->
+                <circle cx="70" cy="85" r="5" fill="#cbd5e1"/>
+                <circle cx="95" cy="88" r="6" fill="#64748b"/>
+                <circle cx="125" cy="85" r="5" fill="#cbd5e1"/>
+              </g>
+
+              <!-- Compactor Vibration Arrow -->
+              <path d="M 175 115 L 205 115" stroke="#f59e0b" stroke-width="3" marker-end="url(#arrow)"/>
+              <text x="190" y="105" fill="#fbbf24" font-size="8" font-weight="700" text-anchor="middle">Plate Compactor</text>
+
+              <!-- Right Column: Finished Compacted Base -->
+              <g id="compact-column">
+                <rect x="220" y="90" width="110" height="70" fill="#334155" stroke="#1e293b" stroke-width="1.5" rx="3"/>
+                <text x="275" y="122" fill="#f8fafc" font-size="10" font-weight="700" text-anchor="middle">Finished Base</text>
+                <text x="275" y="137" fill="#4ade80" font-size="12" font-weight="800" text-anchor="middle" id="viz-compact-depth-txt">4.0" Dense</text>
+
+                <!-- Vibrating Plate Compactor on top -->
+                <rect x="235" y="66" width="80" height="22" rx="3" fill="#09090b" stroke="#f59e0b" stroke-width="2"/>
+                <!-- Compactor Handle -->
+                <line x1="250" y1="66" x2="230" y2="25" stroke="#71717a" stroke-width="3"/>
+                <circle cx="230" cy="25" r="4" fill="#f59e0b"/>
+                <text x="275" y="80" fill="#fef08a" font-size="8" font-weight="700" text-anchor="middle">98% Proctor</text>
+              </g>
+
+              <!-- Height difference bracket -->
+              <line x1="335" y1="70" x2="335" y2="90" stroke="#ef4444" stroke-width="2"/>
+              <text x="340" y="83" fill="#ef4444" font-size="8" font-weight="700" id="viz-shrinkage-txt">0.8" Loss</text>
+            </svg>
+          </div>
+
+          <div class="compactor-metrics-grid">
+            <div class="cm-node">
+              <span class="cm-val" id="viz-loose-yds-box">0.0 yd³</span>
+              <span class="cm-lbl">Loose Order Volume</span>
+            </div>
+            <div class="cm-node">
+              <span class="cm-val" id="viz-solid-yds-box">0.0 yd³</span>
+              <span class="cm-lbl">Solid In-Place Volume</span>
+            </div>
+            <div class="cm-node">
+              <span class="cm-val" id="viz-lost-yds-box">0.0 yd³</span>
+              <span class="cm-lbl">Lost to Compaction</span>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              The "Short Order" Base Mistake
+            </div>
+            <p>
+              When building paver patios or driveways, never calculate only the finished in-place thickness. Dense graded stone (#411 / crusher run) shrinks approximately 20% when compacted with a 3,000 lb plate compactor. To achieve 4 inches of compacted base, you must pour 4.8 inches of loose stone.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Structural Base Thickness Standards -->
+      <div class="stone-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <h3>Civil Base Thickness Standards</h3>
+          </div>
+          <span class="status-badge green">ICPI Standards</span>
+        </div>
+
+        <div class="thickness-standards-body">
+          <div class="standard-row" id="std-patio">
+            <div class="std-icon">☕</div>
+            <div class="std-details">
+              <div class="std-title">Pedestrian Patio & Walkway Base</div>
+              <div class="std-desc">Requires 4 inches compacted #411 base over non-woven geotextile.</div>
+            </div>
+            <div class="std-badge">4" Base</div>
+          </div>
+
+          <div class="standard-row" id="std-driveway">
+            <div class="std-icon">🚗</div>
+            <div class="std-details">
+              <div class="std-title">Residential Vehicular Driveway Base</div>
+              <div class="std-desc">Requires 6 to 8 inches compacted base in two separate 3" to 4" lifts.</div>
+            </div>
+            <div class="std-badge">6" - 8" Base</div>
+          </div>
+
+          <div class="standard-row" id="std-wall">
+            <div class="std-icon">🧱</div>
+            <div class="std-details">
+              <div class="std-title">Retaining Wall Leveling Trench Pad</div>
+              <div class="std-desc">Requires 6 inches compacted clean crushed stone or dense base beneath first block.</div>
+            </div>
+            <div class="std-badge">6" Trench</div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              The "Compaction Lift" Rule
+            </div>
+            <p>
+              Plate compactors cannot compact more than 4 inches of loose aggregate at a time. If your driveway calls for an 8-inch base, install two separate 4-inch lifts, running the plate compactor 3 to 4 passes over each lift with water spray.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function syncStoneVisualizer() {
+    const compactDepthInput = document.getElementById('stone-compacted-depth');
+    const compactionSlider = document.getElementById('stone-compaction-slider');
+    const looseYardsEl = document.getElementById('kpi-loose-yards');
+    const compactYardsEl = document.getElementById('kpi-compacted-yards');
+
+    const compactDepth = compactDepthInput ? parseFloat(compactDepthInput.value) || 4.0 : 4.0;
+    const compactionPct = compactionSlider ? parseFloat(compactionSlider.value) || 20 : 20;
+
+    const looseDepth = compactDepth * (1 + (compactionPct / 100));
+    const loss = looseDepth - compactDepth;
+
+    const looseTxt = document.getElementById('viz-loose-depth-txt');
+    const compactTxt = document.getElementById('viz-compact-depth-txt');
+    const shrinkTxt = document.getElementById('viz-shrinkage-txt');
+    const badge = document.getElementById('viz-compaction-badge');
+
+    if (looseTxt) looseTxt.textContent = looseDepth.toFixed(1) + '" Loose';
+    if (compactTxt) compactTxt.textContent = compactDepth.toFixed(1) + '" Dense';
+    if (shrinkTxt) shrinkTxt.textContent = loss.toFixed(1) + '" Loss';
+    if (badge) badge.textContent = compactionPct + '% Shrinkage';
+
+    const looseBox = document.getElementById('viz-loose-yds-box');
+    const solidBox = document.getElementById('viz-solid-yds-box');
+    const lostBox = document.getElementById('viz-lost-yds-box');
+
+    if (looseBox && looseYardsEl) looseBox.textContent = looseYardsEl.textContent + ' yd³';
+    if (solidBox && compactYardsEl) solidBox.textContent = compactYardsEl.textContent + ' yd³';
+    if (lostBox && looseYardsEl && compactYardsEl) {
+      const looseY = parseFloat(looseYardsEl.textContent) || 0;
+      const compactY = parseFloat(compactYardsEl.textContent) || 0;
+      lostBox.textContent = Math.max(0, (looseY - compactY)).toFixed(1) + ' yd³';
+    }
+  }
+
+  const inputs = ['stone-length', 'stone-width', 'stone-compacted-depth', 'stone-waste', 'stone-compaction-slider'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncStoneVisualizer);
+      el.addEventListener('change', syncStoneVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.spec-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncStoneVisualizer, 50);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncStoneVisualizer);
+  syncStoneVisualizer();
+})();
+</script>
+
+<style>
+.stone-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .stone-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stone-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.compactor-body, .thickness-standards-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.compactor-svg-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.compactor-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+.compactor-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.cm-node {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.cm-val {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.cm-lbl {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.standard-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--surface-card);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-glass-border);
+}
+
+.std-icon {
+  font-size: 1.4rem;
+}
+
+.std-details {
+  flex: 1;
+}
+
+.std-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.std-desc {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.std-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fbbf24;
+  background: rgba(234, 179, 8, 0.1);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  white-space: nowrap;
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.gold {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

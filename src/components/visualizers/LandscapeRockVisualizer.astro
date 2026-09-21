@@ -1,0 +1,379 @@
+---
+// Landscape Rock & 5-Year Mulch ROI Visualizer
+---
+<section class="section no-print" id="landscape-rock-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Garden Bed Cross-Section & 5-Year ROI Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Compare the long-term economics of permanent stone mulch against rotting wood mulch, and inspect fabric staple anchor spacing.</p>
+    </div>
+
+    <div class="land-viz-grid">
+      <!-- 5-Year Cumulative Cost Comparison Graph -->
+      <div class="land-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <h3>5-Year Cost Payback: Stone vs Wood Mulch</h3>
+          </div>
+          <span class="status-badge green" id="viz-roi-badge">Breakeven Year 2</span>
+        </div>
+
+        <div class="roi-graph-body">
+          <div class="roi-svg-wrap">
+            <svg class="roi-svg" viewBox="0 0 380 200" preserveAspectRatio="xMidYMid meet">
+              <!-- Grid lines -->
+              <line x1="50" y1="20" x2="350" y2="20" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <line x1="50" y1="60" x2="350" y2="60" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <line x1="50" y1="100" x2="350" y2="100" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <line x1="50" y1="140" x2="350" y2="140" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+              <line x1="50" y1="170" x2="350" y2="170" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/> <!-- X axis -->
+
+              <!-- Y Axis Labels -->
+              <text x="42" y="24" fill="#94a3b8" font-size="8" text-anchor="end">$2,000</text>
+              <text x="42" y="64" fill="#94a3b8" font-size="8" text-anchor="end">$1,500</text>
+              <text x="42" y="104" fill="#94a3b8" font-size="8" text-anchor="end">$1,000</text>
+              <text x="42" y="144" fill="#94a3b8" font-size="8" text-anchor="end">$500</text>
+              <text x="42" y="174" fill="#94a3b8" font-size="8" text-anchor="end">$0</text>
+
+              <!-- X Axis Year Labels -->
+              <text x="70" y="186" fill="#cbd5e1" font-size="9" text-anchor="middle">Year 1</text>
+              <text x="135" y="186" fill="#cbd5e1" font-size="9" text-anchor="middle">Year 2</text>
+              <text x="200" y="186" fill="#cbd5e1" font-size="9" text-anchor="middle">Year 3</text>
+              <text x="265" y="186" fill="#cbd5e1" font-size="9" text-anchor="middle">Year 4</text>
+              <text x="330" y="186" fill="#cbd5e1" font-size="9" text-anchor="middle">Year 5</text>
+
+              <!-- Wood Mulch Escalating Line (Red/Amber) -->
+              <!-- Points: Y1=$350, Y2=$700, Y3=$1050, Y4=$1400, Y5=$1750 -->
+              <path d="M 70 148 L 135 125 L 200 100 L 265 75 L 330 45" fill="none" stroke="#ef4444" stroke-width="3"/>
+              <circle cx="330" cy="45" r="4" fill="#ef4444"/>
+              <text x="330" y="32" fill="#ef4444" font-size="9" font-weight="700" text-anchor="middle">Wood Mulch</text>
+
+              <!-- Permanent Stone Flat Line (Green) -->
+              <!-- Point: Y1=$550, then flat with $0 maintenance -->
+              <path d="M 70 135 L 135 135 L 200 135 L 265 135 L 330 135" fill="none" stroke="#10b981" stroke-width="3"/>
+              <circle cx="330" cy="135" r="4" fill="#10b981"/>
+              <text x="330" y="150" fill="#10b981" font-size="9" font-weight="700" text-anchor="middle">Stone Mulch</text>
+
+              <!-- Breakeven Intersect Circle -->
+              <circle cx="110" cy="135" r="6" fill="#fbbf24" stroke="#000" stroke-width="1.5"/>
+              <text x="110" y="118" fill="#fef08a" font-size="8" font-weight="700" text-anchor="middle">Breakeven Point</text>
+            </svg>
+          </div>
+
+          <div class="roi-summary-bar">
+            <div class="r-item">
+              <span class="r-lbl">5-Yr Wood Expense:</span>
+              <span class="r-val bad" id="viz-wood-total">$1,850</span>
+            </div>
+            <div class="r-item">
+              <span class="r-lbl">One-Time Stone Cost:</span>
+              <span class="r-val good" id="viz-stone-total">$580</span>
+            </div>
+            <div class="r-item">
+              <span class="r-lbl">5-Yr Net Savings:</span>
+              <span class="r-val gold" id="viz-net-savings">$1,270</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Garden Bed Cross-Section & Staple Pin Grid -->
+      <div class="land-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M3 17h18" opacity="0.4"/></svg>
+            <h3>Bed Cross-Section & Staple Spacing</h3>
+          </div>
+          <span class="status-badge" id="viz-fabric-badge">Weed Free Spec</span>
+        </div>
+
+        <div class="bed-cross-body">
+          <div class="bed-diagram-wrap">
+            <svg class="bed-svg" viewBox="0 0 360 180" preserveAspectRatio="xMidYMid meet">
+              <!-- Subgrade Soil -->
+              <rect x="20" y="110" width="320" height="60" fill="#1c1917" rx="2"/>
+              <text x="30" y="150" fill="#78716c" font-size="9" font-weight="600">Compacted Native Soil</text>
+
+              <!-- Geotextile Fabric Line -->
+              <line x1="20" y1="110" x2="340" y2="110" stroke="#3b82f6" stroke-width="2.5"/>
+              <text x="330" y="125" fill="#60a5fa" font-size="8" font-weight="700" text-anchor="end">4 oz Needle-Punched Fabric</text>
+
+              <!-- 6" Steel U-Staples driven into ground -->
+              <g id="staple-1">
+                <line x1="80" y1="105" x2="80" y2="145" stroke="#f59e0b" stroke-width="2"/>
+                <line x1="88" y1="105" x2="88" y2="145" stroke="#f59e0b" stroke-width="2"/>
+                <line x1="80" y1="105" x2="88" y2="105" stroke="#f59e0b" stroke-width="2"/>
+                <text x="84" y="98" fill="#fbbf24" font-size="8" font-weight="700" text-anchor="middle">6" Pin</text>
+              </g>
+              <g id="staple-2">
+                <line x1="180" y1="105" x2="180" y2="145" stroke="#f59e0b" stroke-width="2"/>
+                <line x1="188" y1="105" x2="188" y2="145" stroke="#f59e0b" stroke-width="2"/>
+                <line x1="180" y1="105" x2="188" y2="105" stroke="#f59e0b" stroke-width="2"/>
+                <text x="184" y="98" fill="#fbbf24" font-size="8" font-weight="700" text-anchor="middle">6" Pin</text>
+              </g>
+              <g id="staple-3">
+                <line x1="280" y1="105" x2="280" y2="145" stroke="#f59e0b" stroke-width="2"/>
+                <line x1="288" y1="105" x2="288" y2="145" stroke="#f59e0b" stroke-width="2"/>
+                <line x1="280" y1="105" x2="288" y2="105" stroke="#f59e0b" stroke-width="2"/>
+                <text x="284" y="98" fill="#fbbf24" font-size="8" font-weight="700" text-anchor="middle">6" Pin</text>
+              </g>
+
+              <!-- 3" River Rock Mulch on Top -->
+              <rect x="20" y="65" width="320" height="45" fill="#475569" rx="2" stroke="#64748b" stroke-width="1"/>
+              <text x="180" y="92" fill="#f8fafc" font-size="10" font-weight="700" text-anchor="middle">3" Permanent Stone Mulch Layer</text>
+
+              <!-- Staple Spacing Dimension -->
+              <line x1="84" y1="40" x2="184" y2="40" stroke="#38bdf8" stroke-width="1.2"/>
+              <text x="134" y="32" fill="#38bdf8" font-size="8" font-weight="700" text-anchor="middle">3 ft Staple Spacing</text>
+            </svg>
+          </div>
+
+          <div class="bed-specs-grid">
+            <div class="b-spec">
+              <span class="b-val" id="viz-staple-count">0</span>
+              <span class="b-lbl">Staples Needed</span>
+            </div>
+            <div class="b-spec">
+              <span class="b-val" id="viz-fabric-rolls">0</span>
+              <span class="b-lbl">Fabric Rolls</span>
+            </div>
+            <div class="b-spec">
+              <span class="b-val">3 ft Grid</span>
+              <span class="b-lbl">Anchor Pattern</span>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Why Cheap Landscape Fabric Fails After 2 Years
+            </div>
+            <p>
+              Cheap woven plastic weed barrier frays when walked on and allows aggressive weed roots to puncture through. Always use <strong>needle-punched non-woven geotextile fabric</strong> (minimum 4 oz). It lets water and air reach plant roots while blocking 99% of weed growth, lasting 20+ years beneath rock mulch.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function syncLandscapeVisualizer() {
+    const staplesEl = document.getElementById('kpi-land-staples');
+    const fabricEl = document.getElementById('kpi-land-fabric');
+    const woodEl = document.getElementById('roi-wood-cost');
+    const stoneEl = document.getElementById('roi-stone-cost');
+
+    const stapleCount = staplesEl ? parseInt(staplesEl.textContent) || 0 : 0;
+    const fabricSqFt = fabricEl ? parseInt(fabricEl.textContent) || 0 : 0;
+    const woodCost = woodEl ? parseInt(woodEl.textContent.replace(/[^0-9]/g, '')) || 1800 : 1800;
+    const stoneCost = stoneEl ? parseInt(stoneEl.textContent.replace(/[^0-9]/g, '')) || 550 : 550;
+
+    const vizStaples = document.getElementById('viz-staple-count');
+    if (vizStaples) vizStaples.textContent = stapleCount.toLocaleString();
+
+    const vizFabric = document.getElementById('viz-fabric-rolls');
+    if (vizFabric) vizFabric.textContent = Math.ceil(fabricSqFt / 300) + ' rolls';
+
+    const vizWood = document.getElementById('viz-wood-total');
+    if (vizWood) vizWood.textContent = '$' + woodCost.toLocaleString();
+
+    const vizStone = document.getElementById('viz-stone-total');
+    if (vizStone) vizStone.textContent = '$' + stoneCost.toLocaleString();
+
+    const vizSavings = document.getElementById('viz-net-savings');
+    if (vizSavings) {
+      const net = Math.max(0, woodCost - stoneCost);
+      vizSavings.textContent = '$' + net.toLocaleString();
+    }
+  }
+
+  const inputs = ['land-length', 'land-width', 'land-depth', 'land-waste'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncLandscapeVisualizer);
+      el.addEventListener('change', syncLandscapeVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.land-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncLandscapeVisualizer, 50);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncLandscapeVisualizer);
+  syncLandscapeVisualizer();
+})();
+</script>
+
+<style>
+.land-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .land-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.land-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.roi-graph-body, .bed-cross-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.roi-svg-wrap, .bed-diagram-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.roi-svg, .bed-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+.roi-summary-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.r-item {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.r-lbl {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  display: block;
+}
+
+.r-val {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.r-val.bad { color: #ef4444; }
+.r-val.good { color: #10b981; }
+.r-val.gold { color: var(--gold-400); }
+
+.bed-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.b-spec {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.b-val {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.b-lbl {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

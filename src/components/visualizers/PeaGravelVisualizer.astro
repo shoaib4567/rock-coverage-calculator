@@ -1,0 +1,370 @@
+---
+// Pea Gravel Walkability & Edging Containment Visualizer
+---
+<section class="section no-print" id="pea-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Pea Gravel Walkability & Containment Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Simulate foot sinkage, patio chair stability, and landscape edging containment to prevent the notorious "ball bearing" gravel spill into lawn turf.</p>
+    </div>
+
+    <div class="pea-viz-grid">
+      <!-- Walkability & Shoe Sinkage Simulator -->
+      <div class="pea-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M8 5l4-3 4 3M8 19l4 3 4-3"/></svg>
+            <h3>Walkability Depth & Foot Sinkage Gauge</h3>
+          </div>
+          <span class="status-badge green" id="viz-walk-badge">Firm Walkability</span>
+        </div>
+
+        <div class="walk-gauge-body">
+          <!-- Interactive Footstep Cross-Section SVG -->
+          <div class="foot-sink-display">
+            <svg class="sink-svg" viewBox="0 0 380 200" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <pattern id="pea-pebbles" width="12" height="12" patternUnits="userSpaceOnUse">
+                  <circle cx="3" cy="3" r="2.4" fill="#d97706" opacity="0.8"/>
+                  <circle cx="9" cy="9" r="2.2" fill="#b45309" opacity="0.7"/>
+                  <circle cx="9" cy="3" r="2.0" fill="#f59e0b" opacity="0.9"/>
+                  <circle cx="3" cy="9" r="2.3" fill="#92400e" opacity="0.8"/>
+                </pattern>
+              </defs>
+
+              <!-- Compacted Sub-base Layer -->
+              <rect x="20" y="140" width="340" height="45" fill="#334155" rx="3"/>
+              <text x="30" y="166" fill="#94a3b8" font-size="10" font-weight="600">3" Compacted Crushed Stone Base (#411)</text>
+
+              <!-- Geotextile Underlayment Line -->
+              <line x1="20" y1="140" x2="360" y2="140" stroke="#60a5fa" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+              <!-- Pea Gravel Layer (Height dynamic) -->
+              <rect id="svg-pea-layer" x="20" y="80" width="340" height="60" fill="url(#pea-pebbles)" stroke="#78350f" stroke-width="1"/>
+
+              <!-- Simulated Shoe Heel Stepping Down -->
+              <g id="svg-shoe-group" transform="translate(190, 80)">
+                <!-- Shoe / Boot Silhouette -->
+                <path d="M -30 -50 L -10 -50 L -10 -20 L 35 -15 L 45 -5 L -35 -5 Z" fill="#18181b" stroke="#f59e0b" stroke-width="2"/>
+                <rect x="-35" y="-5" width="25" height="10" fill="#27272a" rx="1"/> <!-- Heel -->
+                <rect x="-5" y="-5" width="50" height="6" fill="#27272a" rx="1"/> <!-- Sole -->
+                <!-- Sinkage line -->
+                <line x1="-45" y1="0" x2="55" y2="0" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                <text x="65" y="4" fill="#ef4444" font-size="9" font-weight="700" id="svg-sink-label">0.6" Sink</text>
+              </g>
+
+              <!-- Depth Callout -->
+              <line x1="12" y1="80" x2="12" y2="140" stroke="#fbbf24" stroke-width="1.5"/>
+              <text x="8" y="112" fill="#fbbf24" font-size="10" font-weight="700" text-anchor="end" id="svg-pea-depth-txt">2.5" Depth</text>
+            </svg>
+          </div>
+
+          <div class="sinkage-feedback-box" id="sinkage-feedback">
+            <div class="feedback-rating" id="viz-rating-title">Optimal Patio Depth: 2.0" to 2.5"</div>
+            <p id="viz-rating-desc">
+              At 2.5 inches, shoes displace only the top pebble layer, maintaining a stable, firm walking surface without sinking. Patio table and fire pit chairs remain level.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edging Containment & Lawn Scatter Guard -->
+      <div class="pea-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+            <h3>Edging Containment & Scatter Guard</h3>
+          </div>
+          <span class="status-badge gold" id="viz-edging-badge">Perimeter Barrier</span>
+        </div>
+
+        <div class="edging-body">
+          <!-- Edging Cross-Section SVG -->
+          <div class="edging-svg-wrap">
+            <svg class="edging-svg" viewBox="0 0 340 180" preserveAspectRatio="xMidYMid meet">
+              <!-- Lawn grass on left -->
+              <rect x="10" y="70" width="130" height="90" fill="#14532d"/>
+              <path d="M 10 70 Q 30 65 50 70 T 90 70 T 140 70" stroke="#4ade80" stroke-width="4" fill="none"/>
+              <text x="40" y="110" fill="#86efac" font-size="11" font-weight="700">Lawn Grass</text>
+              <text x="35" y="125" fill="#a7f3d0" font-size="8">Mower Zone</text>
+
+              <!-- Commercial Steel / Aluminum Edging Barrier -->
+              <rect x="140" y="35" width="8" height="125" rx="2" fill="#0f172a" stroke="#94a3b8" stroke-width="2"/>
+              <!-- Anchor Stake -->
+              <polygon points="138,155 150,155 144,178" fill="#64748b"/>
+              <text x="144" y="28" fill="#f8fafc" font-size="9" font-weight="700" text-anchor="middle">3.5" Edging</text>
+
+              <!-- Pea Gravel on right -->
+              <rect x="148" y="70" width="180" height="90" fill="url(#pea-pebbles)"/>
+              <text x="210" y="110" fill="#fef08a" font-size="11" font-weight="700">Pea Gravel Bed</text>
+              <text x="210" y="125" fill="#cbd5e1" font-size="8">Contained 0.5" below rim</text>
+
+              <!-- Lip Clearance Dimension -->
+              <line x1="140" y1="35" x2="165" y2="35" stroke="#38bdf8" stroke-width="1.2"/>
+              <line x1="148" y1="70" x2="165" y2="70" stroke="#38bdf8" stroke-width="1.2"/>
+              <line x1="162" y1="35" x2="162" y2="70" stroke="#38bdf8" stroke-width="1.2"/>
+              <text x="170" y="55" fill="#38bdf8" font-size="9" font-weight="700">0.5" Freeboard Lip</text>
+            </svg>
+          </div>
+
+          <div class="edging-metrics-grid">
+            <div class="e-metric">
+              <span class="e-val" id="viz-edging-ft">0 ft</span>
+              <span class="e-lbl">Linear Border Needed</span>
+            </div>
+            <div class="e-metric">
+              <span class="e-val">3" to 4"</span>
+              <span class="e-lbl">Barrier Height</span>
+            </div>
+            <div class="e-metric">
+              <span class="e-val">Steel / Stone</span>
+              <span class="e-lbl">Recommended Spec</span>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Why Plastic Bender Board Edging Fails
+            </div>
+            <p>
+              Smooth 3/8" pea gravel rolls like ball bearings under pressure. Cheap plastic edging bends, warps in the summer heat, and lifts in winter frosts, spilling gravel into your lawn grass where it becomes dangerous projectile debris for your lawnmower blades. Use rigid 14-gauge commercial steel edging or concrete pavers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function syncPeaVisualizer() {
+    const depthInput = document.getElementById('pea-depth');
+    const edgingEl = document.getElementById('kpi-pea-edging');
+
+    const depth = depthInput ? parseFloat(depthInput.value) || 2.5 : 2.5;
+
+    // Update depth text
+    const depthTxt = document.getElementById('svg-pea-depth-txt');
+    if (depthTxt) depthTxt.textContent = depth.toFixed(1) + '" Depth';
+
+    // Update edging length
+    const edgingFt = document.getElementById('viz-edging-ft');
+    if (edgingFt && edgingEl) edgingFt.textContent = edgingEl.textContent + ' ft';
+
+    // Update shoe sinkage animation & rating
+    const shoeGroup = document.getElementById('svg-shoe-group');
+    const sinkLabel = document.getElementById('svg-sink-label');
+    const ratingTitle = document.getElementById('viz-rating-title');
+    const ratingDesc = document.getElementById('viz-rating-desc');
+    const walkBadge = document.getElementById('viz-walk-badge');
+
+    if (depth <= 1.5) {
+      if (shoeGroup) shoeGroup.setAttribute('transform', 'translate(190, 85)');
+      if (sinkLabel) sinkLabel.textContent = '0.3" Sink';
+      if (ratingTitle) ratingTitle.textContent = 'Shallow Layer: Potential Fabric Exposure';
+      if (ratingDesc) ratingDesc.textContent = 'At 1.5" or less, high-traffic foot paths may kick stones aside and expose the black weed barrier fabric below.';
+      if (walkBadge) { walkBadge.textContent = 'Thin Layer'; walkBadge.className = 'status-badge gold'; }
+    } else if (depth <= 2.5) {
+      if (shoeGroup) shoeGroup.setAttribute('transform', 'translate(190, 88)');
+      if (sinkLabel) sinkLabel.textContent = '0.6" Sink';
+      if (ratingTitle) ratingTitle.textContent = 'Optimal Patio Depth: 2.0" to 2.5" (Ideal)';
+      if (ratingDesc) ratingDesc.textContent = 'The gold standard for walkability. Footwear displaces only surface stones, maintaining comfortable walking without fatigue or chair leg sinking.';
+      if (walkBadge) { walkBadge.textContent = 'Ideal Walkability'; walkBadge.className = 'status-badge green'; }
+    } else {
+      if (shoeGroup) shoeGroup.setAttribute('transform', 'translate(190, 102)');
+      if (sinkLabel) sinkLabel.textContent = '1.8" Sink (Deep)';
+      if (ratingTitle) ratingTitle.textContent = 'Heavy Sinkage Alert: "Beach Sand" Effect';
+      if (ratingDesc) ratingDesc.textContent = 'Caution: Poured 3" or deeper, rounded pea gravel acts like ball bearings. Shoes sink significantly, walking becomes tiring, and patio chairs will tilt and sink.';
+      if (walkBadge) { walkBadge.textContent = 'Unstable / Sinking'; walkBadge.className = 'status-badge red'; }
+    }
+  }
+
+  const inputs = ['pea-length', 'pea-width', 'pea-depth', 'pea-waste'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncPeaVisualizer);
+      el.addEventListener('change', syncPeaVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.mode-toggle button, .pea-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncPeaVisualizer, 60);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncPeaVisualizer);
+  syncPeaVisualizer();
+})();
+</script>
+
+<style>
+.pea-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .pea-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pea-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.walk-gauge-body, .edging-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.foot-sink-display, .edging-svg-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.sink-svg, .edging-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+.sinkage-feedback-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+
+.feedback-rating {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  margin-bottom: 4px;
+}
+
+.sinkage-feedback-box p {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.edging-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.e-metric {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.e-val {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.e-lbl {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.status-badge.gold {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.status-badge.red {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

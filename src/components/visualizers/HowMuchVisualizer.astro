@@ -1,0 +1,381 @@
+---
+// "How Much Rock Do I Need?" Guided Project & Labor Visualizer
+---
+<section class="section no-print" id="how-much-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Project Context & Physical Labor Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Preview project-specific cross-sections and calculate physical wheelbarrow trips, dump truck footprints, and labor requirements.</p>
+    </div>
+
+    <div class="hm-viz-grid">
+      <!-- Dynamic Project Cross-Section Preview -->
+      <div class="hm-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <h3>Project Layer Engineering Blueprint</h3>
+          </div>
+          <span class="status-badge green" id="viz-hm-project-badge">Garden Bed Mulch</span>
+        </div>
+
+        <div class="hm-blueprint-body">
+          <div class="hm-svg-wrap">
+            <svg class="hm-svg" id="svg-hm-project-box" viewBox="0 0 380 200" preserveAspectRatio="xMidYMid meet">
+              <!-- Dynamically populated by JS based on selected preset -->
+            </svg>
+          </div>
+
+          <div class="blueprint-summary-box">
+            <div class="bs-title" id="viz-hm-summary-title">Garden Bed Rock Mulch Specification</div>
+            <p id="viz-hm-summary-desc">
+              Laying 1" to 3" river rock at 3.0" depth ensures two-stone nesting over commercial non-woven weed barrier fabric. Leaves a 3" clearance around plant stems to prevent fungal rot.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Physical Labor & Moving Reality Check -->
+      <div class="hm-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <h3>Labor Reality Check: Moving Your Material</h3>
+          </div>
+          <span class="status-badge gold" id="viz-hm-labor-badge">Labor Estimate</span>
+        </div>
+
+        <div class="labor-body">
+          <div class="labor-kpi-grid">
+            <div class="l-kpi">
+              <span class="l-val" id="viz-hm-barrows">0</span>
+              <span class="l-lbl">Wheelbarrow Loads (6 cu ft)</span>
+            </div>
+            <div class="l-kpi">
+              <span class="l-val" id="viz-hm-hours">0 hrs</span>
+              <span class="l-lbl">Estimated Solo Shovel Time</span>
+            </div>
+            <div class="l-kpi">
+              <span class="l-val" id="viz-hm-tons-moved">0.0 T</span>
+              <span class="l-lbl">Total Weight to Move</span>
+            </div>
+          </div>
+
+          <!-- Driveway Footprint Warning -->
+          <div class="driveway-dump-box">
+            <div class="dd-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              Driveway Dump Pile Footprint
+            </div>
+            <p id="viz-hm-pile-desc">
+              Your bulk delivery will form a conical pile approximately 9 feet in diameter and 3.5 feet high. Plan a designated drop area on your driveway that leaves clearance for your garage door.
+            </p>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Contractor Pro Tip: The Wheelbarrow Math
+            </div>
+            <p>
+              One cubic yard of rock weighs ~2,700 lbs. A standard homeowner wheelbarrow holds 3 to 4 cu ft (~300 to 400 lbs). It takes 7 to 9 heavy wheelbarrow trips to move a single yard. For projects over 5 yards, consider renting a motorized power buggy or hiring extra help.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function renderProjectBlueprint(type) {
+    const svg = document.getElementById('svg-hm-project-box');
+    if (!svg) return;
+
+    let html = '<rect width="380" height="200" fill="#090d13" />';
+
+    if (type.includes('Driveway')) {
+      // Driveway cross-section
+      html += '<rect x="20" y="140" width="340" height="40" fill="#1c1917"/>';
+      html += '<line x1="20" y1="140" x2="360" y2="140" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,3"/>';
+      html += '<rect x="20" y="95" width="340" height="45" fill="#475569"/>';
+      html += '<rect x="20" y="65" width="340" height="30" fill="#94a3b8"/>';
+      html += '<text x="190" y="85" fill="#0f172a" font-size="10" font-weight="800" text-anchor="middle">2" #57 Clean Surface Gravel</text>';
+      html += '<text x="190" y="122" fill="#f8fafc" font-size="10" font-weight="700" text-anchor="middle">4" #411 Crusher Run Base</text>';
+      html += '<text x="190" y="165" fill="#78716c" font-size="9" font-weight="600" text-anchor="middle">Subgrade with Woven Geotextile Fabric</text>';
+    } else if (type.includes('Patio')) {
+      // Pea gravel patio cross-section
+      html += '<rect x="20" y="130" width="340" height="50" fill="#334155"/>';
+      html += '<line x1="20" y1="130" x2="360" y2="130" stroke="#3b82f6" stroke-width="2"/>';
+      html += '<rect x="20" y="90" width="340" height="40" fill="#d97706" opacity="0.85"/>';
+      html += '<rect x="16" y="70" width="8" height="80" fill="#0f172a" stroke="#94a3b8" stroke-width="1.5"/>';
+      html += '<text x="190" y="115" fill="#fef08a" font-size="10" font-weight="800" text-anchor="middle">2.5" Smooth Pea Gravel (Walkable)</text>';
+      html += '<text x="190" y="160" fill="#94a3b8" font-size="9" font-weight="600" text-anchor="middle">3" Compacted Crushed Stone Base</text>';
+      html += '<text x="35" y="80" fill="#cbd5e1" font-size="8" font-weight="700">Edging</text>';
+    } else if (type.includes('Drain')) {
+      // French drain trench
+      html += '<rect x="110" y="20" width="160" height="160" fill="#1c2430" stroke="#38bdf8" stroke-width="2" stroke-dasharray="5,3"/>';
+      html += '<rect x="115" y="25" width="150" height="150" fill="#475569" opacity="0.8"/>';
+      html += '<circle cx="190" cy="140" r="25" fill="#09090b" stroke="#38bdf8" stroke-width="3"/>';
+      html += '<text x="190" y="90" fill="#f8fafc" font-size="10" font-weight="700" text-anchor="middle">#57 Washed Drain Rock</text>';
+      html += '<text x="190" y="144" fill="#38bdf8" font-size="9" font-weight="800" text-anchor="middle">4" Pipe</text>';
+    } else {
+      // Default: Garden Bed Rock Mulch
+      html += '<rect x="20" y="120" width="340" height="60" fill="#1c1917"/>';
+      html += '<line x1="20" y1="120" x2="360" y2="120" stroke="#3b82f6" stroke-width="2.5"/>';
+      html += '<rect x="20" y="75" width="340" height="45" fill="#64748b"/>';
+      html += '<circle cx="190" cy="45" r="22" fill="#16a34a"/>';
+      html += '<rect x="187" y="65" width="6" height="55" fill="#78350f"/>';
+      html += '<text x="100" y="102" fill="#f8fafc" font-size="10" font-weight="700" text-anchor="middle">3" River Rock</text>';
+      html += '<text x="280" y="102" fill="#f8fafc" font-size="10" font-weight="700" text-anchor="middle">3" River Rock</text>';
+      html += '<text x="190" y="155" fill="#78716c" font-size="9" font-weight="600" text-anchor="middle">Non-Woven Fabric over Subgrade</text>';
+    }
+
+    svg.innerHTML = html;
+  }
+
+  function syncHowMuchVisualizer() {
+    const activeBtn = document.querySelector('.preset-btn.active');
+    const barrowsEl = document.getElementById('kpi-hm-barrows');
+    const tonsEl = document.getElementById('kpi-hm-tons');
+    const yardsEl = document.getElementById('kpi-hm-yards');
+
+    const totalBarrows = barrowsEl ? parseInt(barrowsEl.textContent) || 0 : 0;
+    const totalTons = tonsEl ? parseFloat(tonsEl.textContent) || 0 : 0;
+    const totalYards = yardsEl ? parseFloat(yardsEl.textContent) || 0 : 0;
+
+    const barrowTxt = document.getElementById('viz-hm-barrows');
+    const hoursTxt = document.getElementById('viz-hm-hours');
+    const tonsMovedTxt = document.getElementById('viz-hm-tons-moved');
+    const pileDesc = document.getElementById('viz-hm-pile-desc');
+    const badge = document.getElementById('viz-hm-project-badge');
+    const title = document.getElementById('viz-hm-summary-title');
+    const desc = document.getElementById('viz-hm-summary-desc');
+
+    if (barrowTxt) barrowTxt.textContent = totalBarrows.toLocaleString();
+    if (tonsMovedTxt) tonsMovedTxt.textContent = totalTons.toFixed(1) + ' T';
+
+    // Estimating ~12 wheelbarrow trips per hour for a solo homeowner
+    const estHours = Math.max(1, Math.round(totalBarrows / 10));
+    if (hoursTxt) hoursTxt.textContent = '~' + estHours + ' hrs';
+
+    // Update pile description
+    if (pileDesc) {
+      const pileDiam = Math.min(16, Math.max(6, Math.round(Math.sqrt(totalYards * 18))));
+      const pileHt = Math.min(6, Math.max(2, (totalYards * 0.45).toFixed(1)));
+      pileDesc.textContent = `Your ${totalYards.toFixed(1)} cubic yard delivery will form a conical pile approximately ${pileDiam} feet in diameter and ${pileHt} feet high. Plan a drop zone clear of overhead wires.`;
+    }
+
+    const name = activeBtn ? activeBtn.dataset.name || '' : 'Garden Bed Rock Mulch';
+    if (badge) badge.textContent = name;
+    if (title) title.textContent = name + ' Layer Specification';
+
+    renderProjectBlueprint(name);
+  }
+
+  const inputs = ['hm-length', 'hm-width', 'hm-depth', 'hm-waste'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncHowMuchVisualizer);
+      el.addEventListener('change', syncHowMuchVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.preset-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncHowMuchVisualizer, 50);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncHowMuchVisualizer);
+  syncHowMuchVisualizer();
+})();
+</script>
+
+<style>
+.hm-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .hm-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hm-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.hm-blueprint-body, .labor-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.hm-svg-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.hm-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+.blueprint-summary-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+
+.bs-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  margin-bottom: 4px;
+}
+
+.blueprint-summary-box p {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.labor-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.l-kpi {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.l-val {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.l-lbl {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+}
+
+.driveway-dump-box {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+
+.dd-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #38bdf8;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.driveway-dump-box p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.status-badge.gold {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

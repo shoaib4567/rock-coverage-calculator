@@ -1,0 +1,385 @@
+---
+// General Rock Shape Geometry & Unit Conversion Visualizer
+---
+<section class="section no-print" id="general-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Shape Geometry & Unit Conversion Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Preview landscape bed geometry blueprints (rectangles, circles, and rings) with real-time conversion between cubic yards, tons, bags, and wheelbarrows.</p>
+    </div>
+
+    <div class="gen-viz-grid">
+      <!-- Shape Geometry Blueprint SVG -->
+      <div class="gen-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="5"/></svg>
+            <h3>Bed Geometry Blueprint</h3>
+          </div>
+          <span class="status-badge gold" id="viz-gen-shape-badge">Rectangle Bed</span>
+        </div>
+
+        <div class="blueprint-body">
+          <div class="blueprint-svg-wrap">
+            <svg class="blueprint-svg" id="svg-gen-shape-box" viewBox="0 0 380 200" preserveAspectRatio="xMidYMid meet">
+              <!-- Dynamically populated by JS -->
+            </svg>
+          </div>
+
+          <div class="blueprint-dim-bar">
+            <div class="bd-node">
+              <span class="bd-k">Footprint Area:</span>
+              <span class="bd-v" id="viz-gen-sqft">420 sq ft</span>
+            </div>
+            <div class="bd-node">
+              <span class="bd-k">Layer Depth:</span>
+              <span class="bd-v" id="viz-gen-depth">3.0 inches</span>
+            </div>
+            <div class="bd-node">
+              <span class="bd-k">Volume Yield:</span>
+              <span class="bd-v" style="color: #4ade80;" id="viz-gen-rate">108 sq ft / yd³</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Equivalents & Conversion Matrix -->
+      <div class="gen-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <h3>Universal Equivalency Matrix</h3>
+          </div>
+          <span class="status-badge green">Live Conversions</span>
+        </div>
+
+        <div class="equivalents-body">
+          <div class="equiv-grid">
+            <div class="eq-card">
+              <div class="eq-icon">📦</div>
+              <div class="eq-val" id="viz-eq-yards">0.0 yd³</div>
+              <div class="eq-lbl">Cubic Yards (27 cu ft)</div>
+            </div>
+            <div class="eq-card">
+              <div class="eq-icon">⚖️</div>
+              <div class="eq-val" id="viz-eq-tons">0.0 T</div>
+              <div class="eq-lbl">Quarry Scale Tons</div>
+            </div>
+            <div class="eq-card">
+              <div class="eq-icon">🛍️</div>
+              <div class="eq-val" id="viz-eq-bags">0 bags</div>
+              <div class="eq-lbl">0.5 Cu Ft Retail Bags</div>
+            </div>
+            <div class="eq-card">
+              <div class="eq-icon">🛒</div>
+              <div class="eq-val" id="viz-eq-barrows">0 loads</div>
+              <div class="eq-lbl">Wheelbarrow Trips (6 cu ft)</div>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              The Contractor "Rule of 324"
+            </div>
+            <p>
+              To calculate cubic yards in your head: multiply Length (ft) × Width (ft) × Depth (inches), then divide by 324. For circular fire pit rings: (Outer Diameter² - Inner Diameter²) × 0.7854 × Depth (inches) ÷ 324.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function renderShape(shape) {
+    const svg = document.getElementById('svg-gen-shape-box');
+    if (!svg) return;
+
+    let html = '<rect width="380" height="200" fill="#090d13" />';
+
+    if (shape === 'circle') {
+      // Circle / Ring
+      html += '<circle cx="190" cy="100" r="75" fill="rgba(56, 189, 248, 0.2)" stroke="#38bdf8" stroke-width="2"/>';
+      html += '<circle cx="190" cy="100" r="30" fill="#18181b" stroke="#f59e0b" stroke-width="1.5"/>';
+      html += '<text x="190" y="104" fill="#fef08a" font-size="9" font-weight="700" text-anchor="middle">Fire Pit / Center</text>';
+      html += '<text x="190" y="150" fill="#7dd3fc" font-size="10" font-weight="700" text-anchor="middle">Rock Coverage Ring</text>';
+    } else if (shape === 'sqft') {
+      // Irregular polygon
+      html += '<polygon points="50,40 330,30 310,160 80,170" fill="rgba(74, 222, 128, 0.2)" stroke="#4ade80" stroke-width="2"/>';
+      html += '<text x="190" y="105" fill="#86efac" font-size="11" font-weight="800" text-anchor="middle">Custom Measured Area</text>';
+    } else {
+      // Default: Rectangle
+      html += '<rect x="40" y="35" width="300" height="130" fill="rgba(56, 189, 248, 0.2)" stroke="#38bdf8" stroke-width="2" rx="4"/>';
+      html += '<text x="190" y="105" fill="#e0f2fe" font-size="12" font-weight="800" text-anchor="middle">Rectangle Bed</text>';
+      html += '<line x1="40" y1="180" x2="340" y2="180" stroke="#f59e0b" stroke-width="1.5"/>';
+      html += '<text x="190" y="194" fill="#fbbf24" font-size="9" font-weight="700" text-anchor="middle">Length</text>';
+      html += '<line x1="25" y1="35" x2="25" y2="165" stroke="#f59e0b" stroke-width="1.5"/>';
+      html += '<text x="18" y="105" fill="#fbbf24" font-size="9" font-weight="700" text-anchor="middle" transform="rotate(-90 18 105)">Width</text>';
+    }
+
+    svg.innerHTML = html;
+  }
+
+  function syncGeneralVisualizer() {
+    const yardsEl = document.getElementById('kpi-gen-yards');
+    const tonsEl = document.getElementById('kpi-gen-tons');
+    const bagsEl = document.getElementById('kpi-gen-bags');
+    const barrowsEl = document.getElementById('kpi-gen-barrows');
+    const areaEl = document.getElementById('row-gen-area');
+    const depthInput = document.getElementById('gen-depth');
+
+    const yards = yardsEl ? parseFloat(yardsEl.textContent) || 0 : 0;
+    const tons = tonsEl ? parseFloat(tonsEl.textContent) || 0 : 0;
+    const bags = bagsEl ? parseInt(bagsEl.textContent) || 0 : 0;
+    const barrows = barrowsEl ? parseInt(barrowsEl.textContent) || 0 : 0;
+    const depth = depthInput ? parseFloat(depthInput.value) || 3.0 : 3.0;
+
+    const eqYards = document.getElementById('viz-eq-yards');
+    const eqTons = document.getElementById('viz-eq-tons');
+    const eqBags = document.getElementById('viz-eq-bags');
+    const eqBarrows = document.getElementById('viz-eq-barrows');
+    const sqftTxt = document.getElementById('viz-gen-sqft');
+    const depthTxt = document.getElementById('viz-gen-depth');
+    const rateTxt = document.getElementById('viz-gen-rate');
+
+    if (eqYards) eqYards.textContent = yards.toFixed(2) + ' yd³';
+    if (eqTons) eqTons.textContent = tons.toFixed(2) + ' T';
+    if (eqBags) eqBags.textContent = bags.toLocaleString() + ' bags';
+    if (eqBarrows) eqBarrows.textContent = barrows + ' loads';
+
+    if (areaEl && sqftTxt) sqftTxt.textContent = areaEl.textContent;
+    if (depthTxt) depthTxt.textContent = depth.toFixed(1) + ' inches';
+    if (rateTxt) rateTxt.textContent = Math.round(324 / depth) + ' sq ft / yd³';
+  }
+
+  // Watch mode buttons
+  const btnRect = document.getElementById('gen-shape-rect');
+  const btnCircle = document.getElementById('gen-shape-circle');
+  const btnSqft = document.getElementById('gen-shape-sqft');
+  const badge = document.getElementById('viz-gen-shape-badge');
+
+  if (btnRect) {
+    btnRect.addEventListener('click', () => {
+      if (badge) badge.textContent = 'Rectangle Bed';
+      renderShape('rect');
+      setTimeout(syncGeneralVisualizer, 50);
+    });
+  }
+  if (btnCircle) {
+    btnCircle.addEventListener('click', () => {
+      if (badge) badge.textContent = 'Circle / Ring Bed';
+      renderShape('circle');
+      setTimeout(syncGeneralVisualizer, 50);
+    });
+  }
+  if (btnSqft) {
+    btnSqft.addEventListener('click', () => {
+      if (badge) badge.textContent = 'Custom Area Bed';
+      renderShape('sqft');
+      setTimeout(syncGeneralVisualizer, 50);
+    });
+  }
+
+  const inputs = ['gen-length', 'gen-width', 'gen-diameter', 'gen-direct-sqft', 'gen-depth', 'gen-waste'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncGeneralVisualizer);
+      el.addEventListener('change', syncGeneralVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.gen-dens-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncGeneralVisualizer, 50);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderShape('rect');
+    syncGeneralVisualizer();
+  });
+  renderShape('rect');
+  syncGeneralVisualizer();
+})();
+</script>
+
+<style>
+.gen-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .gen-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gen-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.blueprint-body, .equivalents-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.blueprint-svg-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.blueprint-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+.blueprint-dim-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  background: rgba(0, 0, 0, 0.3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 500px) {
+  .blueprint-dim-bar {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bd-node {
+  display: flex;
+  flex-direction: column;
+}
+
+.bd-k {
+  color: var(--text-tertiary);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.bd-v {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.equiv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.eq-card {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-glass-border);
+  text-align: center;
+}
+
+.eq-icon {
+  font-size: 1.3rem;
+  margin-bottom: 2px;
+}
+
+.eq-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.eq-lbl {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.gold {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

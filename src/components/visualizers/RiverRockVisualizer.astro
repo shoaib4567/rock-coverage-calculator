@@ -1,0 +1,380 @@
+---
+// River Rock Two-Stone Rule & Dry Creek Swale Visualizer
+---
+<section class="section no-print" id="river-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Two-Stone Rule & Dry Creek Swale Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Verify that your stone layer is thick enough to prevent bare weed barrier exposure, or inspect contoured dry creek swale rock gradation.</p>
+    </div>
+
+    <div class="river-viz-grid">
+      <!-- Two-Stone Rule Layering Verification -->
+      <div class="river-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="12" r="3"/><circle cx="15" cy="9" r="4"/><circle cx="17" cy="17" r="2.5"/></svg>
+            <h3>Two-Stone Rule Sunlight Block Verification</h3>
+          </div>
+          <span class="status-badge green" id="viz-two-stone-badge">Compliant Coverage</span>
+        </div>
+
+        <div class="two-stone-body">
+          <div class="stone-cutaway-wrap">
+            <svg class="stone-cutaway-svg" viewBox="0 0 380 200" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="river-stone-grad1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#cbd5e1"/>
+                  <stop offset="100%" stop-color="#64748b"/>
+                </linearGradient>
+                <linearGradient id="river-stone-grad2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#94a3b8"/>
+                  <stop offset="100%" stop-color="#475569"/>
+                </linearGradient>
+                <linearGradient id="sunlight-beam" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#fef08a" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Sunlight Beams From Above -->
+              <polygon points="40,0 120,0 100,70 60,70" fill="url(#sunlight-beam)"/>
+              <polygon points="160,0 240,0 220,70 180,70" fill="url(#sunlight-beam)"/>
+              <polygon points="280,0 360,0 340,70 300,70" fill="url(#sunlight-beam)"/>
+              <text x="20" y="20" fill="#fbbf24" font-size="10" font-weight="700">☀️ Direct UV Sunlight</text>
+
+              <!-- Compacted Subsoil -->
+              <rect x="20" y="150" width="340" height="40" fill="#1c1917" rx="2"/>
+              <text x="30" y="174" fill="#78716c" font-size="9" font-weight="600">Native Subgrade Soil</text>
+
+              <!-- Weed Barrier Fabric Line -->
+              <line x1="20" y1="150" x2="360" y2="150" stroke="#3b82f6" stroke-width="3"/>
+              <text x="355" y="163" fill="#60a5fa" font-size="8" font-weight="700" text-anchor="end">Heavy Weed Barrier Fabric</text>
+
+              <!-- Nested River Rocks (Two Layers) -->
+              <!-- Bottom Layer Rocks (Resting directly on fabric) -->
+              <g id="svg-layer-bottom">
+                <ellipse cx="60" cy="132" rx="26" ry="18" fill="url(#river-stone-grad2)" stroke="#334155" stroke-width="1.2"/>
+                <ellipse cx="110" cy="135" rx="24" ry="16" fill="url(#river-stone-grad1)" stroke="#334155" stroke-width="1.2"/>
+                <ellipse cx="160" cy="130" rx="28" ry="19" fill="url(#river-stone-grad2)" stroke="#334155" stroke-width="1.2"/>
+                <ellipse cx="215" cy="134" rx="25" ry="17" fill="url(#river-stone-grad1)" stroke="#334155" stroke-width="1.2"/>
+                <ellipse cx="265" cy="132" rx="27" ry="18" fill="url(#river-stone-grad2)" stroke="#334155" stroke-width="1.2"/>
+                <ellipse cx="315" cy="135" rx="25" ry="16" fill="url(#river-stone-grad1)" stroke="#334155" stroke-width="1.2"/>
+              </g>
+
+              <!-- Top Layer Rocks (Nesting in the valleys of bottom rocks) -->
+              <g id="svg-layer-top">
+                <ellipse cx="85" cy="104" rx="27" ry="18" fill="url(#river-stone-grad1)" stroke="#1e293b" stroke-width="1.5"/>
+                <ellipse cx="138" cy="100" rx="26" ry="17" fill="url(#river-stone-grad2)" stroke="#1e293b" stroke-width="1.5"/>
+                <ellipse cx="188" cy="102" rx="28" ry="19" fill="url(#river-stone-grad1)" stroke="#1e293b" stroke-width="1.5"/>
+                <ellipse cx="240" cy="105" rx="25" ry="17" fill="url(#river-stone-grad2)" stroke="#1e293b" stroke-width="1.5"/>
+                <ellipse cx="290" cy="101" rx="27" ry="18" fill="url(#river-stone-grad1)" stroke="#1e293b" stroke-width="1.5"/>
+              </g>
+
+              <!-- Thickness Callout Bracket -->
+              <line x1="365" y1="84" x2="365" y2="150" stroke="#f59e0b" stroke-width="1.5"/>
+              <line x1="360" y1="84" x2="370" y2="84" stroke="#f59e0b" stroke-width="1.5"/>
+              <line x1="360" y1="150" x2="370" y2="150" stroke="#f59e0b" stroke-width="1.5"/>
+              <text x="375" y="120" fill="#fbbf24" font-size="10" font-weight="700" id="viz-river-depth-callout">3.0" Layer</text>
+            </svg>
+          </div>
+
+          <div class="two-stone-status-card" id="viz-two-stone-card">
+            <div class="card-status-title" id="viz-rule-title">Two-Stone Rule Satisfied: 100% UV Protection</div>
+            <p id="viz-rule-desc">
+              At 3 inches depth, 1"-3" river stones nest naturally two-deep. Top stones cover the valleys between bottom stones, preventing ultraviolet degradation of your weed fabric and eliminating bare spots.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dry Creek Bed Swale Contoured Profile -->
+      <div class="river-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12c3-4 6-4 9 0s6 4 9 0"/><path d="M2 17c3-4 6-4 9 0s6 4 9 0"/></svg>
+            <h3>Dry Creek Swale Gradation & Flow Channel</h3>
+          </div>
+          <span class="status-badge" id="viz-creek-badge">Contoured Profile</span>
+        </div>
+
+        <div class="swale-body">
+          <div class="swale-diagram-wrap">
+            <svg class="swale-svg" viewBox="0 0 360 180" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="swale-water" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.7"/>
+                  <stop offset="100%" stop-color="#0284c7" stop-opacity="0.9"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Soil Parabolic Trench Profile -->
+              <path d="M 20 50 Q 180 160 340 50 L 340 170 L 20 170 Z" fill="#1c1917"/>
+              <path d="M 20 50 Q 180 160 340 50" stroke="#3b82f6" stroke-width="2.5" stroke-dasharray="5,3" fill="none"/>
+
+              <!-- Water Flow Level During Heavy Rain -->
+              <path d="M 70 85 Q 180 150 290 85 L 290 120 Q 180 155 70 120 Z" fill="url(#swale-water)"/>
+              <text x="180" y="105" fill="#e0f2fe" font-size="9" font-weight="700" text-anchor="middle">Stormwater Flow Channel</text>
+
+              <!-- Boulder Placement on Banks (3"-5" Oversized) -->
+              <ellipse cx="45" cy="50" rx="20" ry="16" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+              <ellipse cx="75" cy="70" rx="16" ry="13" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
+              <ellipse cx="315" cy="50" rx="22" ry="17" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+              <ellipse cx="285" cy="70" rx="17" ry="14" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
+
+              <!-- Slope Stone (1"-3" River Rock) -->
+              <ellipse cx="110" cy="98" rx="13" ry="10" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+              <ellipse cx="135" cy="115" rx="12" ry="9" fill="#cbd5e1" stroke="#334155" stroke-width="1"/>
+              <ellipse cx="250" cy="98" rx="13" ry="10" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+              <ellipse cx="225" cy="115" rx="12" ry="9" fill="#cbd5e1" stroke="#334155" stroke-width="1"/>
+
+              <!-- Center Invert River Gravel (3/4" - 1") -->
+              <circle cx="165" cy="132" r="6" fill="#f59e0b"/>
+              <circle cx="180" cy="134" r="7" fill="#d97706"/>
+              <circle cx="195" cy="132" r="6" fill="#f59e0b"/>
+
+              <!-- Labels -->
+              <text x="45" y="30" fill="#cbd5e1" font-size="8" font-weight="700">Bank Boulders (3"-5")</text>
+              <text x="315" y="30" fill="#cbd5e1" font-size="8" font-weight="700" text-anchor="end">Bank Boulders (3"-5")</text>
+              <text x="180" y="155" fill="#fef08a" font-size="8" font-weight="700" text-anchor="middle">Deep Center Invert: 6" - 8"</text>
+            </svg>
+          </div>
+
+          <div class="swale-specs-grid">
+            <div class="s-spec">
+              <span class="s-val">Parabolic</span>
+              <span class="s-lbl">Channel Shape</span>
+            </div>
+            <div class="s-spec">
+              <span class="s-val">2:1 Slopes</span>
+              <span class="s-lbl">Bank Incline</span>
+            </div>
+            <div class="s-spec">
+              <span class="s-val">3 Stone Sizes</span>
+              <span class="s-lbl">Natural Look</span>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              The "Natural Creek Bed" Secret: Gradation
+            </div>
+            <p>
+              Real riverbeds never consist of one uniform stone size. For a natural dry creek that doesn't wash out during heavy downpours, anchor the outer curves and banks with 3"-5" or 6"-12" accent boulders, line the side slopes with 1"-3" river rock, and line the center flow channel with 3/4" gravel.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function syncRiverVisualizer() {
+    const depthInput = document.getElementById('river-depth');
+    const depth = depthInput ? parseFloat(depthInput.value) || 3.0 : 3.0;
+
+    const depthCallout = document.getElementById('viz-river-depth-callout');
+    if (depthCallout) depthCallout.textContent = depth.toFixed(1) + '" Layer';
+
+    const topLayer = document.getElementById('svg-layer-top');
+    const ruleTitle = document.getElementById('viz-rule-title');
+    const ruleDesc = document.getElementById('viz-rule-desc');
+    const badge = document.getElementById('viz-two-stone-badge');
+
+    if (depth < 2.5) {
+      if (topLayer) topLayer.style.opacity = '0.35';
+      if (ruleTitle) ruleTitle.textContent = 'Warning: Insufficient Depth for Two-Stone Rule';
+      if (ruleDesc) ruleDesc.textContent = 'At less than 2.5" depth with 1"-3" stone, gaps between single stones expose the black weed fabric underneath. Increase depth to at least 3" for full interlocking.';
+      if (badge) { badge.textContent = 'Gaps Expected'; badge.className = 'status-badge red'; }
+    } else {
+      if (topLayer) topLayer.style.opacity = '1.0';
+      if (ruleTitle) ruleTitle.textContent = 'Two-Stone Rule Satisfied: 100% UV Protection';
+      if (ruleDesc) ruleDesc.textContent = 'At 3 inches depth, 1"-3" river stones nest naturally two-deep. Top stones cover the valleys between bottom stones, preventing ultraviolet degradation of your weed fabric.';
+      if (badge) { badge.textContent = 'Compliant Coverage'; badge.className = 'status-badge green'; }
+    }
+  }
+
+  const inputs = ['river-length', 'river-width', 'river-depth', 'river-waste'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncRiverVisualizer);
+      el.addEventListener('change', syncRiverVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.size-btn, .mode-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncRiverVisualizer, 60);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncRiverVisualizer);
+  syncRiverVisualizer();
+})();
+</script>
+
+<style>
+.river-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .river-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.river-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--river-teal);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.two-stone-body, .swale-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.stone-cutaway-wrap, .swale-diagram-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.stone-cutaway-svg, .swale-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+.two-stone-status-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+
+.card-status-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  margin-bottom: 4px;
+}
+
+.two-stone-status-card p {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.swale-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.s-spec {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.s-val {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.s-lbl {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.status-badge.red {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

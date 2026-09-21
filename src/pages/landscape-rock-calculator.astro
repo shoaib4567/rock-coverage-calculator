@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import LandscapeRockCalculator from '../components/calculators/LandscapeRockCalculator.astro';
-import Visualizer from '../components/Visualizer.astro';
+import LandscapeRockVisualizer from '../components/visualizers/LandscapeRockVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
@@ -48,7 +48,7 @@ const faqItems = [
 
 <BaseLayout
   title="Landscape Rock Calculator - Calculate Yards, Tons & Bags for Beds"
-  description="Calculate exact cubic yards, tons, and bags of landscape rock for flower beds, shrubs, and yard borders. Includes real-time 3D simulation and quarry bulk pricing."
+  description="Calculate exact cubic yards, tons, and bags of landscape rock for flower beds, shrubs, and yard borders. Includes weed barrier fabric, staples, and 5-year ROI analysis."
   canonicalPath="/landscape-rock-calculator"
 >
   <Fragment slot="head">
@@ -94,7 +94,7 @@ const faqItems = [
 
     <LandscapeRockCalculator />
 
-    <Visualizer />
+    <LandscapeRockVisualizer />
 
     <!-- Deep Authority Content Section -->
     <article class="content-guide-section">

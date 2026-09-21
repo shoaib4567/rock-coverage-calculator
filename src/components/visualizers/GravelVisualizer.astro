@@ -1,0 +1,370 @@
+---
+// Gravel Driveway Structural Crown & Layer Visualizer
+---
+<section class="section no-print" id="gravel-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Driveway Structural Crown & Layer Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Inspect the engineered 2% crown profile that sheds stormwater to side swales, dual-layer base compaction, and tire load stress distribution.</p>
+    </div>
+
+    <div class="gravel-viz-grid">
+      <!-- Driveway Cross-Section with 2% Crown -->
+      <div class="gravel-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <h3>Driveway 2% Crown Cross-Section</h3>
+          </div>
+          <span class="status-badge green">Stormwater Shedding</span>
+        </div>
+
+        <div class="crown-body">
+          <div class="crown-diagram-wrap">
+            <svg class="crown-svg" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="crusher-base-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#64748b"/>
+                  <stop offset="100%" stop-color="#475569"/>
+                </linearGradient>
+                <linearGradient id="angular-top-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#94a3b8"/>
+                  <stop offset="100%" stop-color="#64748b"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Native Subgrade Soil with Side Ditches / Swales -->
+              <path d="M 0 120 Q 30 140 60 120 L 340 120 Q 370 140 400 120 L 400 220 L 0 220 Z" fill="#1c1917"/>
+              <text x="200" y="200" fill="#78716c" font-size="10" font-weight="600" text-anchor="middle">Compacted Native Subgrade (Excavated Base)</text>
+
+              <!-- Woven Geotextile Stabilization Fabric -->
+              <path d="M 60 120 L 340 120" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="6,3"/>
+              <text x="200" y="132" fill="#fbbf24" font-size="8" font-weight="700" text-anchor="middle">Woven Stabilization Fabric (Prevents Sinking Into Mud)</text>
+
+              <!-- 4" Crusher Run Sub-Base with Crown -->
+              <path d="M 60 120 Q 200 100 340 120 L 340 85 Q 200 65 60 85 Z" fill="url(#crusher-base-grad)" stroke="#334155" stroke-width="1"/>
+              <text x="200" y="96" fill="#f1f5f9" font-size="9" font-weight="700" text-anchor="middle">4" - 6" Compacted #411 Crusher Run Base</text>
+
+              <!-- 2" - 3" #57 Clean Angular Top Course with Crown Profile -->
+              <path d="M 60 85 Q 200 65 340 85 L 340 60 Q 200 40 60 60 Z" fill="url(#angular-top-grad)" stroke="#475569" stroke-width="1.2"/>
+              <text x="200" y="52" fill="#0f172a" font-size="9" font-weight="800" text-anchor="middle">2" - 3" Angular #57 Surface Gravel</text>
+
+              <!-- Crown Height Indicator (Center 2.5" higher than shoulders) -->
+              <line x1="200" y1="40" x2="200" y2="60" stroke="#38bdf8" stroke-width="2"/>
+              <text x="200" y="32" fill="#38bdf8" font-size="10" font-weight="800" text-anchor="middle">2% Crown (2.5" Center Crest)</text>
+
+              <!-- Water Runoff Arrows to Side Ditches -->
+              <path d="M 170 42 Q 120 48 80 65" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+              <path d="M 230 42 Q 280 48 320 65" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+              <text x="70" y="80" fill="#7dd3fc" font-size="8">Runoff to Swale</text>
+              <text x="330" y="80" fill="#7dd3fc" font-size="8">Runoff to Swale</text>
+
+              <!-- Vehicle Tire Contact Point -->
+              <rect x="130" y="15" width="24" height="30" rx="3" fill="#09090b" stroke="#71717a" stroke-width="2"/>
+              <rect x="246" y="15" width="24" height="30" rx="3" fill="#09090b" stroke="#71717a" stroke-width="2"/>
+            </svg>
+          </div>
+
+          <div class="crown-metrics-grid">
+            <div class="c-metric">
+              <span class="c-val">2% (1/4" / ft)</span>
+              <span class="c-lbl">Slope from Center</span>
+            </div>
+            <div class="c-metric">
+              <span class="c-val">Dual Layer</span>
+              <span class="c-lbl">Base + Surface</span>
+            </div>
+            <div class="c-metric">
+              <span class="c-val">Woven Fabric</span>
+              <span class="c-lbl">Prevents Mud Pump</span>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              The #1 Cause of Driveway Potholes: Standing Water
+            </div>
+            <p>
+              A flat gravel driveway will always develop potholes within one rainy season. Vehicles drive through standing puddles, churning stone and water into slurry that splashes out of the hole. Grading a 2% crown ensures rainwater immediately drains into side swales, keeping your driveway hard and smooth.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Angular Interlock vs Round Gravel Under Tires -->
+      <div class="gravel-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+            <h3>Tire Load Stress & Aggregate Interlock</h3>
+          </div>
+          <span class="status-badge gold">Load Bearing</span>
+        </div>
+
+        <div class="interlock-body">
+          <div class="interlock-comparison-grid">
+            <!-- Angular Crushed Gravel (Locks) -->
+            <div class="compare-col good">
+              <div class="col-head">Angular #57 Crushed Stone</div>
+              <svg class="interlock-svg" viewBox="0 0 160 120">
+                <rect width="160" height="120" fill="#090d13" rx="6"/>
+                <!-- Heavy Tire on Top -->
+                <rect x="50" y="5" width="60" height="25" rx="3" fill="#18181b" stroke="#71717a" stroke-width="1.5"/>
+                <!-- Force vectors spreading out diagonally (good!) -->
+                <path d="M60 30 L30 100 M100 30 L130 100" stroke="#4ade80" stroke-width="2.5" stroke-dasharray="3,2"/>
+                <!-- Interlocking angular polygons -->
+                <polygon points="50,45 75,40 80,65 55,70" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+                <polygon points="78,42 105,40 102,68 76,64" fill="#cbd5e1" stroke="#334155" stroke-width="1"/>
+                <polygon points="35,68 60,65 65,95 40,90" fill="#64748b" stroke="#334155" stroke-width="1"/>
+                <polygon points="62,68 95,65 92,95 65,92" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+                <polygon points="95,65 125,68 120,95 92,92" fill="#cbd5e1" stroke="#334155" stroke-width="1"/>
+              </svg>
+              <div class="col-verdict ok">
+                <strong>Locks Under Tires</strong>
+                <span>Angular facets wedge together under vehicle weight, spreading wheel load over large footprint.</span>
+              </div>
+            </div>
+
+            <!-- Round Pea Gravel (Rutting / Spinning) -->
+            <div class="compare-col bad">
+              <div class="col-head">Round Pea Gravel (Never Use)</div>
+              <svg class="interlock-svg" viewBox="0 0 160 120">
+                <rect width="160" height="120" fill="#090d13" rx="6"/>
+                <!-- Heavy Tire Sunk Down -->
+                <rect x="50" y="25" width="60" height="25" rx="3" fill="#18181b" stroke="#ef4444" stroke-width="1.5"/>
+                <!-- Rutting arrows pushing stones out to sides -->
+                <path d="M48 45 L15 45 M112 45 L145 45" stroke="#ef4444" stroke-width="2.5"/>
+                <!-- Spherical stones rolling out -->
+                <circle cx="35" cy="45" r="10" fill="#f59e0b"/>
+                <circle cx="125" cy="45" r="10" fill="#f59e0b"/>
+                <circle cx="50" cy="75" r="11" fill="#d97706"/>
+                <circle cx="75" cy="75" r="12" fill="#f59e0b"/>
+                <circle cx="100" cy="75" r="11" fill="#d97706"/>
+                <circle cx="60" cy="98" r="11" fill="#b45309"/>
+                <circle cx="85" cy="98" r="11" fill="#f59e0b"/>
+              </svg>
+              <div class="col-verdict warn">
+                <strong>Causes Rutting & Tire Spin</strong>
+                <span>Round stones act like marbles under wheels, displacing sideways and sinking vehicle tires.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Driveway Geotextile: Woven vs Non-Woven
+            </div>
+            <p>
+              Always specify <strong>woven stabilization fabric</strong> (such as Mirafi 500X) beneath driveway rock, not light non-woven garden weed barrier. Woven fabric has high tensile strength (CBR puncture resistance > 800 lbs), bridging soft spots in clay soils and preventing driveway gravel from sinking into the subsoil.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.gravel-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .gravel-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gravel-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.crown-body, .interlock-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.crown-diagram-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.crown-svg {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.crown-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.c-metric {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.c-val {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.c-lbl {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.interlock-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+@media (max-width: 500px) {
+  .interlock-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compare-col {
+  background: var(--surface-card);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.compare-col.good {
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.compare-col.bad {
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.col-head {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.interlock-svg {
+  width: 100%;
+  height: auto;
+}
+
+.col-verdict {
+  font-size: 0.72rem;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.col-verdict.ok strong {
+  color: #4ade80;
+}
+
+.col-verdict.warn strong {
+  color: #ef4444;
+}
+
+.col-verdict span {
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.status-badge.gold {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

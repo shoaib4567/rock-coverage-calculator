@@ -1,0 +1,343 @@
+---
+// Rock Yardage & Driveway Drop Zone Clearance Visualizer
+---
+<section class="section no-print" id="yardage-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Driveway Drop Footprint & Site Clearance Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Simulate the physical conical rock pile footprint on a 2-car residential driveway and verify overhead hydraulic dump bed clearances.</p>
+    </div>
+
+    <div class="yard-viz-grid">
+      <!-- Driveway Drop Footprint Top-Down / Isometric View -->
+      <div class="yard-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <h3>Driveway Drop Footprint (2-Car Driveway)</h3>
+          </div>
+          <span class="status-badge gold" id="viz-pile-badge">Conical Pile</span>
+        </div>
+
+        <div class="drop-zone-body">
+          <div class="drop-svg-wrap">
+            <svg class="drop-svg" viewBox="0 0 380 220" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <radialGradient id="conical-pile-grad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#cbd5e1"/>
+                  <stop offset="50%" stop-color="#64748b"/>
+                  <stop offset="100%" stop-color="#334155"/>
+                </radialGradient>
+              </defs>
+
+              <!-- 2-Car Driveway Asphalt Surface -->
+              <rect x="20" y="20" width="340" height="180" fill="#18181b" stroke="#3f3f46" stroke-width="2" rx="4"/>
+              <line x1="190" y1="20" x2="190" y2="200" stroke="#3f3f46" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+              <!-- Garage Door Top Boundary -->
+              <rect x="30" y="20" width="150" height="8" fill="#52525b"/>
+              <rect x="200" y="20" width="150" height="8" fill="#52525b"/>
+              <text x="105" y="16" fill="#a1a1aa" font-size="8" text-anchor="middle">Garage Door 1</text>
+              <text x="275" y="16" fill="#a1a1aa" font-size="8" text-anchor="middle">Garage Door 2</text>
+
+              <!-- Parked Car in Left Stall -->
+              <rect x="65" y="55" width="75" height="130" rx="10" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+              <rect x="75" y="80" width="55" height="35" rx="4" fill="#082f49"/> <!-- Windshield -->
+              <text x="102" y="125" fill="#e0f2fe" font-size="9" font-weight="700" text-anchor="middle">Parked Car</text>
+
+              <!-- Conical Rock Drop Pile in Right Stall -->
+              <ellipse id="svg-conical-pile" cx="280" cy="120" rx="55" ry="55" fill="url(#conical-pile-grad)" stroke="#1e293b" stroke-width="2"/>
+              <circle cx="280" cy="120" r="4" fill="#fbbf24"/> <!-- Peak -->
+              <text x="280" y="115" fill="#fef08a" font-size="10" font-weight="800" text-anchor="middle" id="viz-pile-center-txt">Bulk Pile</text>
+              <text x="280" y="128" fill="#f8fafc" font-size="8" text-anchor="middle" id="viz-pile-dim-txt">10' Diam × 4' H</text>
+
+              <!-- Clearance Dimension -->
+              <line x1="225" y1="185" x2="335" y2="185" stroke="#f59e0b" stroke-width="1.5"/>
+              <line x1="225" y1="180" x2="225" y2="190" stroke="#f59e0b" stroke-width="1.5"/>
+              <line x1="335" y1="180" x2="335" y2="190" stroke="#f59e0b" stroke-width="1.5"/>
+              <text x="280" y="200" fill="#fbbf24" font-size="9" font-weight="700" text-anchor="middle" id="viz-pile-span-txt">10 Foot Diameter</text>
+            </svg>
+          </div>
+
+          <div class="drop-metrics-grid">
+            <div class="dm-node">
+              <span class="dm-val" id="viz-pile-diam">10 ft</span>
+              <span class="dm-lbl">Base Diameter</span>
+            </div>
+            <div class="dm-node">
+              <span class="dm-val" id="viz-pile-height">4.2 ft</span>
+              <span class="dm-lbl">Cone Peak Height</span>
+            </div>
+            <div class="dm-node">
+              <span class="dm-val">1 Stall</span>
+              <span class="dm-lbl">Driveway Space</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dump Truck Delivery Site Clearance Checklist -->
+      <div class="yard-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <h3>Site Clearance & Overhead Safety</h3>
+          </div>
+          <span class="status-badge green">Delivery Checklist</span>
+        </div>
+
+        <div class="clearance-body">
+          <div class="check-item">
+            <div class="ci-icon">⚡</div>
+            <div class="ci-text">
+              <strong>Overhead Wire Clearance (16 ft Minimum)</strong>
+              <span>When the dump bed raises, it reaches 15 to 18 feet in the air. Never dump beneath power or cable lines.</span>
+            </div>
+          </div>
+
+          <div class="check-item">
+            <div class="ci-icon">🌳</div>
+            <div class="ci-text">
+              <strong>Low-Hanging Tree Branches (14 ft Clearance)</strong>
+              <span>Dump trucks require 10 feet of width and 14 feet of vertical clearance to back into residential driveways.</span>
+            </div>
+          </div>
+
+          <div class="check-item">
+            <div class="ci-icon">⚠️</div>
+            <div class="ci-text">
+              <strong>Septic Tank & Drain Field Avoidance</strong>
+              <span>Never allow a dump truck to drive over septic tanks or leach fields. The weight will crush PVC pipes and tanks.</span>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Quarry Loader Bucket Rounding
+            </div>
+            <p>
+              Landscape yards and quarries load dump trucks with front-end loader buckets calibrated to 0.5 or 1.0 cubic yard scoops. If your theoretical calculation is 4.2 cubic yards, the quarry will round to 4.5 or 5.0 yards. Always plan for bucket increment rounding.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function syncYardageVisualizer() {
+    const orderYardsEl = document.getElementById('kpi-order-yards');
+    const yards = orderYardsEl ? parseFloat(orderYardsEl.textContent) || 5.0 : 5.0;
+
+    // Conical pile geometry: Volume V = (1/3) * pi * r^2 * h
+    // Angle of repose for aggregate is ~35 degrees -> h = r * tan(35°) = 0.7 * r
+    // V = (1/3) * pi * r^2 * (0.7 * r) = 0.733 * r^3 -> r = cbrt(V / 0.733)
+    const volCuFt = yards * 27;
+    const radius = Math.cbrt(volCuFt / 0.733);
+    const diam = Math.round(radius * 2);
+    const height = (radius * 0.7).toFixed(1);
+
+    const diamTxt = document.getElementById('viz-pile-diam');
+    const htTxt = document.getElementById('viz-pile-height');
+    const spanTxt = document.getElementById('viz-pile-span-txt');
+    const dimTxt = document.getElementById('viz-pile-dim-txt');
+
+    if (diamTxt) diamTxt.textContent = diam + ' ft';
+    if (htTxt) htTxt.textContent = height + ' ft';
+    if (spanTxt) spanTxt.textContent = diam + ' Foot Diameter';
+    if (dimTxt) dimTxt.textContent = `${diam}' Diam × ${height}' H`;
+  }
+
+  const inputs = ['yardage-length', 'yardage-width', 'yardage-depth', 'yardage-waste'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncYardageVisualizer);
+      el.addEventListener('change', syncYardageVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.round-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncYardageVisualizer, 50);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncYardageVisualizer);
+  syncYardageVisualizer();
+})();
+</script>
+
+<style>
+.yard-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .yard-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.yard-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.drop-zone-body, .clearance-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.drop-svg-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.drop-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+.drop-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.dm-node {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.dm-val {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.dm-lbl {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.check-item {
+  display: flex;
+  gap: var(--space-3);
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-glass-border);
+}
+
+.ci-icon {
+  font-size: 1.3rem;
+}
+
+.ci-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ci-text strong {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+}
+
+.ci-text span {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.gold {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

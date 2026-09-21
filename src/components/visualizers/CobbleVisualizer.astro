@@ -1,0 +1,479 @@
+---
+// Cobblestone & Belgian Block Pattern & Pallet Visualizer
+---
+<section class="section no-print" id="cobble-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Belgian Block Pattern & Pallet Stacking Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Preview bond patterns, joint mortar spacing, cross-section bedding depth, and full quarry pallet dispatch requirements.</p>
+    </div>
+
+    <div class="cobble-viz-grid">
+      <!-- Laying Pattern & Joint Preview -->
+      <div class="cobble-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="8" height="6" rx="1"/><rect x="13" y="4" width="8" height="6" rx="1"/><rect x="7" y="14" width="10" height="6" rx="1"/></svg>
+            <h3>Laying Pattern & Joint Preview</h3>
+          </div>
+          <div class="pattern-toggle-group">
+            <button type="button" class="pat-btn active" data-pattern="running">Running Bond</button>
+            <button type="button" class="pat-btn" data-pattern="soldier">Soldier Curb</button>
+            <button type="button" class="pat-btn" data-pattern="basket">Stack Bond</button>
+          </div>
+        </div>
+
+        <div class="pattern-canvas-area">
+          <svg class="pattern-svg" id="cobble-pattern-svg" viewBox="0 0 380 240" preserveAspectRatio="xMidYMid meet">
+            <!-- Rendered by JS below -->
+          </svg>
+        </div>
+
+        <div class="pattern-spec-bar">
+          <div class="spec-node">
+            <span class="spec-k">Block Sizing:</span>
+            <span class="spec-v" id="viz-block-dim">5" × 5" × 9" Regulation</span>
+          </div>
+          <div class="spec-node">
+            <span class="spec-k">Joint Width:</span>
+            <span class="spec-v" id="viz-joint-val">3/8" (Polymeric / Mortar)</span>
+          </div>
+          <div class="spec-node">
+            <span class="spec-k">Interlock Rating:</span>
+            <span class="spec-v" style="color: #4ade80;">Heavy Vehicular (HS-20)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pallet Stacking & Freight Logistics -->
+      <div class="cobble-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <h3>Quarry Pallet Stacking & Freight</h3>
+          </div>
+          <span class="status-badge gold" id="viz-pallet-badge">~100 Blocks/Pallet</span>
+        </div>
+
+        <div class="pallet-card-body">
+          <!-- 3D/Isometric Pallet Illustration -->
+          <div class="pallet-diagram-wrap">
+            <svg class="pallet-svg" viewBox="0 0 320 160" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="granite-top" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#94a3b8"/>
+                  <stop offset="100%" stop-color="#64748b"/>
+                </linearGradient>
+                <linearGradient id="granite-side" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#475569"/>
+                  <stop offset="100%" stop-color="#334155"/>
+                </linearGradient>
+                <linearGradient id="wood-pallet" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#b45309"/>
+                  <stop offset="100%" stop-color="#78350f"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Wooden Pallet Base -->
+              <!-- Slats -->
+              <polygon points="40,120 160,145 280,120 160,95" fill="url(#wood-pallet)" stroke="#451a03" stroke-width="1.5"/>
+              <polygon points="40,120 160,145 160,155 40,130" fill="#78350f"/>
+              <polygon points="160,145 280,120 280,130 160,155" fill="#451a03"/>
+
+              <!-- Stack of Granite Cobblestones -->
+              <!-- Layer 1 -->
+              <g transform="translate(0, -10)">
+                <polygon points="70,105 160,122 250,105 160,88" fill="url(#granite-top)" stroke="#1e293b"/>
+                <polygon points="70,105 160,122 160,132 70,115" fill="url(#granite-side)"/>
+                <polygon points="160,122 250,105 250,115 160,132" fill="#1e293b"/>
+              </g>
+
+              <!-- Layer 2 -->
+              <g transform="translate(0, -30)">
+                <polygon points="75,95 160,112 245,95 160,78" fill="url(#granite-top)" stroke="#1e293b"/>
+                <polygon points="75,95 160,112 160,122 75,105" fill="url(#granite-side)"/>
+                <polygon points="160,112 245,95 245,105 160,122" fill="#1e293b"/>
+              </g>
+
+              <!-- Layer 3 -->
+              <g transform="translate(0, -50)">
+                <polygon points="80,85 160,102 240,85 160,68" fill="url(#granite-top)" stroke="#1e293b"/>
+                <polygon points="80,85 160,102 160,112 80,95" fill="url(#granite-side)"/>
+                <polygon points="160,102 240,85 240,95 160,112" fill="#1e293b"/>
+              </g>
+
+              <!-- Plastic Shrink Wrap Lines -->
+              <path d="M72 65 Q 160 85 248 65" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none"/>
+              <path d="M68 85 Q 160 105 252 85" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none"/>
+
+              <!-- Weight Callout Tag -->
+              <rect x="180" y="25" width="130" height="34" rx="6" fill="#18181b" stroke="#f59e0b" stroke-width="1.5"/>
+              <text x="245" y="40" fill="#fef08a" font-size="10" font-weight="700" text-anchor="middle" id="viz-pallet-wt">~3,100 lbs / Pallet</text>
+              <text x="245" y="52" fill="#94a3b8" font-size="8" text-anchor="middle">Heavy Flatbed Freight</text>
+            </svg>
+          </div>
+
+          <div class="pallet-stats-row">
+            <div class="p-stat">
+              <span class="p-val" id="viz-total-pallets">6.6</span>
+              <span class="p-lbl">Pallets Needed</span>
+            </div>
+            <div class="p-stat">
+              <span class="p-val" id="viz-loose-blocks">691</span>
+              <span class="p-lbl">Total Block Count</span>
+            </div>
+            <div class="p-stat">
+              <span class="p-val" id="viz-subbase-yds">4.9 yd³</span>
+              <span class="p-lbl">Crusher Run Base</span>
+            </div>
+          </div>
+
+          <!-- Contractor Field Advice -->
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Delivery Warning: Forklift Offloading & Driveway Weight
+            </div>
+            <p>
+              Each regulation Belgian block pallet weighs over 3,000 lbs (1.5 tons). Moffett truck-mounted forklifts require dry, firm ground or concrete to offload. Never allow delivery drivers to drop heavy stone pallets in the center of asphalt driveways during hot summer days, as it will indent the surface.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  let activePattern = 'running';
+
+  function renderPattern() {
+    const svg = document.getElementById('cobble-pattern-svg');
+    if (!svg) return;
+
+    // Get block size & joint width
+    const jointSelect = document.getElementById('cobble-joint');
+    const jointWidth = jointSelect ? parseFloat(jointSelect.value) : 0.375;
+    const jointPx = Math.max(2, Math.round(jointWidth * 8));
+
+    let html = '';
+    const w = 380;
+    const h = 240;
+
+    // Background joint fill
+    html += `<rect width="${w}" height="${h}" fill="#1e293b" />`;
+
+    if (activePattern === 'running') {
+      // Running Bond (rows of staggered blocks)
+      const blockW = 60;
+      const blockH = 34;
+      const stepY = blockH + jointPx;
+      const stepX = blockW + jointPx;
+
+      for (let y = 5; y < h; y += stepY) {
+        const rowIndex = Math.floor(y / stepY);
+        const offsetX = (rowIndex % 2 === 0) ? 0 : -blockW / 2;
+
+        for (let x = offsetX; x < w + blockW; x += stepX) {
+          html += `
+            <rect x="${x}" y="${y}" width="${blockW}" height="${blockH}" rx="3" fill="#475569" stroke="#334155" stroke-width="1.5" />
+            <rect x="${x+2}" y="${y+2}" width="${blockW-4}" height="${blockH-4}" rx="2" fill="#64748b" opacity="0.6" />
+          `;
+        }
+      }
+    } else if (activePattern === 'soldier') {
+      // Soldier Course (Vertical edge blocks for driveway curbing)
+      const blockW = 32;
+      const blockH = 70;
+      const stepX = blockW + jointPx;
+
+      // Asphalt driveway on top
+      html += `<rect x="0" y="0" width="${w}" height="80" fill="#09090b" opacity="0.9" />`;
+      html += `<text x="20" y="45" fill="#71717a" font-size="12" font-weight="700">Driveway Asphalt Surface</text>`;
+
+      // Soldier curb line in middle
+      for (let x = 10; x < w; x += stepX) {
+        html += `
+          <rect x="${x}" y="85" width="${blockW}" height="${blockH}" rx="3" fill="#64748b" stroke="#334155" stroke-width="1.5" />
+          <line x1="${x+4}" y1="88" x2="${x+4}" y2="${85+blockH-4}" stroke="#94a3b8" stroke-width="1" opacity="0.5"/>
+        `;
+      }
+
+      // Lawn / Garden on bottom
+      html += `<rect x="0" y="${85+blockH+10}" width="${w}" height="70" fill="#14532d" opacity="0.8" />`;
+      html += `<text x="20" y="${85+blockH+45}" fill="#86efac" font-size="12" font-weight="700">Adjacent Lawn / Bed</text>`;
+    } else {
+      // Stack Bond (Grid)
+      const blockW = 46;
+      const blockH = 46;
+      const step = blockW + jointPx;
+
+      for (let y = 8; y < h; y += step) {
+        for (let x = 8; x < w; x += step) {
+          html += `
+            <rect x="${x}" y="${y}" width="${blockW}" height="${blockH}" rx="3" fill="#475569" stroke="#334155" stroke-width="1.5" />
+            <rect x="${x+3}" y="${y+3}" width="${blockW-6}" height="${blockH-6}" rx="2" fill="#64748b" opacity="0.7" />
+          `;
+        }
+      }
+    }
+
+    svg.innerHTML = html;
+  }
+
+  function syncCobbleVisualizer() {
+    const kpiBlocks = document.getElementById('cobble-kpi-blocks');
+    const kpiPallets = document.getElementById('cobble-kpi-pallets');
+    const kpiBase = document.getElementById('cobble-kpi-base');
+    const jointSelect = document.getElementById('cobble-joint');
+
+    const totalPalletsEl = document.getElementById('viz-total-pallets');
+    const totalBlocksEl = document.getElementById('viz-loose-blocks');
+    const subbaseEl = document.getElementById('viz-subbase-yds');
+    const jointValEl = document.getElementById('viz-joint-val');
+
+    if (totalPalletsEl && kpiPallets) totalPalletsEl.textContent = kpiPallets.textContent;
+    if (totalBlocksEl && kpiBlocks) totalBlocksEl.textContent = kpiBlocks.textContent;
+    if (subbaseEl && kpiBase) subbaseEl.textContent = kpiBase.textContent + ' yd³';
+    if (jointValEl && jointSelect) {
+      jointValEl.textContent = jointSelect.options[jointSelect.selectedIndex].text;
+    }
+
+    renderPattern();
+  }
+
+  // Pattern switch buttons
+  document.querySelectorAll('.pat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activePattern = btn.dataset.pattern;
+      renderPattern();
+    });
+  });
+
+  // Watch calculator inputs
+  const inputs = ['cobble-length', 'cobble-width', 'cobble-linear-ft', 'cobble-joint', 'cobble-waste'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncCobbleVisualizer);
+      el.addEventListener('change', syncCobbleVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.block-btn, .mode-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncCobbleVisualizer, 60);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncCobbleVisualizer);
+  syncCobbleVisualizer();
+})();
+</script>
+
+<style>
+.cobble-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .cobble-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cobble-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.pattern-toggle-group {
+  display: flex;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3px;
+  border-radius: var(--radius-full);
+}
+
+.pat-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pat-btn.active {
+  background: var(--gold-500);
+  color: #000;
+  font-weight: 700;
+}
+
+.pattern-canvas-area {
+  padding: var(--space-4);
+  background: #090d13;
+  display: flex;
+  justify-content: center;
+}
+
+.pattern-svg {
+  width: 100%;
+  max-width: 440px;
+  height: 220px;
+  border-radius: var(--radius-md);
+}
+
+.pattern-spec-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid var(--surface-glass-border);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 600px) {
+  .pattern-spec-bar {
+    grid-template-columns: 1fr;
+  }
+}
+
+.spec-node {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-k {
+  color: var(--text-tertiary);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.spec-v {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pallet-card-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.pallet-diagram-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.pallet-svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+}
+
+.pallet-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.p-stat {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.p-val {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.p-lbl {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.status-badge.gold {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

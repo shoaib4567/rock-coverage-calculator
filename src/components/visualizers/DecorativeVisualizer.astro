@@ -1,0 +1,434 @@
+---
+// Decorative Rock, Xeriscape & Material Swatch Visualizer
+---
+<section class="section no-print" id="decorative-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Xeriscape Bed & Material Swatch Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Inspect realistic material texture swatches, thermal heat absorption properties, plant root air gaps, and containment edging for xeriscaping.</p>
+    </div>
+
+    <div class="deco-viz-grid">
+      <!-- Material Texture Swatches & Thermal Meter -->
+      <div class="deco-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <h3>High-Definition Material Swatch</h3>
+          </div>
+          <span class="status-badge" id="viz-deco-badge">Mexican Beach Pebble</span>
+        </div>
+
+        <div class="swatch-body">
+          <div class="swatch-preview-wrap" id="swatch-bg-preview">
+            <div class="swatch-label-tag">
+              <span id="swatch-name-display">Mexican Beach Pebble (Black)</span>
+              <span class="swatch-sub" id="swatch-spec-display">Volcanic Smooth | 1.38 Tons/yd³</span>
+            </div>
+          </div>
+
+          <!-- Thermal & Solar Reflectivity Gauges -->
+          <div class="thermal-meters-grid">
+            <div class="t-node">
+              <div class="t-head">
+                <span>Solar Heat Absorption</span>
+                <span class="t-val" id="viz-heat-val">High (Holds Heat)</span>
+              </div>
+              <div class="t-track">
+                <div class="t-fill" id="viz-heat-fill" style="width: 85%; background: #ef4444;"></div>
+              </div>
+            </div>
+
+            <div class="t-node">
+              <div class="t-head">
+                <span>Freight Weight Density</span>
+                <span class="t-val" id="viz-weight-val">Heavy (1.38 T/yd³)</span>
+              </div>
+              <div class="t-track">
+                <div class="t-fill" id="viz-weight-fill" style="width: 80%; background: #f59e0b;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Climate Pro Tip: Dark Rocks vs Hot Summer Sun
+            </div>
+            <p id="viz-deco-tip">
+              In hot southwestern or southern US climates, dark stones like black Mexican beach pebble absorb intense afternoon heat, raising soil temperatures up to 130°F. Ensure plants have a 3-inch clearance collar around stems to prevent heat scorch. For extreme heat, white marble chips or light river rock reflect sunlight and keep roots cooler.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Xeriscape Bed & Plant Root Air Collar Cross-Section -->
+      <div class="deco-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+            <h3>Xeriscape Bed & Stem Air Collar Cross-Section</h3>
+          </div>
+          <span class="status-badge green">Plant Root Safe</span>
+        </div>
+
+        <div class="xeriscape-body">
+          <div class="xeri-diagram-wrap">
+            <svg class="xeri-svg" viewBox="0 0 380 200" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="plant-shrub-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#4ade80"/>
+                  <stop offset="100%" stop-color="#166534"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Soil Layer -->
+              <rect x="20" y="120" width="340" height="60" fill="#1c1917" rx="2"/>
+              <text x="30" y="160" fill="#78716c" font-size="9" font-weight="600">Native Garden Soil / Subgrade</text>
+
+              <!-- Geotextile Weed Barrier Line -->
+              <line x1="20" y1="120" x2="155" y2="120" stroke="#3b82f6" stroke-width="2.5"/>
+              <line x1="225" y1="120" x2="360" y2="120" stroke="#3b82f6" stroke-width="2.5"/>
+
+              <!-- Decorative Rock Layer on Left & Right of Plant -->
+              <rect x="20" y="75" width="135" height="45" fill="#334155" rx="3" stroke="#475569" stroke-width="1"/>
+              <rect x="225" y="75" width="135" height="45" fill="#334155" rx="3" stroke="#475569" stroke-width="1"/>
+              <text x="85" y="102" fill="#cbd5e1" font-size="9" font-weight="700" text-anchor="middle">3" Stone Mulch</text>
+              <text x="290" y="102" fill="#cbd5e1" font-size="9" font-weight="700" text-anchor="middle">3" Stone Mulch</text>
+
+              <!-- Plant Trunk & Foliage in Center -->
+              <!-- Root Ball -->
+              <ellipse cx="190" cy="140" rx="28" ry="18" fill="#451a03" stroke="#78350f" stroke-width="1.5"/>
+              <text x="190" y="144" fill="#d97706" font-size="8" font-weight="600" text-anchor="middle">Root Ball</text>
+
+              <!-- Stem / Trunk -->
+              <rect x="186" y="55" width="8" height="70" fill="#78350f" rx="1"/>
+
+              <!-- Green Shrub Foliage -->
+              <circle cx="190" cy="40" r="28" fill="url(#plant-shrub-grad)" stroke="#15803d" stroke-width="1.5"/>
+              <circle cx="170" cy="45" r="18" fill="url(#plant-shrub-grad)" opacity="0.8"/>
+              <circle cx="210" cy="45" r="18" fill="url(#plant-shrub-grad)" opacity="0.8"/>
+
+              <!-- 3" Stem Air Gap Callouts -->
+              <rect x="155" y="75" width="31" height="45" fill="rgba(56, 189, 248, 0.08)" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3,2"/>
+              <rect x="194" y="75" width="31" height="45" fill="rgba(56, 189, 248, 0.08)" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3,2"/>
+              <text x="190" y="105" fill="#38bdf8" font-size="8" font-weight="800" text-anchor="middle">3" Air Collar</text>
+
+              <!-- Deep Edging Barrier on Far Left -->
+              <rect x="16" y="50" width="6" height="110" fill="#0f172a" stroke="#94a3b8" stroke-width="1.5"/>
+              <text x="12" y="42" fill="#cbd5e1" font-size="8" font-weight="700">3.5" Edging</text>
+            </svg>
+          </div>
+
+          <div class="xeri-specs-grid">
+            <div class="x-spec">
+              <span class="x-val">3" Air Gap</span>
+              <span class="x-lbl">Prevents Crown Rot</span>
+            </div>
+            <div class="x-spec">
+              <span class="x-val">3.5" Edging</span>
+              <span class="x-lbl">Containment Lip</span>
+            </div>
+            <div class="x-spec">
+              <span class="x-val">90% Less</span>
+              <span class="x-lbl">Water Evaporation</span>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              The "Stem Rot" Trap: Why Never Pile Rock Against Bark
+            </div>
+            <p>
+              When decorative stone is piled directly against the base of trees or shrubs, trapped heat and condensation create a breeding ground for fungal crown rot and stem girdling. Always leave a 3-inch bare collar around woody plant stems to allow air circulation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function syncDecoVisualizer() {
+    const activeBtn = document.querySelector('.rock-btn.active');
+    const badge = document.getElementById('viz-deco-badge');
+    const nameDisplay = document.getElementById('swatch-name-display');
+    const specDisplay = document.getElementById('swatch-spec-display');
+    const previewWrap = document.getElementById('swatch-bg-preview');
+    const heatVal = document.getElementById('viz-heat-val');
+    const heatFill = document.getElementById('viz-heat-fill');
+    const weightVal = document.getElementById('viz-weight-val');
+    const weightFill = document.getElementById('viz-weight-fill');
+    const tip = document.getElementById('viz-deco-tip');
+
+    if (!activeBtn) return;
+    const name = activeBtn.dataset.name || '';
+
+    if (name.includes('Mexican Beach')) {
+      if (badge) badge.textContent = 'Mexican Beach Pebble';
+      if (nameDisplay) nameDisplay.textContent = 'Mexican Beach Pebble (Black)';
+      if (specDisplay) specDisplay.textContent = 'Smooth Volcanic Quartz | 1.38 Tons/yd³';
+      if (previewWrap) previewWrap.style.background = 'radial-gradient(circle, #27272a 0%, #09090b 100%)';
+      if (heatVal) heatVal.textContent = 'Very High (Retains Heat)';
+      if (heatFill) { heatFill.style.width = '90%'; heatFill.style.background = '#ef4444'; }
+      if (weightVal) weightVal.textContent = 'Heavy (1.38 T/yd³)';
+      if (weightFill) { weightFill.style.width = '80%'; weightFill.style.background = '#f59e0b'; }
+      if (tip) tip.textContent = 'Black Mexican Beach Pebble is the pinnacle of modern architectural landscaping. In hot summer climates, its dark tone absorbs significant solar radiation, so maintain a strict 3-inch clearance around plant stems.';
+    } else if (name.includes('Lava Rock')) {
+      if (badge) badge.textContent = 'Red Lava Rock';
+      if (nameDisplay) nameDisplay.textContent = 'Volcanic Red Lava Rock';
+      if (specDisplay) specDisplay.textContent = 'Ultra Lightweight Porous | 0.85 Tons/yd³';
+      if (previewWrap) previewWrap.style.background = 'radial-gradient(circle, #991b1b 0%, #450a0a 100%)';
+      if (heatVal) heatVal.textContent = 'Moderate (Porous Insulation)';
+      if (heatFill) { heatFill.style.width = '55%'; heatFill.style.background = '#f59e0b'; }
+      if (weightVal) weightVal.textContent = 'Lightweight (0.85 T/yd³)';
+      if (weightFill) { weightFill.style.width = '35%'; weightFill.style.background = '#10b981'; }
+      if (tip) tip.textContent = 'Volcanic Lava Rock is exceptionally lightweight (0.85 tons/yd³), saving up to 40% on delivery freight weight compared to river rock. Its microscopic pores hold soil moisture while offering superior weed deterrence.';
+    } else if (name.includes('Marble')) {
+      if (badge) badge.textContent = 'White Marble Chips';
+      if (nameDisplay) nameDisplay.textContent = 'Royal White Marble Chips';
+      if (specDisplay) specDisplay.textContent = 'Crystalline Sparkling | 1.35 Tons/yd³';
+      if (previewWrap) previewWrap.style.background = 'radial-gradient(circle, #f8fafc 0%, #cbd5e1 100%)';
+      if (nameDisplay) nameDisplay.style.color = '#0f172a';
+      if (specDisplay) specDisplay.style.color = '#334155';
+      if (heatVal) heatVal.textContent = 'Low (Reflective Sparkle)';
+      if (heatFill) { heatFill.style.width = '25%'; heatFill.style.background = '#38bdf8'; }
+      if (weightVal) weightVal.textContent = 'Standard (1.35 T/yd³)';
+      if (weightFill) { weightFill.style.width = '75%'; weightFill.style.background = '#f59e0b'; }
+      if (tip) tip.textContent = 'White marble chips reflect intense solar UV rays, keeping root zones cooler in southern states. Avoid planting acid-loving plants (like azaleas or blueberries) near marble, as limestone runoff can raise soil pH over time.';
+    } else {
+      if (badge) badge.textContent = 'Colorado Cobble';
+      if (nameDisplay) nameDisplay.textContent = 'Colorado Rainbow Cobble';
+      if (specDisplay) specDisplay.textContent = 'Multi-color Pastel River Stone | 1.35 Tons/yd³';
+      if (previewWrap) previewWrap.style.background = 'radial-gradient(circle, #94a3b8 0%, #475569 100%)';
+      if (nameDisplay) nameDisplay.style.color = '#f8fafc';
+      if (specDisplay) specDisplay.style.color = '#cbd5e1';
+      if (heatVal) heatVal.textContent = 'Balanced (Natural River Blend)';
+      if (heatFill) { heatFill.style.width = '60%'; heatFill.style.background = '#f59e0b'; }
+      if (weightVal) weightVal.textContent = 'Standard (1.35 T/yd³)';
+      if (weightFill) { weightFill.style.width = '75%'; weightFill.style.background = '#f59e0b'; }
+      if (tip) tip.textContent = 'Colorado Rainbow Cobble features smooth river-tumbled granite, sandstone, and quartz in natural pastel hues. Highly durable and versatile for desert xeriscaping or modern garden borders.';
+    }
+  }
+
+  document.querySelectorAll('.rock-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncDecoVisualizer, 50);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncDecoVisualizer);
+  syncDecoVisualizer();
+})();
+</script>
+
+<style>
+.deco-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .deco-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.deco-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.swatch-body, .xeriscape-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.swatch-preview-wrap {
+  height: 160px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-4);
+  background: radial-gradient(circle, #27272a 0%, #09090b 100%);
+  transition: background 0.3s ease;
+}
+
+.swatch-label-tag {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.swatch-label-tag span:first-child {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.swatch-sub {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.thermal-meters-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.t-node {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-glass-border);
+}
+
+.t-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  margin-bottom: 6px;
+}
+
+.t-val {
+  font-weight: 700;
+  color: var(--gold-400);
+}
+
+.t-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.t-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.xeri-diagram-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.xeri-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+.xeri-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.x-spec {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.x-val {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.x-lbl {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

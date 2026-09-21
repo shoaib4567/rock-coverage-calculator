@@ -1,0 +1,546 @@
+---
+// Rock Bag & Vehicle Payload Capacity Visualizer
+---
+<section class="section no-print" id="bag-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Bag Pallet & Vehicle Payload Safety Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Verify whether your vehicle can safely haul your bagged rock order without bottoming out suspension, or if bulk quarry delivery is required.</p>
+    </div>
+
+    <div class="bag-viz-grid">
+      <!-- Vehicle Payload Safety Gauge -->
+      <div class="bag-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 17h14v-5l-3-4H8L5 12v5z"/></svg>
+            <h3>Vehicle Hauling Safety & Payload Gauge</h3>
+          </div>
+          <span class="status-badge" id="vehicle-safety-badge">Safe Payload</span>
+        </div>
+
+        <div class="vehicle-gauge-body">
+          <div class="payload-meter-container">
+            <div class="meter-labels">
+              <span class="meter-weight-display" id="viz-bag-total-weight">0 lbs</span>
+              <span class="meter-status-text" id="viz-vehicle-status">Evaluating vehicle limits...</span>
+            </div>
+            <div class="payload-bar-track">
+              <div class="payload-bar-fill" id="viz-payload-fill" style="width: 25%;"></div>
+              <div class="payload-marker marker-sedan" title="Sedan limit: 500 lbs"><span>Sedan (500#)</span></div>
+              <div class="payload-marker marker-suv" title="SUV limit: 850 lbs"><span>SUV (850#)</span></div>
+              <div class="payload-marker marker-pickup" title="1/2 Ton Pickup: 1,500 lbs"><span>1/2T Truck (1,500#)</span></div>
+            </div>
+          </div>
+
+          <!-- Vehicle Suitability Grid -->
+          <div class="vehicle-class-grid">
+            <div class="vehicle-node" id="v-node-sedan">
+              <div class="v-icon">🚗</div>
+              <div class="v-name">Sedan / Hatchback</div>
+              <div class="v-limit">Max: ~10 Bags (500 lbs)</div>
+              <div class="v-status" id="v-sedan-status">OK</div>
+            </div>
+            <div class="vehicle-node" id="v-node-suv">
+              <div class="v-icon">🚙</div>
+              <div class="v-name">Crossover / SUV</div>
+              <div class="v-limit">Max: ~18 Bags (850 lbs)</div>
+              <div class="v-status" id="v-suv-status">OK</div>
+            </div>
+            <div class="vehicle-node" id="v-node-pickup">
+              <div class="v-icon">🛻</div>
+              <div class="v-name">1/2-Ton Pickup (F-150)</div>
+              <div class="v-limit">Max: ~30 Bags (1,500 lbs)</div>
+              <div class="v-status" id="v-pickup-status">OK</div>
+            </div>
+            <div class="vehicle-node" id="v-node-dump">
+              <div class="v-icon">🚛</div>
+              <div class="v-name">Bulk Dump Delivery</div>
+              <div class="v-limit">Required for > 1 Ton</div>
+              <div class="v-status" id="v-dump-status">Optional</div>
+            </div>
+          </div>
+
+          <div class="field-tips-box warning-box" id="overload-warning-box" style="display: none;">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Overweight Hazard: Suspension Damage Warning
+            </div>
+            <p>
+              Your order exceeds standard passenger vehicle payload capacities. Loading rock bags into an SUV or trunk causes extreme rear sag, loss of steering traction, and potential tire blowouts. For loads exceeding 1,500 lbs, arrange bulk dump truck delivery or make multiple round trips.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pallet Stacking & Bag Handling Effort -->
+      <div class="bag-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <h3>Pallet Stacking & Physical Handling</h3>
+          </div>
+          <span class="status-badge gold" id="viz-pallet-count-badge">0 Full Pallets</span>
+        </div>
+
+        <div class="pallet-stack-body">
+          <!-- Pallet Bag Stack Diagram -->
+          <div class="pallet-stack-wrap">
+            <svg class="bag-pallet-svg" viewBox="0 0 340 180" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="bag-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#38bdf8"/>
+                  <stop offset="100%" stop-color="#0284c7"/>
+                </linearGradient>
+                <linearGradient id="wood-pallet-b" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#92400e"/>
+                  <stop offset="100%" stop-color="#78350f"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Wooden Pallet Base -->
+              <polygon points="50,140 170,165 290,140 170,115" fill="url(#wood-pallet-b)" stroke="#451a03" stroke-width="1.5"/>
+              <polygon points="50,140 170,165 170,175 50,150" fill="#78350f"/>
+              <polygon points="170,165 290,140 290,150 170,175" fill="#451a03"/>
+
+              <!-- Stack of Bags -->
+              <!-- Layer 1 -->
+              <g id="svg-bag-layer-1">
+                <rect x="90" y="115" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+                <rect x="140" y="120" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+                <rect x="190" y="118" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+              </g>
+
+              <!-- Layer 2 -->
+              <g id="svg-bag-layer-2">
+                <rect x="95" y="98" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+                <rect x="145" y="103" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+                <rect x="195" y="101" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+              </g>
+
+              <!-- Layer 3 -->
+              <g id="svg-bag-layer-3">
+                <rect x="100" y="81" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+                <rect x="150" y="86" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+                <rect x="200" y="84" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+              </g>
+
+              <!-- Layer 4 -->
+              <g id="svg-bag-layer-4">
+                <rect x="110" y="64" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+                <rect x="160" y="69" width="45" height="15" rx="4" fill="url(#bag-grad)" stroke="#0369a1"/>
+              </g>
+
+              <!-- Pallet Dimensions Callout -->
+              <text x="170" y="40" fill="#fef08a" font-size="11" font-weight="700" text-anchor="middle" id="viz-bags-per-pallet">60 Bags / Pallet (~2,880 lbs)</text>
+              <text x="170" y="52" fill="#94a3b8" font-size="9" text-anchor="middle">Standard 48" × 40" GMA Pallet</text>
+            </svg>
+          </div>
+
+          <div class="handling-metrics-grid">
+            <div class="h-metric">
+              <span class="h-val" id="viz-total-bags">0</span>
+              <span class="h-lbl">Bags to Lift</span>
+            </div>
+            <div class="h-metric">
+              <span class="h-val" id="viz-times-lifted">0 lbs</span>
+              <span class="h-lbl">Total Lift Weight</span>
+            </div>
+            <div class="h-metric">
+              <span class="h-val" id="viz-bag-plastic">0</span>
+              <span class="h-lbl">Plastic Bags Wasted</span>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              The "25 Bag Breakeven" Contractor Rule
+            </div>
+            <p>
+              Buying more than 20 to 25 bags from Home Depot or Lowe's is almost always more expensive than ordering a full cubic yard delivered from a local landscape yard. Plus, you have to lift every 50-pound bag three separate times: into the cart, into your vehicle, and out into your garden bed.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function syncBagVisualizer() {
+    const bagCountEl = document.getElementById('kpi-bag-count');
+    const bagWeightEl = document.getElementById('kpi-bag-weight');
+    const bagPalletsEl = document.getElementById('kpi-bag-pallets');
+
+    const totalBags = bagCountEl ? parseInt(bagCountEl.textContent.replace(/,/g, '')) || 0 : 0;
+    const totalWeight = bagWeightEl ? parseInt(bagWeightEl.textContent.replace(/,/g, '')) || 0 : 0;
+
+    // Update weight display
+    const weightDisplay = document.getElementById('viz-bag-total-weight');
+    if (weightDisplay) weightDisplay.textContent = totalWeight.toLocaleString() + ' lbs';
+
+    const totalBagsDisplay = document.getElementById('viz-total-bags');
+    if (totalBagsDisplay) totalBagsDisplay.textContent = totalBags.toLocaleString();
+
+    const liftWeightDisplay = document.getElementById('viz-times-lifted');
+    if (liftWeightDisplay) liftWeightDisplay.textContent = (totalWeight * 2).toLocaleString() + ' lbs'; // lifted twice
+
+    const plasticDisplay = document.getElementById('viz-bag-plastic');
+    if (plasticDisplay) plasticDisplay.textContent = totalBags + ' bags';
+
+    // Payload bar fill (scale up to 3000 lbs)
+    const fillBar = document.getElementById('viz-payload-fill');
+    const pct = Math.min(100, Math.max(5, (totalWeight / 2500) * 100));
+    if (fillBar) {
+      fillBar.style.width = pct + '%';
+      if (totalWeight > 1500) {
+        fillBar.style.background = '#ef4444';
+      } else if (totalWeight > 850) {
+        fillBar.style.background = '#f59e0b';
+      } else {
+        fillBar.style.background = '#10b981';
+      }
+    }
+
+    // Vehicle Node statuses
+    const sedanNode = document.getElementById('v-node-sedan');
+    const suvNode = document.getElementById('v-node-suv');
+    const pickupNode = document.getElementById('v-node-pickup');
+    const dumpNode = document.getElementById('v-node-dump');
+
+    const sedanStatus = document.getElementById('v-sedan-status');
+    const suvStatus = document.getElementById('v-suv-status');
+    const pickupStatus = document.getElementById('v-pickup-status');
+    const dumpStatus = document.getElementById('v-dump-status');
+    const warningBox = document.getElementById('overload-warning-box');
+    const badge = document.getElementById('vehicle-safety-badge');
+
+    if (totalWeight <= 500) {
+      if (sedanStatus) { sedanStatus.textContent = 'Safe'; sedanStatus.className = 'v-status ok'; }
+      if (suvStatus) { suvStatus.textContent = 'Safe'; suvStatus.className = 'v-status ok'; }
+      if (pickupStatus) { pickupStatus.textContent = 'Safe'; pickupStatus.className = 'v-status ok'; }
+      if (dumpStatus) { dumpStatus.textContent = 'Unnecessary'; dumpStatus.className = 'v-status'; }
+      if (warningBox) warningBox.style.display = 'none';
+      if (badge) { badge.textContent = 'Passenger Vehicle OK'; badge.className = 'status-badge green'; }
+    } else if (totalWeight <= 850) {
+      if (sedanStatus) { sedanStatus.textContent = 'OVERLOAD'; sedanStatus.className = 'v-status danger'; }
+      if (suvStatus) { suvStatus.textContent = 'Safe'; suvStatus.className = 'v-status ok'; }
+      if (pickupStatus) { pickupStatus.textContent = 'Safe'; pickupStatus.className = 'v-status ok'; }
+      if (dumpStatus) { dumpStatus.textContent = 'Optional'; dumpStatus.className = 'v-status'; }
+      if (warningBox) warningBox.style.display = 'none';
+      if (badge) { badge.textContent = 'SUV / Truck Required'; badge.className = 'status-badge gold'; }
+    } else if (totalWeight <= 1500) {
+      if (sedanStatus) { sedanStatus.textContent = 'OVERLOAD'; sedanStatus.className = 'v-status danger'; }
+      if (suvStatus) { suvStatus.textContent = 'OVERLOAD'; suvStatus.className = 'v-status danger'; }
+      if (pickupStatus) { pickupStatus.textContent = 'Max Load'; pickupStatus.className = 'v-status ok'; }
+      if (dumpStatus) { dumpStatus.textContent = 'Recommended'; dumpStatus.className = 'v-status ok'; }
+      if (warningBox) warningBox.style.display = 'none';
+      if (badge) { badge.textContent = 'Pickup Truck Only'; badge.className = 'status-badge gold'; }
+    } else {
+      if (sedanStatus) { sedanStatus.textContent = 'DANGER'; sedanStatus.className = 'v-status danger'; }
+      if (suvStatus) { suvStatus.textContent = 'DANGER'; suvStatus.className = 'v-status danger'; }
+      if (pickupStatus) { pickupStatus.textContent = 'OVERLOAD'; pickupStatus.className = 'v-status danger'; }
+      if (dumpStatus) { dumpStatus.textContent = 'Mandatory'; dumpStatus.className = 'v-status ok'; }
+      if (warningBox) warningBox.style.display = 'block';
+      if (badge) { badge.textContent = 'Bulk Delivery Required'; badge.className = 'status-badge red'; }
+    }
+  }
+
+  // Watch inputs
+  const inputs = ['bag-length', 'bag-width', 'bag-depth', 'bag-waste', 'price-per-bag', 'price-bulk-yard'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncBagVisualizer);
+      el.addEventListener('change', syncBagVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.bag-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncBagVisualizer, 60);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncBagVisualizer);
+  syncBagVisualizer();
+})();
+</script>
+
+<style>
+.bag-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .bag-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bag-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--river-teal);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.vehicle-gauge-body, .pallet-stack-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.payload-meter-container {
+  background: #090d13;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--surface-glass-border);
+}
+
+.meter-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-2);
+}
+
+.meter-weight-display {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.meter-status-text {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.payload-bar-track {
+  position: relative;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-4);
+}
+
+.payload-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.payload-marker {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.payload-marker span {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.62rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.marker-sedan { left: 20%; }
+.marker-suv { left: 34%; }
+.marker-pickup { left: 60%; }
+
+.vehicle-class-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 500px) {
+  .vehicle-class-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vehicle-node {
+  background: var(--surface-card);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.v-icon {
+  font-size: 1.3rem;
+  margin-bottom: 2px;
+}
+
+.v-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.v-limit {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.v-status {
+  margin-top: 4px;
+  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+}
+
+.v-status.ok {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+}
+
+.v-status.danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.pallet-stack-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.bag-pallet-svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+}
+
+.handling-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.h-metric {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--surface-glass-border);
+}
+
+.h-val {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--gold-400);
+}
+
+.h-lbl {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.status-badge.gold {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.status-badge.red {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.field-tips-box.warning-box {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.warning-box .tip-title {
+  color: #ef4444;
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

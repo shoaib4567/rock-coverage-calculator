@@ -1,0 +1,418 @@
+---
+// Rock Tonnage, Quarry Weigh Scale & Axle Weight Visualizer
+---
+<section class="section no-print" id="tons-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Quarry Weigh Scale & Axle Weight Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Simulate certified quarry scale tickets, moisture saturation surcharges, and dump truck axle weight driveway cracking risks.</p>
+    </div>
+
+    <div class="tons-viz-grid">
+      <!-- Dump Truck Axle Weight & Driveway Cracking Risk -->
+      <div class="tons-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 17h14v-5l-3-4H8L5 12v5z"/></svg>
+            <h3>Hauler Axle Weight & Driveway Safety</h3>
+          </div>
+          <span class="status-badge" id="viz-axle-badge">Tandem Axle</span>
+        </div>
+
+        <div class="axle-body">
+          <div class="axle-diagram-wrap">
+            <svg class="axle-svg" viewBox="0 0 380 200" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="truck-body-grad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#f59e0b"/>
+                  <stop offset="100%" stop-color="#d97706"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Driveway Surface Line -->
+              <rect x="10" y="155" width="360" height="35" fill="#27272a" stroke="#52525b" stroke-width="1"/>
+              <text x="30" y="178" fill="#a1a1aa" font-size="9" font-weight="600">Residential 4" Concrete Driveway (Max 10,000 lbs/axle)</text>
+
+              <!-- Dump Truck Silhouette -->
+              <!-- Cab -->
+              <path d="M 50 155 L 50 100 L 90 100 L 110 120 L 110 155 Z" fill="#18181b" stroke="#71717a" stroke-width="2"/>
+              <rect x="60" y="106" width="30" height="24" rx="2" fill="#38bdf8" opacity="0.7"/> <!-- Window -->
+
+              <!-- Dump Bed (Filled with rock) -->
+              <rect x="115" y="80" width="180" height="75" rx="3" fill="url(#truck-body-grad)" stroke="#b45309" stroke-width="2"/>
+              <!-- Rock Mound -->
+              <path d="M 115 80 Q 205 50 295 80 Z" fill="#64748b" stroke="#475569" stroke-width="1"/>
+
+              <!-- Axles & Wheels -->
+              <!-- Front Steer Axle -->
+              <circle cx="75" cy="155" r="16" fill="#09090b" stroke="#a1a1aa" stroke-width="3"/>
+              <circle cx="75" cy="155" r="6" fill="#71717a"/>
+
+              <!-- Rear Tandem Axles -->
+              <circle cx="215" cy="155" r="16" fill="#09090b" stroke="#a1a1aa" stroke-width="3"/>
+              <circle cx="215" cy="155" r="6" fill="#71717a"/>
+              <circle cx="255" cy="155" r="16" fill="#09090b" stroke="#a1a1aa" stroke-width="3"/>
+              <circle cx="255" cy="155" r="6" fill="#71717a"/>
+
+              <!-- Load Weight Indicator -->
+              <rect x="155" y="100" width="100" height="34" rx="4" fill="#000" stroke="#fbbf24" stroke-width="1.5"/>
+              <text x="205" y="115" fill="#fbbf24" font-size="11" font-weight="800" text-anchor="middle" id="viz-axle-load-txt">14.0 Tons</text>
+              <text x="205" y="127" fill="#cbd5e1" font-size="8" text-anchor="middle">Payload Weight</text>
+            </svg>
+          </div>
+
+          <div class="axle-risk-meter-box">
+            <div class="risk-header">
+              <span>Driveway Cracking Risk Meter</span>
+              <span class="risk-val" id="viz-crack-risk">Low Risk (Street Drop Recommended)</span>
+            </div>
+            <div class="risk-track">
+              <div class="risk-fill" id="viz-risk-fill" style="width: 45%; background: #f59e0b;"></div>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Driveway Protection: The 3/4" Plywood Runway
+            </div>
+            <p>
+              A fully loaded tandem or tri-axle dump truck weighs between 36,000 and 54,000 lbs gross. Standard 4-inch unreinforced residential concrete driveways are rated for passenger vehicles under 8,000 lbs. If the driver must back onto your driveway, lay 3/4" CDX plywood sheets beneath the wheels to distribute axle point loads.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Certified Quarry Scale Ticket -->
+      <div class="tons-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <h3>Live Certified Weigh-Scale Ticket</h3>
+          </div>
+          <span class="status-badge green">Legal For Trade</span>
+        </div>
+
+        <div class="ticket-body">
+          <div class="scale-slip-card">
+            <div class="slip-header">
+              <div class="slip-company">CERTIFIED QUARRY WEIGHT TICKET</div>
+              <div class="slip-date">SCALE ID: #04-SCALE-EAST</div>
+            </div>
+
+            <table class="slip-table">
+              <tr>
+                <td>GROSS WEIGHT (Truck + Rock):</td>
+                <td class="slip-val" id="viz-ticket-gross">54,200 lbs</td>
+              </tr>
+              <tr>
+                <td>TARE WEIGHT (Empty Truck):</td>
+                <td class="slip-val" id="viz-ticket-tare">26,000 lbs</td>
+              </tr>
+              <tr class="slip-net-row">
+                <td>NET CERTIFIED PAYLOAD:</td>
+                <td class="slip-val-net" id="viz-ticket-net">28,200 lbs (14.10 T)</td>
+              </tr>
+              <tr>
+                <td>Moisture Weight Surcharge (4%):</td>
+                <td class="slip-val-moist" id="viz-ticket-moist">+1,128 lbs water</td>
+              </tr>
+            </table>
+
+            <div class="slip-barcode">||| | |||| ||| ||||| || |||||| |||| | |||</div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              The "Rainstorm Water Weight" Trap
+            </div>
+            <p>
+              Quarry stockpiles sit outdoors exposed to weather. Following heavy rainfall, porous gravel and limestone absorb 4% to 8% water by weight. Since quarries sell strictly by weigh-scale gross weight, an order of 15 tons can contain over 1,500 lbs of billed water! Always request dry stockpile loading when possible.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function syncTonsVisualizer() {
+    const tonsEl = document.getElementById('kpi-scale-tons');
+    const lbsEl = document.getElementById('kpi-scale-lbs');
+    const moistLbsEl = document.getElementById('kpi-moisture-lbs');
+
+    const netTons = tonsEl ? parseFloat(tonsEl.textContent) || 0 : 0;
+    const netLbs = lbsEl ? parseInt(lbsEl.textContent.replace(/[^0-9]/g, '')) || 0 : 0;
+    const moistLbs = moistLbsEl ? parseInt(moistLbsEl.textContent.replace(/[^0-9]/g, '')) || 0 : 0;
+
+    const tareLbs = 26000; // standard tandem empty tare
+    const grossLbs = tareLbs + netLbs;
+
+    // Update ticket
+    const ticketGross = document.getElementById('viz-ticket-gross');
+    const ticketTare = document.getElementById('viz-ticket-tare');
+    const ticketNet = document.getElementById('viz-ticket-net');
+    const ticketMoist = document.getElementById('viz-ticket-moist');
+
+    if (ticketGross) ticketGross.textContent = grossLbs.toLocaleString() + ' lbs';
+    if (ticketTare) ticketTare.textContent = tareLbs.toLocaleString() + ' lbs';
+    if (ticketNet) ticketNet.textContent = netLbs.toLocaleString() + ' lbs (' + netTons.toFixed(2) + ' T)';
+    if (ticketMoist) ticketMoist.textContent = '+' + moistLbs.toLocaleString() + ' lbs water';
+
+    // Update truck load text & risk
+    const loadTxt = document.getElementById('viz-axle-load-txt');
+    const riskFill = document.getElementById('viz-risk-fill');
+    const riskVal = document.getElementById('viz-crack-risk');
+    const badge = document.getElementById('viz-axle-badge');
+
+    if (loadTxt) loadTxt.textContent = netTons.toFixed(1) + ' Tons';
+
+    if (netTons <= 7) {
+      if (badge) badge.textContent = 'Single Axle';
+      if (riskFill) { riskFill.style.width = '25%'; riskFill.style.background = '#10b981'; }
+      if (riskVal) riskVal.textContent = 'Low Risk (Single Axle under 18,000 lbs)';
+    } else if (netTons <= 16) {
+      if (badge) badge.textContent = 'Tandem Axle';
+      if (riskFill) { riskFill.style.width = '60%'; riskFill.style.background = '#f59e0b'; }
+      if (riskVal) riskVal.textContent = 'Moderate Risk (Use Plywood on Driveway)';
+    } else {
+      if (badge) badge.textContent = 'Tri-Axle / Semi';
+      if (riskFill) { riskFill.style.width = '95%'; riskFill.style.background = '#ef4444'; }
+      if (riskVal) riskVal.textContent = 'High Cracking Hazard (Street Drop Required!)';
+    }
+  }
+
+  const inputs = ['tons-length', 'tons-width', 'tons-depth', 'tons-waste', 'tons-direct-yards', 'tons-moisture', 'cost-per-ton'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncTonsVisualizer);
+      el.addEventListener('change', syncTonsVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.dens-btn, .mode-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncTonsVisualizer, 50);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncTonsVisualizer);
+  syncTonsVisualizer();
+})();
+</script>
+
+<style>
+.tons-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .tons-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tons-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.axle-body, .ticket-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.axle-diagram-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.axle-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+.axle-risk-meter-box {
+  background: var(--surface-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-glass-border);
+}
+
+.risk-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  margin-bottom: 6px;
+}
+
+.risk-val {
+  font-weight: 700;
+  color: var(--gold-400);
+}
+
+.risk-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.risk-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.scale-slip-card {
+  background: #fefce8;
+  color: #1c1917;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  font-family: monospace;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px dashed #ca8a04;
+}
+
+.slip-header {
+  text-align: center;
+  border-bottom: 2px dashed #a1a1aa;
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.slip-company {
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.slip-date {
+  font-size: 0.7rem;
+  color: #71717a;
+}
+
+.slip-table {
+  width: 100%;
+  font-size: 0.78rem;
+  margin-bottom: var(--space-3);
+}
+
+.slip-table td {
+  padding: 3px 0;
+}
+
+.slip-val {
+  text-align: right;
+  font-weight: 700;
+}
+
+.slip-net-row {
+  font-weight: 800;
+  border-top: 1px solid #71717a;
+  border-bottom: 1px solid #71717a;
+}
+
+.slip-val-net {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #15803d;
+}
+
+.slip-val-moist {
+  text-align: right;
+  color: #0284c7;
+  font-size: 0.72rem;
+}
+
+.slip-barcode {
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 0.75rem;
+  color: #52525b;
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>

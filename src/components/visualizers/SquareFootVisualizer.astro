@@ -1,0 +1,368 @@
+---
+// Rock Square Footage & Multi-Zone Lot Map Visualizer
+---
+<section class="section no-print" id="square-foot-visualizer">
+  <div class="container">
+    <div class="section-header">
+      <h2>Interactive Multi-Zone Lot Map & Coverage Visualizer</h2>
+      <div class="section-divider"></div>
+      <p>Inspect multi-bed area breakdowns on an architectural property blueprint, showing how grouping zones into a single bulk order eliminates multiple delivery fees.</p>
+    </div>
+
+    <div class="sqft-viz-grid">
+      <!-- Architectural Property Lot Map Blueprint -->
+      <div class="sqft-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+            <h3>Property Lot Map: Multi-Bed Zones</h3>
+          </div>
+          <span class="status-badge gold" id="viz-lot-sqft-badge">500 Total Sq Ft</span>
+        </div>
+
+        <div class="lot-map-body">
+          <div class="lot-map-wrap">
+            <svg class="lot-map-svg" viewBox="0 0 380 220" preserveAspectRatio="xMidYMid meet">
+              <!-- Property Boundary -->
+              <rect x="15" y="15" width="350" height="190" fill="#090d13" stroke="#334155" stroke-width="2" rx="4"/>
+
+              <!-- House Center Footprint -->
+              <rect x="110" y="55" width="160" height="110" fill="#18181b" stroke="#71717a" stroke-width="2" rx="2"/>
+              <text x="190" y="115" fill="#a1a1aa" font-size="12" font-weight="700" text-anchor="middle">HOUSE FOOTPRINT</text>
+
+              <!-- Zone 1: Front Foundation Beds (Along Bottom of House) -->
+              <rect x="100" y="165" width="180" height="25" rx="3" fill="rgba(56, 189, 248, 0.25)" stroke="#38bdf8" stroke-width="1.5"/>
+              <text x="190" y="181" fill="#7dd3fc" font-size="9" font-weight="700" text-anchor="middle" id="viz-map-zone-a">Zone 1: Front Beds (250 sq ft)</text>
+
+              <!-- Zone 2: Side Walkway (Along Left of House) -->
+              <rect x="70" y="45" width="30" height="130" rx="3" fill="rgba(245, 158, 11, 0.25)" stroke="#f59e0b" stroke-width="1.5"/>
+              <text x="85" y="115" fill="#fef08a" font-size="8" font-weight="700" text-anchor="middle" transform="rotate(-90 85 115)" id="viz-map-zone-b">Zone 2: Walkway (120 sq ft)</text>
+
+              <!-- Zone 3: Backyard Swale / Patio (Top Behind House) -->
+              <rect x="100" y="25" width="180" height="22" rx="3" fill="rgba(74, 222, 128, 0.25)" stroke="#4ade80" stroke-width="1.5"/>
+              <text x="190" y="39" fill="#86efac" font-size="8" font-weight="700" text-anchor="middle" id="viz-map-zone-c">Zone 3: Swale (130 sq ft)</text>
+
+              <!-- Zone 4: Tree Ring (Front Right Yard) -->
+              <circle cx="315" cy="155" r="22" fill="rgba(236, 72, 153, 0.25)" stroke="#ec4899" stroke-width="1.5"/>
+              <circle cx="315" cy="155" r="7" fill="#78350f"/>
+              <text x="315" y="190" fill="#f472b6" font-size="8" font-weight="700" text-anchor="middle" id="viz-map-zone-d">Tree Ring</text>
+            </svg>
+          </div>
+
+          <div class="zone-breakdown-bar">
+            <div class="zb-item z1"><span class="zb-dot"></span> Front: <strong id="bar-z1">250 sf</strong></div>
+            <div class="zb-item z2"><span class="zb-dot"></span> Walkway: <strong id="bar-z2">120 sf</strong></div>
+            <div class="zb-item z3"><span class="zb-dot"></span> Swale: <strong id="bar-z3">130 sf</strong></div>
+            <div class="zb-item z4"><span class="zb-dot"></span> Tree: <strong id="bar-z4">0 sf</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Combined Order Economics & Freight Savings -->
+      <div class="sqft-viz-card">
+        <div class="card-header">
+          <div class="header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <h3>Multi-Zone Consolidated Freight Savings</h3>
+          </div>
+          <span class="status-badge green">Single Drop Fee</span>
+        </div>
+
+        <div class="combined-order-body">
+          <div class="freight-savings-card">
+            <div class="fs-title">Why Group Multiple Beds Into One Order?</div>
+            <p>
+              Ordering material separately for each bed incurs individual truck drop fees ($75 to $120 per trip). By combining all four zones into a single bulk delivery, you save over $200 in trucking charges.
+            </p>
+
+            <div class="fs-metrics-grid">
+              <div class="fs-node">
+                <span class="fs-val good">1 Delivery</span>
+                <span class="fs-lbl">Consolidated Trips</span>
+              </div>
+              <div class="fs-node">
+                <span class="fs-val gold">$75 Flat</span>
+                <span class="fs-lbl">Total Freight Cost</span>
+              </div>
+              <div class="fs-node">
+                <span class="fs-val good" id="viz-saved-fees">$150 - $225</span>
+                <span class="fs-lbl">Saved Drop Fees</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-tips-box">
+            <div class="tip-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              The "Different Stone Sieve" Catch
+            </div>
+            <p>
+              If your front beds require 1"-3" river rock but your side walkway requires 3/8" pea gravel, a standard dump truck cannot split the bed. You must either use split-box delivery trucks or stage the drop points carefully on separate tarps.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  function syncSquareFootVisualizer() {
+    const directSqFtInput = document.getElementById('direct-sqft-val');
+    const zA = document.getElementById('zone-a-sqft');
+    const zB = document.getElementById('zone-b-sqft');
+    const zC = document.getElementById('zone-c-sqft');
+    const zD = document.getElementById('zone-d-sqft');
+
+    const sqftBadge = document.getElementById('viz-lot-sqft-badge');
+    const barZ1 = document.getElementById('bar-z1');
+    const barZ2 = document.getElementById('bar-z2');
+    const barZ3 = document.getElementById('bar-z3');
+    const barZ4 = document.getElementById('bar-z4');
+
+    const mapZA = document.getElementById('viz-map-zone-a');
+    const mapZB = document.getElementById('viz-map-zone-b');
+    const mapZC = document.getElementById('viz-map-zone-c');
+    const mapZD = document.getElementById('viz-map-zone-d');
+
+    const multiContainer = document.getElementById('sqft-multi-container');
+    const isMulti = multiContainer && multiContainer.style.display !== 'none';
+
+    if (isMulti) {
+      const vA = zA ? parseInt(zA.value) || 0 : 0;
+      const vB = zB ? parseInt(zB.value) || 0 : 0;
+      const vC = zC ? parseInt(zC.value) || 0 : 0;
+      const vD = zD ? parseInt(zD.value) || 0 : 0;
+      const total = vA + vB + vC + vD;
+
+      if (sqftBadge) sqftBadge.textContent = total.toLocaleString() + ' Total Sq Ft';
+      if (barZ1) barZ1.textContent = vA + ' sf';
+      if (barZ2) barZ2.textContent = vB + ' sf';
+      if (barZ3) barZ3.textContent = vC + ' sf';
+      if (barZ4) barZ4.textContent = vD + ' sf';
+
+      if (mapZA) mapZA.textContent = `Zone 1: Front Beds (${vA} sf)`;
+      if (mapZB) mapZB.textContent = `Zone 2: Walkway (${vB} sf)`;
+      if (mapZC) mapZC.textContent = `Zone 3: Swale (${vC} sf)`;
+      if (mapZD) mapZD.textContent = `Zone 4: Tree (${vD} sf)`;
+    } else {
+      const v = directSqFtInput ? parseInt(directSqFtInput.value) || 500 : 500;
+      if (sqftBadge) sqftBadge.textContent = v.toLocaleString() + ' Total Sq Ft';
+    }
+  }
+
+  const inputs = ['direct-sqft-val', 'zone-a-sqft', 'zone-b-sqft', 'zone-c-sqft', 'zone-d-sqft', 'sqft-depth', 'sqft-waste'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', syncSquareFootVisualizer);
+      el.addEventListener('change', syncSquareFootVisualizer);
+    }
+  });
+
+  document.querySelectorAll('.mode-toggle button, .sqft-mat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(syncSquareFootVisualizer, 60);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', syncSquareFootVisualizer);
+  syncSquareFootVisualizer();
+})();
+</script>
+
+<style>
+.sqft-viz-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 900px) {
+  .sqft-viz-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sqft-viz-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-title svg {
+  color: var(--gold-400);
+}
+
+.header-title h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.lot-map-body, .combined-order-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.lot-map-wrap {
+  background: #090d13;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  justify-content: center;
+}
+
+.lot-map-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+.zone-breakdown-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+  background: rgba(0, 0, 0, 0.3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 0.72rem;
+}
+
+@media (max-width: 500px) {
+  .zone-breakdown-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.zb-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.zb-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+}
+
+.z1 .zb-dot { background: #38bdf8; }
+.z2 .zb-dot { background: #f59e0b; }
+.z3 .zb-dot { background: #4ade80; }
+.z4 .zb-dot { background: #ec4899; }
+
+.freight-savings-card {
+  background: var(--surface-card);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-glass-border);
+}
+
+.fs-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  margin-bottom: 4px;
+}
+
+.freight-savings-card p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: var(--space-3);
+}
+
+.fs-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.fs-node {
+  background: rgba(0, 0, 0, 0.25);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+.fs-val {
+  display: block;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.fs-val.good { color: #10b981; }
+.fs-val.gold { color: var(--gold-400); }
+
+.fs-lbl {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.gold {
+  background: rgba(234, 179, 8, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.status-badge.green {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.field-tips-box {
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.tip-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.field-tips-box p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+</style>
