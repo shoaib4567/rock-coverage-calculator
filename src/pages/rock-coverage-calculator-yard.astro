@@ -9,8 +9,8 @@ import Footer from '../components/Footer.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Quantity & Conversion', url: '/rock-cubic-yard-calculator' },
-  { name: 'Rock Cubic Yard Calculator', url: '/rock-cubic-yard-calculator' }
+  { name: 'Quantity & Conversion', url: '/rock-coverage-calculator-yard' },
+  { name: 'Rock Coverage Calculator Yard', url: '/rock-coverage-calculator-yard' }
 ];
 
 const entityTags = [
@@ -47,16 +47,16 @@ const faqItems = [
 ---
 
 <BaseLayout
-  title="Rock Coverage Calculator Yards - Cubic Yards & Truckload Sizing"
+  title="Rock Coverage Calculator Yard - Cubic Yards & Truckload Sizing"
   description="Calculate rock coverage in cubic yards for landscaping, driveways, and gardens. Mathematical derivation, depth-to-coverage tables, and dump truck capacities."
-  canonicalPath="/rock-cubic-yard-calculator"
+  canonicalPath="/rock-coverage-calculator-yard"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Rock Coverage Calculator Yards",
-      "url": "https://rockcoveragecalculator.com/rock-cubic-yard-calculator",
+      "name": "Rock Coverage Calculator Yard",
+      "url": "https://rockcoveragecalculator.com/rock-coverage-calculator-yard",
       "description": "Volumetric calculator converting square footage and layer depth into exact cubic yards with dump truck delivery recommendations.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
@@ -83,8 +83,8 @@ const faqItems = [
 
   <main>
     <PageHero
-      title="Rock Coverage Calculator Yards"
-      highlightWord="Yards"
+      title="Rock Coverage Calculator Yard"
+      highlightWord="Yard"
       badge="Volumetric Conversion & Hauling Capacity"
       subtitle="Convert square footage, radius, or custom irregular area dimensions into exact cubic yards for quarry ordering and bulk dump truck deliveries."
       breadcrumbs={breadcrumbs}
@@ -178,7 +178,7 @@ const faqItems = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/rock-cubic-yard-calculator" category="quantity" />
+    <TopicClusterNav currentPage="/rock-coverage-calculator-yard" category="quantity" />
   </main>
 
   <Footer />
