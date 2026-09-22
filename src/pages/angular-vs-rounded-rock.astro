@@ -1,0 +1,282 @@
+﻿---
+import GuideLayout from '../layouts/GuideLayout.astro';
+
+const calculatorsSupported = [
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³', desc: 'Calculate angular interlocking crushed stone for driveways and structural sub-bases.' },
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³', desc: 'Estimate rounded alluvial river rock for garden mulch, dry creek beds, and borders.' },
+  { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: '1.35 t/yd³', desc: 'Calculate 3/8 inch rounded smooth gravel for pedestrian walkways and dog runs.' },
+  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: '1.40 t/yd³', desc: 'Determine compacted angular stone requirements with 15-20% compaction buffers.' }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Sq Ft' },
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags' }
+];
+---
+
+<GuideLayout
+  title="Angular vs Rounded Aggregate - Geotechnical Mechanics & Drainage"
+  metaDescription="Technical geotechnical guide comparing angular crushed stone versus rounded river gravel. Particle interlock, internal friction angles, and load bearing."
+  canonicalPath="/angular-vs-rounded-rock"
+  guideTitle="Angular vs Rounded Aggregate: Geotechnical Mechanics & Performance"
+  guideSubtitle="A structural analysis of particle morphology. How particle shape governs friction angles, compaction behavior, walkability, and hydraulic conductivity."
+  standardBadge="Geotechnical Aggregate Engineering"
+  readingTime="7 min read"
+  lastUpdated="September 2026"
+  calculatorsSupported={calculatorsSupported}
+  upLinks={upLinks}
+  lateralLinks={lateralLinks}
+  bridgeLinks={bridgeLinks}
+>
+  <!-- Project Reference Summary -->
+  <section class="aeo-guide-box" aria-label="Summary of Angular vs Rounded Aggregate">
+    <div class="aeo-guide-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span class="aeo-guide-title">Particle Shape Mechanics</span>
+    </div>
+    <div class="aeo-guide-grid">
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Friction Angle</span>
+        <span class="aeo-guide-value">Angular: 40°-45° | Rounded: 30°-34°</span>
+        <p class="aeo-guide-desc">Higher internal friction provides greater shear resistance under load.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Load Stability</span>
+        <span class="aeo-guide-value">Angular Interlocks Rigidly</span>
+        <p class="aeo-guide-desc">Sharp fractured facets lock together under vehicle tires without rutting.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Walkability</span>
+        <span class="aeo-guide-value">Rounded is Barefoot-Safe</span>
+        <p class="aeo-guide-desc">Smooth water-worn edges eliminate puncture hazards on garden paths.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Compaction</span>
+        <span class="aeo-guide-value">Never Plate Compact Round Stone</span>
+        <p class="aeo-guide-desc">Rounded stone shifts sideways like ball bearings under vibratory force.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-text-block">
+    <h2>The Geotechnical Significance of Particle Shape</h2>
+    <p>
+      When selecting an aggregate for landscape or civil construction, particle shape is far more than an aesthetic consideration. The physical morphology of individual stone particles governs how the aggregate behaves under shear stress, wheel loads, and hydraulic flow.
+    </p>
+    <p>
+      Aggregates are classified into two broad morphological categories: <strong>Angular Crushed Stone</strong> (manufactured by industrial mechanical jaw and cone crushers) and <strong>Rounded Alluvial Stone</strong> (shaped naturally over centuries by river flow, wave action, and glacial movement).
+    </p>
+
+    <h2>Internal Friction Angle and Particle Interlock</h2>
+    <p>
+      In soil mechanics and geotechnical engineering, the shear strength of granular materials is defined by the Mohr-Coulomb equation, where the <strong>effective angle of internal friction (&phi;)</strong> represents the material's resistance to sliding along internal slip planes.
+    </p>
+
+    <div class="table-container">
+      <table class="guide-data-table">
+        <thead>
+          <tr>
+            <th scope="col">Aggregate Type</th>
+            <th scope="col">Particle Morphology</th>
+            <th scope="col">Friction Angle (&phi;)</th>
+            <th scope="col">Mechanical Interlock</th>
+            <th scope="col">Compaction Response</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Angular Crushed Stone (#57 / Granite)</strong></td>
+            <td>100% fractured planes, sharp corners</td>
+            <td><strong>40° to 45°</strong></td>
+            <td>High: edges seat into adjacent particle voids</td>
+            <td>Forms rigid structural matrix under plate tamping</td>
+          </tr>
+          <tr>
+            <td><strong>Sub-Angular Crushed Stone (#8 / Trap Rock)</strong></td>
+            <td>Slightly abraded edges, multifaceted</td>
+            <td><strong>36° to 40°</strong></td>
+            <td>Moderate: resists displacement on gentle slopes</td>
+            <td>Settles with minor mechanical vibration</td>
+          </tr>
+          <tr>
+            <td><strong>Rounded River Rock (1"-3" Alluvial)</strong></td>
+            <td>Water-worn, ellipsoidal, smooth</td>
+            <td><strong>32° to 35°</strong></td>
+            <td>Low: stones slip and roll against one another</td>
+            <td>Displaces laterally under mechanical compaction</td>
+          </tr>
+          <tr>
+            <td><strong>Pea Gravel (3/8" Spheroidal)</strong></td>
+            <td>Smooth, highly rounded pebbles</td>
+            <td><strong>30° to 33°</strong></td>
+            <td>Very Low: behaves like loose ball bearings</td>
+            <td>Cannot be compacted; requires rigid edge restraints</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Structural Behavior Under Vehicle and Foot Traffic</h2>
+
+    <h3>1. Vehicular Traffic (Driveways and Parking Pads)</h3>
+    <p>
+      For vehicular driveways, <strong>angular crushed stone is mandatory</strong>. When a 4,000-pound automobile tire drives across angular #57 crushed limestone or granite, the downward vertical force drives the sharp facets of the stones into the adjacent voids. This creates an interlocking structural crust that distributes wheel loads outward across a wide bearing area.
+    </p>
+    <p>
+      Conversely, installing smooth rounded river stone on a driveway is a common failure mode. Because rounded pebbles lack angular facets, they roll away from the tire contact patch, creating deep ruts and making vehicle steering difficult.
+    </p>
+
+    <h3>2. Pedestrian Pathways and Barefoot Comfort</h3>
+    <p>
+      For garden walkways, patio seating areas, and dog runs, <strong>rounded aggregate is vastly superior</strong>. The smooth, tumbled contours of 3/8-inch pea gravel or river pebble eliminate cut hazards and provide comfortable barefoot walking.
+    </p>
+    <p>
+      Walking on fresh 3/4-inch angular crushed stone with thin-soled shoes or bare feet is painful and hazardous. However, pea gravel must always be confined between sturdy commercial edging restraints (set 1/2 inch above grade) to prevent loose stones from scattering into lawn areas.
+    </p>
+
+    <h2>Hydraulic Conductivity and Drainage Performance</h2>
+    <p>
+      Both angular and rounded aggregates can serve in drainage applications, but their void structures produce different hydraulic characteristics:
+    </p>
+    <ul>
+      <li><strong>Clean Rounded River Stone:</strong> Spheroidal particle geometry creates smooth, open, tubular void spaces. Water percolates through rounded river stone with minimal friction loss, making it ideal for high-velocity dry creek beds and surface swales.</li>
+      <li><strong>Clean Angular Crushed Stone (#57):</strong> While void spaces are slightly more tortuous (winding) than rounded stone, clean washed #57 crushed stone still maintains a 40 to 45 percent void ratio. It is the preferred aggregate for subsurface French drains because its interlocking matrix prevents trench collapse around the drainage pipe.</li>
+    </ul>
+
+    <h2>Compaction Warning: Never Tamper Rounded Stone</h2>
+    <p>
+      A frequent contractor error is attempting to compact rounded pea gravel or river rock with a gasoline-powered vibratory plate compactor. Because rounded stones lack interlocking faces, vibratory force causes them to fluidize and displace sideways. The compactor shoe will sink into the rock, potentially tearing the underlying geotextile weed fabric. Only aggregates containing angular particles or fines (such as crusher run or decomposed granite) can be mechanically compacted.
+    </p>
+  </div>
+</GuideLayout>
+
+<style>
+  .aeo-guide-box {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-guide-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-guide-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-guide-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-guide-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .guide-text-block h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin: var(--space-8) 0 var(--space-4) 0;
+  }
+
+  .guide-text-block h3 {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-2) 0;
+  }
+
+  .guide-text-block p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-text-block ul {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: var(--space-2) 0 var(--space-6) var(--space-6);
+  }
+
+  .guide-text-block li {
+    margin-bottom: var(--space-2);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-data-table th, .guide-data-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-data-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-data-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+</style>

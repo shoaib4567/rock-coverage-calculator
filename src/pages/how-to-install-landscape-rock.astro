@@ -1,0 +1,300 @@
+﻿---
+import GuideLayout from '../layouts/GuideLayout.astro';
+
+const calculatorsSupported = [
+  { title: 'Landscape Rock Calculator', slug: '/landscape-rock-calculator', badge: '1.30 t/yd³', desc: 'Calculate total volume and tons needed for your landscape bed installation.' },
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: '0.75-1.40 t/yd³', desc: 'Estimate white marble chips, lava rock, and specialty decorative stones.' },
+  { title: 'Cobblestone Calculator', slug: '/cobblestone-calculator', badge: '1.45 t/yd³', desc: 'Calculate perimeter cobblestone border curbing and unit block counts.' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Depth Matrix', desc: 'Verify square foot coverage per ton across various project depths.' }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Cubic Yard Calculator', slug: '/rock-cubic-yard-calculator', badge: 'Volume' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags' }
+];
+
+const howToSteps = [
+  {
+    name: 'Excavation and Slope Grading',
+    text: 'Excavate turf and topsoil to target depth plus 1 inch. Establish a 2 percent positive slope (1/4 inch fall per linear foot) away from foundations.'
+  },
+  {
+    name: 'Subgrade Soil Compaction',
+    text: 'Pass over the exposed soil subgrade with a vibratory plate compactor or hand tamper to eliminate voids and prevent future stone settlement.'
+  },
+  {
+    name: 'Geotextile Membrane Installation',
+    text: 'Roll out heavy-duty non-woven 4 to 6 oz needle-punched polypropylene geotextile fabric. Overlap seams by 12 inches and secure with steel staples every 3 feet.'
+  },
+  {
+    name: 'Edging Restraint Placement',
+    text: 'Anchor commercial steel, aluminum, or concrete curbing along boundaries. Set edging 1/2 inch above finished rock grade to contain rolling stones.'
+  },
+  {
+    name: 'Layered Placement and Final Screeding',
+    text: 'Dump aggregate onto plywood or wheelbarrow in 2-inch lifts. Spread evenly with a bow rake, smooth with a landscape rake, and hose down to rinse quarry dust.'
+  }
+];
+
+const schemaData = {
+  "step": howToSteps.map((step, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "name": step.name,
+    "text": step.text
+  }))
+};
+---
+
+<GuideLayout
+  title="How to Install Landscape Rock - 5-Phase Contractor Protocol"
+  metaDescription="Step-by-step contractor guide to installing landscape rock. Site excavation, soil compaction, geotextile fabric, edging restraints, and stone placement."
+  canonicalPath="/how-to-install-landscape-rock"
+  guideTitle="How to Install Landscape Rock: 5-Phase Contractor Protocol"
+  guideSubtitle="A professional field guide to aggregate installation. Prevent weed bleed-through, subgrade sinking, and stone scatter with trade-tested protocols."
+  standardBadge="Contractor Standard Specification"
+  readingTime="8 min read"
+  lastUpdated="September 2026"
+  calculatorsSupported={calculatorsSupported}
+  schemaType="HowTo"
+  schemaData={schemaData}
+  upLinks={upLinks}
+  lateralLinks={lateralLinks}
+  bridgeLinks={bridgeLinks}
+>
+  <!-- Project Reference Summary -->
+  <section class="aeo-guide-box" aria-label="Summary of Landscape Rock Installation">
+    <div class="aeo-guide-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span class="aeo-guide-title">5-Phase Installation Protocol</span>
+    </div>
+    <div class="aeo-guide-grid">
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Phase 1: Excavation</span>
+        <span class="aeo-guide-value">Target Depth + 1 Inch</span>
+        <p class="aeo-guide-desc">Grade with 2% slope (1/4" per ft) away from foundation walls.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Phase 2: Compaction</span>
+        <span class="aeo-guide-value">Vibratory Plate Tamp</span>
+        <p class="aeo-guide-desc">Eliminates native soil voids and prevents uneven stone sinking.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Phase 3: Membrane</span>
+        <span class="aeo-guide-value">4-6 oz Non-Woven Poly</span>
+        <p class="aeo-guide-desc">12" seam overlap; avoid thin plastic sheeting that traps water.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Phase 4: Edging</span>
+        <span class="aeo-guide-value">1/2 Inch Above Stone</span>
+        <p class="aeo-guide-desc">Commercial steel or aluminum edging keeps stone out of turf.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-text-block">
+    <h2>Why Proper Site Preparation Is Non-Negotiable</h2>
+    <p>
+      Spreading landscape rock directly over unprepared turf or bare native soil is the leading cause of landscape failure. Within two growing seasons, decomposing grass creates organic compost beneath the stones, weeds penetrate through the surface, and heavy rains cause the stone to sink into soft mud.
+    </p>
+    <p>
+      To achieve a maintenance-free rock landscape that lasts decades, professional landscape contractors adhere to a rigorous <strong>five-phase installation protocol</strong>.
+    </p>
+
+    <h2>The 5-Phase Installation Protocol</h2>
+
+    <div class="protocol-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Phase 1: Excavation and Slope Grading</h3>
+        <p>
+          Strip all turf, weeds, and organic topsoil down to native subsoil. Excavate to your target finished rock depth plus 1.0 inch (for example, excavate 4.0 inches deep for a 3.0-inch finished stone bed).
+        </p>
+        <p>
+          <strong>Slope Rule:</strong> Shape the subgrade with a positive drainage slope falling away from building foundations at a minimum rate of <strong>1/4 inch per linear foot (a 2 percent slope)</strong>. Never allow subgrade depressions that trap stagnant water beneath the rock.
+        </p>
+      </div>
+    </div>
+
+    <div class="protocol-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Phase 2: Subgrade Soil Compaction</h3>
+        <p>
+          Pass over the newly excavated soil with a gas-powered vibratory plate compactor or heavy hand tamper. Passing over the subgrade twice eliminates loose soil voids, stiffens bearing capacity, and prevents uneven settling when heavy rock is placed.
+        </p>
+      </div>
+    </div>
+
+    <div class="protocol-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Phase 3: Commercial Geotextile Membrane Installation</h3>
+        <p>
+          Roll out heavy-duty, needle-punched non-woven geotextile fabric (minimum <strong>4 to 6 oz per square yard</strong>).
+        </p>
+        <p>
+          <strong>Critical Material Choice:</strong> Never use cheap woven plastic ground cover or perforated polyethylene sheeting. Plastic tears easily under stone weight and traps stagnant moisture that drowns tree roots. Heavy non-woven polypropylene allows water and air to permeate freely while creating an impenetrable barrier against weed taproots.
+        </p>
+        <p>
+          <strong>Seams and Pinning:</strong> Overlap all fabric seams by a minimum of <strong>12 inches</strong>. Secure the fabric to the subgrade using 6-inch steel sod staples spaced every 3 feet along seams and perimeter edges.
+        </p>
+      </div>
+    </div>
+
+    <div class="protocol-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>Phase 4: Heavy-Duty Edging Restraint Placement</h3>
+        <p>
+          Install commercial-grade steel, aluminum, or concrete curbing along all bed boundaries. Anchor the edging with 10-inch to 12-inch steel spikes driven at 45-degree opposing angles every 24 inches.
+        </p>
+        <p>
+          <strong>Height Specification:</strong> Set the top lip of the edging <strong>1/2 inch above the finished rock grade</strong>. This lip acts as a physical dam that contains rolling stones during heavy rain events and keeps rocks away from lawnmower blades.
+        </p>
+      </div>
+    </div>
+
+    <div class="protocol-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h3>Phase 5: Layered Placement and Final Screeding</h3>
+        <p>
+          Stage your rock delivery strategically. When transporting stone into the bed with wheelbarrows, lay down sheets of 3/4-inch exterior plywood to protect the geotextile fabric from wheel punctures.
+        </p>
+        <p>
+          Spread the rock in uniform <strong>2-inch lifts</strong> using a heavy-duty bow rake. Smooth and level the final surface using the flat backside of an aluminum landscape rake. Finally, spray the entire rock bed with a garden hose nozzle to rinse away quarry dust and reveal the natural mineral luster and color of the stone.
+        </p>
+      </div>
+    </div>
+  </div>
+</GuideLayout>
+
+<style>
+  .aeo-guide-box {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-guide-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-guide-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-guide-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-guide-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .guide-text-block h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin: var(--space-8) 0 var(--space-4) 0;
+  }
+
+  .guide-text-block p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .protocol-step {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    color: #111;
+    font-weight: 800;
+    font-size: var(--text-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .step-content h3 {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .step-content p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-2);
+  }
+</style>

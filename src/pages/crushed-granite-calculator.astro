@@ -1,0 +1,341 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/crushed-stone-calculator' },
+  { name: 'Crushed Granite Calculator', url: '/crushed-granite-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Crushed Granite' },
+  { label: 'Particle Caliper', value: '3/4" Fractured Angular Faces' },
+  { label: 'Bulk Density', value: '1.40 t/yd³ (104 lbs/cu ft)' },
+  { label: 'Coverage Yield', value: '77 sq ft per Ton at 3" Depth' }
+];
+
+const quickStats = [
+  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'Heavy fractured igneous aggregate (2,800 lbs per cubic yard)' },
+  { value: 'High Interlock', label: 'Mechanical Grip', desc: 'Sharp fractured facets lock together to resist tire rutting' },
+  { value: 'Zero Fines', label: 'Clean Drainage', desc: 'Screened to eliminate dust; drains rainwater rapidly' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of crushed granite do I need for a 50-foot driveway?',
+    a: 'A 50-foot long by 10-foot wide driveway has a surface area of 500 square feet. At a recommended 3-inch resurfacing depth, you need 4.63 cubic yards of stone. Multiplying by 1.40 tons per cubic yard and adding a 10 percent safety buffer yields approximately 7.13 tons of crushed granite.'
+  },
+  {
+    q: 'Why is crushed granite better than crushed limestone for driveways?',
+    a: 'Granite is an igneous plutonic rock composed of quartz and feldspar with a Mohs hardness of 6 to 7, whereas limestone is a sedimentary calcite rock with a hardness of 3. Crushed granite does not break down into white powdery dust under heavy truck tires, maintaining clean drainage and reducing mud tracking for decades.'
+  },
+  {
+    q: 'How deep should crushed granite be installed for parking pads?',
+    a: 'For passenger car parking pads, install 3.0 to 4.0 inches of 3/4-inch crushed granite over a compacted road base. For heavy commercial equipment or RV parking, install a 4-inch compacted sub-base topped with 3.0 inches of crushed granite.'
+  },
+  {
+    q: 'Can crushed granite be used for garden walkways?',
+    a: 'Yes, but it is an angular aggregate designed for shoe traffic rather than barefoot walking. If used on pedestrian garden paths, install a firm border edging and maintain a 2.0-inch depth to ensure comfortable walking.'
+  }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³' },
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³' },
+  { title: 'Decomposed Granite Calculator', slug: '/decomposed-granite-calculator', badge: '1.25 t/yd³' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Yardage' },
+  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Stone Tons' }
+];
+
+const supportGuides = [
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43' }
+];
+---
+
+<BaseLayout
+  title="Crushed Granite Calculator - Driveway Surface & Quarry Tons"
+  metaDescription="Calculate cubic yards and scale tons of 3/4 inch crushed granite. High-interlock driveway surfacing and heavy parking pad aggregate calculations."
+  canonicalPath="/crushed-granite-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Crushed Granite Calculator",
+      "url": "https://rockcoveragecalculator.com/crushed-granite-calculator",
+      "description": "Calculates 3/4 inch fractured crushed granite cubic yards and quarry scale tonnage for driveways and pads.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Paving Contractors, Civil Estimators, Homeowners, Quarry Haulers"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Crushed Granite"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Crushed Granite Calculator"
+      highlightWord="Calculator"
+      badge="Heavy Driveway & Parking Engine"
+      subtitle="Accurate volume and tonnage calculations for 3/4 inch fractured angular crushed granite. Superior interlock and compressive strength."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Crushed Granite Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Crushed Granite Driveway Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="granite-length">Length (Feet)</label>
+              <input type="number" id="granite-length" value="50" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="granite-width">Width (Feet)</label>
+              <input type="number" id="granite-width" value="12" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="granite-depth">Target Depth (Inches)</label>
+              <input type="number" id="granite-depth" value="3.0" min="1" max="12" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="granite-waste">Safety Buffer (%)</label>
+              <input type="number" id="granite-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-granite-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-granite-cuft">Includes 10% buffer</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-granite-tons">0.00</div>
+              <div class="kpi-label">Scale Weight (Tons)</div>
+              <div class="kpi-subtext">At 1.40 t/yd³ (2,800 lbs/yd³)</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-granite-loads">0.0</div>
+              <div class="kpi-label">Tri-Axle Truckloads</div>
+              <div class="kpi-subtext">15 tons per load</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Crushed Granite -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Crushed Granite Sizing Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Crushed Granite Sizing Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bulk Density</span>
+              <span class="aeo-quick-value">1.40 t/yd³ (104 lbs/cu ft)</span>
+              <p class="aeo-quick-desc">High-density igneous aggregate per ASTM C29 testing.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 3"</span>
+              <span class="aeo-quick-value">77 sq ft per Ton</span>
+              <p class="aeo-quick-desc">Standard square foot yield per short ton at 3-inch depth.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Tire Interlock</span>
+              <span class="aeo-quick-value">42° to 45° Friction Angle</span>
+              <p class="aeo-quick-desc">Sharp multifaceted faces resist tire churning and rutting.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Hardness</span>
+              <span class="aeo-quick-value">Mohs Hardness 6 to 7</span>
+              <p class="aeo-quick-desc">Resists crushing into dust under heavy commercial trucks.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Engineering Properties of Fractured Granite</h2>
+          <p>
+            <strong>Crushed Granite</strong> is an intrusive igneous rock composed primarily of quartz, potassium feldspar, and plagioclase. Unlike softer sedimentary rocks (such as limestone or sandstone), granite features an interlocking crystalline texture that gives it immense compressive strength (typically 15,000 to 25,000 PSI).
+          </p>
+          <p>
+            When crushed through industrial jaw and cone crushers, granite fractures along crystal boundaries, producing sharp, multifaceted angular faces. Under mechanical roller compaction or repeated vehicular traffic, these sharp facets lock firmly into adjacent voids, creating a rigid structural surface with an internal friction angle exceeding 42 degrees.
+          </p>
+
+          <div class="formula-box">
+            <code>Volume (Cubic Yards) = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
+            <br />
+            <code>Certified Scale Weight (Tons) = Volume (yd³) × 1.40 Tons/yd³</code>
+            <br />
+            <code>Recommended Buffer = Add 10% for Driveways, 15% for Low-Lying Sites</code>
+          </div>
+
+          <h3>Why Granite Outperforms Limestone on Driveways</h3>
+          <ul>
+            <li><strong>Zero Chalky Dust:</strong> Limestone is a calcium carbonate rock that slowly abrades into white chalky dust when driven over. Granite resists mechanical abrasion, keeping cars, shoes, and garage floors clean.</li>
+            <li><strong>Acid Rain Resistance:</strong> Granite is chemically inert to acidic precipitation, whereas limestone slowly dissolves and pits when exposed to low pH rainfall.</li>
+            <li><strong>High Bearing Capacity:</strong> Ideal for heavy delivery trucks, RV parking pads, boat trailers, and equipment staging yards.</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Crushed Granite</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/crushed-granite-calculator"
+      category="material"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateGranite() {
+      const l = parseFloat((document.getElementById('granite-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('granite-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('granite-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('granite-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const tons = totalYards * 1.40;
+      const loads = tons / 15;
+
+      const yEl = document.getElementById('kpi-granite-yards');
+      const tEl = document.getElementById('kpi-granite-tons');
+      const lEl = document.getElementById('kpi-granite-loads');
+
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (lEl) lEl.innerText = loads.toFixed(1);
+    }
+
+    ['granite-length', 'granite-width', 'granite-depth', 'granite-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateGranite);
+    });
+    updateGranite();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

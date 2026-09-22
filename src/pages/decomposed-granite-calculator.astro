@@ -1,0 +1,451 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/landscape-rock-calculator' },
+  { name: 'Decomposed Granite Calculator', url: '/decomposed-granite-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Decomposed Granite (DG)' },
+  { label: 'Particle Caliper', value: '1/4" Minus with Granite Fines' },
+  { label: 'Bulk Density', value: '1.25 t/yd³ Loose | 1.50 t/yd³ Compacted' },
+  { label: 'Compaction Drop', value: '18% to 22% Volume Loss Under Roller' }
+];
+
+const quickStats = [
+  { value: '1/4" Minus', label: 'Gradation', desc: 'Crushed granite blended with natural mineral rock flour' },
+  { value: '1.25 t/yd³', label: 'Loose Density', desc: 'Standard ASTM C29 loose stockpile weight (2,500 lbs/yd³)' },
+  { value: '20% Overage', label: 'Compaction Factor', desc: 'Extra material required for plate tamper compaction' }
+];
+
+const faqItems = [
+  {
+    q: 'How much decomposed granite do I need for a 10x20 foot patio?',
+    a: 'A 10x20 foot patio equals 200 square feet. For a compacted pedestrian patio, install a 3-inch layer. At 3 inches depth, you need 1.85 cubic yards of loose DG. Adding a 20 percent mechanical compaction allowance, order 2.22 cubic yards (approximately 2.78 tons) to achieve a firm finished 3-inch elevation.'
+  },
+  {
+    q: 'What is the difference between standard DG and stabilized DG?',
+    a: 'Standard decomposed granite is natural crushed stone with fines that packs firmly when watered and tamped. Stabilized DG includes a blended organic or polymer binding agent that hardens like soft sandstone, preventing mud tracking and erosive rain runoff on sloped paths.'
+  },
+  {
+    q: 'How deep should decomposed granite be installed for pathways?',
+    a: 'For pedestrian garden walkways, install decomposed granite at a finished compacted depth of 2.0 to 3.0 inches over a firm subgrade. For vehicular driveways, install a 2-inch DG wearing course over a 4-inch compacted crushed stone base.'
+  },
+  {
+    q: 'Can decomposed granite be installed without a plate compactor?',
+    a: 'No. Hand tamping or foot walking does not generate sufficient downward pressure to pack the granite fines into the void spaces. Always use a gas-powered vibratory plate compactor, moistening the DG in thin 1.5-inch lifts to achieve a rock-hard, non-shifting surface.'
+  }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: '1.40 t/yd³' },
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³' },
+  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: '1.40 t/yd³' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Sq Ft' },
+  { title: 'Rock Cubic Yard Calculator', slug: '/rock-cubic-yard-calculator', badge: 'Volume' }
+];
+
+const supportGuides = [
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+---
+
+<BaseLayout
+  title="Decomposed Granite Calculator - Pathways, Patios & Compaction"
+  metaDescription="Calculate cubic yards and tons of decomposed granite (DG) for pathways and patios. Calibrated for 1/4 inch minus fines with 20% compaction allowance."
+  canonicalPath="/decomposed-granite-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Decomposed Granite Calculator",
+      "url": "https://rockcoveragecalculator.com/decomposed-granite-calculator",
+      "description": "Calculates decomposed granite volume, compaction allowances, and quarry scale tons for pathways and patios.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Landscape Contractors, Masons, Homeowners, Civil Estimators"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Decomposed Granite"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Decomposed Granite Calculator"
+      highlightWord="Calculator"
+      badge="Pathways & Compacted Patio Engine"
+      subtitle="Accurate cubic yards and scale tonnage calculations for 1/4 inch minus decomposed granite. Built-in compaction factors for plates and rollers."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Specialized Decomposed Granite Interactive Calculator -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Decomposed Granite Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="dg-length">Length (Feet)</label>
+              <input type="number" id="dg-length" value="30" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="dg-width">Width (Feet)</label>
+              <input type="number" id="dg-width" value="10" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="dg-depth">Target Compacted Depth (Inches)</label>
+              <input type="number" id="dg-depth" value="3.0" min="1" max="12" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="dg-compaction">Compaction Factor (%)</label>
+              <input type="number" id="dg-compaction" value="20" min="10" max="30" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-dg-yards">0.00</div>
+              <div class="kpi-label">Order Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-dg-loose">Includes 20% compaction allowance</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-dg-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext">At 1.25 t/yd³ loose density</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-dg-bags">0</div>
+              <div class="kpi-label">0.5 cu ft Bags</div>
+              <div class="kpi-subtext">54 bags per cubic yard</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Decomposed Granite -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Decomposed Granite Sizing Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Decomposed Granite Sizing Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Loose Volume</span>
+              <span class="aeo-quick-value">Yards = (Area [sq ft] × Depth [in]) / 324</span>
+              <p class="aeo-quick-desc">Net theoretical geometric volume before mechanical rolling.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Compaction Order</span>
+              <span class="aeo-quick-value">Order Yards = Loose Yards × 1.20</span>
+              <p class="aeo-quick-desc">DG loses 18% to 22% volume as fines fill void spaces.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bulk Density</span>
+              <span class="aeo-quick-value">1.25 t/yd³ (2,500 lbs/yd³)</span>
+              <p class="aeo-quick-desc">ASTM C29 loose stockpile weight; compacts to 1.50 t/yd³.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Standard Depth</span>
+              <span class="aeo-quick-value">2" Path | 3" Patio | 4" Drive</span>
+              <p class="aeo-quick-desc">Always compact in thin 1.5-inch moist lifts with a plate tamper.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Engineering Mechanics of Decomposed Granite</h2>
+          <p>
+            <strong>Decomposed Granite (DG)</strong> is natural granitic rock that has weathered through geological time to the point where it fractures easily into a mixture of small stone flakes (up to 1/4 inch) and microscopic rock flour.
+          </p>
+          <p>
+            Unlike washed crushed granite stone, DG is a <strong>dense-graded aggregate with fines</strong>. When moistened with water and rolled with a vibratory plate compactor, the fine mineral particles act as an adhesive matrix, locking the angular quartz and feldspar chips into a firm, smooth, pedestrian-safe pavement that drains naturally while resisting erosion.
+          </p>
+
+          <div class="formula-box">
+            <code>Net Loose Volume (yd³) = [Area (sq ft) × Target Depth (in)] / 324</code>
+            <br />
+            <code>Required Quarry Order (yd³) = Net Loose Volume × 1.20 (20% Compaction Allowance)</code>
+            <br />
+            <code>Quarry Scale Weight (Tons) = Required Quarry Order × 1.25 t/yd³</code>
+          </div>
+
+          <h3>Installation Protocol for Rock-Hard DG Pathways</h3>
+          <ol class="steps-list">
+            <li>
+              <strong>Excavation:</strong> Dig out the path 3 to 4 inches below turf level. Install heavy-duty commercial steel or poly edging anchored with 10-inch spikes every 2 feet.
+            </li>
+            <li>
+              <strong>Geotextile Membrane:</strong> Lay a non-woven 4 oz needle-punched geotextile fabric. Pin securely with 6-inch sod staples.
+            </li>
+            <li>
+              <strong>First 1.5-Inch Lift:</strong> Spread decomposed granite in a 1.5-inch loose layer. Lightly mist with a garden hose nozzle until evenly damp (like brown sugar). Do not oversaturate into soup.
+            </li>
+            <li>
+              <strong>Plate Compaction:</strong> Make three overlapping passes with a gas plate compactor.
+            </li>
+            <li>
+              <strong>Second 1.5-Inch Lift:</strong> Spread the remaining DG, moisten lightly, and compact again until the surface rings hard under a hammer tap.
+            </li>
+          </ol>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Decomposed Granite</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/decomposed-granite-calculator"
+      category="material"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateDG() {
+      const l = parseFloat((document.getElementById('dg-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('dg-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('dg-depth') as HTMLInputElement)?.value) || 0;
+      const c = parseFloat((document.getElementById('dg-compaction') as HTMLInputElement)?.value) || 20;
+
+      const netYards = (l * w * d) / 324;
+      const orderYards = netYards * (1 + c / 100);
+      const tons = orderYards * 1.25;
+      const bags = Math.ceil(orderYards * 54);
+
+      const yEl = document.getElementById('kpi-dg-yards');
+      const tEl = document.getElementById('kpi-dg-tons');
+      const bEl = document.getElementById('kpi-dg-bags');
+
+      if (yEl) yEl.innerText = orderYards.toFixed(2);
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (bEl) bEl.innerText = bags.toLocaleString();
+    }
+
+    ['dg-length', 'dg-width', 'dg-depth', 'dg-compaction'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateDG);
+    });
+    updateDG();
+  </script>
+</BaseLayout>
+
+<style>
+  .section {
+    padding: var(--space-8) 0;
+  }
+
+  .content-guide-section {
+    padding: var(--space-12) 0;
+    background: var(--bg-body);
+  }
+
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-quick-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-quick-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-quick-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-quick-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-quick-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-quick-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .content-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-card h3 {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-3) 0;
+  }
+
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+
+  .steps-list {
+    padding-left: var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  .steps-list li {
+    margin-bottom: var(--space-3);
+  }
+
+  .faq-card {
+    margin-top: var(--space-8);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .faq-item {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+  }
+
+  .faq-item h3 {
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .faq-item p {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: 0;
+  }
+</style>

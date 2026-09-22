@@ -1,0 +1,341 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Lava Rock Calculator', url: '/lava-rock-calculator' },
+  { name: 'Lava Rock Bag Calculator', url: '/lava-rock-bag-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Bagged Lava Rock' },
+  { label: 'Standard Bag Volume', value: '0.5 Cubic Feet per Bag' },
+  { label: 'Bag Weight', value: '~28 lbs per Bag (Lightweight)' },
+  { label: 'Yard Multiplier', value: '54 Bags = 1.0 Cubic Yard' }
+];
+
+const quickStats = [
+  { value: '~28 lbs', label: 'Bag Weight', desc: 'Ultra-lightweight volcanic scoria (approx half the weight of gravel)' },
+  { value: '3.0 sq ft', label: 'Yield at 2"', desc: 'Ground coverage per 0.5 cu ft bag at standard 2-inch bed depth' },
+  { value: '54 Bags', label: 'Per Cubic Yard', desc: 'Exact bag multiplier based on 27 cubic feet per yard' }
+];
+
+const faqItems = [
+  {
+    q: 'How many bags of lava rock do I need for a 10x10 foot area?',
+    a: 'A 10x10 foot area equals 100 square feet. At a recommended 2-inch depth for lightweight lava rock mulch, you need 16.7 cubic feet of material, which equals approximately 34 bags of 0.5 cubic feet each (weighing only about 950 lbs total).'
+  },
+  {
+    q: 'Why is a bag of lava rock so much lighter than a bag of gravel?',
+    a: 'Lava rock (volcanic scoria) is riddled with microscopic gas vesicles formed during volcanic cooling. It has a bulk density of only 56 pounds per cubic foot (1,500 lbs/yd³), meaning a 0.5 cubic foot bag weighs approximately 28 pounds compared to 50 pounds for granite or river rock.'
+  },
+  {
+    q: 'How many bags of lava rock make a cubic yard?',
+    a: 'Exactly 54 bags of 0.5 cubic feet make one cubic yard (27 cubic feet / 0.5 cu ft = 54 bags). In terms of weight, 54 bags of lava rock weigh approximately 1,500 pounds (0.75 tons).'
+  },
+  {
+    q: 'Can I use bagged lava rock in outdoor gas fire pits?',
+    a: 'Yes. Dry, cured lava rock is the industry standard substrate for gas fire pits because its porous structure allows gas diffusion and withstands high temperatures without popping or fracturing (unlike river rock, which can explode when heated).'
+  }
+];
+
+const upLinks = [
+  { title: 'Lava Rock Calculator (Material Parent)', slug: '/lava-rock-calculator', badge: 'Material' },
+  { title: 'Rock Bag Calculator (Unit Parent)', slug: '/rock-bag-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Lava Rock Coverage Calculator', slug: '/lava-rock-coverage-calculator', badge: 'Coverage' },
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Decorative' },
+  { title: 'Marble Chips Bag Calculator', slug: '/marble-chips-bag-calculator', badge: 'Marble' }
+];
+
+const bridgeLinks = [
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+
+const supportGuides = [
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+---
+
+<BaseLayout
+  title="Lava Rock Bag Calculator - 0.5 Cu Ft Retail Sizing & Weight"
+  metaDescription="Calculate exact 0.5 cu ft bags of red or black volcanic lava rock for flower beds, mulch replacement, and fire pits. Lightweight bag formulas and costs."
+  canonicalPath="/lava-rock-bag-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Lava Rock Bag Calculator",
+      "url": "https://rockcoveragecalculator.com/lava-rock-bag-calculator",
+      "description": "Calculates 0.5 cu ft retail bags of red and black volcanic lava rock needed based on dimensions.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Homeowners, Gardeners, Fire Pit Installers"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Bagged Lava Rock Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Lava Rock Bag Calculator"
+      highlightWord="Bags"
+      badge="Retail Bag Sizing Engine"
+      subtitle="Calculate exact 0.5 cu ft bags of red or black volcanic lava rock for landscaping beds, xeriscaping, and gas fire pits."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Lava Rock Bag Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Lava Rock Area Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="lrb-length">Length (Feet)</label>
+              <input type="number" id="lrb-length" value="16" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="lrb-width">Width (Feet)</label>
+              <input type="number" id="lrb-width" value="10" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="lrb-depth">Depth (Inches)</label>
+              <input type="number" id="lrb-depth" value="2.0" min="1" max="12" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="lrb-price">Price per Bag ($)</label>
+              <input type="number" id="lrb-price" value="5.75" min="1" step="0.25" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-lrb-bags">0</div>
+              <div class="kpi-label">0.5 Cu Ft Bags Needed</div>
+              <div class="kpi-subtext" id="kpi-lrb-lbs">0 lbs total weight</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-lrb-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-lrb-cuft">0 cu ft</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-lrb-cost">$0.00</div>
+              <div class="kpi-label">Estimated Material Cost</div>
+              <div class="kpi-subtext">Retail total</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Bagged Lava Rock -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Lava Rock Bag Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Lava Rock Bag Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Bags = [Area (sq ft) × Depth (in) / 12] × 2</span>
+              <p class="aeo-quick-desc">Converts cubic feet into 0.5 cu ft commercial retail bags.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Yield at 2"</span>
+              <span class="aeo-quick-value">3.0 sq ft per Bag</span>
+              <p class="aeo-quick-desc">Standard depth for flower bed mulch replacement.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bag Weight</span>
+              <span class="aeo-quick-value">~28 lbs per 0.5 cu ft Bag</span>
+              <p class="aeo-quick-desc">Lightweight volcanic basalt scoria (56 lbs/cu ft).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Vehicle Capacity</span>
+              <span class="aeo-quick-value">30 to 40 Bags in a Half-Ton Truck</span>
+              <p class="aeo-quick-desc">Carries double the bags of normal gravel due to light weight.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Sizing Retail Bags of Volcanic Lava Rock</h2>
+          <p>
+            Volcanic lava rock (scoria) is naturally porous and lightweight. While regular crushed stone weighs approximately 100 to 104 pounds per cubic foot, lava rock weighs only <strong>56 pounds per cubic foot</strong> (1,500 lbs/yd³). Because of this, bags are exceptionally easy to transport:
+          </p>
+
+          <div class="formula-box">
+            <code>Total Cubic Feet = [Length (ft) × Width (ft) × Depth (in)] / 12</code>
+            <br />
+            <code>Number of 0.5 cu ft Bags = Total Cubic Feet × 2</code>
+          </div>
+
+          <h3>Coverage per 0.5 Cu Ft Bag by Depth</h3>
+          <ul>
+            <li><strong>2.0 Inches Depth:</strong> Covers 3.0 sq ft per bag (ideal for landscape shrub beds and garden paths).</li>
+            <li><strong>3.0 Inches Depth:</strong> Covers 2.0 sq ft per bag (maximum weed suppression and soil insulation).</li>
+            <li><strong>4.0 Inches Depth:</strong> Covers 1.5 sq ft per bag (deep gas fire pit burners).</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Bagged Lava Rock</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/lava-rock-bag-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateLRB() {
+      const l = parseFloat((document.getElementById('lrb-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('lrb-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('lrb-depth') as HTMLInputElement)?.value) || 0;
+      const price = parseFloat((document.getElementById('lrb-price') as HTMLInputElement)?.value) || 0;
+
+      const cuft = (l * w * (d / 12));
+      const bags = Math.ceil(cuft * 2);
+      const yards = cuft / 27;
+      const totalWeight = bags * 28;
+      const totalCost = bags * price;
+
+      const bEl = document.getElementById('kpi-lrb-bags');
+      const yEl = document.getElementById('kpi-lrb-yards');
+      const cEl = document.getElementById('kpi-lrb-cost');
+      const lbsEl = document.getElementById('kpi-lrb-lbs');
+      const cuftEl = document.getElementById('kpi-lrb-cuft');
+
+      if (bEl) bEl.innerText = bags.toLocaleString();
+      if (yEl) yEl.innerText = yards.toFixed(2);
+      if (cEl) cEl.innerText = '$' + totalCost.toFixed(2);
+      if (lbsEl) lbsEl.innerText = totalWeight.toLocaleString() + ' lbs (~' + (totalWeight / 2000).toFixed(2) + ' tons)';
+      if (cuftEl) cuftEl.innerText = cuft.toFixed(1) + ' cu ft net volume';
+    }
+
+    ['lrb-length', 'lrb-width', 'lrb-depth', 'lrb-price'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateLRB);
+    });
+    updateLRB();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

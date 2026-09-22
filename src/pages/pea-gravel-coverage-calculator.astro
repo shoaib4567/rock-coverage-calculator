@@ -1,0 +1,364 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Pea Gravel Calculator', url: '/pea-gravel-calculator' },
+  { name: 'Pea Gravel Coverage Calculator', url: '/pea-gravel-coverage-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Pea Gravel Coverage' },
+  { label: 'Yield at 2"', value: '120 sq ft per Ton (162 sq ft per Yard)' },
+  { label: 'Yield at 2.5"', value: '96 sq ft per Ton (130 sq ft per Yard)' },
+  { label: 'Bulk Density', value: '1.35 t/yd³ (2,700 lbs/yd³)' }
+];
+
+const quickStats = [
+  { value: '120 sq ft', label: 'Per Ton at 2"', desc: 'Square foot coverage yield for one short ton at 2 inches depth' },
+  { value: '162 sq ft', label: 'Per Yard at 2"', desc: 'Square foot coverage yield for one cubic yard at 2 inches depth' },
+  { value: '2.5 Inches', label: 'Optimum Depth', desc: 'Recommended depth for stable barefoot walkability on patios' }
+];
+
+const faqItems = [
+  {
+    q: 'How many square feet does 1 ton of pea gravel cover?',
+    a: 'One ton of pea gravel covers approximately 160 square feet at 1.5 inches depth, 120 square feet at 2 inches depth, 96 square feet at 2.5 inches depth, and 80 square feet at 3 inches depth.'
+  },
+  {
+    q: 'How much pea gravel do I need for 200 square feet?',
+    a: 'For 200 square feet at a recommended 2.5-inch patio depth, you need 1.54 cubic yards (41.7 cubic feet) of pea gravel. Multiplying by 1.35 tons per yard and adding a 10 percent buffer equals approximately 2.29 tons (4,580 lbs) or 84 bags of 0.5 cubic feet.'
+  },
+  {
+    q: 'How deep should pea gravel be spread for walkways and patios?',
+    a: 'Install pea gravel at a depth of 2.0 to 2.5 inches for walkways and patios. If installed deeper than 3 inches, smooth pea pebbles shift excessively underfoot, making walking, pushing strollers, or moving patio furniture difficult.'
+  },
+  {
+    q: 'How many cubic yards of pea gravel do I need for 500 square feet?',
+    a: 'For 500 square feet at 2 inches depth, you need 3.09 cubic yards (4.17 tons). At 3 inches depth, you need 4.63 cubic yards (6.25 tons).'
+  }
+];
+
+const upLinks = [
+  { title: 'Pea Gravel Calculator (Material Parent)', slug: '/pea-gravel-calculator', badge: 'Material' },
+  { title: 'Rock Square Foot Calculator (Unit Parent)', slug: '/rock-square-foot-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Bags' },
+  { title: 'Pea Gravel Patio Calculator', slug: '/pea-gravel-patio-calculator', badge: 'Patio' },
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Gravel Tons' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
+];
+---
+
+<BaseLayout
+  title="Pea Gravel Coverage Calculator - Sq Ft Yields per Ton & Yard"
+  metaDescription="Calculate exact pea gravel square foot coverage per ton and cubic yard across 1.5, 2, 2.5, and 3 inch installation depths. Calibrated for #8 smooth pea stone."
+  canonicalPath="/pea-gravel-coverage-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Pea Gravel Coverage Calculator",
+      "url": "https://rockcoveragecalculator.com/pea-gravel-coverage-calculator",
+      "description": "Calculates square foot coverage yields per ton and cubic yard for smooth pea gravel.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Homeowners, Landscape Designers, Patio Contractors"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Pea Gravel Coverage Yields"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Pea Gravel Coverage Calculator"
+      highlightWord="Coverage"
+      badge="Coverage Yield Engine"
+      subtitle="Calculate square foot yields per ton and cubic yard for ASTM D448 #8 pea gravel across custom depths."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Pea Gravel Coverage Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Pea Gravel Coverage Specifications</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="pgc-area">Project Area (Square Feet)</label>
+              <input type="number" id="pgc-area" value="300" min="1" step="10" />
+            </div>
+            <div class="input-field">
+              <label for="pgc-depth">Layer Depth (Inches)</label>
+              <input type="number" id="pgc-depth" value="2.5" min="1" max="8" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="pgc-waste">Safety Buffer (%)</label>
+              <input type="number" id="pgc-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-pgc-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext" id="kpi-pgc-lbs">0 lbs</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-pgc-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-pgc-yield">0 sq ft / ton</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-pgc-bags">0</div>
+              <div class="kpi-label">0.5 Cu Ft Bags</div>
+              <div class="kpi-subtext">50 lbs each</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Pea Gravel Coverage -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Pea Gravel Coverage Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Pea Gravel Coverage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 2"</span>
+              <span class="aeo-quick-value">120 sq ft / Ton (162 sq ft / Yd)</span>
+              <p class="aeo-quick-desc">Standard depth for light garden pathways and borders.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 2.5"</span>
+              <span class="aeo-quick-value">96 sq ft / Ton (130 sq ft / Yd)</span>
+              <p class="aeo-quick-desc">Recommended depth for comfortable patio walkability.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 3"</span>
+              <span class="aeo-quick-value">80 sq ft / Ton (108 sq ft / Yd)</span>
+              <p class="aeo-quick-desc">Maximum depth before shifting and rolling becomes excessive.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Multiplier</span>
+              <span class="aeo-quick-value">324 / Depth (in) = Sq Ft per Yard</span>
+              <p class="aeo-quick-desc">Multiply yard yield by 0.74 to get square feet per short ton.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Pea Gravel Square Footage Coverage Chart</h2>
+          <p>
+            Because pea gravel has a certified bulk density of approximately <strong>1.35 tons per cubic yard (2,700 lbs/yd³)</strong>, one ton equals approximately 0.741 cubic yards. Below is the reference coverage matrix for typical residential and commercial landscape installations:
+          </p>
+
+          <div style="overflow-x: auto; margin: var(--space-6) 0;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: var(--text-sm);">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-subtle); color: var(--accent-gold);">
+                  <th style="padding: 10px;">Depth (Inches)</th>
+                  <th style="padding: 10px;">Sq Ft per Cubic Yard</th>
+                  <th style="padding: 10px;">Sq Ft per Short Ton</th>
+                  <th style="padding: 10px;">Sq Ft per 0.5 cu ft Bag</th>
+                  <th style="padding: 10px;">Recommended Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 10px; font-weight: 600;">1.5"</td>
+                  <td style="padding: 10px;">216 sq ft</td>
+                  <td style="padding: 10px;">160 sq ft</td>
+                  <td style="padding: 10px;">4.0 sq ft</td>
+                  <td style="padding: 10px;">Light decorative ground cover over fabric</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(212, 168, 83, 0.05);">
+                  <td style="padding: 10px; font-weight: 600;">2.0"</td>
+                  <td style="padding: 10px;">162 sq ft</td>
+                  <td style="padding: 10px;">120 sq ft</td>
+                  <td style="padding: 10px;">3.0 sq ft</td>
+                  <td style="padding: 10px;">Garden paths and flower bed mulch</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(212, 168, 83, 0.1);">
+                  <td style="padding: 10px; font-weight: 600;">2.5"</td>
+                  <td style="padding: 10px;">130 sq ft</td>
+                  <td style="padding: 10px;">96 sq ft</td>
+                  <td style="padding: 10px;">2.4 sq ft</td>
+                  <td style="padding: 10px;">Patios and fire pit seating zones (Best Walkability)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 10px; font-weight: 600;">3.0"</td>
+                  <td style="padding: 10px;">108 sq ft</td>
+                  <td style="padding: 10px;">80 sq ft</td>
+                  <td style="padding: 10px;">2.0 sq ft</td>
+                  <td style="padding: 10px;">Dog runs and heavy drainage swales</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; font-weight: 600;">4.0"</td>
+                  <td style="padding: 10px;">81 sq ft</td>
+                  <td style="padding: 10px;">60 sq ft</td>
+                  <td style="padding: 10px;">1.5 sq ft</td>
+                  <td style="padding: 10px;">French drain backfill and playground safety fall zones</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Pea Gravel Coverage</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/pea-gravel-coverage-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updatePGC() {
+      const a = parseFloat((document.getElementById('pgc-area') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('pgc-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('pgc-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (a * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const tons = totalYards * 1.35;
+      const lbs = tons * 2000;
+      const bags = Math.ceil(totalYards * 54);
+      const yieldPerTon = d > 0 ? ((324 / d) / 1.35) : 0;
+
+      const tEl = document.getElementById('kpi-pgc-tons');
+      const yEl = document.getElementById('kpi-pgc-yards');
+      const bEl = document.getElementById('kpi-pgc-bags');
+      const lbsEl = document.getElementById('kpi-pgc-lbs');
+      const yieldEl = document.getElementById('kpi-pgc-yield');
+
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (bEl) bEl.innerText = bags.toLocaleString();
+      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs';
+      if (yieldEl) yieldEl.innerText = Math.round(yieldPerTon) + ' sq ft / ton yield';
+    }
+
+    ['pgc-area', 'pgc-depth', 'pgc-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updatePGC);
+    });
+    updatePGC();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

@@ -1,0 +1,341 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/decorative-rock-calculator' },
+  { name: 'Marble Chips Calculator', url: '/marble-chips-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'White Marble Chips' },
+  { label: 'Mineral Source', value: 'Crushed Crystalline Calcite / Dolomite' },
+  { label: 'Bulk Density', value: '1.25 t/yd³ (93 lbs/cu ft)' },
+  { label: 'Coverage Yield', value: '130 sq ft per Ton at 2" Depth' }
+];
+
+const quickStats = [
+  { value: '1/2" to 1"', label: 'Particle Caliper', desc: 'Angular crushed white marble with sparkling crystalline facets' },
+  { value: '1.25 t/yd³', label: 'Quarry Density', desc: 'ASTM C29 loose stockpile weight (2,500 lbs per cubic yard)' },
+  { value: 'Solar Reflective', label: 'Albedo Rating', desc: 'Reflects radiant heat away from foundation walls and stems' }
+];
+
+const faqItems = [
+  {
+    q: 'How many bags of white marble chips do I need for a 150 square foot border?',
+    a: 'At a standard decorative depth of 2.0 inches, 150 square feet requires 25 cubic feet (0.93 cubic yards) of marble chips. Since standard retail bags hold 0.5 cubic feet, you need 50 bags. At approximately 46 pounds per bag, total weight is 2,300 pounds (1.15 short tons).'
+  },
+  {
+    q: 'Do white marble chips change the soil pH around plants?',
+    a: 'Yes. Marble is metamorphosed limestone composed of calcium carbonate (calcite) and dolomite. Over time, rainwater leaches minerals that slightly raise soil alkalinity (higher pH). Avoid using marble chips directly against acid-loving plants such as azaleas, rhododendrons, hydrangeas, and blueberries.'
+  },
+  {
+    q: 'How do you keep white marble chips clean and bright over time?',
+    a: 'Always install a commercial 4 to 6 oz non-woven geotextile fabric beneath the marble chips to prevent soil mud from splashing upward during rain. Keep trees pruned back to reduce falling leaf debris, and periodically rinse the stone with a garden hose or pressure washer to remove airborne dust.'
+  },
+  {
+    q: 'What is the recommended depth for white marble chips?',
+    a: 'Install white marble chips at a depth of 2.0 to 2.5 inches. Because the stone is stark white, a 2-inch layer over dark black weed fabric provides 100 percent visual opacity without over-ordering weight.'
+  }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: '0.75-1.40 t/yd³' },
+  { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: '0.75 t/yd³' },
+  { title: 'Beach Pebble Calculator', slug: '/beach-pebble-calculator', badge: '1.35 t/yd³' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags' },
+  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Sq Ft' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Protocol' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
+];
+---
+
+<BaseLayout
+  title="Marble Chips Calculator - White Stone Volume, Tons & Bags"
+  metaDescription="Calculate cubic yards, tons, and bags of white marble chips. Sizing formulas for garden borders, tree wells, and reflective landscape beds."
+  canonicalPath="/marble-chips-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Marble Chips Calculator",
+      "url": "https://rockcoveragecalculator.com/marble-chips-calculator",
+      "description": "Calculates white marble chips volume, bags, and scale tonnage for decorative borders and tree wells.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Landscape Designers, Homeowners, Commercial Masons, Estimators"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "White Marble Chips"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Marble Chips Calculator"
+      highlightWord="Calculator"
+      badge="Reflective White Stone Engine"
+      subtitle="Accurate cubic yards, quarry scale tonnage, and retail 0.5 cu ft bag calculations for sparkling white crystalline marble chips."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Marble Chips Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Marble Chips Bed Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="marble-length">Length (Feet)</label>
+              <input type="number" id="marble-length" value="30" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="marble-width">Width (Feet)</label>
+              <input type="number" id="marble-width" value="5" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="marble-depth">Target Depth (Inches)</label>
+              <input type="number" id="marble-depth" value="2.0" min="1" max="8" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="marble-waste">Safety Buffer (%)</label>
+              <input type="number" id="marble-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-marble-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-marble-cuft">Includes 10% buffer</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-marble-tons">0.00</div>
+              <div class="kpi-label">Scale Weight (Tons)</div>
+              <div class="kpi-subtext">At 1.25 t/yd³ (2,500 lbs/yd³)</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-marble-bags">0</div>
+              <div class="kpi-label">0.5 cu ft Bags</div>
+              <div class="kpi-subtext">~46 lbs per bag</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Marble Chips -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="White Marble Chips Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Marble Chips Sizing Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bulk Density</span>
+              <span class="aeo-quick-value">1.25 t/yd³ (93 lbs/cu ft)</span>
+              <p class="aeo-quick-desc">Tested per ASTM C29 loose stockpile unit weight methodology.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 2"</span>
+              <span class="aeo-quick-value">130 sq ft per Ton</span>
+              <p class="aeo-quick-desc">High contrast white color achieves complete visual opacity at 2 inches.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bag Count</span>
+              <span class="aeo-quick-value">54 Bags per Cubic Yard</span>
+              <p class="aeo-quick-desc">Standard 0.5 cu ft bag weighs approximately 46 pounds.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Soil Impact</span>
+              <span class="aeo-quick-value">Alkaline pH Buffer</span>
+              <p class="aeo-guide-desc">Avoid placing directly over acid-loving plants like azaleas.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Geology & Architectural Applications of White Marble</h2>
+          <p>
+            <strong>White Marble Chips</strong> are produced by crushing high-purity metamorphic limestone composed of recrystallized carbonate minerals, primarily calcite (CaCO3) and dolomite. The crystalline structure gives the stone its brilliant white coloration and glistening reflective sparkle under direct sunlight.
+          </p>
+          <p>
+            With a loose bulk density of approximately <strong>93 pounds per cubic foot (1.25 tons per cubic yard)</strong>, white marble chips are slightly lighter than standard crushed limestone or river gravel, yielding approximately 130 square feet of coverage per ton at a 2-inch depth.
+          </p>
+
+          <div class="formula-box">
+            <code>Volume (Cubic Yards) = [Area (sq ft) × Depth (in)] / 324</code>
+            <br />
+            <code>Total Scale Weight (Tons) = Volume (yd³) × 1.25 t/yd³</code>
+            <br />
+            <code>Total Retail Bags (0.5 cu ft) = Volume (yd³) × 54</code>
+          </div>
+
+          <h3>Design & Environmental Considerations</h3>
+          <ul>
+            <li><strong>High Solar Albedo:</strong> The bright white surface reflects solar thermal radiation rather than absorbing it. This helps keep soil temperature cooler in hot climates, though reflected glare should be considered near south-facing bedroom windows.</li>
+            <li><strong>pH Sensitivity:</strong> Over years of rain exposure, calcium carbonate slowly leaches into the soil, raising soil pH. Use marble chips with alkaline-tolerant shrubs, boxwoods, and Mediterranean ornamentals.</li>
+            <li><strong>Weed Barrier Requirement:</strong> White marble requires a heavy needle-punched non-woven geotextile membrane. Without fabric, soil particles will migrate up through the stone during rainstorms, discoloring the white rock with muddy brown stains.</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Marble Chips</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/marble-chips-calculator"
+      category="material"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateMarble() {
+      const l = parseFloat((document.getElementById('marble-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('marble-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('marble-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('marble-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const tons = totalYards * 1.25;
+      const bags = Math.ceil(totalYards * 54);
+
+      const yEl = document.getElementById('kpi-marble-yards');
+      const tEl = document.getElementById('kpi-marble-tons');
+      const bEl = document.getElementById('kpi-marble-bags');
+
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (bEl) bEl.innerText = bags.toLocaleString();
+    }
+
+    ['marble-length', 'marble-width', 'marble-depth', 'marble-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateMarble);
+    });
+    updateMarble();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

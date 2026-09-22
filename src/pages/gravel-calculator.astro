@@ -14,7 +14,7 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Primary Entity', value: 'Gravel Calculator' },
+  { label: 'Material', value: 'Gravel Coverage Calculator' },
   { label: 'Application Grades', value: '#57 Crushed Stone, Crusher Run, Pea Gravel' },
   { label: 'Bulk Density', value: '1.40 Tons/yd³ (2,800 lbs)' },
   { label: 'Traffic Engineering', value: 'Vehicular (4"-6") vs Pedestrian (2"-3")' }
@@ -47,22 +47,22 @@ const faqItems = [
 ---
 
 <BaseLayout
-  title="Gravel Calculator - Driveway & Walkway Tons & Yards Estimator"
-  description="Calculate gravel tonnage and cubic yards for driveways, walkways, and patios. Includes base vs top course calculations and 15% mechanical compaction allowances."
+  title="Gravel Coverage Calculator - Driveway & Walkway Tons & Yards Estimator"
+  description="Calculate gravel coverage in tons, cubic yards, and square feet for driveways, walkways, and patios. Includes base vs top course calculations and 15% mechanical compaction allowances."
   canonicalPath="/gravel-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Gravel Calculator",
+      "name": "Gravel Coverage Calculator",
       "url": "https://rockcoveragecalculator.com/gravel-calculator",
-      "description": "Calculates gravel requirements for driveways, pathways, and patios with compaction and dual-layer engineering.",
+      "description": "Calculates gravel coverage requirements for driveways, pathways, and patios with compaction and dual-layer engineering.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "about": {
         "@type": "Thing",
-        "name": "Gravel"
+        "name": "Gravel Coverage"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -83,8 +83,8 @@ const faqItems = [
 
   <main>
     <PageHero
-      title="Gravel Calculator"
-      highlightWord="Calculator"
+      title="Gravel Coverage Calculator"
+      highlightWord="Coverage"
       badge="Driveway & Pathway Engineering"
       subtitle="Accurate volumetric and scale tonnage calculations for #57 crushed gravel driveways, garden pathways, and structural foundation base courses."
       breadcrumbs={breadcrumbs}

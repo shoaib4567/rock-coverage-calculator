@@ -1,0 +1,340 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Pea Gravel Calculator', url: '/pea-gravel-calculator' },
+  { name: 'Pea Gravel Tons Calculator', url: '/pea-gravel-tons-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Pea Gravel Tonnage' },
+  { label: 'Sieve Size', value: 'ASTM D448 #8 (3/8" Smooth)' },
+  { label: 'Bulk Density', value: '1.35 t/yd³ (2,700 lbs/yd³)' },
+  { label: 'Yield at 2"', value: '120 sq ft per Ton' }
+];
+
+const quickStats = [
+  { value: '1.35 t/yd³', label: 'Bulk Density', desc: 'Certified quarry scale density for washed #8 pea gravel' },
+  { value: '120 sq ft', label: 'Yield at 2"', desc: 'Square foot coverage per short ton at 2-inch walkway depth' },
+  { value: '14 Tons', label: 'Dump Truck', desc: 'Standard commercial payload for a tandem-axle delivery' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of pea gravel do I need for a 12x20 foot patio?',
+    a: 'A 12x20 foot patio equals 240 square feet. At a recommended 2.5-inch depth for barefoot patio walkability, you need 1.85 cubic yards of pea gravel. Multiplying by 1.35 tons per yard and adding a 10 percent buffer yields approximately 2.75 short tons (5,500 lbs).'
+  },
+  {
+    q: 'How do you convert square feet of pea gravel to tons?',
+    a: 'Multiply square feet by layer depth in inches, divide by 324 to get cubic yards, then multiply by 1.35 tons per yard. Formula: Tons = [(Sq Ft × Depth) / 324] × 1.35.'
+  },
+  {
+    q: 'How many square feet does 1 ton of pea gravel cover?',
+    a: 'One ton of pea gravel covers approximately 160 square feet at 1.5 inches depth, 120 square feet at 2 inches depth, 96 square feet at 2.5 inches depth, and 80 square feet at 3 inches depth.'
+  },
+  {
+    q: 'What does a cubic yard of pea gravel weigh?',
+    a: 'A cubic yard of clean, dry pea gravel weighs approximately 2,700 pounds (1.35 short tons). When wet from rain or quarry washing, weight can reach 2,800 to 2,900 pounds per cubic yard.'
+  }
+];
+
+const upLinks = [
+  { title: 'Pea Gravel Calculator (Material Parent)', slug: '/pea-gravel-calculator', badge: 'Material' },
+  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Coverage' },
+  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Bags' },
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Gravel Tons' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Gravel Size and Sieve Guide', slug: '/gravel-sizes', badge: 'Gradations' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+---
+
+<BaseLayout
+  title="Pea Gravel Tons Calculator - Scale Weight & Square Foot Yields"
+  metaDescription="Calculate exact tons of pea gravel needed for patios, walkways, and dog runs. Calibrated for ASTM D448 #8 stone at 1.35 t/yd3 with truckload sizing."
+  canonicalPath="/pea-gravel-tons-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Pea Gravel Tons Calculator",
+      "url": "https://rockcoveragecalculator.com/pea-gravel-tons-calculator",
+      "description": "Calculates quarry scale tonnage and truckload requirements for ASTM D448 #8 pea gravel.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Contractors, Landscapers, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Pea Gravel Tonnage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Pea Gravel Tons Calculator"
+      highlightWord="Tons"
+      badge="Quarry Weight Engine"
+      subtitle="Calculate exact scale weight in tons for smooth 3/8-inch pea gravel across patios, pathways, and dog runs."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Pea Gravel Tons Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Pea Gravel Area Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="pgt-length">Length (Feet)</label>
+              <input type="number" id="pgt-length" value="24" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="pgt-width">Width (Feet)</label>
+              <input type="number" id="pgt-width" value="12" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="pgt-depth">Depth (Inches)</label>
+              <input type="number" id="pgt-depth" value="2.5" min="1" max="12" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="pgt-waste">Safety Buffer (%)</label>
+              <input type="number" id="pgt-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-pgt-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext" id="kpi-pgt-lbs">0 lbs total weight</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-pgt-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext">Includes 10% buffer</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-pgt-loads">0.0</div>
+              <div class="kpi-label">Dump Truck Loads</div>
+              <div class="kpi-subtext">14 tons per tandem axle</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Pea Gravel Tonnage -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Pea Gravel Tonnage Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Pea Gravel Tonnage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Tons = [(Area × Depth) / 324] × 1.35</span>
+              <p class="aeo-quick-desc">Converts dimensions directly to short tons of 2,000 lbs.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bulk Density</span>
+              <span class="aeo-quick-value">1.35 t/yd³ (2,700 lbs/yd³)</span>
+              <p class="aeo-quick-desc">Standard bulk density for ASTM D448 #8 pea stone.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Yield at 2"</span>
+              <span class="aeo-quick-value">120 sq ft per Ton</span>
+              <p class="aeo-quick-desc">Coverage yield for pathways and garden borders.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Yield at 2.5"</span>
+              <span class="aeo-quick-value">96 sq ft per Ton</span>
+              <p class="aeo-quick-desc">Optimal depth for stable barefoot patio footing.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Engineering Calculations for Pea Gravel Tonnage</h2>
+          <p>
+            Pea gravel consists of natural, rounded 3/8-inch pebbles conforming to <strong>ASTM D448 #8</strong>. When ordering from commercial quarries, material is weighed on certified truck scales in short tons (2,000 lbs):
+          </p>
+
+          <div class="formula-box">
+            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
+            <br />
+            <code>Scale Weight (Tons) = Cubic Yards × 1.35 t/yd³ × 1.10 Buffer</code>
+          </div>
+
+          <h3>Coverage per Ton Across Installation Depths</h3>
+          <ul>
+            <li><strong>1.5 Inches Depth:</strong> 160 sq ft per ton (light decorative mulch over fabric).</li>
+            <li><strong>2.0 Inches Depth:</strong> 120 sq ft per ton (light pedestrian walkways).</li>
+            <li><strong>2.5 Inches Depth:</strong> 96 sq ft per ton (patio seating zones and fire pits).</li>
+            <li><strong>3.0 Inches Depth:</strong> 80 sq ft per ton (dog runs and playground areas).</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Pea Gravel Tonnage</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/pea-gravel-tons-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updatePGT() {
+      const l = parseFloat((document.getElementById('pgt-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('pgt-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('pgt-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('pgt-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const tons = totalYards * 1.35;
+      const lbs = tons * 2000;
+      const loads = tons / 14;
+
+      const tEl = document.getElementById('kpi-pgt-tons');
+      const yEl = document.getElementById('kpi-pgt-yards');
+      const lEl = document.getElementById('kpi-pgt-loads');
+      const lbsEl = document.getElementById('kpi-pgt-lbs');
+
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (lEl) lEl.innerText = loads.toFixed(1);
+      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+    }
+
+    ['pgt-length', 'pgt-width', 'pgt-depth', 'pgt-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updatePGT);
+    });
+    updatePGT();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

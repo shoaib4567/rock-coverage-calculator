@@ -17,13 +17,14 @@
           <h3>3D Rock Pile</h3>
           <span class="viz-badge">Interactive</span>
         </div>
-        <div class="rock-scene-wrapper" id="rock-scene-canvas">
+        <div class="rock-scene-wrapper" id="rock-scene-canvas" role="region" aria-label="3D Rock Bed Visualizer">
           <div class="rock-scene-fallback">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3">
+            <svg class="fallback-icon" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
               <path d="M12 2L4 7.5V16.5L12 22L20 16.5V7.5L12 2Z"/>
               <path d="M12 2L12 10"/><path d="M12 10L20 7.5"/><path d="M12 10L4 7.5"/>
             </svg>
-            <span style="margin-top: 8px;">Loading 3D scene...</span>
+            <span class="fallback-title">Loading 3D scene…</span>
+            <span class="fallback-sub">Interactive simulation loads automatically as you scroll into view</span>
           </div>
         </div>
       </div>

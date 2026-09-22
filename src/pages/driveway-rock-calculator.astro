@@ -1,0 +1,339 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Gravel Calculator', url: '/gravel-calculator' },
+  { name: 'Driveway Rock Calculator', url: '/driveway-rock-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Driveway Rock Coverage' },
+  { label: 'Standard Sieve', value: 'ASTM D448 #57 Surface & #4 Base' },
+  { label: 'Bulk Density', value: '1.40 t/yd³ (2,800 lbs/yd³)' },
+  { label: 'Compaction Factor', value: '15% to 20% Vehicular Settling' }
+];
+
+const quickStats = [
+  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'Standard bulk density for fractured angular driveway stone' },
+  { value: '15% Factor', label: 'Compaction', desc: 'Volume allowance for vehicle rolling and wheel rut displacement' },
+  { value: '15 Tons', label: 'Tri-Axle Load', desc: 'Standard commercial payload for residential driveway delivery' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of rock do I need for a 12x50 foot driveway?',
+    a: 'A 12x50 foot driveway equals 600 square feet. For a standard 3-inch top layer of #57 stone, you need 5.56 cubic yards of loose rock. Adding a 15 percent compaction factor requires 6.39 cubic yards. Multiplying by 1.40 tons per yard yields approximately 8.95 tons of stone (one tri-axle load).'
+  },
+  {
+    q: 'What is the best type of rock for a gravel driveway?',
+    a: 'The gold standard for gravel driveways is a two-layer system: a 4-inch to 6-inch sub-base of dense-graded aggregate (AASHTO M147 crusher run or #4 stone) compacted firmly, topped with a 2-inch to 3-inch wearing layer of clean angular #57 crushed limestone or blue granite.'
+  },
+  {
+    q: 'How deep should rock be on a new driveway versus an existing driveway refresh?',
+    a: 'A brand-new driveway requires 6 to 8 inches of total aggregate (4 to 5 inches of dense base plus 2 to 3 inches of top stone). An existing driveway top-dressing refresh only requires 1.5 to 2.5 inches of clean #57 stone spread across existing ruts.'
+  },
+  {
+    q: 'Why should rounded river rock never be used on a driveway?',
+    a: 'Rounded river stone has no fractured angular faces and cannot interlock. Under vehicle tire torque, smooth pebbles roll like ball bearings, causing cars to lose traction, rutting deeply, and spilling into adjacent lawns.'
+  }
+];
+
+const upLinks = [
+  { title: 'Gravel Calculator (Material Parent)', slug: '/gravel-calculator', badge: 'Material' },
+  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Tons' },
+  { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: 'Granite' },
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Road Base' }
+];
+
+const bridgeLinks = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' }
+];
+
+const supportGuides = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+---
+
+<BaseLayout
+  title="Driveway Rock Calculator - Rock Coverage Calculator for Driveways"
+  metaDescription="Calculate exact tons and cubic yards of driveway rock, #57 stone, and crusher run. Calibrated for vehicle compaction, sub-base depths, and truckloads."
+  canonicalPath="/driveway-rock-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Driveway Rock Calculator",
+      "url": "https://rockcoveragecalculator.com/driveway-rock-calculator",
+      "description": "Calculates tons and cubic yards of driveway stone, gravel, and base aggregate with vehicle compaction allowances.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Paving Contractors, Homeowners, Civil Estimators"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Driveway Rock Coverage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Driveway Rock Calculator"
+      highlightWord="Driveway"
+      badge="Heavy Vehicular Sizing Engine"
+      subtitle="Calculate exact tons, cubic yards, and tri-axle dump truck loads for residential and commercial gravel driveways."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Driveway Rock Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Driveway Dimensions and Specifications</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="dwr-length">Driveway Length (Feet)</label>
+              <input type="number" id="dwr-length" value="50" min="1" step="1" />
+            </div>
+            <div class="input-field">
+              <label for="dwr-width">Driveway Width (Feet)</label>
+              <input type="number" id="dwr-width" value="12" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="dwr-depth">Installed Depth (Inches)</label>
+              <input type="number" id="dwr-depth" value="3.0" min="1" max="18" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="dwr-compaction">Compaction Allowance (%)</label>
+              <input type="number" id="dwr-compaction" value="15" min="0" max="30" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-dwr-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext" id="kpi-dwr-lbs">0 lbs total weight</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-dwr-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext">Includes 15% compaction</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-dwr-loads">0.0</div>
+              <div class="kpi-label">Tri-Axle Truckloads</div>
+              <div class="kpi-subtext">15 tons per commercial load</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Driveway Rock Coverage -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Driveway Rock Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Driveway Rock Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Tons = [(L × W × Depth) / 324] × 1.15 × 1.40</span>
+              <p class="aeo-quick-desc">Includes mandatory 15% vehicular compaction factor.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Top Layer Stone</span>
+              <span class="aeo-quick-value">ASTM D448 #57 (3/4" Angular)</span>
+              <p class="aeo-quick-desc">Provides superior interlock and prevents tire rutting.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Base Layer Stone</span>
+              <span class="aeo-quick-value">Crusher Run / #4 (Dense Graded)</span>
+              <p class="aeo-quick-desc">4 to 6 inches thick for structural vehicular load support.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Truckload Standard</span>
+              <span class="aeo-quick-value">1 Tri-Axle ≈ 15 Tons (10.7 Yds³)</span>
+              <p class="aeo-quick-desc">Standard delivery capacity for residential aggregate.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Engineering Guidelines for Gravel Driveway Construction</h2>
+          <p>
+            A durable gravel driveway requires proper structural layering, mechanical compaction, and crown grading for water runoff. Calculating materials by surface area alone without factoring in compaction results in chronic premature rutting:
+          </p>
+
+          <div class="formula-box">
+            <code>Loose Volume (Yards) = [Length (ft) × Width (ft) × Depth (in)] / 324 × 1.15 Compaction</code>
+            <br />
+            <code>Quarry Scale Weight (Tons) = Loose Volume × 1.40 t/yd³ (2,800 lbs/yd³)</code>
+          </div>
+
+          <h3>Standard Driveway Layer Profiles</h3>
+          <ul>
+            <li><strong>Surface Top-Dressing (Existing Driveway):</strong> Spread 2.0 to 2.5 inches of #57 crushed limestone or granite (yield: 80 sq ft per ton).</li>
+            <li><strong>New Driveway Surface Course:</strong> Install 3.0 inches of #57 angular crushed stone over a prepared base (yield: 65 sq ft per ton with compaction).</li>
+            <li><strong>New Driveway Base Course:</strong> Install 4.0 to 6.0 inches of AASHTO M147 crusher run or dense-graded aggregate (yield: 35 to 45 sq ft per ton).</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Driveway Rock</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/driveway-rock-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateDWR() {
+      const l = parseFloat((document.getElementById('dwr-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('dwr-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('dwr-depth') as HTMLInputElement)?.value) || 0;
+      const comp = parseFloat((document.getElementById('dwr-compaction') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + comp / 100);
+      const tons = totalYards * 1.40;
+      const lbs = tons * 2000;
+      const loads = tons / 15;
+
+      const tEl = document.getElementById('kpi-dwr-tons');
+      const yEl = document.getElementById('kpi-dwr-yards');
+      const lEl = document.getElementById('kpi-dwr-loads');
+      const lbsEl = document.getElementById('kpi-dwr-lbs');
+
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (lEl) lEl.innerText = loads.toFixed(1);
+      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+    }
+
+    ['dwr-length', 'dwr-width', 'dwr-depth', 'dwr-compaction'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateDWR);
+    });
+    updateDWR();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

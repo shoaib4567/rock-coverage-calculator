@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -14,19 +14,23 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Primary Entity', value: 'Yardage Ordering' },
-  { label: 'Order Increments', value: 'Half-Yard & Full-Yard Units' },
-  { label: 'Safety Margin', value: '10% Compaction & Raking Allowance' },
-  { label: 'Transport Unit', value: 'Tri-Axle & Tandem Hauling' }
+  { label: 'Material', value: 'Quarry Yardage Logistics' },
+  { label: 'Order Increments', value: 'Half-Yard and Full-Yard Units' },
+  { label: 'Safety Margin', value: '10% Compaction and Raking Allowance' },
+  { label: 'Delivery Vehicles', value: 'Single-Axle, Tandem, and Tri-Axle Haulers' }
 ];
 
 const quickStats = [
-  { value: '10% Overage', label: 'Recommended Buffer', desc: 'Prevents running short and paying an extra delivery fee' },
+  { value: '10% Overage', label: 'Recommended Buffer', desc: 'Prevents running short and paying an extra delivery drop fee' },
   { value: '9-14 Loads', label: 'Wheelbarrows per Yard', desc: 'Based on standard 2 to 3 cubic foot contractor trays' },
   { value: '14 Ft Clearance', label: 'Dump Bed Height', desc: 'Minimum overhead vertical clearance required for dumping' }
 ];
 
 const faqItems = [
+  {
+    q: 'How does this rock yardage calculator differ from a cubic yard calculator?',
+    a: 'While a cubic yard calculator computes pure theoretical three-dimensional volume, the rock yardage calculator translates volume into practical procurement terms: full and half-yard ordering thresholds, dump truck payload limits (single-axle, tandem, tri-axle), legal road weight constraints, and jobsite delivery buffers.'
+  },
   {
     q: 'How many yards of rock do I need for a standard two-car driveway?',
     a: 'A typical two-car driveway measures 20 feet wide by 40 feet long (800 square feet). To top dress with a 2-inch stone refresh, you need approximately 5.0 cubic yards (around 7 tons). For a new driveway installation requiring a 4-inch base layer, you need 10.0 cubic yards (14 tons).'
@@ -36,19 +40,38 @@ const faqItems = [
     a: 'Most retail landscape supply yards sell stone in half-yard increments for customer pickup. However, for commercial delivery trucks, suppliers typically impose a 1.0 to 3.0 cubic yard minimum order size to justify the driver labor and vehicle fuel expense.'
   },
   {
-    q: 'What happens if I order too little rock for my project?',
-    a: 'Running short by even half a yard requires ordering a second delivery, which incurs an additional flat freight charge ($65 to $100). Furthermore, stone from separate quarry production blasts may exhibit noticeable color batch variations. Always round your calculated yardage up to the nearest whole or half yard.'
-  },
-  {
     q: 'Will a heavy dump truck crack my concrete driveway when delivering rock?',
-    a: 'Yes, loaded tandem and tri-axle dump trucks weigh between 25,000 and 55,000 pounds. Residential 4-inch concrete driveways are only engineered for passenger vehicles (4,000 to 6,000 lbs). Have the driver dump on a curb edge, plywood sheets, or a designated turf zone to prevent driveway cracking.'
+    a: 'Yes. Loaded tandem and tri-axle dump trucks weigh between 25,000 and 55,000 pounds. Residential 4-inch concrete driveways are only engineered for passenger vehicles (4,000 to 6,000 lbs). Have the driver dump on a curb edge, plywood sheets, or a designated turf zone to prevent driveway cracking.'
   }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Rock Cubic Yard Calculator (Pure Volume)', slug: '/rock-cubic-yard-calculator', badge: 'Volume' },
+  { title: 'Rock Tons Calculator (Quarry Weight)', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Bag Calculator (Retail Bags)', slug: '/rock-bag-calculator', badge: 'Bags' }
+];
+
+const bridgeLinks = [
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: 'Gravel' },
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Road Base' },
+  { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Delivery Sizing' }
+];
+
+const supportGuides = [
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
 ];
 ---
 
 <BaseLayout
-  title="Rock Yardage Calculator - Quarry Ordering & Dump Site Logistics"
-  description="Calculate exact yardage of rock needed for landscape beds, driveways, and pathways. Field-tested quarry ordering rules, dump truck clearances, and wheelbarrow sizing."
+  title="Rock Yardage Calculator - Dump Truck Loads & Quarry Logistics"
+  description="Calculate exact yardage of rock needed for landscape beds and driveways. Field-tested quarry ordering rules, dump truck clearances, and wheelbarrow sizing."
   canonicalPath="/rock-yardage-calculator"
 >
   <Fragment slot="head">
@@ -60,9 +83,14 @@ const faqItems = [
       "description": "Calculates commercial rock yardage requirements, quarry order buffers, and dump truck site delivery logistics.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Landscape Contractors, Estimators, Homeowners, Dump Truck Haulers"
+      },
       "about": {
         "@type": "Thing",
-        "name": "Yardage Ordering"
+        "name": "Dump Truck Capacity and Aggregate Yardage Procurement"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -86,7 +114,7 @@ const faqItems = [
       title="Rock Yardage Calculator"
       highlightWord="Calculator"
       badge="Quarry Procurement & Site Logistics"
-      subtitle="Determine exact bulk yardage requirements, commercial ordering buffers, and site delivery staging logistics for aggregate landscaping."
+      subtitle="Determine exact bulk yardage requirements, commercial ordering buffers, and dump truck site delivery staging logistics."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -99,10 +127,41 @@ const faqItems = [
     <!-- Technical Guide on Yardage Procurement -->
     <article class="content-guide-section">
       <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Rock Yardage Logistics Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Dump Truck Yardage Sizing Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Theoretical Yardage</span>
+              <span class="aeo-quick-value">Yards = (Area [sq ft] × Depth [in]) / 324</span>
+              <p class="aeo-quick-desc">Standard mathematical volume calculation before safety buffers.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Quarry Order Buffer</span>
+              <span class="aeo-quick-value">Order = Theoretical Yards × 1.10</span>
+              <p class="aeo-quick-desc">Adds 10 percent to cover ground depression and edge trenching.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Single-Axle Truck</span>
+              <span class="aeo-quick-value">Capacity: 4 to 5 Yards (5-7 Tons)</span>
+              <p class="aeo-quick-desc">Standard residential vehicle; avoids cracking driveway concrete.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Tandem / Tri-Axle Rig</span>
+              <span class="aeo-quick-value">Capacity: 10 to 16 Yards (14-22 Tons)</span>
+              <p class="aeo-quick-desc">Commercial capacity; requires 10 ft width and 14 ft overhead clearance.</p>
+            </div>
+          </div>
+        </section>
+
         <div class="content-card">
           <h2>Quarry Procurement: Field Rules for Ordering Yardage</h2>
           <p>
-            Estimating yardage on paper is a clean mathematical exercise, but ordering rock in the physical world introduces variable real-world factors. Subgrade undulations, tire rutting, edge spilling, and aggregate compaction alter actual required yardage by 8% to 15%.
+            Estimating yardage on paper is a clean mathematical exercise, but ordering rock in the physical world introduces variable real-world factors. Subgrade undulations, tire rutting, edge spilling, and aggregate compaction alter actual required yardage by 8 to 15 percent.
           </p>
 
           <div class="formula-box">
@@ -116,7 +175,7 @@ const faqItems = [
             Experienced contractors never order the exact theoretical volume calculated. If your project math yields 4.1 cubic yards, ordering exactly 4.0 yards guarantees you will run short on the final border. The economic penalty of running short is severe:
           </p>
           <ul>
-            <li><strong>Second Delivery Surcharge:</strong> Paying another $75 delivery drop fee for 0.5 yards inflates your unit cost by 200%.</li>
+            <li><strong>Second Delivery Surcharge:</strong> Paying another $65 to $100 delivery drop fee for 0.5 yards inflates your unit cost by 200 percent.</li>
             <li><strong>Batch Color Shift:</strong> Aggregates extracted from different bench blasts in a quarry often exhibit subtle color and mineral variations. Ordering all stone in a single delivery ensures visual consistency.</li>
             <li><strong>Stockpile Spreading Efficiency:</strong> Having slightly extra rock allows dressing up thin corners and filling low drainage depressions across the property.</li>
           </ul>
@@ -133,11 +192,11 @@ const faqItems = [
                 </tr>
               </thead>
               <tbody>
-                <tr><td>1.0 - 1.8 yd³</td><td>2.0 cubic yards</td><td>2.7 tons</td><td>18 - 24 loads</td><td>Single-axle dump / trailer</td></tr>
-                <tr><td>2.5 - 3.6 yd³</td><td>4.0 cubic yards</td><td>5.4 tons</td><td>36 - 48 loads</td><td>Single-axle dump truck</td></tr>
-                <tr><td>4.5 - 5.5 yd³</td><td>6.0 cubic yards</td><td>8.1 tons</td><td>54 - 72 loads</td><td>Single-axle or tandem truck</td></tr>
-                <tr><td>7.0 - 9.0 yd³</td><td>10.0 cubic yards</td><td>13.5 tons</td><td>90 - 120 loads</td><td>Tandem-axle dump truck</td></tr>
-                <tr><td>12.0 - 14.5 yd³</td><td>16.0 cubic yards</td><td>21.6 tons</td><td>140 - 180 loads</td><td>Tri-axle dump truck</td></tr>
+                <tr><td>1.0 to 1.8 yd³</td><td>2.0 cubic yards</td><td>2.7 tons</td><td>18 to 24 loads</td><td>Single-axle dump or trailer</td></tr>
+                <tr><td>2.5 to 3.6 yd³</td><td>4.0 cubic yards</td><td>5.4 tons</td><td>36 to 48 loads</td><td>Single-axle dump truck</td></tr>
+                <tr><td>4.5 to 5.5 yd³</td><td>6.0 cubic yards</td><td>8.1 tons</td><td>54 to 72 loads</td><td>Single-axle or tandem truck</td></tr>
+                <tr><td>7.0 to 9.0 yd³</td><td>10.0 cubic yards</td><td>13.5 tons</td><td>90 to 120 loads</td><td>Tandem-axle dump truck</td></tr>
+                <tr><td>12.0 to 14.5 yd³</td><td>16.0 cubic yards</td><td>21.6 tons</td><td>140 to 180 loads</td><td>Tri-axle commercial dump truck</td></tr>
               </tbody>
             </table>
           </div>
@@ -151,10 +210,10 @@ const faqItems = [
               <strong>Protect Concrete Driveways:</strong> Heavy dual-rear-axle trucks can crack 4-inch residential driveway aprons. Lay two rows of 3/4-inch exterior plywood across curbs and sidewalks where truck tires will roll.
             </li>
             <li>
-              <strong>Tarp the Dump Surface:</strong> Lay a heavy-duty poly tarp on the driveway or lawn before the truck dumps. This prevents fine stone dust from grinding into asphalt pores and makes final shovel clean-up 3× faster.
+              <strong>Tarp the Dump Surface:</strong> Lay a heavy-duty poly tarp on the driveway or lawn before the truck dumps. This prevents fine stone dust from grinding into asphalt pores and makes final shovel clean-up three times faster.
             </li>
             <li>
-              <strong>Direct Driver Hand Signals:</strong> Stand visible to the driver's driver-side mirror. Direct the driver to spread-dump slowly while pulling forward if driveway length allows, reducing manual wheelbarrow runs by half.
+              <strong>Direct Driver Hand Signals:</strong> Stand visible to the driver-side mirror. Direct the driver to spread-dump slowly while pulling forward if driveway length allows, reducing manual wheelbarrow runs by half.
             </li>
           </ol>
         </div>
@@ -179,7 +238,14 @@ const faqItems = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/rock-yardage-calculator" category="quantity" />
+    <TopicClusterNav 
+      currentPage="/rock-yardage-calculator" 
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
   </main>
 
   <Footer />
@@ -190,6 +256,68 @@ const faqItems = [
   .content-guide-section {
     padding: var(--space-12) 0;
     background: var(--bg-body);
+  }
+
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-quick-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-quick-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-quick-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-quick-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-quick-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-quick-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
   }
 
   .content-card {

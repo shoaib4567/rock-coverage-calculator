@@ -1,5 +1,5 @@
 /**
- * 2D SVG Visualizer — rockcoveragecalculator.com
+ * 2D SVG Visualizer - rockcoveragecalculator.com
  * Generates live top-down scale blueprint and side-profile cross-section diagrams.
  */
 

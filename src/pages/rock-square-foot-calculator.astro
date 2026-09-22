@@ -14,7 +14,7 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Primary Entity', value: 'Square Foot Area' },
+  { label: 'Material', value: 'Rock Coverage Square Feet' },
   { label: 'Area Geometries', value: 'Rectangle, Circle, Ring, Triangle, L-Shape' },
   { label: 'Thickness Rule', value: 'Depth in Inches / 12 = Foot Fraction' },
   { label: 'Spread Benchmark', value: '100 sq ft = 0.93 yd³ at 3" Depth' }
@@ -47,22 +47,22 @@ const faqItems = [
 ---
 
 <BaseLayout
-  title="Rock Square Foot Calculator - Area Coverage & Thickness Sizing"
-  description="Calculate rock, gravel, and stone needed for any square footage. Features multi-shape geometric formulas, square-foot-to-ton tables, and depth thickness guides."
+  title="Rock Coverage Calculator Square Feet - Area to Tons & Yards"
+  description="Calculate rock coverage by square feet into cubic yards, tons, and bags. Solve multi-shape landscape beds with depth thickness rules and coverage charts."
   canonicalPath="/rock-square-foot-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Rock Square Foot Calculator",
+      "name": "Rock Coverage Calculator Square Feet",
       "url": "https://rockcoveragecalculator.com/rock-square-foot-calculator",
       "description": "Calculates rock coverage by square footage across multiple geometries with instant cubic yard, tonnage, and bag outputs.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "about": {
         "@type": "Thing",
-        "name": "Square Foot Area"
+        "name": "Rock Coverage Square Feet"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -83,8 +83,8 @@ const faqItems = [
 
   <main>
     <PageHero
-      title="Rock Square Foot Calculator"
-      highlightWord="Calculator"
+      title="Rock Coverage Calculator Square Feet"
+      highlightWord="Square Feet"
       badge="Geometric Area Sizing & Depth Thickness"
       subtitle="Solve rock coverage from known square footage or calculate complex multi-shape landscape beds into cubic yards, tons, and bags."
       breadcrumbs={breadcrumbs}

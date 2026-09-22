@@ -61,9 +61,9 @@
         </div>
 
         <div class="pea-type-grid" role="radiogroup">
-          <button type="button" class="pea-btn active" data-density="1.38" data-name="Natural Mixed Tan / Brown Pea Gravel">
+          <button type="button" class="pea-btn active" data-density="1.35" data-name="Natural Mixed Tan / Brown Pea Gravel">
             <div class="pea-btn-title">Natural River Pea Gravel (3/8")</div>
-            <div class="pea-btn-spec">1.38 T/yd³ | Smooth river quartz pebbles | Most popular</div>
+            <div class="pea-btn-spec">1.35 T/yd³ | Smooth river quartz pebbles | Most popular</div>
           </button>
           <button type="button" class="pea-btn" data-density="1.40" data-name="Grey / Blue Granite Pea Stone">
             <div class="pea-btn-title">Blue / Grey Pea Gravel (3/8")</div>
@@ -420,7 +420,7 @@ function initPeaGravelCalculator() {
 
   const peaBtns = document.querySelectorAll('.pea-btn');
 
-  let activeDensity = 1.38;
+  let activeDensity = 1.35;
   let activeMode = 'patio';
 
   function calculate() {
@@ -521,7 +521,7 @@ function initPeaGravelCalculator() {
     btn.addEventListener('click', () => {
       peaBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.38');
+      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.35');
       calculate();
     });
   });

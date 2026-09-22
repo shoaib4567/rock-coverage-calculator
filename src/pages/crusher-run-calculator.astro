@@ -1,0 +1,358 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/crushed-stone-calculator' },
+  { name: 'Crusher Run Calculator', url: '/crusher-run-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Base Rock Coverage' },
+  { label: 'Gradation Standard', value: 'AASHTO M147 Dense-Graded Base' },
+  { label: 'Particle Caliper', value: '3/4" Minus Blended with Stone Flour' },
+  { label: 'Bulk Density', value: '1.45 t/yd³ Loose | 1.65 t/yd³ Compacted' }
+];
+
+const quickStats = [
+  { value: 'AASHTO M147', label: 'Base Standard', desc: 'Consolidates Quarry Process (QP), 21-A, and road base specifications' },
+  { value: '1.45 t/yd³', label: 'Quarry Density', desc: 'ASTM C29 loose stockpile weight (2,900 lbs per cubic yard)' },
+  { value: '20% Compaction', label: 'Plate Tamp Drop', desc: 'Volume loss as fine stone flour packs into larger aggregate voids' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of crusher run do I need for a 12x24 foot paver patio base?',
+    a: 'A 12x24 foot patio equals 288 square feet. A standard pedestrian paver installation requires a 4-inch compacted base of crusher run. At 4 inches, net loose volume is 3.56 cubic yards. Factoring in a 20 percent mechanical compaction allowance under a plate tamper, order 4.27 cubic yards (approximately 6.2 tons of stone).'
+  },
+  {
+    q: 'What is the difference between crusher run, quarry process (QP), and 21-A?',
+    a: 'They are regional commercial trade names for the exact same family of dense-graded aggregates governed by AASHTO M147. Crusher run is common in the Midwest and South, Quarry Process (QP or DGA) is standard in the Mid-Atlantic and Northeast, and 21-A is the Virginia and Southeastern DOT designation. All blend 3/4-inch or 1-inch fractured stone with fine rock dust.'
+  },
+  {
+    q: 'Why does crusher run need to be watered during compaction?',
+    a: 'Adding a light mist of water lubricates the fine stone dust particles, allowing them to slide into the voids between the larger angular rocks. Water activates the binding properties of the mineral fines, allowing the plate compactor to achieve maximum Proctor density and creating a rock-hard, cement-like pavement foundation.'
+  },
+  {
+    q: 'Can crusher run be used as the final visible surface on a driveway?',
+    a: 'Yes, crusher run creates a solid, non-rutting driving surface. However, because it contains fine stone dust, vehicles will track white dust when dry, and heavy rains can create light surface slurry. Many homeowners top 4 inches of compacted crusher run with a 1.5-inch wearing surface of clean #57 crushed limestone.'
+  }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³' },
+  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: '1.40 t/yd³' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Yardage' },
+  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Tons Solver' }
+];
+
+const supportGuides = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+];
+---
+
+<BaseLayout
+  title="Crusher Run & Base Rock Coverage Calculator - Road Base & QP Tonnage"
+  metaDescription="Calculate cubic yards, scale tons, and coverage of crusher run, base rock, quarry process (QP), and 21-A road base. AASHTO M147 compaction math for driveways and patios."
+  canonicalPath="/crusher-run-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Crusher Run & Base Rock Coverage Calculator",
+      "url": "https://rockcoveragecalculator.com/crusher-run-calculator",
+      "description": "Calculates dense-graded crusher run, base rock, QP, and road base volume, compaction factors, and quarry scale tons.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Paving Installers, Hardscape Masons, Civil Contractors, Estimators"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Base Rock Coverage"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Crusher Run & Base Rock Coverage Calculator"
+      highlightWord="Base Rock"
+      badge="AASHTO M147 Dense Base Engine"
+      subtitle="Accurate volume and quarry scale tonnage calculations for crusher run, base rock, quarry process (QP), dense graded aggregate (DGA), and 21-A road base."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Crusher Run Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Crusher Run Base Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="crusher-length">Length (Feet)</label>
+              <input type="number" id="crusher-length" value="40" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="crusher-width">Width (Feet)</label>
+              <input type="number" id="crusher-width" value="12" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="crusher-depth">Target Compacted Depth (Inches)</label>
+              <input type="number" id="crusher-depth" value="4.0" min="1" max="18" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="crusher-compaction">Compaction Factor (%)</label>
+              <input type="number" id="crusher-compaction" value="20" min="10" max="30" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-crusher-yards">0.00</div>
+              <div class="kpi-label">Order Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-crusher-loose">Includes 20% compaction buffer</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-crusher-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext">At 1.45 t/yd³ (2,900 lbs/yd³)</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-crusher-loads">0.0</div>
+              <div class="kpi-label">Tri-Axle Truckloads</div>
+              <div class="kpi-subtext">15 tons per load</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Crusher Run -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Crusher Run Sizing Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Crusher Run Base Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">AASHTO M147 Spec</span>
+              <span class="aeo-quick-value">3/4" Minus with Fines</span>
+              <p class="aeo-quick-desc">Consolidates Crusher Run, QP, DGA, and 21-A road base.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Compaction Factor</span>
+              <span class="aeo-quick-value">20% Volume Reduction</span>
+              <p class="aeo-quick-desc">Order loose volume × 1.20 to achieve specified target depth.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Quarry Density</span>
+              <span class="aeo-quick-value">1.45 t/yd³ (2,900 lbs/yd³)</span>
+              <p class="aeo-quick-desc">ASTM C29 loose weight; compacts to 1.65 t/yd³ (3,300 lbs).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Lift Rule</span>
+              <span class="aeo-quick-value">Max 2 to 3 Inches per Lift</span>
+              <p class="aeo-quick-desc">Mist with water and compact in thin lifts for maximum rigidity.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>The Geotechnical Role of Dense-Graded Aggregate (AASHTO M147)</h2>
+          <p>
+            <strong>Crusher Run</strong> (also marketed regionally as Quarry Process, QP, Dense Graded Aggregate / DGA, or 21-A) is the backbone of civil road construction and professional hardscaping.
+          </p>
+          <p>
+            Unlike clean #57 stone where all fines have been screened away, crusher run is governed by <strong>AASHTO M147</strong> (<em>Standard Specification for Materials for Aggregate and Soil-Aggregate Subbase, Base, and Surface Courses</em>). It contains a complete continuum of particle sizes ranging from 3/4-inch angular rock down to microscopic stone flour.
+          </p>
+          <p>
+            When rolled with a heavy vibratory compactor, the smaller stone particles and rock dust are driven into the void spaces between the larger stones. This eliminates void space, creating a dense, interlocking matrix that approaches the compressive strength of unreinforced lean concrete.
+          </p>
+
+          <div class="formula-box">
+            <code>Loose Volume (yd³) = [Length (ft) × Width (ft) × Target Depth (in)] / 324</code>
+            <br />
+            <code>Quarry Order Volume (yd³) = Loose Volume × 1.20 (20% Compaction Allowance)</code>
+            <br />
+            <code>Certified Scale Weight (Tons) = Quarry Order Volume × 1.45 Tons/yd³</code>
+          </div>
+
+          <h3>Contractor Compaction Protocol for Paver Patios & Driveways</h3>
+          <ol class="steps-list">
+            <li>
+              <strong>Excavation:</strong> Dig out native soil to target finished grade plus base depth. Crown the subgrade slightly to shed water away from foundation footings.
+            </li>
+            <li>
+              <strong>Subgrade Stabilization:</strong> Lay a non-woven 4 oz needle-punched geotextile fabric. The fabric prevents soft subsoil from pumping up into the base during wet spring thaws.
+            </li>
+            <li>
+              <strong>First Lift (2 to 3 Inches):</strong> Spread crusher run in an initial 2.5-inch loose layer. Mist lightly with a garden hose until damp throughout.
+            </li>
+            <li>
+              <strong>Plate Compaction:</strong> Make three overlapping passes with a commercial plate compactor (minimum 3,000 lbs centrifugal force).
+            </li>
+            <li>
+              <strong>Second Lift:</strong> Repeat the process for subsequent lifts. Never attempt to compact a single lift greater than 3 inches thick, as plate vibratory energy cannot penetrate deep into loose stone.
+            </li>
+          </ol>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Crusher Run</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/crusher-run-calculator"
+      category="material"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateCrusher() {
+      const l = parseFloat((document.getElementById('crusher-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('crusher-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('crusher-depth') as HTMLInputElement)?.value) || 0;
+      const c = parseFloat((document.getElementById('crusher-compaction') as HTMLInputElement)?.value) || 20;
+
+      const netYards = (l * w * d) / 324;
+      const orderYards = netYards * (1 + c / 100);
+      const tons = orderYards * 1.45;
+      const loads = tons / 15;
+
+      const yEl = document.getElementById('kpi-crusher-yards');
+      const tEl = document.getElementById('kpi-crusher-tons');
+      const lEl = document.getElementById('kpi-crusher-loads');
+
+      if (yEl) yEl.innerText = orderYards.toFixed(2);
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (lEl) lEl.innerText = loads.toFixed(1);
+    }
+
+    ['crusher-length', 'crusher-width', 'crusher-depth', 'crusher-compaction'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateCrusher);
+    });
+    updateCrusher();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .steps-list { padding-left: var(--space-6); margin: var(--space-4) 0; }
+  .steps-list li { margin-bottom: var(--space-3); }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

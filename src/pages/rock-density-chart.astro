@@ -1,0 +1,360 @@
+﻿---
+import GuideLayout from '../layouts/GuideLayout.astro';
+
+const calculatorsSupported = [
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons', desc: 'Convert loose cubic yard volume into certified quarry scale weight in tons.' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Depth Matrix', desc: 'Interactive depth matrix showing square feet per ton and square feet per yard.' },
+  { title: 'Rock Cubic Yard Calculator', slug: '/rock-cubic-yard-calculator', badge: 'Volume', desc: 'Convert length, width, and depth into cubic yards for bulk ordering.' }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+];
+
+const bridgeLinks = [
+  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Stone Tons' },
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Gravel Tons' },
+  { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'River Tons' }
+];
+---
+
+<GuideLayout
+  title="Rock Weight and Density Reference Chart - ASTM C29 Unit Weights"
+  metaDescription="Complete aggregate density and weight chart. Loose stockpile unit weights, tons per cubic yard, and coverage yields per ASTM C29 and AASHTO standards."
+  canonicalPath="/rock-density-chart"
+  guideTitle="Rock Weight & Density Reference: ASTM C29 Bulk Densities"
+  guideSubtitle="A certified quarry engineering reference. Loose stockpile unit weights, mineral density ranges, moisture impacts, and square foot coverage per ton."
+  standardBadge="ASTM C29 / C29M & AASHTO T 19"
+  readingTime="8 min read"
+  lastUpdated="September 2026"
+  calculatorsSupported={calculatorsSupported}
+  upLinks={upLinks}
+  lateralLinks={lateralLinks}
+  bridgeLinks={bridgeLinks}
+>
+  <!-- Project Reference Summary -->
+  <section class="aeo-guide-box" aria-label="Summary of Aggregate Density">
+    <div class="aeo-guide-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span class="aeo-guide-title">Standard Quarry Densities</span>
+    </div>
+    <div class="aeo-guide-grid">
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Standard Gravel / Rock</span>
+        <span class="aeo-guide-value">1.35 t/yd³ (2,700 lbs/yd³)</span>
+        <p class="aeo-guide-desc">Covers river rock, pea gravel, and #57 washed limestone.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Crushed Granite / Stone</span>
+        <span class="aeo-guide-value">1.40 t/yd³ (2,800 lbs/yd³)</span>
+        <p class="aeo-guide-desc">Dense fractured igneous rock for driveways and structural bases.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Road Base / DGA</span>
+        <span class="aeo-guide-value">1.45-1.50 t/yd³ (3,000 lbs/yd³)</span>
+        <p class="aeo-guide-desc">Dense graded aggregate with stone dust; compacts firmly.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Volcanic Lava Rock</span>
+        <span class="aeo-guide-value">0.75 t/yd³ (1,500 lbs/yd³)</span>
+        <p class="aeo-guide-desc">Lightweight vesicular scoria; half the weight of limestone.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-text-block">
+    <h2>The Science of Aggregate Bulk Density</h2>
+    <p>
+      In the aggregate supply industry, <strong>bulk density</strong> (historically termed "unit weight") defines the weight of aggregate particles per unit of volume, including the open air spaces (voids) between individual stones. Bulk density is universally determined in North America per <strong>ASTM C29 / C29M</strong> (<em>Standard Test Method for Bulk Density and Voids in Aggregate</em>) and <strong>AASHTO T 19</strong>.
+    </p>
+    <p>
+      Understanding bulk density is vital because materials are bought and sold across two different physical metrics: landscape drawings specify <strong>volume (cubic yards)</strong>, whereas quarries bill clients by <strong>weight (short tons of 2,000 pounds)</strong> across certified platform scales.
+    </p>
+
+    <h2>The Master Quarry Bulk Density & Coverage Table</h2>
+    <p>
+      The table below compiles loose stockpile bulk densities, typical density ranges, scale weights per cubic yard, and square foot coverage yields across 16 primary aggregate varieties:
+    </p>
+
+    <div class="table-container">
+      <table class="guide-data-table">
+        <thead>
+          <tr>
+            <th scope="col">Aggregate Material</th>
+            <th scope="col">Typical Density (t/yd³)</th>
+            <th scope="col">Density Range (lbs/cu ft)</th>
+            <th scope="col">Pounds per Cubic Yard</th>
+            <th scope="col">Yield at 2" Depth</th>
+            <th scope="col">Yield at 3" Depth</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pea Gravel (3/8" Round)</strong></td>
+            <td>1.35 t/yd³</td>
+            <td>95 to 102 lbs/cu ft</td>
+            <td>2,700 lbs</td>
+            <td>120 sq ft/ton</td>
+            <td>80 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>River Rock (1" to 3")</strong></td>
+            <td>1.35 t/yd³</td>
+            <td>95 to 104 lbs/cu ft</td>
+            <td>2,700 lbs</td>
+            <td>120 sq ft/ton</td>
+            <td>80 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Large River Rock (3" to 5")</strong></td>
+            <td>1.35 t/yd³</td>
+            <td>95 to 105 lbs/cu ft</td>
+            <td>2,700 lbs</td>
+            <td>120 sq ft/ton</td>
+            <td>80 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Crushed Limestone (#57)</strong></td>
+            <td>1.35 t/yd³</td>
+            <td>95 to 102 lbs/cu ft</td>
+            <td>2,700 lbs</td>
+            <td>120 sq ft/ton</td>
+            <td>80 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Crushed Blue Granite</strong></td>
+            <td>1.40 t/yd³</td>
+            <td>100 to 106 lbs/cu ft</td>
+            <td>2,800 lbs</td>
+            <td>116 sq ft/ton</td>
+            <td>77 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Decomposed Granite (DG)</strong></td>
+            <td>1.25 t/yd³</td>
+            <td>90 to 96 lbs/cu ft</td>
+            <td>2,500 lbs</td>
+            <td>130 sq ft/ton</td>
+            <td>86 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Volcanic Lava Rock (Scoria)</strong></td>
+            <td>0.75 t/yd³</td>
+            <td>52 to 60 lbs/cu ft</td>
+            <td>1,500 lbs</td>
+            <td>216 sq ft/ton</td>
+            <td>144 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>White Marble Chips</strong></td>
+            <td>1.25 t/yd³</td>
+            <td>90 to 96 lbs/cu ft</td>
+            <td>2,500 lbs</td>
+            <td>130 sq ft/ton</td>
+            <td>86 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Mexican Beach Pebble</strong></td>
+            <td>1.35 t/yd³</td>
+            <td>96 to 102 lbs/cu ft</td>
+            <td>2,700 lbs</td>
+            <td>120 sq ft/ton</td>
+            <td>80 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Quarry Process / Crusher Run</strong></td>
+            <td>1.45 t/yd³</td>
+            <td>102 to 110 lbs/cu ft</td>
+            <td>2,900 lbs</td>
+            <td>112 sq ft/ton</td>
+            <td>74 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Road Base Gravel (21-A / DGA)</strong></td>
+            <td>1.50 t/yd³</td>
+            <td>106 to 114 lbs/cu ft</td>
+            <td>3,000 lbs</td>
+            <td>108 sq ft/ton</td>
+            <td>72 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Class 1 Riprap (6" to 12")</strong></td>
+            <td>1.40 t/yd³</td>
+            <td>100 to 106 lbs/cu ft</td>
+            <td>2,800 lbs</td>
+            <td>116 sq ft/ton</td>
+            <td>77 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Cobblestone (Belgian Blocks)</strong></td>
+            <td>1.45 t/yd³</td>
+            <td>104 to 110 lbs/cu ft</td>
+            <td>2,900 lbs</td>
+            <td>112 sq ft/ton</td>
+            <td>74 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Decorative Landscape Rock</strong></td>
+            <td>1.30 t/yd³</td>
+            <td>92 to 98 lbs/cu ft</td>
+            <td>2,600 lbs</td>
+            <td>125 sq ft/ton</td>
+            <td>83 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Structural Landscape Stone</strong></td>
+            <td>1.40 t/yd³</td>
+            <td>100 to 106 lbs/cu ft</td>
+            <td>2,800 lbs</td>
+            <td>116 sq ft/ton</td>
+            <td>77 sq ft/ton</td>
+          </tr>
+          <tr>
+            <td><strong>Driveway Gravel (#411)</strong></td>
+            <td>1.40 t/yd³</td>
+            <td>100 to 108 lbs/cu ft</td>
+            <td>2,800 lbs</td>
+            <td>116 sq ft/ton</td>
+            <td>77 sq ft/ton</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Why Densities Vary: The Three Field Factors</h2>
+    <p>
+      Experienced civil engineers and contractors understand that bulk density is not a single static number. True field densities fluctuate based on three key physical variables:
+    </p>
+
+    <h3>1. Mineral Specific Gravity</h3>
+    <p>
+      The parent geology of the quarry dictates base mineral density. Igneous basalt and granite naturally possess higher solid mineral specific gravities (2.65 to 2.80) than porous sedimentary limestone (2.50 to 2.65) or volcanic scoria (1.40 to 1.70).
+    </p>
+
+    <h3>2. Moisture Content (Rainfall Absorption)</h3>
+    <p>
+      Aggregates stored in outdoor quarry stockpiles absorb surface moisture during rain events. Wet crushed stone can weigh <strong>5 to 8 percent more per cubic yard</strong> than dry stone. When ordering by certified scale weight after heavy rainfall, slight volumetric adjustments occur.
+    </p>
+
+    <h3>3. Loose vs Compacted State</h3>
+    <p>
+      When dumped loosely from a truck, open voids account for 30 to 45 percent of total volume. When dense graded aggregates (like crusher run or decomposed granite) are subjected to mechanical plate compaction, small stone fines migrate into open voids, reducing total volume by <strong>15 to 20 percent</strong> and increasing compacted density up to 3,200 pounds per cubic yard.
+    </p>
+  </div>
+</GuideLayout>
+
+<style>
+  .aeo-guide-box {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-guide-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-guide-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-guide-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-guide-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .guide-text-block h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin: var(--space-8) 0 var(--space-4) 0;
+  }
+
+  .guide-text-block h3 {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-2) 0;
+  }
+
+  .guide-text-block p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-data-table th, .guide-data-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-data-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-data-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+</style>

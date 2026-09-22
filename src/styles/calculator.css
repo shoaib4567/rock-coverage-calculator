@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Calculator Component Styles — rockcoveragecalculator.com
+   Calculator Component Styles - rockcoveragecalculator.com
    Premium input panels, material cards, KPI results, purchase breakdowns.
    ========================================================================== */
 
@@ -17,8 +17,9 @@
   }
 }
 
-/* --- Calculator Panel --- */
-.calc-panel {
+/* --- Calculator Panel & Results Panel --- */
+.calc-panel,
+.calc-results-panel {
   background: var(--surface-raised);
   border: 1px solid var(--surface-glass-border);
   border-radius: var(--radius-xl);
@@ -28,7 +29,8 @@
   overflow: hidden;
 }
 
-.calc-panel::before {
+.calc-panel::before,
+.calc-results-panel::before {
   content: '';
   position: absolute;
   top: 0;
@@ -36,6 +38,13 @@
   right: 0;
   height: 3px;
   background: linear-gradient(90deg, var(--gold-500), var(--gold-600), var(--sandstone-warm));
+}
+
+@media (max-width: 640px) {
+  .calc-panel,
+  .calc-results-panel {
+    padding: var(--space-5);
+  }
 }
 
 .calc-panel-title {
@@ -137,17 +146,105 @@
   box-sizing: border-box;
 }
 
+.calc-panel .input-field,
+.calc-wrapper .input-field,
 .dim-grid .input-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  padding: 0;
+  gap: var(--space-1);
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
   min-width: 0;
-  padding: var(--space-2) var(--space-3);
 }
 
+.calc-panel .input-field label,
+.calc-wrapper .input-field label,
+.dim-grid .input-field label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.calc-panel .input-field input,
+.calc-wrapper .input-field input,
 .dim-grid .input-field input {
-  min-width: 0;
   width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 0.85rem;
+  background: var(--slate-800);
+  border: 1px solid var(--slate-700);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  outline: none;
+  min-width: 0;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.calc-panel .input-field select,
+.calc-wrapper .input-field select,
+.dim-grid .input-field select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 0.85rem;
+  background: var(--slate-800);
+  border: 1px solid var(--slate-700);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  min-width: 0;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.calc-panel .input-field input:focus,
+.calc-wrapper .input-field input:focus,
+.dim-grid .input-field input:focus,
+.calc-panel .input-field select:focus,
+.calc-wrapper .input-field select:focus,
+.dim-grid .input-field select:focus {
+  border-color: var(--gold-500);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
+.calc-panel .input-field:has(.unit-label) input,
+.calc-wrapper .input-field:has(.unit-label) input,
+.dim-grid .input-field:has(.unit-label) input {
+  padding-right: 3.5rem;
+}
+
+.calc-panel .input-field .unit-label,
+.calc-wrapper .input-field .unit-label,
+.dim-grid .input-field .unit-label {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  pointer-events: none;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+@media (max-width: 480px) {
+  .dim-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* --- Unit Toggle --- */
@@ -162,8 +259,12 @@
 
 .unit-toggle button {
   flex: 1;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--space-2) var(--space-3);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--text-muted);
@@ -314,8 +415,13 @@
 }
 
 .depth-preset {
+  min-height: 38px;
+  min-width: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--space-1) var(--space-3);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   font-family: var(--font-mono);
   color: var(--text-muted);
@@ -345,8 +451,13 @@
 }
 
 .waste-chip {
+  min-height: 40px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--space-2) var(--space-4);
-  font-size: 0.8rem;
+  font-size: 0.825rem;
   font-weight: 600;
   color: var(--text-muted);
   background: var(--slate-800);
@@ -379,6 +490,13 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-4);
+}
+
+@media (max-width: 540px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
 }
 
 .kpi-card {
@@ -436,6 +554,14 @@
   letter-spacing: 0.06em;
   color: var(--text-muted);
   margin-top: var(--space-2);
+}
+
+.kpi-card .kpi-subtext {
+  font-size: 0.725rem;
+  font-family: var(--font-mono);
+  color: var(--gold-400);
+  opacity: 0.9;
+  margin-top: var(--space-1);
 }
 
 /* Large single KPI */
@@ -819,6 +945,36 @@
     width: 100%;
     justify-content: space-between;
   }
+
+  .action-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .action-row .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+    font-size: 0.85rem;
+    padding: var(--space-2) var(--space-3);
+  }
+}
+
+@media (max-width: 640px) {
+  .shape-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+
+  .shape-tab {
+    min-width: 0;
+    width: 100%;
+    padding: var(--space-2) var(--space-1);
+    min-height: 56px;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -828,15 +984,12 @@
 
   .material-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
   }
 
-  .shape-tabs {
-    gap: var(--space-1);
-  }
-
-  .shape-tab {
-    min-width: 56px;
-    padding: var(--space-2) var(--space-3);
+  .material-card {
+    min-height: 82px;
+    padding: var(--space-2);
   }
 
   .calc-panel {
@@ -846,4 +999,271 @@
   .cost-fields-grid {
     grid-template-columns: 1fr;
   }
+
+  .action-row {
+    grid-template-columns: 1fr;
+  }
 }
+
+/* ==========================================================================
+   Light Mode Calculator Styles
+   ========================================================================== */
+[data-theme="light"] .calc-panel {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .calc-panel-title h3 {
+  color: #0f172a;
+}
+
+[data-theme="light"] .shape-tab {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .shape-tab span {
+  color: #64748b;
+}
+
+[data-theme="light"] .shape-tab svg {
+  color: #64748b;
+}
+
+[data-theme="light"] .shape-tab:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .shape-tab:hover span,
+[data-theme="light"] .shape-tab:hover svg {
+  color: #0f172a;
+}
+
+[data-theme="light"] .shape-tab.active {
+  background: rgba(184, 134, 11, 0.1);
+  border-color: #b8860b;
+}
+
+[data-theme="light"] .shape-tab.active svg,
+[data-theme="light"] .shape-tab.active span {
+  color: #b8860b;
+}
+
+[data-theme="light"] .calc-panel .input-field input,
+[data-theme="light"] .calc-wrapper .input-field input,
+[data-theme="light"] .dim-grid .input-field input,
+[data-theme="light"] .calc-panel .input-field select,
+[data-theme="light"] .calc-wrapper .input-field select,
+[data-theme="light"] .dim-grid .input-field select {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+[data-theme="light"] .calc-panel .input-field label,
+[data-theme="light"] .calc-wrapper .input-field label,
+[data-theme="light"] .dim-grid .input-field label {
+  color: #475569;
+}
+
+[data-theme="light"] .calc-panel .input-field input:focus,
+[data-theme="light"] .calc-wrapper .input-field input:focus,
+[data-theme="light"] .dim-grid .input-field input:focus,
+[data-theme="light"] .calc-panel .input-field select:focus,
+[data-theme="light"] .calc-wrapper .input-field select:focus,
+[data-theme="light"] .dim-grid .input-field select:focus {
+  border-color: #b8860b;
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.15);
+}
+
+[data-theme="light"] .calc-panel .input-field .unit-label,
+[data-theme="light"] .calc-wrapper .input-field .unit-label,
+[data-theme="light"] .dim-grid .input-field .unit-label {
+  color: #64748b;
+}
+
+[data-theme="light"] .input-field {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .input-field:focus-within {
+  border-color: #b8860b;
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.15);
+}
+
+[data-theme="light"] .input-field input,
+[data-theme="light"] .input-field select {
+  color: #0f172a;
+  background: transparent;
+}
+
+[data-theme="light"] .input-field label {
+  color: #475569;
+}
+
+[data-theme="light"] .unit-label {
+  color: #64748b;
+}
+
+[data-theme="light"] .unit-toggle {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .unit-toggle button {
+  color: #64748b;
+}
+
+[data-theme="light"] .unit-toggle button.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.1);
+}
+
+[data-theme="light"] .waste-chip {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+[data-theme="light"] .waste-chip:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+[data-theme="light"] .waste-chip.active {
+  background: rgba(184, 134, 11, 0.12);
+  border-color: #b8860b;
+  color: #996515;
+}
+
+[data-theme="light"] .calc-results-panel {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .results-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .results-badge {
+  background: rgba(184, 134, 11, 0.1);
+  border-color: rgba(184, 134, 11, 0.3);
+  color: #996515;
+}
+
+[data-theme="light"] .kpi-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .kpi-card.highlight {
+  background: #fffdf7;
+  border-color: rgba(184, 134, 11, 0.4);
+}
+
+[data-theme="light"] .kpi-card .kpi-value {
+  color: #0f172a;
+}
+
+[data-theme="light"] .kpi-card.highlight .kpi-value {
+  color: #996515;
+}
+
+[data-theme="light"] .kpi-card .kpi-label {
+  color: #475569;
+}
+
+[data-theme="light"] .kpi-card .kpi-subtext {
+  color: #64748b;
+}
+
+[data-theme="light"] .purchase-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .purchase-card .purchase-value {
+  color: #0f172a;
+}
+
+[data-theme="light"] .purchase-card .purchase-label {
+  color: #64748b;
+}
+
+[data-theme="light"] .cost-fields-grid {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .cost-input-cell label {
+  color: #475569;
+}
+
+[data-theme="light"] .breakdown-table tr {
+  border-bottom-color: #e2e8f0;
+}
+
+[data-theme="light"] .breakdown-table tr:hover {
+  background: #f1f5f9;
+}
+
+[data-theme="light"] .breakdown-table td:first-child {
+  color: #475569;
+}
+
+[data-theme="light"] .breakdown-table td:last-child {
+  color: #0f172a;
+}
+
+[data-theme="light"] .material-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .material-card:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .material-card.active {
+  background: rgba(184, 134, 11, 0.08);
+  border-color: #b8860b;
+}
+
+[data-theme="light"] .material-card .mat-name {
+  color: #0f172a;
+}
+
+[data-theme="light"] .material-card .mat-density {
+  color: #64748b;
+}
+
+[data-theme="light"] .grv-btn {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .grv-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .grv-btn.active {
+  background: rgba(184, 134, 11, 0.08);
+  border-color: #b8860b;
+}
+
+[data-theme="light"] .grv-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .grv-spec {
+  color: #64748b;
+}
+

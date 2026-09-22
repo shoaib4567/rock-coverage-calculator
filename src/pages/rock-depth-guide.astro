@@ -1,0 +1,310 @@
+﻿---
+import GuideLayout from '../layouts/GuideLayout.astro';
+
+const calculatorsSupported = [
+  { title: 'Landscape Rock Calculator', slug: '/landscape-rock-calculator', badge: '1.30 t/yd³', desc: 'Calculate exact rock yardage for 2-inch to 4-inch landscape beds and shrub borders.' },
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: '0.75-1.40 t/yd³', desc: 'Estimate depth and tonnage for lava rock, white marble chips, and xeriscape accents.' },
+  { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: '1.35 t/yd³', desc: 'Calculate 3/8 inch smooth gravel with walkability depth limiters.' },
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³', desc: 'Determine proper 3-inch to 6-inch depths for 1-3 inch and 3-5 inch river stones.' }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Protocol' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Cubic Yard Calculator', slug: '/rock-cubic-yard-calculator', badge: 'Volume' },
+  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Sq Ft' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' }
+];
+---
+
+<GuideLayout
+  title="How Deep Should Landscape Rock Be? - Thickness Rules by Application"
+  metaDescription="Comprehensive contractor guide on landscape rock depth. 1.5x to 2x stone diameter rule, recommended depths for beds, walkways, driveways, and drains."
+  canonicalPath="/rock-depth-guide"
+  guideTitle="How Deep Should Landscape Rock Be? Thickness Rules by Project"
+  guideSubtitle="A complete field reference for aggregate depth. Avoid exposed fabric, walking fatigue, and material shortages with application-specific standards."
+  standardBadge="Field Engineering Specification"
+  readingTime="7 min read"
+  lastUpdated="September 2026"
+  calculatorsSupported={calculatorsSupported}
+  upLinks={upLinks}
+  lateralLinks={lateralLinks}
+  bridgeLinks={bridgeLinks}
+>
+  <!-- Project Reference Summary -->
+  <section class="aeo-guide-box" aria-label="Summary of Landscape Rock Depth">
+    <div class="aeo-guide-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span class="aeo-guide-title">Standard Rock Depth Rules</span>
+    </div>
+    <div class="aeo-guide-grid">
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Master Caliper Rule</span>
+        <span class="aeo-guide-value">Depth = 1.5× to 2× Stone Caliper</span>
+        <p class="aeo-guide-desc">Prevents sunlight exposure on black weed fabric beneath.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Landscape Beds</span>
+        <span class="aeo-guide-value">2 to 3 Inches Depth</span>
+        <p class="aeo-guide-desc">Optimal for weed suppression, moisture retention, and soil cooling.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Walkways & Patios</span>
+        <span class="aeo-guide-value">2 to 2.5 Inches Maximum</span>
+        <p class="aeo-guide-desc">Excessive depth causes foot sinkage and walking fatigue.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Driveways & Parking</span>
+        <span class="aeo-guide-value">4 to 6 Inches Layered</span>
+        <p class="aeo-guide-desc">Requires 3-4" compacted base topped with 2" angular wearing course.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-text-block">
+    <h2>Why Getting Aggregate Depth Right Matters</h2>
+    <p>
+      One of the most frequent mistakes made in landscape rock installation is selecting an arbitrary depth without considering particle size or project application.
+    </p>
+    <p>
+      If rock is spread <strong>too thin</strong>, bare patches and black geotextile fabric remain visible between stones. Sunlight degrades the underlying polypropylene fabric, and weed seeds easily germinate in open dirt pockets. If rock is spread <strong>too deep</strong> in pedestrian areas, walking feels like trudging through deep wet sand because stones shift continuously under foot.
+    </p>
+
+    <h2>The Master 1.5x to 2x Stone Caliper Rule</h2>
+    <p>
+      In landscape civil construction, the baseline rule for minimum coverage is:
+    </p>
+
+    <div class="formula-callout">
+      <code>Minimum Bed Depth = 1.5 × Average Stone Caliper</code>
+      <br />
+      <code>Optimal Bed Depth = 2.0 × Average Stone Caliper (or 1.0 × Maximum Stone Size)</code>
+    </div>
+
+    <p>
+      For example, consider a bed of <strong>1-3 inch river rock</strong>:
+    </p>
+    <ul>
+      <li>The average stone diameter is 2.0 inches, with some rocks measuring 3.0 inches.</li>
+      <li>Installing this material at a standard 2.0-inch depth is a guaranteed failure: single stones will bridge across one another, leaving 1-inch gaps where black fabric shows through.</li>
+      <li>Applying the 1.5x to 2x rule: 2.0 inches × 1.5 = <strong>3.0 inches minimum depth</strong>, with <strong>3.5 to 4.0 inches</strong> providing complete, durable visual coverage.</li>
+    </ul>
+
+    <h2>Recommended Aggregate Depth by Application</h2>
+    <p>
+      The table below provides trade-standard layer thicknesses across primary residential and commercial project types:
+    </p>
+
+    <div class="table-container">
+      <table class="guide-data-table">
+        <thead>
+          <tr>
+            <th scope="col">Project Application</th>
+            <th scope="col">Recommended Depth</th>
+            <th scope="col">Best Aggregate Size</th>
+            <th scope="col">Functional Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Landscape Mulch & Flower Beds</strong></td>
+            <td>2.0 to 3.0 inches</td>
+            <td>1/2" to 1.5" river rock, lava, marble</td>
+            <td>Weed seed suppression, soil moisture retention</td>
+          </tr>
+          <tr>
+            <td><strong>Pedestrian Walkways & Paths</strong></td>
+            <td>2.0 to 2.5 inches</td>
+            <td>3/8" pea gravel, 1/4" decomposed granite</td>
+            <td>Firm footing without foot displacement or fatigue</td>
+          </tr>
+          <tr>
+            <td><strong>Residential Driveway Surfaces</strong></td>
+            <td>4.0 to 6.0 inches (layered)</td>
+            <td>#3 base (4") + #57 surface (2")</td>
+            <td>Vehicle wheel load distribution, rut prevention</td>
+          </tr>
+          <tr>
+            <td><strong>Dry Creek Beds & Swales</strong></td>
+            <td>4.0 to 8.0 inches</td>
+            <td>1-3" river stone + 6-12" cobbles</td>
+            <td>Dissipates high-velocity storm runoff</td>
+          </tr>
+          <tr>
+            <td><strong>French Drains & Weeping Tile</strong></td>
+            <td>8.0 to 12.0 inches</td>
+            <td>#57 clean washed stone</td>
+            <td>High hydraulic void ratio around drainage pipe</td>
+          </tr>
+          <tr>
+            <td><strong>Fire Pit Surrounds & Patios</strong></td>
+            <td>3.0 to 4.0 inches</td>
+            <td>Crushed granite, volcanic lava rock</td>
+            <td>Heat-safe non-porous aggregate surface</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Application Deep Dives</h2>
+
+    <h3>1. Walkways: The Walkability Threshold</h3>
+    <p>
+      For garden walkways, dog runs, and patio surfaces, more rock is not better. When pea gravel or chipped stone exceeds 3.0 inches in depth, walking becomes difficult because foot pressure displaces the loose stones sideways. For optimal walkability, install a <strong>compacted 2-inch sub-base</strong> of crusher run or decomposed granite, followed by exactly <strong>1.5 to 2.0 inches</strong> of clean pea gravel.
+    </p>
+
+    <h3>2. Driveways: The Layered Structural Cross-Section</h3>
+    <p>
+      A durable gravel driveway should never consist of 6 inches of uniform loose stone. Single-size stone placed 6 inches deep will churn and rut under truck tires. Civil engineers specify a two-tier cross-section:
+    </p>
+    <ul>
+      <li><strong>Sub-Base Course (3 to 4 inches):</strong> Compacted #3 crushed stone (1 to 2.5 inch) or #411 dense graded aggregate with fines, tamped until completely rigid.</li>
+      <li><strong>Wearing Topcoat (1.5 to 2 inches):</strong> Angular #57 crushed limestone or granite that locks into the firm base course.</li>
+    </ul>
+
+    <h3>3. French Drains: Enveloping the Pipe</h3>
+    <p>
+      In French drain trenching, aggregate depth must completely surround the perforated pipe. A standard installation requires a <strong>minimum 2-inch bedding layer</strong> of clean #57 stone beneath the pipe, followed by <strong>6 to 10 inches of stone</strong> over the top of the pipe, wrapped completely in non-woven drainage fabric before backfilling with topsoil.
+    </p>
+  </div>
+</GuideLayout>
+
+<style>
+  .aeo-guide-box {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-guide-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-guide-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-guide-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-guide-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .guide-text-block h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin: var(--space-8) 0 var(--space-4) 0;
+  }
+
+  .guide-text-block h3 {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-2) 0;
+  }
+
+  .guide-text-block p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-text-block ul {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: var(--space-2) 0 var(--space-6) var(--space-6);
+  }
+
+  .guide-text-block li {
+    margin-bottom: var(--space-2);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-data-table th, .guide-data-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-data-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-data-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .formula-callout {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+</style>

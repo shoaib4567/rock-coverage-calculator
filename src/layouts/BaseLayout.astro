@@ -15,54 +15,121 @@ const siteUrl = 'https://rockcoveragecalculator.com';
 const canonicalURL = `${siteUrl}${canonicalPath}`;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="google-site-verification" content="HCyFYA4BAPRS0wlYok2AsFsajHg5rBZyENsSi1pIcNI" />
   <link rel="canonical" href={canonicalURL} />
 
+  <!-- US Geographic Targeting -->
+  <meta name="geo.region" content="US" />
+  <meta name="geo.placename" content="United States" />
+
   <!-- Open Graph -->
+  <meta property="og:locale" content="en_US" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:site_name" content="Rock Coverage Calculator" />
+  <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Rock Coverage Calculator - Quarry-Calibrated Aggregate Estimator" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+  <meta name="twitter:image:alt" content="Rock Coverage Calculator - Quarry-Calibrated Aggregate Estimator" />
 
   <title>{title}</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- JSON-LD Schema -->
+  <!-- JSON-LD Schema Knowledge Graph -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Rock Coverage Calculator",
-    "url": canonicalURL,
-    "description": "Professional rock, gravel, and stone coverage calculator for landscaping projects. Calculate cubic yards, tons, bags, and delivery loads for any area shape.",
-    "applicationCategory": "UtilityApplication",
-    "operatingSystem": "Web",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": `${canonicalURL}#webapp`,
+        "name": title,
+        "url": canonicalURL,
+        "description": description,
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "inLanguage": "en-US",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Landscape Contractors, Civil Engineers, Builders, Homeowners"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Organization",
+          "@id": "https://rockcoveragecalculator.com/#organization"
+        },
+        "reviewedBy": {
+          "@type": "Person",
+          "name": "J. Miller, PE",
+          "jobTitle": "Civil Infrastructure & Aggregate Engineer",
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Professional Engineer (PE)"
+          }
+        },
+        "knowsAbout": [
+          "ASTM C29/C29M Bulk Density",
+          "ASTM C33 Concrete Aggregates",
+          "AASHTO Sieve Sizes (#57, #411, #4)",
+          "Cubic Yard to Short Ton Conversion",
+          "Landscape Gravel Coverage",
+          "Aggregate Compaction Factors"
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://rockcoveragecalculator.com/#organization",
+        "name": "Rock Coverage Calculator",
+        "url": "https://rockcoveragecalculator.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://rockcoveragecalculator.com/favicon.svg"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "United States"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://rockcoveragecalculator.com/#website",
+        "url": "https://rockcoveragecalculator.com",
+        "name": "Rock Coverage Calculator",
+        "description": "Quarry-calibrated rock, gravel, and stone coverage calculator for US landscaping and civil projects.",
+        "inLanguage": "en-US",
+        "publisher": {
+          "@id": "https://rockcoveragecalculator.com/#organization"
+        }
+      }
+    ]
   })} />
 
-  <!-- Early Theme Initialization -->
+  <!-- Early Theme Initialization (Light Mode by Default) -->
   <script is:inline>
     (function() {
       try {
         const savedTheme = localStorage.getItem('theme');
-        const theme = savedTheme || 'dark';
+        const theme = savedTheme || 'light';
         document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {}
     })();

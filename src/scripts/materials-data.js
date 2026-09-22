@@ -13,6 +13,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 2,
     densityLbsPerCuYd: 2700,
     tonsPerCuYd: 1.35,
+    densityLbsPerCuFt: 100,
+    densityKgPerCuM: 1602,
     swatchColor: '#a09080',
     description: 'Small, rounded stones ideal for pathways, drainage, and decorative beds.',
     notes: 'Smooth rounded profile, low void ratio, self-leveling'
@@ -25,6 +27,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 3,
     densityLbsPerCuYd: 2700,
     tonsPerCuYd: 1.35,
+    densityLbsPerCuFt: 100,
+    densityKgPerCuM: 1602,
     swatchColor: '#7a8a7a',
     description: 'Smooth, water-tumbled stones with natural color variation.',
     notes: 'Natural tumbled finish, mixed color, moderate void ratio'
@@ -37,6 +41,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 2,
     densityLbsPerCuYd: 2700,
     tonsPerCuYd: 1.35,
+    densityLbsPerCuFt: 100,
+    densityKgPerCuM: 1602,
     swatchColor: '#c8bca0',
     description: 'Angular crushed limestone, compacts well for driveways and base layers.',
     notes: 'Angular fractured faces, high interlock, excellent compaction'
@@ -49,6 +55,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 2,
     densityLbsPerCuYd: 2800,
     tonsPerCuYd: 1.40,
+    densityLbsPerCuFt: 104,
+    densityKgPerCuM: 1661,
     swatchColor: '#8b9da8',
     description: 'Durable angular granite aggregate for heavy-traffic surfaces.',
     notes: 'High hardness, angular faces, excellent drainage'
@@ -61,6 +69,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 2,
     densityLbsPerCuYd: 2500,
     tonsPerCuYd: 1.25,
+    densityLbsPerCuFt: 93,
+    densityKgPerCuM: 1483,
     swatchColor: '#b8a080',
     description: 'Naturally weathered granite, fine texture, great for paths and patios.',
     notes: 'Fine granular, self-binding when wet, compacts to firm surface'
@@ -73,6 +83,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 2,
     densityLbsPerCuYd: 1500,
     tonsPerCuYd: 0.75,
+    densityLbsPerCuFt: 56,
+    densityKgPerCuM: 890,
     swatchColor: '#8b3a3a',
     description: 'Lightweight volcanic rock for mulch replacement and fire pits.',
     notes: 'Very lightweight, high void ratio, excellent insulation properties'
@@ -85,6 +97,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 2,
     densityLbsPerCuYd: 2500,
     tonsPerCuYd: 1.25,
+    densityLbsPerCuFt: 93,
+    densityKgPerCuM: 1483,
     swatchColor: '#e8e0d8',
     description: 'Bright white ornamental chips for garden borders and accents.',
     notes: 'High reflectivity, smooth profile, may affect soil pH'
@@ -97,6 +111,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 4,
     densityLbsPerCuYd: 2700,
     tonsPerCuYd: 1.35,
+    densityLbsPerCuFt: 100,
+    densityKgPerCuM: 1602,
     swatchColor: '#6a7a6a',
     description: 'Large river stones for borders, dry creek beds, and erosion control.',
     notes: 'Large profile, high void ratio, requires deeper bed'
@@ -109,6 +125,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 4,
     densityLbsPerCuYd: 2700,
     tonsPerCuYd: 1.35,
+    densityLbsPerCuFt: 100,
+    densityKgPerCuM: 1602,
     swatchColor: '#8a8070',
     description: 'Mixed aggregate with fines for sub-base compaction under pavers.',
     notes: 'Contains fines, high compaction rate, DOT approved base material'
@@ -121,6 +139,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 6,
     densityLbsPerCuYd: 2800,
     tonsPerCuYd: 1.40,
+    densityLbsPerCuFt: 104,
+    densityKgPerCuM: 1661,
     swatchColor: '#707070',
     description: 'Large angular stone for slope stabilization and erosion control.',
     notes: 'Very large, angular, requires heavy equipment for placement'
@@ -133,6 +153,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 2,
     densityLbsPerCuYd: 2700,
     tonsPerCuYd: 1.35,
+    densityLbsPerCuFt: 100,
+    densityKgPerCuM: 1602,
     swatchColor: '#4a4a4a',
     description: 'Smooth, dark polished stones for zen gardens and modern landscapes.',
     notes: 'Ultra-smooth polished finish, premium decorative stone'
@@ -145,6 +167,8 @@ export const ROCK_MATERIALS = [
     minDepthInches: 4,
     densityLbsPerCuYd: 2800,
     tonsPerCuYd: 1.40,
+    densityLbsPerCuFt: 104,
+    densityKgPerCuM: 1661,
     swatchColor: '#9a9080',
     description: 'Standard structural base for driveways, sheds, and retaining walls.',
     notes: 'AASHTO 57 stone, DOT standard road base aggregate'

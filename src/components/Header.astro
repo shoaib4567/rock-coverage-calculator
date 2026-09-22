@@ -67,6 +67,30 @@ import IconRock from './icons/IconRock.astro';
   </div>
 </header>
 
+<script is:inline>
+  (function() {
+    function setupThemeToggle() {
+      const btn = document.getElementById('theme-toggle');
+      if (!btn || btn.dataset.bound === 'true') return;
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        const target = current === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', target);
+        try {
+          localStorage.setItem('theme', target);
+        } catch (e) {}
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupThemeToggle);
+    } else {
+      setupThemeToggle();
+    }
+  })();
+</script>
+
 <style>
   .site-header {
     position: sticky;

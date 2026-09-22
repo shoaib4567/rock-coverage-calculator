@@ -1,0 +1,343 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'River Rock Calculator', url: '/river-rock-calculator' },
+  { name: 'River Rock Tons Calculator', url: '/river-rock-tons-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'River Rock Tonnage' },
+  { label: 'Bulk Density', value: '1.35 t/yd³ (2,700 lbs/yd³)' },
+  { label: 'ASTM Reference', value: 'ASTM C29 / ASTM C136' },
+  { label: 'Standard Depth', value: '3 to 4 Inches (1.5x Caliper)' }
+];
+
+const quickStats = [
+  { value: '1.35 t/yd³', label: 'River Rock', desc: 'Standard bulk density for natural rounded alluvial stone' },
+  { value: '80 sq ft', label: 'Yield at 3"', desc: 'Square foot coverage per ton of medium river rock' },
+  { value: '10% Overage', label: 'Safety Buffer', desc: 'Buffer for stone sorting, irregular grading, and edge settling' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of river rock do I need for 500 square feet?',
+    a: 'For 500 square feet at a 3-inch depth, you require 4.63 cubic yards of river rock. Multiplying by 1.35 tons per cubic yard and adding a 10 percent buffer equals approximately 6.88 short tons (13,760 lbs).'
+  },
+  {
+    q: 'How do you calculate tons of river rock from square footage?',
+    a: 'Multiply square footage by depth in inches, divide by 324 to calculate cubic yards, and multiply by 1.35 tons per cubic yard. Add 10 percent for waste factor and grade variations.'
+  },
+  {
+    q: 'How many square feet does one ton of river rock cover?',
+    a: 'One ton of 1-inch to 3-inch river rock covers approximately 120 square feet at 2 inches depth, 80 square feet at 3 inches depth, and 60 square feet at 4 inches depth.'
+  },
+  {
+    q: 'Why does river rock require deeper installation than crushed stone?',
+    a: 'Because river rocks have naturally rounded surfaces with no sharp interlock, individual stones roll and leave wider gaps. To prevent weed fabric or dirt from showing through, install at a minimum depth of 1.5 to 2 times the maximum stone diameter.'
+  }
+];
+
+const upLinks = [
+  { title: 'River Rock Calculator (Material Parent)', slug: '/river-rock-calculator', badge: 'Material' },
+  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Crushed Stone' },
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Gravel Tons' },
+  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Coverage' }
+];
+
+const bridgeLinks = [
+  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Drainage' },
+  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Thickness' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Thickness' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' }
+];
+---
+
+<BaseLayout
+  title="River Rock Tons Calculator - Smooth Stone Weight & Yields"
+  metaDescription="Calculate exact tons of river rock needed for flower beds, dry creek beds, and borders. Calibrated for rounded river stone at 1.35 t/yd3."
+  canonicalPath="/river-rock-tons-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "River Rock Tons Calculator",
+      "url": "https://rockcoveragecalculator.com/river-rock-tons-calculator",
+      "description": "Calculates quarry scale tonnage for smooth rounded river rock, rainbow rock, and river cobbles.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Landscape Contractors, Garden Designers, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "River Rock Tonnage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="River Rock Tons Calculator"
+      highlightWord="Tons"
+      badge="Quarry Weight Engine"
+      subtitle="Calculate scale weight in tons for smooth river stone, rainbow cobbles, and decorative landscape beds."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive River Rock Tons Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>River Rock Bed Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="rrt-length">Length (Feet)</label>
+              <input type="number" id="rrt-length" value="30" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="rrt-width">Width (Feet)</label>
+              <input type="number" id="rrt-width" value="10" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="rrt-depth">Depth (Inches)</label>
+              <input type="number" id="rrt-depth" value="3.0" min="1" max="18" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="rrt-waste">Safety Buffer (%)</label>
+              <input type="number" id="rrt-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-rrt-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext" id="kpi-rrt-lbs">0 lbs total weight</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-rrt-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext">Includes 10% buffer</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-rrt-loads">0.0</div>
+              <div class="kpi-label">Dump Truck Loads</div>
+              <div class="kpi-subtext">14 tons per tandem axle</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on River Rock Tonnage -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="River Rock Tonnage Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">River Rock Tonnage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Tons = [(Area × Depth) / 324] × 1.35</span>
+              <p class="aeo-quick-desc">Converts dimensions directly to short tons (2,000 lbs).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bulk Density</span>
+              <span class="aeo-quick-value">1.35 t/yd³ (2,700 lbs/yd³)</span>
+              <p class="aeo-quick-desc">Standard density for water-smoothed river stone (ASTM C29).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Yield at 3"</span>
+              <span class="aeo-quick-value">80 sq ft per Ton</span>
+              <p class="aeo-quick-desc">Standard coverage for 1-inch to 3-inch medium river rock.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Yield at 4"</span>
+              <span class="aeo-quick-value">60 sq ft per Ton</span>
+              <p class="aeo-quick-desc">Standard coverage for 3-inch to 5-inch large river cobbles.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Engineering Rules for River Rock Tonnage</h2>
+          <p>
+            River rocks are smooth, rounded stones sculpted by natural water action or mechanical tumblers. Because rounded stones do not compact or interlock like crushed rock, calculating their tonnage requires adherence to specific depth rules:
+          </p>
+
+          <div class="formula-box">
+            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
+            <br />
+            <code>Scale Weight (Tons) = Cubic Yards × 1.35 t/yd³ × 1.10 Buffer</code>
+          </div>
+
+          <h3>Sizing and Depth Correlation</h3>
+          <p>
+            To achieve full ground opacity and prevent weed fabric exposure, follow the 1.5x to 2x stone diameter rule:
+          </p>
+          <ul>
+            <li><strong>Small River Gravel (3/8" to 3/4"):</strong> Install at a 2-inch to 2.5-inch depth. Yield is approximately 96 to 120 sq ft per ton.</li>
+            <li><strong>Medium River Rock (1" to 3"):</strong> Install at a 3-inch to 3.5-inch depth. Yield is approximately 68 to 80 sq ft per ton.</li>
+            <li><strong>Large River Cobbles (3" to 5"):</strong> Install at a 4-inch to 6-inch depth. Yield is approximately 40 to 60 sq ft per ton.</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About River Rock Tonnage</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/river-rock-tons-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateRRT() {
+      const l = parseFloat((document.getElementById('rrt-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('rrt-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('rrt-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('rrt-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const tons = totalYards * 1.35;
+      const lbs = tons * 2000;
+      const loads = tons / 14;
+
+      const tEl = document.getElementById('kpi-rrt-tons');
+      const yEl = document.getElementById('kpi-rrt-yards');
+      const lEl = document.getElementById('kpi-rrt-loads');
+      const lbsEl = document.getElementById('kpi-rrt-lbs');
+
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (lEl) lEl.innerText = totalYards.toFixed(2);
+      if (lEl) lEl.innerText = loads.toFixed(1);
+      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+    }
+
+    ['rrt-length', 'rrt-width', 'rrt-depth', 'rrt-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateRRT);
+    });
+    updateRRT();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

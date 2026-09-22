@@ -1,0 +1,817 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Landscape Rock Calculator', url: '/landscape-rock-calculator' },
+  { name: 'Egg Rock Calculator', url: '/egg-rock-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Egg Rock Aggregate' },
+  { label: 'Standard Sizing', value: '1-2" Small, 2-3" Medium, 3-5" Large' },
+  { label: 'Bulk Density', value: '1.35 t/yd³ (2,700 lbs/yd³)' },
+  { label: 'Coverage at 3"', value: '80 sq ft per Ton (108 sq ft / Yd³)' }
+];
+
+const quickStats = [
+  { value: '80 sq ft', label: 'Per Ton at 3"', desc: 'Square foot coverage per ton of 1-2 inch decorative egg stone' },
+  { value: '60 sq ft', label: 'Per Ton at 4"', desc: 'Square foot coverage per ton of 2-3 inch medium egg cobbles' },
+  { value: '3.0 Inches', label: 'Optimum Depth', desc: 'Recommended depth for 1-2" rock to block weed barrier exposure' }
+];
+
+const faqItems = [
+  {
+    q: 'How much area does one ton of egg rock cover?',
+    a: 'One ton of 1-2 inch egg rock covers approximately 80 square feet at the standard 3-inch depth, and 120 square feet at a 2-inch depth. For larger 2-3 inch egg rock, you need a 4-inch depth to achieve complete coverage, which yields approximately 60 square feet per ton.'
+  },
+  {
+    q: 'How many bags of egg rock make a cubic yard or ton?',
+    a: 'There are approximately 54 bags (at 50 lbs each) in one cubic yard of egg rock, and 40 bags in one short ton (2,000 lbs). Buying in bulk from a local landscape depot is typically 50 to 70 percent more cost-effective for areas larger than 100 square feet.'
+  },
+  {
+    q: 'What is the recommended depth for egg rock in landscape beds?',
+    a: 'For 1-2 inch egg rock, install at a depth of 3 inches. For 2-3 inch egg rock, install at 4 inches. Because rounded egg stones leave natural interstitial gaps, shallower depths will reveal the black landscape fabric beneath when rain or wind shifts the stones.'
+  },
+  {
+    q: 'What is the weight of egg rock per cubic yard?',
+    a: 'Egg rock weighs approximately 2,700 pounds (1.35 short tons) per cubic yard, or roughly 100 pounds per cubic foot. Bulk density varies slightly depending on whether the rock is white quartz, Delaware river stone, or tumbled granite.'
+  }
+];
+
+const upLinks = [
+  { title: 'Landscape Rock Calculator (Cluster Hub)', slug: '/landscape-rock-calculator', badge: 'Hub' },
+  { title: 'River Rock Coverage Calculator', slug: '/river-rock-coverage-calculator', badge: 'Coverage' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Reference' }
+];
+
+const lateralLinks = [
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'Material' },
+  { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: 'Material' },
+  { title: 'Garden Rock Calculator', slug: '/garden-rock-calculator', badge: 'Application' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Engineering' },
+  { title: 'Landscape Rock Installation', slug: '/how-to-install-landscape-rock', badge: 'Installation' },
+  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Density Reference Chart', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Estimation' }
+];
+---
+
+<BaseLayout
+  title="Egg Rock Calculator - Sizing, Coverage & Bulk Ton Estimator"
+  metaDescription="Calculate egg rock coverage in tons, cubic yards, and 50-lb bags for landscape beds, tree rings, and borders. Accurate depth rules for 1-2 inch and 2-3 inch stone."
+  canonicalPath="/egg-rock-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Egg Rock Calculator",
+      "url": "https://rockcoveragecalculator.com/egg-rock-calculator",
+      "description": "Calculates coverage, cubic yards, tons, and bags for decorative egg rock landscape installations.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Landscape Contractors, Garden Designers, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Egg Rock Coverage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Egg Rock Calculator"
+      highlightWord="Egg Rock"
+      badge="Decorative Stone Engine"
+      subtitle="Estimate tons, cubic yards, and 50-lb bags of smooth egg rock for flower beds, borders, and modern mulch replacement."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Calculator Section -->
+    <section class="section" id="calculator">
+      <div class="container">
+        <div class="section-header">
+          <div class="hero-badge" style="margin-bottom: var(--space-3);">
+            <span class="badge-dot"></span>
+            <span>Precision Decorative Stone Solver</span>
+          </div>
+          <h2>Calculate Egg Rock Requirements</h2>
+          <div class="section-divider"></div>
+          <p>Select your egg rock size grade, enter project dimensions, and get instant material quantities in yards, tons, and bags.</p>
+        </div>
+
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              <h3>Project Dimensions</h3>
+            </div>
+
+            <!-- Size Grade Selector -->
+            <div class="input-field" style="margin-bottom: var(--space-4);">
+              <label for="egg-size">Egg Rock Size Grade</label>
+              <select id="egg-size" class="select-input">
+                <option value="small" selected>1-2 Inch (Small Egg Rock) - Ideal for beds &amp; borders</option>
+                <option value="medium">2-3 Inch (Medium Egg Rock) - Architectural beds &amp; swales</option>
+                <option value="large">3-5 Inch (Large Egg Cobble) - Water features &amp; accents</option>
+              </select>
+            </div>
+
+            <!-- Input Mode Tabs -->
+            <div class="mode-tabs">
+              <button type="button" class="tab-btn active" id="tab-dimensions">Dimensions (L × W)</button>
+              <button type="button" class="tab-btn" id="tab-area">Total Area (Sq Ft)</button>
+            </div>
+
+            <!-- Dimensions Input Group -->
+            <div id="dimensions-inputs" class="dim-grid">
+              <div class="input-field">
+                <label for="egg-length">Length (Feet)</label>
+                <input type="number" id="egg-length" value="25" min="1" step="0.5" />
+              </div>
+              <div class="input-field">
+                <label for="egg-width">Width (Feet)</label>
+                <input type="number" id="egg-width" value="10" min="1" step="0.5" />
+              </div>
+            </div>
+
+            <!-- Total Area Input Group (Hidden by default) -->
+            <div id="area-inputs" class="dim-grid single-col" style="display: none;">
+              <div class="input-field">
+                <label for="egg-area">Total Surface Area (Square Feet)</label>
+                <input type="number" id="egg-area" value="250" min="1" step="1" />
+              </div>
+            </div>
+
+            <!-- Depth Input -->
+            <div class="input-field" style="margin-bottom: var(--space-4);">
+              <div class="label-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-1);">
+                <label for="egg-depth" style="margin: 0;">Depth (Inches)</label>
+                <span class="depth-hint" id="recommended-depth-hint" style="font-size: var(--text-xs); color: var(--gold-400); font-weight: 600;">Recommended: 3.0 inches</span>
+              </div>
+              <input type="number" id="egg-depth" value="3.0" min="1.5" max="8" step="0.5" />
+            </div>
+
+            <!-- Waste / Compaction Buffer -->
+            <div class="input-field">
+              <label for="egg-waste">Safety &amp; Settling Buffer</label>
+              <select id="egg-waste" class="select-input">
+                <option value="0.05">5% Buffer (Uniform rectangular bed)</option>
+                <option value="0.10" selected>10% Buffer (Standard curved landscaping)</option>
+                <option value="0.15">15% Buffer (Deep borders &amp; irregular slopes)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- RIGHT: Outputs Column -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Material Estimates</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+                <div class="kpi-value" id="res-tons">3.44</div>
+                <div class="kpi-label">Quarry Weight (Tons)</div>
+                <div class="kpi-subtext">Short Tons (6,880 lbs)</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-value" id="res-yards">2.55</div>
+                <div class="kpi-label">Volume (Cubic Yards)</div>
+                <div class="kpi-subtext">Bulk Volume</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-value" id="res-bags">138</div>
+                <div class="kpi-label">50-lb Retail Bags</div>
+                <div class="kpi-subtext">Pre-bagged Units</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-value" id="res-sqft">250</div>
+                <div class="kpi-label">Surface Area</div>
+                <div class="kpi-subtext">Square Feet</div>
+              </div>
+            </div>
+
+            <!-- Delivery Estimator Banner with SVG icon -->
+            <div class="purchase-card" style="margin-top: var(--space-6);">
+              <div class="purchase-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="purchase-content">
+                <div class="purchase-title">Delivery Recommendation</div>
+                <div class="purchase-desc" id="delivery-recommendation">Bulk dump truck delivery recommended (exceeds 1 ton threshold).</div>
+              </div>
+            </div>
+
+            <div class="formula-note" style="margin-top: var(--space-4); padding: var(--space-3) var(--space-4); background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); font-size: var(--text-xs); color: var(--text-muted);">
+              <strong style="color: var(--text-primary); display: block; margin-bottom: 2px;">Yield Formula for Egg Rock:</strong>
+              <code>Tons = (Area in Sq Ft × (Depth in Inches / 12) / 27) × 1.35 × (1 + Buffer)</code>
+              <div style="margin-top: 4px;">Bulk density standardized at 1.35 tons/yd³ (2,700 lbs/yd³) per ASTM C29.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide Content -->
+    <article class="guide-content">
+      <div class="guide-container">
+
+        <!-- Key Coverage Reference Card -->
+        <div class="summary-card">
+          <h3>How Much Egg Rock Do You Need?</h3>
+          <p>
+            For standard <strong>1 to 2 inch egg rock</strong>, install at a depth of <strong>3.0 inches</strong> to ensure 100 percent visual opacity over weed barrier fabric. At this 3-inch depth, <strong>one short ton (2,000 lbs) covers 80 square feet</strong>, and <strong>one cubic yard covers 108 square feet</strong>.
+          </p>
+          <p>
+            For larger <strong>2 to 3 inch egg rock</strong>, increase the depth to <strong>4.0 inches</strong>, which yields <strong>60 square feet per ton</strong> (81 square feet per cubic yard). Egg rock has a standardized bulk density of <strong>1.35 tons per cubic yard (2,700 lbs/yd³)</strong>.
+          </p>
+        </div>
+
+        <h2>Egg Rock Sizing, Coverage & Bulk Density Standards</h2>
+        <p>
+          Egg rock refers to naturally tumbled, rounded stones selected for smooth contours, consistent grading, and striking decorative appearance. Popular varieties include white quartz egg rock, Delaware river egg stone, Michigan rainbow pebbles, and dark Mexican beach egg pebbles.
+        </p>
+        <p>
+          Unlike crushed stone aggregates which interlock into a dense, rigid matrix, egg stones roll freely and leave spherical interstitial voids. As a result, calculating coverage requires adhering to the <strong>1.5x stone diameter depth rule</strong>: your minimum layer depth must be at least 1.5 to 2 times the nominal diameter of the stones to prevent weed fabric or underlying soil from peering through the surface voids.
+        </p>
+
+        <!-- Comprehensive Coverage Table -->
+        <div class="table-card">
+          <h3>Egg Rock Coverage Yield Reference Table</h3>
+          <p>Coverage per cubic yard, per short ton, and number of 50-lb retail bags required for various depths:</p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Egg Rock Size</th>
+                  <th>Depth (Inches)</th>
+                  <th>Sq Ft / Cubic Yard</th>
+                  <th>Sq Ft / Short Ton</th>
+                  <th>Bags / 100 Sq Ft</th>
+                  <th>Recommended Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1-2 Inch (Small)</strong></td>
+                  <td>2.5"</td>
+                  <td>130 sq ft</td>
+                  <td>96 sq ft</td>
+                  <td>42 bags</td>
+                  <td>Low-traffic flower beds, tree rings</td>
+                </tr>
+                <tr>
+                  <td><strong>1-2 Inch (Small)</strong></td>
+                  <td>3.0" (Standard)</td>
+                  <td>108 sq ft</td>
+                  <td>80 sq ft</td>
+                  <td>50 bags</td>
+                  <td>General landscape mulch replacement</td>
+                </tr>
+                <tr>
+                  <td><strong>2-3 Inch (Medium)</strong></td>
+                  <td>3.5"</td>
+                  <td>92 sq ft</td>
+                  <td>68 sq ft</td>
+                  <td>59 bags</td>
+                  <td>High-wind areas, modern plant beds</td>
+                </tr>
+                <tr>
+                  <td><strong>2-3 Inch (Medium)</strong></td>
+                  <td>4.0" (Standard)</td>
+                  <td>81 sq ft</td>
+                  <td>60 sq ft</td>
+                  <td>67 bags</td>
+                  <td>Foundation borders, dry stream margins</td>
+                </tr>
+                <tr>
+                  <td><strong>3-5 Inch (Large)</strong></td>
+                  <td>5.0" (Standard)</td>
+                  <td>65 sq ft</td>
+                  <td>48 sq ft</td>
+                  <td>83 bags</td>
+                  <td>Pond edges, splash basins, boulder accents</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h2>Step-by-Step Egg Rock Coverage Calculation Formula</h2>
+        <p>To determine the exact tonnage of egg rock needed for any landscape project, follow this four-step civil estimation formula:</p>
+        <ol class="calc-steps">
+          <li>
+            <strong>Determine Surface Area:</strong> Multiply length by width in feet. For curved planting beds, break the area into geometric segments (rectangles, triangles, circles) and sum the square footage.
+            <code>Area (sq ft) = Length (ft) × Width (ft)</code>
+          </li>
+          <li>
+            <strong>Convert Depth to Feet:</strong> Divide your target installation depth in inches by 12.
+            <code>Depth (ft) = Depth (in) / 12</code>
+          </li>
+          <li>
+            <strong>Calculate Cubic Yards:</strong> Multiply area by depth in feet, then divide by 27 (the number of cubic feet in a cubic yard).
+            <code>Cubic Yards = (Area × Depth in ft) / 27</code>
+          </li>
+          <li>
+            <strong>Convert to Tons with Buffer:</strong> Multiply cubic yards by the bulk density factor (1.35 tons/yd³) and add a 10 percent buffer for subgrade settling and perimeter containment.
+            <code>Total Tons = Cubic Yards × 1.35 × 1.10</code>
+          </li>
+        </ol>
+
+        <h2>Best Practices for Installing Decorative Egg Rock</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="feature-num">01</span>
+            <h4>Heavy-Duty Geotextile Fabric</h4>
+            <p>Always install non-woven needle-punched landscape fabric (at least 4 to 6 oz rating) beneath egg rock. Do not use cheap perforated plastic sheeting, which inhibits soil breathability and tears under rock weight.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">02</span>
+            <h4>Sturdy Perimeter Edging</h4>
+            <p>Because egg rocks are round and shift under foot traffic or leaf blowers, install a deep commercial steel or heavy aluminum border standing at least 1 inch higher than your finished stone grade.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">03</span>
+            <h4>Plant Root Collar Clearance</h4>
+            <p>Keep egg rock pulled back 3 to 6 inches away from the root collar and main stems of shrubs and trees. Stone retains solar heat during summer, which can scorch tender cambium tissue if placed directly against bark.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">04</span>
+            <h4>Bulk vs Bagged Purchasing</h4>
+            <p>If your project requires more than 1 ton (approx 40 bags), order bulk delivery from a quarry or local material yard. Bulk egg rock averages $80 to $130 per ton, whereas retail 50-lb bags average $5 to $8 each ($200 to $320 per ton equivalent).</p>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <h2>Frequently Asked Questions About Egg Rock Coverage</h2>
+        <div class="faq-list">
+          {faqItems.map((item) => (
+            <div class="faq-item">
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </article>
+
+    <!-- Cluster Navigation Section -->
+    <TopicClusterNav
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <!-- Client-Side Calculation Script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const eggSize = document.getElementById('egg-size');
+      const tabDim = document.getElementById('tab-dimensions');
+      const tabArea = document.getElementById('tab-area');
+      const dimInputs = document.getElementById('dimensions-inputs');
+      const areaInputs = document.getElementById('area-inputs');
+      const inputLength = document.getElementById('egg-length');
+      const inputWidth = document.getElementById('egg-width');
+      const inputArea = document.getElementById('egg-area');
+      const inputDepth = document.getElementById('egg-depth');
+      const inputWaste = document.getElementById('egg-waste');
+      const depthHint = document.getElementById('recommended-depth-hint');
+
+      const resTons = document.getElementById('res-tons');
+      const resYards = document.getElementById('res-yards');
+      const resBags = document.getElementById('res-bags');
+      const resSqft = document.getElementById('res-sqft');
+      const deliveryRec = document.getElementById('delivery-recommendation');
+
+      let mode = 'dimensions';
+
+      // Preset depth recommendations based on rock size
+      eggSize.addEventListener('change', () => {
+        const val = eggSize.value;
+        if (val === 'small') {
+          inputDepth.value = '3.0';
+          depthHint.textContent = 'Recommended: 3.0 inches';
+        } else if (val === 'medium') {
+          inputDepth.value = '4.0';
+          depthHint.textContent = 'Recommended: 4.0 inches';
+        } else if (val === 'large') {
+          inputDepth.value = '5.0';
+          depthHint.textContent = 'Recommended: 5.0 inches';
+        }
+        recalculate();
+      });
+
+      tabDim.addEventListener('click', () => {
+        mode = 'dimensions';
+        tabDim.classList.add('active');
+        tabArea.classList.remove('active');
+        dimInputs.style.display = 'grid';
+        areaInputs.style.display = 'none';
+        recalculate();
+      });
+
+      tabArea.addEventListener('click', () => {
+        mode = 'area';
+        tabArea.classList.add('active');
+        tabDim.classList.remove('active');
+        dimInputs.style.display = 'none';
+        areaInputs.style.display = 'grid';
+        recalculate();
+      });
+
+      function recalculate() {
+        let area = 0;
+        if (mode === 'dimensions') {
+          const l = parseFloat(inputLength.value) || 0;
+          const w = parseFloat(inputWidth.value) || 0;
+          area = l * w;
+        } else {
+          area = parseFloat(inputArea.value) || 0;
+        }
+
+        const depthInches = parseFloat(inputDepth.value) || 0;
+        const wasteFactor = parseFloat(inputWaste.value) || 0;
+
+        const volumeCuFt = area * (depthInches / 12);
+        const volumeCuYd = volumeCuFt / 27;
+        const adjustedYards = volumeCuYd * (1 + wasteFactor);
+
+        // Density for egg rock: 1.35 tons per yard
+        const tons = adjustedYards * 1.35;
+        const totalPounds = tons * 2000;
+        const bags50 = Math.ceil(totalPounds / 50);
+
+        resSqft.textContent = Math.round(area).toLocaleString();
+        resYards.textContent = adjustedYards.toFixed(2);
+        resTons.textContent = tons.toFixed(2);
+        resBags.textContent = bags50.toLocaleString();
+
+        if (tons >= 1.0) {
+          deliveryRec.textContent = 'Bulk dump truck delivery recommended (exceeds 1 ton threshold).';
+        } else {
+          deliveryRec.textContent = 'Small quantity project: Bagged pickup or small utility trailer pickup is suitable.';
+        }
+      }
+
+      [inputLength, inputWidth, inputArea, inputDepth, inputWaste].forEach(el => {
+        el.addEventListener('input', recalculate);
+      });
+
+      recalculate();
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .calc-section {
+    padding: var(--space-8) var(--space-4);
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .calc-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .calc-header {
+    text-align: center;
+    margin-bottom: var(--space-8);
+  }
+
+  .calc-badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-2);
+  }
+
+  .calc-header h2 {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .calc-header p {
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (max-width: 860px) {
+    .calc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Calculator Select & Tabs */
+  .select-input {
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    transition: border-color var(--duration-fast);
+  }
+
+  [data-theme="light"] .select-input {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+  }
+
+  .select-input:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+  }
+
+  .mode-tabs {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .tab-btn {
+    flex: 1;
+    min-height: 42px;
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--duration-fast);
+  }
+
+  [data-theme="light"] .tab-btn {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #334155;
+  }
+
+  .tab-btn.active {
+    background: rgba(212, 168, 83, 0.15);
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+  }
+
+  [data-theme="light"] .tab-btn.active {
+    background: rgba(184, 134, 11, 0.12);
+    color: var(--gold-500);
+    border-color: var(--gold-500);
+  }
+  }
+
+  /* Guide Content */
+  .guide-content {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .guide-container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .aeo-quick-card {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-left: 4px solid #10b981;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+
+  .aeo-badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-2);
+    background: #10b981;
+    color: #fff;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-quick-card h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-quick-card p {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  .aeo-quick-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .guide-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-text-heading);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-content p {
+    color: var(--color-text);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .table-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin: var(--space-8) 0;
+  }
+
+  .table-card h3 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .table-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  th, td {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    background: var(--color-bg);
+    color: var(--color-text-heading);
+    font-weight: 700;
+  }
+
+  .calc-steps {
+    margin-left: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .calc-steps li {
+    margin-bottom: var(--space-4);
+    line-height: 1.6;
+  }
+
+  .calc-steps code {
+    display: block;
+    margin-top: var(--space-1);
+    background: var(--color-surface);
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin: var(--space-8) 0;
+  }
+
+  @media (max-width: 640px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+  }
+
+  .feature-num {
+    font-size: var(--text-xs);
+    font-weight: 800;
+    color: #10b981;
+    margin-bottom: var(--space-2);
+    display: block;
+  }
+
+  .feature-card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .feature-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .faq-list {
+    margin-top: var(--space-6);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-item h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .faq-item p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+</style>

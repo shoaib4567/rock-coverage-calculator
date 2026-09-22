@@ -1,0 +1,337 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Gravel Calculator', url: '/gravel-calculator' },
+  { name: 'Gravel Bag Calculator', url: '/gravel-bag-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Bagged Gravel' },
+  { label: 'Standard Bag Volume', value: '0.5 Cubic Feet per Bag' },
+  { label: 'Yard Equivalent', value: '54 Bags = 1.0 Cubic Yard' },
+  { label: 'Average Bag Weight', value: '48 to 52 lbs per Bag' }
+];
+
+const quickStats = [
+  { value: '54 Bags', label: 'Per Cubic Yard', desc: 'Exact bag multiplier based on 27 cubic feet per yard' },
+  { value: '20 Bags', label: 'Tipping Point', desc: 'Economic break-even point between retail bags and bulk delivery' },
+  { value: '~50 lbs', label: 'Bag Weight', desc: 'Standard dry weight for 0.5 cu ft crushed stone or gravel bag' }
+];
+
+const faqItems = [
+  {
+    q: 'How many bags of gravel do I need for a 10x10 foot area?',
+    a: 'A 10x10 foot area equals 100 square feet. At a standard 2-inch depth, you need 16.7 cubic feet of gravel, which equals approximately 34 bags of 0.5 cubic feet. At a 3-inch depth, you need 25 cubic feet, which equals 50 bags.'
+  },
+  {
+    q: 'How many bags of gravel make a cubic yard?',
+    a: 'Exactly 54 bags of 0.5 cubic feet make one cubic yard (27 cubic feet / 0.5 cu ft = 54 bags). If using 40-lb or 50-lb labeled bags, check the stated volume; standard retail aggregate bags hold 0.5 cubic feet.'
+  },
+  {
+    q: 'When should I buy bags of gravel instead of bulk delivery?',
+    a: 'If your project requires under 20 bags (under 10 cubic feet or 0.37 cubic yards), purchasing bags from a local home center is more economical. For projects requiring 20 bags or more, ordering bulk quarry delivery by dump truck saves between 40 and 60 percent on material costs.'
+  },
+  {
+    q: 'How many bags of gravel can my car or pickup truck carry?',
+    a: 'A standard passenger car trunk safely carries 6 to 8 bags (300 to 400 lbs). A standard half-ton pickup truck (such as a Ford F-150) carries 20 to 25 bags (1,000 to 1,250 lbs) before reaching rear suspension limits.'
+  }
+];
+
+const upLinks = [
+  { title: 'Gravel Calculator (Material Parent)', slug: '/gravel-calculator', badge: 'Material' },
+  { title: 'Rock Bag Calculator (Unit Parent)', slug: '/rock-bag-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Tons' },
+  { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Yards' },
+  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Pea Gravel' }
+];
+
+const bridgeLinks = [
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Sq Ft' }
+];
+
+const supportGuides = [
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+---
+
+<BaseLayout
+  title="Gravel Bag Calculator - How Many Bags of Gravel Do I Need?"
+  metaDescription="Calculate exact 0.5 cu ft bags of gravel needed for your project. Sizing formulas, cubic yard equivalents, and bulk vs bag cost break-even analysis."
+  canonicalPath="/gravel-bag-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Gravel Bag Calculator",
+      "url": "https://rockcoveragecalculator.com/gravel-bag-calculator",
+      "description": "Calculates 0.5 cu ft retail bags of gravel needed from square footage and depth.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Homeowners, DIY Landscapers, Estimators, Contractors"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Bagged Gravel Sizing"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Gravel Bag Calculator"
+      highlightWord="Bags"
+      badge="Retail Bag Sizing Engine"
+      subtitle="Accurate 0.5 cu ft bag calculations for landscape gravel. Sizing formulas, vehicle payload limits, and bulk vs bag cost analysis."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Gravel Bag Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Gravel Area Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="gb-length">Length (Feet)</label>
+              <input type="number" id="gb-length" value="20" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="gb-width">Width (Feet)</label>
+              <input type="number" id="gb-width" value="10" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="gb-depth">Depth (Inches)</label>
+              <input type="number" id="gb-depth" value="3.0" min="1" max="12" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="gb-price">Price per Bag ($)</label>
+              <input type="number" id="gb-price" value="4.50" min="1" step="0.25" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-gb-bags">0</div>
+              <div class="kpi-label">0.5 cu ft Bags Required</div>
+              <div class="kpi-subtext" id="kpi-gb-weight">0 lbs total weight</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-gb-cost">$0.00</div>
+              <div class="kpi-label">Estimated Material Cost</div>
+              <div class="kpi-subtext">Before sales tax</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-gb-yards">0.00</div>
+              <div class="kpi-label">Cubic Yards Equivalent</div>
+              <div class="kpi-subtext">54 bags per yard</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Bagged Gravel -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Bagged Gravel Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Bagged Gravel Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bag Multiplier</span>
+              <span class="aeo-quick-value">Bags = Cubic Yards × 54</span>
+              <p class="aeo-quick-desc">27 cubic feet per yard / 0.5 cu ft per bag = 54 bags.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage per Bag</span>
+              <span class="aeo-quick-value">3.0 sq ft at 2" Depth</span>
+              <p class="aeo-quick-desc">Yields 2.0 sq ft at 3" depth, 1.5 sq ft at 4" depth.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bag Weight</span>
+              <span class="aeo-quick-value">48 to 52 lbs per Bag</span>
+              <p class="aeo-quick-desc">Aggregate density per ASTM C29 loose unit weight.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Break-Even</span>
+              <span class="aeo-quick-value">20 Bags Tipping Point</span>
+              <p class="aeo-quick-desc">Over 20 bags, bulk delivery saves money despite the drop fee.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>How to Calculate Bags of Gravel</h2>
+          <p>
+            Retail gravel sold at home improvement centers (such as Home Depot and Lowe's) is packaged in heavy-duty plastic bags holding <strong>0.5 cubic feet (0.0185 cubic yards)</strong>.
+          </p>
+          <p>
+            While homeowners often describe these as "50-pound bags," aggregate packaging is regulated by volume rather than weight. A 0.5 cubic foot bag of standard crushed gravel weighs approximately 50 pounds, but actual weight varies between 48 and 54 pounds depending on moisture content and quarry mineral density.
+          </p>
+
+          <div class="formula-box">
+            <code>Total Cubic Feet = Area (sq ft) × [Depth (in) / 12]</code>
+            <br />
+            <code>Total 0.5 cu ft Bags = Total Cubic Feet / 0.5 (or Total Cubic Feet × 2)</code>
+            <br />
+            <code>Yards to Bags = Cubic Yards × 54</code>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Bagged Gravel</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/gravel-bag-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateGB() {
+      const l = parseFloat((document.getElementById('gb-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('gb-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('gb-depth') as HTMLInputElement)?.value) || 0;
+      const price = parseFloat((document.getElementById('gb-price') as HTMLInputElement)?.value) || 0;
+
+      const cuft = (l * w * (d / 12));
+      const bags = Math.ceil(cuft / 0.5);
+      const yards = cuft / 27;
+      const weightLbs = bags * 50;
+      const cost = bags * price;
+
+      const bEl = document.getElementById('kpi-gb-bags');
+      const cEl = document.getElementById('kpi-gb-cost');
+      const yEl = document.getElementById('kpi-gb-yards');
+      const wEl = document.getElementById('kpi-gb-weight');
+
+      if (bEl) bEl.innerText = bags.toLocaleString();
+      if (cEl) cEl.innerText = '$' + cost.toFixed(2);
+      if (yEl) yEl.innerText = yards.toFixed(2);
+      if (wEl) wEl.innerText = Math.round(weightLbs).toLocaleString() + ' lbs total weight';
+    }
+
+    ['gb-length', 'gb-width', 'gb-depth', 'gb-price'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateGB);
+    });
+    updateGB();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

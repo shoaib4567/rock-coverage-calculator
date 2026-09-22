@@ -77,15 +77,21 @@ const {
 
       <p class="hero-lead">{subtitle}</p>
 
-      <!-- Entity & Physical Properties Tags -->
+      <!-- Material Specifications & Physical Properties Tags -->
       {entityTags.length > 0 && (
-        <div class="entity-tags-row">
-          {entityTags.map(tag => (
-            <div class="entity-tag-pill">
-              <span class="tag-label">{tag.label}:</span>
-              <span class="tag-val">{tag.value}</span>
-            </div>
-          ))}
+        <div class="spec-tags-row">
+          {entityTags.map(tag => {
+            const cleanLabel = tag.label
+              .replace(/Primary Entity/gi, 'Material')
+              .replace(/Entity/gi, 'Classification')
+              .replace(/Attributes/gi, 'Specifications');
+            return (
+              <div class="spec-tag-pill">
+                <span class="tag-label">{cleanLabel}:</span>
+                <span class="tag-val">{tag.value}</span>
+              </div>
+            );
+          })}
         </div>
       )}
 
@@ -193,7 +199,7 @@ const {
     margin-bottom: var(--space-6);
   }
 
-  .entity-tags-row {
+  .spec-tags-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -201,7 +207,7 @@ const {
     margin-bottom: var(--space-8);
   }
 
-  .entity-tag-pill {
+  .spec-tag-pill {
     display: inline-flex;
     align-items: center;
     gap: 6px;

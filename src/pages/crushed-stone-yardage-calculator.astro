@@ -1,0 +1,335 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Crushed Stone Calculator', url: '/crushed-stone-calculator' },
+  { name: 'Crushed Stone Yardage Calculator', url: '/crushed-stone-yardage-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Crushed Stone Yardage Delivery' },
+  { label: 'Delivery Vehicles', value: 'Single-Axle, Tandem, and Tri-Axle' },
+  { label: 'Yard to Ton Factor', value: '1.40 Tons per Cubic Yard' },
+  { label: 'Hauling Capacity', value: '10 to 16 Cubic Yards per Dump Truck' }
+];
+
+const quickStats = [
+  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'Converts delivery yardage to certified scale scale weight' },
+  { value: '10-15 Yards', label: 'Tandem Payload', desc: 'Standard residential crushed stone delivery capacity' },
+  { value: '10% Overage', label: 'Quarry Buffer', desc: 'Prevents running short and paying an extra haul fee' }
+];
+
+const faqItems = [
+  {
+    q: 'How many cubic yards of crushed stone fit in a dump truck?',
+    a: 'A single-axle dump truck carries 4 to 5 cubic yards (5 to 7 tons). A tandem-axle truck hauls 9 to 11 cubic yards (12 to 15 tons), and a commercial tri-axle rig delivers 14 to 17 cubic yards (18 to 22 tons) of crushed stone.'
+  },
+  {
+    q: 'How do you convert crushed stone yards to truckloads?',
+    a: 'Divide total calculated cubic yards by the capacity of your supplier delivery vehicle. For a tandem-axle truck carrying 10 cubic yards per load: 25 cubic yards / 10 = 2.5 (rounded up to 3 full delivery truckloads).'
+  },
+  {
+    q: 'What is the minimum yardage for crushed stone delivery?',
+    a: 'Most commercial quarries and aggregate suppliers impose a 1.0 to 3.0 cubic yard minimum order size for home delivery to justify the truck haul and driver labor expenses.'
+  },
+  {
+    q: 'Why does crushed stone weigh more than mulch per cubic yard?',
+    a: 'Crushed stone is solid quarried bedrock weighing approximately 2,800 pounds (1.40 tons) per cubic yard, whereas organic wood mulch weighs only 600 to 800 pounds per cubic yard. Dump trucks reach legal weight limits on crushed stone long before filling the physical volume of the dump bed.'
+  }
+];
+
+const upLinks = [
+  { title: 'Crushed Stone Calculator (Material Parent)', slug: '/crushed-stone-calculator', badge: 'Material' },
+  { title: 'Rock Yardage Calculator (Unit Parent)', slug: '/rock-yardage-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Tons' },
+  { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Gravel Yards' },
+  { title: 'Rock Cubic Yard Calculator', slug: '/rock-cubic-yard-calculator', badge: 'Volume' }
+];
+
+const bridgeLinks = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
+  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: 'Structural' }
+];
+
+const supportGuides = [
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+---
+
+<BaseLayout
+  title="Crushed Stone Yardage Calculator - Dump Truck Delivery & Sizing"
+  metaDescription="Calculate cubic yards of crushed stone for truckload delivery. Sizing guides for single-axle, tandem, and tri-axle dump trucks at 1.40 t/yd3."
+  canonicalPath="/crushed-stone-yardage-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Crushed Stone Yardage Calculator",
+      "url": "https://rockcoveragecalculator.com/crushed-stone-yardage-calculator",
+      "description": "Calculates crushed stone cubic yards and dump truck delivery loads for civil and residential projects.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Contractors, Haulers, Estimators, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Crushed Stone Yardage and Delivery Logistics"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Crushed Stone Yardage Calculator"
+      highlightWord="Yardage"
+      badge="Delivery Logistics Engine"
+      subtitle="Accurate cubic yards and dump truck delivery load calculations for crushed stone and base aggregate."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Crushed Stone Yardage Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Crushed Stone Delivery Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="csy-length">Length (Feet)</label>
+              <input type="number" id="csy-length" value="40" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="csy-width">Width (Feet)</label>
+              <input type="number" id="csy-width" value="15" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="csy-depth">Depth (Inches)</label>
+              <input type="number" id="csy-depth" value="3.0" min="1" max="18" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="csy-waste">Safety Buffer (%)</label>
+              <input type="number" id="csy-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-csy-yards">0.00</div>
+              <div class="kpi-label">Order Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-csy-cuft">Includes 10% buffer</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-csy-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext">At 1.40 t/yd³ (2,800 lbs/yd³)</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-csy-loads">0.0</div>
+              <div class="kpi-label">Tandem Truckloads</div>
+              <div class="kpi-subtext">10 yards per load</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Crushed Stone Yardage -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Crushed Stone Yardage Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Crushed Stone Delivery Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Yards = (Area [sq ft] × Depth [in]) / 324</span>
+              <p class="aeo-quick-desc">Converts dimensions directly to cubic yards.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Tandem Capacity</span>
+              <span class="aeo-quick-value">9 to 11 Cubic Yards</span>
+              <p class="aeo-quick-desc">Standard delivery payload for residential stone orders.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Tri-Axle Capacity</span>
+              <span class="aeo-quick-value">14 to 17 Cubic Yards</span>
+              <p class="aeo-quick-desc">Commercial maximum capacity (18 to 22 scale tons).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Scale Weight</span>
+              <span class="aeo-quick-value">1.40 Tons per Yard</span>
+              <p class="aeo-quick-desc">Standard bulk density per ASTM C29 loose testing.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Managing Crushed Stone Truckload Logistics</h2>
+          <p>
+            When ordering crushed stone by the cubic yard, delivery vehicles reach legal axle weight limits before the physical dump body is completely full. One cubic yard of crushed stone weighs 2,800 pounds (1.40 tons).
+          </p>
+          <p>
+            Understanding dump truck payload constraints prevents split delivery surcharges ($65 to $120 per trip) and ensures you have sufficient overhead clearance (14 to 18 feet) for safe dump bed elevation.
+          </p>
+
+          <div class="formula-box">
+            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
+            <br />
+            <code>Tandem Truckloads = (Total Yards × 1.10 Buffer) / 10 Yards per Load</code>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Crushed Stone Yardage</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/crushed-stone-yardage-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateCSY() {
+      const l = parseFloat((document.getElementById('csy-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('csy-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('csy-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('csy-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const cuft = totalYards * 27;
+      const tons = totalYards * 1.40;
+      const loads = totalYards / 10;
+
+      const yEl = document.getElementById('kpi-csy-yards');
+      const tEl = document.getElementById('kpi-csy-tons');
+      const lEl = document.getElementById('kpi-csy-loads');
+      const cEl = document.getElementById('kpi-csy-cuft');
+
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (lEl) lEl.innerText = loads.toFixed(1);
+      if (cEl) cEl.innerText = Math.round(cuft).toLocaleString() + ' cu ft total volume';
+    }
+
+    ['csy-length', 'csy-width', 'csy-depth', 'csy-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateCSY);
+    });
+    updateCSY();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

@@ -1,0 +1,360 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Decomposed Granite Calculator', url: '/decomposed-granite-calculator' },
+  { name: 'Decomposed Granite Coverage Calculator', url: '/decomposed-granite-coverage-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Decomposed Granite Coverage' },
+  { label: 'Yield at 2"', value: '97 sq ft per Ton Compacted' },
+  { label: 'Yield at 3"', value: '65 sq ft per Ton Compacted' },
+  { label: 'Compaction Factor', value: '20% Volume Allowance' }
+];
+
+const quickStats = [
+  { value: '65 sq ft', label: 'Per Ton at 3"', desc: 'Finished square foot coverage per ton for patios and heavy pathways' },
+  { value: '97 sq ft', label: 'Per Ton at 2"', desc: 'Finished square foot coverage per ton for light garden trails' },
+  { value: '3 Inches', label: 'Patio Depth', desc: 'Standard compacted depth for stable outdoor living spaces' }
+];
+
+const faqItems = [
+  {
+    q: 'How many square feet does 1 ton of decomposed granite cover?',
+    a: 'After 20 percent mechanical plate compaction, one ton of decomposed granite covers approximately 97 square feet at 2 inches depth, 65 square feet at 3 inches depth, and 49 square feet at 4 inches depth.'
+  },
+  {
+    q: 'How much decomposed granite do I need for 400 square feet?',
+    a: 'For 400 square feet at a standard 3-inch compacted patio depth, you need 3.70 loose cubic yards of material. Multiplying by 1.25 tons per yard and adding a 10 percent buffer yields approximately 5.09 tons of decomposed granite.'
+  },
+  {
+    q: 'Why does DG cover fewer square feet per ton than clean gravel?',
+    a: 'Decomposed granite contains fines and rock dust that fill internal voids. When compacted, the particles nest together tightly, which increases in-place density from 1.25 t/yd³ loose to 1.50 t/yd³ compacted, reducing the square foot yield per ton.'
+  },
+  {
+    q: 'How thick should decomposed granite be for a patio or pathway?',
+    a: 'Install a minimum of 2 inches compacted depth for light garden trails, 3 inches for dining patios and fire pit areas, and 4 to 6 inches over a compacted road base for driveways.'
+  }
+];
+
+const upLinks = [
+  { title: 'Decomposed Granite Calculator (Material Parent)', slug: '/decomposed-granite-calculator', badge: 'Material' },
+  { title: 'Rock Square Foot Calculator (Unit Parent)', slug: '/rock-square-foot-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Decomposed Granite Tons Calculator', slug: '/decomposed-granite-tons-calculator', badge: 'Tons' },
+  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Pea Gravel' },
+  { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: 'Granite' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+---
+
+<BaseLayout
+  title="Decomposed Granite Coverage Calculator - Sq Ft per Ton & Yard"
+  metaDescription="Calculate exact decomposed granite square foot coverage per ton and cubic yard with 20% plate compaction. Coverage tables for pathways and patios."
+  canonicalPath="/decomposed-granite-coverage-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Decomposed Granite Coverage Calculator",
+      "url": "https://rockcoveragecalculator.com/decomposed-granite-coverage-calculator",
+      "description": "Calculates square foot coverage yields per ton and cubic yard for 1/4 inch minus decomposed granite with compaction.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Landscape Designers, Paving Contractors, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Decomposed Granite Coverage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Decomposed Granite Coverage Calculator"
+      highlightWord="Coverage"
+      badge="Compacted Yield Engine"
+      subtitle="Calculate square foot coverage per ton and loose cubic yard for 1/4-inch minus DG with 20% plate compaction."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive DG Coverage Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Project Area Specifications</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="dgc-area">Project Area (Square Feet)</label>
+              <input type="number" id="dgc-area" value="350" min="1" step="10" />
+            </div>
+            <div class="input-field">
+              <label for="dgc-depth">Finished Compacted Depth (Inches)</label>
+              <input type="number" id="dgc-depth" value="3.0" min="1" max="8" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="dgc-compaction">Compaction Allowance (%)</label>
+              <input type="number" id="dgc-compaction" value="20" min="0" max="30" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-dgc-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext" id="kpi-dgc-lbs">0 lbs total weight</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-dgc-yards">0.00</div>
+              <div class="kpi-label">Loose Volume (Cubic Yards)</div>
+              <div class="kpi-subtext">Order from quarry</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-dgc-yield">0</div>
+              <div class="kpi-label">Compacted Yield (Sq Ft/Ton)</div>
+              <div class="kpi-subtext">Finished spread</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on DG Coverage -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="DG Coverage Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">DG Coverage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 2"</span>
+              <span class="aeo-quick-value">97 sq ft / Ton (130 sq ft / Yd)</span>
+              <p class="aeo-quick-desc">Finished spread for light garden pathways after compaction.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 3"</span>
+              <span class="aeo-quick-value">65 sq ft / Ton (86 sq ft / Yd)</span>
+              <p class="aeo-quick-desc">Standard spread for patios and outdoor living spaces.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 4"</span>
+              <span class="aeo-quick-value">49 sq ft / Ton (65 sq ft / Yd)</span>
+              <p class="aeo-quick-desc">Heavy-duty spread for driveways and parking pads.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Compaction Factor</span>
+              <span class="aeo-quick-value">Multiply Loose Yards by 1.20</span>
+              <p class="aeo-quick-desc">Compensates for 20% air-void collapse during tamping.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Decomposed Granite Coverage Reference Chart</h2>
+          <p>
+            Below is the comprehensive coverage table for 1/4-inch minus decomposed granite, showing both loose material volume and finished compacted square footage yields:
+          </p>
+
+          <div style="overflow-x: auto; margin: var(--space-6) 0;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: var(--text-sm);">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-subtle); color: var(--accent-gold);">
+                  <th style="padding: 10px;">Compacted Depth</th>
+                  <th style="padding: 10px;">Sq Ft per Loose Yard³</th>
+                  <th style="padding: 10px;">Sq Ft per Short Ton</th>
+                  <th style="padding: 10px;">Recommended Application</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 10px; font-weight: 600;">1.5"</td>
+                  <td style="padding: 10px;">173 sq ft</td>
+                  <td style="padding: 10px;">130 sq ft</td>
+                  <td style="padding: 10px;">Light decorative top-dressing refresh</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(212, 168, 83, 0.05);">
+                  <td style="padding: 10px; font-weight: 600;">2.0"</td>
+                  <td style="padding: 10px;">130 sq ft</td>
+                  <td style="padding: 10px;">97 sq ft</td>
+                  <td style="padding: 10px;">Pedestrian garden paths and trails</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(212, 168, 83, 0.1);">
+                  <td style="padding: 10px; font-weight: 600;">3.0"</td>
+                  <td style="padding: 10px;">86 sq ft</td>
+                  <td style="padding: 10px;">65 sq ft</td>
+                  <td style="padding: 10px;">Patios, seating areas, and bocce courts (Standard)</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; font-weight: 600;">4.0"</td>
+                  <td style="padding: 10px;">65 sq ft</td>
+                  <td style="padding: 10px;">49 sq ft</td>
+                  <td style="padding: 10px;">Residential vehicular driveways and parking pads</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About DG Coverage</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/decomposed-granite-coverage-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateDGC() {
+      const a = parseFloat((document.getElementById('dgc-area') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('dgc-depth') as HTMLInputElement)?.value) || 0;
+      const comp = parseFloat((document.getElementById('dgc-compaction') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (a * d) / 324;
+      const looseYards = netYards * (1 + comp / 100);
+      const tons = looseYards * 1.25;
+      const lbs = tons * 2000;
+      const yieldPerTon = (d > 0 && tons > 0) ? (a / tons) : 0;
+
+      const tEl = document.getElementById('kpi-dgc-tons');
+      const yEl = document.getElementById('kpi-dgc-yards');
+      const yldEl = document.getElementById('kpi-dgc-yield');
+      const lbsEl = document.getElementById('kpi-dgc-lbs');
+
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (yEl) yEl.innerText = looseYards.toFixed(2);
+      if (yldEl) yldEl.innerText = Math.round(yieldPerTon).toString();
+      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs';
+    }
+
+    ['dgc-area', 'dgc-depth', 'dgc-compaction'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateDGC);
+    });
+    updateDGC();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

@@ -117,7 +117,7 @@ const {
             >
               <div class="material-swatch" style={`background: ${mat.swatchColor}; background: radial-gradient(circle at 35% 35%, ${mat.swatchColor}dd, ${mat.swatchColor}88);`}></div>
               <div class="material-name">{mat.name}</div>
-              <div class="material-density">{mat.tonsPerCuYd} t/yd³</div>
+              <div class="material-density">{mat.tonsPerCuYd} t/yd³ &bull; {mat.densityLbsPerCuFt} lb/ft³</div>
             </button>
           ))}
         </div>
@@ -136,20 +136,24 @@ const {
               class="depth-slider" 
               min="1" max="12" step="0.5" value="3"
               aria-label="Rock depth in inches"
+              aria-valuemin="1"
+              aria-valuemax="12"
+              aria-valuenow="3"
+              aria-valuetext="3 inches"
             />
           </div>
           <div class="depth-value-display">
             <span id="depth-value" class="value">3</span>
             <span class="unit">inches</span>
           </div>
-          <div class="depth-presets" aria-label="Quick depth presets">
-            <button class="depth-preset" data-depth="1">1"</button>
-            <button class="depth-preset" data-depth="2">2"</button>
-            <button class="depth-preset active" data-depth="3">3"</button>
-            <button class="depth-preset" data-depth="4">4"</button>
-            <button class="depth-preset" data-depth="6">6"</button>
-            <button class="depth-preset" data-depth="8">8"</button>
-            <button class="depth-preset" data-depth="12">12"</button>
+          <div class="depth-presets" role="group" aria-label="Quick depth presets">
+            <button class="depth-preset" data-depth="1" aria-label="Set depth to 1 inch" aria-pressed="false">1"</button>
+            <button class="depth-preset" data-depth="2" aria-label="Set depth to 2 inches" aria-pressed="false">2"</button>
+            <button class="depth-preset active" data-depth="3" aria-label="Set depth to 3 inches" aria-pressed="true">3"</button>
+            <button class="depth-preset" data-depth="4" aria-label="Set depth to 4 inches" aria-pressed="false">4"</button>
+            <button class="depth-preset" data-depth="6" aria-label="Set depth to 6 inches" aria-pressed="false">6"</button>
+            <button class="depth-preset" data-depth="8" aria-label="Set depth to 8 inches" aria-pressed="false">8"</button>
+            <button class="depth-preset" data-depth="12" aria-label="Set depth to 12 inches" aria-pressed="false">12"</button>
           </div>
         </div>
 
@@ -159,10 +163,10 @@ const {
           <h3>Waste / Settling Factor</h3>
         </div>
         <div class="waste-toggle" role="radiogroup" aria-label="Waste settling factor">
-          <button class="waste-chip" data-waste="5" role="radio" aria-checked="false">5%</button>
-          <button class="waste-chip active" data-waste="10" role="radio" aria-checked="true">10%</button>
-          <button class="waste-chip" data-waste="15" role="radio" aria-checked="false">15%</button>
-          <button class="waste-chip" data-waste="20" role="radio" aria-checked="false">20%</button>
+          <button class="waste-chip" data-waste="5" role="radio" aria-checked="false" aria-label="5 percent waste factor">5%</button>
+          <button class="waste-chip active" data-waste="10" role="radio" aria-checked="true" aria-label="10 percent waste factor">10%</button>
+          <button class="waste-chip" data-waste="15" role="radio" aria-checked="false" aria-label="15 percent waste factor">15%</button>
+          <button class="waste-chip" data-waste="20" role="radio" aria-checked="false" aria-label="20 percent waste factor">20%</button>
         </div>
       </div>
       <!-- RIGHT: Results & Visualization Panel -->
@@ -181,30 +185,34 @@ const {
             </a>
           </div>
 
-          <div class="kpi-grid">
+          <div class="kpi-grid" aria-live="polite" aria-atomic="true">
             <div class="kpi-card" id="kpi-area">
               <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18" opacity="0.3"/><path d="M9 3v18" opacity="0.3"/></svg>
               <div class="kpi-value">100</div>
               <div class="kpi-unit">sq ft</div>
               <div class="kpi-label">Total Area</div>
+              <div class="kpi-subtext" id="kpi-area-sub">9.29 m²</div>
             </div>
             <div class="kpi-card" id="kpi-volume">
               <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5" opacity="0.5"/><path d="M2 12l10 5 10-5" opacity="0.3"/></svg>
               <div class="kpi-value">1.03</div>
               <div class="kpi-unit">cu yd</div>
               <div class="kpi-label">Volume Needed</div>
+              <div class="kpi-subtext" id="kpi-volume-sub">0.79 m³</div>
             </div>
             <div class="kpi-card" id="kpi-weight">
               <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3V7"/><path d="M6 7H18L20 19H4L6 7Z"/></svg>
               <div class="kpi-value">1.39</div>
               <div class="kpi-unit">tons</div>
               <div class="kpi-label">Total Weight</div>
+              <div class="kpi-subtext" id="kpi-weight-sub">1.26 tonnes</div>
             </div>
             <div class="kpi-card" id="kpi-bags">
               <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 4H16L18 8H6L8 4Z"/><rect x="6" y="8" width="12" height="12" rx="1"/></svg>
               <div class="kpi-value">56</div>
               <div class="kpi-unit">bags</div>
-              <div class="kpi-label">0.5 cu ft Bags</div>
+              <div class="kpi-label" id="kpi-bags-label">0.5 cu ft Bags</div>
+              <div class="kpi-subtext" id="kpi-bags-sub">~14L retail volume</div>
             </div>
           </div>
         </div>
@@ -254,7 +262,7 @@ const {
               <label for="cost-material-rate">Material Rate</label>
               <div class="input-field mini">
                 <span class="currency">$</span>
-                <input type="number" id="cost-material-rate" placeholder="55.00" value="55.00" step="1" min="0">
+                <input type="number" id="cost-material-rate" placeholder="55.00" value="55.00" step="1" min="0" aria-label="Material rate in dollars per ton">
                 <span class="unit-label" id="cost-unit-basis">/ ton</span>
               </div>
             </div>
@@ -262,14 +270,14 @@ const {
               <label for="cost-delivery-fee">Delivery / Freight Drop</label>
               <div class="input-field mini">
                 <span class="currency">$</span>
-                <input type="number" id="cost-delivery-fee" placeholder="75.00" value="75.00" step="5" min="0">
+                <input type="number" id="cost-delivery-fee" placeholder="75.00" value="75.00" step="5" min="0" aria-label="Delivery fee in dollars">
               </div>
             </div>
             <div class="cost-input-cell">
               <label for="cost-labor-rate">Labor & Spreading</label>
               <div class="input-field mini">
                 <span class="currency">$</span>
-                <input type="number" id="cost-labor-rate" placeholder="35.00" value="35.00" step="5" min="0">
+                <input type="number" id="cost-labor-rate" placeholder="35.00" value="35.00" step="5" min="0" aria-label="Labor and spreading rate in dollars per ton">
                 <span class="unit-label">/ ton</span>
               </div>
             </div>
@@ -277,13 +285,13 @@ const {
               <label for="cost-fabric-rate">Fabric & Edging Supplies</label>
               <div class="input-field mini">
                 <span class="currency">$</span>
-                <input type="number" id="cost-fabric-rate" placeholder="40.00" value="40.00" step="5" min="0">
+                <input type="number" id="cost-fabric-rate" placeholder="40.00" value="40.00" step="5" min="0" aria-label="Fabric and edging supplies cost in dollars">
               </div>
             </div>
             <div class="cost-input-cell">
               <label for="cost-tax-rate">Sales Tax (%)</label>
               <div class="input-field mini">
-                <input type="number" id="cost-tax-rate" placeholder="7.0" value="7.0" step="0.5" min="0">
+                <input type="number" id="cost-tax-rate" placeholder="7.0" value="7.0" step="0.5" min="0" aria-label="Sales tax percentage">
                 <span class="unit-label">%</span>
               </div>
             </div>

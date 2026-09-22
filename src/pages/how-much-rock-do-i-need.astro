@@ -44,11 +44,36 @@ const faqItems = [
     a: 'Quarries sell loose bulk rock by the certified ton on vehicle weigh scales, while retail landscape yards often sell by the loader bucket (cubic yard). In general, 1 cubic yard equals approximately 1.35 tons of gravel. If bulk ordering more than 2 cubic yards, buying directly by the ton from an aggregate supplier with flat dump truck delivery is usually the most cost-effective approach.'
   }
 ];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' }
+];
+
+const lateralLinks = [
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Yards' },
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags' }
+];
+
+const bridgeLinks = [
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'River Rock' },
+  { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: 'Pea Gravel' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Crushed Stone' },
+  { title: 'Decomposed Granite Calculator', slug: '/decomposed-granite-calculator', badge: 'DG' }
+];
+
+const supportGuides = [
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
 ---
 
 <BaseLayout
   title="How Much Rock Do I Need? Instant Yards, Tons & Bags Estimator"
-  description="Calculate exactly how much rock, stone, or gravel you need for your landscaping project. Instant formulas for cubic yards, scale tons, retail bags, and delivered costs."
+  metaDescription="Calculate exactly how much rock you need for any project. Convert dimensions to cubic yards, quarry tons, and 0.5 cu ft retail bags with real-time costs."
   canonicalPath="/how-much-rock-do-i-need"
 >
   <Fragment slot="head">
@@ -57,12 +82,13 @@ const faqItems = [
       "@type": "WebApplication",
       "name": "How Much Rock Do I Need Calculator",
       "url": "https://rockcoveragecalculator.com/how-much-rock-do-i-need",
-      "description": "Guided landscape rock quantity estimator converting project dimensions into cubic yards, tons, bags, and dump truck loads.",
+      "description": "Calculates exact rock volume in cubic yards, weight in tons, and retail bags required for landscaping projects.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
+      "inLanguage": "en-US",
       "about": {
         "@type": "Thing",
-        "name": "Landscape Rock Quantity"
+        "name": "Landscape Rock Quantity Estimation"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -99,12 +125,42 @@ const faqItems = [
     <!-- Engineering Guide Section -->
     <article class="content-guide-section">
       <div class="container">
-        <div class="content-card">
-          <h2>The Fundamental Rock Calculation Formula</h2>
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Rock Quantity Estimation Guidelines">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Rock Quantity Estimation Rules & Formulas</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Yards = (L × W × Depth in) / 324</span>
+              <p class="aeo-quick-desc">Standard Rule of 324 used by commercial contractors.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Yard to Tons</span>
+              <span class="aeo-quick-value">1 Yard³ ≈ 1.35 to 1.40 Tons</span>
+              <p class="aeo-quick-desc">Certified quarry bulk weight for gravel, river rock, and limestone.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bags per Yard</span>
+              <span class="aeo-quick-value">54 Bags (0.5 cu ft)</span>
+              <p class="aeo-quick-desc">Retail bags needed to equal one standard bulk cubic yard.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Depth Standard</span>
+              <span class="aeo-quick-value">3.0 Inches (Landscape)</span>
+              <p class="aeo-quick-desc">Optimal depth for weed suppression and full ground opacity.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Rule of 324 Explanation -->
+        <section class="content-card">
+          <h2>The Fundamental Rock Coverage Formula: Rule of 324</h2>
           <p>
-            Estimating landscape aggregate accurately comes down to three basic measurements: <strong>Length</strong> (in feet), <strong>Width</strong> (in feet), and <strong>Installed Layer Depth</strong> (in inches).
-          </p>
-          <p>
+            Determining how much rock you need begins with calculating the three-dimensional volume of your planting beds, paths, or driveway.
             Because volume is sold by the <strong>Cubic Yard</strong> (27 cubic feet), civil contractors use the <strong>Rule of 324</strong> to compute material volume directly without converting inches to fractions of a foot:
           </p>
 
@@ -113,7 +169,7 @@ const faqItems = [
             <div class="formula-desc">Where 324 represents 27 cubic feet per yard multiplied by 12 inches per foot.</div>
           </div>
 
-          <h3>Quick Reference: What 1 Cubic Yard of Rock Covers</h3>
+          <h3>Coverage Benchmarks: What 1 Cubic Yard of Rock Covers</h3>
           <div class="table-container">
             <table>
               <thead>
@@ -193,7 +249,7 @@ const faqItems = [
               If your project requires more than <strong>1.5 cubic yards (80 bags)</strong>, stop buying bags. A bulk delivery from a local quarry or landscape supply yard will save you between $150 and $400, and prevents you from hauling thousands of pounds in the trunk of your personal vehicle.
             </p>
           </div>
-        </div>
+        </section>
 
         <!-- FAQ Section -->
         <div class="content-card faq-card">
@@ -210,7 +266,14 @@ const faqItems = [
       </div>
     </article>
 
-    <TopicClusterNav activePage="how-much-rock-do-i-need" />
+    <TopicClusterNav
+      currentPage="/how-much-rock-do-i-need"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
   </main>
 
   <Footer />
@@ -221,6 +284,22 @@ const faqItems = [
   padding: var(--space-12) 0;
   background: var(--color-bg);
 }
+
+.aeo-quick-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+  box-shadow: 0 4px 20px rgba(202, 138, 4, 0.08);
+}
+.aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--color-primary); }
+.aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+.aeo-quick-item { background: var(--color-bg); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+.aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); margin-bottom: 2px; }
+.aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--color-text); margin-bottom: 2px; }
+.aeo-quick-desc { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.35; }
 
 .content-card {
   background: var(--color-surface);

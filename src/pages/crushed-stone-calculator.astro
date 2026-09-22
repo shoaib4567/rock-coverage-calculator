@@ -14,7 +14,7 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Primary Entity', value: 'Crushed Stone' },
+  { label: 'Material', value: 'Crushed Rock Coverage' },
   { label: 'AASHTO Sieve Grades', value: '#57 Clean, #411 Dense, #4 Ballast' },
   { label: 'Bulk Density', value: '1.40 to 1.50 Tons/yd³' },
   { label: 'Angular Interlock', value: 'High Friction Angle (CBR > 80%)' }
@@ -47,22 +47,22 @@ const faqItems = [
 ---
 
 <BaseLayout
-  title="Crushed Stone Calculator - Sieve Sizes & Tonnage (#57, #411, 3/4)"
-  description="Calculate cubic yards and quarry scale tons of crushed stone across standard sieve sizes (#57 clean, #411 crusher run, and #4 ballast). Free aggregate estimator."
+  title="Crushed Stone & Rock Coverage Calculator - Sieve Sizes & Tonnage"
+  description="Calculate crushed stone and crushed rock coverage in cubic yards and tons across standard sieve sizes (#57 clean, #411 crusher run, #4 ballast). Free aggregate estimator."
   canonicalPath="/crushed-stone-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Crushed Stone Calculator",
+      "name": "Crushed Stone & Rock Coverage Calculator",
       "url": "https://rockcoveragecalculator.com/crushed-stone-calculator",
-      "description": "Calculates crushed stone quantities by AASHTO sieve sizes including #57, #411, and #4 ballast.",
+      "description": "Calculates crushed stone and crushed rock coverage quantities by AASHTO sieve sizes including #57, #411, and #4 ballast.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "about": {
         "@type": "Thing",
-        "name": "Crushed Stone"
+        "name": "Crushed Rock Coverage"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -83,8 +83,8 @@ const faqItems = [
 
   <main>
     <PageHero
-      title="Crushed Stone Calculator"
-      highlightWord="Calculator"
+      title="Crushed Stone & Rock Coverage Calculator"
+      highlightWord="Rock Coverage"
       badge="AASHTO Sieve Sizing & Scale Tonnage"
       subtitle="Accurate volumetric and certified scale weight calculations for #57 clean stone, #411 dense graded base, track ballast, and heavy erosion riprap."
       breadcrumbs={breadcrumbs}

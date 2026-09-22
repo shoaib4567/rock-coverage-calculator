@@ -14,6 +14,56 @@ import Footer from '../components/Footer.astro';
   title="Rock Coverage Calculator - Calculate Cubic Yards, Tons & Bags for Any Project"
   description="Free rock coverage calculator for landscaping projects. Calculate cubic yards, tons, and bags of gravel, river rock, crushed stone, and 12 other aggregates. Supports 6 area shapes with 3D visualization."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Calculate Landscape Rock Coverage in Cubic Yards and Tons",
+      "description": "Calculate exact cubic yards, tons, and bags of rock, gravel, or crushed stone needed for landscaping and civil construction projects.",
+      "totalTime": "PT2M",
+      "tool": {
+        "@type": "HowToTool",
+        "name": "Rock Coverage Calculator"
+      },
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Measure Project Area",
+          "text": "Measure the length and width of your area in feet (or radius for circular beds). Multiply length by width to find total square footage.",
+          "url": "https://rockcoveragecalculator.com/#calculator"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Determine Required Layer Depth",
+          "text": "Choose the appropriate aggregate depth in inches. As an aggregate trade standard, depth should be at least 1.5 to 2 times the average stone caliper (e.g., 2 to 2.5 inches for pea gravel, 3 to 4 inches for 1-3 inch river rock, 4 to 6 inches for driveways).",
+          "url": "https://rockcoveragecalculator.com/#depth-guidelines"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Calculate Cubic Yards",
+          "text": "Divide the product of area and depth by 324 (12 inches per foot x 27 cubic feet per cubic yard): Volume (cu yd) = (Square Feet x Depth in Inches) / 324.",
+          "url": "https://rockcoveragecalculator.com/#mathematical-derivation"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Convert Volume to Commercial Quarry Tons",
+          "text": "Multiply cubic yards by the certified bulk density of your chosen rock type (e.g., 1.35 tons/yd³ for pea gravel or river rock, 1.40 tons/yd³ for crushed granite, 0.75 tons/yd³ for lava rock).",
+          "url": "https://rockcoveragecalculator.com/#density-reference-table"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Add Compaction and Settling Buffer",
+          "text": "Add 10% extra material (or 15-20% for dense-graded crusher run bases) to account for wheelbarrow displacement, subgrade irregularities, and soil settlement.",
+          "url": "https://rockcoveragecalculator.com/#compaction-factors"
+        }
+      ]
+    })} />
+  </Fragment>
   <Header />
   <main>
     <HeroSection />

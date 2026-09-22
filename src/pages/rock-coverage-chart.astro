@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -14,7 +14,7 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Primary Entity', value: 'Rock Coverage Chart' },
+  { label: 'Material', value: 'Rock Coverage Chart' },
   { label: 'Yard Spread', value: '324 sq ft at 1" Depth' },
   { label: 'Ton Spread', value: '240 sq ft at 1" Depth (1.35 T/yd³)' },
   { label: 'Depth Standards', value: '1", 2", 2.5", 3", 4", 6" Depths' }
@@ -44,11 +44,37 @@ const faqItems = [
     a: 'Locate your desired depth column in the table, check the square footage covered per yard or ton, and divide your total project area by that number. For instance, for a 500 sq ft bed at 3" depth (where 1 ton covers 80 sq ft): 500 / 80 = 6.25 tons.'
   }
 ];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Sq Ft' },
+  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Yards' },
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags' }
+];
+
+const bridgeLinks = [
+  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Pea Gravel' },
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Gravel Tons' },
+  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Crushed Stone' },
+  { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'River Rock' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: 'Gravel Size and Sieve Guide', slug: '/gravel-sizes', badge: 'AASHTO M43' }
+];
 ---
 
 <BaseLayout
   title="Rock Coverage Chart - Square Feet per Ton & Yard Reference"
-  description="Master rock coverage chart and dynamic calculator. Lookup exact square foot yields per cubic yard and ton across 1 to 6 inch depths for all landscaping stones."
+  metaDescription="Master rock coverage chart and dynamic calculator. Lookup exact square foot yields per cubic yard and ton across 1 to 6 inch depths for all landscaping stones."
   canonicalPath="/rock-coverage-chart"
 >
   <Fragment slot="head">
@@ -60,6 +86,7 @@ const faqItems = [
       "description": "Interactive rock coverage chart and depth matrix calculator for landscape aggregates.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
+      "inLanguage": "en-US",
       "about": {
         "@type": "Thing",
         "name": "Rock Coverage Chart"
@@ -99,6 +126,37 @@ const faqItems = [
     <!-- Engineering Guide Section -->
     <article class="content-guide-section">
       <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Rock Coverage Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Rock Coverage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage per Yard³ at 3"</span>
+              <span class="aeo-quick-value">108 Square Feet</span>
+              <p class="aeo-quick-desc">Standard Rule of 324 (324 / 3 inches = 108 sq ft).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage per Ton at 3"</span>
+              <span class="aeo-quick-value">80 Square Feet</span>
+              <p class="aeo-quick-desc">Calibrated for typical 1.35 t/yd³ stone (108 / 1.35 ≈ 80 sq ft).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage per Bag at 2"</span>
+              <span class="aeo-quick-value">3.0 Square Feet</span>
+              <p class="aeo-quick-desc">0.5 cu ft bag spread at standard 2-inch pathway depth.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Rule of 324 Formula</span>
+              <span class="aeo-quick-value">Sq Ft per Yard = 324 / Depth (in)</span>
+              <p class="aeo-quick-desc">Exact square foot yield formula for any depth in inches.</p>
+            </div>
+          </div>
+        </section>
+
         <div class="content-card">
           <h2>The Master Aggregate Coverage Reference Guide</h2>
           <p>
@@ -209,7 +267,14 @@ const faqItems = [
       </div>
     </article>
 
-    <TopicClusterNav activePage="rock-coverage-chart" />
+    <TopicClusterNav
+      currentPage="/rock-coverage-chart"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
   </main>
 
   <Footer />
@@ -220,6 +285,22 @@ const faqItems = [
   padding: var(--space-12) 0;
   background: var(--color-bg);
 }
+
+.aeo-quick-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+  box-shadow: 0 4px 20px rgba(202, 138, 4, 0.08);
+}
+.aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--color-primary); }
+.aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+.aeo-quick-item { background: var(--color-bg); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+.aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); margin-bottom: 2px; }
+.aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--color-text); margin-bottom: 2px; }
+.aeo-quick-desc { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.35; }
 
 .content-card {
   background: var(--color-surface);

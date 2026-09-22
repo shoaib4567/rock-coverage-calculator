@@ -1,0 +1,352 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Material Calculators', url: '/crushed-stone-calculator' },
+  { name: 'Riprap Calculator', url: '/riprap-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Riprap Rock Coverage' },
+  { label: 'Gradation Class', value: 'Class 1 (6" to 12" Heavy Angular)' },
+  { label: 'Bulk Density', value: '1.40 t/yd³ (104 lbs/cu ft)' },
+  { label: 'Layer Depth Rule', value: 'Minimum Depth = Maximum Stone Size (12")' }
+];
+
+const quickStats = [
+  { value: '6" to 12"', label: 'Particle Caliper', desc: 'Heavy quarry-blasted armor stone for high-velocity erosion control' },
+  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'ASTM C29 loose bulk density (2,800 lbs per cubic yard)' },
+  { value: 'DOT Spec', label: 'Erosion Armor', desc: 'Standard specification for culvert aprons, shorelines, and detention ponds' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of riprap do I need for a 15x20 foot culvert outfall apron?',
+    a: 'A 15x20 foot apron equals 300 square feet. Per civil drainage standards, Class 1 riprap (6-12 inch) must be installed at a minimum depth equal to the largest stone caliper (12 inches). At 12 inches depth, you need 11.11 cubic yards. At 1.40 tons per cubic yard plus a 10 percent buffer, order approximately 17.1 tons of riprap.'
+  },
+  {
+    q: 'What is the minimum thickness for riprap installation?',
+    a: 'Civil engineering standards specify that the minimum thickness of a riprap layer must be at least 1.5 times the average stone diameter (D50) or 1.0 times the maximum stone diameter. For Class 1 riprap (6 to 12 inches), the absolute minimum installed layer thickness is 12 inches.'
+  },
+  {
+    q: 'Does riprap require geotextile fabric underneath?',
+    a: 'Yes. A heavy non-woven 6 to 8 oz needle-punched geotextile fabric is mandatory under riprap. Without fabric, high-velocity storm runoff will erode the fine soil particles between the stones (piping), causing the heavy riprap to sink into the mud and destabilize the bank.'
+  },
+  {
+    q: 'What is the difference between Class 1 and Class 2 riprap?',
+    a: 'Class 1 riprap consists of stones ranging from 6 to 12 inches (weighing 25 to 150 lbs each) used for residential culverts and ditch linings. Class 2 riprap consists of 12 to 18 inch stones (weighing 150 to 500 lbs each) designed for high-energy riverbanks, highway bridge abutments, and lake shorelines.'
+  }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³' },
+  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: '1.35 t/yd³' },
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Cubic Yard Calculator', slug: '/rock-cubic-yard-calculator', badge: 'Volume' },
+  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Truckloads' }
+];
+
+const supportGuides = [
+  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Drainage Design' },
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+---
+
+<BaseLayout
+  title="Riprap & Armor Rock Coverage Calculator - Class 1 & 2 Tonnage & Yards"
+  metaDescription="Calculate cubic yards, scale tons, and coverage of rip rap rock and armor stone for erosion control. Sizing for culvert aprons, steep bank stabilization, and ponds."
+  canonicalPath="/riprap-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Riprap & Armor Rock Coverage Calculator",
+      "url": "https://rockcoveragecalculator.com/riprap-calculator",
+      "description": "Calculates Class 1 and Class 2 riprap and armor rock coverage, cubic yards, and quarry tonnage for erosion control and civil drainage.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Civil Engineers, Drainage Contractors, Excavators, Estimators"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Riprap Rock Coverage"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Riprap & Armor Rock Coverage Calculator"
+      highlightWord="Rock Coverage"
+      badge="Heavy Civil Erosion Control Engine"
+      subtitle="Accurate volumetric and tonnage calculations for Class 1 and Class 2 heavy quarry armor stone, culvert outfalls, and steep embankment stabilization."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Riprap Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Riprap Embankment Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="riprap-length">Length (Feet)</label>
+              <input type="number" id="riprap-length" value="40" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="riprap-width">Slope Width (Feet)</label>
+              <input type="number" id="riprap-width" value="15" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="riprap-depth">Layer Thickness (Inches)</label>
+              <input type="number" id="riprap-depth" value="12.0" min="6" max="36" step="1" />
+            </div>
+            <div class="input-field">
+              <label for="riprap-waste">Safety Buffer (%)</label>
+              <input type="number" id="riprap-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-riprap-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-riprap-cuft">Includes 10% buffer</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-riprap-tons">0.00</div>
+              <div class="kpi-label">Scale Weight (Tons)</div>
+              <div class="kpi-subtext">At 1.40 t/yd³ (2,800 lbs/yd³)</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-riprap-loads">0.0</div>
+              <div class="kpi-label">Tri-Axle Truckloads</div>
+              <div class="kpi-subtext">15 tons per load</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Riprap -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Riprap Sizing Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Riprap Armor Sizing Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Class 1 Caliper</span>
+              <span class="aeo-quick-value">6" to 12" Stone Size</span>
+              <p class="aeo-quick-desc">Weighs 25 to 150 lbs per rock; standard for drainage aprons.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Layer Thickness</span>
+              <span class="aeo-quick-value">12" Minimum Depth</span>
+              <p class="aeo-quick-desc">Depth must equal or exceed maximum stone caliper to prevent scour.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Bulk Density</span>
+              <span class="aeo-quick-value">1.40 t/yd³ (104 lbs/cu ft)</span>
+              <p class="aeo-quick-desc">Loose quarry weight per ASTM C29 testing (2,800 lbs/yd³).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Underlayment</span>
+              <span class="aeo-quick-value">6-8 oz Non-Woven Poly</span>
+              <p class="aeo-quick-desc">Mandatory geotextile prevents soil migration through rock voids.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Hydraulic Principles of Riprap Slope Protection</h2>
+          <p>
+            <strong>Riprap (Rock Armor)</strong> is composed of heavy, angular quarry-blasted stones placed along shorelines, drainage channels, culvert outfalls, and steep highway slopes to protect soil against hydraulic scour and wave erosion.
+          </p>
+          <p>
+            Unlike smooth decorative rock, riprap relies on individual stone mass (typically 25 to 150 pounds per piece for Class 1, and 150 to 500 pounds for Class 2) and angular particle interlock to resist hydraulic shear stresses generated by fast-flowing stormwater.
+          </p>
+
+          <div class="formula-box">
+            <code>Volume (Cubic Yards) = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
+            <br />
+            <code>Scale Tonnage = Volume (yd³) × 1.40 Tons/yd³</code>
+            <br />
+            <code>Critical Rule: Thickness must be at least 1.0× the maximum stone size (12 inches for Class 1).</code>
+          </div>
+
+          <h3>Installation Protocol for Riprap Swales and Aprons</h3>
+          <ol class="steps-list">
+            <li>
+              <strong>Excavation:</strong> Over-excavate the channel by 14 inches to accommodate 2 inches of bedding aggregate and 12 inches of armor stone without restricting channel capacity.
+            </li>
+            <li>
+              <strong>High-Strength Geotextile:</strong> Lay a heavy-duty 6 to 8 oz non-woven needle-punched polypropylene drainage fabric. Pin with 12-inch steel spikes and washers.
+            </li>
+            <li>
+              <strong>Bedding Layer (Optional but Recommended):</strong> Spread a 2-inch cushion of #57 crushed stone over the fabric. This prevents heavy riprap stones from puncturing the geotextile when dropped into place.
+            </li>
+            <li>
+              <strong>Stone Placement:</strong> Place riprap starting from the bottom of the slope and work upward to create an interlocking mass. Never dump stones from heights exceeding 3 feet onto bare fabric.
+            </li>
+          </ol>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Riprap</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/riprap-calculator"
+      category="material"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateRiprap() {
+      const l = parseFloat((document.getElementById('riprap-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('riprap-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('riprap-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('riprap-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const tons = totalYards * 1.40;
+      const loads = tons / 15;
+
+      const yEl = document.getElementById('kpi-riprap-yards');
+      const tEl = document.getElementById('kpi-riprap-tons');
+      const lEl = document.getElementById('kpi-riprap-loads');
+
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (lEl) lEl.innerText = loads.toFixed(1);
+    }
+
+    ['riprap-length', 'riprap-width', 'riprap-depth', 'riprap-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateRiprap);
+    });
+    updateRiprap();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .steps-list { padding-left: var(--space-6); margin: var(--space-4) 0; }
+  .steps-list li { margin-bottom: var(--space-3); }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

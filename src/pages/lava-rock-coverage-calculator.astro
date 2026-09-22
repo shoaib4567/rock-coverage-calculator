@@ -1,0 +1,368 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Lava Rock Calculator', url: '/lava-rock-calculator' },
+  { name: 'Lava Rock Coverage Calculator', url: '/lava-rock-coverage-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Lava Rock Coverage' },
+  { label: 'Yield at 2"', value: '216 sq ft per Ton (162 sq ft / Yd³)' },
+  { label: 'Yield at 3"', value: '144 sq ft per Ton (108 sq ft / Yd³)' },
+  { label: 'Bulk Density', value: '0.75 t/yd³ (1,500 lbs/yd³)' }
+];
+
+const quickStats = [
+  { value: '216 sq ft', label: 'Per Ton at 2"', desc: 'Massive square foot spread per short ton due to porous lightweight scoria' },
+  { value: '162 sq ft', label: 'Per Yard at 2"', desc: 'Standard square foot coverage per cubic yard at 2-inch bed depth' },
+  { value: '0.75 t/yd³', label: 'Density', desc: 'Nearly half the weight of conventional gravel and river stone' }
+];
+
+const faqItems = [
+  {
+    q: 'How many square feet does 1 ton of lava rock cover?',
+    a: 'Because volcanic lava rock is ultra-lightweight (0.75 tons per cubic yard), 1 short ton equals 1.33 cubic yards of physical material. It covers approximately 216 square feet at 2 inches depth, 144 square feet at 3 inches depth, and 108 square feet at 4 inches depth (nearly double the coverage of granite or river rock).'
+  },
+  {
+    q: 'How much lava rock do I need for 300 square feet?',
+    a: 'For 300 square feet at a standard 2-inch depth for flower bed mulch replacement, you need 1.85 cubic yards of lava rock. Multiplying by 0.75 tons per yard and adding a 10 percent buffer yields only 1.53 tons (approximately 108 bags of 0.5 cu ft).'
+  },
+  {
+    q: 'Why does lava rock cover so much more area per ton than gravel?',
+    a: 'Conventional gravel and crushed stone weigh approximately 2,700 to 2,800 pounds per cubic yard (1.35 to 1.40 tons). Volcanic lava rock weighs only 1,500 pounds per cubic yard (0.75 tons). When ordering by the ton, you receive 33 percent more physical volume of rock.'
+  },
+  {
+    q: 'What is the recommended depth for lava rock ground cover?',
+    a: 'Spread lava rock at a depth of 2.0 inches for flower beds and shrub borders. For weed suppression without landscape fabric, install at 3.0 inches depth.'
+  }
+];
+
+const upLinks = [
+  { title: 'Lava Rock Calculator (Material Parent)', slug: '/lava-rock-calculator', badge: 'Material' },
+  { title: 'Rock Square Foot Calculator (Unit Parent)', slug: '/rock-square-foot-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Bags' },
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Decorative' },
+  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'Marble' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
+];
+---
+
+<BaseLayout
+  title="Lava Rock Coverage Calculator - Sq Ft Yields per Ton & Yard"
+  metaDescription="Calculate exact square foot coverage per ton and cubic yard for red and black volcanic lava rock. High-yield lightweight scoria tables and formulas."
+  canonicalPath="/lava-rock-coverage-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Lava Rock Coverage Calculator",
+      "url": "https://rockcoveragecalculator.com/lava-rock-coverage-calculator",
+      "description": "Calculates square foot coverage yields per ton and cubic yard for lightweight volcanic lava rock.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Landscape Designers, Gardeners, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Lava Rock Coverage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Lava Rock Coverage Calculator"
+      highlightWord="Coverage"
+      badge="High-Yield Coverage Engine"
+      subtitle="Calculate square foot yields per ton and cubic yard for lightweight volcanic scoria across custom depths."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Lava Rock Coverage Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Lava Rock Coverage Specifications</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="lrc-area">Project Area (Square Feet)</label>
+              <input type="number" id="lrc-area" value="300" min="1" step="10" />
+            </div>
+            <div class="input-field">
+              <label for="lrc-depth">Layer Depth (Inches)</label>
+              <input type="number" id="lrc-depth" value="2.0" min="1" max="8" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="lrc-waste">Safety Buffer (%)</label>
+              <input type="number" id="lrc-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-lrc-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext" id="kpi-lrc-lbs">0 lbs</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-lrc-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-lrc-yield">0 sq ft / ton</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-lrc-bags">0</div>
+              <div class="kpi-label">0.5 Cu Ft Bags</div>
+              <div class="kpi-subtext">~28 lbs each</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Lava Rock Coverage -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Lava Rock Coverage Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Lava Rock Coverage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 2"</span>
+              <span class="aeo-quick-value">216 sq ft / Ton (162 sq ft / Yd)</span>
+              <p class="aeo-quick-desc">Standard depth for shrub borders and mulch replacement.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 3"</span>
+              <span class="aeo-quick-value">144 sq ft / Ton (108 sq ft / Yd)</span>
+              <p class="aeo-quick-desc">Deep coverage for maximum moisture retention and weed control.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Density Comparison</span>
+              <span class="aeo-quick-value">0.75 t/yd³ vs 1.35 t/yd³</span>
+              <p class="aeo-quick-desc">Yields 80% more square footage per ton than granite or river rock.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Volume per Ton</span>
+              <span class="aeo-quick-value">1.33 Cubic Yards per Ton</span>
+              <p class="aeo-quick-desc">2,000 lbs divided by 1,500 lbs/yd³ bulk density.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Lava Rock Square Footage Coverage Chart</h2>
+          <p>
+            Because volcanic scoria has a low bulk density of approximately <strong>0.75 tons per cubic yard (1,500 lbs/yd³)</strong>, one ton equals 1.33 cubic yards of physical material. Below is the reference coverage matrix:
+          </p>
+
+          <div style="overflow-x: auto; margin: var(--space-6) 0;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: var(--text-sm);">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-subtle); color: var(--accent-gold);">
+                  <th style="padding: 10px;">Depth (Inches)</th>
+                  <th style="padding: 10px;">Sq Ft per Cubic Yard</th>
+                  <th style="padding: 10px;">Sq Ft per Short Ton</th>
+                  <th style="padding: 10px;">Sq Ft per 0.5 cu ft Bag</th>
+                  <th style="padding: 10px;">Recommended Application</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 10px; font-weight: 600;">1.5"</td>
+                  <td style="padding: 10px;">216 sq ft</td>
+                  <td style="padding: 10px;">288 sq ft</td>
+                  <td style="padding: 10px;">4.0 sq ft</td>
+                  <td style="padding: 10px;">Light decorative top-dressing refresh</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(212, 168, 83, 0.05);">
+                  <td style="padding: 10px; font-weight: 600;">2.0"</td>
+                  <td style="padding: 10px;">162 sq ft</td>
+                  <td style="padding: 10px;">216 sq ft</td>
+                  <td style="padding: 10px;">3.0 sq ft</td>
+                  <td style="padding: 10px;">Flower bed mulch replacement (Standard)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(212, 168, 83, 0.1);">
+                  <td style="padding: 10px; font-weight: 600;">3.0"</td>
+                  <td style="padding: 10px;">108 sq ft</td>
+                  <td style="padding: 10px;">144 sq ft</td>
+                  <td style="padding: 10px;">2.0 sq ft</td>
+                  <td style="padding: 10px;">Deep weed suppression and xeriscape accents</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; font-weight: 600;">4.0"</td>
+                  <td style="padding: 10px;">81 sq ft</td>
+                  <td style="padding: 10px;">108 sq ft</td>
+                  <td style="padding: 10px;">1.5 sq ft</td>
+                  <td style="padding: 10px;">Gas fire pit burner substrate</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Lava Rock Coverage</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/lava-rock-coverage-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateLRC() {
+      const a = parseFloat((document.getElementById('lrc-area') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('lrc-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('lrc-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (a * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const tons = totalYards * 0.75;
+      const lbs = tons * 2000;
+      const bags = Math.ceil(totalYards * 54);
+      const yieldPerTon = d > 0 ? ((324 / d) / 0.75) : 0;
+
+      const tEl = document.getElementById('kpi-lrc-tons');
+      const yEl = document.getElementById('kpi-lrc-yards');
+      const bEl = document.getElementById('kpi-lrc-bags');
+      const lbsEl = document.getElementById('kpi-lrc-lbs');
+      const yieldEl = document.getElementById('kpi-lrc-yield');
+
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (bEl) bEl.innerText = bags.toLocaleString();
+      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs';
+      if (yieldEl) yieldEl.innerText = Math.round(yieldPerTon) + ' sq ft / ton yield';
+    }
+
+    ['lrc-area', 'lrc-depth', 'lrc-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateLRC);
+    });
+    updateLRC();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

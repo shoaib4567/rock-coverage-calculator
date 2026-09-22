@@ -1,0 +1,837 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Crushed Stone Calculator', url: '/crushed-stone-calculator' },
+  { name: 'Trap Rock Calculator', url: '/trap-rock-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Trap Rock (Basalt / Diabase)' },
+  { label: 'Bulk Density', value: '1.52 t/yd³ (3,040 lbs/yd³)' },
+  { label: 'Coverage at 3"', value: '71 sq ft per Ton (108 sq ft / Yd³)' },
+  { label: 'ASTM Specs', value: 'ASTM C33, C131 (LA Abrasion <15%)' }
+];
+
+const quickStats = [
+  { value: '71 sq ft', label: 'Per Ton at 3"', desc: 'Square foot coverage per ton of 3/4 inch trap rock at 3-inch depth' },
+  { value: '1.52 Tons', label: 'Per Cubic Yard', desc: 'Dense igneous weight rating (15% heavier than standard limestone)' },
+  { value: '30,000+ psi', label: 'Compressive Strength', desc: 'Heavy-duty crush resistance for commercial driveways and rail ballast' }
+];
+
+const faqItems = [
+  {
+    q: 'How many square feet does one ton of trap rock cover?',
+    a: 'One ton of 3/4-inch trap rock covers approximately 71 square feet at a 3-inch depth, 106 square feet at a 2-inch depth, and 53 square feet at a 4-inch depth. Because trap rock is an igneous basalt or diabase with a high specific gravity (2.85 to 3.0), it covers roughly 10 to 15 percent less area per ton than lighter sedimentary limestone.'
+  },
+  {
+    q: 'What is trap rock and how does it differ from standard gravel or limestone?',
+    a: 'Trap rock is a dark, fine-grained igneous rock composed primarily of basalt or diabase. It is quarried extensively across the Northeast and Mid-Atlantic US. It has far higher compressive strength, superior freeze-thaw resistance, and does not degrade or turn to dust under heavy vehicular loads like soft limestone or sandstone.'
+  },
+  {
+    q: 'How much does a cubic yard of trap rock weigh?',
+    a: 'A cubic yard of trap rock weighs approximately 3,000 to 3,100 pounds (1.50 to 1.55 short tons), depending on gradation and moisture content. For engineering calculations, 1.52 tons per yard (112.5 lbs per cubic foot) is standard.'
+  },
+  {
+    q: 'What size trap rock is best for a residential driveway?',
+    a: 'For a top surface layer, 3/4-inch (#57) clean trap rock is ideal because its sharp angular edges lock tightly under vehicle tires without kicking out. For the stabilizing base layer beneath, 1-1/2 inch to 2-inch dense graded trap rock with fines is recommended.'
+  }
+];
+
+const upLinks = [
+  { title: 'Crushed Stone Calculator (Parent)', slug: '/crushed-stone-calculator', badge: 'Parent' },
+  { title: 'Driveway Rock Calculator', slug: '/driveway-rock-calculator', badge: 'Application' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Base' },
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: 'Aggregate' },
+  { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: 'Heavy Stone' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Aggregate' },
+  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Drainage' }
+];
+
+const supportGuides = [
+  { title: 'Rock Density Reference Chart', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Estimation' }
+];
+---
+
+<BaseLayout
+  title="Trap Rock Calculator - Coverage, Weight & Tonnage Estimator"
+  metaDescription="Calculate trap rock (basalt/diabase) coverage in tons and cubic yards for driveways, drainage, and paver bases. Accounts for high igneous aggregate density (1.52 t/yd³)."
+  canonicalPath="/trap-rock-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Trap Rock Calculator",
+      "url": "https://rockcoveragecalculator.com/trap-rock-calculator",
+      "description": "Engineered calculator for dense igneous trap rock (basalt/diabase) tonnage, volume, and square foot coverage.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Civil Contractors, Paving Professionals, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Trap Rock Coverage and Tonnage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Trap Rock Calculator"
+      highlightWord="Trap Rock"
+      badge="Heavy Aggregate Engine"
+      subtitle="Accurate tonnage, volume, and square foot coverage calculations calibrated for high-density basalt and diabase aggregates."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Calculator Section -->
+    <section class="section" id="calculator">
+      <div class="container">
+        <div class="section-header">
+          <div class="hero-badge" style="margin-bottom: var(--space-3);">
+            <span class="badge-dot"></span>
+            <span>Calibrated Igneous Density Engine</span>
+          </div>
+          <h2>Calculate Trap Rock Tonnage &amp; Coverage</h2>
+          <div class="section-divider"></div>
+          <p>Trap rock is approximately 15 percent denser than standard limestone. Input your project dimensions below for precise tonnage and cubic yard totals.</p>
+        </div>
+
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              <h3>Project Specifications</h3>
+            </div>
+
+            <!-- Gradation Selector -->
+            <div class="input-field" style="margin-bottom: var(--space-4);">
+              <label for="trap-grade">Trap Rock Gradation &amp; Use</label>
+              <select id="trap-grade" class="select-input">
+                <option value="3/4" selected>3/4 Inch (#57 Stone) - Driveways, Drainage, Decorative (1.52 t/yd³)</option>
+                <option value="3/8">3/8 Inch (#8 Pea Stone) - Walkways, Paver Bedding (1.50 t/yd³)</option>
+                <option value="1.5">1-1/2 Inch (#3 / #4 Stone) - Heavy Subbase, Stabilizing (1.55 t/yd³)</option>
+                <option value="dust">Trap Rock Screenings / Fines - Compacted Paver Base (1.60 t/yd³)</option>
+              </select>
+            </div>
+
+            <!-- Mode Tabs -->
+            <div class="mode-tabs">
+              <button type="button" class="tab-btn active" id="tab-dim">Dimensions (L × W)</button>
+              <button type="button" class="tab-btn" id="tab-sqft">Total Area (Sq Ft)</button>
+            </div>
+
+            <!-- Dimensions Subgrid -->
+            <div id="dim-inputs" class="dim-grid">
+              <div class="input-field">
+                <label for="trap-len">Length (Feet)</label>
+                <input type="number" id="trap-len" value="50" min="1" step="0.5" />
+              </div>
+              <div class="input-field">
+                <label for="trap-wid">Width (Feet)</label>
+                <input type="number" id="trap-wid" value="12" min="1" step="0.5" />
+              </div>
+            </div>
+
+            <!-- Area Subgrid (Hidden) -->
+            <div id="sqft-inputs" class="dim-grid single-col" style="display: none;">
+              <div class="input-field">
+                <label for="trap-area">Total Surface Area (Square Feet)</label>
+                <input type="number" id="trap-area" value="600" min="1" step="1" />
+              </div>
+            </div>
+
+            <!-- Depth Input -->
+            <div class="input-field" style="margin-bottom: var(--space-4);">
+              <div class="label-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-1);">
+                <label for="trap-dep" style="margin: 0;">Compacted Depth (Inches)</label>
+                <span class="depth-hint" id="trap-depth-hint" style="font-size: var(--text-xs); color: var(--gold-400); font-weight: 600;">Driveway Surface: 3.0 inches</span>
+              </div>
+              <input type="number" id="trap-dep" value="3.0" min="1" max="18" step="0.5" />
+            </div>
+
+            <!-- Compaction & Waste -->
+            <div class="input-field">
+              <label for="trap-compaction">Compaction &amp; Subgrade Factor</label>
+              <select id="trap-compaction" class="select-input">
+                <option value="0.05">5% Waste (Walkway / Bedding)</option>
+                <option value="0.10" selected>10% Compaction (Driveway Top Layer)</option>
+                <option value="0.15">15% Heavy Compaction (Subbase / Heavy Equipment)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- RIGHT: Outputs Column -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+                <div class="kpi-value" id="res-trap-tons">9.29</div>
+                <div class="kpi-label">Quarry Weight (Tons)</div>
+                <div class="kpi-subtext">Short Tons (18,580 lbs)</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-value" id="res-trap-yards">6.11</div>
+                <div class="kpi-label">Uncompacted Volume</div>
+                <div class="kpi-subtext">Cubic Yards</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-value" id="res-trap-yield">71</div>
+                <div class="kpi-label">Coverage Yield</div>
+                <div class="kpi-subtext">Sq Ft / Short Ton</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-value" id="res-trap-trucks">1</div>
+                <div class="kpi-label">Truckload Estimate</div>
+                <div class="kpi-subtext">Tri-Axle Rig (~18-20 tons)</div>
+              </div>
+            </div>
+
+            <!-- High Density Notice Card with SVG Scale Icon -->
+            <div class="purchase-card" style="margin-top: var(--space-6);">
+              <div class="purchase-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h18"/></svg>
+              </div>
+              <div class="purchase-content">
+                <div class="purchase-title">High Density Notice</div>
+                <div class="purchase-desc">Trap rock weighs ~3,040 lbs/yd³ vs ~2,550 lbs/yd³ for limestone. Ordering by cubic yards will result in higher freight weight on delivery tickets.</div>
+              </div>
+            </div>
+
+            <div class="formula-note" style="margin-top: var(--space-4); padding: var(--space-3) var(--space-4); background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); font-size: var(--text-xs); color: var(--text-muted);">
+              <strong style="color: var(--text-primary); display: block; margin-bottom: 2px;">Trap Rock Formula:</strong>
+              <code>Tons = ((Area × Depth / 12) / 27) × Density (t/yd³) × (1 + Compaction)</code>
+              <div style="margin-top: 4px;">Calibrated for ASTM C29 bulk unit weight standards.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide Content -->
+    <article class="guide-content">
+      <div class="guide-container">
+
+        <!-- Engineering Summary Card -->
+        <div class="aeo-quick-card">
+          <h3>How Much Trap Rock Do You Need?</h3>
+          <p>
+            Because trap rock (basalt or diabase) is an igneous aggregate with a dense bulk density of <strong>1.50 to 1.55 tons per cubic yard (3,000 to 3,100 lbs/yd³)</strong>, it covers less area per ton than sedimentary limestone or gravel.
+          </p>
+          <p>
+            At the standard <strong>3-inch installation depth</strong> for driveways and landscape surfaces, <strong>one short ton of 3/4-inch trap rock covers approximately 71 square feet</strong> (108 square feet per cubic yard). At a <strong>2-inch depth</strong> for walkways, one ton covers <strong>106 square feet</strong> (162 square feet per cubic yard).
+          </p>
+        </div>
+
+        <h2>Geological Properties and Engineering Advantages of Trap Rock</h2>
+        <p>
+          The term "trap rock" originates from the Swedish word <em>trappa</em> (meaning stairs or steps), describing the geometric step-like columnar jointing formed when cooling basaltic magma cools and fractures. In modern US construction, trap rock refers to crushed basalt, diabase, and gabbro quarried throughout regions such as the Newark Basin in New Jersey and Pennsylvania, the Connecticut River Valley, the Shenandoah Valley in Virginia, and the Lake Superior Basin in Wisconsin.
+        </p>
+        <p>
+          Unlike sedimentary limestone or shale, trap rock is composed of interlocking micro-crystals of plagioclase feldspar and pyroxene. This crystalline structure delivers unmatched engineering durability:
+        </p>
+        <ul>
+          <li><strong>Exceptional Hardness:</strong> Mohs hardness rating of 6 to 7, resisting crushing under semi-truck tires and tracked construction machinery.</li>
+          <li><strong>Low Los Angeles Abrasion Loss:</strong> Less than 15 percent degradation during ASTM C131 test cycles, compared to 25 to 40 percent for standard limestone.</li>
+          <li><strong>Chemical Inactivity:</strong> Does not react with acid rain, road deicing salts, or petroleum spills, making it impervious to the chemical breakdown that plagues softer carbonates.</li>
+          <li><strong>Striking Dark Aesthetic:</strong> Freshly crushed trap rock features a deep charcoal gray to blue-black hue that adds contemporary architectural contrast to driveways and borders.</li>
+        </ul>
+
+        <!-- Coverage Reference Table -->
+        <div class="table-card">
+          <h3>Trap Rock Coverage Yield Reference Table</h3>
+          <p>Estimated square foot yields per short ton and cubic yard at standard installation depths (based on 1.52 t/yd³ density):</p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Application</th>
+                  <th>Nominal Gradation</th>
+                  <th>Depth (Inches)</th>
+                  <th>Sq Ft / Short Ton</th>
+                  <th>Sq Ft / Cubic Yard</th>
+                  <th>Tons / 1,000 Sq Ft</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Permeable Paver Bedding</td>
+                  <td>3/8" (#8 Stone)</td>
+                  <td>1.5"</td>
+                  <td>142 sq ft</td>
+                  <td>216 sq ft</td>
+                  <td>7.0 tons</td>
+                </tr>
+                <tr>
+                  <td>Garden Walkways</td>
+                  <td>3/8" or 1/2" Stone</td>
+                  <td>2.0"</td>
+                  <td>106 sq ft</td>
+                  <td>162 sq ft</td>
+                  <td>9.4 tons</td>
+                </tr>
+                <tr>
+                  <td>Driveway Surfacing (Standard)</td>
+                  <td>3/4" (#57 Stone)</td>
+                  <td>3.0"</td>
+                  <td>71 sq ft</td>
+                  <td>108 sq ft</td>
+                  <td>14.1 tons</td>
+                </tr>
+                <tr>
+                  <td>Heavy Traffic Driveway</td>
+                  <td>3/4" (#57 Stone)</td>
+                  <td>4.0"</td>
+                  <td>53 sq ft</td>
+                  <td>81 sq ft</td>
+                  <td>18.8 tons</td>
+                </tr>
+                <tr>
+                  <td>Commercial Base Course</td>
+                  <td>1-1/2" DGA Base</td>
+                  <td>6.0"</td>
+                  <td>35 sq ft</td>
+                  <td>54 sq ft</td>
+                  <td>28.2 tons</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h2>How to Calculate Trap Rock Tonnage</h2>
+        <p>To compute the exact tonnage of trap rock required for your job site, use the following equation:</p>
+        <ol class="calc-steps">
+          <li>
+            <strong>Calculate Surface Area:</strong>
+            <code>Area (sq ft) = Length (ft) × Width (ft)</code>
+          </li>
+          <li>
+            <strong>Calculate Volume in Cubic Yards:</strong>
+            <code>Cubic Yards = (Area in sq ft × Depth in inches) / 324</code>
+          </li>
+          <li>
+            <strong>Apply Trap Rock Igneous Density:</strong>
+            <code>Tons = Cubic Yards × 1.52 tons/yd³</code>
+          </li>
+          <li>
+            <strong>Add Compaction Allowance:</strong> For uncompacted clean stone (#57), add 10 percent. For dense-graded base with fines, add 15 percent to account for pneumatic roller compaction.
+            <code>Order Quantity = Tons × (1 + Compaction Factor)</code>
+          </li>
+        </ol>
+
+        <h2>Best Practices for Trap Rock Installation</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="feature-num">01</span>
+            <h4>Stable Geotextile Separation</h4>
+            <p>Always place a woven 200-lb tensile geotextile fabric between the native subgrade and your trap rock base. This prevents the heavy, sharp basalt stones from sinking into wet native clay during spring thaw cycles.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">02</span>
+            <h4>Layered Driveway Structure</h4>
+            <p>For residential driveways, build a 4-inch base of dense graded aggregate (crusher run trap rock), compact it thoroughly with a vibratory plate or roller, and top it with 2 to 3 inches of clean 3/4-inch trap rock.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">03</span>
+            <h4>Freight Weight Limits</h4>
+            <p>Because trap rock weighs over 3,000 lbs per yard, a standard 20-ton tri-axle dump truck can carry approximately 13 cubic yards of trap rock, compared to 15 to 16 cubic yards of lighter limestone. Confirm axle weight regulations with your local hauler.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">04</span>
+            <h4>Superior Drainage Performance</h4>
+            <p>Clean 3/4-inch trap rock has roughly 40 percent void space, making it one of the premier aggregates for French drains, retaining wall backfill, and foundation perimeter drainage that will never clog with silt.</p>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <h2>Frequently Asked Questions About Trap Rock</h2>
+        <div class="faq-list">
+          {faqItems.map((item) => (
+            <div class="faq-item">
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </article>
+
+    <!-- Cluster Navigation Section -->
+    <TopicClusterNav
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <!-- Client-Side Script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const gradeSelect = document.getElementById('trap-grade');
+      const tabDim = document.getElementById('tab-dim');
+      const tabSqft = document.getElementById('tab-sqft');
+      const dimInputs = document.getElementById('dim-inputs');
+      const sqftInputs = document.getElementById('sqft-inputs');
+      const inputLen = document.getElementById('trap-len');
+      const inputWid = document.getElementById('trap-wid');
+      const inputArea = document.getElementById('trap-area');
+      const inputDep = document.getElementById('trap-dep');
+      const inputComp = document.getElementById('trap-compaction');
+      const depthHint = document.getElementById('trap-depth-hint');
+
+      const resTons = document.getElementById('res-trap-tons');
+      const resYards = document.getElementById('res-trap-yards');
+      const resYield = document.getElementById('res-trap-yield');
+      const resTrucks = document.getElementById('res-trap-trucks');
+
+      let mode = 'dimensions';
+
+      // Density map
+      const densities = {
+        '3/4': 1.52,
+        '3/8': 1.50,
+        '1.5': 1.55,
+        'dust': 1.60
+      };
+
+      gradeSelect.addEventListener('change', () => {
+        const val = gradeSelect.value;
+        if (val === '3/8') {
+          inputDep.value = '2.0';
+          depthHint.textContent = 'Walkway Surface: 2.0 inches';
+        } else if (val === '3/4') {
+          inputDep.value = '3.0';
+          depthHint.textContent = 'Driveway Surface: 3.0 inches';
+        } else if (val === '1.5') {
+          inputDep.value = '5.0';
+          depthHint.textContent = 'Stabilizing Subbase: 5.0 inches';
+        } else if (val === 'dust') {
+          inputDep.value = '1.0';
+          depthHint.textContent = 'Paver Setting Bed: 1.0 inch';
+        }
+        recalculate();
+      });
+
+      tabDim.addEventListener('click', () => {
+        mode = 'dimensions';
+        tabDim.classList.add('active');
+        tabSqft.classList.remove('active');
+        dimInputs.style.display = 'grid';
+        sqftInputs.style.display = 'none';
+        recalculate();
+      });
+
+      tabSqft.addEventListener('click', () => {
+        mode = 'area';
+        tabSqft.classList.add('active');
+        tabDim.classList.remove('active');
+        dimInputs.style.display = 'none';
+        sqftInputs.style.display = 'grid';
+        recalculate();
+      });
+
+      function recalculate() {
+        let area = 0;
+        if (mode === 'dimensions') {
+          const l = parseFloat(inputLen.value) || 0;
+          const w = parseFloat(inputWid.value) || 0;
+          area = l * w;
+        } else {
+          area = parseFloat(inputArea.value) || 0;
+        }
+
+        const depthInches = parseFloat(inputDep.value) || 0;
+        const compFactor = parseFloat(inputComp.value) || 0;
+        const density = densities[gradeSelect.value] || 1.52;
+
+        const volumeCuFt = area * (depthInches / 12);
+        const volumeCuYd = volumeCuFt / 27;
+        const adjustedYards = volumeCuYd * (1 + compFactor);
+        const tons = adjustedYards * density;
+
+        // Yield at this depth in sq ft per ton
+        const sqftPerTon = depthInches > 0 ? (324 / depthInches) / density : 0;
+        const truckloads = Math.ceil(tons / 18);
+
+        resYards.textContent = adjustedYards.toFixed(2);
+        resTons.textContent = tons.toFixed(2);
+        resYield.textContent = Math.round(sqftPerTon).toString();
+        resTrucks.textContent = truckloads.toString();
+      }
+
+      [inputLen, inputWid, inputArea, inputDep, inputComp].forEach(el => {
+        el.addEventListener('input', recalculate);
+      });
+
+      recalculate();
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .calc-section {
+    padding: var(--space-8) var(--space-4);
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .calc-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .calc-header {
+    text-align: center;
+    margin-bottom: var(--space-8);
+  }
+
+  .calc-badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-2);
+  }
+
+  .calc-header h2 {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .calc-header p {
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (max-width: 860px) {
+    .calc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Calculator Select & Tabs */
+  .select-input {
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    transition: border-color var(--duration-fast);
+  }
+
+  [data-theme="light"] .select-input {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+  }
+
+  .select-input:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+  }
+
+  .mode-tabs {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .tab-btn {
+    flex: 1;
+    min-height: 42px;
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--duration-fast);
+  }
+
+  [data-theme="light"] .tab-btn {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #334155;
+  }
+
+  .tab-btn.active {
+    background: rgba(212, 168, 83, 0.15);
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+  }
+
+  [data-theme="light"] .tab-btn.active {
+    background: rgba(184, 134, 11, 0.12);
+    color: var(--gold-500);
+    border-color: var(--gold-500);
+  }
+
+  /* Guide Content */
+  .guide-content {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .guide-container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .aeo-quick-card {
+    background: rgba(59, 130, 246, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-left: 4px solid #3b82f6;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+
+  .aeo-badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-2);
+    background: #3b82f6;
+    color: #fff;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-quick-card h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-quick-card p {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  .aeo-quick-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .guide-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-text-heading);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-content p {
+    color: var(--color-text);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-content ul {
+    margin-left: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .guide-content li {
+    margin-bottom: var(--space-2);
+    line-height: 1.6;
+  }
+
+  .table-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin: var(--space-8) 0;
+  }
+
+  .table-card h3 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .table-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  th, td {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    background: var(--color-bg);
+    color: var(--color-text-heading);
+    font-weight: 700;
+  }
+
+  .calc-steps {
+    margin-left: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .calc-steps li {
+    margin-bottom: var(--space-4);
+    line-height: 1.6;
+  }
+
+  .calc-steps code {
+    display: block;
+    margin-top: var(--space-1);
+    background: var(--color-surface);
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin: var(--space-8) 0;
+  }
+
+  @media (max-width: 640px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+  }
+
+  .feature-num {
+    font-size: var(--text-xs);
+    font-weight: 800;
+    color: #3b82f6;
+    margin-bottom: var(--space-2);
+    display: block;
+  }
+
+  .feature-card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .feature-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .faq-list {
+    margin-top: var(--space-6);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-item h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .faq-item p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+</style>

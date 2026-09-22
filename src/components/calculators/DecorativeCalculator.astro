@@ -18,9 +18,9 @@
         </div>
 
         <div class="rock-select-grid" role="radiogroup">
-          <button type="button" class="rock-btn active" data-density="1.38" data-min="2.5" data-name="Mexican Beach Pebble (Black)">
+          <button type="button" class="rock-btn active" data-density="1.40" data-min="2.5" data-name="Mexican Beach Pebble (Black)">
             <div class="rock-title">Mexican Beach Pebble (Black)</div>
-            <div class="rock-spec">Premium volcanic unglazed | 1.38 T/yd³ | Min 2.5" depth</div>
+            <div class="rock-spec">Premium volcanic unglazed | 1.40 T/yd³ | Min 2.5" depth</div>
           </button>
           <button type="button" class="rock-btn" data-density="0.85" data-min="2.0" data-name="Volcanic Red Lava Rock">
             <div class="rock-title">Volcanic Red Lava Rock</div>
@@ -102,7 +102,7 @@
         <div class="comparison-yield-card">
           <div class="yield-title">Density & Yield Comparison Insight</div>
           <p class="yield-desc" id="yield-comparison-text">
-            Mexican Beach Pebble weighs 1.38 tons/yd³. Switching to lightweight Volcanic Lava Rock (0.85 tons/yd³) would reduce your total delivery freight weight by ~38% while covering the exact same 250 sq ft area.
+            Mexican Beach Pebble weighs 1.40 tons/yd³. Switching to lightweight Volcanic Lava Rock (0.85 tons/yd³) would reduce your total delivery freight weight by ~39% while covering the exact same 250 sq ft area.
           </p>
         </div>
 
@@ -369,7 +369,7 @@ function initDecorativeCalculator() {
 
   const rockBtns = document.querySelectorAll('.rock-btn');
 
-  let activeDensity = 1.38; // Mexican beach pebble
+  let activeDensity = 1.40; // Mexican beach pebble
   let activeMatName = 'Mexican Beach Pebble (Black)';
 
   function calculate() {
@@ -432,7 +432,7 @@ function initDecorativeCalculator() {
     btn.addEventListener('click', () => {
       rockBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.38');
+      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.40');
       const minDepth = parseFloat(btn.getAttribute('data-min') || '2.0');
       const titleEl = btn.querySelector('.rock-title');
       if (titleEl) activeMatName = titleEl.textContent || 'Decorative Rock';

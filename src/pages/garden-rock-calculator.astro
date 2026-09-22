@@ -1,0 +1,837 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Landscape Rock Calculator', url: '/landscape-rock-calculator' },
+  { name: 'Garden Rock Calculator', url: '/garden-rock-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Garden Rock Mulch' },
+  { label: 'Application', value: 'Flower Beds, Perennials & Borders' },
+  { label: 'Coverage at 3"', value: '80 sq ft per Ton (108 sq ft / Yd³)' },
+  { label: 'Weed Fabric', value: 'Non-Woven Geotextile (4-6 oz)' }
+];
+
+const quickStats = [
+  { value: '80 sq ft', label: 'Per Ton at 3"', desc: 'Square foot coverage per ton of 1-2 inch garden river stone' },
+  { value: '120 sq ft', label: 'Per Ton at 2"', desc: 'Square foot coverage per ton of 3/8 inch pea gravel mulch' },
+  { value: '3-6 Inches', label: 'Plant Clearance', desc: 'Required collar gap around plant stems to prevent heat scorching' }
+];
+
+const faqItems = [
+  {
+    q: 'How much garden rock do I need for a flower bed?',
+    a: 'For a standard flower bed using 1-2 inch river rock or decorative stones at a 3-inch depth, you need approximately 1 ton for every 80 square feet (or 1 cubic yard per 108 square feet). For smaller 3/8-inch pea gravel at a 2-inch depth, 1 ton covers 120 square feet.'
+  },
+  {
+    q: 'Is rock mulch better than wood mulch for garden beds?',
+    a: 'Garden rock mulch is permanent, does not decompose or blow away in heavy winds, does not attract termites or mold, and dramatically reduces long-term maintenance costs. However, rock absorbs and radiates solar heat, so drought-tolerant perennials, succulents, and shrubs thrive best, while tender annuals may need additional drip irrigation.'
+  },
+  {
+    q: 'Should I put weed barrier fabric under garden rock?',
+    a: 'Yes, always install a heavy-duty, non-woven needle-punched geotextile fabric (4 oz to 6 oz rating) beneath garden rock. This keeps rocks from sinking into the garden soil, prevents weeds from establishing root networks, and allows water and air to permeate down to plant roots.'
+  },
+  {
+    q: 'How far should rock mulch be kept from plant stems?',
+    a: 'Keep garden rocks at least 3 to 6 inches away from the root collar and main stems of shrubs, trees, and perennials. Placing hot rocks directly against living stems can burn sensitive cambium tissue and invite fungal pathogens.'
+  }
+];
+
+const upLinks = [
+  { title: 'Landscape Rock Calculator (Cluster Hub)', slug: '/landscape-rock-calculator', badge: 'Hub' },
+  { title: 'River Rock Coverage Calculator', slug: '/river-rock-coverage-calculator', badge: 'Coverage' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Chart' }
+];
+
+const lateralLinks = [
+  { title: 'Egg Rock Calculator', slug: '/egg-rock-calculator', badge: 'Egg Stone' },
+  { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: 'Pea Gravel' },
+  { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: 'Lava Rock' }
+];
+
+const bridgeLinks = [
+  { title: 'Landscape Rock Installation', slug: '/how-to-install-landscape-rock', badge: 'Fabric & Prep' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Drainage' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Estimation' },
+  { title: 'Rock Density Reference Chart', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+---
+
+<BaseLayout
+  title="Garden Rock Calculator - Flower Bed Rock Mulch Estimator"
+  metaDescription="Calculate garden rock coverage in tons, cubic yards, and 50-lb bags for flower beds, borders, and rock gardens. Sizing, depth rules, and weed barrier advice."
+  canonicalPath="/garden-rock-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Garden Rock Calculator",
+      "url": "https://rockcoveragecalculator.com/garden-rock-calculator",
+      "description": "Calculates garden rock and rock mulch requirements in tons, cubic yards, and bags for flower beds and borders.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Gardeners, Landscape Designers, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Garden Rock Mulch Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Garden Rock Calculator"
+      highlightWord="Garden Rock"
+      badge="Garden Mulch Solver"
+      subtitle="Estimate tons, cubic yards, and bags of decorative rock mulch for flower beds, perennial borders, and xeriscapes."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Calculator Section -->
+    <section class="section" id="calculator">
+      <div class="container">
+        <div class="section-header">
+          <div class="hero-badge" style="margin-bottom: var(--space-3);">
+            <span class="badge-dot"></span>
+            <span>Precision Horticultural Estimator</span>
+          </div>
+          <h2>Calculate Garden Bed Rock Requirements</h2>
+          <div class="section-divider"></div>
+          <p>Choose your garden rock style, input bed measurements or total square footage, and receive instant tonnage, yardage, and bag counts.</p>
+        </div>
+
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              <h3>Garden Bed Dimensions</h3>
+            </div>
+
+            <!-- Rock Type / Size Selector -->
+            <div class="input-field" style="margin-bottom: var(--space-4);">
+              <label for="garden-rock-type">Garden Rock Type &amp; Size</label>
+              <select id="garden-rock-type" class="select-input">
+                <option value="river-1-2" selected>1-2 Inch River Rock / Egg Stone (Standard Bed Mulch)</option>
+                <option value="pea-gravel">3/8 Inch Pea Gravel (Paths &amp; Fine Bed Mulch)</option>
+                <option value="river-2-3">2-3 Inch Cobble (Windy Borders &amp; Modern Accents)</option>
+                <option value="lava-rock">Red / Black Lava Rock (Lightweight Porous Mulch)</option>
+                <option value="crushed-granite">3/4 Inch Crushed Decorative Granite (Contemporary Beds)</option>
+              </select>
+            </div>
+
+            <!-- Mode Tabs -->
+            <div class="mode-tabs">
+              <button type="button" class="tab-btn active" id="tab-dims">Dimensions (L × W)</button>
+              <button type="button" class="tab-btn" id="tab-sqft">Total Area (Sq Ft)</button>
+            </div>
+
+            <!-- Dimensions Subgrid -->
+            <div id="dims-subgrid" class="dim-grid">
+              <div class="input-field">
+                <label for="garden-length">Length (Feet)</label>
+                <input type="number" id="garden-length" value="30" min="1" step="0.5" />
+              </div>
+              <div class="input-field">
+                <label for="garden-width">Width (Feet)</label>
+                <input type="number" id="garden-width" value="8" min="1" step="0.5" />
+              </div>
+            </div>
+
+            <!-- Area Subgrid (Hidden by default) -->
+            <div id="sqft-subgrid" class="dim-grid single-col" style="display: none;">
+              <div class="input-field">
+                <label for="garden-area">Total Surface Area (Square Feet)</label>
+                <input type="number" id="garden-area" value="240" min="1" step="1" />
+              </div>
+            </div>
+
+            <!-- Depth Input -->
+            <div class="input-field" style="margin-bottom: var(--space-4);">
+              <div class="label-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-1);">
+                <label for="garden-depth" style="margin: 0;">Installation Depth (Inches)</label>
+                <span class="depth-hint" id="garden-depth-hint" style="font-size: var(--text-xs); color: var(--gold-400); font-weight: 600;">Recommended: 3.0 inches</span>
+              </div>
+              <input type="number" id="garden-depth" value="3.0" min="1.5" max="8" step="0.5" />
+            </div>
+
+            <!-- Waste / Bed Curvature Factor -->
+            <div class="input-field">
+              <label for="garden-waste">Bed Shape &amp; Waste Allowance</label>
+              <select id="garden-waste" class="select-input">
+                <option value="0.05">5% Buffer (Straight rectangular beds)</option>
+                <option value="0.10" selected>10% Buffer (Curved garden borders)</option>
+                <option value="0.15">15% Buffer (Complex curves &amp; slopes)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- RIGHT: Outputs Column -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Estimated Garden Material</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+                <div class="kpi-value" id="res-garden-tons">3.30</div>
+                <div class="kpi-label">Quarry Weight (Tons)</div>
+                <div class="kpi-subtext">Short Tons (6,600 lbs)</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-value" id="res-garden-yards">2.44</div>
+                <div class="kpi-label">Volume (Cubic Yards)</div>
+                <div class="kpi-subtext">Bulk Volume</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-value" id="res-garden-bags">132</div>
+                <div class="kpi-label">50-lb Retail Bags</div>
+                <div class="kpi-subtext">Pre-bagged Units</div>
+              </div>
+
+              <div class="kpi-card">
+                <div class="kpi-value" id="res-garden-sqft">240</div>
+                <div class="kpi-label">Surface Area</div>
+                <div class="kpi-subtext">Square Feet</div>
+              </div>
+            </div>
+
+            <!-- Delivery / Purchasing Advice with SVG icon -->
+            <div class="purchase-card" style="margin-top: var(--space-6);">
+              <div class="purchase-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              </div>
+              <div class="purchase-content">
+                <div class="purchase-title">Purchasing Tip</div>
+                <div class="purchase-desc" id="garden-purchase-advice">Bulk quarry delivery is highly recommended for orders exceeding 1 ton.</div>
+              </div>
+            </div>
+
+            <div class="formula-note" style="margin-top: var(--space-4); padding: var(--space-3) var(--space-4); background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); font-size: var(--text-xs); color: var(--text-muted);">
+              <strong style="color: var(--text-primary); display: block; margin-bottom: 2px;">Garden Mulch Formula:</strong>
+              <code>Tons = ((Area × Depth / 12) / 27) × Density (t/yd³) × (1 + Buffer)</code>
+              <div style="margin-top: 4px;">Calibrated for material density (River Stone: 1.35, Pea Gravel: 1.35, Lava: 0.65 t/yd³).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide Content -->
+    <article class="guide-content">
+      <div class="guide-container">
+
+        <!-- Key Coverage Reference Card -->
+        <div class="summary-card">
+          <h3>How Much Garden Rock Do You Need?</h3>
+          <p>
+            For standard <strong>1 to 2 inch river rock or egg stone</strong> installed in flower beds, the recommended depth is <strong>3.0 inches</strong> to achieve 100 percent weed fabric opacity. At 3 inches depth, <strong>one short ton (2,000 lbs) covers 80 square feet</strong>, and <strong>one cubic yard covers 108 square feet</strong>.
+          </p>
+          <p>
+            If using finer <strong>3/8-inch pea gravel</strong> at a <strong>2.0-inch depth</strong>, one ton covers <strong>120 square feet</strong> (162 square feet per cubic yard). Always leave a <strong>3 to 6 inch clearance collar</strong> around plant stems to prevent solar heat transfer from scorching bark.
+          </p>
+        </div>
+
+        <h2>Why Garden Rock is Replacing Organic Wood Mulch</h2>
+        <p>
+          Homeowners and professional landscapers are increasingly replacing shredded bark and dyed wood mulch with decorative garden rock. While organic mulch degrades within 12 to 18 months, requiring annual replenishment, rock mulch provides a permanent architectural ground cover with distinct benefits:
+        </p>
+        <ul>
+          <li><strong>Zero Decomposition:</strong> Rock never rots, compacts into an impermeable crust, or leaches nitrogen out of the soil.</li>
+          <li><strong>Pest & Insect Resistance:</strong> Unlike damp wood chips, dry stone does not attract subterranean termites, carpenter ants, or wood-boring beetles near home foundations.</li>
+          <li><strong>Superior Wind & Storm Stability:</strong> Garden rocks (especially 1-2" or 2-3" sizes) stay in place during torrential thunderstorms and resist being displaced by high-powered leaf blowers during autumn cleanup.</li>
+          <li><strong>Weed Seed Suppression:</strong> When installed atop heavy-duty non-woven geotextile fabric, rock mulch creates a dry, inhospitable top surface where airborne weed seeds struggle to take root.</li>
+        </ul>
+
+        <!-- Coverage Reference Table -->
+        <div class="table-card">
+          <h3>Garden Rock Coverage & Sizing Reference Table</h3>
+          <p>Estimated coverage per ton, per cubic yard, and bag quantities across popular garden rock materials:</p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Garden Rock Material</th>
+                  <th>Recommended Depth</th>
+                  <th>Sq Ft / Ton</th>
+                  <th>Sq Ft / Cu Yard</th>
+                  <th>Bulk Density</th>
+                  <th>Best Horticultural Use</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>3/8" Pea Gravel</strong></td>
+                  <td>2.0"</td>
+                  <td>120 sq ft</td>
+                  <td>162 sq ft</td>
+                  <td>1.35 t/yd³</td>
+                  <td>Garden paths, container tops, succulent beds</td>
+                </tr>
+                <tr>
+                  <td><strong>1-2" River Rock / Egg Stone</strong></td>
+                  <td>3.0"</td>
+                  <td>80 sq ft</td>
+                  <td>108 sq ft</td>
+                  <td>1.35 t/yd³</td>
+                  <td>Main perennial beds, foundation plantings</td>
+                </tr>
+                <tr>
+                  <td><strong>2-3" Large River Cobbles</strong></td>
+                  <td>4.0"</td>
+                  <td>60 sq ft</td>
+                  <td>81 sq ft</td>
+                  <td>1.35 t/yd³</td>
+                  <td>Windy beds, dry stream beds, slope borders</td>
+                </tr>
+                <tr>
+                  <td><strong>3/4" Crushed Granite / Limestone</strong></td>
+                  <td>2.5"</td>
+                  <td>92 sq ft</td>
+                  <td>130 sq ft</td>
+                  <td>1.40 t/yd³</td>
+                  <td>Modern architectural beds, sharp clean lines</td>
+                </tr>
+                <tr>
+                  <td><strong>Lava Rock (Red / Black)</strong></td>
+                  <td>2.5"</td>
+                  <td>200 sq ft</td>
+                  <td>130 sq ft</td>
+                  <td>0.65 t/yd³</td>
+                  <td>Lightweight slopes, moisture-holding beds</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h2>Step-by-Step Garden Rock Coverage Formula</h2>
+        <p>To calculate the exact rock tonnage needed for irregular or curving garden beds, follow these civil estimation steps:</p>
+        <ol class="calc-steps">
+          <li>
+            <strong>Calculate Net Surface Area:</strong> Multiply the length and width of each bed section. If you have large trees, stone boulders, or existing structures, subtract their footprint.
+            <code>Net Area (sq ft) = Total Bed Area - Obstacle Footprints</code>
+          </li>
+          <li>
+            <strong>Convert Installation Depth to Feet:</strong> Divide target depth in inches by 12.
+            <code>Depth in Feet = Depth in Inches / 12</code>
+          </li>
+          <li>
+            <strong>Calculate Volume in Cubic Yards:</strong>
+            <code>Cubic Yards = (Net Area × Depth in Feet) / 27</code>
+          </li>
+          <li>
+            <strong>Convert to Tons with Buffer:</strong> Multiply cubic yards by the specific material density (typically 1.35 for river rock or 0.65 for lava rock) and add a 10 percent buffer for subgrade settling.
+            <code>Order Quantity (Tons) = Cubic Yards × Density × 1.10</code>
+          </li>
+        </ol>
+
+        <h2>Crucial Horticultural Rules for Installing Rock Mulch</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="feature-num">01</span>
+            <h4>Maintain Stem & Trunk Clearance</h4>
+            <p>Never pack rocks directly against plant crowns or tree bark. Maintain a 3 to 6 inch ring of bare soil or organic compost around stems. Rocks heat up during sunny days and can transmit severe thermal stress to living cambium tissue.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">02</span>
+            <h4>Use Non-Woven Geotextile Fabric</h4>
+            <p>Do not use perforated plastic sheeting. Use commercial-grade 4 oz to 6 oz non-woven needle-punched polypropylene fabric. It permits rain and oxygen to soak into the root zone while stopping stones from sinking into wet soil.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">03</span>
+            <h4>Adjust Irrigation for Thermal Mass</h4>
+            <p>Rock absorbs thermal energy, warming soil early in spring and prolonging the autumn growing season. However, on hot summer afternoons, soil beneath rock can evaporate moisture faster. Pair rock mulch with subterranean drip irrigation emitters placed beneath the fabric.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">04</span>
+            <h4>Deep Edging Restraint</h4>
+            <p>Install heavy-duty commercial steel, aluminum, or concrete curbing at least 1 to 2 inches higher than the finished rock surface. This prevents garden stones from spilling onto adjacent lawns and damaging mower blades.</p>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <h2>Frequently Asked Questions About Garden Rock Coverage</h2>
+        <div class="faq-list">
+          {faqItems.map((item) => (
+            <div class="faq-item">
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </article>
+
+    <!-- Cluster Navigation Section -->
+    <TopicClusterNav
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <!-- Client-Side Script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const rockTypeSelect = document.getElementById('garden-rock-type');
+      const tabDims = document.getElementById('tab-dims');
+      const tabSqft = document.getElementById('tab-sqft');
+      const dimsSubgrid = document.getElementById('dims-subgrid');
+      const sqftSubgrid = document.getElementById('sqft-subgrid');
+
+      const inputLen = document.getElementById('garden-length');
+      const inputWid = document.getElementById('garden-width');
+      const inputArea = document.getElementById('garden-area');
+      const inputDep = document.getElementById('garden-depth');
+      const inputWaste = document.getElementById('garden-waste');
+      const depthHint = document.getElementById('garden-depth-hint');
+
+      const resTons = document.getElementById('res-garden-tons');
+      const resYards = document.getElementById('res-garden-yards');
+      const resBags = document.getElementById('res-garden-bags');
+      const resSqft = document.getElementById('res-garden-sqft');
+      const purchaseAdvice = document.getElementById('garden-purchase-advice');
+
+      let mode = 'dimensions';
+
+      // Material configs: default depth, density (t/yd³)
+      const materials = {
+        'river-1-2': { depth: '3.0', hint: 'Recommended: 3.0 inches', density: 1.35 },
+        'pea-gravel': { depth: '2.0', hint: 'Recommended: 2.0 inches', density: 1.35 },
+        'river-2-3': { depth: '4.0', hint: 'Recommended: 4.0 inches', density: 1.35 },
+        'lava-rock': { depth: '2.5', hint: 'Recommended: 2.5 inches (Lightweight)', density: 0.65 },
+        'crushed-granite': { depth: '2.5', hint: 'Recommended: 2.5 inches', density: 1.40 }
+      };
+
+      rockTypeSelect.addEventListener('change', () => {
+        const mat = materials[rockTypeSelect.value] || materials['river-1-2'];
+        inputDep.value = mat.depth;
+        depthHint.textContent = mat.hint;
+        recalculate();
+      });
+
+      tabDims.addEventListener('click', () => {
+        mode = 'dimensions';
+        tabDims.classList.add('active');
+        tabSqft.classList.remove('active');
+        dimsSubgrid.style.display = 'grid';
+        sqftSubgrid.style.display = 'none';
+        recalculate();
+      });
+
+      tabSqft.addEventListener('click', () => {
+        mode = 'area';
+        tabSqft.classList.add('active');
+        tabDims.classList.remove('active');
+        dimsSubgrid.style.display = 'none';
+        sqftSubgrid.style.display = 'grid';
+        recalculate();
+      });
+
+      function recalculate() {
+        let area = 0;
+        if (mode === 'dimensions') {
+          const l = parseFloat(inputLen.value) || 0;
+          const w = parseFloat(inputWid.value) || 0;
+          area = l * w;
+        } else {
+          area = parseFloat(inputArea.value) || 0;
+        }
+
+        const depthInches = parseFloat(inputDep.value) || 0;
+        const wasteFactor = parseFloat(inputWaste.value) || 0;
+        const mat = materials[rockTypeSelect.value] || materials['river-1-2'];
+
+        const volumeCuFt = area * (depthInches / 12);
+        const volumeCuYd = volumeCuFt / 27;
+        const adjustedYards = volumeCuYd * (1 + wasteFactor);
+        const tons = adjustedYards * mat.density;
+        const totalPounds = tons * 2000;
+        const bags50 = Math.ceil(totalPounds / 50);
+
+        resSqft.textContent = Math.round(area).toLocaleString();
+        resYards.textContent = adjustedYards.toFixed(2);
+        resTons.textContent = tons.toFixed(2);
+        resBags.textContent = bags50.toLocaleString();
+
+        if (tons >= 1.0) {
+          purchaseAdvice.textContent = 'Bulk quarry dump truck delivery is recommended for orders exceeding 1 ton (saves 50-70% over bags).';
+        } else {
+          purchaseAdvice.textContent = 'Small project quantity: 50-lb retail bags or small trailer pickup is economical.';
+        }
+      }
+
+      [inputLen, inputWid, inputArea, inputDep, inputWaste].forEach(el => {
+        el.addEventListener('input', recalculate);
+      });
+
+      recalculate();
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .calc-section {
+    padding: var(--space-8) var(--space-4);
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .calc-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .calc-header {
+    text-align: center;
+    margin-bottom: var(--space-8);
+  }
+
+  .calc-badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-2);
+  }
+
+  .calc-header h2 {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .calc-header p {
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (max-width: 860px) {
+    .calc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Calculator Select & Tabs */
+  .select-input {
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    transition: border-color var(--duration-fast);
+  }
+
+  [data-theme="light"] .select-input {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+  }
+
+  .select-input:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+  }
+
+  .mode-tabs {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .tab-btn {
+    flex: 1;
+    min-height: 42px;
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--duration-fast);
+  }
+
+  [data-theme="light"] .tab-btn {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #334155;
+  }
+
+  .tab-btn.active {
+    background: rgba(212, 168, 83, 0.15);
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+  }
+
+  [data-theme="light"] .tab-btn.active {
+    background: rgba(184, 134, 11, 0.12);
+    color: var(--gold-500);
+    border-color: var(--gold-500);
+  }
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    margin-bottom: var(--space-2);
+    word-break: break-all;
+  }
+
+  /* Guide Content */
+  .guide-content {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .guide-container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .aeo-quick-card {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-left: 4px solid #10b981;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+
+  .aeo-badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-2);
+    background: #10b981;
+    color: #fff;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-quick-card h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-quick-card p {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  .aeo-quick-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .guide-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-text-heading);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-content p {
+    color: var(--color-text);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-content ul {
+    margin-left: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .guide-content li {
+    margin-bottom: var(--space-2);
+    line-height: 1.6;
+  }
+
+  .table-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin: var(--space-8) 0;
+  }
+
+  .table-card h3 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .table-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  th, td {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    background: var(--color-bg);
+    color: var(--color-text-heading);
+    font-weight: 700;
+  }
+
+  .calc-steps {
+    margin-left: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .calc-steps li {
+    margin-bottom: var(--space-4);
+    line-height: 1.6;
+  }
+
+  .calc-steps code {
+    display: block;
+    margin-top: var(--space-1);
+    background: var(--color-surface);
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin: var(--space-8) 0;
+  }
+
+  @media (max-width: 640px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+  }
+
+  .feature-num {
+    font-size: var(--text-xs);
+    font-weight: 800;
+    color: #10b981;
+    margin-bottom: var(--space-2);
+    display: block;
+  }
+
+  .feature-card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .feature-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .faq-list {
+    margin-top: var(--space-6);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-4) 0;
+  }
+
+  .faq-item h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .faq-item p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+</style>

@@ -14,7 +14,7 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Primary Entity', value: 'Cubic Yard (Volume)' },
+  { label: 'Material', value: 'Rock Coverage Yards' },
   { label: 'Conversion Base', value: '1 yd³ = 27 Cubic Feet' },
   { label: 'Rule of 324', value: 'Sq Ft × Inches / 324 = Yards' },
   { label: 'Hauling Unit', value: 'Commercial Dump Truck Loads' }
@@ -47,22 +47,22 @@ const faqItems = [
 ---
 
 <BaseLayout
-  title="Rock Cubic Yard Calculator - Exact Volume & Truckload Sizing"
-  description="Calculate exact cubic yards of rock, gravel, and stone needed for any project. Full mathematical breakdown, depth-to-coverage tables, and dump truck capacities."
+  title="Rock Coverage Calculator Yards - Cubic Yards & Truckload Sizing"
+  description="Calculate rock coverage in cubic yards for landscaping, driveways, and gardens. Mathematical derivation, depth-to-coverage tables, and dump truck capacities."
   canonicalPath="/rock-cubic-yard-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Rock Cubic Yard Calculator",
+      "name": "Rock Coverage Calculator Yards",
       "url": "https://rockcoveragecalculator.com/rock-cubic-yard-calculator",
       "description": "Volumetric calculator converting square footage and layer depth into exact cubic yards with dump truck delivery recommendations.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "about": {
         "@type": "Thing",
-        "name": "Cubic Yard"
+        "name": "Rock Coverage Yards"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -83,8 +83,8 @@ const faqItems = [
 
   <main>
     <PageHero
-      title="Rock Cubic Yard Calculator"
-      highlightWord="Calculator"
+      title="Rock Coverage Calculator Yards"
+      highlightWord="Yards"
       badge="Volumetric Conversion & Hauling Capacity"
       subtitle="Convert square footage, radius, or custom irregular area dimensions into exact cubic yards for quarry ordering and bulk dump truck deliveries."
       breadcrumbs={breadcrumbs}

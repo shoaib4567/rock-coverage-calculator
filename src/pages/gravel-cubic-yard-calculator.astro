@@ -1,0 +1,335 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Gravel Calculator', url: '/gravel-calculator' },
+  { name: 'Gravel Cubic Yards Calculator', url: '/gravel-cubic-yard-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Gravel Cubic Yardage' },
+  { label: 'Volume Formula', value: '(Area [sq ft] × Depth [in]) / 324' },
+  { label: 'Cubic Foot Factor', value: '27 Cubic Feet per Cubic Yard' },
+  { label: 'Safety Margin', value: '10% Compaction and Settling Buffer' }
+];
+
+const quickStats = [
+  { value: '324 Divisor', label: 'Contractor Constant', desc: 'Direct conversion from square feet and inches of depth to cubic yards' },
+  { value: '27 Cu Ft', label: 'Volume per Yard', desc: 'One cubic yard equals a 3ft by 3ft by 3ft volumetric cube' },
+  { value: '1.40 t/yd³', label: 'Scale Density', desc: 'Converts cubic yards to certified quarry scale tons' }
+];
+
+const faqItems = [
+  {
+    q: 'How many cubic yards of gravel do I need for a 20x20 foot area?',
+    a: 'A 20x20 foot area equals 400 square feet. At a standard 3-inch depth, you need 3.70 cubic yards of gravel. Adding a 10 percent safety buffer for ground undulation and edge containment, order approximately 4.07 cubic yards (or 5.7 tons).'
+  },
+  {
+    q: 'How do you calculate cubic yards of gravel?',
+    a: 'Multiply the length of your area in feet by the width in feet to find square footage. Then multiply by your target depth in inches and divide by 324. For example, a 30 ft by 10 ft driveway at 4 inches depth: (30 × 10 × 4) / 324 = 3.70 cubic yards.'
+  },
+  {
+    q: 'How many square feet does one cubic yard of gravel cover?',
+    a: 'One cubic yard of gravel covers 324 square feet at a 1-inch depth, 162 square feet at 2 inches, 108 square feet at 3 inches, and 81 square feet at 4 inches.'
+  },
+  {
+    q: 'How much does a cubic yard of gravel weigh?',
+    a: 'One cubic yard of standard crushed gravel or river stone weighs approximately 2,800 pounds (1.40 short tons) per ASTM C29 loose stockpile unit weight testing.'
+  }
+];
+
+const upLinks = [
+  { title: 'Gravel Calculator (Material Parent)', slug: '/gravel-calculator', badge: 'Material' },
+  { title: 'Rock Cubic Yard Calculator (Unit Parent)', slug: '/rock-cubic-yard-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Tons' },
+  { title: 'Gravel Bag Calculator', slug: '/gravel-bag-calculator', badge: 'Bags' },
+  { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Stone Yards' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Truckloads' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Crushed Stone' },
+  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: 'Base Stone' }
+];
+
+const supportGuides = [
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43' }
+];
+---
+
+<BaseLayout
+  title="Gravel Cubic Yards Calculator - How Many Yards of Gravel Do I Need?"
+  metaDescription="Calculate exact cubic yards of gravel for driveways and paths. Converts dimensions to cubic yards with 324 contractor constant and tonnage yields."
+  canonicalPath="/gravel-cubic-yard-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Gravel Cubic Yards Calculator",
+      "url": "https://rockcoveragecalculator.com/gravel-cubic-yard-calculator",
+      "description": "Calculates gravel cubic yards, cubic feet, and scale tons from area dimensions.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Contractors, Estimators, Homeowners, Civil Engineers"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Gravel Cubic Yardage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Gravel Cubic Yards Calculator"
+      highlightWord="Yards"
+      badge="Volumetric Gravel Engine"
+      subtitle="Accurate cubic yards and cubic feet calculations for driveway gravel, pathways, and subgrade foundations."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Gravel Yards Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Gravel Area Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="gy-length">Length (Feet)</label>
+              <input type="number" id="gy-length" value="40" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="gy-width">Width (Feet)</label>
+              <input type="number" id="gy-width" value="12" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="gy-depth">Depth (Inches)</label>
+              <input type="number" id="gy-depth" value="3.0" min="1" max="18" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="gy-waste">Safety Buffer (%)</label>
+              <input type="number" id="gy-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-gy-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-gy-cuft">0 cu ft net volume</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-gy-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext">At 1.40 t/yd³ density</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-gy-bags">0</div>
+              <div class="kpi-label">0.5 cu ft Bags</div>
+              <div class="kpi-subtext">54 bags per cubic yard</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Gravel Yardage -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Gravel Cubic Yardage Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Gravel Yardage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Yards = (Area [sq ft] × Depth [in]) / 324</span>
+              <p class="aeo-quick-desc">Derived from 12 in/ft × 27 cu ft/yd³ = 324 contractor divisor.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">1 Yard Coverage</span>
+              <span class="aeo-quick-value">108 sq ft at 3" Depth</span>
+              <p class="aeo-quick-desc">Covers 162 sq ft at 2" depth, 81 sq ft at 4" depth.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Scale Weight</span>
+              <span class="aeo-quick-value">1.40 Tons per Yard</span>
+              <p class="aeo-quick-desc">Standard bulk density (2,800 lbs per cubic yard) per ASTM C29.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Safety Buffer</span>
+              <span class="aeo-quick-value">Add 10% to 15% Overage</span>
+              <p class="aeo-quick-desc">Accounts for ruts, settling, and edge trench containment.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>The Mathematical Derivation of Gravel Yardage</h2>
+          <p>
+            In the aggregate industry, <strong>Cubic Yards</strong> measure three-dimensional physical volume. One cubic yard represents a 3-foot by 3-foot by 3-foot cube containing exactly <strong>27 cubic feet</strong>.
+          </p>
+          <p>
+            Because project areas are measured in feet while layer depths are measured in inches, calculating cubic yards requires dividing depth by 12 to convert inches to feet, then dividing the resulting cubic feet by 27. Multiplying 12 by 27 yields the universal contractor constant <strong>324</strong>:
+          </p>
+
+          <div class="formula-box">
+            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
+            <br />
+            <code>Total Order = Cubic Yards × 1.10 (10% Industry Safety Buffer)</code>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Gravel Cubic Yards</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/gravel-cubic-yard-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateGY() {
+      const l = parseFloat((document.getElementById('gy-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('gy-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('gy-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('gy-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const cuft = totalYards * 27;
+      const tons = totalYards * 1.40;
+      const bags = Math.ceil(totalYards * 54);
+
+      const yEl = document.getElementById('kpi-gy-yards');
+      const tEl = document.getElementById('kpi-gy-tons');
+      const bEl = document.getElementById('kpi-gy-bags');
+      const cEl = document.getElementById('kpi-gy-cuft');
+
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (bEl) bEl.innerText = bags.toLocaleString();
+      if (cEl) cEl.innerText = Math.round(cuft).toLocaleString() + ' cu ft total volume';
+    }
+
+    ['gy-length', 'gy-width', 'gy-depth', 'gy-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateGY);
+    });
+    updateGY();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

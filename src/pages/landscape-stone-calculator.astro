@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -14,41 +14,64 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Primary Entity', value: 'Landscape Stone' },
-  { label: 'Crushed Fractions', value: '3/4" Clean, #57, and Base Dense Stone' },
-  { label: 'Bulk Density', value: '1.40 to 1.50 Tons/yd³' },
-  { label: 'Compaction Drop', value: '15% to 20% Volume Loss under Roller' }
+  { label: 'Material', value: 'Structural Landscape Stone' },
+  { label: 'Aggregate Type', value: 'Crushed Base, #57 Clean, and DGA Fines' },
+  { label: 'Standard Specification', value: 'AASHTO M147 and ASTM D448' },
+  { label: 'Bulk Density', value: '1.40 to 1.50 Tons/yd³ (ASTM C29)' }
 ];
 
 const quickStats = [
   { value: '1.40 t/yd³', label: 'Crushed Limestone', desc: 'Standard bulk density for clean fractured angular aggregate' },
-  { value: '20% Overage', label: 'Compacted Base', desc: 'Volume compaction factor required for driveway and patio sub-base' },
-  { value: '100 sq ft', label: 'Coverage at 3"', desc: 'Yield per cubic yard of uncompacted landscape stone' }
+  { value: '20% Overage', label: 'Compacted Base', desc: 'Volume compaction allowance for vehicular driveway and patio sub-base' },
+  { value: '77 sq ft', label: 'Coverage at 3"', desc: 'Standard square foot yield per ton of uncompacted structural stone' }
 ];
 
 const faqItems = [
   {
-    q: 'How many tons of crushed stone do I need for a 20x20 patio sub-base?',
-    a: 'A 20x20 foot patio has an area of 400 square feet. A standard pedestrian patio requires a 4-inch compacted sub-base of crushed stone (#411 or crusher run). At 4 inches, you need 4.94 cubic yards. Factoring in a 20% mechanical compaction loss, order 5.9 cubic yards, which converts to approximately 8.9 tons of stone.'
+    q: 'What is the structural difference between landscape rock and landscape stone?',
+    a: 'Landscape rock refers to loose decorative aggregates (such as smooth river rock, volcanic lava, or marble chips) used for garden mulch and weed suppression. Landscape stone designates mechanically crushed angular aggregates (such as #57 limestone, crusher run, or road base) used for load-bearing sub-bases, driveways, and compacted structural foundations.'
   },
   {
-    q: 'What is the difference between clean crushed stone and stone with fines?',
-    a: 'Clean crushed stone (such as #57 limestone) has all fine rock dust screened and washed away, leaving angular rocks that drain water freely. Stone with fines (crusher run, quarry process, or DGA) contains graded particle sizes from 3/4-inch down to fine stone flour, which compacts into an impermeable, cement-like rigid base.'
+    q: 'How many tons of crushed stone do I need for a 20x20 patio sub-base?',
+    a: 'A 20x20 foot patio equals 400 square feet. A standard pedestrian patio requires a 4-inch compacted sub-base of crushed stone (#411 or crusher run). At 4 inches, net loose volume is 4.94 cubic yards. Accounting for a 20 percent mechanical compaction factor under a plate tamper, order 5.93 cubic yards, which equates to approximately 8.9 tons of stone.'
+  },
+  {
+    q: 'What is the difference between clean crushed stone and dense graded stone with fines?',
+    a: 'Clean crushed stone (such as ASTM D448 #57) has all stone dust washed away, creating open void spaces for rapid drainage in French drains and driveway topcoats. Dense graded aggregate (AASHTO M147 crusher run or quarry process) contains a continuum of particle sizes down to stone flour that locks together into a rigid, non-shifting foundation when rolled.'
   },
   {
     q: 'How much does a cubic yard of 3/4 inch landscape stone weigh?',
-    a: 'A cubic yard of dry 3/4-inch crushed landscape stone weighs approximately 2,800 pounds (1.4 tons). Moisture from rainfall can increase scale ticket weight to 2,950 pounds (1.48 tons) per cubic yard.'
-  },
-  {
-    q: 'Can 3/4 inch crushed stone be used on sloped landscape pathways?',
-    a: 'Yes. Angular crushed stone is the preferred material for sloped walkways. Unlike rounded river pea gravel that rolls under foot like marbles, angular crushed stones lock together mechanically when walked on, preventing downhill aggregate drift.'
+    a: 'A cubic yard of dry 3/4-inch crushed landscape stone weighs approximately 2,800 pounds (1.40 tons) per ASTM C29 loose stockpile testing. Rainwater absorption in outdoor quarry stockpiles can increase delivery ticket scale weight to 2,950 pounds (1.48 tons) per cubic yard.'
   }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Landscape Rock Calculator (Decorative)', slug: '/landscape-rock-calculator', badge: '1.30 t/yd³' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³' },
+  { title: 'Crusher Run Calculator (Road Base)', slug: '/crusher-run-calculator', badge: '1.45 t/yd³' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Yardage' },
+  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Tons Solver' }
+];
+
+const supportGuides = [
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech Guide' },
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43' }
 ];
 ---
 
 <BaseLayout
-  title="Landscape Stone Calculator - Crushed Stone, Base & Coverage"
-  description="Calculate cubic yards, tons, and bags of landscape stone and crushed aggregate. Sizing guides for 3/4 inch clean stone, patio base, and driveway sub-grade."
+  title="Landscape Stone Calculator - Structural Base, Crushed Stone & Compaction"
+  description="Calculate cubic yards and scale tons of structural landscape stone, road base, and crushed aggregate. Sizing guides for 3/4 inch stone, patio sub-base, and compaction factors."
   canonicalPath="/landscape-stone-calculator"
 >
   <Fragment slot="head">
@@ -57,12 +80,17 @@ const faqItems = [
       "@type": "WebApplication",
       "name": "Landscape Stone Calculator",
       "url": "https://rockcoveragecalculator.com/landscape-stone-calculator",
-      "description": "Calculates crushed landscape stone coverage, compaction volume factors, and quarry scale tonnage for structural and decorative stone installations.",
+      "description": "Calculates structural crushed landscape stone volume, compaction factors, and quarry scale tonnage for sub-bases and driveways.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Civil Contractors, Paving Installers, Estimators, Homeowners"
+      },
       "about": {
         "@type": "Thing",
-        "name": "Landscape Stone"
+        "name": "Structural Crushed Stone and Compaction Calculations"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -85,8 +113,8 @@ const faqItems = [
     <PageHero
       title="Landscape Stone Calculator"
       highlightWord="Calculator"
-      badge="Crushed Stone & Structural Aggregate Engine"
-      subtitle="Accurate volumetric, tonnage, and compaction estimations for crushed limestone, blue granite, driveway road base, and walkway bedding stones."
+      badge="Structural Base & Crushed Stone Engine"
+      subtitle="Accurate volumetric, tonnage, and mechanical compaction estimations for crushed limestone, blue granite, driveway road base, and patio subgrades."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -99,10 +127,41 @@ const faqItems = [
     <!-- Technical Guide on Landscape Stone -->
     <article class="content-guide-section">
       <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Structural Landscape Stone Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Structural Stone Sizing Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Loose Volume Formula</span>
+              <span class="aeo-quick-value">Yards = (Area [sq ft] × Depth [in]) / 324</span>
+              <p class="aeo-quick-desc">Net uncompacted volume required before tamping or rolling.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Compacted Base Factor</span>
+              <span class="aeo-quick-value">Order Volume = Loose Yards × 1.20</span>
+              <p class="aeo-quick-desc">Dense graded stone (crusher run/DGA) loses 15-20% under plate compactor.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Quarry Scale Weight</span>
+              <span class="aeo-quick-value">Tons = Compacted Yards × 1.45 t/yd³</span>
+              <p class="aeo-quick-desc">Standard bulk density per ASTM C29 for crushed limestone with fines.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Subgrade Lift Rule</span>
+              <span class="aeo-quick-value">Max 2 to 3 Inches per Lift</span>
+              <p class="aeo-quick-desc">Compact in successive thin lifts for uniform subgrade bearing capacity.</p>
+            </div>
+          </div>
+        </section>
+
         <div class="content-card">
           <h2>Crushed Stone Mechanics: Angular Interlock vs Compaction</h2>
           <p>
-            In the quarry and aggregate industry, <strong>Landscape Stone</strong> designates mechanically crushed sedimentary or igneous bedrock that has been processed through primary jaw crushers and secondary cone crushers. This manufacturing process produces sharply fractured, multifaceted stone particles that behave fundamentally differently than smooth alluvial gravel.
+            In the aggregate and heavy civil industry, <strong>Landscape Stone</strong> designates mechanically crushed sedimentary or igneous bedrock processed through primary jaw crushers and secondary cone crushers. This manufacturing process produces sharply fractured, multifaceted stone particles that behave fundamentally differently than smooth alluvial gravel.
           </p>
 
           <div class="formula-box">
@@ -111,14 +170,14 @@ const faqItems = [
             <code>Compacted Base Order = Loose Volume × 1.20 (20% Mechanical Compaction Factor)</code>
           </div>
 
-          <h3>Sieve Classifications for Common Landscape Stones</h3>
+          <h3>Sieve Classifications for Structural Landscape Stones</h3>
           <p>
-            Quarries categorize crushed landscape stone according to standard ASTM sieve sizes. Selecting the correct fraction ensures appropriate stability and drainage for your specific application:
+            Quarries categorize crushed landscape stone according to standard ASTM and AASHTO sieve sizes. Selecting the correct fraction ensures appropriate stability and drainage for your specific application:
           </p>
           <ul>
-            <li><strong>#57 Crushed Stone (1/2" to 1"):</strong> The universal standard for clean drainage stone, driveway topping, and foundation border beds. Retains open void spaces for rapid drainage.</li>
-            <li><strong>#8 Stone (3/8" Pea Crushed Chips):</strong> Excellent for walking paths, between flagstone pavers, and garden seating areas. Easy to wheelbarrow and level with a landscape rake.</li>
-            <li><strong>#411 Limestone / Crusher Run (3/4" down to dust):</strong> Dense-graded aggregate with fines. When compacted with a vibratory plate compactor, the stone dust fills all voids, creating an impermeable solid pavement base.</li>
+            <li><strong>ASTM D448 #57 Crushed Stone (1/2" to 1"):</strong> The universal standard for clean drainage stone, driveway topping, and foundation border beds. Retains open void spaces for rapid drainage.</li>
+            <li><strong>ASTM D448 #8 Stone (3/8" Pea Crushed Chips):</strong> Excellent for walking paths, between flagstone pavers, and garden seating areas. Easy to wheelbarrow and level with a landscape rake.</li>
+            <li><strong>AASHTO M147 Crusher Run / DGA (3/4" down to dust):</strong> Dense-graded aggregate with fines. When compacted with a vibratory plate compactor, the stone dust fills all voids, creating an impermeable solid pavement base.</li>
           </ul>
 
           <div class="table-wrapper">
@@ -137,7 +196,7 @@ const faqItems = [
                 <tr><td>2.0 inches</td><td>162 sq ft</td><td>116 sq ft</td><td>96 sq ft</td><td>Pedestrian pathways and garden beds</td></tr>
                 <tr><td>3.0 inches</td><td>108 sq ft</td><td>77 sq ft</td><td>64 sq ft</td><td>Standard residential landscape coverage</td></tr>
                 <tr><td>4.0 inches</td><td>81 sq ft</td><td>58 sq ft</td><td>48 sq ft</td><td>Patio and walkway sub-base layer</td></tr>
-                <tr><td>6.0 inches</td><td>54 sq ft</td><td>39 sq ft</td><td>32 sq ft</td><td>Driveway base course & heavy parking</td></tr>
+                <tr><td>6.0 inches</td><td>54 sq ft</td><td>39 sq ft</td><td>32 sq ft</td><td>Driveway base course and heavy parking</td></tr>
               </tbody>
             </table>
           </div>
@@ -151,7 +210,7 @@ const faqItems = [
               <strong>Geotextile Foundation:</strong> Lay a non-woven 4 oz polypropylene geotextile fabric. Pin edges securely with sod staples.
             </li>
             <li>
-              <strong>Base Compaction:</strong> Install 2.5 inches of #411 dense-graded road base. Moisten lightly with a hose and compact with a gas plate compactor until completely firm.
+              <strong>Base Compaction:</strong> Install 2.5 inches of AASHTO M147 dense-graded road base. Moisten lightly with a hose and compact with a gas plate compactor until completely firm.
             </li>
             <li>
               <strong>Clean Stone Wearing Course:</strong> Spread a 1.5-inch wearing surface of clean #8 or #57 crushed limestone. Rake smooth. The clean stones bite into the dense base, providing a firm surface that does not rut under foot traffic.
@@ -179,7 +238,14 @@ const faqItems = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/landscape-stone-calculator" />
+    <TopicClusterNav 
+      currentPage="/landscape-stone-calculator" 
+      category="material"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
   </main>
 
   <Footer />
@@ -190,6 +256,68 @@ const faqItems = [
   .content-guide-section {
     padding: var(--space-12) 0;
     background: var(--bg-body);
+  }
+
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-quick-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-quick-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-quick-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-quick-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-quick-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-quick-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
   }
 
   .content-card {

@@ -1,0 +1,370 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'About Us', url: '/about' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Civil Engineering Standards' },
+  { label: 'ASTM Standards', value: 'ASTM C29, ASTM D448, ASTM C131' },
+  { label: 'AASHTO Standards', value: 'AASHTO M43, AASHTO M147' },
+  { label: 'Editorial Policy', value: 'Peer-Reviewed Civil Estimation' }
+];
+
+const quickStats = [
+  { value: 'ASTM C29', label: 'Testing Standard', desc: 'Calibrated loose and rodded bulk density determination' },
+  { value: '56 Tools', label: 'Precision Calculators', desc: 'Dedicated engineering solvers for every major aggregate class' },
+  { value: '100% US Standard', label: 'Unit Accuracy', desc: 'Strict short tons (2,000 lbs) and cubic yards (27 cu ft)' }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Home)', slug: '/', badge: 'Home' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Hub' },
+  { title: 'Rock Density Reference Chart', slug: '/rock-density-chart', badge: 'Standards' }
+];
+
+const lateralLinks = [
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Conversion' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Economics' }
+];
+
+const bridgeLinks = [
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Material' },
+  { title: 'Driveway Rock Calculator', slug: '/driveway-rock-calculator', badge: 'Application' },
+  { title: 'River Rock Coverage Calculator', slug: '/river-rock-coverage-calculator', badge: 'Coverage' }
+];
+
+const supportGuides = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+];
+---
+
+<BaseLayout
+  title="About Us - Rock Coverage Calculator Engineering Standards & Mission"
+  metaDescription="Learn about the civil engineering methodology, ASTM testing standards, and contractor review board behind Rock Coverage Calculator."
+  canonicalPath="/about"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "About Rock Coverage Calculator",
+      "url": "https://rockcoveragecalculator.com/about",
+      "description": "Explains the engineering methodology, aggregate density calibrations, and editorial review standards behind Rock Coverage Calculator.",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Rock Coverage Calculator",
+        "url": "https://rockcoveragecalculator.com",
+        "logo": "https://rockcoveragecalculator.com/favicon.svg",
+        "knowsAbout": [
+          "Civil Engineering",
+          "Geotechnical Aggregate Standards",
+          "ASTM C29 Bulk Density",
+          "AASHTO M43 Sieve Grading",
+          "Landscape Construction"
+        ]
+      }
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="About Rock Coverage Calculator"
+      highlightWord="Calculator"
+      badge="Engineering Authority & Methodology"
+      subtitle="Dedicated to providing contractors, landscape architects, and property owners with civil-grade aggregate calculations based on strict ASTM and AASHTO standards."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <article class="guide-content">
+      <div class="guide-container">
+
+        <!-- Mission Statement -->
+        <div class="aeo-quick-card">
+          <div class="aeo-badge">Our Mission</div>
+          <h3>Civil Engineering Precision for Every Jobsite</h3>
+          <p>
+            Rock Coverage Calculator was established to solve one of the construction industry's most persistent and costly problems: inaccurate aggregate estimations that result in project delays, budget overruns, and wasted freight costs.
+          </p>
+          <p>
+            Our calculators utilize real-world geotechnical test data calibrated against ASTM C29 bulk densities and AASHTO sieve gradations, delivering reliable volumetric and weight outputs for commercial contractors and homeowners alike.
+          </p>
+        </div>
+
+        <h2>Geotechnical Standards & Calibration Framework</h2>
+        <p>
+          Many online calculators use oversimplified rules of thumb, assuming that every rock weighs the exact same amount. In actual quarry and earthmoving operations, aggregate bulk density varies substantially based on mineralogy, grain shape, moisture content, and particle size distribution.
+        </p>
+        <p>
+          Every calculation engine on this website adheres to established US standards:
+        </p>
+        <ul>
+          <li>
+            <strong>ASTM C29 / C29M (Standard Test Method for Bulk Density):</strong> Establishes the loose and compacted unit weights for all coarse aggregates, from lightweight volcanic scoria (0.65 to 0.75 tons/yd³) up to dense igneous basalt and diabase trap rock (1.50 to 1.55 tons/yd³).
+          </li>
+          <li>
+            <strong>ASTM D448 & AASHTO M43 (Standard Sizes of Coarse Aggregate):</strong> Governs the sieve distribution curves for standardized quarry sizes, including #57 clean stone, #8 pea gravel, and #4 ballast.
+          </li>
+          <li>
+            <strong>AASHTO M147 (Dense-Graded Base Course):</strong> Defines the compaction behavior, moisture-density relationship (Proctor density), and overage factors required for crusher run, quarry process (QP), and 21-A subbases.
+          </li>
+        </ul>
+
+        <!-- Editorial Review Board -->
+        <div class="table-card">
+          <h3>Editorial Standards & Review Process</h3>
+          <p>All formulas, compaction curves, and material specifications are evaluated against current industry literature:</p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Topic Area</th>
+                  <th>Governing Standard</th>
+                  <th>Primary Application</th>
+                  <th>Field Review Metric</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Clean Coarse Stone</strong></td>
+                  <td>ASTM C33 / ASTM D448</td>
+                  <td>French drains, retaining wall backfill, driveway top courses</td>
+                  <td>Hydraulic void ratio (>35%), zero fines</td>
+                </tr>
+                <tr>
+                  <td><strong>Dense-Graded Aggregate</strong></td>
+                  <td>AASHTO M147 / ASTM D2940</td>
+                  <td>Paver patios, asphalt subbases, roadway foundations</td>
+                  <td>Optimum moisture compaction, 15-20% tamp overage</td>
+                </tr>
+                <tr>
+                  <td><strong>Decorative Rock Mulch</strong></td>
+                  <td>ASTM C29 (Loose Stockpile)</td>
+                  <td>Landscape beds, tree rings, xeriscaping</td>
+                  <td>1.5x-2x stone diameter depth rule for 100% opacity</td>
+                </tr>
+                <tr>
+                  <td><strong>Heavy Armor Stone</strong></td>
+                  <td>US Army Corps of Engineers / DOT</td>
+                  <td>Culvert aprons, shoreline protection, bank stabilization</td>
+                  <td>D50 stone diameter, layer thickness = max stone size</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h2>Core Principles of Our Engineering Tools</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="feature-num">01</span>
+            <h4>Zero Guesswork on Compaction</h4>
+            <p>We separate uncompacted loose volume from compacted in-place volume. Dense-graded road base materials pack down by 15 to 20 percent when rolled; our tools explicitly account for this loss to prevent short orders.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">02</span>
+            <h4>US Customary Engineering Units</h4>
+            <p>Every tool operates natively in US short tons (2,000 lbs), cubic yards (27 cu ft), square feet, and standard retail 0.5 cu ft or 50-lb bags. No confusing metric conversions that complicate US quarry scale tickets.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">03</span>
+            <h4>Delivery & Freight Reality</h4>
+            <p>We provide real-world delivery guidance, highlighting the economic threshold where ordering bulk dump truck delivery saves 50 to 70 percent compared to purchasing individual retail bags.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">04</span>
+            <h4>Transparent Derivations</h4>
+            <p>Every calculator displays the exact mathematical formula used to generate its results, allowing estimators and project managers to audit the math for construction bids.</p>
+          </div>
+        </div>
+
+        <h2>Contact & Continuous Improvement</h2>
+        <p>
+          Quarry aggregate densities can vary slightly across regional geologic formations. If you are a civil contractor, quarry operator, or landscape architect with feedback or regional weight-ticket data to share, we welcome your input to ensure our tools remain the most accurate in the industry.
+        </p>
+
+      </div>
+    </article>
+
+    <!-- Cluster Navigation Section -->
+    <TopicClusterNav
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .guide-content {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .guide-container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .aeo-quick-card {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-left: 4px solid #10b981;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+
+  .aeo-badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-2);
+    background: #10b981;
+    color: #fff;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-quick-card h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-quick-card p {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  .aeo-quick-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .guide-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-text-heading);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-content p {
+    color: var(--color-text);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-content ul {
+    margin-left: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .guide-content li {
+    margin-bottom: var(--space-3);
+    line-height: 1.6;
+  }
+
+  .table-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin: var(--space-8) 0;
+  }
+
+  .table-card h3 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .table-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  th, td {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    background: var(--color-bg);
+    color: var(--color-text-heading);
+    font-weight: 700;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin: var(--space-8) 0;
+  }
+
+  @media (max-width: 640px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+  }
+
+  .feature-num {
+    font-size: var(--text-xs);
+    font-weight: 800;
+    color: #10b981;
+    margin-bottom: var(--space-2);
+    display: block;
+  }
+
+  .feature-card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
+  .feature-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+</style>

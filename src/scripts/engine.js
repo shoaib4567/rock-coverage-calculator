@@ -1,5 +1,5 @@
 /**
- * Core Calculation Engine — rockcoveragecalculator.com
+ * Core Calculation Engine - rockcoveragecalculator.com
  * Precision geometric area, volumetric conversion, aggregate density,
  * compaction factors, reverse coverage, and purchasing logistics.
  */
@@ -112,9 +112,20 @@ export const RockEngine = {
     return lbs / LBS_PER_TON;
   },
 
+  /* ── Metric Conversions ── */
+
+  sqFtToSqM(sqFt) { return sqFt * 0.092903; },
+  sqMToSqFt(sqM) { return sqM / 0.092903; },
+  cuYdToCuM(cuYd) { return cuYd * 0.764555; },
+  cuMToCuYd(cuM) { return cuM / 0.764555; },
+  cuFtToCuM(cuFt) { return cuFt * 0.0283168; },
+  tonsToTonnes(tons) { return tons * 0.907185; },
+  lbsToKg(lbs) { return lbs * 0.453592; },
+
   /* ── Purchasing ── */
 
   bags(cuFt) {
+    // Standard retail bag volume basis: 0.5 cubic feet (~14 liters)
     return Math.ceil(cuFt / BAG_CU_FT);
   },
 
@@ -147,19 +158,26 @@ export const RockEngine = {
     const tons = this.weightTons(lbs);
 
     const belowMinDepth = depthInches < material.minDepthInches;
+    const densityLbsPerCuFt = Math.round(material.densityLbsPerCuYd / CU_FT_PER_CU_YD);
+    const densityKgPerCuM = Math.round((material.densityLbsPerCuYd / CU_FT_PER_CU_YD) * 16.0185);
 
     return {
       shape,
       materialId: material.id,
       materialName: material.name,
       areaSqFt: this.round(areaSqFt, 1),
+      areaSqM: this.round(this.sqFtToSqM(areaSqFt), 2),
       depthInches,
+      depthCm: this.round(depthInches * 2.54, 1),
       wastePercent,
       volumeCuFtRaw: this.round(cuFtRaw, 2),
       volumeCuFt: this.round(cuFt, 2),
       volumeCuYd: this.round(cuYd, 2),
+      volumeCuM: this.round(this.cuYdToCuM(cuYd), 2),
       weightLbs: this.round(lbs, 0),
+      weightKg: this.round(this.lbsToKg(lbs), 0),
       weightTons: this.round(tons, 2),
+      weightTonnes: this.round(this.tonsToTonnes(tons), 2),
       bags: this.bags(cuFt),
       superSacks: this.superSacks(cuFt),
       wheelbarrowLoads: this.wheelbarrowLoads(cuFt),
@@ -167,6 +185,8 @@ export const RockEngine = {
       belowMinDepth,
       minDepthInches: material.minDepthInches,
       densityLbsPerCuYd: material.densityLbsPerCuYd,
+      densityLbsPerCuFt,
+      densityKgPerCuM,
       tonsPerCuYd: material.tonsPerCuYd
     };
   },

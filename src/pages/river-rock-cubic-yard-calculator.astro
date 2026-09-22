@@ -1,0 +1,342 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'River Rock Calculator', url: '/river-rock-calculator' },
+  { name: 'River Rock Cubic Yard Calculator', url: '/river-rock-cubic-yard-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'River Rock Volume' },
+  { label: 'Formula', value: 'Rule of 324: (L × W × D) / 324' },
+  { label: 'Bulk Density', value: '1.35 t/yd³ (2,700 lbs/yd³)' },
+  { label: 'Yield at 3"', value: '108 sq ft per Cubic Yard' }
+];
+
+const quickStats = [
+  { value: '108 sq ft', label: 'Coverage at 3"', desc: 'Standard square foot spread per cubic yard of 1-3 inch river rock' },
+  { value: '2,700 lbs', label: 'Weight per Yard', desc: 'Quarry scale bulk density per cubic yard (1.35 short tons)' },
+  { value: '10% Overage', label: 'Safety Buffer', desc: 'Recommended margin for bed contours, border tucks, and settling' }
+];
+
+const faqItems = [
+  {
+    q: 'How many cubic yards of river rock do I need for a 10x20 bed?',
+    a: 'A 10x20 foot bed equals 200 square feet. At a recommended 3-inch depth for 1-3 inch river rock, you need 1.85 cubic yards of stone. With a 10 percent safety buffer, order 2.0 cubic yards (approximately 2.70 tons or 108 bags of 0.5 cu ft).'
+  },
+  {
+    q: 'How do you calculate cubic yards of river rock?',
+    a: 'Multiply the length in feet by the width in feet by the depth in inches, then divide by 324. Formula: Cubic Yards = (Length × Width × Depth) / 324.'
+  },
+  {
+    q: 'How many square feet does 1 cubic yard of river rock cover?',
+    a: 'One cubic yard of river rock covers 324 square feet at 1 inch depth, 162 square feet at 2 inches depth, 108 square feet at 3 inches depth, and 81 square feet at 4 inches depth.'
+  },
+  {
+    q: 'What does a cubic yard of river rock weigh?',
+    a: 'A cubic yard of rounded river rock weighs approximately 2,700 pounds (1.35 short tons) under ASTM C29 loose bulk density standards.'
+  }
+];
+
+const upLinks = [
+  { title: 'River Rock Calculator (Material Parent)', slug: '/river-rock-calculator', badge: 'Material' },
+  { title: 'Rock Cubic Yard Calculator (Unit Parent)', slug: '/rock-cubic-yard-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'Tons' },
+  { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Gravel Yards' },
+  { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Stone Yards' }
+];
+
+const bridgeLinks = [
+  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Drainage' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' }
+];
+---
+
+<BaseLayout
+  title="River Rock Cubic Yard Calculator - Bulk Yardage & Spreads"
+  metaDescription="Calculate exact cubic yards of river rock for landscape beds, borders, and dry creek beds. Includes coverage tables, scale weight, and delivery sizing."
+  canonicalPath="/river-rock-cubic-yard-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "River Rock Cubic Yard Calculator",
+      "url": "https://rockcoveragecalculator.com/river-rock-cubic-yard-calculator",
+      "description": "Calculates cubic yards of smooth river rock needed based on length, width, and installation depth.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Landscape Contractors, Garden Designers, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "River Rock Cubic Yardage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="River Rock Cubic Yard Calculator"
+      highlightWord="Cubic Yards"
+      badge="Bulk Yardage Engine"
+      subtitle="Calculate exact cubic yards of smooth river stone for garden beds, dry creek swales, and xeriscape accents."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive River Rock Cubic Yard Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>River Rock Bed Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="rry-length">Length (Feet)</label>
+              <input type="number" id="rry-length" value="25" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="rry-width">Width (Feet)</label>
+              <input type="number" id="rry-width" value="12" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="rry-depth">Depth (Inches)</label>
+              <input type="number" id="rry-depth" value="3.0" min="1" max="18" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="rry-waste">Safety Buffer (%)</label>
+              <input type="number" id="rry-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-rry-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-rry-cuft">0 cu ft total volume</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-rry-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext" id="kpi-rry-lbs">0 lbs</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-rry-bags">0</div>
+              <div class="kpi-label">0.5 Cu Ft Bags</div>
+              <div class="kpi-subtext">54 bags per yard</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on River Rock Cubic Yards -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="River Rock Cubic Yards Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">River Rock Yardage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Yards = (L × W × Depth in) / 324</span>
+              <p class="aeo-quick-desc">Converts dimensions directly into cubic yards (27 cu ft).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 3"</span>
+              <span class="aeo-quick-value">108 sq ft per Yard³</span>
+              <p class="aeo-quick-desc">Standard depth for 1-inch to 3-inch river stone mulch.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 4"</span>
+              <span class="aeo-quick-value">81 sq ft per Yard³</span>
+              <p class="aeo-quick-desc">Recommended depth for 3-inch to 5-inch large river cobbles.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Weight per Yard³</span>
+              <span class="aeo-quick-value">2,700 lbs (1.35 Tons)</span>
+              <p class="aeo-quick-desc">Standard bulk density for natural rounded alluvial stone.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Volumetric Sizing Rules for River Rock</h2>
+          <p>
+            Bulk landscape supply yards and quarries sell loose river rock by the <strong>cubic yard</strong> (measured by the loader bucket) or by the ton. Because rounded river stone leaves open voids between individual pebbles, sizing the depth correctly is vital to avoid bare spots:
+          </p>
+
+          <div class="formula-box">
+            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
+            <br />
+            <code>Total Order with Buffer = Cubic Yards × 1.10 (for 10% waste)</code>
+          </div>
+
+          <h3>Depth Guidelines by River Rock Caliper</h3>
+          <ul>
+            <li><strong>Small River Rock (1/2" to 1"):</strong> Spread at 2.0 to 2.5 inches depth (130 to 162 sq ft per yard).</li>
+            <li><strong>Medium River Rock (1" to 3"):</strong> Spread at 3.0 to 3.5 inches depth (92 to 108 sq ft per yard).</li>
+            <li><strong>Large River Cobbles (3" to 5"):</strong> Spread at 4.0 to 6.0 inches depth (54 to 81 sq ft per yard).</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About River Rock Yardage</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/river-rock-cubic-yard-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateRRY() {
+      const l = parseFloat((document.getElementById('rry-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('rry-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('rry-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('rry-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const cuft = totalYards * 27;
+      const tons = totalYards * 1.35;
+      const lbs = tons * 2000;
+      const bags = Math.ceil(totalYards * 54);
+
+      const yEl = document.getElementById('kpi-rry-yards');
+      const tEl = document.getElementById('kpi-rry-tons');
+      const bEl = document.getElementById('kpi-rry-bags');
+      const cuftEl = document.getElementById('kpi-rry-cuft');
+      const lbsEl = document.getElementById('kpi-rry-lbs');
+
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (bEl) bEl.innerText = bags.toLocaleString();
+      if (cuftEl) cuftEl.innerText = Math.round(cuft) + ' cu ft total volume';
+      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs';
+    }
+
+    ['rry-length', 'rry-width', 'rry-depth', 'rry-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateRRY);
+    });
+    updateRRY();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

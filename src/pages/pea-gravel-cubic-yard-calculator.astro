@@ -1,0 +1,343 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Pea Gravel Calculator', url: '/pea-gravel-calculator' },
+  { name: 'Pea Gravel Cubic Yard Calculator', url: '/pea-gravel-cubic-yard-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Pea Gravel Volume' },
+  { label: 'Sieve Size', value: 'ASTM D448 #8 (3/8" Smooth)' },
+  { label: 'Rule of 324', value: '(Length × Width × Depth) / 324' },
+  { label: 'Yield at 2.5"', value: '130 sq ft per Cubic Yard' }
+];
+
+const quickStats = [
+  { value: '130 sq ft', label: 'Yield at 2.5"', desc: 'Square foot coverage per cubic yard for comfortable patio walkability' },
+  { value: '2,700 lbs', label: 'Weight per Yard', desc: 'Standard bulk density per cubic yard (1.35 short tons)' },
+  { value: '54 Bags', label: 'Retail Bags', desc: '0.5 cubic foot bags contained in one cubic yard' }
+];
+
+const faqItems = [
+  {
+    q: 'How many cubic yards of pea gravel do I need for a 15x15 foot patio?',
+    a: 'A 15x15 foot patio equals 225 square feet. At a recommended 2.5-inch depth for barefoot patio comfort, you need 1.74 cubic yards of pea gravel. With a 10 percent safety buffer, order 1.91 cubic yards (approximately 2.58 tons or 104 bags of 0.5 cu ft).'
+  },
+  {
+    q: 'How do you calculate cubic yards of pea gravel?',
+    a: 'Multiply the project length in feet by width in feet by depth in inches, then divide by 324. Formula: Cubic Yards = (Length × Width × Depth) / 324.'
+  },
+  {
+    q: 'How many square feet does 1 cubic yard of pea gravel cover?',
+    a: 'One cubic yard of pea gravel covers 216 square feet at 1.5 inches depth, 162 square feet at 2 inches depth, 130 square feet at 2.5 inches depth, and 108 square feet at 3 inches depth.'
+  },
+  {
+    q: 'How many wheelbarrows are in a cubic yard of pea gravel?',
+    a: 'A standard contractor wheelbarrow holds 3 cubic feet of gravel. Because there are 27 cubic feet in one cubic yard, you will need 9 full wheelbarrow loads per cubic yard of pea gravel.'
+  }
+];
+
+const upLinks = [
+  { title: 'Pea Gravel Calculator (Material Parent)', slug: '/pea-gravel-calculator', badge: 'Material' },
+  { title: 'Rock Cubic Yard Calculator (Unit Parent)', slug: '/rock-cubic-yard-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Pea Gravel Tons Calculator', slug: '/pea-gravel-tons-calculator', badge: 'Tons' },
+  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Bags' },
+  { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Gravel Yards' }
+];
+
+const bridgeLinks = [
+  { title: 'Pea Gravel Patio Calculator', slug: '/pea-gravel-patio-calculator', badge: 'Patio' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
+];
+
+const supportGuides = [
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Gravel Size and Sieve Guide', slug: '/gravel-sizes', badge: 'Gradations' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' }
+];
+---
+
+<BaseLayout
+  title="Pea Gravel Cubic Yard Calculator - Patio & Walkway Volume"
+  metaDescription="Calculate exact cubic yards of pea gravel needed for patios, walkways, and dog runs. Sizing formulas, coverage yields, wheelbarrow counts, and bulk order tips."
+  canonicalPath="/pea-gravel-cubic-yard-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Pea Gravel Cubic Yard Calculator",
+      "url": "https://rockcoveragecalculator.com/pea-gravel-cubic-yard-calculator",
+      "description": "Calculates cubic yards of ASTM D448 #8 pea gravel required for landscape and patio installations.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Patio Installers, Landscape Designers, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Pea Gravel Volume Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Pea Gravel Cubic Yard Calculator"
+      highlightWord="Cubic Yards"
+      badge="Bulk Yardage Engine"
+      subtitle="Calculate exact cubic yards of smooth 3/8-inch pea gravel for patios, walkways, play spaces, and dog runs."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Pea Gravel Cubic Yard Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Pea Gravel Area Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="pgy-length">Length (Feet)</label>
+              <input type="number" id="pgy-length" value="20" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="pgy-width">Width (Feet)</label>
+              <input type="number" id="pgy-width" value="12" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="pgy-depth">Depth (Inches)</label>
+              <input type="number" id="pgy-depth" value="2.5" min="1" max="12" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="pgy-waste">Safety Buffer (%)</label>
+              <input type="number" id="pgy-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-pgy-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext" id="kpi-pgy-cuft">0 cu ft total volume</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-pgy-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext" id="kpi-pgy-lbs">0 lbs</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-pgy-wheelbarrows">0</div>
+              <div class="kpi-label">Wheelbarrow Loads</div>
+              <div class="kpi-subtext">3 cu ft per load</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Pea Gravel Cubic Yards -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Pea Gravel Cubic Yards Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Pea Gravel Yardage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Yards = (L × W × Depth in) / 324</span>
+              <p class="aeo-quick-desc">Converts dimensions directly into cubic yards (27 cu ft).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Coverage at 2.5"</span>
+              <span class="aeo-quick-value">130 sq ft per Yard³</span>
+              <p class="aeo-quick-desc">Recommended depth for firm, stable patio footing.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Weight per Yard³</span>
+              <span class="aeo-quick-value">2,700 lbs (1.35 Tons)</span>
+              <p class="aeo-quick-desc">Standard bulk density for ASTM D448 #8 pea stone.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Wheelbarrow Count</span>
+              <span class="aeo-quick-value">9 Loads per Yard³</span>
+              <p class="aeo-quick-desc">Standard contractor wheelbarrow capacity of 3 cubic feet.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Volumetric Calculations for Pea Gravel Patios and Paths</h2>
+          <p>
+            Pea gravel (conforming to <strong>ASTM D448 #8</strong>) consists of rounded quartz and river pebbles measuring approximately 3/8 inch in diameter. Because smooth pebbles roll easily underfoot, getting the volume and depth right is critical:
+          </p>
+
+          <div class="formula-box">
+            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
+            <br />
+            <code>Total Order with Buffer = Cubic Yards × 1.10 (for 10% compaction & edge settling)</code>
+          </div>
+
+          <h3>Pea Gravel Coverage per Cubic Yard</h3>
+          <ul>
+            <li><strong>1.5 Inches Depth:</strong> Covers 216 sq ft per yard (light decorative mulch over fabric).</li>
+            <li><strong>2.0 Inches Depth:</strong> Covers 162 sq ft per yard (pathways and garden walks).</li>
+            <li><strong>2.5 Inches Depth:</strong> Covers 130 sq ft per yard (patio seating zones and fire pits).</li>
+            <li><strong>3.0 Inches Depth:</strong> Covers 108 sq ft per yard (dog runs and playgrounds).</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Pea Gravel Yardage</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/pea-gravel-cubic-yard-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updatePGY() {
+      const l = parseFloat((document.getElementById('pgy-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('pgy-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('pgy-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('pgy-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const cuft = totalYards * 27;
+      const tons = totalYards * 1.35;
+      const lbs = tons * 2000;
+      const wheelbarrows = Math.ceil(cuft / 3);
+
+      const yEl = document.getElementById('kpi-pgy-yards');
+      const tEl = document.getElementById('kpi-pgy-tons');
+      const wEl = document.getElementById('kpi-pgy-wheelbarrows');
+      const cuftEl = document.getElementById('kpi-pgy-cuft');
+      const lbsEl = document.getElementById('kpi-pgy-lbs');
+
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (wEl) wEl.innerText = wheelbarrows.toLocaleString();
+      if (cuftEl) cuftEl.innerText = Math.round(cuft) + ' cu ft total volume';
+      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs';
+    }
+
+    ['pgy-length', 'pgy-width', 'pgy-depth', 'pgy-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updatePGY);
+    });
+    updatePGY();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

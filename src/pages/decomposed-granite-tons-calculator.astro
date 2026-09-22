@@ -1,0 +1,339 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Decomposed Granite Calculator', url: '/decomposed-granite-calculator' },
+  { name: 'Decomposed Granite Tons Calculator', url: '/decomposed-granite-tons-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Decomposed Granite Tonnage' },
+  { label: 'Gradation', value: '1/4" Minus with Fines' },
+  { label: 'Bulk Density', value: '1.25 t/yd³ (Loose) / 1.50 t/yd³ (Compacted)' },
+  { label: 'Compaction Factor', value: '20% Volume Reduction' }
+];
+
+const quickStats = [
+  { value: '1.25 t/yd³', label: 'Loose Density', desc: 'Quarry scale weight for uncompacted 1/4" minus decomposed granite' },
+  { value: '20% Factor', label: 'Compaction', desc: 'Mandatory volume allowance for mechanical plate tamper compaction' },
+  { value: '65 sq ft', label: 'Yield at 3"', desc: 'Finished square foot coverage per ton after 20% plate compaction' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of decomposed granite do I need for a 12x25 foot patio?',
+    a: 'A 12x25 foot patio equals 300 square feet. At a standard 3-inch compacted depth, you need 2.78 cubic yards of finished volume. Adding a 20 percent compaction factor requires 3.33 loose cubic yards. Multiplying by 1.25 tons per yard equals approximately 4.16 tons of decomposed granite.'
+  },
+  {
+    q: 'How do you calculate tons of decomposed granite with compaction?',
+    a: 'Calculate loose volume in cubic yards: (Length ft × Width ft × Depth in) / 324. Multiply by 1.20 for compaction, then multiply by 1.25 tons per cubic yard. Formula: Tons = [(Area × Depth) / 324] × 1.20 × 1.25.'
+  },
+  {
+    q: 'How many square feet does 1 ton of decomposed granite cover?',
+    a: 'After mechanical plate compaction, one ton of decomposed granite covers approximately 97 square feet at 2 inches depth, 65 square feet at 3 inches depth, and 49 square feet at 4 inches depth.'
+  },
+  {
+    q: 'Why must compaction factor be included when ordering DG by the ton?',
+    a: 'Decomposed granite contains a high proportion of stone dust and fine particles. When moistened and compacted with a vibratory plate tamper, air voids collapse and the layer reduces in thickness by approximately 20 percent.'
+  }
+];
+
+const upLinks = [
+  { title: 'Decomposed Granite Calculator (Material Parent)', slug: '/decomposed-granite-calculator', badge: 'Material' },
+  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Decomposed Granite Coverage Calculator', slug: '/decomposed-granite-coverage-calculator', badge: 'Coverage' },
+  { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: 'Granite' },
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Base' }
+];
+
+const bridgeLinks = [
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+
+const supportGuides = [
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' }
+];
+---
+
+<BaseLayout
+  title="Decomposed Granite Tons Calculator - Compaction & Scale Weights"
+  metaDescription="Calculate exact tons of decomposed granite needed for pathways, patios, and bocce courts. Calibrated for 1/4 inch minus DG with 20% compaction math."
+  canonicalPath="/decomposed-granite-tons-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Decomposed Granite Tons Calculator",
+      "url": "https://rockcoveragecalculator.com/decomposed-granite-tons-calculator",
+      "description": "Calculates quarry scale tonnage for decomposed granite pathways and patios including 20% mechanical compaction.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Landscape Contractors, Paving Installers, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Decomposed Granite Tonnage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Decomposed Granite Tons Calculator"
+      highlightWord="Tons"
+      badge="Compacted Tonnage Engine"
+      subtitle="Calculate exact scale tons for 1/4-inch minus decomposed granite pathways, patios, and driveways with 20% compaction."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive DG Tons Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Decomposed Granite Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="dgt-length">Length (Feet)</label>
+              <input type="number" id="dgt-length" value="30" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="dgt-width">Width (Feet)</label>
+              <input type="number" id="dgt-width" value="10" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="dgt-depth">Finished Compacted Depth (Inches)</label>
+              <input type="number" id="dgt-depth" value="3.0" min="1" max="12" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="dgt-compaction">Compaction Allowance (%)</label>
+              <input type="number" id="dgt-compaction" value="20" min="0" max="30" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-dgt-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext" id="kpi-dgt-lbs">0 lbs total weight</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-dgt-yards">0.00</div>
+              <div class="kpi-label">Loose Volume (Cubic Yards)</div>
+              <div class="kpi-subtext">Includes 20% compaction</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-dgt-yield">0</div>
+              <div class="kpi-label">Compacted Yield (Sq Ft/Ton)</div>
+              <div class="kpi-subtext">Finished coverage</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on DG Tonnage -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="DG Tonnage Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Decomposed Granite Tonnage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Tons = [(Area × Depth) / 324] × 1.20 × 1.25</span>
+              <p class="aeo-quick-desc">Includes 20% mechanical compaction factor.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Loose Bulk Density</span>
+              <span class="aeo-quick-value">1.25 t/yd³ (2,500 lbs/yd³)</span>
+              <p class="aeo-quick-desc">Standard quarry weight for loose stockpiled 1/4" minus DG.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Compacted Density</span>
+              <span class="aeo-quick-value">1.50 t/yd³ (3,000 lbs/yd³)</span>
+              <p class="aeo-quick-desc">Density after wetting and vibratory plate tamper passes.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Yield at 3"</span>
+              <span class="aeo-quick-value">65 sq ft per Ton</span>
+              <p class="aeo-quick-desc">Finished compacted coverage per short ton of material.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Engineering Calculations for Decomposed Granite Tonnage</h2>
+          <p>
+            Decomposed granite consists of weathered granite rock particles blended with stone dust (1/4" minus). Unlike clean decorative gravel, DG is designed to be compacted into a firm, semi-impervious surface:
+          </p>
+
+          <div class="formula-box">
+            <code>Loose Cubic Yards = [Length (ft) × Width (ft) × Finished Depth (in)] / 324 × 1.20 Compaction</code>
+            <br />
+            <code>Scale Weight (Tons) = Loose Cubic Yards × 1.25 t/yd³</code>
+          </div>
+
+          <h3>Finished Compacted Yields per Ton</h3>
+          <ul>
+            <li><strong>2.0 Inches Compacted Depth:</strong> 97 sq ft per ton (light pedestrian paths and garden trails).</li>
+            <li><strong>3.0 Inches Compacted Depth:</strong> 65 sq ft per ton (patios, fire pits, and heavy walkways).</li>
+            <li><strong>4.0 Inches Compacted Depth:</strong> 49 sq ft per ton (vehicular driveways and parking areas).</li>
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Decomposed Granite Tonnage</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/decomposed-granite-tons-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateDGT() {
+      const l = parseFloat((document.getElementById('dgt-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('dgt-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('dgt-depth') as HTMLInputElement)?.value) || 0;
+      const comp = parseFloat((document.getElementById('dgt-compaction') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const looseYards = netYards * (1 + comp / 100);
+      const tons = looseYards * 1.25;
+      const lbs = tons * 2000;
+      const yieldPerTon = (d > 0 && tons > 0) ? ((l * w) / tons) : 0;
+
+      const tEl = document.getElementById('kpi-dgt-tons');
+      const yEl = document.getElementById('kpi-dgt-yards');
+      const yldEl = document.getElementById('kpi-dgt-yield');
+      const lbsEl = document.getElementById('kpi-dgt-lbs');
+
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (yEl) yEl.innerText = looseYards.toFixed(2);
+      if (yldEl) yldEl.innerText = Math.round(yieldPerTon).toString();
+      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+    }
+
+    ['dgt-length', 'dgt-width', 'dgt-depth', 'dgt-compaction'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateDGT);
+    });
+    updateDGT();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

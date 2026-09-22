@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -13,55 +13,83 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Primary Entity', value: 'Rock Calculator' },
-  { label: 'Units Supported', value: 'Cubic Yards, Tons, Pounds, Bags' },
-  { label: 'Geometric Shapes', value: 'Rectangle, Circle, Direct Area' },
-  { label: 'Material Library', value: 'River Rock, Crushed Stone, Lava, DG' }
+  { label: 'Material', value: 'Quick Rock Calculator' },
+  { label: 'Calculation Type', value: 'Rapid Single-Shape Estimator' },
+  { label: 'Units Computed', value: 'Cubic Yards, Short Tons, 0.5 cu ft Bags' },
+  { label: 'Density Standard', value: 'ASTM C29 Loose Unit Weight' }
 ];
 
 const quickStats = [
-  { value: 'Multi-Shape', label: 'Geometry Engine', desc: 'Precise area calculations for rectangles, circles, and irregular zones' },
-  { value: '4 Presets', label: 'Density Library', desc: 'Pre-calibrated bulk densities for accurate quarry scale tons' },
-  { value: 'Zero Fluff', label: 'Contractor Math', desc: 'Instant volume and tonnage output with standard safety margins' }
+  { value: 'Instant', label: 'Response Time', desc: 'Real time volume and tonnage as you type dimensions' },
+  { value: '324 Divisor', label: 'Contractor Constant', desc: 'Converts length ft x width ft x depth in to cubic yards' },
+  { value: 'Zero Clutter', label: 'Mobile Optimized', desc: 'Designed for quick contractor and jobsite estimation' }
 ];
 
 const faqItems = [
   {
-    q: 'How does this rock calculator work?',
-    a: 'The rock calculator computes the three-dimensional volume of your project by multiplying the length and width (or circular radius) by your target depth. It then divides by 27 to calculate cubic yards, and applies material bulk density coefficients (typically 1.35 to 1.40 tons per cubic yard) to give exact quarry weight.'
+    q: 'How does this quick rock calculator compute volume and weight?',
+    a: 'The quick rock calculator multiplies your bed area in square feet by your layer depth in inches, then divides by 324 to determine total cubic yards. To convert to certified quarry scale weight, it applies the bulk density of your chosen rock, typically 1.35 tons per cubic yard for standard river stone and gravel.'
+  },
+  {
+    q: 'Why does dividing by 324 give cubic yards?',
+    a: 'There are 12 inches in a foot and 27 cubic feet in a cubic yard. Multiplying 12 by 27 yields the contractor constant 324. This formula allows you to enter bed dimensions in feet and depth in inches directly without manual conversions.'
   },
   {
     q: 'How many tons of rock do I need per cubic yard?',
-    a: 'For standard crushed stone or river rock, 1 cubic yard weighs approximately 1.35 to 1.40 tons (2,700 to 2,800 lbs). Lightweight porous volcanic lava rock weighs only 0.85 tons per yard, while dense-graded road base with stone dust weighs 1.50 tons per yard.'
+    a: 'Standard landscape gravel and river stone weigh approximately 1.35 tons (2,700 pounds) per cubic yard loose stockpile weight per ASTM C29. Heavy crushed granite weighs 1.40 tons per yard, dense graded road base weighs 1.45 to 1.50 tons per yard, and lightweight lava rock weighs only 0.75 tons per yard.'
   },
   {
-    q: 'How much extra rock should I order for overage?',
-    a: 'Civil contractors recommend a 10% safety overage buffer for standard rectangular landscape beds, and 12% to 15% for curved borders, irregular grade depressions, and vehicular driveways subject to roller compaction.'
-  },
-  {
-    q: 'Can I use this calculator for circular tree rings and fire pits?',
-    a: 'Yes. Select the "Circle / Ring" shape toggle, input the total diameter in feet across your circular bed, and the calculator applies the exact πr² formula to give precise volume without over-ordering.'
+    q: 'How much safety buffer should I add for on-site rock ordering?',
+    a: 'Contractors recommend adding a 10 percent safety buffer for standard rectangular beds to account for subgrade depressions and settling. For curved borders or vehicular driveways subject to roller compaction, add 12 to 15 percent extra material.'
   }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³' },
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³' }
+];
+
+const bridgeLinks = [
+  { title: 'Rock Cubic Yard Calculator', slug: '/rock-cubic-yard-calculator', badge: 'Yards' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags' }
+];
+
+const supportGuides = [
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
 ];
 ---
 
 <BaseLayout
-  title="Rock Calculator - Fast Cubic Yards, Tons & Bag Estimator"
-  description="Free online rock calculator for landscaping and construction. Calculate exact cubic yards, scale tons, and bags for rectangular, circular, and irregular areas."
+  title="Quick Rock Calculator - Fast Cubic Yards, Tons & Bag Estimator"
+  description="Fast online rock calculator for contractors and homeowners. Estimate exact cubic yards, scale tons, and 0.5 cu ft bags in seconds with zero fluff."
   canonicalPath="/rock-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Rock Calculator",
+      "name": "Quick Rock Calculator",
       "url": "https://rockcoveragecalculator.com/rock-calculator",
-      "description": "General rock calculator computing cubic yards, tons, and bags across multiple geometries and aggregate densities.",
+      "description": "Fast on-site rock coverage calculator computing cubic yards, tons, and bags for landscape beds and jobsite estimation.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Landscape Contractors, Civil Engineers, Estimators, Homeowners"
+      },
       "about": {
         "@type": "Thing",
-        "name": "Rock Calculator"
+        "name": "Rapid Aggregate Volume and Weight Estimation"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -82,10 +110,10 @@ const faqItems = [
 
   <main>
     <PageHero
-      title="Rock Calculator"
+      title="Quick Rock Calculator"
       highlightWord="Calculator"
-      badge="Core Aggregate & Volume Engine"
-      subtitle="Fast, precise cubic yards and quarry tonnage calculations for residential garden beds, pathways, and commercial construction projects."
+      badge="Fast Jobsite Estimator"
+      subtitle="Rapid cubic yards, quarry tonnage, and retail bag estimation. Built for quick on-site calculations with zero clutter."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -98,77 +126,114 @@ const faqItems = [
     <!-- Technical Guide on Rock Calculations -->
     <article class="content-guide-section">
       <div class="container">
+        
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Rock Calculation Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Rock Calculation Reference for Field Estimators</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Cubic Yards Formula</span>
+              <span class="aeo-quick-value">Yards = (Area [sq ft] × Depth [in]) / 324</span>
+              <p class="aeo-quick-desc">The universal contractor equation based on 12 in/ft × 27 cu ft/yd³.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Scale Tons Conversion</span>
+              <span class="aeo-quick-value">Tons = Cubic Yards × Bulk Density (t/yd³)</span>
+              <p class="aeo-quick-desc">Standard gravel & river rock = 1.35 t/yd³ (2,700 lbs per yard).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Retail Bags (0.5 cu ft)</span>
+              <span class="aeo-quick-value">Bags = Cubic Yards × 54</span>
+              <p class="aeo-quick-desc">Standard 0.5 cu ft bag yields 0.0185 yards (20 bags = 0.37 yards).</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Standard Depth Rule</span>
+              <span class="aeo-quick-value">Depth = 1.5× to 2× Stone Caliper</span>
+              <p class="aeo-quick-desc">Min 2 inches for pea gravel, 3 inches for 1-3 inch rock, 4-6 inches for driveways.</p>
+            </div>
+          </div>
+        </section>
+
         <div class="content-card">
-          <h2>Mastering the Mechanics of Rock Calculation</h2>
+          <h2>Mastering Rapid On-Site Rock Estimation</h2>
           <p>
-            Whether you are calculating rock for a modern residential xeriscape or a commercial aggregate base, accurate material procurement requires translating physical site geometry into certified quarry units. Aggregate is extracted, crushed, washed, and sold in two primary units: <strong>Cubic Yards (Volume)</strong> and <strong>US Short Tons (Weight)</strong>.
+            Whether measuring a residential flower bed on a mobile phone or verifying a supplier delivery ticket at a commercial jobsite, speed and volumetric accuracy are essential. Quarries and landscape supply yards sell rock in two primary commerce units: <strong>Cubic Yards (Volume)</strong> and <strong>US Short Tons (Weight of 2,000 lbs)</strong>.
           </p>
 
-          <h3>The Step-by-Step Calculation Process</h3>
+          <h3>The 5-Step Field Calculation Method</h3>
           <ol class="steps-list">
             <li>
-              <strong>Determine Total Square Footage:</strong> For rectangular beds, multiply Length in feet by Width in feet. For circular rings, multiply 3.1416 by radius squared.
+              <strong>Measure Area in Square Feet:</strong> For rectangular zones, multiply Length in feet by Width in feet. For circular zones, multiply 3.1416 by radius squared.
             </li>
             <li>
-              <strong>Convert Layer Depth to Feet:</strong> Divide your depth in inches by 12. For a 3-inch depth, 3 / 12 = 0.25 feet.
+              <strong>Select Layer Depth in Inches:</strong> Typical decorative beds require 2 to 3 inches of stone, while vehicular driveways and drainage trenches require 4 to 8 inches.
             </li>
             <li>
-              <strong>Calculate Cubic Feet:</strong> Multiply your square footage by depth in feet. For a 400 sq ft area at 0.25 feet depth: 400 × 0.25 = 100 cubic feet.
+              <strong>Divide by 324:</strong> Dividing the product of square footage and depth in inches by 324 yields exact net cubic yards.
             </li>
             <li>
-              <strong>Convert to Cubic Yards:</strong> Divide total cubic feet by 27 (the number of cubic feet in one cubic yard). 100 / 27 = 3.70 cubic yards.
+              <strong>Multiply by Bulk Density for Tonnage:</strong> Multiply cubic yards by your aggregate bulk density in tons per cubic yard (ASTM C29 loose stockpile basis).
             </li>
             <li>
-              <strong>Apply Quarry Density for Tonnage:</strong> Multiply cubic yards by your aggregate's specific bulk density. At 1.35 tons/yd³: 3.70 × 1.35 = 5.0 tons.
+              <strong>Add a Safety Buffer:</strong> Apply 10 percent extra for rectangular garden beds, or 12 to 15 percent for irregular borders and wheel-compacted driveways.
             </li>
           </ol>
 
           <div class="formula-callout">
-            <div class="formula-math">Total Tons = [(Square Feet × Depth in Inches) / 324] × Bulk Density in Tons/yd³</div>
-            <div class="formula-desc">The industry standard master equation for quarry scale aggregate ordering.</div>
+            <div class="formula-math">Total Tons = [(Square Feet × Depth in Inches) / 324] × Bulk Density in Tons/yd³ × 1.10</div>
+            <div class="formula-desc">The industry standard master equation for quarry scale aggregate ordering with a 10 percent safety buffer.</div>
           </div>
 
-          <h3>Density Comparison Across Common Rock Materials</h3>
+          <h3>Quarry Bulk Density Benchmark Table</h3>
           <div class="table-container">
             <table>
               <thead>
                 <tr>
                   <th>Rock Material</th>
-                  <th>Bulk Density (Tons/yd³)</th>
-                  <th>Weight per Yard (lbs)</th>
-                  <th>Yield at 3" Depth</th>
+                  <th>Gradation / Caliper</th>
+                  <th>Bulk Density (t/yd³)</th>
+                  <th>Coverage at 3" Depth</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>River Rock (1"-3")</strong></td>
-                  <td>1.35 T/yd³</td>
-                  <td>2,700 lbs</td>
+                  <td><strong><a href="/river-rock-calculator" class="text-gold">River Rock</a></strong></td>
+                  <td>1 to 3 inch smooth round</td>
+                  <td>1.35 t/yd³ (2,700 lbs)</td>
                   <td>80 sq ft per ton</td>
                 </tr>
                 <tr>
-                  <td><strong>Crushed Granite (#57)</strong></td>
-                  <td>1.40 T/yd³</td>
-                  <td>2,800 lbs</td>
+                  <td><strong><a href="/crushed-stone-calculator" class="text-gold">Crushed Limestone (#57)</a></strong></td>
+                  <td>1/2 to 1 inch angular</td>
+                  <td>1.35 t/yd³ (2,700 lbs)</td>
+                  <td>80 sq ft per ton</td>
+                </tr>
+                <tr>
+                  <td><strong><a href="/crushed-granite-calculator" class="text-gold">Crushed Granite</a></strong></td>
+                  <td>3/4 inch fractured</td>
+                  <td>1.40 t/yd³ (2,800 lbs)</td>
                   <td>77 sq ft per ton</td>
                 </tr>
                 <tr>
-                  <td><strong>Crusher Run / DGA (#411)</strong></td>
-                  <td>1.50 T/yd³</td>
-                  <td>3,000 lbs</td>
+                  <td><strong><a href="/crusher-run-calculator" class="text-gold">Crusher Run / DGA</a></strong></td>
+                  <td>3/4 inch minus with fines</td>
+                  <td>1.45 to 1.50 t/yd³ (3,000 lbs)</td>
                   <td>72 sq ft per ton</td>
                 </tr>
                 <tr>
-                  <td><strong>Pea Gravel (3/8")</strong></td>
-                  <td>1.38 T/yd³</td>
-                  <td>2,760 lbs</td>
-                  <td>78 sq ft per ton</td>
+                  <td><strong><a href="/pea-gravel-calculator" class="text-gold">Pea Gravel</a></strong></td>
+                  <td>3/8 inch rounded</td>
+                  <td>1.35 t/yd³ (2,700 lbs)</td>
+                  <td>80 sq ft per ton</td>
                 </tr>
                 <tr>
-                  <td><strong>Volcanic Lava Rock</strong></td>
-                  <td>0.85 T/yd³</td>
-                  <td>1,700 lbs</td>
-                  <td>127 sq ft per ton</td>
+                  <td><strong><a href="/lava-rock-calculator" class="text-gold">Volcanic Lava Rock</a></strong></td>
+                  <td>3/4 to 1.5 inch porous</td>
+                  <td>0.75 t/yd³ (1,500 lbs)</td>
+                  <td>144 sq ft per ton</td>
                 </tr>
               </tbody>
             </table>
@@ -190,7 +255,14 @@ const faqItems = [
       </div>
     </article>
 
-    <TopicClusterNav activePage="rock-calculator" />
+    <TopicClusterNav 
+      currentPage="/rock-calculator" 
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
   </main>
 
   <Footer />
@@ -200,6 +272,68 @@ const faqItems = [
 .content-guide-section {
   padding: var(--space-12) 0;
   background: var(--color-bg);
+}
+
+.aeo-quick-card {
+  background: var(--color-surface);
+  border: 1px solid var(--accent-gold);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+  box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+}
+
+.aeo-quick-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  color: var(--accent-gold);
+}
+
+.aeo-quick-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.aeo-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.aeo-quick-item {
+  background: var(--color-bg);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.aeo-quick-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-gold);
+  margin-bottom: 2px;
+}
+
+.aeo-quick-value {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 2px;
+}
+
+.aeo-quick-desc {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.35;
 }
 
 .content-card {
@@ -290,6 +424,15 @@ td {
 
 tr:hover td {
   background: rgba(202, 138, 4, 0.04);
+}
+
+.text-gold {
+  color: var(--accent-gold);
+  text-decoration: none;
+}
+
+.text-gold:hover {
+  text-decoration: underline;
 }
 
 .faq-card {

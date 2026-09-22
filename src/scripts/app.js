@@ -9,7 +9,6 @@ import { RockEngine } from './engine.js';
 import { ROCK_MATERIALS, getMaterialById } from './materials-data.js';
 import { RockVisualizer } from './visualizer.js';
 import { RockExporter } from './export.js';
-import { initRockScene } from './rock-scene.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -125,13 +124,56 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  /* ── 3D Scene Initialization ── */
+  /* ── 3D Scene Lazy-Loading via IntersectionObserver ── */
   let rockScene = null;
-  try {
-    rockScene = await initRockScene('rock-scene-canvas');
-  } catch (e) {
-    console.warn('3D scene initialization error:', e);
+  let rockSceneLoading = false;
+
+  async function loadRockScene() {
+    if (rockScene || rockSceneLoading) return;
+    const container = document.getElementById('rock-scene-canvas');
+    if (!container) return;
+
+    rockSceneLoading = true;
+    try {
+      const { initRockScene } = await import('./rock-scene.js');
+      rockScene = await initRockScene('rock-scene-canvas');
+      if (rockScene) {
+        const dimsInFeet = getDimsInFeet();
+        const material = getMaterialById(state.materialId);
+        rockScene.updateScene({
+          shape: state.shape,
+          dims: dimsInFeet,
+          depth: state.depthInches,
+          material: material
+        });
+      }
+    } catch (e) {
+      console.warn('3D scene dynamic import/initialization error:', e);
+    } finally {
+      rockSceneLoading = false;
+    }
   }
+
+  // Lazy-load when user approaches visualizer section
+  const visualizerSection = document.getElementById('visualizer') || document.getElementById('rock-scene-canvas');
+  if (visualizerSection && 'IntersectionObserver' in window) {
+    const vizObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadRockScene();
+          vizObserver.disconnect();
+        }
+      });
+    }, { rootMargin: '300px 0px' });
+    vizObserver.observe(visualizerSection);
+  }
+
+  // Also load immediately if user clicks "3D Bed Live" badge or the fallback canvas
+  document.querySelectorAll('.viz-live-badge, #rock-scene-canvas').forEach(el => {
+    el.addEventListener('click', () => {
+      loadRockScene();
+    });
+  });
 
   /* ── Shape Tab Configurations ── */
   const shapeConfigs = {
@@ -175,9 +217,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       state.rawDims[c.key] = Math.round(inUnit * 100) / 100;
     });
 
-    // Update tab visual active state
+    // Update tab visual active state and ARIA
     shapeTabs.forEach(tab => {
-      tab.classList.toggle('active', tab.dataset.shape === shape);
+      const isActive = tab.dataset.shape === shape;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
 
     // Rebuild dimension inputs
@@ -197,7 +241,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="input-field">
           <input type="number" id="dim-${c.key}" data-key="${c.key}" 
                  value="${RockEngine.formatInputValue(state.rawDims[c.key])}" 
-                 placeholder="${c.placeholder}" step="any" min="0">
+                 placeholder="${c.placeholder}" step="any" min="0"
+                 aria-label="${c.label} (${state.unit})"
+                 autocomplete="off">
           <span class="unit-label">${state.unit}</span>
         </div>
       </div>
@@ -233,8 +279,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       const newUnit = btn.dataset.unit;
       if (oldUnit === newUnit) return;
 
-      unitButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      unitButtons.forEach(b => {
+        const isActive = b === btn;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      });
 
       // Convert existing dimensions to new unit
       Object.keys(state.rawDims).forEach(k => {
@@ -254,6 +303,10 @@ document.addEventListener('DOMContentLoaded', async () => {
           const key = inp.dataset.key;
           if (state.rawDims[key] !== undefined) {
             inp.value = RockEngine.formatInputValue(state.rawDims[key]);
+            const config = shapeConfigs[state.shape]?.find(c => c.key === key);
+            if (config) {
+              inp.setAttribute('aria-label', `${config.label} (${newUnit})`);
+            }
           }
         });
       }
@@ -265,8 +318,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ── Material Picker ── */
   materialCards.forEach(card => {
     card.addEventListener('click', () => {
-      materialCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
+      materialCards.forEach(c => {
+        const isActive = c === card;
+        c.classList.toggle('active', isActive);
+        c.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      });
       state.materialId = card.dataset.material;
 
       // Card selection pulse animation
@@ -300,16 +356,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (depthValue) {
       depthValue.textContent = state.depthInches;
     }
+    if (depthSlider) {
+      depthSlider.setAttribute('aria-valuenow', state.depthInches);
+      depthSlider.setAttribute('aria-valuetext', `${state.depthInches} inches`);
+    }
     depthPresets.forEach(btn => {
-      btn.classList.toggle('active', parseFloat(btn.dataset.depth) === state.depthInches);
+      const isActive = parseFloat(btn.dataset.depth) === state.depthInches;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     });
   }
 
   /* ── Waste Factor Chips ── */
   wasteChips.forEach(chip => {
     chip.addEventListener('click', () => {
-      wasteChips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
+      wasteChips.forEach(c => {
+        const isActive = c === chip;
+        c.classList.toggle('active', isActive);
+        c.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      });
       state.wastePercent = parseInt(chip.dataset.waste, 10);
       recalculate();
     });
@@ -517,20 +582,52 @@ document.addEventListener('DOMContentLoaded', async () => {
     const material = getMaterialById(state.materialId);
     const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
 
-    // Animate KPI updates
-    animateValue(kpiArea, result.areaSqFt, 'sq ft');
-    animateValue(kpiVolume, result.volumeCuYd, 'cu yd');
-    animateValue(kpiWeight, result.weightTons, 'tons');
+    // Animate KPI updates with metric/imperial awareness
+    const isMetric = state.unit === 'm';
+    const areaVal = isMetric ? result.areaSqM : result.areaSqFt;
+    const areaUnit = isMetric ? 'sq m' : 'sq ft';
+    const volumeVal = isMetric ? result.volumeCuM : result.volumeCuYd;
+    const volumeUnit = isMetric ? 'cu m' : 'cu yd';
+    const weightVal = isMetric ? result.weightTonnes : result.weightTons;
+    const weightUnit = isMetric ? 'tonnes' : 'tons';
+
+    animateValue(kpiArea, areaVal, areaUnit);
+    animateValue(kpiVolume, volumeVal, volumeUnit);
+    animateValue(kpiWeight, weightVal, weightUnit);
     animateValue(kpiBags, result.bags, 'bags');
 
-    // Breakdown table
+    // Update KPI unit labels and secondary subtexts
+    if (kpiArea) {
+      const u = kpiArea.querySelector('.kpi-unit');
+      if (u) u.textContent = areaUnit;
+      const s = document.getElementById('kpi-area-sub');
+      if (s) s.textContent = isMetric ? `${RockEngine.formatNumber(result.areaSqFt)} sq ft` : `${RockEngine.formatNumber(result.areaSqM)} m²`;
+    }
+    if (kpiVolume) {
+      const u = kpiVolume.querySelector('.kpi-unit');
+      if (u) u.textContent = volumeUnit;
+      const s = document.getElementById('kpi-volume-sub');
+      if (s) s.textContent = isMetric ? `${RockEngine.formatNumber(result.volumeCuYd)} cu yd` : `${RockEngine.formatNumber(result.volumeCuM)} m³`;
+    }
+    if (kpiWeight) {
+      const u = kpiWeight.querySelector('.kpi-unit');
+      if (u) u.textContent = weightUnit;
+      const s = document.getElementById('kpi-weight-sub');
+      if (s) s.textContent = isMetric ? `${RockEngine.formatNumber(result.weightTons)} short tons` : `${RockEngine.formatNumber(result.weightTonnes)} tonnes`;
+    }
+    const bagsSub = document.getElementById('kpi-bags-sub');
+    const bagsLabel = document.getElementById('kpi-bags-label');
+    if (bagsLabel) bagsLabel.textContent = isMetric ? '0.5 cu ft (~14L) Bags' : '0.5 cu ft Bags';
+    if (bagsSub) bagsSub.textContent = isMetric ? `~${Math.round(result.volumeCuM / 0.01416)} retail bags` : '54 bags per cubic yard';
+
+    // Breakdown table with dual units
     if (breakdownBody) {
       breakdownBody.innerHTML = `
-        <tr><td>Volume (cubic feet)</td><td>${RockEngine.formatNumber(result.volumeCuFt)}</td></tr>
-        <tr><td>Volume (cubic yards)</td><td>${RockEngine.formatNumber(result.volumeCuYd)}</td></tr>
-        <tr><td>Weight (lbs)</td><td>${RockEngine.formatNumber(result.weightLbs)}</td></tr>
-        <tr><td>Weight (tons)</td><td>${RockEngine.formatNumber(result.weightTons)}</td></tr>
-        <tr><td>Density</td><td>${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/cu yd</td></tr>
+        <tr><td>Volume (cubic yards / m³)</td><td><strong>${RockEngine.formatNumber(result.volumeCuYd)} yd³</strong> &bull; ${RockEngine.formatNumber(result.volumeCuM)} m³</td></tr>
+        <tr><td>Volume (cubic feet)</td><td>${RockEngine.formatNumber(result.volumeCuFt)} cu ft</td></tr>
+        <tr><td>Weight (short tons / metric tonnes)</td><td><strong>${RockEngine.formatNumber(result.weightTons)} short tons</strong> &bull; ${RockEngine.formatNumber(result.weightTonnes)} tonnes</td></tr>
+        <tr><td>Weight (lbs / kg)</td><td>${RockEngine.formatNumber(result.weightLbs)} lbs &bull; ${RockEngine.formatNumber(result.weightKg)} kg</td></tr>
+        <tr><td>Bulk Density</td><td>${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ (${result.densityLbsPerCuFt} lb/ft³ &bull; ${result.densityKgPerCuM} kg/m³)</td></tr>
       `;
     }
 
@@ -540,22 +637,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="purchase-card">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 4H16L18 8H6L8 4Z"/><rect x="6" y="8" width="12" height="12" rx="1"/></svg>
           <div class="purchase-value">${result.bags}</div>
-          <div class="purchase-label">0.5 cu ft Bags</div>
+          <div class="purchase-label">0.5 cu ft (~14L) Bags</div>
         </div>
         <div class="purchase-card">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M4 6L8 2h8l4 4"/><line x1="12" y1="10" x2="12" y2="16"/></svg>
           <div class="purchase-value">${result.superSacks}</div>
-          <div class="purchase-label">Super Sacks</div>
+          <div class="purchase-label">Super Sacks (~1 yd³ / 0.76 m³)</div>
         </div>
         <div class="purchase-card">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="19" r="2"/><path d="M5 19H2V14L4 8H10"/><path d="M7 8V3H22V14H17"/></svg>
           <div class="purchase-value">${result.wheelbarrowLoads}</div>
-          <div class="purchase-label">Wheelbarrow Loads</div>
+          <div class="purchase-label">Wheelbarrow Loads (6 cu ft)</div>
         </div>
         <div class="purchase-card">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 17L12 22L22 17"/><rect x="5" y="5" width="14" height="8" rx="2"/></svg>
           <div class="purchase-value">${result.dumpTruckLoads}</div>
-          <div class="purchase-label">Dump Truck Loads</div>
+          <div class="purchase-label">Dump Truck Loads (10 yd³)</div>
         </div>
       `;
     }
@@ -683,15 +780,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Sync depth controls
-  if (depthSlider) depthSlider.value = state.depthInches;
+  if (depthSlider) {
+    depthSlider.value = state.depthInches;
+    depthSlider.setAttribute('aria-valuenow', state.depthInches);
+    depthSlider.setAttribute('aria-valuetext', `${state.depthInches} inches`);
+  }
   if (depthValue) depthValue.textContent = state.depthInches;
   depthPresets.forEach(preset => {
-    preset.classList.toggle('active', parseFloat(preset.dataset.depth) === state.depthInches);
+    const isActive = parseFloat(preset.dataset.depth) === state.depthInches;
+    preset.classList.toggle('active', isActive);
+    preset.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 
   // Sync waste toggle
   wasteChips.forEach(chip => {
-    chip.classList.toggle('active', parseInt(chip.dataset.waste, 10) === state.wastePercent);
+    const isActive = parseInt(chip.dataset.waste, 10) === state.wastePercent;
+    chip.classList.toggle('active', isActive);
+    chip.setAttribute('aria-checked', isActive ? 'true' : 'false');
   });
 
   setShape(state.shape);

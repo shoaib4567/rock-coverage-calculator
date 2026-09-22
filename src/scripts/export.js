@@ -1,5 +1,5 @@
 /**
- * Export & Sharing Engine — rockcoveragecalculator.com
+ * Export & Sharing Engine - rockcoveragecalculator.com
  * Quarry Spec Sheet, CSV Bill of Materials, URL state encoder, print handler.
  */
 

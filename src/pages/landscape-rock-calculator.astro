@@ -14,7 +14,7 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Primary Entity', value: 'Landscape Rock' },
+  { label: 'Material', value: 'Landscape Rock Coverage' },
   { label: 'Bulk Density', value: '1.30 to 1.45 Tons/yd³' },
   { label: 'Standard Depth', value: '2.5 to 3.0 Inches' },
   { label: 'Bedding Base', value: 'Heavy Woven Geotextile' }
@@ -47,22 +47,22 @@ const faqItems = [
 ---
 
 <BaseLayout
-  title="Landscape Rock Calculator - Calculate Yards, Tons & Bags for Beds"
-  description="Calculate exact cubic yards, tons, and bags of landscape rock for flower beds, shrubs, and yard borders. Includes weed barrier fabric, staples, and 5-year ROI analysis."
+  title="Landscape Rock Coverage Calculator - Yards, Tons & Bags for Beds"
+  description="Calculate landscape rock coverage in cubic yards, tons, and bags for flower beds, shrubs, and borders. Includes weed barrier fabric, depth rules, and pricing analysis."
   canonicalPath="/landscape-rock-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Landscape Rock Calculator",
+      "name": "Landscape Rock Coverage Calculator",
       "url": "https://rockcoveragecalculator.com/landscape-rock-calculator",
       "description": "Commercial landscape rock coverage calculator. Computes volume in cubic yards, weight in tons, and retail bag counts for landscaping beds.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "about": {
         "@type": "Thing",
-        "name": "Landscape Rock"
+        "name": "Landscape Rock Coverage"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -83,8 +83,8 @@ const faqItems = [
 
   <main>
     <PageHero
-      title="Landscape Rock Calculator"
-      highlightWord="Calculator"
+      title="Landscape Rock Coverage Calculator"
+      highlightWord="Coverage"
       badge="Landscape Bedding & Mulch Alternative"
       subtitle="Calculate exact cubic yards, quarry scale tonnage, and retail bags required for residential flower beds, foundation plantings, and landscape borders."
       breadcrumbs={breadcrumbs}

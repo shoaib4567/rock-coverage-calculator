@@ -1,0 +1,325 @@
+﻿---
+import GuideLayout from '../layouts/GuideLayout.astro';
+
+const calculatorsSupported = [
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³', desc: 'Calculate total tons and cubic yards for driveways, paths, and sub-bases.' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³', desc: 'Estimate AASHTO sieve grades #1, #3, #57, and #8 angular crushed stone.' },
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: '1.45 t/yd³', desc: 'Calculate dense graded base aggregate blending coarse rock and stone dust.' },
+  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: '1.40 t/yd³', desc: 'Estimate structural sub-base stone with mechanical compaction allowances.' }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' }
+];
+
+const bridgeLinks = [
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Tons' },
+  { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Yards' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Scale Weight' }
+];
+---
+
+<GuideLayout
+  title="Gravel Size Chart Explained - Standard ASTM & AASHTO Numbers"
+  metaDescription="Complete gravel size chart explained. Standard ASTM D448 and AASHTO M43 aggregate numbers from #1 down to #10, sieve dimensions, and construction applications."
+  canonicalPath="/gravel-sizes"
+  guideTitle="Gravel Size Chart Explained: ASTM & AASHTO Aggregate Numbers"
+  guideSubtitle="A comprehensive breakdown of commercial crushed stone and gravel sizing systems. From heavy #1 riprap down to #10 stone dust."
+  standardBadge="ASTM D448 / AASHTO M43"
+  readingTime="8 min read"
+  lastUpdated="September 2026"
+  calculatorsSupported={calculatorsSupported}
+  upLinks={upLinks}
+  lateralLinks={lateralLinks}
+  bridgeLinks={bridgeLinks}
+>
+  <!-- Project Reference Summary -->
+  <section class="aeo-guide-box" aria-label="Summary of Gravel Sizing">
+    <div class="aeo-guide-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span class="aeo-guide-title">US Aggregate Size Numbers</span>
+    </div>
+    <div class="aeo-guide-grid">
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Number Rule</span>
+        <span class="aeo-guide-value">Lower Number = Larger Stone</span>
+        <p class="aeo-guide-desc">#1 is heavy 3.5 to 1.5 inch rock; #10 is fine stone dust screenings.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Driveway Standard</span>
+        <span class="aeo-guide-value">Number 57 (1/2" to 1" Clean)</span>
+        <p class="aeo-guide-desc">Optimal balance of tire interlock and pedestrian walkability.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Base Course</span>
+        <span class="aeo-guide-value">Number 411 / Crusher Run</span>
+        <p class="aeo-guide-desc">Dense graded aggregate with stone dust for plate compaction.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Test Standard</span>
+        <span class="aeo-guide-value">ASTM C136 Sieve Analysis</span>
+        <p class="aeo-guide-desc">Gradation envelopes verified via wire mesh laboratory sieves.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-text-block">
+    <h2>How Aggregate Sizing Works in the United States</h2>
+    <p>
+      When ordering aggregate from commercial quarries in the United States, materials are not sold by arbitrary names like "medium gravel" or "large stone." Instead, the civil construction and mining industries follow a precise numerical classification system governed by <strong>ASTM D448</strong> and <strong>AASHTO M43</strong>.
+    </p>
+    <p>
+      The core principle of this numbering system is inverse: <strong>the smaller the number, the larger the individual stone particle</strong>. For example, Number 1 stone consists of coarse 3.5-inch to 1.5-inch rocks used for logging roads and stabilization pads, whereas Number 10 stone consists of 1/4-inch chips down to fine mineral dust.
+    </p>
+
+    <h2>The Master Aggregate Sizing Chart (ASTM D448 / AASHTO M43)</h2>
+    <p>
+      The table below provides the nominal particle size range, metric millimeter equivalent, and standard civil engineering applications for the primary aggregate size numbers:
+    </p>
+
+    <div class="table-container">
+      <table class="guide-data-table">
+        <thead>
+          <tr>
+            <th scope="col">Size Number</th>
+            <th scope="col">Nominal Size (Inches)</th>
+            <th scope="col">Metric Size (mm)</th>
+            <th scope="col">Grading Type</th>
+            <th scope="col">Typical Construction Applications</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>#1 Stone</strong></td>
+            <td>3.5" to 1.5"</td>
+            <td>90 to 37.5 mm</td>
+            <td>Open-Graded Clean</td>
+            <td>Construction site tracking pads, logging roads, heavy ballast</td>
+          </tr>
+          <tr>
+            <td><strong>#2 Stone</strong></td>
+            <td>2.5" to 1.5"</td>
+            <td>63 to 37.5 mm</td>
+            <td>Open-Graded Clean</td>
+            <td>Dry creek bed stabilizing stone, railroad track ballast</td>
+          </tr>
+          <tr>
+            <td><strong>#3 Stone</strong></td>
+            <td>2.0" to 1.0"</td>
+            <td>50 to 25.0 mm</td>
+            <td>Open-Graded Clean</td>
+            <td>Unpaved driveway base layer, heavy drainage trenches</td>
+          </tr>
+          <tr>
+            <td><strong>#4 Stone</strong></td>
+            <td>1.5" to 3/4"</td>
+            <td>37.5 to 19.0 mm</td>
+            <td>Open-Graded Clean</td>
+            <td>Driveway sub-base, septic drain fields, dry wells</td>
+          </tr>
+          <tr>
+            <td><strong>#5 Stone</strong></td>
+            <td>1.0" to 1/2"</td>
+            <td>25.0 to 12.5 mm</td>
+            <td>Open-Graded Clean</td>
+            <td>Coarse concrete aggregate, structural drainage blanket</td>
+          </tr>
+          <tr>
+            <td><strong>#57 Stone</strong></td>
+            <td>1.0" to No. 4</td>
+            <td>25.0 to 4.75 mm</td>
+            <td>Open-Graded Clean</td>
+            <td>French drains, residential driveway surfaces, ready-mix concrete</td>
+          </tr>
+          <tr>
+            <td><strong>#67 Stone</strong></td>
+            <td>3/4" to No. 4</td>
+            <td>19.0 to 4.75 mm</td>
+            <td>Open-Graded Clean</td>
+            <td>Asphalt paving mixtures, pedestrian walkways, retaining walls</td>
+          </tr>
+          <tr>
+            <td><strong>#8 Stone</strong></td>
+            <td>3/8" to No. 8</td>
+            <td>9.5 to 2.36 mm</td>
+            <td>Open-Graded Clean</td>
+            <td>Pea gravel chips, flagstone patio joints, walkway topcoats</td>
+          </tr>
+          <tr>
+            <td><strong>#10 Stone</strong></td>
+            <td>No. 4 to Dust</td>
+            <td>4.75 to 0.075 mm</td>
+            <td>Dense Screenings</td>
+            <td>Paver setting bed, stone dust walkways, horse barn stalls</td>
+          </tr>
+          <tr>
+            <td><strong>#411 / Crusher Run</strong></td>
+            <td>3/4" to Dust</td>
+            <td>19.0 to 0.075 mm</td>
+            <td>Dense-Graded Base</td>
+            <td>Compacted driveway foundation, asphalt road base (AASHTO M147)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Open-Graded vs Dense-Graded Aggregates</h2>
+    <p>
+      When reviewing aggregate size charts, one of the most critical distinctions is between open-graded and dense-graded materials:
+    </p>
+
+    <h3>1. Open-Graded Aggregates (Clean Stone)</h3>
+    <p>
+      Open-graded aggregates (such as #57, #67, #4, and #8 stone) have been washed and screened to remove fine dust and sand. Because particle sizes are relatively uniform, they leave open air spaces (voids) between stones when placed. These open voids allow water to flow freely, making open-graded stones the mandatory choice for:
+    </p>
+    <ul>
+      <li>French drains and foundation weeping tile perimeters</li>
+      <li>Retaining wall drainage backfill to eliminate hydrostatic pressure</li>
+      <li>Septic tank leach fields and stormwater dry wells</li>
+    </ul>
+
+    <h3>2. Dense-Graded Aggregates (Base with Fines)</h3>
+    <p>
+      Dense-graded aggregates (such as Crusher Run, Quarry Process, 21-A, or #411 limestone) are governed by <strong>AASHTO M147</strong>. They deliberately contain a continuum of stone sizes ranging from 3/4-inch down to fine microscopic mineral dust. When compacted with a vibratory roller or plate tamper, the smaller particles migrate into the voids between larger stones. This creates a dense, interlocking, nearly impermeable mass with minimal void space, making dense-graded stone ideal for:
+    </p>
+    <ul>
+      <li>Sub-bases beneath concrete driveways and asphalt pavement</li>
+      <li>Compacted foundations beneath brick paver patios and walkways</li>
+      <li>Heavy equipment parking pads and shed foundations</li>
+    </ul>
+
+    <h2>How Quarries Test and Verify Sizing (ASTM C136)</h2>
+    <p>
+      Aggregate producers verify compliance with ASTM D448 sizing through laboratory sieve analysis per <strong>ASTM C136</strong>. A dried aggregate sample of known weight is placed into a motorized shaker holding a vertical stack of woven wire mesh sieves. Each sieve has progressively smaller openings.
+    </p>
+    <p>
+      After mechanical shaking, the aggregate retained on each individual sieve is weighed to calculate the cumulative percentage passing each mesh opening. If the gradation curve falls within the ASTM D448 envelope, the quarry issues a certified scale ticket certifying the material as #57, #8, or #4 stone.
+    </p>
+  </div>
+</GuideLayout>
+
+<style>
+  .aeo-guide-box {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-guide-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-guide-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-guide-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-guide-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .guide-text-block h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin: var(--space-8) 0 var(--space-4) 0;
+  }
+
+  .guide-text-block h3 {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-2) 0;
+  }
+
+  .guide-text-block p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-text-block ul {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: var(--space-2) 0 var(--space-6) var(--space-6);
+  }
+
+  .guide-text-block li {
+    margin-bottom: var(--space-2);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-data-table th, .guide-data-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-data-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-data-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+</style>

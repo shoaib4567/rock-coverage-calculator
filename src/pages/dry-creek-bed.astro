@@ -1,0 +1,287 @@
+﻿---
+import GuideLayout from '../layouts/GuideLayout.astro';
+
+const calculatorsSupported = [
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³', desc: 'Calculate 1-3 inch and 3-5 inch river stone for your dry creek channel bed.' },
+  { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: '1.40 t/yd³', desc: 'Estimate 6-12 inch Class 1 armor stone for high-velocity bends and outfalls.' },
+  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: '1.35 t/yd³', desc: 'Calculate clean #57 stone for under-bed French drain pipe percolation.' },
+  { title: 'Cobblestone Calculator', slug: '/cobblestone-calculator', badge: '1.45 t/yd³', desc: 'Size heavy border cobbles to anchor channel edges against water erosion.' }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+];
+
+const bridgeLinks = [
+  { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Cubic Yard Calculator', slug: '/rock-cubic-yard-calculator', badge: 'Volume' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Quarry Tons' }
+];
+---
+
+<GuideLayout
+  title="Dry Creek Bed Construction Guide - Channel Sizing & Stone Placement"
+  metaDescription="Civil and landscape guide to dry creek bed construction. Channel parabolic sizing, multi-tier river rock and riprap layering, and stormwater dissipation."
+  canonicalPath="/dry-creek-bed"
+  guideTitle="Dry Creek Bed Guide: Channel Sizing & Stone Placement"
+  guideSubtitle="A stormwater engineering and landscape design manual. Control heavy surface runoff, prevent bank erosion, and create a naturalized dry stream bed."
+  standardBadge="Stormwater Drainage Engineering"
+  readingTime="8 min read"
+  lastUpdated="September 2026"
+  calculatorsSupported={calculatorsSupported}
+  upLinks={upLinks}
+  lateralLinks={lateralLinks}
+  bridgeLinks={bridgeLinks}
+>
+  <!-- Project Reference Summary -->
+  <section class="aeo-guide-box" aria-label="Summary of Dry Creek Bed Design">
+    <div class="aeo-guide-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span class="aeo-guide-title">Dry Creek Bed Sizing Rules</span>
+    </div>
+    <div class="aeo-guide-grid">
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Channel Cross Section</span>
+        <span class="aeo-guide-value">Parabolic Curve (2:1 Ratio)</span>
+        <p class="aeo-guide-desc">Width should be at least twice the depth (e.g. 4 ft wide by 1.5 ft deep).</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Stone Blend</span>
+        <span class="aeo-guide-value">3-Tier Caliper Graduation</span>
+        <p class="aeo-guide-desc">1-3" bed stone (60%), 4-8" edge cobbles (30%), 12-24" anchor boulders (10%).</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Channel Slope</span>
+        <span class="aeo-guide-value">1% to 3% Continuous Fall</span>
+        <p class="aeo-guide-desc">1/8" to 3/8" per linear foot ensures positive water exit without erosion.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Underlayment</span>
+        <span class="aeo-guide-value">Non-Woven 4-6 oz Poly</span>
+        <p class="aeo-guide-desc">Mandatory geotextile pinned every 2 feet to prevent subgrade soil scour.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-text-block">
+    <h2>The Dual Role of a Dry Creek Bed</h2>
+    <p>
+      A dry creek bed (also called an arroyo, bioswale, or rock drainage swale) serves two distinct functions: it is an aesthetic landscape focal point during dry weather and a functional civil drainage conduit during heavy torrential downpours.
+    </p>
+    <p>
+      When storm runoff collects from roof downspouts, sump pump outfalls, or uphill neighbors, an unlined dirt ditch quickly erodes into an ugly, muddy gully. An engineered dry creek bed lines this flow path with graduated stone, dissipating hydraulic energy and safely routing water to a municipal catch basin, rain garden, or daylight exit.
+    </p>
+
+    <h2>Hydraulic Channel Geometry: The Parabolic Shape</h2>
+    <p>
+      Never dig a dry creek bed with vertical sides or a flat, rectangular box bottom. In fluid mechanics, flat-bottom ditches concentrate water velocity in shallow sheets that scour the banks.
+    </p>
+    <p>
+      Civil drainage engineers specify a <strong>parabolic cross-section (saucer curve)</strong> where the center is the deepest point and the side banks slope gently outward at a <strong>2:1 or 3:1 horizontal-to-vertical ratio</strong>:
+    </p>
+
+    <div class="formula-callout">
+      <code>Recommended Channel Width = 3 to 6 Feet Across Top</code>
+      <br />
+      <code>Recommended Channel Center Depth = 12 to 18 Inches</code>
+      <br />
+      <code>Bed Stone Thickness = 4 to 6 Inches Minimum</code>
+    </div>
+
+    <h2>The Three-Tier Rock Sizing Strategy</h2>
+    <p>
+      A dry creek bed constructed entirely of uniform 2-inch river stone looks artificial and will wash away during a 50-year storm event. Natural mountain streambeds exhibit a graduated blend of three distinct stone sizes:
+    </p>
+
+    <div class="table-container">
+      <table class="guide-data-table">
+        <thead>
+          <tr>
+            <th scope="col">Stone Component</th>
+            <th scope="col">Nominal Size</th>
+            <th scope="col">Volume Percentage</th>
+            <th scope="col">Placement and Hydraulic Function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Channel Bed Stone</strong></td>
+            <td>1" to 3" River Rock</td>
+            <td><strong>60% of Total Volume</strong></td>
+            <td>Lines the center channel bottom where water flows during minor rains</td>
+          </tr>
+          <tr>
+            <td><strong>Bank Stabilizing Cobbles</strong></td>
+            <td>4" to 8" Cobblestone</td>
+            <td><strong>30% of Total Volume</strong></td>
+            <td>Anchors the side slopes, outer meander curves, and grade transitions</td>
+          </tr>
+          <tr>
+            <td><strong>Anchor Boulders & Riprap</strong></td>
+            <td>12" to 24" Heavy Stone</td>
+            <td><strong>10% of Total Volume</strong></td>
+            <td>Embedded 1/3 into bank soil to break storm velocity and create natural pooling</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Step-by-Step Construction Protocol</h2>
+
+    <h3>1. Route Mapping and Grade Verification</h3>
+    <p>
+      Lay out the creek path using natural meandering curves rather than a straight line. Water naturally meanders; gentle S-curves look authentic and slow down runoff velocity. Verify a continuous downward slope of at least <strong>1 to 2 percent (1/8 to 1/4 inch per foot)</strong> along the entire length so water never ponds and stagnates.
+    </p>
+
+    <h3>2. Excavation and Soil Compaction</h3>
+    <p>
+      Excavate the parabolic channel 6 inches deeper than your target finished stone grade to accommodate stone thickness. Tamp the soil firmly using a hand tamper to create a dense, scour-resistant subgrade.
+    </p>
+
+    <h3>3. Geotextile Membrane Installation</h3>
+    <p>
+      Line the entire excavation with heavy-duty <strong>4 to 6 oz non-woven polypropylene geotextile fabric</strong>. Extend the fabric 6 inches beyond the outer top edges of the creek bed. Pin securely using 6-inch steel sod staples placed every 2 feet along the center line and perimeter.
+    </p>
+    <p>
+      <strong>Scour Warning:</strong> Never use plastic sheeting. Water flowing over plastic causes stones to slide downhill like sleds on ice, washing out the entire channel in the first severe thunderstorm.
+    </p>
+
+    <h3>4. Strategic Boulder Placement</h3>
+    <p>
+      Place your largest 12-inch to 24-inch boulders first. Bury the bottom one-third of each boulder into the dirt bank to anchor it firmly against water force and give it the appearance of an ancient, naturally exposed rock outcrop. Position boulders along the <strong>outside curves of meanders</strong> where water force is greatest.
+    </p>
+
+    <h3>5. Infilling with Cobbles and River Stone</h3>
+    <p>
+      Place 4-inch to 8-inch cobbles along the banks and around the base of the anchor boulders. Finally, fill the central invert of the channel with a 4-inch layer of 1-inch to 3-inch smooth river stone. Spray thoroughly with a hose to clear dust and verify smooth water conveyance.
+    </p>
+  </div>
+</GuideLayout>
+
+<style>
+  .aeo-guide-box {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-guide-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-guide-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-guide-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-guide-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .guide-text-block h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin: var(--space-8) 0 var(--space-4) 0;
+  }
+
+  .guide-text-block h3 {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-2) 0;
+  }
+
+  .guide-text-block p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-data-table th, .guide-data-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-data-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-data-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .formula-callout {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+</style>

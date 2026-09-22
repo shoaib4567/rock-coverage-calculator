@@ -1,0 +1,312 @@
+﻿---
+import GuideLayout from '../layouts/GuideLayout.astro';
+
+const calculatorsSupported = [
+  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: '1.35 t/yd³', desc: 'Calculate washed #57 clean stone for French drains, trenches, and foundation systems.' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³', desc: 'Estimate #57 angular crushed limestone and blue granite for driveway surfaces.' },
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³', desc: 'Determine total tonnage and volume for driveway gravel and parking pads.' },
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: '1.45 t/yd³', desc: 'Compare clean #57 stone against dense graded base containing stone fines.' }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+
+const bridgeLinks = [
+  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Tons' },
+  { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Yardage' },
+  { title: 'Rock Cubic Yard Calculator', slug: '/rock-cubic-yard-calculator', badge: 'Volume' }
+];
+---
+
+<GuideLayout
+  title="#57 Stone Size Guide - Gradation Envelope, Sieve Specs & Uses"
+  metaDescription="Technical civil engineering guide to #57 stone. ASTM D448 and AASHTO M43 gradation envelope, sieve passing percentages, bulk density, and drainage uses."
+  canonicalPath="/57-stone-size-guide"
+  guideTitle="#57 Stone Size Guide: Sieve Specifications, Density & Uses"
+  guideSubtitle="An engineering analysis of ASTM D448 and AASHTO M43 Number 57 coarse aggregate. Gradation envelopes, bulk densities, and construction applications."
+  standardBadge="ASTM D448 / AASHTO M43"
+  readingTime="7 min read"
+  lastUpdated="September 2026"
+  calculatorsSupported={calculatorsSupported}
+  upLinks={upLinks}
+  lateralLinks={lateralLinks}
+  bridgeLinks={bridgeLinks}
+>
+  <!-- Project Reference Summary -->
+  <section class="aeo-guide-box" aria-label="Summary of Number 57 Stone">
+    <div class="aeo-guide-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span class="aeo-guide-title">Executive Technical Summary: Number 57 Stone</span>
+    </div>
+    <div class="aeo-guide-grid">
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Nominal Size</span>
+        <span class="aeo-guide-value">1/2 Inch to 1 Inch (12.5 to 25 mm)</span>
+        <p class="aeo-guide-desc">Defined by ASTM D448 as a blend of Number 5 and Number 7 size fractions.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Bulk Density</span>
+        <span class="aeo-guide-value">100 lbs/cu ft (1.35 Tons/yd³)</span>
+        <p class="aeo-guide-desc">Typical loose stockpile unit weight tested in accordance with ASTM C29.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Void Ratio</span>
+        <span class="aeo-guide-value">40% to 45% Open Interstitial Voids</span>
+        <p class="aeo-guide-desc">Washed clean with zero fines, enabling rapid hydraulic conductivity.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Primary Uses</span>
+        <span class="aeo-guide-value">French Drains, Driveways & Concrete</span>
+        <p class="aeo-guide-desc">Universal standard for drainage beds, asphalt paving, and driveway top dressing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Content Section -->
+  <div class="guide-text-block">
+    <h2>What Is Number 57 Stone?</h2>
+    <p>
+      In civil construction and aggregate quarrying, <strong>Number 57 Stone</strong> (often designated simply as #57 stone or #57 gravel) is one of the most widely specified coarse aggregate sizes in North America. Contrary to popular belief, the number 57 does not refer to a 57 millimeter particle diameter. Instead, it designates a standardized grading envelope established under <strong>ASTM D448</strong> (<em>Standard Classification for Sizes of Aggregate for Road and Bridge Construction</em>) and its highway equivalent, <strong>AASHTO M43</strong>.
+    </p>
+    <p>
+      Historically, aggregate size numbers were assigned sequentially by ASTM committee D04. Number 57 was engineered by combining the coarse fraction of Number 5 stone (1 inch to 1/2 inch) with the intermediate fraction of Number 7 stone (1/2 inch to No. 4 sieve). The resulting combination produces an angular aggregate that balances structural particle interlock with high permeability.
+    </p>
+
+    <h2>ASTM D448 and AASHTO M43 Gradation Sieve Envelope</h2>
+    <p>
+      To meet the ASTM D448 #57 standard, crushed stone must undergo laboratory sieve testing per <strong>ASTM C136</strong> (<em>Standard Test Method for Sieve Analysis of Fine and Coarse Aggregates</em>). The quarry sample must pass through a stack of woven wire mesh sieves within the following percentage envelopes by dry weight:
+    </p>
+
+    <div class="table-container">
+      <table class="guide-data-table">
+        <thead>
+          <tr>
+            <th scope="col">Standard Sieve Size</th>
+            <th scope="col">Metric Opening (mm)</th>
+            <th scope="col">Specification: Percent Passing by Weight</th>
+            <th scope="col">Quarry Function in Aggregate Matrix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1.5 Inch (37.5 mm)</strong></td>
+            <td>37.5 mm</td>
+            <td><strong>100%</strong></td>
+            <td>Maximum upper boundary; zero oversize particles allowed</td>
+          </tr>
+          <tr>
+            <td><strong>1.0 Inch (25.0 mm)</strong></td>
+            <td>25.0 mm</td>
+            <td><strong>95% to 100%</strong></td>
+            <td>Primary top caliper stone; carries compressive load</td>
+          </tr>
+          <tr>
+            <td><strong>1/2 Inch (12.5 mm)</strong></td>
+            <td>12.5 mm</td>
+            <td><strong>25% to 60%</strong></td>
+            <td>Intermediate aggregate fraction; bridges open void spaces</td>
+          </tr>
+          <tr>
+            <td><strong>No. 4 Sieve (4.75 mm)</strong></td>
+            <td>4.75 mm</td>
+            <td><strong>0% to 10%</strong></td>
+            <td>Fine stone chips; limited to preserve void conductivity</td>
+          </tr>
+          <tr>
+            <td><strong>No. 8 Sieve (2.36 mm)</strong></td>
+            <td>2.36 mm</td>
+            <td><strong>0% to 5%</strong></td>
+            <td>Mineral dust limit; washed to eliminate silt and clay</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Bulk Density and Quarry Weight Conversion</h2>
+    <p>
+      When procuring #57 stone, volume must be converted to scale weight. In the United States, commercial aggregate quarries sell crushed limestone, granite, and dolomite #57 by the short ton (2,000 pounds) measured across certified drive-on platform scales.
+    </p>
+    <p>
+      Per <strong>ASTM C29 / C29M</strong> testing, the typical loose stockpile bulk density of clean #57 stone ranges from <strong>95 to 105 pounds per cubic foot</strong>, with an accepted industry benchmark of <strong>100 pounds per cubic foot (1.35 tons per cubic yard)</strong>:
+    </p>
+
+    <div class="formula-callout">
+      <code>Cubic Yards = (Square Feet × Depth in Inches) / 324</code>
+      <br />
+      <code>Certified Scale Tons = Cubic Yards × 1.35 Tons/yd³</code>
+      <br />
+      <code>Coverage per Ton at 2" Depth = 120 Square Feet</code>
+      <br />
+      <code>Coverage per Ton at 3" Depth = 80 Square Feet</code>
+    </div>
+
+    <p>
+      <strong>Moisture Variance:</strong> Outdoor stockpiles exposed to rainfall absorb water into surface fissures. While clean #57 stone drains quickly, surface moisture can increase total scale weight by 3 to 6 percent. A cubic yard delivered after heavy rain may weigh 2,800 pounds (1.40 tons) rather than the standard 2,700 pounds.
+    </p>
+
+    <h2>Primary Construction and Landscaping Applications</h2>
+    
+    <h3>1. French Drains and Subsurface Drainage Systems</h3>
+    <p>
+      Because #57 stone is washed clean of quarry dust and stone flour, it maintains an open void ratio between 40 and 45 percent. When backfilled around perforated corrugated or PVC drainage pipe, water moves through the stone with virtually zero resistance, preventing hydrostatic pressure buildup against basement walls and foundation footings.
+    </p>
+
+    <h3>2. Residential Driveway Top Dressing</h3>
+    <p>
+      Number 57 crushed stone is the most popular aggregate for rural and suburban driveway surfaces. The angular, machine-fractured faces bite into adjacent stones when compressed under vehicle tires, preventing the lateral shifting and tire rutting common with smooth river gravel.
+    </p>
+
+    <h3>3. Concrete and Asphalt Coarse Aggregate</h3>
+    <p>
+      In ready-mix concrete batch plants, #57 crushed limestone or granite serves as the primary coarse aggregate governed by <strong>ASTM C33</strong>. Its gradation provides optimal packing density when combined with sand and Portland cement paste, achieving 3,000 to 5,000 PSI compressive strength ratings.
+    </p>
+
+    <h2>Number 57 Stone vs Crusher Run: The Critical Distinction</h2>
+    <p>
+      Contractors frequently confuse #57 stone with crusher run (also called dense graded aggregate or quarry process). The difference is fundamental:
+    </p>
+    <ul>
+      <li><strong>#57 Stone (ASTM D448):</strong> Washed clean with fines removed (0 to 5 percent passing No. 8 sieve). It drains freely and does not compact into an impermeable solid.</li>
+      <li><strong>Crusher Run (AASHTO M147):</strong> Unwashed crushed stone containing all particle sizes from 3/4 inch down to microscopic rock flour. Under mechanical plate compaction, the fines fill every void, creating a dense, non-draining structural pavement base.</li>
+    </ul>
+  </div>
+</GuideLayout>
+
+<style>
+  .aeo-guide-box {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-guide-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-guide-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-guide-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-guide-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .guide-text-block h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin: var(--space-8) 0 var(--space-4) 0;
+  }
+
+  .guide-text-block h3 {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-2) 0;
+  }
+
+  .guide-text-block p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-text-block ul {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: var(--space-2) 0 var(--space-6) var(--space-6);
+  }
+
+  .guide-text-block li {
+    margin-bottom: var(--space-2);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-data-table th, .guide-data-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-data-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-data-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .formula-callout {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+</style>

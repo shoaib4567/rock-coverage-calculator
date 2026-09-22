@@ -1,0 +1,332 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Crushed Stone Calculator', url: '/crushed-stone-calculator' },
+  { name: 'Crushed Stone Tons Calculator', url: '/crushed-stone-tons-calculator' }
+];
+
+const entityTags = [
+  { label: 'Material', value: 'Crushed Stone Tonnage' },
+  { label: 'Standard Sieve', value: 'ASTM D448 #57, #4, and Crusher Run' },
+  { label: 'Bulk Density', value: '1.35 to 1.40 t/yd³ (ASTM C29)' },
+  { label: 'Coverage Yield', value: '77 to 80 sq ft per Ton at 3" Depth' }
+];
+
+const quickStats = [
+  { value: '1.40 t/yd³', label: 'Granite Stone', desc: 'Standard bulk density for fractured angular crushed stone' },
+  { value: '80 sq ft', label: 'Yield at 3"', desc: 'Coverage per ton of #57 stone at standard 3-inch depth' },
+  { value: '10% Overage', label: 'Safety Buffer', desc: 'Recommended overage for uneven subgrades and tire ruts' }
+];
+
+const faqItems = [
+  {
+    q: 'How many tons of crushed stone do I need for a 12x30 foot driveway?',
+    a: 'A 12x30 foot driveway equals 360 square feet. At a standard 3-inch depth, you need 3.33 cubic yards of stone. Multiplying by 1.40 tons per cubic yard and adding a 10 percent buffer yields approximately 5.13 tons of crushed stone.'
+  },
+  {
+    q: 'How do you convert square feet of crushed stone to tons?',
+    a: 'Multiply your square footage by layer depth in inches, divide by 324 to get cubic yards, then multiply by bulk density (typically 1.40 tons per cubic yard for crushed stone). Formula: Tons = [(Sq Ft × Depth) / 324] × 1.40.'
+  },
+  {
+    q: 'How much does one ton of #57 crushed stone cover?',
+    a: 'One ton of #57 crushed stone covers approximately 120 square feet at 2 inches depth, 80 square feet at 3 inches depth, and 60 square feet at 4 inches depth.'
+  },
+  {
+    q: 'What does a cubic yard of crushed stone weigh?',
+    a: 'A cubic yard of clean crushed limestone weighs approximately 2,700 pounds (1.35 tons). A cubic yard of crushed blue granite weighs 2,800 pounds (1.40 tons), and dense-graded base with stone dust weighs 2,900 to 3,000 pounds (1.45 to 1.50 tons).'
+  }
+];
+
+const upLinks = [
+  { title: 'Crushed Stone Calculator (Material Parent)', slug: '/crushed-stone-calculator', badge: 'Material' },
+  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Yards' },
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Gravel Tons' },
+  { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'River Tons' }
+];
+
+const bridgeLinks = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Road Base' },
+  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: 'Structural' }
+];
+
+const supportGuides = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+];
+---
+
+<BaseLayout
+  title="Crushed Stone Tons Calculator - Sieve #57, #4 & Base Weight"
+  metaDescription="Calculate exact tons of crushed stone needed for driveways, bases, and drainage. Calibrated for ASTM D448 #57 limestone and granite at 1.40 t/yd3."
+  canonicalPath="/crushed-stone-tons-calculator"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Crushed Stone Tons Calculator",
+      "url": "https://rockcoveragecalculator.com/crushed-stone-tons-calculator",
+      "description": "Calculates quarry scale tonnage of crushed stone across ASTM sieve classifications.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Contractors, Civil Estimators, Paving Installers, Homeowners"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Crushed Stone Tonnage Calculation"
+      }
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a
+        }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Crushed Stone Tons Calculator"
+      highlightWord="Tons"
+      badge="Quarry Weight Engine"
+      subtitle="Calculate exact certified scale tons for ASTM D448 #57, #4, and crushed stone base aggregates."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <!-- Interactive Crushed Stone Tons Calculator Tool -->
+    <section class="section">
+      <div class="container">
+        <div class="calc-wrapper">
+          <!-- LEFT: Input Panel -->
+          <div class="calc-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+            <h3>Crushed Stone Dimensions</h3>
+          </div>
+
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="cst-length">Length (Feet)</label>
+              <input type="number" id="cst-length" value="35" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="cst-width">Width (Feet)</label>
+              <input type="number" id="cst-width" value="12" min="1" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="cst-depth">Depth (Inches)</label>
+              <input type="number" id="cst-depth" value="3.0" min="1" max="18" step="0.5" />
+            </div>
+            <div class="input-field">
+              <label for="cst-waste">Safety Buffer (%)</label>
+              <input type="number" id="cst-waste" value="10" min="0" max="25" step="1" />
+            </div>
+          </div>
+          </div>
+
+          <!-- RIGHT: Results Panel -->
+          <div class="calc-results-panel animate-fade-in-up">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Required Material Totals</h3>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+              <div class="kpi-value" id="kpi-cst-tons">0.00</div>
+              <div class="kpi-label">Quarry Weight (Tons)</div>
+              <div class="kpi-subtext" id="kpi-cst-lbs">0 lbs total weight</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-cst-yards">0.00</div>
+              <div class="kpi-label">Volume (Cubic Yards)</div>
+              <div class="kpi-subtext">Includes 10% buffer</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-cst-loads">0.0</div>
+              <div class="kpi-label">Tri-Axle Truckloads</div>
+              <div class="kpi-subtext">15 tons per load</div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Guide on Crushed Stone Tonnage -->
+    <article class="content-guide-section">
+      <div class="container">
+
+        <!-- Project Reference Summary -->
+        <section class="aeo-quick-card" aria-label="Crushed Stone Tonnage Reference">
+          <div class="aeo-quick-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="aeo-quick-title">Crushed Stone Tonnage Reference</span>
+          </div>
+          <div class="aeo-quick-grid">
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Master Formula</span>
+              <span class="aeo-quick-value">Tons = [(Area × Depth) / 324] × Density</span>
+              <p class="aeo-quick-desc">Converts dimensions directly to scale tons of 2,000 lbs.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">#57 Limestone</span>
+              <span class="aeo-quick-value">1.35 t/yd³ (2,700 lbs/yd³)</span>
+              <p class="aeo-quick-desc">Standard density for washed 1/2" to 1" drainage stone.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Crushed Granite</span>
+              <span class="aeo-quick-value">1.40 t/yd³ (2,800 lbs/yd³)</span>
+              <p class="aeo-quick-desc">Dense fractured aggregate for heavy vehicular driveways.</p>
+            </div>
+            <div class="aeo-quick-item">
+              <span class="aeo-quick-label">Yield at 3"</span>
+              <span class="aeo-quick-value">77 to 80 sq ft per Ton</span>
+              <p class="aeo-quick-desc">Standard coverage per short ton across commercial quarries.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-card">
+          <h2>Estimating Tonnage for Crushed Stone Gradations</h2>
+          <p>
+            Crushed stone is categorized according to <strong>ASTM D448</strong> and <strong>AASHTO M43</strong> sieve size numbers. When calculating tonnage, selecting the correct density for your specific stone variety prevents costly delivery shortages:
+          </p>
+
+          <div class="formula-box">
+            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
+            <br />
+            <code>Scale Weight (Tons) = Cubic Yards × Bulk Density (1.35 to 1.40 t/yd³) × 1.10 Buffer</code>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card faq-card">
+          <h2>Frequently Asked Questions About Crushed Stone Tonnage</h2>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <TopicClusterNav
+      currentPage="/crushed-stone-tons-calculator"
+      category="quantity"
+      upLinks={upLinks}
+      lateralLinks={lateralLinks}
+      bridgeLinks={bridgeLinks}
+      supportGuides={supportGuides}
+    />
+  </main>
+
+  <Footer />
+
+  <script>
+    function updateCST() {
+      const l = parseFloat((document.getElementById('cst-length') as HTMLInputElement)?.value) || 0;
+      const w = parseFloat((document.getElementById('cst-width') as HTMLInputElement)?.value) || 0;
+      const d = parseFloat((document.getElementById('cst-depth') as HTMLInputElement)?.value) || 0;
+      const waste = parseFloat((document.getElementById('cst-waste') as HTMLInputElement)?.value) || 0;
+
+      const netYards = (l * w * d) / 324;
+      const totalYards = netYards * (1 + waste / 100);
+      const tons = totalYards * 1.40;
+      const lbs = tons * 2000;
+      const loads = tons / 15;
+
+      const tEl = document.getElementById('kpi-cst-tons');
+      const yEl = document.getElementById('kpi-cst-yards');
+      const lEl = document.getElementById('kpi-cst-loads');
+      const lbsEl = document.getElementById('kpi-cst-lbs');
+
+      if (tEl) tEl.innerText = tons.toFixed(2);
+      if (yEl) yEl.innerText = totalYards.toFixed(2);
+      if (lEl) lEl.innerText = loads.toFixed(1);
+      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+    }
+
+    ['cst-length', 'cst-width', 'cst-depth', 'cst-waste'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateCST);
+    });
+    updateCST();
+  </script>
+</BaseLayout>
+
+<style>
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .aeo-quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .formula-box {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+</style>

@@ -1,0 +1,307 @@
+﻿---
+import GuideLayout from '../layouts/GuideLayout.astro';
+
+const calculatorsSupported = [
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: '0.5 cu ft', desc: 'Calculate exact retail bags needed with bulk vs bag break-even cost comparison.' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons', desc: 'Convert bag requirements to certified quarry scale weight in short tons.' },
+  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Truckloads', desc: 'Estimate dump truck delivery payloads and minimum quarry order thresholds.' }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Protocol' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+];
+
+const bridgeLinks = [
+  { title: 'Gravel Bag Calculator', slug: '/gravel-bag-calculator', badge: 'Gravel Bags' },
+  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Pea Gravel Bags' },
+  { title: 'Rock Cubic Yard Calculator', slug: '/rock-cubic-yard-calculator', badge: 'Volume' }
+];
+---
+
+<GuideLayout
+  title="Bulk vs Bagged Rock - Cost Tipping Point & Logistics Guide"
+  metaDescription="Comprehensive cost and logistics guide comparing bulk quarry delivery versus 0.5 cu ft bagged rock. 20-bag economic tipping point and truck capacities."
+  canonicalPath="/bulk-vs-bagged-rock"
+  guideTitle="Bulk vs Bagged Rock: Cost Tipping Point & Logistics Guide"
+  guideSubtitle="An economic and logistics analysis. Learn when retail 0.5 cu ft bags make sense, when bulk quarry delivery saves hundreds, and how vehicle payloads limit transport."
+  standardBadge="Procurement Economics"
+  readingTime="7 min read"
+  lastUpdated="September 2026"
+  calculatorsSupported={calculatorsSupported}
+  upLinks={upLinks}
+  lateralLinks={lateralLinks}
+  bridgeLinks={bridgeLinks}
+>
+  <!-- Project Reference Summary -->
+  <section class="aeo-guide-box" aria-label="Summary of Bulk vs Bagged Rock">
+    <div class="aeo-guide-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span class="aeo-guide-title">The 20-Bag Tipping Point</span>
+    </div>
+    <div class="aeo-guide-grid">
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Tipping Point</span>
+        <span class="aeo-guide-value">20 Bags (0.37 Yards / 10 Cu Ft)</span>
+        <p class="aeo-guide-desc">Under 20 bags = Buy retail bags; Over 20 bags = Order bulk delivery.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Bagged Price</span>
+        <span class="aeo-guide-value">$160 to $280 per Ton</span>
+        <p class="aeo-guide-desc">Reflects packaging, palletizing, and retail shelf overhead ($4-$7 per bag).</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Bulk Price</span>
+        <span class="aeo-guide-value">$35 to $85 per Ton</span>
+        <p class="aeo-guide-desc">Direct quarry material cost plus a flat $65 to $120 local delivery drop fee.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Vehicle Limit</span>
+        <span class="aeo-guide-value">Car: 6-8 Bags | Pickup: 20-25</span>
+        <p class="aeo-guide-desc">Passenger vehicles exceed suspension ratings quickly under aggregate weight.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-text-block">
+    <h2>The Great Landscaping Dilemma: Bags or Bulk?</h2>
+    <p>
+      When planning a rock landscape project, one of the first procurement decisions is whether to purchase pre-bagged stone from a big-box home improvement center or order loose bulk material delivered by dump truck from a local quarry.
+    </p>
+    <p>
+      Making the wrong choice can either cost hundreds of dollars in unnecessary retail markups or leave you with a massive pile of loose stone dumped on your driveway that you cannot easily move into an enclosed backyard.
+    </p>
+
+    <h2>The 20-Bag Economic Tipping Point</h2>
+    <p>
+      In landscape estimation, the financial break-even line between bags and bulk is known as the <strong>20-bag tipping point</strong> (equivalent to 10 cubic feet or 0.37 cubic yards of stone):
+    </p>
+
+    <div class="table-container">
+      <table class="guide-data-table">
+        <thead>
+          <tr>
+            <th scope="col">Comparison Factor</th>
+            <th scope="col">Retail Bagged Rock (0.5 cu ft)</th>
+            <th scope="col">Quarry Bulk Delivery (Tons / Yards)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Economic Tipping Point</strong></td>
+            <td>Projects requiring under 20 bags (under 10 cu ft)</td>
+            <td>Projects requiring over 20 bags (over 0.5 cubic yards)</td>
+          </tr>
+          <tr>
+            <td><strong>Effective Cost per Ton</strong></td>
+            <td><strong>$160 to $280 per ton</strong> ($4 to $7 per bag)</td>
+            <td><strong>$35 to $85 per ton</strong> at local aggregate quarry</td>
+          </tr>
+          <tr>
+            <td><strong>Delivery Surcharge</strong></td>
+            <td>$0 (self-transported in personal vehicle)</td>
+            <td>$65 to $120 flat drop fee per dump truck trip</td>
+          </tr>
+          <tr>
+            <td><strong>Handling Logistics</strong></td>
+            <td>Hand-carried individually; fits through narrow gates</td>
+            <td>Dumped in one pile; requires shovel and wheelbarrow</td>
+          </tr>
+          <tr>
+            <td><strong>Packaging Waste</strong></td>
+            <td>Generates 40 to 150 plastic bags requiring disposal</td>
+            <td>Zero packaging waste; stone is dumped loose</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Worked Cost Comparison Example</h2>
+    <p>
+      Consider a 200 square foot shrub border requiring a 3-inch layer of river rock:
+    </p>
+    <ul>
+      <li><strong>Volume Required:</strong> (200 sq ft × 3 inches) / 324 = <strong>1.85 cubic yards</strong> (50 cubic feet).</li>
+      <li><strong>Weight Required:</strong> 1.85 cubic yards × 1.35 tons/yd³ = <strong>2.50 short tons (5,000 lbs)</strong>.</li>
+    </ul>
+
+    <h3>Option A: Buying 0.5 Cu Ft Retail Bags</h3>
+    <p>
+      50 cubic feet / 0.5 cu ft per bag = <strong>100 retail bags</strong>. At an average retail price of $5.00 per bag, total material cost is <strong>$500.00</strong>. You must load 100 bags onto store flatbeds, load them into a vehicle (requiring 4 to 5 separate trips in a standard pickup truck to avoid overloading suspension), unload them into the yard, and dispose of 100 heavy plastic bags.
+    </p>
+
+    <h3>Option B: Ordering Bulk Quarry Delivery</h3>
+    <p>
+      Ordering 2.0 cubic yards (2.7 tons) from a local quarry costs approximately $45.00 per ton = $121.50 in stone, plus an $85.00 delivery drop fee, for a total cost of <strong>$206.50</strong>.
+    </p>
+    <p>
+      <strong>Net Contractor Savings:</strong> Bulk delivery saves <strong>$293.50 (a 59 percent savings)</strong> while eliminating multiple store trips.
+    </p>
+
+    <h2>Vehicle Weight Limitations and Safety</h2>
+    <p>
+      Transporting stone in personal passenger vehicles presents serious safety risks if payload ratings are ignored:
+    </p>
+
+    <div class="formula-callout">
+      <code>Standard 0.5 cu ft Bag of River Rock = 48 to 50 lbs</code>
+      <br />
+      <code>Passenger Car Trunk Limit = 6 to 8 bags (300 to 400 lbs max)</code>
+      <br />
+      <code>Half-Ton Pickup Truck Limit (F-150 / Silverado 1500) = 20 to 25 bags (1,000 to 1,250 lbs)</code>
+      <br />
+      <code>One Cubic Yard of Bulk Stone = 2,700 lbs (exceeds half-ton pickup bed capacity)</code>
+    </div>
+
+    <p>
+      Never attempt to load a full cubic yard of stone into the bed of a standard half-ton pickup truck. One cubic yard of gravel weighs 2,700 pounds (1.35 tons), which severely exceeds the 1,500-to-2,000-pound payload capacity of standard half-ton trucks, risking blown tires, bent leaf springs, and brake failure. Always hire a commercial dump truck for orders of one cubic yard or greater.
+    </p>
+
+    <h2>When Bagged Rock Is Actually the Better Choice</h2>
+    <p>
+      Despite higher unit costs, bagged rock is the preferred logistical solution in specific scenarios:
+    </p>
+    <ul>
+      <li><strong>Narrow Site Access:</strong> Courtyards, rooftop gardens, or enclosed urban backyards where side gates are under 36 inches wide and cannot accommodate a dump truck or skid-steer loader.</li>
+      <li><strong>Small Touch-Up Projects:</strong> Filling low spots in existing beds, topping potted planters, or dressing up tree rings requiring fewer than 15 bags.</li>
+      <li><strong>Specialty Architectural Stones:</strong> High-end polished Mexican beach pebbles or imported sparkling white dolomite marble that are rarely stocked in loose bulk at local municipal quarries.</li>
+    </ul>
+  </div>
+</GuideLayout>
+
+<style>
+  .aeo-guide-box {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-guide-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-guide-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-guide-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-guide-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .guide-text-block h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin: var(--space-8) 0 var(--space-4) 0;
+  }
+
+  .guide-text-block h3 {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-2) 0;
+  }
+
+  .guide-text-block p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .guide-text-block ul {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: var(--space-2) 0 var(--space-6) var(--space-6);
+  }
+
+  .guide-text-block li {
+    margin-bottom: var(--space-2);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-data-table th, .guide-data-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-data-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-data-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .formula-callout {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+</style>
