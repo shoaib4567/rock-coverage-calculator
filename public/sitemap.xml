@@ -356,11 +356,29 @@
     <priority>0.75</priority>
   </url>
 
-  <!-- Trust / About -->
+  <!-- Trust, Legal & Contact -->
   <url>
     <loc>https://rockcoveragecalculator.com/about</loc>
-    <lastmod>2026-09-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rockcoveragecalculator.com/contact</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rockcoveragecalculator.com/privacy</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rockcoveragecalculator.com/terms</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>
