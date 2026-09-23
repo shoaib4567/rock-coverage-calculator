@@ -1,0 +1,413 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Contact Us', url: '/contact' }
+];
+
+const entityTags = [
+  { label: 'Direct Support', value: 'Editorial & Field Engineering' },
+  { label: 'Inquiries', value: 'Scale Tickets, Calibrations & Feedback' },
+  { label: 'Response Time', value: 'Within 24–48 Business Hours' },
+  { label: 'Geographic Scope', value: 'US & Canadian Aggregate Markets' }
+];
+
+const quickStats = [
+  { value: 'Direct Desk', label: 'Technical Review', desc: 'Direct access to our geotechnical editorial board' },
+  { value: 'Quarry Data', label: 'Scale Tickets', desc: 'Active intake for local density and weigh-scale calibrations' },
+  { value: '100% Free', label: 'Support & Guidance', desc: 'No cost for civil formula audits or tool feedback' }
+];
+---
+
+<BaseLayout
+  title="Contact Us - Rock Coverage Calculator Technical Desk"
+  metaDescription="Contact the engineering and editorial team at Rock Coverage Calculator. Submit regional quarry scale tickets, report formula feedback, or ask questions."
+  canonicalPath="/contact"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact Rock Coverage Calculator",
+      "url": "https://rockcoveragecalculator.com/contact",
+      "description": "Contact channels and scale-ticket submission portal for Rock Coverage Calculator.",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Rock Coverage Calculator",
+        "url": "https://rockcoveragecalculator.com",
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "email": "editorial@rockcoveragecalculator.com",
+            "contactType": "technical support",
+            "areaServed": ["US", "CA"]
+          },
+          {
+            "@type": "ContactPoint",
+            "email": "quarry-data@rockcoveragecalculator.com",
+            "contactType": "quarry data submissions",
+            "areaServed": ["US", "CA"]
+          }
+        ]
+      }
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Contact Our Technical Desk"
+      highlightWord="Technical Desk"
+      badge="Engineering Editorial & Inquiries"
+      subtitle="Have regional quarry density data, a scale ticket comparison, or a formula question? Connect directly with our geotechnical review team."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <article class="guide-content">
+      <div class="guide-container">
+
+        <!-- Contact Channels Grid -->
+        <div class="contact-channels-grid">
+          <div class="channel-card">
+            <div class="channel-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <h3>Technical & Editorial</h3>
+            <p>For questions regarding mathematical formulas, ASTM C29 testing methodologies, or engineering accuracy.</p>
+            <a href="mailto:editorial@rockcoveragecalculator.com" class="channel-email">editorial@rockcoveragecalculator.com</a>
+          </div>
+
+          <div class="channel-card highlight">
+            <div class="channel-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <h3>Quarry Scale Submissions</h3>
+            <p>Are you a quarry operator or contractor with certified scale tickets? Help us expand regional density accuracy.</p>
+            <a href="mailto:quarry-data@rockcoveragecalculator.com" class="channel-email">quarry-data@rockcoveragecalculator.com</a>
+          </div>
+
+          <div class="channel-card">
+            <div class="channel-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            </div>
+            <h3>General & Site Support</h3>
+            <p>For tool recommendations, website suggestions, bug reports, or feature requests.</p>
+            <a href="mailto:support@rockcoveragecalculator.com" class="channel-email">support@rockcoveragecalculator.com</a>
+          </div>
+        </div>
+
+        <!-- Interactive Direct Message Form -->
+        <div class="form-wrapper-card">
+          <div class="form-header">
+            <h2>Send an Inquiry or Field Report</h2>
+            <p>Fill out the form below and our technical team will review your message promptly.</p>
+          </div>
+
+          <form id="contact-form" class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contact-name">Your Full Name <span class="req">*</span></label>
+                <input type="text" id="contact-name" name="name" required placeholder="e.g. David Vance" />
+              </div>
+              <div class="form-group">
+                <label for="contact-email">Email Address <span class="req">*</span></label>
+                <input type="email" id="contact-email" name="email" required placeholder="e.g. david@vanceexcavating.com" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contact-organization">Company or Project Type</label>
+                <input type="text" id="contact-organization" name="organization" placeholder="e.g. Vance Hardscapes / Homeowner" />
+              </div>
+              <div class="form-group">
+                <label for="contact-topic">Inquiry Category <span class="req">*</span></label>
+                <select id="contact-topic" name="topic" required>
+                  <option value="quarry-ticket">Quarry Scale Ticket / Field Validation</option>
+                  <option value="calculation-question">Calculation Formula Question</option>
+                  <option value="feature-suggestion">New Calculator / Feature Suggestion</option>
+                  <option value="general-inquiry">General Inquiry / Editorial Review</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-message">Message / Field Data Details <span class="req">*</span></label>
+              <textarea id="contact-message" name="message" rows="5" required placeholder="Provide details on your project, aggregate material type, geographic location, or certified weight tickets..."></textarea>
+            </div>
+
+            <button type="submit" id="btn-submit-contact" class="btn btn-primary btn-submit">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span>Submit Inquiry</span>
+            </button>
+
+            <div id="form-success-banner" class="form-success-banner" style="display: none;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <div>
+                <strong>Thank you! Your inquiry has been submitted.</strong>
+                <p>Our editorial and geotechnical desk will review your details and respond within 24–48 business hours.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Regional Quarry Data Submission Info -->
+        <div class="quarry-intake-card">
+          <h3>Are You a Quarry Dispatcher or Material Supplier?</h3>
+          <p>
+            Local geologic variations mean that aggregate weight in Pennsylvania limestone quarries can differ from Georgia granite or Colorado river rock. We invite suppliers to submit certified loose bulk densities, void ratios, and moisture allowances. Contributed data is reviewed by our engineering panel and used to refine our open-access calibration algorithms.
+          </p>
+          <div class="specs-grid">
+            <div class="spec-item">
+              <strong>Preferred Format:</strong> ASTM C29 test report, certified scale ticket, or supplier technical specification sheet (PDF/Image/CSV).
+            </div>
+            <div class="spec-item">
+              <strong>Direct Submission:</strong> Email attachments directly to <a href="mailto:quarry-data@rockcoveragecalculator.com" class="text-gold">quarry-data@rockcoveragecalculator.com</a> with subject line "Regional Scale Calibration".
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const successBanner = document.getElementById('form-success-banner');
+  const submitBtn = document.getElementById('btn-submit-contact');
+
+  if (form && successBanner && submitBtn) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitBtn.setAttribute('disabled', 'true');
+      submitBtn.innerHTML = '<span>Processing...</span>';
+
+      setTimeout(() => {
+        form.reset();
+        submitBtn.style.display = 'none';
+        successBanner.style.display = 'flex';
+      }, 600);
+    });
+  }
+</script>
+
+<style>
+  .guide-content {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .guide-container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .contact-channels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-5);
+    margin-bottom: var(--space-10);
+  }
+
+  .channel-card {
+    background: var(--surface-card, #18181b);
+    border: 1px solid var(--border-subtle, rgba(255,255,255,0.08));
+    border-radius: var(--radius-lg, 12px);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .channel-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(217, 119, 6, 0.4);
+  }
+
+  .channel-card.highlight {
+    border-color: rgba(217, 119, 6, 0.35);
+    background: linear-gradient(180deg, rgba(217, 119, 6, 0.04) 0%, var(--surface-card, #18181b) 100%);
+  }
+
+  .channel-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md, 8px);
+    background: rgba(217, 119, 6, 0.12);
+    color: var(--gold-400, #f59e0b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-4);
+  }
+
+  .channel-card h3 {
+    font-size: 1.15rem;
+    color: var(--text-bright, #fff);
+    margin: 0 0 var(--space-2);
+  }
+
+  .channel-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.5;
+    margin: 0 0 var(--space-4);
+    flex-grow: 1;
+  }
+
+  .channel-email {
+    font-size: 0.875rem;
+    color: var(--gold-400, #f59e0b);
+    text-decoration: underline;
+    word-break: break-all;
+    font-weight: 500;
+  }
+
+  .form-wrapper-card {
+    background: var(--surface-card, #18181b);
+    border: 1px solid var(--border-subtle, rgba(255,255,255,0.08));
+    border-radius: var(--radius-lg, 12px);
+    padding: var(--space-8);
+    margin-bottom: var(--space-10);
+  }
+
+  .form-header h2 {
+    font-size: 1.35rem;
+    color: var(--text-bright, #fff);
+    margin: 0 0 var(--space-2);
+  }
+
+  .form-header p {
+    color: var(--text-muted, #94a3b8);
+    font-size: 0.95rem;
+    margin: 0 0 var(--space-6);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-bright, #f1f5f9);
+  }
+
+  .req {
+    color: #ef4444;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border-subtle, rgba(255,255,255,0.15));
+    border-radius: var(--radius-md, 6px);
+    padding: 0.75rem 1rem;
+    color: var(--text-bright, #fff);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold-400, #f59e0b);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+  }
+
+  .btn-submit {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.75rem 1.75rem;
+    font-weight: 600;
+    margin-top: var(--space-2);
+    cursor: pointer;
+  }
+
+  .form-success-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-md, 8px);
+    padding: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .form-success-banner strong {
+    color: #10b981;
+    display: block;
+    margin-bottom: var(--space-1);
+  }
+
+  .form-success-banner p {
+    margin: 0;
+    color: var(--text-muted, #94a3b8);
+    font-size: 0.9rem;
+  }
+
+  .quarry-intake-card {
+    background: rgba(245, 158, 11, 0.04);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: var(--radius-lg, 12px);
+    padding: var(--space-6);
+  }
+
+  .quarry-intake-card h3 {
+    margin: 0 0 var(--space-2);
+    color: var(--text-bright, #fff);
+    font-size: 1.15rem;
+  }
+
+  .quarry-intake-card p {
+    color: var(--text-muted, #94a3b8);
+    font-size: 0.925rem;
+    line-height: 1.6;
+    margin: 0 0 var(--space-4);
+  }
+
+  .specs-grid {
+    display: grid;
+    gap: var(--space-2);
+    font-size: 0.875rem;
+    color: var(--text-muted, #94a3b8);
+  }
+
+  .text-gold {
+    color: var(--gold-400, #f59e0b);
+  }
+</style>

@@ -1,0 +1,223 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Privacy Policy', url: '/privacy' }
+];
+
+const entityTags = [
+  { label: 'Policy Type', value: 'Data Privacy & Transparency' },
+  { label: 'Effective Date', value: 'January 2026' },
+  { label: 'Last Updated', value: 'September 2026' },
+  { label: 'Storage Standard', value: 'Client-Side LocalStorage' }
+];
+
+const quickStats = [
+  { value: 'Zero Tracking', label: 'Personal Data', desc: 'No personal identification collected or sold' },
+  { value: 'Local Only', label: 'Saved Projects', desc: 'All dimensions and project estimates stay on your device' },
+  { value: '100% Free', label: 'Open Access', desc: 'No registration, accounts, or mandatory logins required' }
+];
+---
+
+<BaseLayout
+  title="Privacy Policy - Rock Coverage Calculator"
+  metaDescription="Read our transparent privacy policy. Learn how Rock Coverage Calculator handles local browser storage, analytics, and data protection."
+  canonicalPath="/privacy"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Privacy Policy - Rock Coverage Calculator",
+      "url": "https://rockcoveragecalculator.com/privacy",
+      "description": "Privacy policy and client-side data protection disclosure for Rock Coverage Calculator.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Rock Coverage Calculator",
+        "url": "https://rockcoveragecalculator.com"
+      }
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Privacy Policy"
+      highlightWord="Policy"
+      badge="Transparency & User Rights"
+      subtitle="At Rock Coverage Calculator, we believe calculations should be fast, private, and secure. We do not require accounts, harvest personal data, or sell user records."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <article class="guide-content">
+      <div class="guide-container">
+
+        <div class="aeo-quick-card">
+          <div class="aeo-badge">Key Privacy Summary</div>
+          <h3>Your Estimations Stay on Your Device</h3>
+          <p>
+            Rock Coverage Calculator runs directly in your web browser. When you input measurements, select aggregates, or save project zones, that data is processed client-side and saved into your browser's private local storage. We do not maintain user accounts or store your jobsite estimates on our servers.
+          </p>
+        </div>
+
+        <h2>1. Information We Do Not Collect</h2>
+        <p>
+          We do not require you to create an account, register, or provide personal credentials to use any of our 56+ calculation engines. We do not collect:
+        </p>
+        <ul>
+          <li>Names, home or business addresses, or phone numbers</li>
+          <li>Credit card numbers or payment processing information</li>
+          <li>Proprietary project blueprints, property locations, or contractor client records</li>
+          <li>User passwords or account credentials</li>
+        </ul>
+
+        <h2>2. Browser Local Storage (Client-Side Storage)</h2>
+        <p>
+          To enhance your user experience, this website uses standard HTML5 <code>localStorage</code> technology. This allows your browser to remember:
+        </p>
+        <ul>
+          <li><strong>Saved Project Zones:</strong> Your active multi-zone project list, including dimensions, rock materials, and cost parameters.</li>
+          <li><strong>Theme Preferences:</strong> Whether you prefer dark mode or light mode.</li>
+          <li><strong>Measurement Units:</strong> Your preferred default input unit (Feet, Inches, Yards, or Meters).</li>
+        </ul>
+        <p>
+          This data remains exclusively within your local browser sandbox. It is never transmitted across the network to our servers. You may erase this data at any time by clicking "Clear All" in the Saved Projects drawer or by clearing your browser's site data and cookies.
+        </p>
+
+        <h2>3. Server Logs & Anonymous Web Analytics</h2>
+        <p>
+          Like virtually all standard web servers, our hosting infrastructure may record basic technical request information when you load a web page. This includes:
+        </p>
+        <ul>
+          <li>Your internet protocol (IP) address</li>
+          <li>Browser type, device classification, and operating system</li>
+          <li>Referring URLs, pages visited, and timestamps</li>
+        </ul>
+        <p>
+          These technical logs are used solely for diagnosing network performance, detecting distributed denial-of-service (DDoS) traffic, and optimizing page load speeds. They are not linked to identifiable individuals.
+        </p>
+
+        <h2>4. Third-Party Services & External Links</h2>
+        <p>
+          Our guides and calculators may contain informational links to trusted technical standards organizations, such as ASTM International, AASHTO, state Departments of Transportation (DOT), and the National Stone, Sand & Gravel Association (NSSGA).
+        </p>
+        <p>
+          We have no control over the privacy practices of external websites. When you click an outbound link to an external resource, we encourage you to review that third party's privacy policy.
+        </p>
+
+        <h2>5. Children's Privacy (COPPA Compliance)</h2>
+        <p>
+          Rock Coverage Calculator is designed for commercial contractors, landscape architects, civil estimators, and adult property owners. We do not knowingly collect or solicit any personal information from children under the age of 13.
+        </p>
+
+        <h2>6. Your Rights Under CCPA and GDPR</h2>
+        <p>
+          Because we do not store, process, or sell personal identifiers or user profiles, there is no personal database to query, export, or delete. If you have questions regarding our technical architecture or compliance with the California Consumer Privacy Act (CCPA) or General Data Protection Regulation (GDPR), you may reach our compliance contact below.
+        </p>
+
+        <h2>7. Contacting Us Regarding Privacy</h2>
+        <p>
+          If you have questions, feedback, or concerns regarding our privacy practices, please contact our editorial and compliance team:
+        </p>
+        <div class="contact-box">
+          <p><strong>Rock Coverage Calculator — Compliance & Privacy Desk</strong></p>
+          <p>Email: <a href="mailto:privacy@rockcoveragecalculator.com" class="text-gold">privacy@rockcoveragecalculator.com</a></p>
+          <p>Website: <a href="https://rockcoveragecalculator.com" class="text-gold">rockcoveragecalculator.com</a></p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .guide-content {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .guide-container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .aeo-quick-card {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-left: 4px solid #10b981;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+
+  .aeo-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #10b981;
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-quick-card h3 {
+    margin: 0 0 var(--space-2);
+    font-size: 1.15rem;
+    color: var(--text-bright);
+  }
+
+  .aeo-quick-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .guide-content h2 {
+    font-size: 1.35rem;
+    color: var(--text-bright);
+    margin: var(--space-8) 0 var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-content p, .guide-content li {
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .guide-content ul {
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+
+  .guide-content li {
+    margin-bottom: var(--space-2);
+  }
+
+  .contact-box {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-top: var(--space-4);
+  }
+
+  .contact-box p {
+    margin: var(--space-1) 0;
+  }
+
+  .text-gold {
+    color: var(--gold-400, #d97706);
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import Footer from '../components/Footer.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Terms of Service', url: '/terms' }
+];
+
+const entityTags = [
+  { label: 'Agreement Type', value: 'Terms of Use & Estimation Disclaimer' },
+  { label: 'Effective Date', value: 'January 2026' },
+  { label: 'Last Updated', value: 'September 2026' },
+  { label: 'Governing Standards', value: 'ASTM C29 / AASHTO T 19' }
+];
+
+const quickStats = [
+  { value: 'Planning Tool', label: 'Calculation Purpose', desc: 'Outputs are theoretical planning estimates, not guaranteed bid commitments' },
+  { value: 'Quarry Scales', label: 'Final Billing', desc: 'Material billing is strictly governed by certified quarry weigh-scale tickets' },
+  { value: 'Field Verification', label: 'Contractor Duty', desc: 'Contractors must verify subgrade depth, moisture, and compaction loss' }
+];
+---
+
+<BaseLayout
+  title="Terms of Service & Material Estimation Disclaimer - Rock Coverage Calculator"
+  metaDescription="Read our Terms of Service and aggregate calculation disclaimer. Understand the geotechnical variance factors and contractor obligations."
+  canonicalPath="/terms"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Terms of Service - Rock Coverage Calculator",
+      "url": "https://rockcoveragecalculator.com/terms",
+      "description": "Terms of Service and geotechnical material estimation disclaimer for Rock Coverage Calculator.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Rock Coverage Calculator",
+        "url": "https://rockcoveragecalculator.com"
+      }
+    })} />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <PageHero
+      title="Terms of Service"
+      highlightWord="Service"
+      badge="Legal Terms & Technical Disclaimer"
+      subtitle="Please review these terms before using Rock Coverage Calculator. All calculation models provide planning estimates based on nominal loose stockpile densities."
+      breadcrumbs={breadcrumbs}
+      entityTags={entityTags}
+      quickStats={quickStats}
+    />
+
+    <article class="guide-content">
+      <div class="guide-container">
+
+        <div class="aeo-quick-card">
+          <div class="aeo-badge">Important Geotechnical Notice</div>
+          <h3>Material Calculations are Planning Estimates</h3>
+          <p>
+            Aggregates are natural mined geological products. Bulk densities vary between regional quarries, individual rock veins, moisture contents (3% to 12%), and mechanical compaction levels (15% to 20% volume reduction for dense-graded subbases). Always confirm certified weight-to-volume conversion factors with your local aggregate supplier before ordering.
+          </p>
+        </div>
+
+        <h2>1. Acceptance of Terms</h2>
+        <p>
+          By accessing or using Rock Coverage Calculator (rockcoveragecalculator.com), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use this website.
+        </p>
+
+        <h2>2. Permitted Use & Commercial Project Planning</h2>
+        <p>
+          You are granted a non-exclusive, revocable, royalty-free license to use our calculation engines, visualizers, spec-sheet generators, and exported CSV data for personal, commercial, educational, and contracting purposes. You may use our outputs in client bids, material purchase orders, and project planning sheets.
+        </p>
+        <p>
+          You may not scrape our tools via automated bots, reverse engineer proprietary visualizer code, or republish our calculation logic without proper attribution.
+        </p>
+
+        <h2>3. Geotechnical Estimation Disclaimer (Quarry & Scale Variance)</h2>
+        <p>
+          Every mathematical formula on this website is calibrated against recognized industry standards, including ASTM C29/C29M (Bulk Density of Aggregate) and AASHTO M43 / ASTM D448. However, actual jobsite yields will inevitably fluctuate based on real-world field conditions:
+        </p>
+        <ul>
+          <li><strong>Regional Geologic Density:</strong> Basalt and trap rock naturally weigh more (up to 2,900+ lbs/cu yd) than limestone (2,700 lbs/cu yd) or volcanic scoria/lava rock (1,450 lbs/cu yd).</li>
+          <li><strong>Moisture Content:</strong> Uncovered quarry stockpiles absorb rain and groundwater. Damp gravel may register 5% to 10% heavier on commercial weigh-scale tickets without occupying any additional volume.</li>
+          <li><strong>Compaction & Consolidation:</strong> Crusher run, quarry process (QP), and 21-A base gravel contain mineral fines that nest into void spaces when compacted with vibratory plates or heavy rollers. A 4-inch loose lift typically compacts down to 3.2 to 3.4 inches (requiring 15% to 20% additional material).</li>
+          <li><strong>Subgrade Unevenness & Bed Prep:</strong> Natural soil subgrades are never laser-flat. Minor undulations of 0.5 inches across a large area can increase required aggregate volume by 10% or more.</li>
+        </ul>
+
+        <h2>4. Contractor & Estimator Responsibility</h2>
+        <p>
+          Users—including landscape contractors, earthmoving estimators, civil engineers, and property owners—are solely responsible for verifying site measurements and confirming scale weights with the supplying aggregate quarry.
+        </p>
+        <p>
+          Rock Coverage Calculator is not responsible for under-orders, over-orders, short-load delivery surcharges, standby trucking fees, project delays, or structural settling.
+        </p>
+
+        <h2>5. Limitation of Liability</h2>
+        <p>
+          To the maximum extent permitted by applicable law, Rock Coverage Calculator, its operators, contributors, and technical editorial board members shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of the use of, or inability to use, our calculations, formulas, software tools, or published documentation.
+        </p>
+
+        <h2>6. Intellectual Property Rights</h2>
+        <p>
+          The layout, design, graphics, custom interactive SVG/Three.js visualizers, and original editorial content on rockcoveragecalculator.com are protected by applicable copyright and trademark laws. You may freely print, download, and distribute calculation sheets generated through our platform for your specific construction projects.
+        </p>
+
+        <h2>7. Changes to Terms</h2>
+        <p>
+          We reserve the right to revise or update these Terms of Service at any time. Changes take effect immediately upon posting to this page.
+        </p>
+
+        <h2>8. Contact Information</h2>
+        <p>
+          For legal inquiries, terms clarification, or technical questions:
+        </p>
+        <div class="contact-box">
+          <p><strong>Rock Coverage Calculator — Legal & Technical Support</strong></p>
+          <p>Email: <a href="mailto:terms@rockcoveragecalculator.com" class="text-gold">terms@rockcoveragecalculator.com</a></p>
+          <p>Website: <a href="https://rockcoveragecalculator.com" class="text-gold">rockcoveragecalculator.com</a></p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .guide-content {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .guide-container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .aeo-quick-card {
+    background: rgba(245, 158, 11, 0.05);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-left: 4px solid #f59e0b;
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+
+  .aeo-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #f59e0b;
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-quick-card h3 {
+    margin: 0 0 var(--space-2);
+    font-size: 1.15rem;
+    color: var(--text-bright);
+  }
+
+  .aeo-quick-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .guide-content h2 {
+    font-size: 1.35rem;
+    color: var(--text-bright);
+    margin: var(--space-8) 0 var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-content p, .guide-content li {
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .guide-content ul {
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+
+  .guide-content li {
+    margin-bottom: var(--space-2);
+  }
+
+  .contact-box {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-top: var(--space-4);
+  }
+
+  .contact-box p {
+    margin: var(--space-1) 0;
+  }
+
+  .text-gold {
+    color: var(--gold-400, #d97706);
+    text-decoration: underline;
+  }
+</style>

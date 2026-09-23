@@ -149,17 +149,32 @@ export const RockEngine = {
 
   /* ── Full Calculation Pipeline ── */
 
-  calculate(shape, dims, depthInches, material, wastePercent = 10) {
+  calculate(shape, dims, depthInches, material, wastePercent = 10, options = {}) {
     const areaSqFt = this.calculateArea(shape, dims);
     const cuFtRaw = this.volumeCuFt(areaSqFt, depthInches);
-    const cuFt = this.applyWaste(cuFtRaw, wastePercent);
+
+    // Compaction factor for dense-graded bases (if enabled and applicable)
+    const isCompacted = Boolean(options.isCompacted && material.isCompactable && material.compactionFactor);
+    const compactionMultiplier = isCompacted ? material.compactionFactor : 1.0;
+
+    const cuFtAfterCompaction = cuFtRaw * compactionMultiplier;
+    const cuFt = this.applyWaste(cuFtAfterCompaction, wastePercent);
     const cuYd = this.volumeCuYd(cuFt);
-    const lbs = this.weightLbs(cuYd, material.densityLbsPerCuYd);
+
+    // Custom density override if specified (valid range 500 to 5000 lbs/yd³)
+    const customDensity = (options.customDensity && !isNaN(options.customDensity) && Number(options.customDensity) >= 500 && Number(options.customDensity) <= 5000)
+      ? Number(options.customDensity)
+      : null;
+
+    const densityLbsPerCuYd = customDensity || material.densityLbsPerCuYd;
+    const tonsPerCuYd = Math.round((densityLbsPerCuYd / LBS_PER_TON) * 1000) / 1000;
+
+    const lbs = this.weightLbs(cuYd, densityLbsPerCuYd);
     const tons = this.weightTons(lbs);
 
     const belowMinDepth = depthInches < material.minDepthInches;
-    const densityLbsPerCuFt = Math.round(material.densityLbsPerCuYd / CU_FT_PER_CU_YD);
-    const densityKgPerCuM = Math.round((material.densityLbsPerCuYd / CU_FT_PER_CU_YD) * 16.0185);
+    const densityLbsPerCuFt = Math.round(densityLbsPerCuYd / CU_FT_PER_CU_YD);
+    const densityKgPerCuM = Math.round((densityLbsPerCuYd / CU_FT_PER_CU_YD) * 16.0185);
 
     return {
       shape,
@@ -184,10 +199,12 @@ export const RockEngine = {
       dumpTruckLoads: this.dumpTruckLoads(cuYd),
       belowMinDepth,
       minDepthInches: material.minDepthInches,
-      densityLbsPerCuYd: material.densityLbsPerCuYd,
+      densityLbsPerCuYd,
       densityLbsPerCuFt,
       densityKgPerCuM,
-      tonsPerCuYd: material.tonsPerCuYd
+      tonsPerCuYd,
+      isCompacted,
+      isCustomDensity: Boolean(customDensity)
     };
   },
 

@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     materialId: 'pea-gravel',
     depthInches: 3,
     wastePercent: 10,
+    customDensity: null,
+    isCompacted: false,
     costMaterialRate: 55,
     costDeliveryFee: 75,
     costLaborRate: 35,
@@ -43,6 +45,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (rawSaved) savedProjects = JSON.parse(rawSaved);
   } catch (e) {
     savedProjects = [];
+  }
+
+  // Restore multi-zone projects from URL hash if present
+  if (typeof window !== 'undefined' && window.location.hash.startsWith('#project=')) {
+    try {
+      const encoded = window.location.hash.replace('#project=', '');
+      const decoded = JSON.parse(decodeURIComponent(atob(encoded)));
+      if (Array.isArray(decoded) && decoded.length > 0) {
+        savedProjects = decoded;
+      }
+    } catch (e) {
+      console.warn('Could not restore shared project:', e);
+    }
   }
 
   // Restore from URL if shared, or initialize from #calculator dataset
@@ -108,6 +123,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   const savedCountBadge = document.getElementById('saved-count-badge');
   const btnClearSaved = document.getElementById('btn-clear-saved');
   const btnExportSavedCSV = document.getElementById('btn-export-saved-csv');
+  const btnExportSavedJSON = document.getElementById('btn-export-saved-json');
+  const btnImportSavedJSON = document.getElementById('btn-import-saved-json');
+  const inputImportSaved = document.getElementById('input-import-saved');
+  const btnShareSaved = document.getElementById('btn-share-saved');
+
+  // Geotechnical controls elements
+  const customDensityInput = document.getElementById('custom-density-input');
+  const btnResetDensity = document.getElementById('btn-reset-density');
+  const toggleCompaction = document.getElementById('toggle-compaction');
+  const compactionGroup = document.getElementById('compaction-control-group');
+  const densityHint = document.getElementById('density-standard-hint');
+  const compactionFactorText = document.getElementById('compaction-factor-text');
 
   // Theme toggle
   const themeToggleBtn = document.getElementById('theme-toggle');
@@ -329,9 +356,76 @@ document.addEventListener('DOMContentLoaded', async () => {
       card.classList.add('selected-pulse');
       setTimeout(() => card.classList.remove('selected-pulse'), 400);
 
+      updateGeotechUI();
       recalculate();
     });
   });
+
+  /* ── Geotechnical Controls UI & Logic ── */
+  function updateGeotechUI() {
+    const mat = getMaterialById(state.materialId);
+    if (!mat) return;
+
+    if (customDensityInput) {
+      customDensityInput.placeholder = mat.densityLbsPerCuYd;
+      if (state.customDensity) {
+        customDensityInput.value = state.customDensity;
+        if (btnResetDensity) btnResetDensity.style.display = 'inline-block';
+      } else {
+        customDensityInput.value = '';
+        if (btnResetDensity) btnResetDensity.style.display = 'none';
+      }
+    }
+
+    if (densityHint) {
+      const rangeText = mat.typicalRange ? ` (Regional range: ${mat.typicalRange[0].toLocaleString()}–${mat.typicalRange[1].toLocaleString()} lbs/yd³)` : '';
+      densityHint.textContent = `Standard ASTM C29 loose density: ${mat.densityLbsPerCuYd.toLocaleString()} lbs/yd³${rangeText}`;
+    }
+
+    if (compactionGroup) {
+      if (mat.isCompactable) {
+        compactionGroup.style.display = 'block';
+        if (compactionFactorText) {
+          const pct = Math.round(((mat.compactionFactor || 1.15) - 1) * 100);
+          compactionFactorText.textContent = `+${pct}% Proctor overage`;
+        }
+      } else {
+        compactionGroup.style.display = 'none';
+        state.isCompacted = false;
+        if (toggleCompaction) toggleCompaction.checked = false;
+      }
+    }
+  }
+
+  if (customDensityInput) {
+    customDensityInput.addEventListener('input', () => {
+      const val = parseFloat(customDensityInput.value);
+      if (!isNaN(val) && val >= 500 && val <= 5000) {
+        state.customDensity = val;
+        if (btnResetDensity) btnResetDensity.style.display = 'inline-block';
+      } else {
+        state.customDensity = null;
+        if (btnResetDensity) btnResetDensity.style.display = 'none';
+      }
+      recalculate();
+    });
+  }
+
+  if (btnResetDensity) {
+    btnResetDensity.addEventListener('click', () => {
+      state.customDensity = null;
+      if (customDensityInput) customDensityInput.value = '';
+      btnResetDensity.style.display = 'none';
+      recalculate();
+    });
+  }
+
+  if (toggleCompaction) {
+    toggleCompaction.addEventListener('change', () => {
+      state.isCompacted = toggleCompaction.checked;
+      recalculate();
+    });
+  }
 
   /* ── Depth Slider & Presets ── */
   if (depthSlider) {
@@ -424,7 +518,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     btnSaveProject.addEventListener('click', () => {
       const dimsInFeet = getDimsInFeet();
       const material = getMaterialById(state.materialId);
-      const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
+      const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent, {
+        customDensity: state.customDensity,
+        isCompacted: state.isCompacted
+      });
       
       const defaultName = `${material.name} - Zone ${savedProjects.length + 1}`;
       const name = window.prompt('Enter a name for this project zone:', defaultName) || defaultName;
@@ -496,6 +593,81 @@ document.addEventListener('DOMContentLoaded', async () => {
       a.download = `rock_coverage_project_zones_${Date.now()}.csv`;
       a.click();
       URL.revokeObjectURL(url);
+    });
+  }
+
+  /* ── JSON Backup & Restore for Project Portability ── */
+  if (btnExportSavedJSON) {
+    btnExportSavedJSON.addEventListener('click', () => {
+      if (savedProjects.length === 0) {
+        alert('No project zones saved yet. Add a zone first before downloading a backup.');
+        return;
+      }
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(savedProjects, null, 2));
+      const a = document.createElement('a');
+      a.href = dataStr;
+      a.download = `rock_coverage_backup_${new Date().toISOString().slice(0,10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+  }
+
+  if (btnImportSavedJSON && inputImportSaved) {
+    btnImportSavedJSON.addEventListener('click', () => {
+      inputImportSaved.click();
+    });
+
+    inputImportSaved.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const imported = JSON.parse(event.target.result);
+          if (Array.isArray(imported)) {
+            if (savedProjects.length > 0) {
+              if (window.confirm(`Found ${imported.length} project zones in backup. Merge with existing zones? (Click Cancel to replace current list)`)) {
+                savedProjects = [...savedProjects, ...imported];
+              } else {
+                savedProjects = imported;
+              }
+            } else {
+              savedProjects = imported;
+            }
+            persistAndRenderSaved();
+            alert(`Successfully loaded ${imported.length} project zone(s)!`);
+          } else {
+            alert('Invalid project backup file format.');
+          }
+        } catch (err) {
+          alert('Could not parse project backup JSON.');
+        }
+        inputImportSaved.value = '';
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  if (btnShareSaved) {
+    btnShareSaved.addEventListener('click', () => {
+      if (savedProjects.length === 0) {
+        alert('No project zones to share. Save a zone first.');
+        return;
+      }
+      try {
+        const payload = btoa(encodeURIComponent(JSON.stringify(savedProjects)));
+        const url = new URL(window.location.href);
+        url.hash = 'project=' + payload;
+        navigator.clipboard.writeText(url.href).then(() => {
+          btnShareSaved.textContent = 'Copied Link!';
+          setTimeout(() => {
+            btnShareSaved.textContent = 'Share Link';
+          }, 2000);
+        });
+      } catch (err) {
+        alert('Could not create shareable link.');
+      }
     });
   }
 
@@ -580,7 +752,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   function recalculate() {
     const dimsInFeet = getDimsInFeet();
     const material = getMaterialById(state.materialId);
-    const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
+    const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent, {
+      customDensity: state.customDensity,
+      isCompacted: state.isCompacted
+    });
 
     // Animate KPI updates with metric/imperial awareness
     const isMetric = state.unit === 'm';
@@ -622,12 +797,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Breakdown table with dual units
     if (breakdownBody) {
+      const densityBadges = `${result.isCustomDensity ? ' <span style="color:#d97706;font-weight:600;font-size:0.75rem;">(Custom Quarry Override)</span>' : ''}${result.isCompacted ? ' <span style="color:#10b981;font-weight:600;font-size:0.75rem;">(Compacted In-Place)</span>' : ''}`;
       breakdownBody.innerHTML = `
         <tr><td>Volume (cubic yards / m³)</td><td><strong>${RockEngine.formatNumber(result.volumeCuYd)} yd³</strong> &bull; ${RockEngine.formatNumber(result.volumeCuM)} m³</td></tr>
         <tr><td>Volume (cubic feet)</td><td>${RockEngine.formatNumber(result.volumeCuFt)} cu ft</td></tr>
         <tr><td>Weight (short tons / metric tonnes)</td><td><strong>${RockEngine.formatNumber(result.weightTons)} short tons</strong> &bull; ${RockEngine.formatNumber(result.weightTonnes)} tonnes</td></tr>
         <tr><td>Weight (lbs / kg)</td><td>${RockEngine.formatNumber(result.weightLbs)} lbs &bull; ${RockEngine.formatNumber(result.weightKg)} kg</td></tr>
-        <tr><td>Bulk Density</td><td>${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ (${result.densityLbsPerCuFt} lb/ft³ &bull; ${result.densityKgPerCuM} kg/m³)</td></tr>
+        <tr><td>Bulk Density</td><td>${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ (${result.densityLbsPerCuFt} lb/ft³ &bull; ${result.densityKgPerCuM} kg/m³)${densityBadges}</td></tr>
       `;
     }
 
@@ -800,6 +976,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   setShape(state.shape);
+  updateGeotechUI();
   persistAndRenderSaved();
   recalculate();
 });
