@@ -6,10 +6,10 @@ import HowMuchCalculator from '../components/calculators/HowMuchCalculator.astro
 import HowMuchVisualizer from '../components/visualizers/HowMuchVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import QuickConverterBlock from '../components/intent/QuickConverterBlock.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Guides', url: '/how-much-rock-do-i-need' },
   { name: 'How Much Rock Do I Need?', url: '/how-much-rock-do-i-need' }
 ];
 
@@ -116,11 +116,15 @@ const supportGuides = [
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="utility"
     />
 
     <HowMuchCalculator />
 
     <HowMuchVisualizer />
+
+    <!-- Instant Unit Equivalents Block -->
+    <QuickConverterBlock />
 
     <!-- Engineering Guide Section -->
     <article class="content-guide-section">

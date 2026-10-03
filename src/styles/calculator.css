@@ -146,6 +146,42 @@
   box-sizing: border-box;
 }
 
+.dimension-error {
+  margin: calc(var(--space-2) * -1) 0 var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid #dc2626;
+  border-radius: var(--radius-md);
+  background: rgba(220, 38, 38, 0.1);
+  color: #fca5a5;
+  font-size: 0.825rem;
+  font-weight: 600;
+}
+
+.dimension-error[hidden] { display: none; }
+
+.input-field.input-field-invalid {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.14);
+}
+
+.invalid-results-message {
+  width: 100%;
+  color: var(--text-muted);
+  text-align: center;
+  padding: var(--space-5);
+}
+
+.action-row .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+[data-theme="light"] .dimension-error {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
 .calc-panel .input-field,
 .calc-wrapper .input-field,
 .dim-grid .input-field {
@@ -847,7 +883,19 @@
 
 .saved-actions-group {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2);
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .saved-actions-group {
+    width: 100%;
+  }
+
+  .saved-actions-group .btn {
+    flex: 1 1 calc(50% - var(--space-2));
+  }
 }
 
 .btn-sm {
@@ -1393,3 +1441,418 @@
   flex-shrink: 0;
 }
 
+/* ==========================================================================
+   Dynamic Transparent Math Explainer (.calc-explainer-card)
+   ========================================================================== */
+.calc-explainer-card {
+  background: rgba(20, 26, 33, 0.65);
+  border: 1px solid rgba(212, 168, 83, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-4);
+  backdrop-filter: blur(8px);
+}
+
+.explainer-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  color: var(--gold-400);
+}
+
+.explainer-header h4 {
+  font-size: 0.925rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.explainer-header svg {
+  color: var(--gold-400);
+  flex-shrink: 0;
+}
+
+.explainer-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.explainer-step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: rgba(15, 20, 25, 0.6);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--gold-500);
+  font-size: 0.825rem;
+  line-height: 1.5;
+}
+
+.step-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  background: rgba(212, 168, 83, 0.15);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.step-content {
+  color: var(--text-secondary);
+}
+
+.step-content strong {
+  color: var(--text-primary);
+}
+
+.step-formula {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--gold-300);
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   Supplier Quote (RFQ) Button & Modal
+   ========================================================================== */
+.btn-quote {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-smooth);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+}
+
+.btn-quote:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  transform: translateY(-1px);
+}
+
+.quote-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 13, 16, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.quote-modal-card {
+  background: var(--slate-900);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  max-width: 680px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: var(--space-6);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+.quote-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.quote-modal-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: #10b981;
+}
+
+.quote-modal-title h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.quote-modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 var(--space-2);
+  transition: color var(--duration-fast);
+}
+
+.quote-modal-close:hover {
+  color: var(--text-primary);
+}
+
+.quote-modal-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-5);
+  line-height: 1.5;
+}
+
+.quote-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.quote-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.quote-input-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.quote-input-group input {
+  background: var(--slate-850);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color var(--duration-fast);
+}
+
+.quote-input-group input:focus {
+  border-color: var(--gold-400);
+}
+
+.quote-preview-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.quote-preview-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quote-preview-label-row label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.rfq-textarea {
+  background: var(--slate-950);
+  border: 1px solid rgba(107, 122, 141, 0.3);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  resize: vertical;
+  width: 100%;
+}
+
+.quote-modal-actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+.quote-pro-tips {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font-size: 0.775rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: var(--space-2);
+}
+
+.quote-pro-tips strong {
+  color: #34d399;
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
+.quote-pro-tips ul {
+  margin: var(--space-1) 0 0;
+  padding-left: var(--space-4);
+}
+
+.quote-pro-tips li {
+  margin-bottom: var(--space-1);
+}
+
+/* ==========================================================================
+   Field Outcome Loop Card (.calc-outcome-card)
+   ========================================================================== */
+.calc-outcome-card {
+  background: rgba(20, 26, 33, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.outcome-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.outcome-header svg {
+  color: var(--gold-400);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.outcome-title-group h4 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin: 0 0 2px 0;
+  color: var(--text-primary);
+}
+
+.outcome-title-group p {
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.outcome-options {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+
+.btn-outcome-chip {
+  background: var(--slate-850);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.775rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--duration-fast);
+}
+
+.btn-outcome-chip:hover {
+  border-color: var(--gold-400);
+  color: var(--text-primary);
+  background: var(--slate-800);
+}
+
+.btn-outcome-chip.active {
+  background: rgba(212, 168, 83, 0.15);
+  border-color: var(--gold-400);
+  color: var(--gold-400);
+}
+
+.outcome-feedback-form {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(107, 122, 141, 0.15);
+}
+
+.outcome-form-row {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.outcome-input {
+  background: var(--slate-850);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 6px 10px;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.outcome-input.notes {
+  flex: 1;
+  min-width: 180px;
+}
+
+.outcome-confirmation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  color: #34d399;
+  font-size: 0.775rem;
+  margin-top: var(--space-2);
+}
+
+/* Light Theme Overrides */
+[data-theme="light"] .calc-explainer-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .explainer-step {
+  background: #ffffff;
+  border-color: #b8860b;
+}
+
+[data-theme="light"] .quote-modal-card {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .rfq-textarea {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+[data-theme="light"] .quote-input-group input,
+[data-theme="light"] .outcome-input {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+[data-theme="light"] .calc-outcome-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .btn-outcome-chip {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}

@@ -6,10 +6,10 @@ import RiverRockCalculator from '../components/calculators/RiverRockCalculator.a
 import RiverRockVisualizer from '../components/visualizers/RiverRockVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import DecorativeIntentBlock from '../components/intent/DecorativeIntentBlock.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Material Calculators', url: '/landscape-rock-calculator' },
   { name: 'River Rock Calculator', url: '/river-rock-calculator' }
 ];
 
@@ -21,7 +21,7 @@ const entityTags = [
 ];
 
 const quickStats = [
-  { value: '3,600 Vol', label: 'High Intent Query', desc: 'Leading natural stone calculation in North America' },
+  { value: '1.35 t/yd³', label: 'Quarry Density', desc: 'Standard bulk density for smooth water-tumbled stone' },
   { value: '80 sq ft', label: '1-3" Stone Spread', desc: 'Average square foot coverage per ton at 3" depth' },
   { value: '4"-6" Depth', label: 'Swale & Creek Bed', desc: 'Engineered depth required for high water velocity' }
 ];
@@ -90,11 +90,15 @@ const faqItems = [
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="decorative"
     />
 
     <RiverRockCalculator />
 
     <RiverRockVisualizer />
+
+    <!-- Decorative Sourcing & Weed Barrier Block -->
+    <DecorativeIntentBlock stoneName="River Rock" />
 
     <!-- River Rock Sizing Technical Guide -->
     <article class="content-guide-section">

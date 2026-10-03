@@ -1,13 +1,13 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import DecorativeIntentBlock from '../components/intent/DecorativeIntentBlock.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Material Calculators', url: '/decorative-rock-calculator' },
   { name: 'Lava Rock Calculator', url: '/lava-rock-calculator' }
 ];
 
@@ -116,6 +116,7 @@ const supportGuides = [
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="decorative"
     />
 
     <!-- Interactive Lava Rock Calculator Tool -->
@@ -178,6 +179,9 @@ const supportGuides = [
       </div>
     </section>
 
+    <!-- Decorative Sourcing & Weed Barrier Block -->
+    <DecorativeIntentBlock stoneName="Lava Rock" />
+
     <!-- Technical Guide on Lava Rock -->
     <article class="content-guide-section">
       <div class="container">
@@ -205,9 +209,9 @@ const supportGuides = [
               <p class="aeo-quick-desc">Easy to carry and stage in backyard areas without wheelbarrows.</p>
             </div>
             <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Fire Rating</span>
-              <span class="aeo-quick-value">100% Thermal Safe</span>
-              <p class="aeo-quick-desc">Approved for propane and gas fire pits; does not pop or crack.</p>
+              <span class="aeo-quick-label">Fire Features</span>
+              <span class="aeo-quick-value">Gas &amp; Propane Compatible</span>
+              <p class="aeo-quick-desc">Commonly used in gas fire pits. Ensure rock is thoroughly dry before firing; follow manufacturer guidelines.</p>
             </div>
           </div>
         </section>

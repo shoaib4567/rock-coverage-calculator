@@ -461,12 +461,12 @@ function initPeaGravelCalculator() {
         if (firmnessRow) firmnessRow.textContent = 'Firm & Stable (Walkable)';
       }
     } else {
-      if (depthInches < 6.0) {
-        if (advisoryText) advisoryText.textContent = 'Advisory: ASTM playground standards recommend at least 6" - 9" of pea gravel for child fall cushioning.';
-        if (badge) badge.textContent = 'Cushioning Advisory';
+      if (depthInches < 9.0) {
+        if (advisoryText) advisoryText.textContent = 'Safety Notice: CPSC Pub #325 mandates a minimum 9" compressed depth (12" initial fill) of pea gravel for playground fall safety (up to 5 ft fall height).';
+        if (badge) badge.textContent = 'Below CPSC 9" Guideline';
       } else {
-        if (advisoryText) advisoryText.textContent = 'Compliant: Meets child play area fall shock attenuation guidelines.';
-        if (badge) badge.textContent = 'Play Area Compliant';
+        if (advisoryText) advisoryText.textContent = 'CPSC Compliant: Meets public playground safety fall cushion standard for equipment up to 5 ft height.';
+        if (badge) badge.textContent = 'CPSC Safety Compliant';
       }
       if (firmnessRow) firmnessRow.textContent = 'Shock Absorbing Cushion';
     }
@@ -512,7 +512,7 @@ function initPeaGravelCalculator() {
       modePlayBtn.classList.add('active');
       modePatioBtn.classList.remove('active');
       activeMode = 'play';
-      depthInput.value = '6.0';
+      depthInput.value = '9.0';
       calculate();
     });
   }

@@ -1,0 +1,502 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Bag Weight & Price Database', url: '/rock-bag-weight-and-price-guide' }
+];
+
+const title = "What Bags of Rock Actually Weigh & Cost - Retail Bag Weight & Price Database";
+const metaDescription = "Actual scale weights, volumes, and price-per-ton equivalents for 0.5 cu ft bagged rock at Home Depot, Lowe's, and Menards. Vehicle hauling limits and wet moisture data.";
+
+const bagData = [
+  {
+    material: "Pea Gravel (3/8\" River Pebble)",
+    nominalVol: "0.50 cu ft",
+    dryWeight: "48 lbs",
+    wetWeight: "54 lbs",
+    avgBagPrice: "$4.78",
+    pricePerTon: "$199 / ton",
+    bagsPerTon: "41.6 bags",
+    safePayloadSedan: "6 bags",
+    safePayloadHalfTon: "32 bags",
+    calcSlug: "/pea-gravel-bag-calculator"
+  },
+  {
+    material: "River Rock (1\"–3\" Rounded Stone)",
+    nominalVol: "0.50 cu ft",
+    dryWeight: "48 lbs",
+    wetWeight: "53 lbs",
+    avgBagPrice: "$5.28",
+    pricePerTon: "$220 / ton",
+    bagsPerTon: "41.6 bags",
+    safePayloadSedan: "6 bags",
+    safePayloadHalfTon: "30 bags",
+    calcSlug: "/river-rock-bag-calculator"
+  },
+  {
+    material: "Marble Chips (White Calcite)",
+    nominalVol: "0.50 cu ft",
+    dryWeight: "46 lbs",
+    wetWeight: "51 lbs",
+    avgBagPrice: "$5.98",
+    pricePerTon: "$260 / ton",
+    bagsPerTon: "43.5 bags",
+    safePayloadSedan: "7 bags",
+    safePayloadHalfTon: "34 bags",
+    calcSlug: "/marble-chips-bag-calculator"
+  },
+  {
+    material: "Crushed Stone / Gravel (#57)",
+    nominalVol: "0.50 cu ft",
+    dryWeight: "48 lbs",
+    wetWeight: "55 lbs",
+    avgBagPrice: "$4.48",
+    pricePerTon: "$186 / ton",
+    bagsPerTon: "41.6 bags",
+    safePayloadSedan: "6 bags",
+    safePayloadHalfTon: "32 bags",
+    calcSlug: "/crushed-stone-bag-calculator"
+  },
+  {
+    material: "Red Lava Rock (Volcanic Scoria)",
+    nominalVol: "0.50 cu ft",
+    dryWeight: "20 lbs",
+    wetWeight: "26 lbs",
+    avgBagPrice: "$6.48",
+    pricePerTon: "$648 / ton ($130/yd³)",
+    bagsPerTon: "100 bags",
+    safePayloadSedan: "15 bags",
+    safePayloadHalfTon: "75 bags",
+    calcSlug: "/lava-rock-bag-calculator"
+  },
+  {
+    material: "Black Lava Rock",
+    nominalVol: "0.50 cu ft",
+    dryWeight: "22 lbs",
+    wetWeight: "28 lbs",
+    avgBagPrice: "$7.28",
+    pricePerTon: "$660 / ton ($145/yd³)",
+    bagsPerTon: "91 bags",
+    safePayloadSedan: "14 bags",
+    safePayloadHalfTon: "70 bags",
+    calcSlug: "/lava-rock-bag-calculator"
+  },
+  {
+    material: "Mexican Beach Pebbles (Polished)",
+    nominalVol: "0.40 cu ft",
+    dryWeight: "30 lbs",
+    wetWeight: "32 lbs",
+    avgBagPrice: "$14.98",
+    pricePerTon: "$998 / ton",
+    bagsPerTon: "66.7 bags",
+    safePayloadSedan: "10 bags",
+    safePayloadHalfTon: "50 bags",
+    calcSlug: "/beach-pebble-calculator"
+  },
+  {
+    material: "Decomposed Granite (Polymer Blend)",
+    nominalVol: "0.50 cu ft",
+    dryWeight: "50 lbs",
+    wetWeight: "56 lbs",
+    avgBagPrice: "$8.98",
+    pricePerTon: "$359 / ton",
+    bagsPerTon: "40 bags",
+    safePayloadSedan: "6 bags",
+    safePayloadHalfTon: "30 bags",
+    calcSlug: "/decomposed-granite-calculator"
+  }
+];
+---
+
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/rock-bag-weight-and-price-guide">
+  <Header />
+
+  <main id="main-content">
+    <PageHero
+      title="What Bags of Rock Actually Weigh & Cost"
+      subtitle="Actual scale weights, moisture penalties, retail store prices, and vehicle suspension payload thresholds for 0.5 cu ft bags of landscape rock."
+      badge="Retail Procurement Database"
+      breadcrumbs={breadcrumbs}
+      theme="utility"
+    />
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <!-- Interactive Vehicle Payload Estimator Box -->
+        <div class="payload-card">
+          <div class="payload-header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <div class="payload-title-group">
+              <h3>How Many Bags Can Your Vehicle Safely Haul?</h3>
+              <p>Overloading a passenger vehicle damages suspension struts and compromises braking distance. Select your vehicle class:</p>
+            </div>
+          </div>
+
+          <div class="vehicle-picker-row">
+            <button type="button" class="btn-vehicle active" data-payload="400" data-name="Compact / Midsize Sedan">
+              <span class="v-name">Sedan Trunk</span>
+              <span class="v-cap">Max ~400 lbs</span>
+              <strong class="v-bags">7–8 Bags</strong>
+            </button>
+            <button type="button" class="btn-vehicle" data-payload="750" data-name="Crossover / Midsize SUV">
+              <span class="v-name">Crossover / SUV</span>
+              <span class="v-cap">Max ~750 lbs</span>
+              <strong class="v-bags">14–15 Bags</strong>
+            </button>
+            <button type="button" class="btn-vehicle" data-payload="1600" data-name="1/2-Ton Pickup (F-150 / 1500)">
+              <span class="v-name">1/2-Ton Truck</span>
+              <span class="v-cap">Max ~1,600 lbs</span>
+              <strong class="v-bags">30–32 Bags</strong>
+            </button>
+            <button type="button" class="btn-vehicle" data-payload="3200" data-name="3/4-Ton Heavy Duty (2500 / F-250)">
+              <span class="v-name">3/4-Ton Truck</span>
+              <span class="v-cap">Max ~3,200 lbs</span>
+              <strong class="v-bags">Full Pallet (60 Bags)</strong>
+            </button>
+          </div>
+
+          <div class="payload-result-banner" id="payload-result-banner">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span id="payload-summary-text">For a <strong>Compact / Midsize Sedan</strong>, do not exceed <strong>7 to 8 bags</strong> (approx. 400 lbs total including trunk contents). Any project requiring 20+ bags is cheaper and safer to order via quarry dump truck delivery.</span>
+          </div>
+        </div>
+
+        <!-- Master Retail Bag Scale Weights Table -->
+        <div class="section-header" style="margin-top: var(--space-12);">
+          <h2>Big-Box Retail Bag Weight &amp; Cost Reference Table</h2>
+          <div class="section-divider"></div>
+          <p>Real-world scale measurements from Home Depot, Lowe's, and regional supply stores. Outdoor bagged inventory absorbs 10%–15% water weight after rainfall.</p>
+        </div>
+
+        <div class="bag-table-card">
+          <div class="table-responsive">
+            <table class="bag-table">
+              <thead>
+                <tr>
+                  <th>Product &amp; Material</th>
+                  <th>Nominal Bag Vol</th>
+                  <th>Dry Scale Wt</th>
+                  <th>Wet (Rain) Wt</th>
+                  <th>Avg Retail Price</th>
+                  <th>Cost per Ton Equivalent</th>
+                  <th>Calculate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bagData.map((item) => (
+                  <tr>
+                    <td><strong>{item.material}</strong></td>
+                    <td>{item.nominalVol}</td>
+                    <td class="weight-cell">{item.dryWeight}</td>
+                    <td class="weight-cell wet">{item.wetWeight}</td>
+                    <td class="price-cell">{item.avgBagPrice}</td>
+                    <td class="ton-equiv-cell">{item.pricePerTon}</td>
+                    <td>
+                      <a href={item.calcSlug} class="btn btn-sm btn-secondary">Calculate Bags</a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Technical Findings on Retail Bagging -->
+        <div class="editorial-box" style="margin-top: var(--space-12);">
+          <h3>The True Cost of Buying Bags vs. Bulk Quarry Delivery</h3>
+          <p>
+            Retail bagged rock is designed for convenience, small touch-ups, and inaccessible urban backyards. When buying bags at a big-box store, you are paying primarily for packaging, transport palletizing, and retail shelf space.
+          </p>
+
+          <div class="findings-grid">
+            <div class="finding-card">
+              <h4>1. The $150–$200/Ton "Convenience Surcharge"</h4>
+              <p>
+                A standard ton of bulk #57 crushed limestone or river rock costs <strong>$45 to $65 per ton</strong> at a commercial quarry. When packaged into 0.5 cu ft plastic bags, that same ton costs between <strong>$186 and $260</strong>. If your project requires more than <strong>20 bags (0.37 cubic yards)</strong>, paying a $75 local delivery fee for a bulk drop is almost always cheaper than buying bags.
+              </p>
+            </div>
+
+            <div class="finding-card">
+              <h4>2. The "Wet Bag" Suspension Hazard</h4>
+              <p>
+                Bagged gravel stored in outdoor nursery yards has micro-perforations in the plastic packaging. Rainwater seeps into the bag and cannot easily evaporate, adding <strong>5 to 8 lbs of water weight per bag</strong>. A 10-bag load that you estimated at 480 lbs can easily weigh 560 lbs on your vehicle springs.
+              </p>
+            </div>
+
+            <div class="finding-card">
+              <h4>3. Super Sacks (Tote Bags) as the Middle Ground</h4>
+              <p>
+                If you have a narrow gate or no dump truck driveway access, ask your local supplier for a <strong>Super Sack (1 cubic yard tote bag)</strong>. They deliver via a crane truck and place the bag exactly in your yard, avoiding both the high cost of retail bags and the messy driveway pile of loose dumping.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  const vehicleButtons = document.querySelectorAll('.btn-vehicle');
+  const summaryText = document.getElementById('payload-summary-text');
+
+  vehicleButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      vehicleButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const payload = parseInt(btn.dataset.payload, 10);
+      const name = btn.dataset.name;
+      const bagCount = Math.floor(payload / 50);
+
+      if (summaryText) {
+        summaryText.innerHTML = `For a <strong>${name}</strong>, do not exceed <strong>${bagCount} bags</strong> (approx. ${payload} lbs total payload including gear and passengers). Any project requiring over 20 bags is significantly cheaper to order via bulk dump truck delivery.`;
+      }
+    });
+  });
+})();
+</script>
+
+<style>
+  .payload-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .payload-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+
+  .payload-header svg {
+    color: var(--gold-400);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .payload-title-group h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-1) 0;
+  }
+
+  .payload-title-group p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .vehicle-picker-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .vehicle-picker-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .vehicle-picker-row {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .btn-vehicle {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--duration-fast);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .btn-vehicle:hover {
+    border-color: var(--gold-400);
+    background: var(--slate-800);
+  }
+
+  .btn-vehicle.active {
+    background: rgba(212, 168, 83, 0.12);
+    border-color: var(--gold-400);
+  }
+
+  .v-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .v-cap {
+    font-size: 0.725rem;
+    color: var(--text-muted);
+  }
+
+  .v-bags {
+    font-size: 1.1rem;
+    color: var(--gold-400);
+    margin-top: 2px;
+    font-family: var(--font-mono);
+  }
+
+  .payload-result-banner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    margin-top: var(--space-5);
+    font-size: 0.825rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .payload-result-banner svg {
+    color: #60a5fa;
+    flex-shrink: 0;
+  }
+
+  .payload-result-banner strong {
+    color: var(--text-primary);
+  }
+
+  /* Table */
+  .bag-table-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .bag-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+
+  .bag-table th {
+    background: var(--slate-850);
+    padding: var(--space-4);
+    color: var(--text-primary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-subtle);
+    white-space: nowrap;
+  }
+
+  .bag-table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid rgba(107, 122, 141, 0.15);
+    color: var(--text-secondary);
+    vertical-align: middle;
+  }
+
+  .bag-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .weight-cell {
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+  }
+
+  .weight-cell.wet {
+    color: #60a5fa;
+    font-weight: 600;
+  }
+
+  .price-cell {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--gold-400);
+  }
+
+  .ton-equiv-cell {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: #f87171;
+  }
+
+  /* Editorial Box */
+  .editorial-box {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+  }
+
+  .editorial-box h3 {
+    font-size: 1.35rem;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .editorial-box p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+  }
+
+  .findings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .findings-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .finding-card {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+  }
+
+  .finding-card h4 {
+    font-size: 0.95rem;
+    color: var(--gold-400);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .finding-card p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .finding-card strong {
+    color: var(--text-primary);
+  }
+</style>

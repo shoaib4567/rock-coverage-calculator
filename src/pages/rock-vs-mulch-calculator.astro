@@ -1,0 +1,722 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Rock vs Mulch Calculator', url: '/rock-vs-mulch-calculator' }
+];
+
+const title = "Rock vs Mulch Calculator - 10-Year Total Cost of Ownership Comparison";
+const metaDescription = "Compare the real 10-year cost of landscape rock versus wood mulch. Calculate upfront installation, annual replenishment cycles, break-even timelines, and plant health pros and cons.";
+---
+
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/rock-vs-mulch-calculator">
+  <Header />
+
+  <main id="main-content">
+    <PageHero
+      title="Rock vs Mulch 10-Year Cost Calculator"
+      subtitle="Mulch is cheaper upfront, but rots every year. Rock costs more on day one, but lasts 15+ years. Calculate your exact 10-year break-even point and find the right material for your beds."
+      badge="Economic & Lifecycle Estimator"
+      breadcrumbs={breadcrumbs}
+      theme="decorative"
+    />
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <!-- Interactive Cost & Lifecycle Comparison Tool -->
+        <div class="tco-tool-grid">
+          <!-- Left: Input Parameters Panel -->
+          <div class="tco-inputs-card">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              <h3>Project Dimensions &amp; Rates</h3>
+            </div>
+
+            <div class="tco-input-group">
+              <label for="tco-area">Coverage Area</label>
+              <div class="input-field mini">
+                <input type="number" id="tco-area" value="400" min="20" max="10000" step="10" />
+                <span class="unit-label">sq ft</span>
+              </div>
+              <span class="control-hint">Standard residential flower bed or foundation perimeter.</span>
+            </div>
+
+            <div class="tco-input-group">
+              <label for="tco-rock-material">Selected Rock Material</label>
+              <select id="tco-rock-material" class="tco-select">
+                <option value="river-rock" selected>1"–3" River Rock ($65/ton • 3" depth)</option>
+                <option value="pea-gravel">3/8" Pea Gravel ($55/ton • 2.5" depth)</option>
+                <option value="lava-rock">Red Lava Rock ($85/yd³ • 2" depth)</option>
+                <option value="crushed-granite">#57 Crushed Granite ($50/ton • 3" depth)</option>
+                <option value="beach-pebble">Mexican Beach Pebble ($280/ton • 2.5" depth)</option>
+              </select>
+            </div>
+
+            <div class="tco-input-group">
+              <label for="tco-mulch-type">Selected Wood Mulch Type</label>
+              <select id="tco-mulch-type" class="tco-select">
+                <option value="hardwood" selected>Shredded Hardwood / Brown ($38/yd³)</option>
+                <option value="black-dyed">Black / Red Dyed Mulch ($44/yd³)</option>
+                <option value="cedar">Aromatic Natural Cedar ($48/yd³)</option>
+                <option value="pine-bark">Pine Bark Nuggets ($42/yd³)</option>
+              </select>
+            </div>
+
+            <div class="tco-input-group">
+              <label for="tco-annual-mulch">Annual Mulch Top-Up Depth</label>
+              <div class="input-field mini">
+                <input type="number" id="tco-annual-mulch" value="1.5" min="0.5" max="3" step="0.5" />
+                <span class="unit-label">in / yr</span>
+              </div>
+              <span class="control-hint">Wood mulch decomposes 50% each year and requires spring replenishment.</span>
+            </div>
+
+            <div class="tco-input-group">
+              <label class="checkbox-label" for="tco-diy-labor">
+                <input type="checkbox" id="tco-diy-labor" checked />
+                <span class="checkbox-custom"></span>
+                <span class="checkbox-text">
+                  <strong>DIY Installation (Zero Labor Cost)</strong>
+                  <span class="control-hint">Uncheck if hiring a professional landscaping crew ($45/hr).</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Right: 10-Year TCO Results & Break-Even Chart -->
+          <div class="tco-results-card">
+            <!-- Break-Even Highlight Banner -->
+            <div class="break-even-banner">
+              <div class="banner-icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div class="banner-content">
+                <div class="banner-title">Project Break-Even Point: <span id="breakeven-year-text" class="highlight-val">Year 3.4</span></div>
+                <p id="breakeven-desc">After Year 3.4, landscape rock is 100% free compared to the recurring costs of buying and hauling annual bags of mulch.</p>
+              </div>
+            </div>
+
+            <!-- Upfront vs 10-Year Comparison Grid -->
+            <div class="tco-comparison-grid">
+              <!-- Rock Column -->
+              <div class="tco-column rock">
+                <div class="col-header">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                  <h4>Landscape Rock</h4>
+                </div>
+                <div class="cost-stat">
+                  <span class="stat-lbl">Initial Install (Day 1)</span>
+                  <span class="stat-amt" id="rock-initial-cost">$420.00</span>
+                  <span class="stat-sub" id="rock-initial-sub">Rock + Pro Geotextile Fabric</span>
+                </div>
+                <div class="cost-stat">
+                  <span class="stat-lbl">10-Year Total Cost</span>
+                  <span class="stat-amt primary" id="rock-10yr-cost">$495.00</span>
+                  <span class="stat-sub">Includes minor weed barrier upkeep</span>
+                </div>
+                <div class="col-features">
+                  <div class="feature-item positive">15+ year lifespan</div>
+                  <div class="feature-item positive">Zero annual replenishment</div>
+                  <div class="feature-item positive">Class-A fire barrier (WUI safe)</div>
+                  <div class="feature-item positive">Won't attract subterranean termites</div>
+                </div>
+              </div>
+
+              <!-- Mulch Column -->
+              <div class="tco-column mulch">
+                <div class="col-header">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+                  <h4>Wood Mulch</h4>
+                </div>
+                <div class="cost-stat">
+                  <span class="stat-lbl">Initial Install (Day 1)</span>
+                  <span class="stat-amt" id="mulch-initial-cost">$185.00</span>
+                  <span class="stat-sub" id="mulch-initial-sub">3" Initial Mulch Layer</span>
+                </div>
+                <div class="cost-stat">
+                  <span class="stat-lbl">10-Year Total Cost</span>
+                  <span class="stat-amt danger" id="mulch-10yr-cost">$1,325.00</span>
+                  <span class="stat-sub" id="mulch-10yr-sub">Initial + 9 annual spring top-offs</span>
+                </div>
+                <div class="col-features">
+                  <div class="feature-item negative">Decomposes 50% every year</div>
+                  <div class="feature-item negative">Annual spring wheelbarrow hauling</div>
+                  <div class="feature-item negative">Can wash away during heavy storms</div>
+                  <div class="feature-item negative">Organic mulch against siding invites pests</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Net 10-Year Savings Box -->
+            <div class="savings-highlight-card">
+              <div class="savings-text">
+                <span class="savings-lbl">Your 10-Year Net Savings with Rock:</span>
+                <span class="savings-val" id="net-savings-val">$830.00 Saved</span>
+              </div>
+              <a id="btn-tco-goto-calc" href="/river-rock-calculator" class="btn btn-primary">
+                Calculate Rock for This Area &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Year-by-Year Cumulative Cost Table -->
+        <div class="section-header" style="margin-top: var(--space-12);">
+          <h2>Year-by-Year Cumulative Cost Progression</h2>
+          <div class="section-divider"></div>
+          <p>Watch how the low upfront cost of mulch quickly is overtaken by annual spring replenishment purchases.</p>
+        </div>
+
+        <div class="yearly-table-card">
+          <div class="table-responsive">
+            <table class="yearly-table">
+              <thead>
+                <tr>
+                  <th>Project Timeline</th>
+                  <th>Landscape Rock (Cumulative)</th>
+                  <th>Wood Mulch (Cumulative)</th>
+                  <th>Financial Winner</th>
+                </tr>
+              </thead>
+              <tbody id="yearly-table-body">
+                <!-- Dynamically filled by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- In-Depth Agronomic & Landscape Comparison -->
+        <div class="editorial-box" style="margin-top: var(--space-12);">
+          <h3>The Agronomic Verdict: When to Use Rock vs. Mulch</h3>
+          <p>
+            While rock is the clear long-term financial winner, the right choice for your property depends on plant biology, fire zone proximity, and soil temperature.
+          </p>
+
+          <div class="comparison-rules-grid">
+            <div class="rule-card">
+              <div class="rule-header rock-win">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <h4>When Rock is the Superior Choice</h4>
+              </div>
+              <ul>
+                <li><strong>Within 3–5 Feet of Your House Foundation:</strong> Wood mulch holds damp moisture against wood framing and provides food for termites and carpenter ants. Rock keeps foundation perimeters dry and pest-free.</li>
+                <li><strong>Wildfire-Prone Areas (WUI Zones):</strong> Dry wood mulch is fuel for windblown embers. Civil fire codes strongly recommend non-combustible rock or gravel for the first 5 feet surrounding structures.</li>
+                <li><strong>Downspout Splash Basins &amp; Slopes:</strong> Light wood mulch floats and washes away into storm drains during torrential downpours. Heavier 1"–3" river rock stays in place permanently.</li>
+                <li><strong>High-Wind Areas:</strong> Leaf blowers will blow light shredded mulch out of beds. Heavier gravel allows clean seasonal leaf blowing without losing your bed cover.</li>
+              </ul>
+            </div>
+
+            <div class="rule-card">
+              <div class="rule-header mulch-win">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <h4>When Mulch is the Superior Choice</h4>
+              </div>
+              <ul>
+                <li><strong>Acid-Loving Ornamental Plants:</strong> Azaleas, rhododendrons, hydrangeas, and blueberries thrive in cool, acidic soil. Decaying pine bark mulch naturally enriches soil with organic acids.</li>
+                <li><strong>Extreme Desert Summers with Delicate Roots:</strong> In zones with sustained 100&deg;F+ summer heat, dark dense rocks absorb thermal radiation and can elevate root-zone temperatures, stressing shallow-rooted flowers.</li>
+                <li><strong>Annual Vegetable &amp; Cut Flower Beds:</strong> If you dig, plant, and turn over the soil each spring, rocks are extremely frustrating to spade through. Mulch decomposes into rich organic compost.</li>
+                <li><strong>Rental Properties &amp; Short-Term Stays:</strong> If moving within 1–2 years, you will not reach the break-even threshold to recoup the upfront investment of landscape rock.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  const areaInput = document.getElementById('tco-area');
+  const rockSelect = document.getElementById('tco-rock-material');
+  const mulchSelect = document.getElementById('tco-mulch-type');
+  const annualMulchInput = document.getElementById('tco-annual-mulch');
+  const diyToggle = document.getElementById('tco-diy-labor');
+
+  const rockSpecs = {
+    'river-rock': { name: '1"-3" River Rock', depthIn: 3.0, costPerTon: 65, tonsPerYd: 1.35, slug: '/river-rock-calculator' },
+    'pea-gravel': { name: '3/8" Pea Gravel', depthIn: 2.5, costPerTon: 55, tonsPerYd: 1.35, slug: '/pea-gravel-calculator' },
+    'lava-rock': { name: 'Red Lava Rock', depthIn: 2.0, costPerTon: 130, tonsPerYd: 0.65, slug: '/lava-rock-calculator' },
+    'crushed-granite': { name: '#57 Crushed Granite', depthIn: 3.0, costPerTon: 50, tonsPerYd: 1.35, slug: '/crushed-stone-calculator' },
+    'beach-pebble': { name: 'Mexican Beach Pebble', depthIn: 2.5, costPerTon: 280, tonsPerYd: 1.35, slug: '/beach-pebble-calculator' }
+  };
+
+  const mulchSpecs = {
+    'hardwood': { name: 'Shredded Hardwood', costPerYd: 38 },
+    'black-dyed': { name: 'Black Dyed Mulch', costPerYd: 44 },
+    'cedar': { name: 'Aromatic Cedar', costPerYd: 48 },
+    'pine-bark': { name: 'Pine Bark Nuggets', costPerYd: 42 }
+  };
+
+  function calculateTCO() {
+    const areaSqFt = parseFloat(areaInput?.value) || 400;
+    const rockKey = rockSelect?.value || 'river-rock';
+    const mulchKey = mulchSelect?.value || 'hardwood';
+    const annualMulchDepth = parseFloat(annualMulchInput?.value) || 1.5;
+    const isDIY = diyToggle?.checked;
+
+    const rock = rockSpecs[rockKey];
+    const mulch = mulchSpecs[mulchKey];
+
+    // Initial Rock Calculation
+    const rockCuYds = (areaSqFt * (rock.depthIn / 12) * 1.10) / 27; // 10% buffer
+    const rockTons = rockCuYds * rock.tonsPerYd;
+    const rockMaterialCost = rockTons * rock.costPerTon;
+    const rockDeliveryFee = 75.00;
+    const fabricCost = Math.ceil(areaSqFt * 1.15) * 0.18; // Heavy non-woven $0.18/sq ft
+    const rockLaborCost = isDIY ? 0 : (rockTons * 35); // $35/ton labor
+
+    const rockInitialTotal = rockMaterialCost + rockDeliveryFee + fabricCost + rockLaborCost;
+    const rockAnnualMaintenance = 7.50; // Periodic weed spot spray or minor top-off
+    const rock10YrTotal = rockInitialTotal + (rockAnnualMaintenance * 9);
+
+    // Initial Mulch Calculation
+    const initialMulchCuYds = (areaSqFt * (3.0 / 12) * 1.05) / 27;
+    const mulchMaterialCost = initialMulchCuYds * mulch.costPerYd;
+    const mulchDeliveryFee = 50.00;
+    const mulchLaborCost = isDIY ? 0 : (initialMulchCuYds * 25);
+    const mulchInitialTotal = mulchMaterialCost + mulchDeliveryFee + mulchLaborCost;
+
+    // Annual Mulch Replenishment
+    const annualMulchCuYds = (areaSqFt * (annualMulchDepth / 12) * 1.05) / 27;
+    const annualMulchCost = (annualMulchCuYds * mulch.costPerYd) + (isDIY ? 0 : (annualMulchCuYds * 25)) + (annualMulchCuYds > 2 ? 35 : 15); // Delivery/trip fee
+
+    const mulch10YrTotal = mulchInitialTotal + (annualMulchCost * 9);
+
+    // Calculate Break-Even Year
+    let breakevenYear = 10;
+    if (annualMulchCost > rockAnnualMaintenance) {
+      const upfrontDiff = rockInitialTotal - mulchInitialTotal;
+      const annualSavings = annualMulchCost - rockAnnualMaintenance;
+      if (upfrontDiff <= 0) {
+        breakevenYear = 0.5;
+      } else {
+        breakevenYear = Math.max(0.5, Math.min(10, upfrontDiff / annualSavings));
+      }
+    }
+
+    const netSavings = mulch10YrTotal - rock10YrTotal;
+
+    // Update DOM elements
+    document.getElementById('breakeven-year-text').textContent = `Year ${breakevenYear.toFixed(1)}`;
+    document.getElementById('breakeven-desc').textContent = `By Year ${breakevenYear.toFixed(1)}, the cumulative cost of repeated mulch replenishment surpasses the one-time rock investment. From that point on, rock saves you money every single season.`;
+
+    document.getElementById('rock-initial-cost').textContent = `$${rockInitialTotal.toFixed(2)}`;
+    document.getElementById('rock-initial-sub').textContent = `${rockTons.toFixed(2)} Tons + Commercial Weed Barrier`;
+    document.getElementById('rock-10yr-cost').textContent = `$${rock10YrTotal.toFixed(2)}`;
+
+    document.getElementById('mulch-initial-cost').textContent = `$${mulchInitialTotal.toFixed(2)}`;
+    document.getElementById('mulch-initial-sub').textContent = `${initialMulchCuYds.toFixed(1)} cu yds (3" initial bed)`;
+    document.getElementById('mulch-10yr-cost').textContent = `$${mulch10YrTotal.toFixed(2)}`;
+    document.getElementById('mulch-10yr-sub').textContent = `Includes 9 annual spring top-offs (${annualMulchDepth}"/yr)`;
+
+    const savingsValEl = document.getElementById('net-savings-val');
+    if (netSavings >= 0) {
+      savingsValEl.textContent = `$${netSavings.toFixed(2)} Saved with Rock`;
+      savingsValEl.style.color = '#34d399';
+    } else {
+      savingsValEl.textContent = `$${Math.abs(netSavings).toFixed(2)} Premium for Rock`;
+      savingsValEl.style.color = 'var(--gold-400)';
+    }
+
+    // Update link
+    const gotoBtn = document.getElementById('btn-tco-goto-calc');
+    if (gotoBtn) gotoBtn.href = rock.slug;
+
+    // Fill yearly table
+    const tableBody = document.getElementById('yearly-table-body');
+    if (tableBody) {
+      let html = '';
+      for (let yr = 1; yr <= 10; yr++) {
+        const cumulativeRock = rockInitialTotal + (rockAnnualMaintenance * (yr - 1));
+        const cumulativeMulch = mulchInitialTotal + (annualMulchCost * (yr - 1));
+        const rockCheaper = cumulativeRock < cumulativeMulch;
+
+        html += `
+          <tr>
+            <td><strong>Year ${yr} ${yr === 1 ? '(Initial Install)' : ''}</strong></td>
+            <td>$${cumulativeRock.toFixed(2)}</td>
+            <td>$${cumulativeMulch.toFixed(2)}</td>
+            <td>
+              <span class="${rockCheaper ? 'badge-rock-win' : 'badge-mulch-win'}">
+                ${rockCheaper ? 'Landscape Rock ($' + (cumulativeMulch - cumulativeRock).toFixed(0) + ' cheaper)' : 'Mulch ($' + (cumulativeRock - cumulativeMulch).toFixed(0) + ' cheaper upfront)'}
+              </span>
+            </td>
+          </tr>
+        `;
+      }
+      tableBody.innerHTML = html;
+    }
+  }
+
+  [areaInput, rockSelect, mulchSelect, annualMulchInput, diyToggle].forEach(el => {
+    if (el) {
+      el.addEventListener('input', calculateTCO);
+      el.addEventListener('change', calculateTCO);
+    }
+  });
+
+  calculateTCO();
+})();
+</script>
+
+<style>
+  .tco-tool-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 1024px) {
+    .tco-tool-grid {
+      grid-template-columns: 380px 1fr;
+      align-items: start;
+    }
+  }
+
+  .tco-inputs-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .tco-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-top: var(--space-4);
+  }
+
+  .tco-input-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .tco-select {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    outline: none;
+  }
+
+  .tco-select:focus {
+    border-color: var(--gold-400);
+  }
+
+  .control-hint {
+    font-size: 0.725rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* Results Card */
+  .tco-results-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .break-even-banner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .banner-icon-box {
+    width: 48px;
+    height: 48px;
+    background: rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #34d399;
+    flex-shrink: 0;
+  }
+
+  .banner-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .highlight-val {
+    color: #34d399;
+  }
+
+  .banner-content p {
+    font-size: 0.825rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .tco-comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .tco-comparison-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .tco-column {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+  }
+
+  .tco-column.rock {
+    border-top: 4px solid var(--gold-500);
+  }
+
+  .tco-column.mulch {
+    border-top: 4px solid #c47c5a;
+  }
+
+  .col-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .col-header h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .cost-stat {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--space-4);
+  }
+
+  .stat-lbl {
+    font-size: 0.725rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+  }
+
+  .stat-amt {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+  }
+
+  .stat-amt.primary {
+    color: var(--gold-400);
+  }
+
+  .stat-amt.danger {
+    color: #f87171;
+  }
+
+  .stat-sub {
+    font-size: 0.725rem;
+    color: var(--text-muted);
+  }
+
+  .col-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    border-top: 1px solid rgba(107, 122, 141, 0.15);
+    padding-top: var(--space-4);
+  }
+
+  .feature-item {
+    font-size: 0.775rem;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .feature-item.positive::before {
+    content: "✓";
+    color: #34d399;
+    font-weight: 700;
+  }
+
+  .feature-item.negative::before {
+    content: "✕";
+    color: #f87171;
+    font-weight: 700;
+  }
+
+  /* Savings Card */
+  .savings-highlight-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--slate-950);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-top: var(--space-6);
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .savings-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .savings-lbl {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .savings-val {
+    font-size: 1.35rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+  }
+
+  /* Table */
+  .yearly-table-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .yearly-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+
+  .yearly-table th {
+    background: var(--slate-850);
+    padding: var(--space-3) var(--space-4);
+    color: var(--text-primary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-subtle);
+    white-space: nowrap;
+  }
+
+  .yearly-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid rgba(107, 122, 141, 0.15);
+    color: var(--text-secondary);
+  }
+
+  .badge-rock-win {
+    color: #34d399;
+    font-weight: 600;
+  }
+
+  .badge-mulch-win {
+    color: #94a3b8;
+  }
+
+  /* Editorial Box */
+  .editorial-box {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+  }
+
+  .editorial-box h3 {
+    font-size: 1.35rem;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .editorial-box p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+  }
+
+  .comparison-rules-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .comparison-rules-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .rule-card {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+  }
+
+  .rule-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .rule-header.rock-win svg { color: var(--gold-400); }
+  .rule-header.mulch-win svg { color: #c47c5a; }
+
+  .rule-header h4 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .rule-card ul {
+    margin: 0;
+    padding-left: var(--space-4);
+    color: var(--text-secondary);
+    font-size: 0.825rem;
+    line-height: 1.6;
+  }
+
+  .rule-card li {
+    margin-bottom: var(--space-3);
+  }
+
+  .rule-card strong {
+    color: var(--text-primary);
+  }
+</style>

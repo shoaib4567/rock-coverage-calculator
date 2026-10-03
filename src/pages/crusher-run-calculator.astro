@@ -1,13 +1,13 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import CivilStructuralBlock from '../components/intent/CivilStructuralBlock.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Material Calculators', url: '/crushed-stone-calculator' },
   { name: 'Crusher Run Calculator', url: '/crusher-run-calculator' }
 ];
 
@@ -116,6 +116,7 @@ const supportGuides = [
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="civil"
     />
 
     <!-- Interactive Crusher Run Calculator Tool -->
@@ -178,6 +179,9 @@ const supportGuides = [
       </div>
     </section>
 
+    <!-- Civil Truckload Logistics & Subgrade Stabilization Block -->
+    <CivilStructuralBlock />
+
     <!-- Technical Guide on Crusher Run -->
     <article class="content-guide-section">
       <div class="container">
@@ -196,13 +200,13 @@ const supportGuides = [
             </div>
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Compaction Factor</span>
-              <span class="aeo-quick-value">20% Volume Reduction</span>
-              <p class="aeo-quick-desc">Order loose volume × 1.20 to achieve specified target depth.</p>
+              <span class="aeo-quick-value">20% Volume Loss</span>
+              <p class="aeo-quick-desc">Order loose volume × 1.25 (Compacted ÷ 0.80) to achieve specified target depth.</p>
             </div>
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Quarry Density</span>
               <span class="aeo-quick-value">1.45 t/yd³ (2,900 lbs/yd³)</span>
-              <p class="aeo-quick-desc">ASTM C29 loose weight; compacts to 1.65 t/yd³ (3,300 lbs).</p>
+              <p class="aeo-quick-desc">Standard loose stockpile weight; compacts to a dense structural matrix.</p>
             </div>
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Lift Rule</span>
@@ -215,21 +219,21 @@ const supportGuides = [
         <div class="content-card">
           <h2>The Geotechnical Role of Dense-Graded Aggregate (AASHTO M147)</h2>
           <p>
-            <strong>Crusher Run</strong> (also marketed regionally as Quarry Process, QP, Dense Graded Aggregate / DGA, or 21-A) is the backbone of civil road construction and professional hardscaping.
+            <strong>Crusher Run</strong> (also marketed regionally as Quarry Process, QP, Dense Graded Aggregate / DGA, or 21-A) is the backbone of civil road construction and professional hardscaping. While regional names differ based on local state Department of Transportation (DOT) gradation specs, all belong to the dense-graded aggregate family.
           </p>
           <p>
             Unlike clean #57 stone where all fines have been screened away, crusher run is governed by <strong>AASHTO M147</strong> (<em>Standard Specification for Materials for Aggregate and Soil-Aggregate Subbase, Base, and Surface Courses</em>). It contains a complete continuum of particle sizes ranging from 3/4-inch angular rock down to microscopic stone flour.
           </p>
           <p>
-            When rolled with a heavy vibratory compactor, the smaller stone particles and rock dust are driven into the void spaces between the larger stones. This eliminates void space, creating a dense, interlocking matrix that approaches the compressive strength of unreinforced lean concrete.
+            When rolled with a heavy vibratory plate compactor or roller, the smaller stone particles and rock dust are driven into the void spaces between the larger stones. This interlocking matrix produces high California Bearing Ratio (CBR) values, distributing vehicular wheel loads evenly across the subgrade.
           </p>
 
           <div class="formula-box">
-            <code>Loose Volume (yd³) = [Length (ft) × Width (ft) × Target Depth (in)] / 324</code>
+            <code>Finished Compacted Volume (yd³) = [Length (ft) × Width (ft) × Compacted Depth (in)] / 324</code>
             <br />
-            <code>Quarry Order Volume (yd³) = Loose Volume × 1.20 (20% Compaction Allowance)</code>
+            <code>Quarry Loose Order (yd³) = Finished Compacted Volume ÷ 0.80 (equals Finished Volume × 1.25)</code>
             <br />
-            <code>Certified Scale Weight (Tons) = Quarry Order Volume × 1.45 Tons/yd³</code>
+            <code>Certified Scale Weight (Tons) = Quarry Loose Order × 1.45 Tons/yd³</code>
           </div>
 
           <h3>Contractor Compaction Protocol for Paver Patios & Driveways</h3>
@@ -238,7 +242,7 @@ const supportGuides = [
               <strong>Excavation:</strong> Dig out native soil to target finished grade plus base depth. Crown the subgrade slightly to shed water away from foundation footings.
             </li>
             <li>
-              <strong>Subgrade Stabilization:</strong> Lay a non-woven 4 oz needle-punched geotextile fabric. The fabric prevents soft subsoil from pumping up into the base during wet spring thaws.
+              <strong>Subgrade Stabilization:</strong> Lay a heavy-duty woven geotextile stabilization fabric (such as AASHTO M288 Class 1/2 woven). Woven fabric provides high tensile modulus and prevents soft subgrade soil from pumping up into the stone base under vehicular loads.
             </li>
             <li>
               <strong>First Lift (2 to 3 Inches):</strong> Spread crusher run in an initial 2.5-inch loose layer. Mist lightly with a garden hose until damp throughout.

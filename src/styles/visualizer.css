@@ -288,6 +288,9 @@
 /* --- Responsive --- */
 @media (max-width: 768px) {
   .rock-scene-wrapper {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: auto;
     min-height: 220px;
   }
 

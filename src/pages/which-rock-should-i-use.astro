@@ -1,0 +1,863 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Which Rock Should I Use? Helper', url: '/which-rock-should-i-use' }
+];
+
+const title = "Which Rock Should I Use? - Interactive Material Recommender Wizard";
+const metaDescription = "Find the best landscape rock, gravel, or crushed stone for your project. 4-question decision helper matching traffic, slope, drainage, and budget with exact depth recommendations.";
+---
+
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/which-rock-should-i-use">
+  <Header />
+
+  <main id="main-content">
+    <PageHero
+      title="Which Rock Should I Use?"
+      subtitle="Answer 4 quick questions to find the perfect aggregate, recommended install depth, subgrade base, and geotextile fabric for your job."
+      badge="Project Decision Helper"
+      breadcrumbs={breadcrumbs}
+      theme="decorative"
+    />
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <!-- Interactive Recommender Wizard Card -->
+        <div class="wizard-card animate-fade-in-up">
+          <div class="wizard-progress-bar">
+            <div class="wizard-progress-fill" id="wizard-progress" style="width: 25%;"></div>
+          </div>
+
+          <div class="wizard-steps-container">
+            <!-- Step 1: Project Type -->
+            <div class="wizard-step active" data-step="1" id="wizard-step-1">
+              <div class="step-badge">Step 1 of 4</div>
+              <h2 class="step-question">What type of project are you building?</h2>
+              <p class="step-instruction">Select the primary functional purpose of your rock coverage area:</p>
+
+              <div class="options-grid">
+                <button type="button" class="wizard-option-btn" data-field="project" data-val="driveway">
+                  <div class="option-icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 17h10M7 7h10M7 12h10"/></svg>
+                  </div>
+                  <div class="option-text">
+                    <strong>Driveway / Parking Pad</strong>
+                    <span>Vehicular traffic, heavy wheel loads, turning tires</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="project" data-val="walkway">
+                  <div class="option-icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  </div>
+                  <div class="option-text">
+                    <strong>Walkway, Path, or Patio</strong>
+                    <span>Foot traffic, outdoor patio chairs, wheelbarrows</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="project" data-val="drainage">
+                  <div class="option-icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg>
+                  </div>
+                  <div class="option-text">
+                    <strong>French Drain / Downspout Trench</strong>
+                    <span>Subsurface drainage, water diversion, weeping tile</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="project" data-val="garden">
+                  <div class="option-icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+                  </div>
+                  <div class="option-text">
+                    <strong>Flower Bed / Mulch Replacement</strong>
+                    <span>Decorative beds, weed suppression, foundation border</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="project" data-val="firepit">
+                  <div class="option-icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c1.5 3 4 5 4 8a4 4 0 0 1-8 0c0-3 2.5-5 4-8z"/><path d="M12 18v4M4.93 19.07l2.83-2.83M19.07 19.07l-2.83-2.83"/></svg>
+                  </div>
+                  <div class="option-text">
+                    <strong>Fire Pit / Outdoor Seating Area</strong>
+                    <span>Heat proximity, outdoor furniture, casual entertaining</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="project" data-val="dogrun">
+                  <div class="option-icon-box">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                  </div>
+                  <div class="option-text">
+                    <strong>Dog Run / Pet Play Area</strong>
+                    <span>Paw comfort, rapid drainage, easy waste sanitization</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: Traffic Level -->
+            <div class="wizard-step" data-step="2" id="wizard-step-2" style="display: none;">
+              <div class="step-badge">Step 2 of 4</div>
+              <h2 class="step-question">What traffic level must it handle?</h2>
+              <p class="step-instruction">The weight and frequency of use determines whether you need interlocking stone or rounded gravel:</p>
+
+              <div class="options-grid">
+                <button type="button" class="wizard-option-btn" data-field="traffic" data-val="vehicular">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+                  <div class="option-text">
+                    <strong>Heavy Vehicular Traffic</strong>
+                    <span>Trucks, SUVs, trailers; requires compaction and mechanical interlock</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="traffic" data-val="pedestrian">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="7" r="4"/><path d="M5.5 21v-3.5L9 14l2.5 3 2.5-3 3.5 3.5V21"/></svg></div>
+                  <div class="option-text">
+                    <strong>Regular Foot Traffic (With Shoes)</strong>
+                    <span>Easy walking, patio furniture stability, won't shift excessively</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="traffic" data-val="barefoot">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a5 5 0 0 1 5 5v12a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V7a5 5 0 0 1 5-5z"/></svg></div>
+                  <div class="option-text">
+                    <strong>Barefoot &amp; Pets Friendly</strong>
+                    <span>Must be soft and smooth under bare feet, zero jagged crushed rock</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="traffic" data-val="none">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></div>
+                  <div class="option-text">
+                    <strong>Zero Foot Traffic (Visual Only)</strong>
+                    <span>Purely architectural, weed suppression, foundation erosion guard</span>
+                  </div>
+                </button>
+              </div>
+
+              <div class="step-nav-row">
+                <button type="button" class="btn btn-ghost btn-wizard-back">&larr; Back to Step 1</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Slope & Runoff -->
+            <div class="wizard-step" data-step="3" id="wizard-step-3" style="display: none;">
+              <div class="step-badge">Step 3 of 4</div>
+              <h2 class="step-question">What are the slope and water runoff conditions?</h2>
+              <p class="step-instruction">Water dynamics dictate stone shape. Smooth round stones roll like ball bearings on slopes:</p>
+
+              <div class="options-grid">
+                <button type="button" class="wizard-option-btn" data-field="slope" data-val="flat">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"/></svg></div>
+                  <div class="option-text">
+                    <strong>Flat Ground (&lt; 2% Grade)</strong>
+                    <span>No wash-away risk; virtually all stone materials work</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="slope" data-val="moderate-slope">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg></div>
+                  <div class="option-text">
+                    <strong>Moderate Slope or Hillside (3%–10% Grade)</strong>
+                    <span>Prone to gravel migration during heavy downpours</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="slope" data-val="water-channel">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+                  <div class="option-text">
+                    <strong>Active Water Channel / Swale / Trench</strong>
+                    <span>High-volume stormwater runoff, downspout splash zones</span>
+                  </div>
+                </button>
+              </div>
+
+              <div class="step-nav-row">
+                <button type="button" class="btn btn-ghost btn-wizard-back">&larr; Back to Step 2</button>
+              </div>
+            </div>
+
+            <!-- Step 4: Aesthetic & Budget -->
+            <div class="wizard-step" data-step="4" id="wizard-step-4" style="display: none;">
+              <div class="step-badge">Step 4 of 4</div>
+              <h2 class="step-question">What is your aesthetic and budget priority?</h2>
+              <p class="step-instruction">Choose the appearance that matches your home and landscape design:</p>
+
+              <div class="options-grid">
+                <button type="button" class="wizard-option-btn" data-field="aesthetic" data-val="natural-earth">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12a4 4 0 0 0 8 0"/></svg></div>
+                  <div class="option-text">
+                    <strong>Natural Earth Tones (Tan, Buff, Gray)</strong>
+                    <span>River rock, pea gravel, decomposed granite; classic landscaping look</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="aesthetic" data-val="modern-crisp">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 22 22 22"/></svg></div>
+                  <div class="option-text">
+                    <strong>High-Contrast Modern (White Marble, Black Pebble)</strong>
+                    <span>Bold architectural statement, clean edges, striking contrast</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="aesthetic" data-val="budget-utility">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                  <div class="option-text">
+                    <strong>Lowest Cost Per Ton (Utility / Quarry Direct)</strong>
+                    <span>Crushed limestone (#57), crusher run base, local quarry blend</span>
+                  </div>
+                </button>
+
+                <button type="button" class="wizard-option-btn" data-field="aesthetic" data-val="volcanic">
+                  <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                  <div class="option-text">
+                    <strong>Lightweight Porous (Red/Black Lava Rock)</strong>
+                    <span>Volcanic, moisture-retentive, easy to shovel, xeriscape fire-resistant</span>
+                  </div>
+                </button>
+              </div>
+
+              <div class="step-nav-row">
+                <button type="button" class="btn btn-ghost btn-wizard-back">&larr; Back to Step 3</button>
+              </div>
+            </div>
+
+            <!-- Recommendation Result Card -->
+            <div class="wizard-step" id="wizard-result" style="display: none;">
+              <div class="result-header">
+                <div class="result-badge-row">
+                  <span class="result-tag" id="rec-tag">Recommended Material</span>
+                  <button type="button" class="btn btn-ghost btn-sm" id="btn-restart-wizard">Start Over</button>
+                </div>
+                <h2 id="rec-material-title" class="rec-title">Crushed Stone #57</h2>
+                <p id="rec-material-summary" class="rec-summary">The ultimate interlocking structural aggregate for driveways and load-bearing surfaces.</p>
+              </div>
+
+              <div class="rec-specs-grid">
+                <div class="spec-card">
+                  <div class="spec-label">Recommended Depth</div>
+                  <div class="spec-val" id="rec-depth">3 to 4 Inches</div>
+                  <div class="spec-note" id="rec-depth-note">Provides full fabric concealment and tire interlock.</div>
+                </div>
+
+                <div class="spec-card">
+                  <div class="spec-label">Subgrade Base Requirement</div>
+                  <div class="spec-val" id="rec-base">4" Crusher Run (21-A)</div>
+                  <div class="spec-note" id="rec-base-note">Vibratory plate compacted in 2-inch lifts.</div>
+                </div>
+
+                <div class="spec-card">
+                  <div class="spec-label">Geotextile Fabric Class</div>
+                  <div class="spec-val" id="rec-fabric">Class 1 Woven Stabilization</div>
+                  <div class="spec-note" id="rec-fabric-note">Prevents subgrade rutting under vehicle wheel loads.</div>
+                </div>
+
+                <div class="spec-card">
+                  <div class="spec-label">Bulk Density Benchmark</div>
+                  <div class="spec-val" id="rec-density">2,700 lbs / yd³ (1.35 Tons)</div>
+                  <div class="spec-note" id="rec-density-note">ASTM C29 loose stockpile benchmark.</div>
+                </div>
+              </div>
+
+              <div class="rec-pitfalls-box">
+                <div class="pitfall-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  <span>Critical Installation Warnings</span>
+                </div>
+                <p id="rec-pitfalls">Never use smooth, rounded river pebbles on slopes over 5% or vehicle driveways. Rounded stones lack shear interlock and will roll like ball bearings under tire torque.</p>
+              </div>
+
+              <div class="rec-cta-row">
+                <a id="rec-calc-btn" href="/crushed-stone-calculator" class="btn btn-primary btn-lg">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                  Open Calculator with These Specs
+                </a>
+                <a href="/layered-project-calculator" class="btn btn-secondary btn-lg">
+                  Plan Layered Base &amp; Edging
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Master Aggregate Selection Matrix Table -->
+        <div class="section-header" style="margin-top: var(--space-12);">
+          <h2>Master Landscape Aggregate Selection Matrix</h2>
+          <div class="section-divider"></div>
+          <p>Compare the engineering properties, barefoot comfort, shear stability, and best uses across all primary landscape rocks.</p>
+        </div>
+
+        <div class="matrix-table-card">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Aggregate Material</th>
+                  <th>Nominal Sizing</th>
+                  <th>Underfoot Stability</th>
+                  <th>Drainage Flow</th>
+                  <th>Vehicular Driveways</th>
+                  <th>Barefoot Walkways</th>
+                  <th>Best Applications</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>#57 Crushed Stone</strong></td>
+                  <td>1" to #4 Sieve (Granite/Limestone)</td>
+                  <td><span class="badge-high">High (Angular)</span></td>
+                  <td><span class="badge-high">Excellent</span></td>
+                  <td><span class="badge-good">Recommended</span></td>
+                  <td><span class="badge-no">Too Sharp</span></td>
+                  <td>Driveway wearing course, French drains, concrete aggregate</td>
+                </tr>
+                <tr>
+                  <td><strong>Crusher Run / 21-A Base</strong></td>
+                  <td>3/4" down to mineral dust</td>
+                  <td><span class="badge-high">Maximum (Compacted)</span></td>
+                  <td><span class="badge-low">Low (Dense)</span></td>
+                  <td><span class="badge-good">Mandatory Base</span></td>
+                  <td><span class="badge-fair">Firm, Dusty</span></td>
+                  <td>Driveway subbase, paver bedding base, road building</td>
+                </tr>
+                <tr>
+                  <td><strong>Pea Gravel (3/8")</strong></td>
+                  <td>1/4" to 3/8" Smooth River Pebble</td>
+                  <td><span class="badge-low">Low (Shifts)</span></td>
+                  <td><span class="badge-high">Excellent</span></td>
+                  <td><span class="badge-no">Never (Ruts)</span></td>
+                  <td><span class="badge-good">Comfortable</span></td>
+                  <td>Patios, dog runs, stepping stone borders, casual garden paths</td>
+                </tr>
+                <tr>
+                  <td><strong>Decomposed Granite (DG)</strong></td>
+                  <td>3/8" down to silt fines</td>
+                  <td><span class="badge-high">High (Compacted)</span></td>
+                  <td><span class="badge-med">Moderate</span></td>
+                  <td><span class="badge-fair">Light Parking Only</span></td>
+                  <td><span class="badge-good">Excellent</span></td>
+                  <td>Wheelchair accessible paths, bocce courts, rustic patios</td>
+                </tr>
+                <tr>
+                  <td><strong>1" to 3" River Rock</strong></td>
+                  <td>1" to 3" Smooth Rounded Stone</td>
+                  <td><span class="badge-low">Very Low (Ankle Rolling)</span></td>
+                  <td><span class="badge-high">Maximum</span></td>
+                  <td><span class="badge-no">Never</span></td>
+                  <td><span class="badge-no">Difficult</span></td>
+                  <td>Dry creek beds, downspout splash basins, garden borders</td>
+                </tr>
+                <tr>
+                  <td><strong>Mexican Beach Pebbles</strong></td>
+                  <td>1" to 2" Flat Polished Basalt</td>
+                  <td><span class="badge-med">Moderate (Flat)</span></td>
+                  <td><span class="badge-high">High</span></td>
+                  <td><span class="badge-no">Too Costly</span></td>
+                  <td><span class="badge-good">Smooth</span></td>
+                  <td>Modern architectural planters, Japanese gardens, water fountains</td>
+                </tr>
+                <tr>
+                  <td><strong>Lava Rock (Scoria)</strong></td>
+                  <td>3/4" to 1-1/2" Porous Volcanic</td>
+                  <td><span class="badge-fair">Fair (Lightweight)</span></td>
+                  <td><span class="badge-high">Exceptional</span></td>
+                  <td><span class="badge-no">Crushes</span></td>
+                  <td><span class="badge-no">Abrasive</span></td>
+                  <td>Fire pit perimeters, weed-suppressing garden beds, xeriscaping</td>
+                </tr>
+                <tr>
+                  <td><strong>Marble Chips</strong></td>
+                  <td>1/2" to 1" Angular White Calcite</td>
+                  <td><span class="badge-med">Moderate</span></td>
+                  <td><span class="badge-high">High</span></td>
+                  <td><span class="badge-no">Dusty/Stains</span></td>
+                  <td><span class="badge-no">Sharp</span></td>
+                  <td>High-contrast formal shrub beds, monument borders</td>
+                </tr>
+                <tr>
+                  <td><strong>Riprap (Class 1 &amp; 2)</strong></td>
+                  <td>4" to 12" Angular Broken Rock</td>
+                  <td><span class="badge-high">Heavy Interlock</span></td>
+                  <td><span class="badge-high">Maximum</span></td>
+                  <td><span class="badge-no">Impassable</span></td>
+                  <td><span class="badge-no">Dangerous</span></td>
+                  <td>Culvert outlets, steep slope revetments, shoreline stabilization</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  const wizardData = {
+    project: null,
+    traffic: null,
+    slope: null,
+    aesthetic: null
+  };
+
+  const steps = [
+    document.getElementById('wizard-step-1'),
+    document.getElementById('wizard-step-2'),
+    document.getElementById('wizard-step-3'),
+    document.getElementById('wizard-step-4'),
+    document.getElementById('wizard-result')
+  ];
+
+  const progressBar = document.getElementById('wizard-progress');
+
+  function showStep(index) {
+    steps.forEach((s, idx) => {
+      if (s) {
+        s.style.display = idx === index ? 'block' : 'none';
+      }
+    });
+
+    if (progressBar) {
+      const pct = index >= 4 ? 100 : ((index + 1) / 4) * 100;
+      progressBar.style.width = `${pct}%`;
+    }
+
+    if (index === 4) {
+      calculateRecommendation();
+    }
+  }
+
+  // Bind option clicks
+  document.querySelectorAll('.wizard-option-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const field = btn.dataset.field;
+      const val = btn.dataset.val;
+      wizardData[field] = val;
+
+      if (field === 'project') showStep(1);
+      else if (field === 'traffic') showStep(2);
+      else if (field === 'slope') showStep(3);
+      else if (field === 'aesthetic') showStep(4);
+    });
+  });
+
+  // Bind back buttons
+  document.querySelectorAll('.btn-wizard-back').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const current = steps.findIndex(s => s && s.style.display === 'block');
+      if (current > 0) showStep(current - 1);
+    });
+  });
+
+  // Restart
+  const btnRestart = document.getElementById('btn-restart-wizard');
+  if (btnRestart) {
+    btnRestart.addEventListener('click', () => {
+      wizardData.project = null;
+      wizardData.traffic = null;
+      wizardData.slope = null;
+      wizardData.aesthetic = null;
+      showStep(0);
+    });
+  }
+
+  function calculateRecommendation() {
+    const p = wizardData.project;
+    const t = wizardData.traffic;
+    const s = wizardData.slope;
+    const a = wizardData.aesthetic;
+
+    let rec = {
+      title: '#57 Crushed Granite / Limestone',
+      summary: 'The standard civil engineering aggregate for driveways and structural surfaces.',
+      tag: 'Best Match for Your Project',
+      depth: '3 to 4 Inches',
+      depthNote: 'Provides complete coverage, locks together, and prevents rutting.',
+      base: '4" to 6" Compacted Crusher Run (21-A)',
+      baseNote: 'Compacted with a vibratory plate in 2" lifts.',
+      fabric: 'Class 1 Woven Stabilization Geotextile',
+      fabricNote: 'Separates subgrade clay while transmitting wheel loads.',
+      density: '2,700 lbs / yd³ (1.35 Tons)',
+      densityNote: 'Standard ASTM C29 quarry bulk density.',
+      pitfalls: 'Never use smooth river rock or pea gravel on vehicular driveways. Rounded stones lack interlocking friction and tires will spin out and create deep ruts.',
+      calcUrl: '/crushed-stone-calculator'
+    };
+
+    if (p === 'driveway' || t === 'vehicular') {
+      rec.title = '#57 Crushed Stone over Crusher Run Base';
+      rec.summary = 'Engineered two-layer driveway system designed for maximum tire interlock and zero wheel rutting.';
+      rec.depth = '2.5" Top Stone (#57) over 5" Base';
+      rec.base = '5" Compacted Crusher Run (21-A / CA-6)';
+      rec.fabric = 'Class 1 Woven Geotextile Fabric';
+      rec.calcUrl = '/driveway-rock-calculator';
+    } else if (p === 'drainage' || s === 'water-channel') {
+      rec.title = 'Drain Rock (1" to 2" Clean Crushed or Round)';
+      rec.summary = 'Maximum void space aggregate engineered for rapid stormwater percolation without sediment clogging.';
+      rec.depth = 'Fill trench around 4" perforated pipe';
+      rec.depthNote = 'Allow 2" bedding beneath pipe and 6-12" stone envelope above.';
+      rec.base = '2" Crushed stone pipe bedding';
+      rec.fabric = '4 to 6 oz Non-Woven Filter Geotextile (MIRAFI)';
+      rec.fabricNote = 'Permits water flow while blocking clay/silt migration.';
+      rec.density = '2,700 lbs / yd³ (1.35 Tons)';
+      rec.pitfalls = 'Never wrap the perforated pipe itself in a cheap fabric sock. Instead, line the entire trench excavation with non-woven geotextile to prevent the drainage aggregate from clogging.';
+      rec.calcUrl = '/drain-rock-calculator';
+    } else if (p === 'dogrun' || t === 'barefoot') {
+      rec.title = '3/8" Smooth Pea Gravel';
+      rec.summary = 'Natural rounded river pebble that is gentle on pet paws and comfortable for barefoot garden walkways.';
+      rec.depth = '2.5 to 3 Inches';
+      rec.depthNote = 'Keep under 3 inches to prevent a squishy "walking through deep sand" feel.';
+      rec.base = '2" to 3" Compacted Crusher Run with fine edging restraint';
+      rec.fabric = 'Heavy-Duty Landscape Needle-Punched Weed Barrier';
+      rec.density = '2,700 lbs / yd³ (1.35 Tons)';
+      rec.pitfalls = 'Always install deep, rigid border edging (steel or aluminum, 4" depth). Pea gravel is round and will easily spill into surrounding lawns if not securely contained.';
+      rec.calcUrl = '/pea-gravel-calculator';
+    } else if (p === 'walkway' && (a === 'natural-earth' || t === 'pedestrian')) {
+      rec.title = 'Stabilized Decomposed Granite (DG)';
+      rec.summary = 'Rustic, firm, earthy walking surface that compacts like natural sandstone. Excellent for wheelchair accessibility and patio seating.';
+      rec.depth = '3 Inches (Compacted)';
+      rec.depthNote = 'Install in two 1.5-inch lifts with vibratory roller or tamper.';
+      rec.base = '3" Compacted Road Base (#53 or Class 2 AB)';
+      rec.fabric = 'Woven or Non-Woven Subgrade Fabric';
+      rec.density = '2,970 lbs / yd³ (1.485 Tons compacted)';
+      rec.densityNote = 'Compaction factor of 1.25 loose-to-compacted volume.';
+      rec.pitfalls = 'Decomposed granite can track fine dust onto indoor hardwood floors when wet. Install a stone welcome threshold or transition paver at building entryways.';
+      rec.calcUrl = '/decomposed-granite-calculator';
+    } else if (a === 'volcanic' || p === 'firepit') {
+      rec.title = 'Red or Black Lava Rock (Scoria)';
+      rec.summary = 'Ultra-lightweight volcanic stone with high thermal tolerance, rich color contrast, and superior moisture retention for xeriscaping.';
+      rec.depth = '2 to 3 Inches';
+      rec.depthNote = 'Rough volcanic texture provides 100% ground hide at just 2 inches.';
+      rec.base = 'Grade-level soil with weed barrier';
+      rec.fabric = 'Commercial Non-Woven Weed Barrier';
+      rec.density = '1,200 to 1,400 lbs / yd³ (~0.65 Tons)';
+      rec.densityNote = 'Weighs 50% less than traditional stone! Cuts shipping fees dramatically.';
+      rec.pitfalls = 'Ensure lava rock is 100% completely dry before using inside active fire pit combustion rings. Trapped moisture inside porous pockets can build steam pressure when exposed to direct flames.';
+      rec.calcUrl = '/lava-rock-calculator';
+    } else if (a === 'modern-crisp') {
+      rec.title = 'Mexican Beach Pebbles or White Marble Chips';
+      rec.summary = 'High-end architectural stone offering dramatic curb appeal, smooth modern aesthetics, and luxury garden bed definition.';
+      rec.depth = '2.5 to 3.5 Inches (Two-stone depth rule)';
+      rec.depthNote = '1.5-2x the average stone diameter ensures no fabric peek-through.';
+      rec.base = 'Native soil bed edged with 4" black steel';
+      rec.fabric = 'Heavy 5 oz Non-Woven Weed Fabric';
+      rec.density = '2,600 to 2,700 lbs / yd³';
+      rec.pitfalls = 'White marble chips are alkaline calcite—they slowly raise soil pH as rainwater leaches calcium carbonate. Avoid placing marble chips around acid-loving plants like azaleas, hydrangeas, or blueberries.';
+      rec.calcUrl = '/beach-pebble-calculator';
+    } else {
+      rec.title = '1" to 3" Rounded River Rock';
+      rec.summary = 'The gold standard for decorative landscape beds, foundation borders, and low-maintenance mulch replacement.';
+      rec.depth = '3 to 4 Inches';
+      rec.depthNote = 'Large stones require at least 3 inches of depth to prevent fabric exposure.';
+      rec.base = 'Graded subsoil sloping away from foundation';
+      rec.fabric = '4 to 5 oz Needle-Punched Weed Barrier';
+      rec.density = '2,700 lbs / yd³ (1.35 Tons)';
+      rec.pitfalls = 'Never install river rock directly over soil without a heavy-duty geotextile fabric. Over 1 to 2 seasons, heavy stones will sink into damp soil while muddy worms push dirt to the surface.';
+      rec.calcUrl = '/river-rock-calculator';
+    }
+
+    document.getElementById('rec-tag').textContent = rec.tag;
+    document.getElementById('rec-material-title').textContent = rec.title;
+    document.getElementById('rec-material-summary').textContent = rec.summary;
+    document.getElementById('rec-depth').textContent = rec.depth;
+    document.getElementById('rec-depth-note').textContent = rec.depthNote;
+    document.getElementById('rec-base').textContent = rec.base;
+    document.getElementById('rec-base-note').textContent = rec.baseNote;
+    document.getElementById('rec-fabric').textContent = rec.fabric;
+    document.getElementById('rec-fabric-note').textContent = rec.fabricNote;
+    document.getElementById('rec-density').textContent = rec.density;
+    document.getElementById('rec-density-note').textContent = rec.densityNote;
+    document.getElementById('rec-pitfalls').textContent = rec.pitfalls;
+    document.getElementById('rec-calc-btn').href = rec.calcUrl;
+  }
+})();
+</script>
+
+<style>
+  .wizard-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    margin-bottom: var(--space-8);
+  }
+
+  .wizard-progress-bar {
+    height: 6px;
+    background: var(--slate-800);
+    width: 100%;
+  }
+
+  .wizard-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-500), #10b981);
+    transition: width var(--duration-base) var(--ease-smooth);
+  }
+
+  .wizard-steps-container {
+    padding: var(--space-8) var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .wizard-steps-container {
+      padding: var(--space-10) var(--space-12);
+    }
+  }
+
+  .step-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-2);
+  }
+
+  .step-question {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .step-instruction {
+    font-size: 0.925rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .options-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .wizard-option-btn {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+    color: inherit;
+    width: 100%;
+  }
+
+  .wizard-option-btn:hover {
+    background: var(--slate-800);
+    border-color: var(--gold-400);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .option-icon-box {
+    color: var(--gold-400);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .option-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .option-text strong {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .option-text span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .step-nav-row {
+    margin-top: var(--space-6);
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  /* Result Styling */
+  .result-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .result-badge-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+  }
+
+  .result-tag {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    font-size: 0.775rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+  }
+
+  .rec-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .rec-summary {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .rec-specs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 640px) {
+    .rec-specs-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .rec-specs-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .spec-card {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+  }
+
+  .spec-label {
+    font-size: 0.725rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-1);
+  }
+
+  .spec-val {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-400);
+    margin-bottom: var(--space-1);
+  }
+
+  .spec-note {
+    font-size: 0.775rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .rec-pitfalls-box {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .pitfall-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: #f87171;
+    font-weight: 700;
+    font-size: 0.875rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .rec-pitfalls-box p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .rec-cta-row {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  /* Table styling */
+  .matrix-table-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+
+  .data-table th {
+    background: var(--slate-850);
+    padding: var(--space-3) var(--space-4);
+    color: var(--text-primary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-subtle);
+    white-space: nowrap;
+  }
+
+  .data-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid rgba(107, 122, 141, 0.15);
+    color: var(--text-secondary);
+  }
+
+  .data-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .badge-high { color: #34d399; font-weight: 600; }
+  .badge-good { color: #60a5fa; font-weight: 600; }
+  .badge-med { color: var(--gold-400); font-weight: 600; }
+  .badge-fair { color: #fbbf24; font-weight: 600; }
+  .badge-low { color: #94a3b8; }
+  .badge-no { color: #f87171; font-weight: 600; }
+</style>

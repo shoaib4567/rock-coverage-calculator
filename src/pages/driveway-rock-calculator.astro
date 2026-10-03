@@ -1,9 +1,10 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import CivilStructuralBlock from '../components/intent/CivilStructuralBlock.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
@@ -117,6 +118,7 @@ const supportGuides = [
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="civil"
     />
 
     <!-- Interactive Driveway Rock Calculator Tool -->
@@ -178,6 +180,9 @@ const supportGuides = [
         </div>
       </div>
     </section>
+
+    <!-- Civil Truckload Logistics & Subgrade Stabilization Block -->
+    <CivilStructuralBlock />
 
     <!-- Technical Guide on Driveway Rock Coverage -->
     <article class="content-guide-section">

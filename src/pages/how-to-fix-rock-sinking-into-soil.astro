@@ -1,0 +1,358 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Fix Sinking Rock Guide', url: '/how-to-fix-rock-sinking-into-soil' }
+];
+
+const title = "Why Landscape Rock Sinks into Soil & How to Fix It - Remediation Guide";
+const metaDescription = "Diagnose and fix landscape rock, river pebbles, and gravel sinking into muddy ground. Geotechnical subgrade failure causes, geotextile CBR puncture rules, and 4 practical fixes.";
+---
+
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/how-to-fix-rock-sinking-into-soil">
+  <Header />
+
+  <main id="main-content">
+    <PageHero
+      title="Why Landscape Rock Sinks into Mud & How to Fix It"
+      subtitle="Heavy stone laid directly over bare dirt will sink into the subgrade within 1 to 2 seasons. Understand the geotechnical root cause and learn 4 practical ways to fix sinking gravel."
+      badge="Geotechnical Troubleshooting"
+      breadcrumbs={breadcrumbs}
+      theme="utility"
+    />
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <!-- Diagnosis Summary Box -->
+        <div class="aeo-box">
+          <div class="aeo-header">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <h3>The Root Cause: Subgrade Shear Failure</h3>
+          </div>
+          <p>
+            When heavy rock (weighing 100 to 110 lbs per cubic foot) is poured onto native soil without an engineered geotextile separation barrier, three forces cause it to disappear: <strong>(1) Rainwater saturation</strong> softens the soil's California Bearing Ratio (CBR); <strong>(2) Point-load ground pressure</strong> forces sharp stone edges downward; and <strong>(3) Earthworm and biological activity</strong> pushes loose muddy castings upward over the stones. Within 18 months, your expensive rock bed turns into a lumpy, muddy weed patch.
+          </p>
+        </div>
+
+        <!-- 4 Remediation Fixes -->
+        <div class="methods-container" style="margin-top: var(--space-10);">
+          <article class="method-card">
+            <div class="method-num-badge">Method 1</div>
+            <div class="method-content">
+              <h3>The "Scrape and Underlay" (Permanent Gold-Standard Fix)</h3>
+              <p>
+                If your rock is sinking in a decorative bed or pathway, temporary surface patches will only waste money. The permanent fix:
+              </p>
+              <ul>
+                <li>Use a flat-edge transfer shovel or landscape rake to scrape the top stone into temporary staging piles or wheelbarrows.</li>
+                <li>Rake the muddy subsoil flat and compact it using a hand tamper.</li>
+                <li>Lay a high-tensile <strong>4 oz to 6 oz Non-Woven or Class 1 Woven Geotextile Fabric</strong> (ASTM D4833 CBR puncture tested &gt; 300 lbs). Overlap all seams by at least <strong>12 inches</strong> and anchor with 6-inch steel landscape staples.</li>
+                <li>Shovel the cleaned stone back over the fabric at the recommended <strong>3-inch minimum depth</strong>.</li>
+              </ul>
+              <div class="method-tip">
+                <strong>Why Cheap Landscape Fabric Fails:</strong> Standard thin spunbonded plastic weed barrier from hardware stores has a puncture resistance under 40 lbs. The first person who steps on a sharp rock drives it straight through the fabric like a nail.
+              </div>
+            </div>
+          </article>
+
+          <article class="method-card">
+            <div class="method-num-badge">Method 2</div>
+            <div class="method-content">
+              <h3>The "Bridging Base Course" (For Driveways &amp; Parking Areas)</h3>
+              <p>
+                On vehicular surfaces, sinking rock is caused by tire shear loads. If you cannot remove all existing sunken gravel:
+              </p>
+              <ul>
+                <li>Do not add more clean river rock or pea gravel—it will simply sink deeper into the mud.</li>
+                <li>Instead, spread a <strong>3- to 4-inch layer of Crusher Run (21-A / CA-6 dense aggregate base)</strong> directly over the existing sunken stone.</li>
+                <li>The angular stones and mineral stone dust will lock into the sunken gravel voids, creating a rigid bridging slab that distributes vehicle tire loads across a wider surface area.</li>
+                <li>Compact with a heavy vibratory plate compactor or roller while lightly misting with water.</li>
+              </ul>
+              <div class="method-cta">
+                <a href="/crusher-run-calculator" class="btn btn-sm btn-secondary">Calculate Crusher Run Base Volume &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="method-card">
+            <div class="method-num-badge">Method 3</div>
+            <div class="method-content">
+              <h3>Install Biaxial Geogrid Over Wet Clay (Tensioned Membrane Effect)</h3>
+              <p>
+                In areas with expansive high-plasticity clay soil (common in the Midwest, Texas, and the South), saturated subsoil turns into liquid mud during spring rains:
+              </p>
+              <ul>
+                <li>Roll out a <strong>Biaxial Geogrid (rigid polypropylene polymer mesh)</strong>.</li>
+                <li>When crushed stone aggregate is dumped and compacted over the grid, the stone particles lock into the open aperture squares.</li>
+                <li>This creates an interlocked "geosynthetic-reinforced mattress" that prevents rocks from being pushed down into the clay, acting like a snowshoe on soft powder snow.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="method-card">
+            <div class="method-num-badge">Method 4</div>
+            <div class="method-content">
+              <h3>Subgrade Drainage &amp; Perforated Collector Pipes (Remove the Water)</h3>
+              <p>
+                Soil only liquefies and loses its bearing strength when saturated with trapped water. If water has nowhere to drain, the soil beneath your rock bed remains soft mud year-round:
+              </p>
+              <ul>
+                <li>Ensure the excavation subgrade is graded with a <strong>1% to 2% slope</strong> away from your home's foundation.</li>
+                <li>If the area forms a low spot or natural basin, install a perforated French drain collector trench at the lowest edge.</li>
+                <li>Draining subsurface pore water keeps the underlying clay firm and compacted, physically preventing stones from sinking.</li>
+              </ul>
+              <div class="method-cta">
+                <a href="/drain-rock-calculator" class="btn btn-sm btn-secondary">Calculate Drain Rock for Drainage Remediation &rarr;</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Fabric Selection Table -->
+        <div class="section-header" style="margin-top: var(--space-12);">
+          <h2>Geotextile Underlayment Comparison Guide</h2>
+          <div class="section-divider"></div>
+          <p>Choosing the correct fabric specification is the #1 factor preventing future rock sinkage.</p>
+        </div>
+
+        <div class="fabric-table-card">
+          <div class="table-responsive">
+            <table class="fabric-table">
+              <thead>
+                <tr>
+                  <th>Fabric Classification</th>
+                  <th>CBR Puncture Strength</th>
+                  <th>Water Permeability</th>
+                  <th>Recommended Use Case</th>
+                  <th>Will Rock Sink Through It?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Cheap Spunbonded Plastic</strong></td>
+                  <td>&lt; 50 lbs (Very Low)</td>
+                  <td>Poor (Puddles)</td>
+                  <td>Temporary annual flower beds only</td>
+                  <td><span class="badge-fails">Yes, within 6 months</span></td>
+                </tr>
+                <tr>
+                  <td><strong>4 oz Non-Woven Geotextile</strong></td>
+                  <td>250–350 lbs (High)</td>
+                  <td>Excellent (High GPM)</td>
+                  <td>Landscape garden beds, river rock, French drains</td>
+                  <td><span class="badge-passes">No, 15+ year barrier</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Class 1 Woven Stabilization Fabric</strong></td>
+                  <td>400–700 lbs (Extreme)</td>
+                  <td>Moderate</td>
+                  <td>Vehicular driveways, gravel roads, paver subbases</td>
+                  <td><span class="badge-passes">Never (Truck load rated)</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Biaxial Geogrid Mesh</strong></td>
+                  <td>Tensile Aperture Lock</td>
+                  <td>100% Free Flow</td>
+                  <td>Severe wet clay subgrades, parking pads</td>
+                  <td><span class="badge-passes">Locks stone into grid</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Related Troubleshooting & Engineering Guides -->
+        <div style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border-subtle);">
+          <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.5rem;">Related Problem-Solving Guides &amp; Tools</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+            <a href="/how-to-stop-weeds-in-landscape-rock" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
+              <span style="display: inline-block; padding: 2px 8px; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Weed Prevention</span>
+              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Stop Weeds in Landscape Rock</h4>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Why weeds germinate above fabric in windblown silt and how flame weeders &amp; pre-emergents stop them.</p>
+            </a>
+            <a href="/how-to-stop-gravel-washing-out-on-slope" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
+              <span style="display: inline-block; padding: 2px 8px; background: rgba(234, 179, 8, 0.15); color: #eab308; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Erosion Fix</span>
+              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Stop Gravel Washing Out on Slopes</h4>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Angular stone interlocking, check dams, and geocell stabilization methods for erosion.</p>
+            </a>
+            <a href="/rock-vs-mulch-calculator" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
+              <span style="display: inline-block; padding: 2px 8px; background: rgba(212, 168, 83, 0.15); color: var(--gold-400); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Economic Model</span>
+              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Rock vs Mulch 10-Year Calculator</h4>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Calculate the exact 3.4-year break-even point when rock beats recurring mulch costs.</p>
+            </a>
+            <a href="/rock-bag-weight-and-price-guide" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
+              <span style="display: inline-block; padding: 2px 8px; background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Retail Pricing</span>
+              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Bag Weight &amp; Price Database</h4>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Home Depot &amp; Lowe's 0.5 cu ft bag weights, payload safety, and bulk cost tipping points.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .aeo-box {
+    background: rgba(20, 26, 33, 0.7);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .aeo-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: #f87171;
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-header h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .aeo-box p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .methods-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .method-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-5);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .method-num-badge {
+    background: rgba(212, 168, 83, 0.15);
+    border: 1px solid rgba(212, 168, 83, 0.3);
+    color: var(--gold-400);
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .method-content {
+    flex: 1;
+  }
+
+  .method-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .method-content p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .method-content ul {
+    margin: 0 0 var(--space-3) 0;
+    padding-left: var(--space-4);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .method-content li {
+    margin-bottom: var(--space-2);
+  }
+
+  .method-tip {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: var(--space-4);
+  }
+
+  .method-tip strong {
+    color: #f87171;
+  }
+
+  .method-cta {
+    margin-top: var(--space-2);
+  }
+
+  /* Table */
+  .fabric-table-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .fabric-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+
+  .fabric-table th {
+    background: var(--slate-850);
+    padding: var(--space-4);
+    color: var(--text-primary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-subtle);
+    white-space: nowrap;
+  }
+
+  .fabric-table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid rgba(107, 122, 141, 0.15);
+    color: var(--text-secondary);
+  }
+
+  .fabric-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .badge-fails {
+    color: #f87171;
+    font-weight: 700;
+  }
+
+  .badge-passes {
+    color: #34d399;
+    font-weight: 700;
+  }
+</style>

@@ -1,0 +1,437 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Gravel Trade Names by State', url: '/gravel-trade-names-by-state' }
+];
+
+const title = "Gravel & Aggregate Trade Names by State - Regional Cross-Reference Guide";
+const metaDescription = "Complete state-by-state directory of gravel, base aggregate, and crushed stone trade names. Translate 21-A, CA-6, #304, #53, Item 4, QP, and ABC to civil ASTM/AASHTO specs.";
+
+const tradeData = [
+  // Northeast
+  { state: "New York", dotCode: "NYSDOT Item 4 (Subbase Type 1 & 2)", quarryNames: "Item 4, Crusher Run, Run of Bank", sieve: "2\" or 1.5\" down to mineral dust", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "Heavy driveway subbase, highway road foundation", calcSlug: "/crusher-run-calculator" },
+  { state: "New Jersey", dotCode: "NJDOT DGA (Dense Graded Aggregate)", quarryNames: "DGA, Quarry Process (QP), Dirty Stone", sieve: "1.5\" down to #200 sieve", density: "2,950 lbs / yd³ (1.48 T)", compaction: "20% (×1.25)", use: "Commercial parking subbases, municipal road foundations", calcSlug: "/crusher-run-calculator" },
+  { state: "Pennsylvania", dotCode: "PennDOT 2A Modified / 2RC", quarryNames: "2A Modified, 2RC Road Stone", sieve: "1.5\" down to #200 fines", density: "2,900 lbs / yd³ (1.45 T)", compaction: "18% (×1.22)", use: "Driveway base, paver subgrade, retaining wall backfill", calcSlug: "/crushed-stone-calculator" },
+  { state: "Massachusetts / CT / NH / VT / ME", dotCode: "MassDOT M2.01.7 Dense Graded Base", quarryNames: "Dense Grade, 3/4\" Minus, Bank Run Gravel", sieve: "3/4\" down to mineral fines", density: "2,850 lbs / yd³ (1.43 T)", compaction: "20% (×1.25)", use: "Frost-heave resistant residential driveways", calcSlug: "/crusher-run-calculator" },
+
+  // Mid-Atlantic & Southeast
+  { state: "Virginia", dotCode: "VDOT 21-A / 21-B", quarryNames: "21-A (Fine Base), 21-B (Coarse Base), Crusher Run", sieve: "1\" down to #200 sieve", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "State highway base, residential gravel driveways", calcSlug: "/crusher-run-calculator" },
+  { state: "Maryland", dotCode: "MDOT SHA GAB (Graded Aggregate Base)", quarryNames: "CR-6 (Crusher Run 6), GAB, Crusher Run", sieve: "1.5\" down to fines", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "Driveway subbase, foundation trench backfill", calcSlug: "/crusher-run-calculator" },
+  { state: "North Carolina", dotCode: "NCDOT ABC (Aggregate Base Course)", quarryNames: "ABC Stone, Crusher Run, Compactable Base", sieve: "1.5\" down to mineral dust", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "All vehicular driveway construction, paver base", calcSlug: "/crusher-run-calculator" },
+  { state: "South Carolina", dotCode: "SCDOT Macadam Base", quarryNames: "Macadam, CR-14, Crusher Run", sieve: "1.5\" down to fines", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "Compacted base layer under asphalt and top gravel", calcSlug: "/crusher-run-calculator" },
+  { state: "Georgia", dotCode: "GDOT GAB (Graded Aggregate Base)", quarryNames: "GAB, Crusher Run, 810 Base", sieve: "1.5\" down to mineral fines", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "Standard base for driveways, roads, and concrete pads", calcSlug: "/crusher-run-calculator" },
+  { state: "Florida", dotCode: "FDOT Section 285 Limerock Base", quarryNames: "Limerock Base, Coquina Base, Shell Rock", sieve: "3.5\" maximum down to dust (soft limestone)", density: "2,400 to 2,600 lbs / yd³", compaction: "25% (×1.33)", use: "High-compaction road base in sandy Florida soils", calcSlug: "/crushed-stone-calculator" },
+  { state: "Alabama", dotCode: "ALDOT Section 825 Dense Base", quarryNames: "ALDOT 825 Type A & B, Dense Graded Limestone", sieve: "1\" down to fines", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "Structural base for farm roads and home driveways", calcSlug: "/crusher-run-calculator" },
+  { state: "Tennessee", dotCode: "TDOT Pug Mix (Mineral Aggregate Base)", quarryNames: "Pug Mix, Dense Grade Base (DGB), Crusher Run", sieve: "1.5\" down to dust", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "Premixed with optimal moisture for roller compaction", calcSlug: "/crusher-run-calculator" },
+
+  // Midwest
+  { state: "Illinois", dotCode: "IDOT CA-6 / CA-10", quarryNames: "CA-6 (Crushed Aggregate 6), CA-10, Road Pack", sieve: "1\" down to #200 sieve", density: "2,970 lbs / yd³ (1.485 T)", compaction: "20% (×1.25)", use: "The most widely specified road base in the Midwest", calcSlug: "/crusher-run-calculator" },
+  { state: "Ohio", dotCode: "ODOT Item 304 / Item 411", quarryNames: "#304 Aggregate Base, #411 Berm / Driveway Stone", sieve: "#304: 2\" to dust; #411: 3/4\" to dust", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "#304 for heavy base; #411 with extra fines for surface binding", calcSlug: "/crusher-run-calculator" },
+  { state: "Indiana", dotCode: "INDOT #53 / #73 Stone", quarryNames: "Dense Graded #53, Compactable #73", sieve: "#53: 1.5\" to dust; #73: 1\" to dust", density: "2,950 lbs / yd³ (1.48 T)", compaction: "20% (×1.25)", use: "Compacted base for parking pads, pole barns, driveways", calcSlug: "/crusher-run-calculator" },
+  { state: "Michigan", dotCode: "MDOT 21AA / 22A", quarryNames: "21AA Dense Limestone, 22A Gravel", sieve: "1.5\" down to mineral dust", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "21AA (100% crushed rock) resists freeze-thaw cycles", calcSlug: "/crusher-run-calculator" },
+  { state: "Wisconsin", dotCode: "WisDOT 1-1/4\" Base Aggregate Dense", quarryNames: "1-1/4\" Breaker Run, Dense Base, Traffic Bond", sieve: "1-1/4\" down to fines", density: "2,900 lbs / yd³ (1.45 T)", compaction: "18% (×1.22)", use: "Heavy subbase for residential driveways and cattle yards", calcSlug: "/crusher-run-calculator" },
+  { state: "Minnesota", dotCode: "MnDOT Class 5 / Class 6 Base", quarryNames: "Class 5 Gravel, Class 5 Crushed Limestone", sieve: "1\" down to #200 sieve", density: "2,800 to 2,900 lbs / yd³", compaction: "18% (×1.22)", use: "The standard driveway material across MN and the Dakotas", calcSlug: "/gravel-calculator" },
+  { state: "Missouri / Kansas", dotCode: "MoDOT Type 5 Aggregate Base", quarryNames: "Type 5 Base, Rolling Base, Crusher Run", sieve: "1\" down to fines", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "Standard base under asphalt and chip-seal roads", calcSlug: "/crusher-run-calculator" },
+
+  // South & Southwest
+  { state: "Texas", dotCode: "TxDOT Item 247 Type A/B Grade 1-2 Flexbase", quarryNames: "Flexbase, Caliche Base, Crushed Limestone Base", sieve: "1-3/4\" down to mineral fines", density: "2,800 to 2,950 lbs / yd³", compaction: "20% (×1.25)", use: "Foundational base for ranches, driveways, commercial yards", calcSlug: "/crushed-stone-calculator" },
+  { state: "Arizona", dotCode: "ADOT Class 2 Aggregate Base", quarryNames: "ABC, Chat, 3/4\" Minus Granite Base", sieve: "1\" down to fines", density: "2,800 lbs / yd³ (1.40 T)", compaction: "18% (×1.22)", use: "Xeriscape walking paths, desert ranch access roads", calcSlug: "/decomposed-granite-calculator" },
+  { state: "Colorado / Utah", dotCode: "CDOT Class 6 Road Base", quarryNames: "Class 6 Base, 3/4\" Road Base, Pit Run", sieve: "3/4\" down to #200 sieve", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "Rocky Mountain high-elevation driveways and snow roads", calcSlug: "/crusher-run-calculator" },
+
+  // West & Pacific Northwest
+  { state: "California", dotCode: "Caltrans Class 2 Aggregate Base (Class 2 AB)", quarryNames: "Class 2 AB, Road Base, 3/4\" Minus Crushed Rock", sieve: "3/4\" down to #200 sieve", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "Universal base under driveways, pavers, permeable roads", calcSlug: "/crushed-stone-calculator" },
+  { state: "Washington / Oregon", dotCode: "WSDOT CSBC (Crushed Surfacing Base Course)", quarryNames: "5/8\" Minus, 1-1/4\" Minus, CSBC, CSTC", sieve: "5/8\" or 1-1/4\" down to rock dust", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "5/8\" minus for top dressing; 1-1/4\" minus for soft subgrades", calcSlug: "/crusher-run-calculator" },
+  { state: "Nevada", dotCode: "NDOT Type 2 Class B Aggregate Base", quarryNames: "Type 2 Base, 3/4\" Minus Base", sieve: "3/4\" down to fines", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "Compacted subbase for arid desert climates", calcSlug: "/crusher-run-calculator" }
+];
+---
+
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/gravel-trade-names-by-state">
+  <Header />
+
+  <main id="main-content">
+    <PageHero
+      title="Regional Gravel & Aggregate Trade Names by State"
+      subtitle="The same structural aggregate goes by dozens of local names: 21-A, CA-6, #304, #53, Item 4, QP, ABC, and Flexbase. Find your state's exact DOT specification."
+      badge="Civil Engineering Specification Hub"
+      breadcrumbs={breadcrumbs}
+      theme="civil"
+    />
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <!-- Interactive Search & Filter Bar -->
+        <div class="trade-search-card">
+          <div class="trade-search-inner">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input 
+              type="text" 
+              id="trade-search-input" 
+              placeholder="Search by state, DOT code, or trade name (e.g. 'Virginia', 'CA-6', 'Item 4', 'Flexbase', 'Class 5')..."
+              aria-label="Filter aggregate trade names by state or code"
+            />
+            <button type="button" id="btn-clear-trade-search" class="btn-clear-search" style="display: none;" aria-label="Clear search input">&times;</button>
+          </div>
+          <div class="search-stats-row">
+            <span id="search-count-label">Showing all 25 state aggregate standards</span>
+            <div class="quick-tags">
+              <button type="button" class="btn-tag" data-tag="21-A">21-A</button>
+              <button type="button" class="btn-tag" data-tag="CA-6">CA-6</button>
+              <button type="button" class="btn-tag" data-tag="#304">#304</button>
+              <button type="button" class="btn-tag" data-tag="#53">#53</button>
+              <button type="button" class="btn-tag" data-tag="Item 4">Item 4</button>
+              <button type="button" class="btn-tag" data-tag="QP">QP</button>
+              <button type="button" class="btn-tag" data-tag="ABC">ABC</button>
+              <button type="button" class="btn-tag" data-tag="Flexbase">Flexbase</button>
+              <button type="button" class="btn-tag" data-tag="Class 5">Class 5</button>
+              <button type="button" class="btn-tag" data-tag="5/8 Minus">5/8" Minus</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Master Directory Table -->
+        <div class="trade-table-card">
+          <div class="table-responsive">
+            <table class="trade-table" id="trade-table">
+              <thead>
+                <tr>
+                  <th>State / Region</th>
+                  <th>DOT Specification</th>
+                  <th>Common Quarry Trade Names</th>
+                  <th>Nominal Sieve Grading</th>
+                  <th>Loose Bulk Density</th>
+                  <th>Compaction Factor</th>
+                  <th>Calculate</th>
+                </tr>
+              </thead>
+              <tbody id="trade-table-body">
+                {tradeData.map((item) => (
+                  <tr class="trade-row" data-search={`${item.state} ${item.dotCode} ${item.quarryNames} ${item.sieve}`.toLowerCase()}>
+                    <td><strong>{item.state}</strong></td>
+                    <td><span class="dot-badge">{item.dotCode}</span></td>
+                    <td class="quarry-name-cell">{item.quarryNames}</td>
+                    <td>{item.sieve}</td>
+                    <td class="density-cell">{item.density}</td>
+                    <td><span class="compaction-badge">{item.compaction}</span></td>
+                    <td>
+                      <a href={item.calcSlug} class="btn btn-sm btn-secondary">Calculate</a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Technical Guide & Why Names Differ -->
+        <div class="editorial-box" style="margin-top: var(--space-12);">
+          <h3>Why Does the Same Rock Have 20 Different Names?</h3>
+          <p>
+            In civil engineering, a <strong>dense-graded aggregate base</strong> is an engineered blend of angular crushed stone fragments ranging from coarse aggregate (3/4-inch to 1-1/2-inch) continuously graded down to fine mineral stone dust (#200 sieve). 
+          </p>
+          <p>
+            When wetted and compacted with a vibratory roller, the smaller stone particles and mineral fines migrate into the void spaces between the larger stones. This mechanical interlock creates an impermeable, semi-rigid foundation that resists rutting from heavy vehicles and acts as a load-distribution bridge over soft subgrade soils.
+          </p>
+          <div class="specs-callout-grid">
+            <div class="callout-card">
+              <h4>Clean Stone (#57) vs. Dense Base (21-A / CA-6)</h4>
+              <p>
+                <strong>#57 Stone</strong> is washed with zero fines. It is free-draining and will never compact into a rigid slab. It is ideal for French drains and driveway surface courses. <strong>Crusher Run / CA-6</strong> contains 8% to 15% mineral fines and compacts like low-strength concrete, making it the mandatory foundation under any driveway.
+              </p>
+            </div>
+            <div class="callout-card">
+              <h4>The 20% Compaction Multiplier Rule</h4>
+              <p>
+                Because dense-graded base materials pack together tightly when compacted, their in-place volume decreases by 18% to 22% compared to their loose stockpile volume. To achieve a target 4-inch compacted depth, you must order <strong>1.25 times</strong> the loose cubic yards (4 &divide; 0.80 = 5.0 inches loose spread).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  const searchInput = document.getElementById('trade-search-input');
+  const clearBtn = document.getElementById('btn-clear-trade-search');
+  const countLabel = document.getElementById('search-count-label');
+  const rows = document.querySelectorAll('.trade-row');
+  const tagButtons = document.querySelectorAll('.btn-tag');
+
+  function filterTable(query) {
+    const q = query.trim().toLowerCase();
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+      const text = row.dataset.search || '';
+      const match = q === '' || text.includes(q);
+      row.style.display = match ? '' : 'none';
+      if (match) visibleCount++;
+    });
+
+    if (clearBtn) {
+      clearBtn.style.display = q ? 'inline-block' : 'none';
+    }
+
+    if (countLabel) {
+      countLabel.textContent = `Showing ${visibleCount} of ${rows.length} state aggregate standards`;
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      filterTable(e.target.value);
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      filterTable('');
+      searchInput?.focus();
+    });
+  }
+
+  tagButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = btn.dataset.tag || '';
+      if (searchInput) {
+        searchInput.value = tag;
+        filterTable(tag);
+      }
+    });
+  });
+})();
+</script>
+
+<style>
+  .trade-search-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .trade-search-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background: var(--slate-950);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-4);
+    transition: border-color var(--duration-fast);
+  }
+
+  .trade-search-inner:focus-within {
+    border-color: var(--gold-400);
+    box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.15);
+  }
+
+  .search-icon {
+    color: var(--gold-400);
+    flex-shrink: 0;
+  }
+
+  .trade-search-inner input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    width: 100%;
+  }
+
+  .trade-search-inner input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .btn-clear-search {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 var(--space-2);
+  }
+
+  .btn-clear-search:hover {
+    color: var(--text-primary);
+  }
+
+  .search-stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-4);
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  #search-count-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .quick-tags {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .btn-tag {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    transition: all var(--duration-fast);
+  }
+
+  .btn-tag:hover {
+    border-color: var(--gold-400);
+    color: var(--gold-400);
+    background: var(--slate-800);
+  }
+
+  /* Table styling */
+  .trade-table-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .trade-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  .trade-table th {
+    background: var(--slate-850);
+    padding: var(--space-4);
+    color: var(--text-primary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-subtle);
+    white-space: nowrap;
+  }
+
+  .trade-table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid rgba(107, 122, 141, 0.15);
+    color: var(--text-secondary);
+    vertical-align: middle;
+  }
+
+  .trade-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .dot-badge {
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    color: #60a5fa;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 0.775rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .quarry-name-cell {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .density-cell {
+    font-family: var(--font-mono);
+    font-size: 0.825rem;
+    color: var(--gold-300);
+    white-space: nowrap;
+  }
+
+  .compaction-badge {
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #34d399;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Editorial Box */
+  .editorial-box {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+  }
+
+  .editorial-box h3 {
+    font-size: 1.35rem;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .editorial-box p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+  }
+
+  .specs-callout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .specs-callout-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .callout-card {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+  }
+
+  .callout-card h4 {
+    font-size: 1rem;
+    color: var(--gold-400);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .callout-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+</style>

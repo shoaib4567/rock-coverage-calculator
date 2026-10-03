@@ -467,9 +467,9 @@ const supportGuides = [
         const topTons = topYards * 1.35;
         const topBags = Math.ceil((topTons * 2000) / 50);
 
-        // Base layer: Crusher run density 1.45 t/yd³ loose, 20% compaction
-        const baseLooseYards = (area * (baseDepth / 12)) / 27;
-        const baseAdjustedYards = baseLooseYards * 1.20; // 20% compaction
+        // Base layer: Crusher run density 1.45 t/yd³ loose, 20% compaction (Order = Compacted Volume ÷ 0.80 = × 1.25)
+        const baseFinishedYards = (area * (baseDepth / 12)) / 27;
+        const baseAdjustedYards = baseFinishedYards * 1.25; // 20% consolidation compensation
         const baseTons = baseAdjustedYards * 1.45;
 
         // Fabric (area + 10% overlap)

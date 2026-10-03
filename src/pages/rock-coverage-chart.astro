@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -6,10 +6,10 @@ import CoverageChartCalculator from '../components/calculators/CoverageChartCalc
 import CoverageChartVisualizer from '../components/visualizers/CoverageChartVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import QuickConverterBlock from '../components/intent/QuickConverterBlock.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Rock Coverage', url: '/rock-coverage-chart' },
   { name: 'Rock Coverage Chart', url: '/rock-coverage-chart' }
 ];
 
@@ -117,11 +117,15 @@ const supportGuides = [
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="utility"
     />
 
     <CoverageChartCalculator />
 
     <CoverageChartVisualizer />
+
+    <!-- Instant Unit Equivalents Block -->
+    <QuickConverterBlock />
 
     <!-- Engineering Guide Section -->
     <article class="content-guide-section">

@@ -1,0 +1,621 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Troubleshooting', url: '/how-to-install-landscape-rock' },
+  { name: 'Stop Weeds in Landscape Rock', url: '/how-to-stop-weeds-in-landscape-rock' }
+];
+
+const title = "Why Weeds Grow in Landscape Rock (And How to Stop Them Permanently)";
+const metaDescription = "Why landscape fabric fails after 2 years. Discover why weeds germinate on top of fabric in stone dust, how to prevent root anchoring, pre-emergent schedules, and flame weeding.";
+---
+
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/how-to-stop-weeds-in-landscape-rock">
+  <Header />
+
+  <main id="main-content">
+    <PageHero
+      title="Why Weeds Grow in Landscape Rock — And How to Stop Them"
+      subtitle="The biggest disappointment in landscaping: spending thousands on rock and fabric, only to fight weeds two years later. Here is the soil science of why it happens and the 4-step contractor protocol to keep rock beds weed-free."
+      badge="Agronomic & Maintenance Guide"
+      breadcrumbs={breadcrumbs}
+      theme="gravel"
+    />
+
+    <article class="article-body">
+      <div class="container article-container">
+
+        <!-- Executive Summary Callout Box -->
+        <div class="callout-box" style="border-left: 4px solid var(--accent-emerald); background: rgba(16, 185, 129, 0.08);">
+          <div class="callout-header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <h3 style="margin:0; font-size:1.15rem; color:var(--accent-emerald); font-weight:700;">The Core Geotechnical Truth</h3>
+          </div>
+          <p style="margin: 0.75rem 0 0 0; line-height: 1.65; color: var(--text-secondary);">
+            <strong>90% of weeds growing in landscape rock are NOT punching through the fabric from the dirt below.</strong> They are germinating <em>above</em> the fabric inside a layer of windblown silt, lawn mower dust, and decomposing leaves that settled into the stone voids. Treating your rock bed like a zero-maintenance concrete slab guarantees failure; managing the sediment layer guarantees success.
+          </p>
+        </div>
+
+        <!-- Section 1: The Anatomy of Fabric Failure -->
+        <section class="guide-section">
+          <h2>1. The 3 Stages of Landscape Rock Weed Infestation</h2>
+          <p>
+            When homeowners install decorative river rock, lava rock, or pea gravel over black landscape fabric, the first 12 to 18 months are almost completely weed-free. But by year 3, dandelions, thistle, spurge, and crabgrass appear everywhere. Homeowners curse the contractor or assume the weed barrier was defective.
+          </p>
+          <p>
+            Here is what actually happens chronologically beneath your feet:
+          </p>
+
+          <div class="stages-timeline">
+            <div class="stage-card">
+              <div class="stage-badge">Month 0 – 12</div>
+              <h4>Stage 1: The Pristine Phase</h4>
+              <p>The freshly washed stone sits on virgin geotextile. The voids between stones are filled with clean air. Any weed seed blown into the bed has zero moisture retention and zero organic nutrients; it bakes in the sun and perishes.</p>
+            </div>
+
+            <div class="stage-card">
+              <div class="stage-badge">Month 12 – 24</div>
+              <h4>Stage 2: The Sediment Siltation Phase</h4>
+              <p>Windstorms, lawn mowing discharges, pollen, tree leaves, and atmospheric dust settle into the stone voids. Rain washes these microscopic particles down through the rocks where they collect directly on top of the fabric surface, forming a 1/8" to 1/4" layer of nutrient-dense silt loam.</p>
+            </div>
+
+            <div class="stage-card">
+              <div class="stage-badge">Month 24+</div>
+              <h4>Stage 3: The Above-Fabric Hydroponic Bed</h4>
+              <p>Bird droppings and wind deposit weed seeds directly into the damp sediment layer between the warm stones. The rocks trap radiant heat and morning dew, creating an ideal incubator. The weed seeds sprout and send lateral roots through the stone dust matrix.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Why Cheap Fabric Makes Things 10x Worse -->
+        <section class="guide-section">
+          <h2>2. The "Chinese Finger Trap" of Cheap Spunbond Fabric</h2>
+          <p>
+            If weeds are growing above the fabric, why does the choice of fabric matter so much? Because of root anchoring mechanics:
+          </p>
+
+          <div class="grid-2-col">
+            <div class="comparison-card bad">
+              <div class="card-status-pill bad">Cheap Spunbond / Woven Plastic (1–2 oz)</div>
+              <h4>The Root Anchoring Trap</h4>
+              <p>Cheap woven weed barrier (looks like plastic tarp material) or thin spunbond polyester allows vigorous taproots (dandelions, wild violet, thistle) to poke microscopic root hairs through the weave. Once the root expands on the subsoil side, the fabric acts like a <strong>Chinese finger trap</strong>.</p>
+              <p>When you grab the weed to pull it:</p>
+              <ul>
+                <li>The weed stem snaps off at the crown, leaving the root alive to regrow in 7 days.</li>
+                <li>Or worse: the root grips the fabric, tearing the cloth upward, lifting subgrade mud into your clean rock layer, ruining the bed permanently.</li>
+              </ul>
+            </div>
+
+            <div class="comparison-card good">
+              <div class="card-status-pill good">4 oz–6 oz Needle-Punched Non-Woven Geotextile</div>
+              <h4>The Root-Deflecting Shield</h4>
+              <p>Heavy needle-punched non-woven geotextile consists of millions of randomly interlocked synthetic fibers pressed under high hydraulic heat. It has high permittivity (water drains freely at 90–140 gal/min/sq ft), but zero pore orientation for roots to penetrate.</p>
+              <p>When a weed sprouts in the stone silt above a 4 oz non-woven barrier:</p>
+              <ul>
+                <li>The roots hit the dense impenetrable felt barrier and pancake out horizontally.</li>
+                <li>Because the root is not anchored into the subgrade soil, you can pluck mature dandelions out with <strong>two fingers and zero resistance</strong>.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: The 4-Step Maintenance Protocol -->
+        <section class="guide-section">
+          <h2>3. The Contractor Protocol: 4 Steps to 100% Weed Prevention</h2>
+          <p>
+            Commercial landscape crews do not spend 40 hours a week hand-pulling weeds in highway gravel medians. They use a proactive chemical, thermal, and mechanical protocol that starves the sediment layer:
+          </p>
+
+          <div class="methods-stack">
+            <!-- Method 1 -->
+            <div class="method-card">
+              <div class="method-num">01</div>
+              <div class="method-content">
+                <h3>Quarterly Leaf Blower Scouring (Mechanical Removal)</h3>
+                <p><strong>The Strategy:</strong> Eliminate the dirt before it becomes soil. Twice a year (late spring after tree blossoms drop, and late autumn after leaf fall), put your high-velocity leaf blower (minimum 450 CFM) on maximum throttle.</p>
+                <p>Walk the rock beds with the nozzle angled at 45 degrees, blowing dried leaves, pine needles, and accumulated surface pollen out onto the turf grass where your lawn mower bagging system can suck it up. Removing organic fuel stops the silt layer from forming.</p>
+                <div class="method-tip">
+                  <strong>Pro Tip:</strong> Only do this when the rock bed is bone dry. Blowing wet rock pastes the decomposing mulch against the stones.
+                </div>
+              </div>
+            </div>
+
+            <!-- Method 2 -->
+            <div class="method-card">
+              <div class="method-num">02</div>
+              <div class="method-content">
+                <h3>Pre-Emergent Herbicide Ring (The Chemical Shield)</h3>
+                <p><strong>The Strategy:</strong> Stop weed seeds from ever undergoing cellular division. A pre-emergent herbicide does NOT kill existing weeds; it creates a microscopic chemical vapor barrier on the stones and sediment that prevents freshly germinated root radicles from forming.</p>
+                <ul>
+                  <li><strong>Active Ingredients:</strong> <em>Prodiamine</em> (Barricade) or <em>Isoxaben</em> (Gallery) or <em>Trifluralin</em> (Preen). Isoxaben targets broadleaf weeds (clover, dandelions), while Prodiamine targets grassy weeds (crabgrass, foxtail). Many commercial groundskeepers apply a tank-mix of both.</li>
+                  <li><strong>Application Window:</strong> Apply once in <strong>early spring</strong> (when soil temps hit 50&deg;F / forsythia blooms) and once in <strong>early autumn</strong> (September to stop winter annuals like henbit and chickweed).</li>
+                  <li><strong>Watering In:</strong> Pre-emergents must be activated with 0.5 inches of rain or sprinkler irrigation to wash down into the stone voids.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Method 3 -->
+            <div class="method-card">
+              <div class="method-num">03</div>
+              <div class="method-content">
+                <h3>Thermal Flame Weeding (Propane Torch Weeder)</h3>
+                <p><strong>The Strategy:</strong> Perfect for non-flammable mineral stone like crushed granite, river rock, and limestone. A 100,000 to 500,000 BTU propane torch (often called a "Weed Dragon") hooks directly to a standard 20 lb barbecue propane tank.</p>
+                <p>You do not need to incinerate the weed to ashes. You simply sweep the intense blue flame over the weed for 1 to 2 seconds. The cellular water inside the leaf instantly boils and ruptures the cell walls (the plant turns dull dark green within seconds). Within 24 to 48 hours, the plant wilts and dies down to the root crown.</p>
+                <div class="method-warning">
+                  <strong>Safety Warning:</strong> NEVER use a weed torch near dried mulch, wooden siding, plastic landscape edging, or flammable evergreen shrubs (like arborvitae or junipers). Always keep a charged garden hose on hand.
+                </div>
+              </div>
+            </div>
+
+            <!-- Method 4 -->
+            <div class="method-card">
+              <div class="method-num">04</div>
+              <div class="method-content">
+                <h3>20% Horticultural Vinegar Spray (Non-Toxic Organic Solution)</h3>
+                <p><strong>The Strategy:</strong> For homeowners with dogs, children, or pollinator gardens who refuse synthetic glyphosate or chemical pre-emergents, grocery store 5% vinegar is too weak. You need <strong>20% to 30% Horticultural Acetic Acid</strong>.</p>
+                <div class="diy-recipe-box">
+                  <h4>The Proven Non-Toxic Stone Bed Herbicide Recipe:</h4>
+                  <ul>
+                    <li>1 Gallon of 20% or 30% Horticultural Vinegar</li>
+                    <li>1 Cup of Non-Iodized Table Salt or Epsom Salt</li>
+                    <li>2 Tablespoons of Dawn Dish Soap (surfactant to make the acid stick to waxy weed leaves)</li>
+                  </ul>
+                  <p>Spray on a blistering hot, full-sun afternoon (85&deg;F+). The acid desiccates the plant foliage within 2 hours. Note: Salt accumulation will prevent all plant growth in that soil for months, which is ideal for dedicated rock beds, but keep spray 2 feet away from desirable shrubs.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Maintenance Comparison Matrix -->
+        <section class="guide-section">
+          <h2>4. Weed Control Method Comparison for Stone Beds</h2>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Frequency</th>
+                  <th>Cost / Year</th>
+                  <th>Best Used For</th>
+                  <th>Chemical Safety</th>
+                  <th>Effectiveness</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Pre-Emergent Granules (Prodiamine)</strong></td>
+                  <td>2x per year (Spring &amp; Fall)</td>
+                  <td>$25 – $40</td>
+                  <td>Stopping weed seeds before they germinate</td>
+                  <td>Low human toxicity when dry</td>
+                  <td><span class="badge-high">95% (Best Prevention)</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Leaf Blower Scour</strong></td>
+                  <td>Quarterly (Dry weather)</td>
+                  <td>$0 (DIY)</td>
+                  <td>Clearing silt, dust, and decaying leaves</td>
+                  <td>100% Organic &amp; Non-Chemical</td>
+                  <td><span class="badge-high">90% Long-term</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Propane Flame Torch</strong></td>
+                  <td>Monthly (Active growing season)</td>
+                  <td>$15 (Propane refills)</td>
+                  <td>Spot-killing mature weeds in river rock/gravel</td>
+                  <td>100% Organic (Thermal)</td>
+                  <td><span class="badge-high">98% (Instant Kill)</span></td>
+                </tr>
+                <tr>
+                  <td><strong>20% Horticultural Vinegar + Salt</strong></td>
+                  <td>As needed (Sunny days)</td>
+                  <td>$20 – $35</td>
+                  <td>Spot spraying small broadleaf weeds</td>
+                  <td>Organic / Pet-Safe once dry</td>
+                  <td><span class="badge-med">80% (Foliar only)</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Hand-Pulling</strong></td>
+                  <td>Weekly in summer</td>
+                  <td>$0 (Heavy Labor)</td>
+                  <td>Deep-rooted isolated perennials</td>
+                  <td>100% Chemical Free</td>
+                  <td><span class="badge-low">40% (Roots often snap)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Section 5: How to Restore an Already Overgrown Rock Bed -->
+        <section class="guide-section">
+          <h2>5. How to Fix an Already Overgrown Rock Bed</h2>
+          <p>
+            If you bought a house where the previous owner let weeds completely take over 500 square feet of river rock, you have three options depending on your budget:
+          </p>
+
+          <div class="remediation-grid">
+            <div class="remediation-option">
+              <h4>Option A: The Flame &amp; Chemical Reset (Fastest &amp; Cheapest)</h4>
+              <p><strong>Timeline:</strong> 1 Weekend | <strong>Cost:</strong> ~$60</p>
+              <ol>
+                <li>Mow or weed-whack all surface weeds down flush with the rock surface on a high RPM setting.</li>
+                <li>Torch the crowns with a propane weed burner to boil taproots down into the stones.</li>
+                <li>Apply heavy pre-emergent granules (Isoxaben/Prodiamine) and immediately water in with 1/2" of water.</li>
+                <li>Spray any lingering green foliage with 20% vinegar or post-emergent non-selective herbicide. Within 14 days, the bed will be clean.</li>
+              </ol>
+            </div>
+
+            <div class="remediation-option">
+              <h4>Option B: The Hardware Cloth Sifter Frame (Zero New Rock Needed)</h4>
+              <p><strong>Timeline:</strong> 2–3 Days | <strong>Cost:</strong> ~$25 for wood &amp; screen</p>
+              <p>If years of dirt have turned the bottom 2 inches of rock into dark potting soil, you must separate the stone from the dirt:</p>
+              <ol>
+                <li>Build a 3 ft &times; 2 ft wooden 2x4 box frame and staple 1/4" or 1/2" galvanized hardware wire mesh to the bottom.</li>
+                <li>Shovel overgrown rock onto the screen over a wheelbarrow. Shake vigorously: the dirt drops into the wheelbarrow, leaving spotless clean rock on the screen.</li>
+                <li>Lay down brand new 4 oz non-woven geotextile fabric and shovel the clean rock back into place.</li>
+              </ol>
+            </div>
+
+            <div class="remediation-option">
+              <h4>Option C: The Complete Excavation &amp; Top-Up</h4>
+              <p><strong>Timeline:</strong> Professional Crew (1 Day) | <strong>Cost:</strong> Bulk Rock Rates</p>
+              <p>If the rock is thin (less than 1.5 inches deep) or has sunk into clay subgrade without fabric, use our <a href="/rock-calculator">Rock Calculator</a> to figure out how many tons of fresh rock you need. Always lay 4 oz non-woven needle-punched fabric before adding fresh stone.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Related Guides & Calculators -->
+        <section class="guide-section" style="border-top: 1px solid var(--border-subtle); padding-top: 2.5rem; margin-top: 3rem;">
+          <h2>Related Geotechnical Tools &amp; Guides</h2>
+          <div class="related-guides-grid">
+            <a href="/rock-vs-mulch-calculator" class="related-guide-card">
+              <span class="guide-tag">Economic Tool</span>
+              <h4>Rock vs Mulch 10-Year Cost Calculator</h4>
+              <p>Compare initial installation vs annual maintenance replenishment and calculate break-even years.</p>
+            </a>
+            <a href="/how-to-fix-rock-sinking-into-soil" class="related-guide-card">
+              <span class="guide-tag">Subgrade Guide</span>
+              <h4>How to Stop Rock Sinking into Soil &amp; Mud</h4>
+              <p>Learn why rocks vanish into soft subgrade and how geotextile separation prevents sinkage.</p>
+            </a>
+            <a href="/how-to-stop-gravel-washing-out-on-slope" class="related-guide-card">
+              <span class="guide-tag">Hydrology Guide</span>
+              <h4>How to Stop Gravel Washing Out on Slopes</h4>
+              <p>Angular stone interlocking, check dams, and geocell stabilization methods for erosion.</p>
+            </a>
+            <a href="/rock-bag-weight-and-price-guide" class="related-guide-card">
+              <span class="guide-tag">Pricing Guide</span>
+              <h4>Bag Weight &amp; Price Database</h4>
+              <p>Compare Home Depot &amp; Lowe's 0.5 cu ft bag prices against quarry bulk dump truck deliveries.</p>
+            </a>
+          </div>
+        </section>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .article-body {
+    padding: 3rem 0 5rem;
+  }
+  .article-container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .callout-box {
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    backdrop-filter: blur(8px);
+  }
+  .callout-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .guide-section {
+    margin-bottom: 3.5rem;
+  }
+  .guide-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+  .guide-section p {
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+  }
+  .guide-section ul, .guide-section ol {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .guide-section li {
+    margin-bottom: 0.6rem;
+  }
+
+  /* Timeline */
+  .stages-timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+  @media (max-width: 768px) {
+    .stages-timeline {
+      grid-template-columns: 1fr;
+    }
+  }
+  .stage-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    position: relative;
+  }
+  .stage-badge {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    background: rgba(234, 179, 8, 0.15);
+    color: #eab308;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .stage-card h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+  }
+  .stage-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  /* Comparisons */
+  .grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  @media (max-width: 768px) {
+    .grid-2-col {
+      grid-template-columns: 1fr;
+    }
+  }
+  .comparison-card {
+    background: var(--surface-card);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    border: 1px solid var(--border-subtle);
+  }
+  .comparison-card.bad {
+    border-top: 4px solid var(--accent-rose);
+  }
+  .comparison-card.good {
+    border-top: 4px solid var(--accent-emerald);
+  }
+  .card-status-pill {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .card-status-pill.bad {
+    background: rgba(244, 63, 94, 0.15);
+    color: var(--accent-rose);
+  }
+  .card-status-pill.good {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-emerald);
+  }
+  .comparison-card h4 {
+    margin: 0 0 0.75rem 0;
+    color: var(--text-primary);
+    font-size: 1.15rem;
+  }
+
+  /* Methods Stack */
+  .methods-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin: 2rem 0;
+  }
+  .method-card {
+    display: flex;
+    gap: 1.5rem;
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+  }
+  @media (max-width: 640px) {
+    .method-card {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+  .method-num {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--accent-blue);
+    line-height: 1;
+    opacity: 0.7;
+  }
+  .method-content h3 {
+    margin: 0 0 0.75rem 0;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+  }
+  .method-tip, .method-warning {
+    padding: 0.85rem 1.15rem;
+    border-radius: var(--radius-md);
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .method-tip {
+    background: rgba(59, 130, 246, 0.1);
+    border-left: 3px solid var(--accent-blue);
+    color: var(--text-primary);
+  }
+  .method-warning {
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 3px solid var(--accent-rose);
+    color: var(--text-primary);
+  }
+  .diy-recipe-box {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    margin-top: 1rem;
+  }
+  .diy-recipe-box h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--accent-emerald);
+    font-size: 1rem;
+  }
+
+  /* Table styling */
+  .table-responsive {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: left;
+    background: var(--surface-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .data-table th, .data-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .data-table th {
+    background: var(--surface-card-hover);
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .badge-high {
+    color: var(--accent-emerald);
+    font-weight: 700;
+  }
+  .badge-med {
+    color: #eab308;
+    font-weight: 700;
+  }
+  .badge-low {
+    color: var(--accent-rose);
+    font-weight: 700;
+  }
+
+  /* Remediation Grid */
+  .remediation-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  .remediation-option {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+  .remediation-option h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+    font-size: 1.15rem;
+  }
+
+  /* Related Guides */
+  .related-guides-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  @media (max-width: 640px) {
+    .related-guides-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .related-guide-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    text-decoration: none;
+    transition: transform var(--duration-fast), border-color var(--duration-fast);
+  }
+  .related-guide-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-blue);
+  }
+  .guide-tag {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--accent-blue);
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .related-guide-card h4 {
+    margin: 0 0 0.4rem 0;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+  }
+  .related-guide-card p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Light theme specific enhancements */
+  :global(html[data-theme="light"]) .stage-card,
+  :global([data-theme="light"]) .stage-card,
+  :global(html[data-theme="light"]) .comparison-card,
+  :global([data-theme="light"]) .comparison-card,
+  :global(html[data-theme="light"]) .method-card,
+  :global([data-theme="light"]) .method-card,
+  :global(html[data-theme="light"]) .remediation-option,
+  :global([data-theme="light"]) .remediation-option,
+  :global(html[data-theme="light"]) .related-guide-card,
+  :global([data-theme="light"]) .related-guide-card,
+  :global(html[data-theme="light"]) .data-table,
+  :global([data-theme="light"]) .data-table {
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+</style>

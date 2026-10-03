@@ -356,6 +356,72 @@
     <priority>0.75</priority>
   </url>
 
+  <!-- Interactive Decision & Economic Tools (Tier 2 & 3) -->
+  <url>
+    <loc>https://rockcoveragecalculator.com/which-rock-should-i-use</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rockcoveragecalculator.com/rock-vs-mulch-calculator</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rockcoveragecalculator.com/layered-project-calculator</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rockcoveragecalculator.com/rock-bag-weight-and-price-guide</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://rockcoveragecalculator.com/gravel-trade-names-by-state</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Problem-Solving & Geotechnical Troubleshooting Guides -->
+  <url>
+    <loc>https://rockcoveragecalculator.com/how-to-stop-gravel-washing-out-on-slope</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rockcoveragecalculator.com/how-to-fix-rock-sinking-into-soil</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rockcoveragecalculator.com/how-to-stop-weeds-in-landscape-rock</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Widgets & Integration -->
+  <url>
+    <loc>https://rockcoveragecalculator.com/calculator-widget</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rockcoveragecalculator.com/embed</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <!-- Trust, Legal & Contact -->
   <url>
     <loc>https://rockcoveragecalculator.com/about</loc>

@@ -6,11 +6,13 @@ import '../styles/animations.css';
 
 interface Props {
   title: string;
-  description: string;
+  description?: string;
+  metaDescription?: string;
   canonicalPath?: string;
 }
 
-const { title, description, canonicalPath = '' } = Astro.props;
+const { title, description, metaDescription, canonicalPath = '' } = Astro.props;
+const pageDescription = description || metaDescription || 'Free rock coverage and aggregate calculator for landscaping and civil construction projects.';
 const siteUrl = 'https://rockcoveragecalculator.com';
 const canonicalURL = `${siteUrl}${canonicalPath}`;
 ---
@@ -19,7 +21,7 @@ const canonicalURL = `${siteUrl}${canonicalPath}`;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content={description} />
+  <meta name="description" content={pageDescription} />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="google-site-verification" content="HCyFYA4BAPRS0wlYok2AsFsajHg5rBZyENsSi1pIcNI" />
   <link rel="canonical" href={canonicalURL} />
@@ -32,7 +34,7 @@ const canonicalURL = `${siteUrl}${canonicalPath}`;
   <meta property="og:locale" content="en_US" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
+  <meta property="og:description" content={pageDescription} />
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:site_name" content="Rock Coverage Calculator" />
   <meta property="og:image" content={`${siteUrl}/og-image.png`} />
@@ -43,7 +45,7 @@ const canonicalURL = `${siteUrl}${canonicalPath}`;
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
+  <meta name="twitter:description" content={pageDescription} />
   <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
   <meta name="twitter:image:alt" content="Rock Coverage Calculator - Quarry-Calibrated Aggregate Estimator" />
 
@@ -134,6 +136,13 @@ const canonicalURL = `${siteUrl}${canonicalPath}`;
   <slot name="head" />
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <slot />
+  <script is:inline>
+    (function() {
+      const main = document.querySelector('main');
+      if (main && !main.id) main.id = 'main-content';
+    })();
+  </script>
 </body>
 </html>

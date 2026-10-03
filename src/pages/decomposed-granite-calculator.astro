@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -7,7 +7,6 @@ import Footer from '../components/Footer.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Material Calculators', url: '/landscape-rock-calculator' },
   { name: 'Decomposed Granite Calculator', url: '/decomposed-granite-calculator' }
 ];
 
@@ -195,9 +194,9 @@ const supportGuides = [
               <p class="aeo-quick-desc">Net theoretical geometric volume before mechanical rolling.</p>
             </div>
             <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Compaction Order</span>
-              <span class="aeo-quick-value">Order Yards = Loose Yards × 1.20</span>
-              <p class="aeo-quick-desc">DG loses 18% to 22% volume as fines fill void spaces.</p>
+              <span class="aeo-quick-label">Compaction Factor</span>
+              <span class="aeo-quick-value">Order Yards = Finished Yards × 1.25</span>
+              <p class="aeo-quick-desc">DG loses ~20% volume under a plate compactor; divide target volume by 0.80 (multiply by 1.25).</p>
             </div>
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Bulk Density</span>
@@ -207,7 +206,7 @@ const supportGuides = [
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Standard Depth</span>
               <span class="aeo-quick-value">2" Path | 3" Patio | 4" Drive</span>
-              <p class="aeo-quick-desc">Always compact in thin 1.5-inch moist lifts with a plate tamper.</p>
+              <p class="aeo-quick-desc">Always compact in thin 1.5-inch moist lifts with a plate tamper or heavy hand tamper.</p>
             </div>
           </div>
         </section>
@@ -218,15 +217,15 @@ const supportGuides = [
             <strong>Decomposed Granite (DG)</strong> is natural granitic rock that has weathered through geological time to the point where it fractures easily into a mixture of small stone flakes (up to 1/4 inch) and microscopic rock flour.
           </p>
           <p>
-            Unlike washed crushed granite stone, DG is a <strong>dense-graded aggregate with fines</strong>. When moistened with water and rolled with a vibratory plate compactor, the fine mineral particles act as an adhesive matrix, locking the angular quartz and feldspar chips into a firm, smooth, pedestrian-safe pavement that drains naturally while resisting erosion.
+            Unlike washed crushed granite stone, DG is a <strong>dense-graded aggregate with fines</strong>. When moistened with water and rolled with a vibratory plate compactor or roller, the fine mineral particles act as an adhesive matrix, locking the angular quartz and feldspar chips into a firm, smooth, pedestrian-safe pavement that drains naturally while resisting erosion.
           </p>
 
           <div class="formula-box">
-            <code>Net Loose Volume (yd³) = [Area (sq ft) × Target Depth (in)] / 324</code>
+            <code>Target Compacted Volume (yd³) = [Area (sq ft) × Finished Depth (in)] / 324</code>
             <br />
-            <code>Required Quarry Order (yd³) = Net Loose Volume × 1.20 (20% Compaction Allowance)</code>
+            <code>Required Quarry Loose Order (yd³) = Target Compacted Volume ÷ 0.80 (equals Finished Volume × 1.25)</code>
             <br />
-            <code>Quarry Scale Weight (Tons) = Required Quarry Order × 1.25 t/yd³</code>
+            <code>Quarry Scale Weight (Tons) = Required Quarry Loose Order × 1.25 t/yd³</code>
           </div>
 
           <h3>Installation Protocol for Rock-Hard DG Pathways</h3>

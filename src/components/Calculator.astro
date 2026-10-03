@@ -99,6 +99,7 @@ const {
         <div id="dimension-inputs" class="dim-grid">
           <!-- Populated by app.js -->
         </div>
+        <div id="dimension-error" class="dimension-error" role="alert" aria-live="assertive" hidden></div>
 
         <!-- Material Picker -->
         <div class="calc-panel-title" style="margin-top: var(--space-2);">
@@ -229,7 +230,7 @@ const {
             </a>
           </div>
 
-          <div class="kpi-grid" aria-live="polite" aria-atomic="true">
+          <div class="kpi-grid" id="calculator-results" aria-live="polite" aria-atomic="true">
             <div class="kpi-card" id="kpi-area">
               <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18" opacity="0.3"/><path d="M9 3v18" opacity="0.3"/></svg>
               <div class="kpi-value">100</div>
@@ -239,21 +240,21 @@ const {
             </div>
             <div class="kpi-card" id="kpi-volume">
               <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5" opacity="0.5"/><path d="M2 12l10 5 10-5" opacity="0.3"/></svg>
-              <div class="kpi-value">1.03</div>
+              <div class="kpi-value">1.02</div>
               <div class="kpi-unit">cu yd</div>
               <div class="kpi-label">Volume Needed</div>
-              <div class="kpi-subtext" id="kpi-volume-sub">0.79 m³</div>
+              <div class="kpi-subtext" id="kpi-volume-sub">0.78 m³</div>
             </div>
             <div class="kpi-card" id="kpi-weight">
               <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3V7"/><path d="M6 7H18L20 19H4L6 7Z"/></svg>
-              <div class="kpi-value">1.39</div>
+              <div class="kpi-value">1.38</div>
               <div class="kpi-unit">tons</div>
               <div class="kpi-label">Total Weight</div>
-              <div class="kpi-subtext" id="kpi-weight-sub">1.26 tonnes</div>
+              <div class="kpi-subtext" id="kpi-weight-sub">1.25 tonnes</div>
             </div>
             <div class="kpi-card" id="kpi-bags">
               <svg class="kpi-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 4H16L18 8H6L8 4Z"/><rect x="6" y="8" width="12" height="12" rx="1"/></svg>
-              <div class="kpi-value">56</div>
+              <div class="kpi-value">55</div>
               <div class="kpi-unit">bags</div>
               <div class="kpi-label" id="kpi-bags-label">0.5 cu ft Bags</div>
               <div class="kpi-subtext" id="kpi-bags-sub">~14L retail volume</div>
@@ -275,13 +276,24 @@ const {
           </div>
           <table class="breakdown-table">
             <tbody id="breakdown-body">
-              <tr><td>Volume (cubic feet)</td><td>27.78</td></tr>
-              <tr><td>Volume (cubic yards)</td><td>1.03</td></tr>
-              <tr><td>Weight (lbs)</td><td>2,778</td></tr>
-              <tr><td>Weight (tons)</td><td>1.39</td></tr>
+              <tr><td>Volume (cubic feet)</td><td>27.50</td></tr>
+              <tr><td>Volume (cubic yards)</td><td>1.02</td></tr>
+              <tr><td>Weight (lbs)</td><td>2,750</td></tr>
+              <tr><td>Weight (tons)</td><td>1.38</td></tr>
               <tr><td>Density</td><td>2,700 lbs/cu yd</td></tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Transparent Dynamic Calculation Explainer -->
+        <div class="calc-explainer-card" id="calc-dynamic-explainer">
+          <div class="explainer-header">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <h4>Here's How We Calculated Your Numbers</h4>
+          </div>
+          <div class="explainer-steps" id="explainer-steps-container">
+            <!-- Dynamically populated with user's exact inputs by app.js -->
+          </div>
         </div>
 
         <!-- Purchase Grid -->
@@ -372,6 +384,10 @@ const {
 
         <!-- Action Buttons -->
         <div class="action-row">
+          <button id="btn-supplier-quote" class="btn btn-quote" title="Generate a ready-to-send Request for Quote (RFQ) text or email for local suppliers">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Send to Supplier (RFQ)
+          </button>
           <button id="btn-save-project" class="btn btn-primary" title="Save this calculation to your project list">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             Save Project Zone
@@ -389,6 +405,96 @@ const {
             Share Link
           </button>
         </div>
+
+        <!-- Real-World Field Outcome Loop -->
+        <div class="calc-outcome-card" id="project-outcome-card">
+          <div class="outcome-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <div class="outcome-title-group">
+              <h4>Finished Your Project? Help Calibrate Field Tolerances</h4>
+              <p>Did this estimate match your real-world delivery and compaction? Share your jobsite outcome:</p>
+            </div>
+          </div>
+          <div class="outcome-options" role="group" aria-label="Project coverage outcome">
+            <button type="button" class="btn-outcome-chip" data-outcome="exact">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Spot On / Exact Fit
+            </button>
+            <button type="button" class="btn-outcome-chip" data-outcome="needed-more">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Needed 5–10% More
+            </button>
+            <button type="button" class="btn-outcome-chip" data-outcome="leftover">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+              Had Leftover Stone
+            </button>
+          </div>
+          <div class="outcome-feedback-form" id="outcome-form" style="display: none;">
+            <div class="outcome-form-row">
+              <input type="number" id="outcome-ticket-tons" placeholder="Actual Scale Ticket (Tons, optional)" step="0.01" min="0" class="outcome-input" />
+              <input type="text" id="outcome-notes" placeholder="Notes (e.g. 4in crusher run base, vibratory rolled)" class="outcome-input notes" />
+              <button type="button" id="btn-submit-outcome" class="btn btn-sm btn-primary">Log Field Result</button>
+            </div>
+          </div>
+          <div class="outcome-confirmation" id="outcome-confirmation" style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            <span>Thank you! Your field calibration report has been recorded locally to verify ASTM bulk density tolerances.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supplier RFQ Quote Generator Modal -->
+    <div id="supplier-quote-modal" class="quote-modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-rfq-title">
+      <div class="quote-modal-card">
+        <div class="quote-modal-header">
+          <div class="quote-modal-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <h3 id="modal-rfq-title">Ready-to-Send Supplier Quote Request</h3>
+          </div>
+          <button type="button" class="quote-modal-close" id="btn-close-quote-modal" aria-label="Close quote modal">&times;</button>
+        </div>
+        <p class="quote-modal-desc">
+          Copy or send this pre-filled message directly to your local landscape supply yard or rock quarry to get fast, accurate pricing and delivery lead times.
+        </p>
+        <div class="quote-modal-form">
+          <div class="quote-input-group">
+            <label for="rfq-destination">Delivery ZIP / City or Neighborhood:</label>
+            <input type="text" id="rfq-destination" placeholder="e.g. 78701 or North Austin" value="" />
+          </div>
+          <div class="quote-input-group">
+            <label for="rfq-access-notes">Site Access Notes (Optional):</label>
+            <input type="text" id="rfq-access-notes" placeholder="e.g. Paved driveway, wide turnaround, clear overhead power lines" value="" />
+          </div>
+          <div class="quote-preview-group">
+            <div class="quote-preview-label-row">
+              <label for="rfq-text-preview">Message Preview:</label>
+              <button type="button" id="btn-copy-rfq-text" class="btn btn-sm btn-secondary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy Message
+              </button>
+            </div>
+            <textarea id="rfq-text-preview" class="rfq-textarea" rows="10" readonly></textarea>
+          </div>
+          <div class="quote-modal-actions">
+            <a id="btn-rfq-email" href="#" class="btn btn-primary" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Open in Email App
+            </a>
+            <a id="btn-rfq-sms" href="#" class="btn btn-secondary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Send as Text / SMS
+            </a>
+          </div>
+          <div class="quote-pro-tips">
+            <strong>Quarry Pro-Tips When Ordering:</strong>
+            <ul>
+              <li><strong>Scale Weight vs. Volume:</strong> Most bulk quarries sell by certified scale weight (tons), not cubic yards. Our RFQ includes both so there is zero confusion.</li>
+              <li><strong>Tailgate Spreading:</strong> Ask if the driver can tailgate spread along your driveway for a small tip—saves hours of manual wheelbarrow shoveling.</li>
+              <li><strong>Overhead Clearance:</strong> Standard tri-axle dump beds reach 18–22 feet high when tipped. Ensure trees and electrical wires are clear.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -404,7 +510,7 @@ const {
           <button id="btn-share-saved" class="btn btn-ghost btn-sm" title="Share a link containing all your saved project zones">Share Link</button>
           <button id="btn-export-saved-json" class="btn btn-secondary btn-sm" title="Download a JSON backup file of your project zones">Backup (.json)</button>
           <button id="btn-import-saved-json" class="btn btn-secondary btn-sm" title="Load a saved project JSON backup from your computer or phone">Restore (.json)</button>
-          <input type="file" id="input-import-saved" accept=".json,application/json" style="display: none;" />
+          <input type="file" id="input-import-saved" accept=".json,application/json" aria-label="Restore saved project zones from a JSON backup" style="display: none;" />
           <button id="btn-export-saved-csv" class="btn btn-secondary btn-sm" title="Export all saved zones into a single Bill of Materials CSV">Export CSV</button>
           <button id="btn-clear-saved" class="btn btn-ghost btn-sm" title="Clear all saved project zones">Clear All</button>
         </div>

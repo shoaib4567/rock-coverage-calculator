@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -27,11 +27,11 @@ const quickStats = [
 const faqItems = [
   {
     q: 'How many tons of decomposed granite do I need for a 12x25 foot patio?',
-    a: 'A 12x25 foot patio equals 300 square feet. At a standard 3-inch compacted depth, you need 2.78 cubic yards of finished volume. Adding a 20 percent compaction factor requires 3.33 loose cubic yards. Multiplying by 1.25 tons per yard equals approximately 4.16 tons of decomposed granite.'
+    a: 'A 12x25 foot patio equals 300 square feet. At a standard 3-inch compacted depth, you need 2.78 cubic yards of finished volume. Accounting for 20 percent volume loss under compaction (dividing by 0.80, or multiplying by 1.25) requires 3.47 loose cubic yards. Multiplying by 1.25 tons per yard equals approximately 4.34 tons of decomposed granite.'
   },
   {
     q: 'How do you calculate tons of decomposed granite with compaction?',
-    a: 'Calculate loose volume in cubic yards: (Length ft × Width ft × Depth in) / 324. Multiply by 1.20 for compaction, then multiply by 1.25 tons per cubic yard. Formula: Tons = [(Area × Depth) / 324] × 1.20 × 1.25.'
+    a: 'Calculate finished volume in cubic yards: (Length ft × Width ft × Depth in) / 324. To account for 20% compaction volume loss, multiply by 1.25 (Finished Volume ÷ 0.80). Then multiply by loose bulk density (1.25 tons/yd³). Formula: Tons = [(Area × Depth) / 324] × 1.25 × 1.25.'
   },
   {
     q: 'How many square feet does 1 ton of decomposed granite cover?',

@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Calculator from '../components/Calculator.astro';
+
+const title = "Rock Coverage Calculator - Embeddable Jobsite Tool";
+const metaDescription = "Embeddable landscape rock, gravel, and stone coverage calculator for contractor and supplier websites.";
+---
+
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/embed">
+  <div class="embed-wrapper">
+    <div class="embed-header-bar">
+      <div class="embed-logo-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="embed-icon"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <span class="embed-title">Rock Coverage Calculator</span>
+      </div>
+      <a href="https://rockcoveragecalculator.com" target="_blank" rel="noopener" class="embed-credit-badge">
+        <span>rockcoveragecalculator.com</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+
+    <Calculator 
+      headline="Instant Rock Coverage & Weight Calculator"
+      subtitle="Select your project shape, stone material, and depth to calculate cubic yards, certified quarry tons, and 0.5 cu ft bags."
+    />
+  </div>
+</BaseLayout>
+
+<style>
+  .embed-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-2);
+  }
+
+  .embed-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2) var(--space-4);
+    background: var(--slate-900);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-3);
+  }
+
+  .embed-logo-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .embed-icon {
+    color: var(--gold-400);
+  }
+
+  .embed-title {
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+  }
+
+  .embed-credit-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.725rem;
+    color: var(--gold-400);
+    text-decoration: none;
+    background: rgba(212, 168, 83, 0.1);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(212, 168, 83, 0.25);
+    transition: background var(--duration-fast);
+  }
+
+  .embed-credit-badge:hover {
+    background: rgba(212, 168, 83, 0.2);
+  }
+</style>

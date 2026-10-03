@@ -6,10 +6,10 @@ import CrushedStoneCalculator from '../components/calculators/CrushedStoneCalcul
 import CrushedStoneVisualizer from '../components/visualizers/CrushedStoneVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import CivilStructuralBlock from '../components/intent/CivilStructuralBlock.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Material Calculators', url: '/crushed-stone-calculator' },
   { name: 'Crushed Stone Calculator', url: '/crushed-stone-calculator' }
 ];
 
@@ -33,7 +33,7 @@ const faqItems = [
   },
   {
     q: 'What is the difference between #57 and #411 crushed stone?',
-    a: '#57 stone is washed clean to 1/2" to 1" particle size with zero fine dust, providing maximum stormwater drainage and clean appearance. #411 stone (crusher run) contains a continuous gradation from 3/4" stones down to microscopic rock flour, enabling it to compact into a rigid, cement-like structural base.'
+    a: '#57 stone is washed clean to 1" down to No. 4 sieve (nominal 3/4" angular stone) with zero fine dust, providing maximum stormwater drainage and clean appearance. #411 stone (crusher run) contains a continuous gradation from 3/4" stones down to microscopic rock flour, enabling it to compact into a rigid, cement-like structural base.'
   },
   {
     q: 'Can crushed stone be used behind concrete retaining walls?',
@@ -90,11 +90,15 @@ const faqItems = [
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="civil"
     />
 
     <CrushedStoneCalculator />
 
     <CrushedStoneVisualizer />
+
+    <!-- Civil Truckload Logistics & Subgrade Stabilization Block -->
+    <CivilStructuralBlock />
 
     <!-- Technical Guide on Crushed Stone Sieve Specs -->
     <article class="content-guide-section">
@@ -118,7 +122,7 @@ const faqItems = [
               <tbody>
                 <tr>
                   <td><strong>#57 Clean Stone</strong></td>
-                  <td>1/2" to 1" (12.5 - 25mm)</td>
+                  <td>1" to No. 4 (25 - 4.75mm)</td>
                   <td>Zero (Washed)</td>
                   <td>French drains, retaining wall backfill, driveway top dressing</td>
                 </tr>

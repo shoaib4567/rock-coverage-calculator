@@ -1,0 +1,232 @@
+---
+// Civil Structural & Hauling Logistics Block
+---
+<section class="civil-block-section">
+  <div class="container">
+    <div class="civil-card">
+      <div class="civil-header">
+        <div class="civil-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+        </div>
+        <div>
+          <span class="civil-badge">Commercial Logistics</span>
+          <h3>Quarry Hauling Capacities & Truckload Planning</h3>
+        </div>
+      </div>
+
+      <p class="civil-intro">
+        Civil and heavy driveway aggregates are priced and hauled based on commercial truck payload limits. Standard haul rates incur drop fees ($65–$120+); ordering full truckload increments minimizes ton-mile freight costs:
+      </p>
+
+      <div class="truck-grid">
+        <div class="truck-item">
+          <div class="truck-name">Single-Axle Dump</div>
+          <div class="truck-capacity">5 – 7 Tons</div>
+          <div class="truck-yards">~3.5 to 5.0 yd³</div>
+          <p class="truck-desc">Residential alleyways, tight driveways, and light utility repair drops.</p>
+        </div>
+
+        <div class="truck-item highlight">
+          <div class="truck-badge-tag">Most Common</div>
+          <div class="truck-name">Tandem-Axle Dump</div>
+          <div class="truck-capacity">14 – 16 Tons</div>
+          <div class="truck-yards">~10.0 to 11.5 yd³</div>
+          <p class="truck-desc">Standard residential driveway delivery, slab sub-bases, and pole barn pads.</p>
+        </div>
+
+        <div class="truck-item">
+          <div class="truck-name">Tri-Axle / Quad-Axle</div>
+          <div class="truck-capacity">20 – 22 Tons</div>
+          <div class="truck-yards">~14.0 to 15.5 yd³</div>
+          <p class="truck-desc">Commercial parking pads, agricultural access lanes, and long rural drives.</p>
+        </div>
+
+        <div class="truck-item">
+          <div class="truck-name">Semi End-Dump</div>
+          <div class="truck-capacity">24 – 28 Tons</div>
+          <div class="truck-yards">~17.0 to 19.5 yd³</div>
+          <p class="truck-desc">Subdivision civil roads, large commercial site pads, and heavy highway base.</p>
+        </div>
+      </div>
+
+      <div class="subgrade-callout">
+        <div class="subgrade-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div>
+          <strong>Geotechnical Stabilization Rule:</strong> For vehicular driveways over clay or soft loam, always lay <strong>woven subgrade geotextile fabric (Class 1 or 2)</strong> before spreading base aggregate. Woven fabric distributes wheel loads (CBR stabilization) and prevents the rock from sinking into the subgrade mud under heavy truck traffic.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .civil-block-section {
+    padding: var(--space-8) 0;
+  }
+
+  .civil-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .civil-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .civil-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: rgba(37, 99, 235, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #60a5fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .civil-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #60a5fa;
+    margin-bottom: 2px;
+  }
+
+  .civil-header h3 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .civil-intro {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+    max-width: 900px;
+  }
+
+  .truck-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (max-width: 900px) {
+    .truck-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .truck-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .truck-item {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    position: relative;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .truck-item:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .truck-item.highlight {
+    border-color: rgba(59, 130, 246, 0.5);
+    background: linear-gradient(180deg, rgba(37, 99, 235, 0.08) 0%, var(--bg-surface) 100%);
+  }
+
+  .truck-badge-tag {
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    letter-spacing: 0.03em;
+  }
+
+  .truck-name {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .truck-capacity {
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    font-weight: 800;
+    color: #60a5fa;
+  }
+
+  .truck-yards {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: var(--space-2);
+  }
+
+  .truck-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .subgrade-callout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background: rgba(37, 99, 235, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .subgrade-icon {
+    color: #60a5fa;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .subgrade-callout strong {
+    color: var(--text-primary);
+  }
+</style>

@@ -1,0 +1,874 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Layered Project Calculator', url: '/layered-project-calculator' }
+];
+
+const title = "Layered Project Calculator - All-in-One Subbase, Top Stone, Fabric & Edging Planner";
+const metaDescription = "Calculate multi-layer landscape projects in one unified tool. Generates a master shopping list for excavation haul-away, compacted crusher run base, top stone, geotextile fabric, and edging.";
+---
+
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/layered-project-calculator">
+  <Header />
+
+  <main id="main-content">
+    <PageHero
+      title="Multi-Layer Project & Shopping List Calculator"
+      subtitle="Real hardscaping projects have layers: excavation, geotextile fabric, compacted crusher run base, top decorative stone, and perimeter edging. Calculate your complete bill of materials in one place."
+      badge="All-in-One Project Estimator"
+      breadcrumbs={breadcrumbs}
+      theme="civil"
+    />
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <!-- Preset Project Selector Bar -->
+        <div class="presets-card">
+          <div class="presets-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <span>Choose a Layered Project Preset:</span>
+          </div>
+          <div class="preset-buttons-row" role="group" aria-label="Project presets">
+            <button type="button" class="btn-preset active" data-preset="driveway">
+              <span>Vehicular Driveway</span>
+              <small>6" Crusher Run Base + 2" #57 Top Stone</small>
+            </button>
+            <button type="button" class="btn-preset" data-preset="patio">
+              <span>Pea Gravel Patio</span>
+              <small>4" Compacted Base + 2" Pea Gravel + Edging</small>
+            </button>
+            <button type="button" class="btn-preset" data-preset="dg-path">
+              <span>Decomposed Granite Path</span>
+              <small>3" Road Base + 2.5" Compacted DG</small>
+            </button>
+            <button type="button" class="btn-preset" data-preset="garden-bed">
+              <span>Decorative Garden Bed</span>
+              <small>Weed Barrier + 3" River Rock + Steel Edging</small>
+            </button>
+          </div>
+        </div>
+
+        <div class="layered-calc-grid">
+          <!-- Inputs Column -->
+          <div class="layered-inputs-panel">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              <h3>Project Dimensions</h3>
+            </div>
+
+            <div class="dim-inputs-row">
+              <div class="input-field-group">
+                <label for="layer-length">Length</label>
+                <div class="input-field mini">
+                  <input type="number" id="layer-length" value="40" min="1" step="0.5" />
+                  <span class="unit-label">ft</span>
+                </div>
+              </div>
+              <div class="input-field-group">
+                <label for="layer-width">Width</label>
+                <div class="input-field mini">
+                  <input type="number" id="layer-width" value="12" min="1" step="0.5" />
+                  <span class="unit-label">ft</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="calc-panel-title" style="margin-top: var(--space-6);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <h3>Layer Thicknesses</h3>
+            </div>
+
+            <!-- Layer 1: Subbase -->
+            <div class="layer-control-card">
+              <div class="layer-title-row">
+                <div class="layer-badge base">Layer 1: Structural Base Course</div>
+                <label class="layer-toggle-wrap">
+                  <input type="checkbox" id="toggle-base-layer" checked />
+                  <span>Include</span>
+                </label>
+              </div>
+              <div class="layer-options-body" id="base-layer-body">
+                <div class="layer-fields-grid">
+                  <div class="input-field-group">
+                    <label for="base-material-select">Base Material</label>
+                    <select id="base-material-select" class="layer-select">
+                      <option value="crusher-run" selected>Crusher Run / 21-A Base (1.45 t/yd³)</option>
+                      <option value="crushed-stone">#57 Clean Crushed Stone (1.35 t/yd³)</option>
+                      <option value="decomposed-granite">Road Base / Caliche (1.45 t/yd³)</option>
+                    </select>
+                  </div>
+                  <div class="input-field-group">
+                    <label for="base-depth-input">Compacted Depth</label>
+                    <div class="input-field mini">
+                      <input type="number" id="base-depth-input" value="6" min="1" max="18" step="0.5" />
+                      <span class="unit-label">in</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="layer-hint">Auto-applies ×1.25 loose compaction multiplier for mechanical rolling.</span>
+              </div>
+            </div>
+
+            <!-- Layer 2: Top Stone -->
+            <div class="layer-control-card">
+              <div class="layer-title-row">
+                <div class="layer-badge top">Layer 2: Top Decorative Stone</div>
+                <label class="layer-toggle-wrap">
+                  <input type="checkbox" id="toggle-top-layer" checked />
+                  <span>Include</span>
+                </label>
+              </div>
+              <div class="layer-options-body" id="top-layer-body">
+                <div class="layer-fields-grid">
+                  <div class="input-field-group">
+                    <label for="top-material-select">Top Material</label>
+                    <select id="top-material-select" class="layer-select">
+                      <option value="crushed-stone" selected>#57 Clean Crushed Granite (1.35 t/yd³)</option>
+                      <option value="pea-gravel">3/8" Pea Gravel (1.35 t/yd³)</option>
+                      <option value="river-rock">1"-3" River Rock (1.35 t/yd³)</option>
+                      <option value="decomposed-granite">Decomposed Granite (1.485 t/yd³)</option>
+                      <option value="lava-rock">Red Lava Rock (0.65 t/yd³)</option>
+                    </select>
+                  </div>
+                  <div class="input-field-group">
+                    <label for="top-depth-input">Surface Depth</label>
+                    <div class="input-field mini">
+                      <input type="number" id="top-depth-input" value="2" min="1" max="12" step="0.5" />
+                      <span class="unit-label">in</span>
+                    </div>
+                  </div>
+                </div>
+                <span class="layer-hint">Includes 10% jobsite waste buffer for spreading and edge nesting.</span>
+              </div>
+            </div>
+
+            <!-- Supplies: Geotextile & Edging -->
+            <div class="layer-control-card">
+              <div class="layer-title-row">
+                <div class="layer-badge supplies">Project Supplies &amp; Restraints</div>
+              </div>
+              <div class="supplies-options-grid">
+                <label class="checkbox-label" for="toggle-fabric">
+                  <input type="checkbox" id="toggle-fabric" checked />
+                  <span class="checkbox-custom"></span>
+                  <span class="checkbox-text">
+                    <strong>Geotextile Underlayment Fabric</strong>
+                    <span class="field-hint">Auto-calculates sq ft + 12" overlaps (15% waste).</span>
+                  </span>
+                </label>
+                <label class="checkbox-label" for="toggle-edging">
+                  <input type="checkbox" id="toggle-edging" checked />
+                  <span class="checkbox-custom"></span>
+                  <span class="checkbox-text">
+                    <strong>Border Edging &amp; Steel Anchoring Spikes</strong>
+                    <span class="field-hint">Calculates perimeter linear feet + 1 spike per 18".</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Master Bill of Materials (BOM) Output Column -->
+          <div class="layered-results-panel">
+            <div class="bom-card">
+              <div class="bom-header">
+                <div class="bom-title-row">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                  <h3>Master Project Shopping List (BOM)</h3>
+                </div>
+                <div class="bom-scope-badge" id="bom-scope">480 sq ft Footprint</div>
+              </div>
+
+              <!-- Itemized Shopping Items -->
+              <div class="bom-items-list" id="bom-items-container">
+                <!-- Populated dynamically by JS -->
+              </div>
+
+              <!-- Quick Total Volume & Weight Row -->
+              <div class="bom-summary-bar">
+                <div class="bom-stat">
+                  <span class="bom-stat-label">Total Bulk Weight</span>
+                  <span class="bom-stat-val" id="bom-total-weight">0.00 Tons</span>
+                </div>
+                <div class="bom-stat">
+                  <span class="bom-stat-label">Total Bulk Volume</span>
+                  <span class="bom-stat-val" id="bom-total-volume">0.00 Cu Yds</span>
+                </div>
+                <div class="bom-stat">
+                  <span class="bom-stat-label">Total Excavation</span>
+                  <span class="bom-stat-val" id="bom-total-excavation">0.00 Yds Spoil</span>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="bom-actions-row">
+                <button type="button" id="btn-copy-bom" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy Shopping List
+                </button>
+                <button type="button" id="btn-print-bom" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="1"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="10" x2="14" y2="10"/></svg>
+                  Print BOM
+                </button>
+              </div>
+
+              <!-- Pro Contractor Notes -->
+              <div class="bom-contractor-notes">
+                <strong>Field Contractor Rule of Thumb:</strong>
+                <p>
+                  Always excavate to the bottom of the base course layer. Never lay your base stone on top of virgin grass or unexcavated organic topsoil. If excavating 8 inches total depth, expect the loose spoil pile to swell by 20% to 30% in volume when loading into a dump trailer.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  const lengthInput = document.getElementById('layer-length');
+  const widthInput = document.getElementById('layer-width');
+  const toggleBase = document.getElementById('toggle-base-layer');
+  const baseMaterialSelect = document.getElementById('base-material-select');
+  const baseDepthInput = document.getElementById('base-depth-input');
+  const toggleTop = document.getElementById('toggle-top-layer');
+  const topMaterialSelect = document.getElementById('top-material-select');
+  const topDepthInput = document.getElementById('top-depth-input');
+  const toggleFabric = document.getElementById('toggle-fabric');
+  const toggleEdging = document.getElementById('toggle-edging');
+
+  const presetButtons = document.querySelectorAll('.btn-preset');
+
+  const materialDensities = {
+    'crusher-run': { name: 'Crusher Run / 21-A Base', density: 1.45, compaction: 1.25 },
+    'crushed-stone': { name: '#57 Clean Crushed Stone', density: 1.35, compaction: 1.0 },
+    'pea-gravel': { name: '3/8" Pea Gravel', density: 1.35, compaction: 1.0 },
+    'river-rock': { name: '1"-3" River Rock', density: 1.35, compaction: 1.0 },
+    'decomposed-granite': { name: 'Decomposed Granite', density: 1.485, compaction: 1.25 },
+    'lava-rock': { name: 'Red Lava Rock', density: 0.65, compaction: 1.0 }
+  };
+
+  // Presets
+  presetButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      presetButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const p = btn.dataset.preset;
+
+      if (p === 'driveway') {
+        lengthInput.value = '40';
+        widthInput.value = '12';
+        toggleBase.checked = true;
+        baseMaterialSelect.value = 'crusher-run';
+        baseDepthInput.value = '6';
+        toggleTop.checked = true;
+        topMaterialSelect.value = 'crushed-stone';
+        topDepthInput.value = '2';
+        toggleFabric.checked = true;
+        toggleEdging.checked = false;
+      } else if (p === 'patio') {
+        lengthInput.value = '18';
+        widthInput.value = '14';
+        toggleBase.checked = true;
+        baseMaterialSelect.value = 'crusher-run';
+        baseDepthInput.value = '4';
+        toggleTop.checked = true;
+        topMaterialSelect.value = 'pea-gravel';
+        topDepthInput.value = '2';
+        toggleFabric.checked = true;
+        toggleEdging.checked = true;
+      } else if (p === 'dg-path') {
+        lengthInput.value = '50';
+        widthInput.value = '4';
+        toggleBase.checked = true;
+        baseMaterialSelect.value = 'crusher-run';
+        baseDepthInput.value = '3';
+        toggleTop.checked = true;
+        topMaterialSelect.value = 'decomposed-granite';
+        topDepthInput.value = '2.5';
+        toggleFabric.checked = true;
+        toggleEdging.checked = true;
+      } else if (p === 'garden-bed') {
+        lengthInput.value = '30';
+        widthInput.value = '5';
+        toggleBase.checked = false;
+        toggleTop.checked = true;
+        topMaterialSelect.value = 'river-rock';
+        topDepthInput.value = '3';
+        toggleFabric.checked = true;
+        toggleEdging.checked = true;
+      }
+
+      calculateBOM();
+    });
+  });
+
+  function calculateBOM() {
+    const len = parseFloat(lengthInput?.value) || 0;
+    const wid = parseFloat(widthInput?.value) || 0;
+    const areaSqFt = len * wid;
+    const perimeterFt = (len * 2) + (wid * 2);
+
+    const hasBase = toggleBase?.checked;
+    const baseMatKey = baseMaterialSelect?.value || 'crusher-run';
+    const baseDepth = hasBase ? (parseFloat(baseDepthInput?.value) || 0) : 0;
+
+    const hasTop = toggleTop?.checked;
+    const topMatKey = topMaterialSelect?.value || 'crushed-stone';
+    const topDepth = hasTop ? (parseFloat(topDepthInput?.value) || 0) : 0;
+
+    const totalDepthInches = baseDepth + topDepth;
+
+    // Excavation Volume (with 25% soil swell)
+    const baseExcavationCuFt = areaSqFt * (totalDepthInches / 12);
+    const excavationCuYdInSitu = baseExcavationCuFt / 27;
+    const excavationSpoilCuYd = excavationCuYdInSitu * 1.25;
+
+    // Base Layer
+    let baseTons = 0;
+    let baseLooseYards = 0;
+    const baseMat = materialDensities[baseMatKey];
+    if (hasBase && baseDepth > 0) {
+      const compactedCuFt = areaSqFt * (baseDepth / 12);
+      const looseCuFt = compactedCuFt * baseMat.compaction * 1.05; // 5% edge allowance
+      baseLooseYards = looseCuFt / 27;
+      baseTons = baseLooseYards * baseMat.density;
+    }
+
+    // Top Layer
+    let topTons = 0;
+    let topLooseYards = 0;
+    let topBags = 0;
+    const topMat = materialDensities[topMatKey];
+    if (hasTop && topDepth > 0) {
+      const targetCuFt = areaSqFt * (topDepth / 12) * 1.10; // 10% waste buffer
+      topLooseYards = targetCuFt / 27;
+      topTons = topLooseYards * topMat.density;
+      topBags = Math.ceil(targetCuFt / 0.5);
+    }
+
+    // Geotextile Fabric
+    const hasFabric = toggleFabric?.checked;
+    const fabricSqFt = hasFabric ? Math.ceil(areaSqFt * 1.15) : 0; // 15% overlap
+    const standardRolls = hasFabric ? Math.ceil(fabricSqFt / 300) : 0; // 300 sq ft roll (3' x 100')
+
+    // Edging & Spikes
+    const hasEdging = toggleEdging?.checked;
+    const edgingLinFt = hasEdging ? Math.ceil(perimeterFt) : 0;
+    const spikesCount = hasEdging ? Math.ceil(edgingLinFt / 1.5) : 0; // 1 every 18"
+
+    // Update Scope Badge
+    const scopeBadge = document.getElementById('bom-scope');
+    if (scopeBadge) {
+      scopeBadge.textContent = `${areaSqFt.toFixed(0)} sq ft (${len}' × ${wid}') • ${totalDepthInches}" Total Depth`;
+    }
+
+    // Build Itemized HTML
+    const container = document.getElementById('bom-items-container');
+    if (!container) return;
+
+    let itemsHtml = '';
+
+    // Item: Excavation
+    if (totalDepthInches > 0) {
+      itemsHtml += `
+        <div class="bom-item">
+          <div class="bom-item-icon excavation">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="bom-item-details">
+            <div class="bom-item-title">Excavation &amp; Soil Removal</div>
+            <div class="bom-item-spec">Dig ${totalDepthInches}" deep to stable subsoil. Spoil pile volume: <strong>${excavationSpoilCuYd.toFixed(1)} cu yds</strong> loose soil.</div>
+          </div>
+          <div class="bom-item-qty">
+            <span class="qty-num">${excavationSpoilCuYd.toFixed(1)}</span>
+            <span class="qty-unit">yds spoil</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // Item: Geotextile Fabric
+    if (hasFabric) {
+      itemsHtml += `
+        <div class="bom-item">
+          <div class="bom-item-icon fabric">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+          </div>
+          <div class="bom-item-details">
+            <div class="bom-item-title">Geotextile Subgrade Underlayment</div>
+            <div class="bom-item-spec">${fabricSqFt} sq ft total required (includes 12" roll overlaps). ~<strong>${standardRolls} standard rolls</strong> (3' × 100').</div>
+          </div>
+          <div class="bom-item-qty">
+            <span class="qty-num">${fabricSqFt}</span>
+            <span class="qty-unit">sq ft</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // Item: Base Course
+    if (hasBase && baseDepth > 0) {
+      itemsHtml += `
+        <div class="bom-item">
+          <div class="bom-item-icon base">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+          </div>
+          <div class="bom-item-details">
+            <div class="bom-item-title">${baseMat.name} (Base Layer)</div>
+            <div class="bom-item-spec">${baseDepth}" compacted depth. Order <strong>${baseLooseYards.toFixed(2)} cu yds</strong> to account for 20% roller compaction.</div>
+          </div>
+          <div class="bom-item-qty">
+            <span class="qty-num">${baseTons.toFixed(2)}</span>
+            <span class="qty-unit">tons</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // Item: Top Stone
+    if (hasTop && topDepth > 0) {
+      itemsHtml += `
+        <div class="bom-item">
+          <div class="bom-item-icon top">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3V7"/><path d="M6 7H18L20 19H4L6 7Z"/></svg>
+          </div>
+          <div class="bom-item-details">
+            <div class="bom-item-title">${topMat.name} (Top Dressing)</div>
+            <div class="bom-item-spec">${topDepth}" finished depth (includes 10% buffer). ~<strong>${topLooseYards.toFixed(2)} cu yds</strong> or <strong>${topBags} retail bags</strong> (0.5 cu ft).</div>
+          </div>
+          <div class="bom-item-qty">
+            <span class="qty-num">${topTons.toFixed(2)}</span>
+            <span class="qty-unit">tons</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // Item: Edging & Spikes
+    if (hasEdging) {
+      itemsHtml += `
+        <div class="bom-item">
+          <div class="bom-item-icon edging">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+          </div>
+          <div class="bom-item-details">
+            <div class="bom-item-title">Perimeter Border Edging &amp; Spikes</div>
+            <div class="bom-item-spec">${edgingLinFt} linear feet border. Order <strong>${spikesCount} anchoring stakes/spikes</strong> (1 every 18").</div>
+          </div>
+          <div class="bom-item-qty">
+            <span class="qty-num">${edgingLinFt}</span>
+            <span class="qty-unit">lin ft</span>
+          </div>
+        </div>
+      `;
+    }
+
+    container.innerHTML = itemsHtml;
+
+    // Totals bar
+    const totalTons = baseTons + topTons;
+    const totalCuYds = baseLooseYards + topLooseYards;
+
+    document.getElementById('bom-total-weight').textContent = `${totalTons.toFixed(2)} Tons`;
+    document.getElementById('bom-total-volume').textContent = `${totalCuYds.toFixed(2)} Cu Yds`;
+    document.getElementById('bom-total-excavation').textContent = `${excavationSpoilCuYd.toFixed(1)} Yds Spoil`;
+  }
+
+  // Bind inputs
+  [lengthInput, widthInput, toggleBase, baseMaterialSelect, baseDepthInput, toggleTop, topMaterialSelect, topDepthInput, toggleFabric, toggleEdging].forEach(el => {
+    if (el) {
+      el.addEventListener('input', calculateBOM);
+      el.addEventListener('change', calculateBOM);
+    }
+  });
+
+  // Copy BOM
+  const btnCopy = document.getElementById('btn-copy-bom');
+  if (btnCopy) {
+    btnCopy.addEventListener('click', () => {
+      const len = lengthInput?.value || 0;
+      const wid = widthInput?.value || 0;
+      const totalWeight = document.getElementById('bom-total-weight')?.textContent || '';
+      const totalVol = document.getElementById('bom-total-volume')?.textContent || '';
+      const totalExc = document.getElementById('bom-total-excavation')?.textContent || '';
+
+      const text = `MASTER LANDSCAPING SHOPPING LIST (BOM)
+Project Area: ${len}' × ${wid}' (${parseFloat(len) * parseFloat(wid)} sq ft)
+---------------------------------------------
+• Total Bulk Aggregate Weight: ${totalWeight}
+• Total Bulk Aggregate Volume: ${totalVol}
+• Excavation Spoil to Haul Away: ${totalExc}
+---------------------------------------------
+Calculated on rockcoveragecalculator.com/layered-project-calculator`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        btnCopy.textContent = 'Copied to Clipboard!';
+        setTimeout(() => {
+          btnCopy.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Shopping List`;
+        }, 2000);
+      });
+    });
+  }
+
+  // Print BOM
+  const btnPrint = document.getElementById('btn-print-bom');
+  if (btnPrint) {
+    btnPrint.addEventListener('click', () => window.print());
+  }
+
+  calculateBOM();
+})();
+</script>
+
+<style>
+  .presets-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-4) var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .presets-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold-400);
+    margin-bottom: var(--space-3);
+  }
+
+  .preset-buttons-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .preset-buttons-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .preset-buttons-row {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .btn-preset {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--duration-fast);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .btn-preset:hover {
+    border-color: var(--gold-400);
+    background: var(--slate-800);
+  }
+
+  .btn-preset.active {
+    background: rgba(212, 168, 83, 0.12);
+    border-color: var(--gold-400);
+  }
+
+  .btn-preset span {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .btn-preset small {
+    font-size: 0.725rem;
+    color: var(--text-muted);
+  }
+
+  /* Main Grid */
+  .layered-calc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 1024px) {
+    .layered-calc-grid {
+      grid-template-columns: 1.1fr 1.3fr;
+      align-items: start;
+    }
+  }
+
+  .layered-inputs-panel {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .dim-inputs-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-3);
+  }
+
+  .input-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .input-field-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .layer-control-card {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .layer-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+
+  .layer-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+  }
+
+  .layer-badge.base { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+  .layer-badge.top { background: rgba(212, 168, 83, 0.15); color: var(--gold-400); border: 1px solid rgba(212, 168, 83, 0.3); }
+  .layer-badge.supplies { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+  .layer-toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: 0.775rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .layer-fields-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .layer-select {
+    background: var(--slate-950);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-2);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    outline: none;
+    width: 100%;
+  }
+
+  .layer-hint {
+    display: block;
+    font-size: 0.725rem;
+    color: var(--text-muted);
+    margin-top: var(--space-2);
+  }
+
+  .supplies-options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  /* BOM Card */
+  .bom-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-xl);
+    position: sticky;
+    top: 90px;
+  }
+
+  .bom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: var(--space-4);
+    margin-bottom: var(--space-4);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .bom-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: #10b981;
+  }
+
+  .bom-title-row h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .bom-scope-badge {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    color: var(--gold-400);
+    font-family: var(--font-mono);
+    font-size: 0.775rem;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+  }
+
+  .bom-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .bom-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .bom-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .bom-item-icon.excavation { background: rgba(239, 68, 68, 0.12); color: #f87171; }
+  .bom-item-icon.fabric { background: rgba(168, 85, 247, 0.12); color: #c084fc; }
+  .bom-item-icon.base { background: rgba(59, 130, 246, 0.12); color: #60a5fa; }
+  .bom-item-icon.top { background: rgba(212, 168, 83, 0.15); color: var(--gold-400); }
+  .bom-item-icon.edging { background: rgba(16, 185, 129, 0.12); color: #34d399; }
+
+  .bom-item-details {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .bom-item-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .bom-item-spec {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.3;
+  }
+
+  .bom-item-qty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .qty-num {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+  }
+
+  .qty-unit {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .bom-summary-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+    background: var(--slate-950);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3);
+    margin: var(--space-4) 0;
+    text-align: center;
+  }
+
+  .bom-stat-label {
+    display: block;
+    font-size: 0.675rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .bom-stat-val {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold-400);
+    font-family: var(--font-mono);
+  }
+
+  .bom-actions-row {
+    display: flex;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .bom-contractor-notes {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    font-size: 0.775rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .bom-contractor-notes strong {
+    color: #60a5fa;
+    display: block;
+    margin-bottom: 2px;
+  }
+</style>

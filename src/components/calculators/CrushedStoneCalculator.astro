@@ -19,20 +19,20 @@
 
         <div class="sieve-grid" role="radiogroup">
           <button type="button" class="sieve-btn active" data-density="1.40" data-comp="5" data-name="#57 Clean Crushed Stone (3/4&quot;)">
-            <div class="sieve-title">#57 Clean Stone (1/2" - 1")</div>
-            <div class="sieve-spec">1.40 T/yd³ | Washed drainage stone, retaining walls, top course</div>
+            <div class="sieve-title">#57 Clean Stone (1" to No. 4)</div>
+            <div class="sieve-spec">1.40 T/yd³ | Washed drainage stone, retaining walls, driveway top course</div>
           </button>
           <button type="button" class="sieve-btn" data-density="1.50" data-comp="20" data-name="#411 Dense Graded (Crusher Run)">
             <div class="sieve-title">#411 / DGA / Crusher Run</div>
             <div class="sieve-spec">1.50 T/yd³ | 3/4" stone mixed with limestone fines for solid base</div>
           </button>
-          <button type="button" class="sieve-btn" data-density="1.45" data-comp="8" data-name="#4 Ballast Stone (1.5-2.5&quot;)">
-            <div class="sieve-title">#4 Heavy Ballast (1.5" - 2.5")</div>
-            <div class="sieve-spec">1.45 T/yd³ | Railroad ballast, construction entrance track-out pads</div>
+          <button type="button" class="sieve-btn" data-density="1.45" data-comp="8" data-name="#4 Sub-Base & Track-Out Stone (1.5&quot;-3/4&quot;)">
+            <div class="sieve-title">#4 Clean Sub-Base (1.5" - 3/4")</div>
+            <div class="sieve-spec">1.45 T/yd³ | Driveway sub-base, construction entrance track-out pads</div>
           </button>
-          <button type="button" class="sieve-btn" data-density="1.50" data-comp="5" data-name="#1 Heavy Rip-Rap (3-6&quot;)">
-            <div class="sieve-title">#1 / Rip-Rap Stone (3" - 6")</div>
-            <div class="sieve-spec">1.50 T/yd³ | Culvert outfalls, severe slope erosion control</div>
+          <button type="button" class="sieve-btn" data-density="1.50" data-comp="5" data-name="#1 Heavy Ballast Stone (3.5&quot;-1.5&quot;)">
+            <div class="sieve-title">#1 Heavy Ballast (3.5" - 1.5")</div>
+            <div class="sieve-spec">1.50 T/yd³ | Heavy site tracking pads, railway ballast, deep stability</div>
           </button>
         </div>
 
@@ -77,22 +77,22 @@
 
         <div class="kpi-grid">
           <div class="kpi-card highlight">
-            <div class="kpi-value" id="kpi-crushed-tons">0.00</div>
+            <div class="kpi-value" id="kpi-crushed-tons">9.13</div>
             <div class="kpi-label">Certified Weight (Tons)</div>
-            <div class="kpi-subtext" id="kpi-crushed-lbs">0 lbs total delivery</div>
+            <div class="kpi-subtext" id="kpi-crushed-lbs">18,252 lbs total delivery</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-value" id="kpi-crushed-yards">0.00</div>
+            <div class="kpi-value" id="kpi-crushed-yards">6.52</div>
             <div class="kpi-label">Delivery Volume (Cubic Yards)</div>
-            <div class="kpi-subtext" id="kpi-crushed-cuft">0 cu ft volume</div>
+            <div class="kpi-subtext" id="kpi-crushed-cuft">176.0 cu ft volume</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-value" id="kpi-crushed-sqft">0</div>
+            <div class="kpi-value" id="kpi-crushed-sqft">480</div>
             <div class="kpi-label">Surface Area (Sq Ft)</div>
             <div class="kpi-subtext">480 sq ft footprint</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-value" id="kpi-crushed-trips">0</div>
+            <div class="kpi-value" id="kpi-crushed-trips">1</div>
             <div class="kpi-label">Dump Truck Loads</div>
             <div class="kpi-subtext">Tri-axle or tandem hauler</div>
           </div>
@@ -105,7 +105,7 @@
             <table class="spec-table">
               <tr>
                 <td>Nominal Size Range:</td>
-                <td id="spec-size-range">1/2" to 1" (12.5mm to 25mm)</td>
+                <td id="spec-size-range">1" to No. 4 sieve (25mm to 4.75mm)</td>
               </tr>
               <tr>
                 <td>Void Ratio / Permeability:</td>
@@ -392,7 +392,7 @@ function initCrushedStoneCalculator() {
 
   const specsMap: Record<string, { size: string; void: string; app: string }> = {
     '#57 Clean Crushed Stone (3/4")': {
-      size: '1/2" to 1" (12.5mm to 25mm)',
+      size: '1" to No. 4 sieve (25mm to 4.75mm)',
       void: '38% - 42% void space (Free Draining)',
       app: 'Driveways, French drains, and paver bedding'
     },
@@ -401,15 +401,15 @@ function initCrushedStoneCalculator() {
       void: '10% - 15% void space (Packs Solid)',
       app: 'Compacted paver base, asphalt driveway sub-base'
     },
-    '#4 Heavy Ballast Stone (1.5-2.5")': {
-      size: '1.5" to 2.5" (37mm to 63mm)',
-      void: '45% void space (Heavy Interlocking)',
-      app: 'Construction entrance track-out, railroad ballast'
+    '#4 Sub-Base & Track-Out Stone (1.5"-3/4")': {
+      size: '1.5" to 3/4" (37.5mm to 19mm)',
+      void: '40% - 45% void space (Heavy Interlocking)',
+      app: 'Driveway sub-base, construction entrance track-out, septic fields'
     },
-    '#1 Heavy Rip-Rap (3-6")': {
-      size: '3" to 6" (75mm to 150mm)',
-      void: '50% void space (Energy Dissipation)',
-      app: 'Culvert outfalls, severe slope erosion defense'
+    '#1 Heavy Ballast Stone (3.5"-1.5")': {
+      size: '3.5" to 1.5" (90mm to 37.5mm)',
+      void: '45% - 50% void space (High Load Support)',
+      app: 'Heavy civil ballast, site access tracking pads, stabilized entrances'
     }
   };
 

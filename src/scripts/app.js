@@ -80,6 +80,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ── DOM References ── */
   const shapeTabs = document.querySelectorAll('.shape-tab');
   const dimContainer = document.getElementById('dimension-inputs');
+  const dimensionError = document.getElementById('dimension-error');
+  const calculatorResults = document.getElementById('calculator-results');
   const materialCards = document.querySelectorAll('.material-card');
   const depthSlider = document.getElementById('depth-slider');
   const depthValue = document.getElementById('depth-value');
@@ -117,6 +119,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnPrint = document.getElementById('btn-print');
   const btnCSV = document.getElementById('btn-csv');
   const btnShare = document.getElementById('btn-share');
+  const btnSupplierQuote = document.getElementById('btn-supplier-quote');
+  const resultActionButtons = [btnSupplierQuote, btnSaveProject, btnPrint, btnCSV, btnShare];
+
+  // Supplier Quote Modal Elements
+  const quoteModal = document.getElementById('supplier-quote-modal');
+  const btnCloseQuoteModal = document.getElementById('btn-close-quote-modal');
+  const rfqDestination = document.getElementById('rfq-destination');
+  const rfqAccessNotes = document.getElementById('rfq-access-notes');
+  const rfqTextPreview = document.getElementById('rfq-text-preview');
+  const btnCopyRfqText = document.getElementById('btn-copy-rfq-text');
+  const btnRfqEmail = document.getElementById('btn-rfq-email');
+  const btnRfqSms = document.getElementById('btn-rfq-sms');
+
+  // Project Outcome Elements
+  const outcomeChips = document.querySelectorAll('.btn-outcome-chip');
+  const outcomeForm = document.getElementById('outcome-form');
+  const outcomeTicketTons = document.getElementById('outcome-ticket-tons');
+  const outcomeNotes = document.getElementById('outcome-notes');
+  const btnSubmitOutcome = document.getElementById('btn-submit-outcome');
+  const outcomeConfirmation = document.getElementById('outcome-confirmation');
 
   // Saved projects elements
   const savedProjectsList = document.getElementById('saved-projects-list');
@@ -268,8 +290,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="input-field">
           <input type="number" id="dim-${c.key}" data-key="${c.key}" 
                  value="${RockEngine.formatInputValue(state.rawDims[c.key])}" 
-                 placeholder="${c.placeholder}" step="any" min="0"
-                 aria-label="${c.label} (${state.unit})"
+                  placeholder="${c.placeholder}" step="any" min="0.01" required
+                  aria-label="${c.label} (${state.unit})"
+                  aria-describedby="dimension-error"
                  autocomplete="off">
           <span class="unit-label">${state.unit}</span>
         </div>
@@ -280,11 +303,71 @@ document.addEventListener('DOMContentLoaded', async () => {
     dimContainer.querySelectorAll('input').forEach(inp => {
       inp.addEventListener('input', (e) => {
         const raw = parseFloat(e.target.value);
-        if (!isNaN(raw) && raw >= 0) {
-          state.rawDims[e.target.dataset.key] = raw;
-          recalculate();
-        }
+        state.rawDims[e.target.dataset.key] = Number.isFinite(raw) ? raw : null;
+        recalculate();
       });
+    });
+  }
+
+  function validateDimensions() {
+    const configs = shapeConfigs[state.shape] || [];
+    const errors = [];
+
+    configs.forEach(({ key, label }) => {
+      const value = Number(state.rawDims[key]);
+      if (!Number.isFinite(value) || value <= 0) {
+        errors.push({ key, message: `${label} must be greater than zero.` });
+      }
+    });
+
+    if (state.shape === 'ring') {
+      const outer = Number(state.rawDims.outerRadius);
+      const inner = Number(state.rawDims.innerRadius);
+      if (Number.isFinite(outer) && Number.isFinite(inner) && outer > 0 && inner > 0 && outer <= inner) {
+        const message = 'Outer radius must be greater than inner radius.';
+        errors.push({ key: 'outerRadius', message }, { key: 'innerRadius', message });
+      }
+    }
+
+    return errors;
+  }
+
+  function renderDimensionValidation(errors) {
+    const invalidKeys = new Set(errors.map(error => error.key));
+    dimContainer?.querySelectorAll('input').forEach(input => {
+      const invalid = invalidKeys.has(input.dataset.key);
+      input.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+      input.closest('.input-field')?.classList.toggle('input-field-invalid', invalid);
+    });
+
+    if (dimensionError) {
+      dimensionError.hidden = errors.length === 0;
+      dimensionError.textContent = errors[0]?.message || '';
+    }
+
+    if (calculatorResults) calculatorResults.setAttribute('aria-busy', errors.length ? 'true' : 'false');
+
+    resultActionButtons.forEach(button => {
+      if (!button) return;
+      button.disabled = errors.length > 0;
+      button.setAttribute('aria-disabled', errors.length ? 'true' : 'false');
+    });
+  }
+
+  function renderInvalidResults() {
+    [kpiArea, kpiVolume, kpiWeight, kpiBags].forEach(card => {
+      const value = card?.querySelector('.kpi-value');
+      if (value) {
+        value.dataset.animationToken = String(Number(value.dataset.animationToken || 0) + 1);
+        value.textContent = '—';
+      }
+      const subtext = card?.querySelector('.kpi-subtext');
+      if (subtext) subtext.textContent = 'Enter valid dimensions';
+    });
+    if (breakdownBody) breakdownBody.innerHTML = '<tr><td colspan="2" class="invalid-results-message">Correct the project dimensions to calculate quantities.</td></tr>';
+    if (purchaseGrid) purchaseGrid.innerHTML = '<p class="invalid-results-message">Purchasing recommendations will appear when the dimensions are valid.</p>';
+    [costSummaryMaterial, costSummaryDelivery, costSummaryLabor, costSummaryFabric, costSummaryTax, costTotal].forEach(element => {
+      if (element) element.textContent = '—';
     });
   }
 
@@ -511,6 +594,206 @@ document.addEventListener('DOMContentLoaded', async () => {
         btnShare.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> Share Link`;
       }, 2000);
     });
+  }
+
+  /* ── Supplier RFQ Generator Modal ── */
+  function generateRfqText() {
+    const dimsInFeet = getDimsInFeet();
+    const material = getMaterialById(state.materialId);
+    const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent, {
+      customDensity: state.customDensity,
+      isCompacted: state.isCompacted
+    });
+
+    const destination = rfqDestination?.value.trim() || '[Specify City / ZIP / Cross Streets]';
+    const accessNotes = rfqAccessNotes?.value.trim() || 'Paved driveway access, standard dump truck clearance';
+
+    return `Subject: Material Quote & Delivery Availability: ${result.weightTons.toFixed(2)} Tons of ${material.name}
+
+Hi Sales Desk / Dispatch,
+
+I am requesting price and delivery availability for an upcoming landscaping project:
+
+• Material Requested: ${material.name}
+• Quantity Needed: ${result.weightTons.toFixed(2)} Short Tons (~${result.volumeCuYd.toFixed(2)} Cubic Yards)
+• Coverage Footprint: ${result.areaSqFt.toFixed(0)} sq ft at ${state.depthInches}" depth (includes ${state.wastePercent}% compaction & settling buffer)
+• Delivery Destination: ${destination}
+• Site Access Notes: ${accessNotes}
+
+Please let me know:
+1. Delivered price per ton (or all-inclusive total price with freight)
+2. Minimum order requirements or split-load fees (if applicable)
+3. Earliest delivery date and available delivery windows
+4. Maximum truck size for your fleet (single-axle, tandem, or tri-axle)
+
+Thank you!`;
+  }
+
+  function updateRfqMessage() {
+    if (!rfqTextPreview) return;
+    const text = generateRfqText();
+    rfqTextPreview.value = text;
+
+    const material = getMaterialById(state.materialId);
+    const dimsInFeet = getDimsInFeet();
+    const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
+    const subject = encodeURIComponent(`Material Quote: ${result.weightTons.toFixed(2)} Tons of ${material.name}`);
+    const body = encodeURIComponent(text);
+
+    if (btnRfqEmail) {
+      btnRfqEmail.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+    if (btnRfqSms) {
+      btnRfqSms.href = `sms:?&body=${body}`;
+    }
+  }
+
+  if (btnSupplierQuote && quoteModal) {
+    btnSupplierQuote.addEventListener('click', () => {
+      updateRfqMessage();
+      quoteModal.style.display = 'flex';
+      if (rfqDestination) rfqDestination.focus();
+    });
+
+    if (btnCloseQuoteModal) {
+      btnCloseQuoteModal.addEventListener('click', () => {
+        quoteModal.style.display = 'none';
+      });
+    }
+
+    quoteModal.addEventListener('click', (e) => {
+      if (e.target === quoteModal) {
+        quoteModal.style.display = 'none';
+      }
+    });
+
+    if (rfqDestination) {
+      rfqDestination.addEventListener('input', updateRfqMessage);
+    }
+    if (rfqAccessNotes) {
+      rfqAccessNotes.addEventListener('input', updateRfqMessage);
+    }
+
+    if (btnCopyRfqText && rfqTextPreview) {
+      btnCopyRfqText.addEventListener('click', () => {
+        navigator.clipboard.writeText(rfqTextPreview.value).then(() => {
+          btnCopyRfqText.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied Message!`;
+          setTimeout(() => {
+            btnCopyRfqText.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Message`;
+          }, 2000);
+        });
+      });
+    }
+  }
+
+  /* ── Project Outcome Field Loop ── */
+  let activeOutcome = null;
+  outcomeChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      outcomeChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeOutcome = chip.dataset.outcome;
+      if (outcomeForm) outcomeForm.style.display = 'block';
+    });
+  });
+
+  if (btnSubmitOutcome) {
+    btnSubmitOutcome.addEventListener('click', () => {
+      const material = getMaterialById(state.materialId);
+      const dimsInFeet = getDimsInFeet();
+      const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
+
+      const fieldReport = {
+        id: Date.now(),
+        date: new Date().toISOString(),
+        outcome: activeOutcome,
+        material: material.name,
+        calculatedTons: result.weightTons,
+        actualTicketTons: parseFloat(outcomeTicketTons?.value) || null,
+        notes: outcomeNotes?.value.trim() || '',
+        depthInches: state.depthInches,
+        areaSqFt: result.areaSqFt
+      };
+
+      try {
+        const existing = JSON.parse(localStorage.getItem('rock_coverage_field_reports') || '[]');
+        existing.push(fieldReport);
+        localStorage.setItem('rock_coverage_field_reports', JSON.stringify(existing));
+      } catch (e) {}
+
+      if (outcomeForm) outcomeForm.style.display = 'none';
+      if (outcomeConfirmation) outcomeConfirmation.style.display = 'flex';
+      setTimeout(() => {
+        if (outcomeConfirmation) outcomeConfirmation.style.display = 'none';
+      }, 5000);
+    });
+  }
+
+  /* ── Dynamic Transparent Math Explainer ── */
+  function renderExplainer(result, shape, dimsInFeet, depthInches, wastePercent, material, isCompacted) {
+    const container = document.getElementById('explainer-steps-container');
+    if (!container) return;
+
+    const baseCuFt = result.areaSqFt * (depthInches / 12);
+    const baseCuYd = baseCuFt / 27;
+
+    let areaFormula = '';
+    if (shape === 'rectangle') {
+      areaFormula = `Length (${state.rawDims.length || 0} ${state.unit}) × Width (${state.rawDims.width || 0} ${state.unit}) = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
+    } else if (shape === 'circle') {
+      areaFormula = `π × (Radius ${state.rawDims.radius || 0} ${state.unit})² = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
+    } else if (shape === 'ring') {
+      areaFormula = `π × (Outer Radius ${state.rawDims.outerRadius || 0}² - Inner Radius ${state.rawDims.innerRadius || 0}²) = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
+    } else if (shape === 'triangle') {
+      areaFormula = `½ × Base (${state.rawDims.base || 0} ${state.unit}) × Height (${state.rawDims.height || 0} ${state.unit}) = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
+    } else if (shape === 'trapezoid') {
+      areaFormula = `[Base A (${state.rawDims.baseA || 0}) + Base B (${state.rawDims.baseB || 0})] ÷ 2 × Height (${state.rawDims.height || 0}) = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
+    } else {
+      areaFormula = `Measured Surface Footprint = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
+    }
+
+    const compactionMultiplier = isCompacted ? (material.compactionFactor || 1.25) : 1.0;
+    const wasteMultiplier = 1 + (wastePercent / 100);
+    const totalMultiplier = (wasteMultiplier * compactionMultiplier).toFixed(2);
+    const compactionNote = isCompacted ? ` (includes ×${material.compactionFactor || 1.25} mechanical tamping allowance)` : '';
+
+    container.innerHTML = `
+      <div class="explainer-step">
+        <span class="step-number">Step 1</span>
+        <div class="step-content">
+          <strong>Measured Surface Area:</strong>
+          <div class="step-formula">${areaFormula}</div>
+        </div>
+      </div>
+      <div class="explainer-step">
+        <span class="step-number">Step 2</span>
+        <div class="step-content">
+          <strong>Excavation Volume (Uncompacted):</strong>
+          <div class="step-formula">${RockEngine.formatNumber(result.areaSqFt)} sq ft × (${depthInches}" ÷ 12) = ${RockEngine.formatNumber(baseCuFt)} cu ft (${RockEngine.formatNumber(baseCuYd)} cu yds)</div>
+        </div>
+      </div>
+      <div class="explainer-step">
+        <span class="step-number">Step 3</span>
+        <div class="step-content">
+          <strong>Waste &amp; Settling Allowance (+${wastePercent}% buffer${compactionNote}):</strong>
+          <div class="step-formula">${RockEngine.formatNumber(baseCuFt)} cu ft × ${totalMultiplier} = <strong>${RockEngine.formatNumber(result.volumeCuYd)} cu yds</strong> (${RockEngine.formatNumber(result.volumeCuFt)} cu ft)</div>
+        </div>
+      </div>
+      <div class="explainer-step">
+        <span class="step-number">Step 4</span>
+        <div class="step-content">
+          <strong>Quarry Scale Weight (${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ nominal bulk density):</strong>
+          <div class="step-formula">${RockEngine.formatNumber(result.volumeCuYd)} cu yds × ${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ = ${RockEngine.formatNumber(result.weightLbs)} lbs ÷ 2,000 = <strong>${RockEngine.formatNumber(result.weightTons)} Short Tons</strong> (${RockEngine.formatNumber(result.weightTonnes)} Tonnes)</div>
+        </div>
+      </div>
+      <div class="explainer-step">
+        <span class="step-number">Step 5</span>
+        <div class="step-content">
+          <strong>Retail Bag Sizing (0.5 cu ft bags):</strong>
+          <div class="step-formula">${RockEngine.formatNumber(result.volumeCuFt)} cu ft ÷ 0.5 cu ft/bag = <strong>${result.bags} Bags</strong></div>
+        </div>
+      </div>
+    `;
   }
 
   /* ── Saved Projects System ── */
@@ -750,6 +1033,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   /* ── Main Recalculation ── */
   function recalculate() {
+    const dimensionErrors = validateDimensions();
+    renderDimensionValidation(dimensionErrors);
+    if (dimensionErrors.length) {
+      renderInvalidResults();
+      return;
+    }
+
     const dimsInFeet = getDimsInFeet();
     const material = getMaterialById(state.materialId);
     const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent, {
@@ -833,6 +1123,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       `;
     }
 
+    // Dynamic math explainer with user's exact inputs
+    renderExplainer(result, state.shape, dimsInFeet, state.depthInches, state.wastePercent, material, state.isCompacted);
+    updateRfqMessage();
+
     // Depth status warning
     if (depthStatus) {
       if (result.belowMinDepth) {
@@ -912,6 +1206,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!element) return;
 
     const valueEl = element.querySelector('.kpi-value') || element;
+    const animationToken = String(Number(valueEl.dataset.animationToken || 0) + 1);
+    valueEl.dataset.animationToken = animationToken;
     const current = parseFloat(valueEl.textContent.replace(/,/g, '')) || 0;
 
     if (Math.abs(current - target) < 0.01) return;
@@ -923,6 +1219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const startTime = performance.now();
 
     function update(now) {
+      if (valueEl.dataset.animationToken !== animationToken) return;
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);

@@ -1,0 +1,343 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Free Embed Widget', url: '/calculator-widget' }
+];
+
+const title = "Free Rock Coverage Calculator Widget - Embed on Your Website";
+const metaDescription = "Embed our free, interactive landscape rock and gravel coverage calculator on your contractor, quarry, or garden center website with a simple copy-paste HTML iframe code snippet.";
+---
+
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/calculator-widget">
+  <Header />
+
+  <main id="main-content">
+    <PageHero
+      title="Free Rock Coverage Calculator Widget"
+      subtitle="Help your customers calculate tons, cubic yards, and bags directly on your website. 100% free for landscapers, rock quarries, garden supply yards, and DIY blogs."
+      badge="Contractor & Supplier Tool"
+      breadcrumbs={breadcrumbs}
+      theme="utility"
+    />
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="widget-builder-grid">
+          <!-- Left: Configuration Controls -->
+          <div class="builder-controls-panel">
+            <div class="calc-panel-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <h3>Customize Your Widget</h3>
+            </div>
+
+            <div class="control-group">
+              <label for="widget-width-select">Widget Width</label>
+              <select id="widget-width-select" class="builder-select">
+                <option value="100%" selected>100% Responsive (Fits any container / mobile-friendly)</option>
+                <option value="960px">Fixed 960px (Standard Desktop)</option>
+                <option value="800px">Fixed 800px (Medium Content Column)</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label for="widget-height-input">Widget Height</label>
+              <div class="input-field mini">
+                <input type="number" id="widget-height-input" value="820" min="600" max="1400" step="20" />
+                <span class="unit-label">px</span>
+              </div>
+              <span class="control-hint">820px accommodates all shapes, depth sliders, and breakdown tables without scrolling.</span>
+            </div>
+
+            <div class="control-group">
+              <label for="widget-theme-select">Default Color Theme</label>
+              <select id="widget-theme-select" class="builder-select">
+                <option value="dark" selected>Quarry Dark Slate (High contrast)</option>
+                <option value="light">Clean Light Mode (White background)</option>
+              </select>
+            </div>
+
+            <!-- Code Snippet Output Box -->
+            <div class="snippet-box">
+              <div class="snippet-header">
+                <span>Embed Code (Copy &amp; Paste into Your HTML)</span>
+                <button type="button" id="btn-copy-widget-code" class="btn btn-sm btn-primary">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy HTML
+                </button>
+              </div>
+              <textarea id="widget-code-preview" class="snippet-textarea" rows="6" readonly></textarea>
+            </div>
+
+            <!-- Platform Installation Guides -->
+            <div class="platform-guides">
+              <h4>Quick Setup Instructions:</h4>
+              <details class="guide-accordion">
+                <summary>WordPress (Block Editor / Elementor)</summary>
+                <p>Add a <strong>Custom HTML</strong> block or element to your page or blog post, and paste the embed code directly into the block.</p>
+              </details>
+              <details class="guide-accordion">
+                <summary>Squarespace</summary>
+                <p>Click <strong>Add Block</strong>, choose <strong>Code</strong> or <strong>Embed</strong>, set mode to HTML, and paste the snippet.</p>
+              </details>
+              <details class="guide-accordion">
+                <summary>Wix &amp; Shopify</summary>
+                <p>Add an <strong>Embed Code &gt; Embed a Widget (HTML iframe)</strong> element and paste the snippet into the code field.</p>
+              </details>
+            </div>
+          </div>
+
+          <!-- Right: Live Interactive Preview -->
+          <div class="builder-preview-panel">
+            <div class="preview-header">
+              <div class="preview-status">
+                <span class="live-dot"></span>
+                <span>Live Widget Preview</span>
+              </div>
+              <span class="preview-meta">Updates in real time</span>
+            </div>
+            <div class="iframe-container" id="preview-iframe-wrapper">
+              <iframe 
+                id="preview-iframe" 
+                src="/embed" 
+                width="100%" 
+                height="820" 
+                frameborder="0" 
+                style="border: none; border-radius: 12px; background: transparent;"
+                title="Landscape Rock Coverage Calculator Preview"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  const widthSelect = document.getElementById('widget-width-select');
+  const heightInput = document.getElementById('widget-height-input');
+  const themeSelect = document.getElementById('widget-theme-select');
+  const codePreview = document.getElementById('widget-code-preview');
+  const previewIframe = document.getElementById('preview-iframe');
+  const previewWrapper = document.getElementById('preview-iframe-wrapper');
+  const btnCopy = document.getElementById('btn-copy-widget-code');
+
+  function updateWidget() {
+    const width = widthSelect?.value || '100%';
+    const height = heightInput?.value || '820';
+    const theme = themeSelect?.value || 'dark';
+
+    const embedUrl = `https://rockcoveragecalculator.com/embed`;
+
+    const code = `<iframe src="${embedUrl}" width="${width}" height="${height}" frameborder="0" style="border:none;border-radius:12px;width:${width};height:${height}px;box-shadow:0 10px 30px rgba(0,0,0,0.15);" title="Landscape Rock Coverage Calculator" loading="lazy"></iframe>
+<p style="font-size:12px;text-align:center;color:#6b7280;margin-top:6px;">Calculations powered by <a href="https://rockcoveragecalculator.com" target="_blank" rel="noopener" style="color:#b8860b;text-decoration:underline;">Rock Coverage Calculator</a></p>`;
+
+    if (codePreview) {
+      codePreview.value = code;
+    }
+
+    if (previewIframe) {
+      previewIframe.style.height = `${height}px`;
+    }
+
+    if (previewWrapper) {
+      previewWrapper.style.maxWidth = width === '100%' ? '100%' : width;
+    }
+  }
+
+  [widthSelect, heightInput, themeSelect].forEach(el => {
+    if (el) {
+      el.addEventListener('input', updateWidget);
+      el.addEventListener('change', updateWidget);
+    }
+  });
+
+  if (btnCopy && codePreview) {
+    btnCopy.addEventListener('click', () => {
+      navigator.clipboard.writeText(codePreview.value).then(() => {
+        btnCopy.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied HTML!`;
+        setTimeout(() => {
+          btnCopy.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy HTML`;
+        }, 2000);
+      });
+    });
+  }
+
+  updateWidget();
+})();
+</script>
+
+<style>
+  .widget-builder-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 1024px) {
+    .widget-builder-grid {
+      grid-template-columns: 420px 1fr;
+      align-items: start;
+    }
+  }
+
+  .builder-controls-panel {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-top: var(--space-4);
+  }
+
+  .control-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .builder-select {
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    outline: none;
+  }
+
+  .builder-select:focus {
+    border-color: var(--gold-400);
+  }
+
+  .control-hint {
+    font-size: 0.725rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* Snippet Box */
+  .snippet-box {
+    margin-top: var(--space-6);
+    background: var(--slate-950);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3);
+  }
+
+  .snippet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+    font-size: 0.775rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .snippet-textarea {
+    width: 100%;
+    background: rgba(10, 13, 16, 0.9);
+    border: 1px solid rgba(107, 122, 141, 0.2);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    color: var(--gold-300);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    resize: none;
+    outline: none;
+  }
+
+  /* Platform Guides */
+  .platform-guides {
+    margin-top: var(--space-6);
+    border-top: 1px solid var(--border-subtle);
+    padding-top: var(--space-4);
+  }
+
+  .platform-guides h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .guide-accordion {
+    margin-bottom: var(--space-2);
+    font-size: 0.8rem;
+    background: var(--slate-850);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .guide-accordion summary {
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  .guide-accordion p {
+    margin: var(--space-2) 0 0 0;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  /* Preview Panel */
+  .builder-preview-panel {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .preview-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .preview-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .iframe-container {
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--slate-950);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  }
+</style>

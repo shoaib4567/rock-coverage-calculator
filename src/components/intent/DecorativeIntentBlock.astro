@@ -1,0 +1,250 @@
+---
+// Decorative Landscaping, Bag vs Bulk & Aesthetic Finishes Block
+interface Props {
+  stoneName?: string;
+}
+
+const { stoneName = 'Decorative Stone' } = Astro.props;
+---
+<section class="decorative-block-section">
+  <div class="container">
+    <div class="decorative-card">
+      <div class="decorative-header">
+        <div class="decorative-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="M12 8v8"></path>
+            <path d="M8 12h8"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="decorative-badge">Landscape Architecture & Retail Sourcing</span>
+          <h3>Retail Bags vs. Bulk Pallets & Bulk Delivery Guide</h3>
+        </div>
+      </div>
+
+      <p class="decorative-intro">
+        Decorative landscape stones like {stoneName}, Mexican beach pebbles, and marble chips are commonly sold in both 0.5 cubic foot plastic bags and bulk cubic yard drops. Choosing the right purchasing method saves substantial money:
+      </p>
+
+      <div class="procurement-grid">
+        <div class="procurement-card">
+          <div class="procurement-tag retail">Retail Store Bags</div>
+          <div class="procurement-volume">0.5 cu ft Bags</div>
+          <div class="procurement-metric">50 – 52 lbs per bag</div>
+          <ul class="procurement-bullets">
+            <li><strong>Ideal for:</strong> Small garden beds, planter borders, top-dressing pots (&lt; 20 bags).</li>
+            <li><strong>Transport:</strong> Car trunk or SUV; no dump truck access needed.</li>
+            <li><strong>Cost:</strong> $4.50 – $8.00+ per bag ($240 – $430+ per equivalent cubic yard).</li>
+          </ul>
+        </div>
+
+        <div class="procurement-card highlight">
+          <div class="procurement-tag pallet">Full Pallet (Tote)</div>
+          <div class="procurement-volume">1 Pallet = 50 Bags</div>
+          <div class="procurement-metric">~25 cu ft (~0.93 yd³)</div>
+          <ul class="procurement-bullets">
+            <li><strong>Ideal for:</strong> Backyard patios, courtyard borders, medium landscaping.</li>
+            <li><strong>Transport:</strong> Forklift-dropped on flatbed truck or trailer.</li>
+            <li><strong>Cost:</strong> Usually discounted 10%–15% off individual bag retail pricing.</li>
+          </ul>
+        </div>
+
+        <div class="procurement-card bulk">
+          <div class="procurement-tag bulk">Bulk Quarry Drop</div>
+          <div class="procurement-volume">Per Cubic Yard / Ton</div>
+          <div class="procurement-metric">~2,700 lbs per yard</div>
+          <ul class="procurement-bullets">
+            <li><strong>Ideal for:</strong> Large perimeter beds, dry creeks, full front yard xeriscaping.</li>
+            <li><strong>Transport:</strong> Dump truck tailgate drop (requires driveway drop clearance).</li>
+            <li><strong>Cost:</strong> <strong>50%–70% cheaper</strong> than bagged rock for orders over 1.5 yards.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="weed-barrier-banner">
+        <div class="wb-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="wb-content">
+          <strong>Landscape Fabric Underlayment Requirement:</strong>
+          Never place decorative pebbles directly over bare soil. Always install a heavy-duty <strong>polypropylene non-woven weed barrier (3 oz to 4.5 oz)</strong> pinned with 6-inch steel landscape staples every 3 feet. Add <strong>10% extra fabric</strong> for overlapping seams by at least 6 inches.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .decorative-block-section {
+    padding: var(--space-8) 0;
+  }
+
+  .decorative-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .decorative-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .decorative-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .decorative-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #34d399;
+    margin-bottom: 2px;
+  }
+
+  .decorative-header h3 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .decorative-intro {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+    max-width: 900px;
+  }
+
+  .procurement-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (max-width: 860px) {
+    .procurement-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+  }
+
+  .procurement-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .procurement-card:hover {
+    border-color: rgba(16, 185, 129, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .procurement-card.highlight {
+    border-color: rgba(16, 185, 129, 0.5);
+    background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, var(--bg-surface) 100%);
+  }
+
+  .procurement-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-2);
+  }
+
+  .procurement-tag.retail {
+    background: rgba(107, 122, 141, 0.2);
+    color: var(--text-secondary);
+  }
+
+  .procurement-tag.pallet {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+  }
+
+  .procurement-tag.bulk {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--accent-gold);
+  }
+
+  .procurement-volume {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .procurement-metric {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: #34d399;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+  }
+
+  .procurement-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    line-height: 1.45;
+  }
+
+  .procurement-bullets li strong {
+    color: var(--text-primary);
+  }
+
+  .weed-barrier-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .wb-icon {
+    color: #34d399;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .wb-content strong {
+    color: var(--text-primary);
+  }
+</style>

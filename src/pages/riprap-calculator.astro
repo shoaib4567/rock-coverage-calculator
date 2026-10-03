@@ -1,13 +1,13 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import CivilStructuralBlock from '../components/intent/CivilStructuralBlock.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Material Calculators', url: '/crushed-stone-calculator' },
   { name: 'Riprap Calculator', url: '/riprap-calculator' }
 ];
 
@@ -20,7 +20,7 @@ const entityTags = [
 
 const quickStats = [
   { value: '6" to 12"', label: 'Particle Caliper', desc: 'Heavy quarry-blasted armor stone for high-velocity erosion control' },
-  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'ASTM C29 loose bulk density (2,800 lbs per cubic yard)' },
+  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'Supplier-reported loose bulk density (2,800 lbs per cubic yard)' },
   { value: 'DOT Spec', label: 'Erosion Armor', desc: 'Standard specification for culvert aprons, shorelines, and detention ponds' }
 ];
 
@@ -116,6 +116,7 @@ const supportGuides = [
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="civil"
     />
 
     <!-- Interactive Riprap Calculator Tool -->
@@ -158,25 +159,28 @@ const supportGuides = [
 
             <div class="kpi-grid">
               <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-riprap-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-riprap-cuft">Includes 10% buffer</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-riprap-tons">0.00</div>
-              <div class="kpi-label">Scale Weight (Tons)</div>
-              <div class="kpi-subtext">At 1.40 t/yd³ (2,800 lbs/yd³)</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-riprap-loads">0.0</div>
-              <div class="kpi-label">Tri-Axle Truckloads</div>
-              <div class="kpi-subtext">15 tons per load</div>
-            </div>
+                <div class="kpi-value" id="kpi-riprap-yards">24.44</div>
+                <div class="kpi-label">Volume (Cubic Yards)</div>
+                <div class="kpi-subtext" id="kpi-riprap-cuft">660.0 cu ft (with 10% buffer)</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="kpi-riprap-tons">34.22</div>
+                <div class="kpi-label">Scale Weight (Tons)</div>
+                <div class="kpi-subtext">At 1.40 t/yd³ (2,800 lbs/yd³)</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="kpi-riprap-loads">2.3</div>
+                <div class="kpi-label">Tri-Axle Truckloads</div>
+                <div class="kpi-subtext">15 tons per load</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Civil Truckload Logistics & Subgrade Stabilization Block -->
+    <CivilStructuralBlock />
 
     <!-- Technical Guide on Riprap -->
     <article class="content-guide-section">
@@ -202,7 +206,7 @@ const supportGuides = [
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Bulk Density</span>
               <span class="aeo-quick-value">1.40 t/yd³ (104 lbs/cu ft)</span>
-              <p class="aeo-quick-desc">Loose quarry weight per ASTM C29 testing (2,800 lbs/yd³).</p>
+              <p class="aeo-quick-desc">Supplier-reported loose bulk density (2,800 lbs/yd³). Note: ASTM C29 standard applies to aggregates up to 5 inches.</p>
             </div>
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Underlayment</span>
@@ -211,6 +215,13 @@ const supportGuides = [
             </div>
           </div>
         </section>
+
+        <div class="highlight-callout" style="background: rgba(212, 168, 83, 0.08); border-left: 4px solid var(--accent-gold); padding: var(--space-4) var(--space-6); border-radius: var(--radius-md); margin-bottom: var(--space-8);">
+          <h4 style="margin: 0 0 var(--space-2); color: var(--accent-gold); font-size: 1rem;">Engineering &amp; Permitting Notice</h4>
+          <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+            Culvert outfalls, stream-bank armoring, and shoreline revetment work frequently alter natural hydrology and are governed by local conservation districts, state Departments of Transportation (DOT), and the U.S. Army Corps of Engineers. Always verify local riprap gradation classifications and obtain required environmental permits before commencing heavy equipment placement.
+          </p>
+        </div>
 
         <div class="content-card">
           <h2>Hydraulic Principles of Riprap Slope Protection</h2>

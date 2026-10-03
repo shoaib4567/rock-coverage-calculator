@@ -45,13 +45,13 @@ const faqs = [
     <div class="faq-list">
       {faqs.map((faq, i) => (
         <div class="faq-item animate-fade-in-up" style={`animation-delay: ${i * 0.05}s`}>
-          <button class="faq-question" aria-expanded="false">
+          <button class="faq-question" id={`faq-question-${i}`} aria-expanded="false" aria-controls={`faq-answer-${i}`}>
             <span>{faq.question}</span>
             <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"/>
             </svg>
           </button>
-          <div class="faq-answer">
+          <div class="faq-answer" id={`faq-answer-${i}`} role="region" aria-labelledby={`faq-question-${i}`} hidden>
             <p>{faq.answer}</p>
           </div>
         </div>
@@ -149,3 +149,23 @@ const faqs = [
     padding-top: var(--space-4);
   }
 </style>
+
+<script>
+  function setupFaq() {
+    document.querySelectorAll<HTMLElement>('.faq-item').forEach(item => {
+      const button = item.querySelector<HTMLButtonElement>('.faq-question');
+      const answer = item.querySelector<HTMLElement>('.faq-answer');
+      if (!button || !answer || button.dataset.bound === 'true') return;
+      button.dataset.bound = 'true';
+      button.addEventListener('click', () => {
+        const isOpen = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', String(!isOpen));
+        item.classList.toggle('open', !isOpen);
+        answer.hidden = isOpen;
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupFaq);
+  setupFaq();
+</script>

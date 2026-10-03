@@ -217,6 +217,27 @@ body {
   overflow-x: hidden;
 }
 
+.skip-link {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 10000;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--gold-500);
+  color: var(--slate-950);
+  font-weight: 700;
+  transform: translateY(calc(-100% - var(--space-6)));
+  transition: transform var(--duration-fast) var(--ease-smooth);
+}
+
+.skip-link:focus {
+  color: var(--slate-950);
+  transform: translateY(0);
+  outline: 3px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
 /* Subtle noise texture overlay on body */
 body::before {
   content: '';

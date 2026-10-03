@@ -23,6 +23,7 @@ interface Props {
   breadcrumbs: BreadcrumbItem[];
   entityTags?: EntityTag[];
   quickStats?: QuickStat[];
+  theme?: 'civil' | 'decorative' | 'drainage' | 'utility' | 'default';
 }
 
 const {
@@ -32,11 +33,12 @@ const {
   badge,
   breadcrumbs,
   entityTags = [],
-  quickStats = []
+  quickStats = [],
+  theme = 'default'
 } = Astro.props;
 ---
 
-<section class="page-hero">
+<section class={`page-hero theme-${theme}`}>
   <div class="container">
     <!-- Breadcrumb Navigation with Semantic Microdata -->
     <nav class="breadcrumb-nav" aria-label="Breadcrumb">
@@ -65,10 +67,11 @@ const {
       </div>
 
       <h1>
-        {highlightWord ? (
+        {highlightWord && title.includes(highlightWord) ? (
           <>
-            {title.replace(highlightWord, '').trim()}{' '}
-            <span class="text-gold">{highlightWord}</span>
+            {title.substring(0, title.indexOf(highlightWord))}
+            <span class="hero-highlight">{highlightWord}</span>
+            {title.substring(title.indexOf(highlightWord) + highlightWord.length)}
           </>
         ) : (
           title
@@ -271,5 +274,120 @@ const {
     font-size: 11px;
     color: var(--text-muted);
     line-height: 1.4;
+  }
+
+  .hero-highlight {
+    color: var(--accent-gold);
+  }
+
+  /* --- Intent-Differentiated Themes --- */
+
+  /* 1. Heavy Civil & Structural Theme (Industrial Steel / Infrastructure) */
+  .page-hero.theme-civil {
+    background: radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, 0.16) 0%, rgba(15, 23, 42, 0.5) 65%, transparent 100%);
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  .theme-civil .hero-badge {
+    background: rgba(37, 99, 235, 0.12);
+    border-color: rgba(59, 130, 246, 0.35);
+    color: #60a5fa;
+  }
+  .theme-civil .badge-dot {
+    background: #3b82f6;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.8);
+  }
+  .theme-civil .hero-highlight {
+    color: #60a5fa;
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+  }
+  .theme-civil .tag-val,
+  .theme-civil .stat-val {
+    color: #60a5fa;
+  }
+  .theme-civil .quick-stat-card:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
+  }
+
+  /* 2. Decorative Landscaping & Xeriscape Theme (Lush Botanical / Architectural Pebble) */
+  .page-hero.theme-decorative {
+    background: radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.16) 0%, rgba(6, 78, 59, 0.25) 65%, transparent 100%);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+  }
+  .theme-decorative .hero-badge {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.35);
+    color: #34d399;
+  }
+  .theme-decorative .badge-dot {
+    background: #10b981;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+  }
+  .theme-decorative .hero-highlight {
+    color: #34d399;
+    text-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+  }
+  .theme-decorative .tag-val,
+  .theme-decorative .stat-val {
+    color: #34d399;
+  }
+  .theme-decorative .quick-stat-card:hover {
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
+  }
+
+  /* 3. Drainage & French Drain Theme (Hydrological Aquatic Cyan) */
+  .page-hero.theme-drainage {
+    background: radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.18) 0%, rgba(14, 116, 144, 0.25) 65%, transparent 100%);
+    border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+  }
+  .theme-drainage .hero-badge {
+    background: rgba(6, 182, 212, 0.12);
+    border-color: rgba(6, 182, 212, 0.35);
+    color: #22d3ee;
+  }
+  .theme-drainage .badge-dot {
+    background: #06b6d4;
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.8);
+  }
+  .theme-drainage .hero-highlight {
+    color: #22d3ee;
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+  }
+  .theme-drainage .tag-val,
+  .theme-drainage .stat-val {
+    color: #22d3ee;
+  }
+  .theme-drainage .quick-stat-card:hover {
+    border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.15);
+  }
+
+  /* 4. Rapid Unit Conversion & Utility Hub Theme (High Efficiency Technical Amber) */
+  .page-hero.theme-utility {
+    padding: var(--space-8) 0 var(--space-6) 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.15) 0%, rgba(180, 83, 9, 0.15) 65%, transparent 100%);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+  }
+  .theme-utility .hero-badge {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+  }
+  .theme-utility .badge-dot {
+    background: #f59e0b;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+  }
+  .theme-utility .hero-highlight {
+    color: #fbbf24;
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+  }
+  .theme-utility .tag-val,
+  .theme-utility .stat-val {
+    color: #fbbf24;
+  }
+  .theme-utility .quick-stat-card:hover {
+    border-color: rgba(245, 158, 11, 0.4);
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.15);
   }
 </style>

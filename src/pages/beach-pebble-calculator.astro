@@ -1,13 +1,13 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import DecorativeIntentBlock from '../components/intent/DecorativeIntentBlock.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Material Calculators', url: '/decorative-rock-calculator' },
   { name: 'Beach Pebble Calculator', url: '/beach-pebble-calculator' }
 ];
 
@@ -116,6 +116,7 @@ const supportGuides = [
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="decorative"
     />
 
     <!-- Interactive Beach Pebble Calculator Tool -->
@@ -177,6 +178,9 @@ const supportGuides = [
         </div>
       </div>
     </section>
+
+    <!-- Decorative Sourcing & Weed Barrier Block -->
+    <DecorativeIntentBlock stoneName="Mexican Beach Pebbles" />
 
     <!-- Technical Guide on Beach Pebble -->
     <article class="content-guide-section">

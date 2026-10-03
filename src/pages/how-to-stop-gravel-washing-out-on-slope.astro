@@ -1,0 +1,366 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Slope Washout Guide', url: '/how-to-stop-gravel-washing-out-on-slope' }
+];
+
+const title = "How to Stop Gravel Washing Out on a Slope - 5 Civil Engineering Fixes";
+const metaDescription = "Proven civil engineering methods to stop gravel and stone washing down hillsides and sloped driveways. Angular aggregate locking, geocell grid stabilization, check dams, and drainage cutoffs.";
+---
+
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/how-to-stop-gravel-washing-out-on-slope">
+  <Header />
+
+  <main id="main-content">
+    <PageHero
+      title="How to Stop Gravel Washing Out on a Slope"
+      subtitle="Rounded gravel rolls like ball bearings when stormwater hits a hillside. Discover the 5 proven civil engineering techniques that permanently lock sloped gravel in place."
+      badge="Hillside Civil Engineering Guide"
+      breadcrumbs={breadcrumbs}
+      theme="civil"
+    />
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <!-- Key Solution Takeaway Box -->
+        <div class="aeo-box">
+          <div class="aeo-header">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <h3>Quick Civil Fix: The Slope Rule of Thumb</h3>
+          </div>
+          <p>
+            If your slope exceeds a <strong>4% grade</strong> (a 4-inch drop every 8 feet), you must <strong>never use smooth river rock or pea gravel</strong>. Smooth rounded stones have zero mechanical friction and will wash into ruts during heavy downpours. Slopes require <strong>100% crushed angular stone (#57 or Crusher Run)</strong> or <strong>honeycomb geocell grid mats</strong> that mechanically lock particles together.
+          </p>
+        </div>
+
+        <!-- 5 Proven Engineering Methods -->
+        <div class="methods-container" style="margin-top: var(--space-10);">
+          <!-- Fix 1 -->
+          <article class="method-card">
+            <div class="method-num-badge">Fix 1</div>
+            <div class="method-content">
+              <h3>Switch to Angular Fractured Aggregate (Interlocking Friction)</h3>
+              <p>
+                In civil geotechnical engineering, stability on an incline is governed by the <strong>angle of internal friction (&phi;)</strong>:
+              </p>
+              <ul>
+                <li><strong>Rounded River Rock &amp; Pea Gravel:</strong> Smooth, rounded surface geometry provides a friction angle of only 26&deg; to 30&deg;. Water easily rolls stones downhill.</li>
+                <li><strong>Quarry-Crushed Fractured Stone (#57):</strong> Sharp angular facets lock against each other under gravity and compaction, producing an internal friction angle of 38&deg; to 45&deg;.</li>
+              </ul>
+              <div class="method-tip">
+                <strong>Best Aggregate Choice:</strong> Use <strong>#57 Crushed Granite or Limestone</strong> (1-inch clean stone) for surface drainage, or <strong>Crusher Run / CA-6</strong> (dense-graded base) compacted with a roller so mineral fines cement the slope.
+              </div>
+              <div class="method-cta">
+                <a href="/crushed-stone-calculator" class="btn btn-sm btn-secondary">Calculate Crushed Stone for Slopes &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Fix 2 -->
+          <article class="method-card">
+            <div class="method-num-badge">Fix 2</div>
+            <div class="method-content">
+              <h3>Install Geocell Grid Stabilization Mats (Cellular Confinement)</h3>
+              <p>
+                For steep hillsides, walkways, and driveways with a grade of <strong>8% to 25%</strong>, loose stone alone will eventually migrate. <strong>Geocells (honeycomb gravel grids)</strong> provide 3-dimensional confinement:
+              </p>
+              <ul>
+                <li>High-density polyethylene (HDPE) interconnected cells (typically 3" or 4" deep) expand across the slope and are staked down with rebar anchors.</li>
+                <li>When filled with gravel, lateral hydrostatic water pressure is dissipated across individual cellular walls, preventing stones from sliding downhill.</li>
+                <li>Vehicles and wheelbarrows drive over the grid ribs without sinking or leaving ruts.</li>
+              </ul>
+              <div class="method-tip">
+                <strong>Installation Note:</strong> Always lay a heavy woven geotextile fabric beneath the geocell grid to prevent subgrade soil intermixing.
+              </div>
+            </div>
+          </article>
+
+          <!-- Fix 3 -->
+          <article class="method-card">
+            <div class="method-num-badge">Fix 3</div>
+            <div class="method-content">
+              <h3>Construct Transverse Timber or Stone Check Dams (Water Breaks)</h3>
+              <p>
+                Water gathers speed as it travels downhill. Doubling water velocity increases its erosive gravel-carrying capacity by <strong>four times</strong> (v&sup2; kinetic energy).
+              </p>
+              <ul>
+                <li>Install pressure-treated 6&times;6 timber beams, railroad ties, or granite cobblestone curbs buried flush every <strong>15 to 25 feet</strong> perpendicular to the slope.</li>
+                <li>These act as terraced hydraulic check dams, dividing a long 60-foot steep run into four gentle steps.</li>
+                <li>Water velocity resets to zero at each step, preventing stormwater torrents from carving deep channels down your driveway.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Fix 4 -->
+          <article class="method-card">
+            <div class="method-num-badge">Fix 4</div>
+            <div class="method-content">
+              <h3>Install an Upslope Cutoff Swale / French Drain (Intercept the Water)</h3>
+              <p>
+                The vast majority of gravel washouts occur not from rain falling directly on the gravel, but from <strong>sheet water flowing off a roof, patio, or uphill yard</strong> onto the gravel surface.
+              </p>
+              <ul>
+                <li>Excavate a shallow French drain or turf swale along the <strong>top crest</strong> of the hillside.</li>
+                <li>Line the trench with non-woven filter fabric, install a 4-inch perforated drain pipe, and backfill with coarse drain rock.</li>
+                <li>Divert this incoming surface water around the perimeter to a designated discharge outlet (such as a dry creek bed or pop-up emitter), so it never enters the gravel bed.</li>
+              </ul>
+              <div class="method-cta">
+                <a href="/drain-rock-calculator" class="btn btn-sm btn-secondary">Calculate Drain Rock for Cutoff Trenches &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Fix 5 -->
+          <article class="method-card">
+            <div class="method-num-badge">Fix 5</div>
+            <div class="method-content">
+              <h3>Armor the Slope Toe &amp; Outfall with Heavy Riprap (Class 1 / 2)</h3>
+              <p>
+                The bottom base ("toe") of a slope is where water energy reaches its peak momentum. Without heavy stabilization at the bottom, the entire slope foundation will undercut and collapse.
+              </p>
+              <ul>
+                <li>Excavate an anchor key trench at the bottom toe of the slope.</li>
+                <li>Place angular <strong>Class 1 or Class 2 Riprap (4" to 12" broken stone)</strong> to form a heavy retaining plunge pool.</li>
+                <li>The heavy mass of riprap absorbs water velocity, dissipates hydraulic energy, and physically prevents smaller uphill gravel from washing into streets or storm drains.</li>
+              </ul>
+              <div class="method-cta">
+                <a href="/riprap-calculator" class="btn btn-sm btn-secondary">Calculate Riprap Tonnage &rarr;</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Slope Sizing Reference Table -->
+        <div class="section-header" style="margin-top: var(--space-12);">
+          <h2>Slope Grade vs. Recommended Engineering Fix</h2>
+          <div class="section-divider"></div>
+          <p>Find your project slope percentage to select the correct stabilization protocol.</p>
+        </div>
+
+        <div class="slope-table-card">
+          <div class="table-responsive">
+            <table class="slope-table">
+              <thead>
+                <tr>
+                  <th>Slope Incline (Grade)</th>
+                  <th>Vertical Drop per 100 ft</th>
+                  <th>Recommended Aggregate</th>
+                  <th>Required Stabilization Method</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Gentle (0%–3%)</strong></td>
+                  <td>0 to 3 feet</td>
+                  <td>Pea Gravel, River Rock, #57 Stone</td>
+                  <td>Standard 4" border edging + landscape fabric</td>
+                </tr>
+                <tr>
+                  <td><strong>Moderate (4%–7%)</strong></td>
+                  <td>4 to 7 feet</td>
+                  <td>#57 Crushed Stone or Crusher Run</td>
+                  <td>Switch to 100% angular rock; compact with vibratory roller</td>
+                </tr>
+                <tr>
+                  <td><strong>Steep (8%–14%)</strong></td>
+                  <td>8 to 14 feet</td>
+                  <td>Crushed Stone within Geocell Grid</td>
+                  <td>Honeycomb geocell grid mats + timber check dams every 20 ft</td>
+                </tr>
+                <tr>
+                  <td><strong>Severe (&gt; 15%)</strong></td>
+                  <td>15+ feet</td>
+                  <td>Heavy Class 1/2 Riprap or Paving</td>
+                  <td>Engineered geogrid revetment, riprap swale, or asphalt/concrete</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Related Troubleshooting & Engineering Guides -->
+        <div style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border-subtle);">
+          <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.5rem;">Related Problem-Solving Guides &amp; Tools</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+            <a href="/how-to-stop-weeds-in-landscape-rock" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
+              <span style="display: inline-block; padding: 2px 8px; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Weed Prevention</span>
+              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Stop Weeds in Landscape Rock</h4>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Why weeds germinate above fabric in windblown silt and how flame weeders &amp; pre-emergents stop them.</p>
+            </a>
+            <a href="/how-to-fix-rock-sinking-into-soil" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
+              <span style="display: inline-block; padding: 2px 8px; background: rgba(239, 68, 68, 0.15); color: var(--accent-rose); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Subgrade Fix</span>
+              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Fix Rock Sinking into Mud &amp; Clay</h4>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Subgrade CBR failure, geotextile separation, and crusher run bridging layers.</p>
+            </a>
+            <a href="/rock-vs-mulch-calculator" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
+              <span style="display: inline-block; padding: 2px 8px; background: rgba(212, 168, 83, 0.15); color: var(--gold-400); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Economic Model</span>
+              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Rock vs Mulch 10-Year Calculator</h4>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Calculate the exact 3.4-year break-even point when rock beats recurring mulch costs.</p>
+            </a>
+            <a href="/rock-bag-weight-and-price-guide" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
+              <span style="display: inline-block; padding: 2px 8px; background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Retail Pricing</span>
+              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Bag Weight &amp; Price Database</h4>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Home Depot &amp; Lowe's 0.5 cu ft bag weights, payload safety, and bulk cost tipping points.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .aeo-box {
+    background: rgba(20, 26, 33, 0.7);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .aeo-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--gold-400);
+    margin-bottom: var(--space-2);
+  }
+
+  .aeo-header h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .aeo-box p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .methods-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .method-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-5);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .method-num-badge {
+    background: rgba(212, 168, 83, 0.15);
+    border: 1px solid rgba(212, 168, 83, 0.3);
+    color: var(--gold-400);
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .method-content {
+    flex: 1;
+  }
+
+  .method-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .method-content p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .method-content ul {
+    margin: 0 0 var(--space-3) 0;
+    padding-left: var(--space-4);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .method-content li {
+    margin-bottom: var(--space-2);
+  }
+
+  .method-tip {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: var(--space-4);
+  }
+
+  .method-tip strong {
+    color: #60a5fa;
+  }
+
+  .method-cta {
+    margin-top: var(--space-2);
+  }
+
+  /* Table */
+  .slope-table-card {
+    background: var(--slate-900);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .slope-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+
+  .slope-table th {
+    background: var(--slate-850);
+    padding: var(--space-4);
+    color: var(--text-primary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-subtle);
+    white-space: nowrap;
+  }
+
+  .slope-table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid rgba(107, 122, 141, 0.15);
+    color: var(--text-secondary);
+  }
+
+  .slope-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+</style>

@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -9,7 +9,6 @@ import Footer from '../components/Footer.astro';
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Material Calculators', url: '/landscape-rock-calculator' },
   { name: 'Landscape Stone Calculator', url: '/landscape-stone-calculator' }
 ];
 
@@ -142,8 +141,8 @@ const supportGuides = [
             </div>
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Compacted Base Factor</span>
-              <span class="aeo-quick-value">Order Volume = Loose Yards × 1.20</span>
-              <p class="aeo-quick-desc">Dense graded stone (crusher run/DGA) loses 15-20% under plate compactor.</p>
+              <span class="aeo-quick-value">Order Volume = Compacted Target × 1.25</span>
+              <p class="aeo-quick-desc">Dense graded stone (crusher run/DGA) loses 20% volume under a plate compactor (Target ÷ 0.80).</p>
             </div>
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Quarry Scale Weight</span>
@@ -167,7 +166,7 @@ const supportGuides = [
           <div class="formula-box">
             <code>Loose Quarry Volume = [Area (sq ft) × Installed Depth (inches)] / 324</code>
             <br />
-            <code>Compacted Base Order = Loose Volume × 1.20 (20% Mechanical Compaction Factor)</code>
+            <code>Compacted Base Order = Target Finished Volume × 1.25 (Compensates for 20% Consolidation)</code>
           </div>
 
           <h3>Sieve Classifications for Structural Landscape Stones</h3>
@@ -175,7 +174,7 @@ const supportGuides = [
             Quarries categorize crushed landscape stone according to standard ASTM and AASHTO sieve sizes. Selecting the correct fraction ensures appropriate stability and drainage for your specific application:
           </p>
           <ul>
-            <li><strong>ASTM D448 #57 Crushed Stone (1/2" to 1"):</strong> The universal standard for clean drainage stone, driveway topping, and foundation border beds. Retains open void spaces for rapid drainage.</li>
+            <li><strong>ASTM D448 #57 Crushed Stone (1" down to No. 4 sieve / 25 to 4.75 mm):</strong> The universal standard for clean drainage stone, driveway topping, and foundation border beds. Retains open void spaces for rapid drainage.</li>
             <li><strong>ASTM D448 #8 Stone (3/8" Pea Crushed Chips):</strong> Excellent for walking paths, between flagstone pavers, and garden seating areas. Easy to wheelbarrow and level with a landscape rake.</li>
             <li><strong>AASHTO M147 Crusher Run / DGA (3/4" down to dust):</strong> Dense-graded aggregate with fines. When compacted with a vibratory plate compactor, the stone dust fills all voids, creating an impermeable solid pavement base.</li>
           </ul>
