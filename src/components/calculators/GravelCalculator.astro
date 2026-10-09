@@ -1,12 +1,16 @@
 ---
-// Gravel Driveway, Pathway, and Landscape Calculator
+import { getMaterialById } from '../../scripts/materials-data.js';
+
+const crushedDensity = getMaterialById('crushed-granite').tonsPerCuYd;
+const baseDensity = getMaterialById('crusher-run-21a').tonsPerCuYd;
+const peaDensity = getMaterialById('pea-gravel').tonsPerCuYd;
 ---
 <section class="section" id="gravel-calc">
   <div class="container">
     <div class="section-header">
-      <h2>Gravel Driveway & Pathway Calculator</h2>
+      <h2>Estimate one gravel layer</h2>
       <div class="section-divider"></div>
-      <p>Calculate exact tonnage for gravel driveways, garden pathways, and parking pads with base vs surface course dual-layer calculations and vehicular compaction allowances.</p>
+      <p>Enter dimensions for a finished layer, select a material, and adjust the allowance and bulk density to estimate what to order. Calculate base and surface layers separately.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -14,36 +18,36 @@
       <div class="calc-panel animate-fade-in-up">
         <div class="calc-panel-title">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <h3>Application Intent & Traffic Load</h3>
+          <h3>Project starting point</h3>
         </div>
 
-        <div class="unit-toggle mode-toggle" role="tablist">
-          <button class="active" id="gravel-mode-drive" type="button">Driveway (Vehicular)</button>
-          <button id="gravel-mode-walk" type="button">Walkway / Patio (Pedestrian)</button>
+        <div class="unit-toggle mode-toggle" aria-label="Project starting point">
+          <button class="active" aria-pressed="true" id="gravel-mode-drive" type="button">Driveway example</button>
+          <button aria-pressed="false" id="gravel-mode-walk" type="button">Walkway example</button>
         </div>
 
         <div class="dim-grid">
           <div class="input-field">
             <label for="gravel-length">Length</label>
-            <input type="number" id="gravel-length" value="50" min="1" step="0.5" />
+            <input type="number" id="gravel-length" value="50" min="0.01" step="any" />
             <span class="unit-label">feet</span>
           </div>
           <div class="input-field">
             <label for="gravel-width">Width</label>
-            <input type="number" id="gravel-width" value="12" min="1" step="0.5" />
+            <input type="number" id="gravel-width" value="12" min="0.01" step="any" />
             <span class="unit-label">feet</span>
           </div>
         </div>
 
         <div class="dim-grid">
           <div class="input-field">
-            <label for="gravel-depth">Gravel Depth</label>
-            <input type="number" id="gravel-depth" value="4.0" min="1" max="18" step="0.5" />
+            <label for="gravel-depth">Finished layer depth</label>
+            <input type="number" id="gravel-depth" value="4.0" min="0.01" step="any" />
             <span class="unit-label">inches</span>
           </div>
           <div class="input-field">
-            <label for="gravel-waste">Compaction & Grade Buffer</label>
-            <input type="number" id="gravel-waste" value="15" min="0" max="25" step="1" />
+            <label for="gravel-waste">Order allowance</label>
+            <input type="number" id="gravel-waste" value="15" min="0" step="any" />
             <span class="unit-label">% extra</span>
           </div>
         </div>
@@ -51,60 +55,67 @@
         <!-- Gravel Type Selector -->
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          <h3>Gravel Aggregate Grade</h3>
+          <h3>Material and bulk density</h3>
         </div>
 
-        <div class="gravel-type-grid" role="radiogroup">
-          <button type="button" class="grv-btn active" data-density="1.40" data-name="#57 Crushed Gravel (3/4&quot;)">
-            <div class="grv-title">#57 Crushed Gravel (3/4")</div>
-            <div class="grv-spec">1.40 T/yd³ | Clean angular stone that locks under vehicle tires</div>
+        <div class="gravel-type-grid" aria-label="Gravel material">
+          <button type="button" class="grv-btn active" aria-pressed="true" data-density={crushedDensity} data-name="Crushed stone">
+            <div class="grv-title">Crushed stone</div>
+            <div class="grv-spec">Starts at {crushedDensity.toFixed(2)} US tons/yd³ | Check the supplier's size and fines</div>
           </button>
-          <button type="button" class="grv-btn" data-density="1.50" data-name="Crusher Run / Dense Graded Base">
-            <div class="grv-title">Crusher Run Base (With Stone Dust)</div>
-            <div class="grv-spec">1.50 T/yd³ | Packs rock-hard for driveway foundation base</div>
+          <button type="button" class="grv-btn" aria-pressed="false" data-density={baseDensity} data-name="Crusher run / dense graded base">
+            <div class="grv-title">Crusher run / dense graded base</div>
+            <div class="grv-spec">Starts at {baseDensity.toFixed(2)} US tons/yd³ | Mix of stone sizes and fines</div>
           </button>
-          <button type="button" class="grv-btn" data-density="1.35" data-name="Round River Pea Gravel">
-            <div class="grv-title">Smooth Pea Gravel (3/8")</div>
-            <div class="grv-spec">1.35 T/yd³ | Barefoot friendly for garden paths and patios</div>
+          <button type="button" class="grv-btn" aria-pressed="false" data-density={peaDensity} data-name="Pea gravel">
+            <div class="grv-title">Pea gravel</div>
+            <div class="grv-spec">Starts at {peaDensity.toFixed(2)} US tons/yd³ | Rounded path and patio gravel</div>
           </button>
         </div>
+        <div class="input-field density-field">
+          <label for="gravel-density">Bulk density (use supplier figure if known)</label>
+          <input type="number" id="gravel-density" value={crushedDensity} min="0.01" step="any" />
+          <span class="unit-label">tons/yd³</span>
+        </div>
+        <p class="input-note">Preset densities are planning estimates. Change this number if your supplier gives a conversion for your material.</p>
       </div>
 
       <!-- Output Panel -->
       <div class="calc-results-panel animate-fade-in-up">
         <div class="results-header">
-          <div class="results-title">Gravel Delivery Requirements</div>
-          <div class="results-badge" id="gravel-badge">#57 Crushed Gravel</div>
+          <div class="results-title">Estimated gravel order</div>
+          <div class="results-badge" id="gravel-badge">Crushed stone</div>
         </div>
+        <p id="gravel-input-error" class="input-note" role="alert" style="display: none;">Enter positive dimensions and density. The order allowance can be zero or more.</p>
 
         <div class="kpi-grid">
           <div class="kpi-card highlight">
             <div class="kpi-value" id="kpi-grv-tons">0.00</div>
-            <div class="kpi-label">Quarry Weight (Tons)</div>
-            <div class="kpi-subtext" id="kpi-grv-lbs">0 lbs bulk payload</div>
+            <div class="kpi-label">Order weight (US tons)</div>
+            <div class="kpi-subtext" id="kpi-grv-lbs">0 lb estimated weight</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-grv-yards">0.00</div>
-            <div class="kpi-label">Volume (Cubic Yards)</div>
-            <div class="kpi-subtext" id="kpi-grv-cuft">0 cu ft volume</div>
+            <div class="kpi-label">Order volume (yd³)</div>
+            <div class="kpi-subtext" id="kpi-grv-cuft">0 cu ft including allowance</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-value" id="kpi-grv-sqft">0</div>
-            <div class="kpi-label">Surface Area (Sq Ft)</div>
-            <div class="kpi-subtext" id="kpi-grv-rolls">2 rolls geotextile (3'x100')</div>
+            <div class="kpi-value" id="kpi-grv-finished">0.00</div>
+            <div class="kpi-label">Finished volume (yd³)</div>
+            <div class="kpi-subtext">Before order allowance</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-value" id="kpi-grv-truck">1 Truck</div>
-            <div class="kpi-label">Dump Truck Loads</div>
-            <div class="kpi-subtext" id="kpi-grv-truck-spec">Tandem axle hauler</div>
+            <div class="kpi-value" id="kpi-grv-area">0</div>
+            <div class="kpi-label">Surface area (sq ft)</div>
+            <div class="kpi-subtext">Length × width</div>
           </div>
         </div>
 
-        <!-- Driveway Construction Guide -->
+        <!-- One-layer calculation note -->
         <div class="driveway-guide-card">
-          <div class="guide-title">Contractor Driveway Layer Engineering</div>
+          <div class="guide-title">Use this estimate</div>
           <p class="guide-text" id="gravel-guide-text">
-            For long-lasting gravel driveways, install a 4" compacted sub-base of #411 Crusher Run over heavy geotextile fabric, followed by a 2" top surface layer of angular #57 clean stone. Angular stones lock together under vehicle tires, preventing ruts and stone displacement.
+            This is one gravel layer. For a driveway with a separate base and surface, calculate each layer using its own depth, density, and allowance.
           </p>
         </div>
 
@@ -115,12 +126,8 @@
             <span class="breakdown-val" id="row-grv-area">600 sq ft (50' × 12')</span>
           </div>
           <div class="breakdown-row">
-            <span>Compaction & Void Fill Allowance</span>
-            <span class="breakdown-val" id="row-grv-compaction">15% included in total</span>
-          </div>
-          <div class="breakdown-row">
-            <span>Geotextile Driveway Underlayment</span>
-            <span class="breakdown-val">6 oz woven stabilization fabric recommended</span>
+            <span>Allowance applied to finished volume</span>
+            <span class="breakdown-val" id="row-grv-compaction">15% included in order estimate</span>
           </div>
         </div>
       </div>
@@ -245,6 +252,18 @@
   flex-direction: column;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
+}
+
+.density-field {
+  max-width: 260px;
+  margin-bottom: var(--space-2);
+}
+
+.input-note {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  margin: 0;
 }
 
 .grv-btn {
@@ -398,70 +417,77 @@ function initGravelCalculator() {
   const widthInput = document.getElementById('gravel-width') as HTMLInputElement | null;
   const depthInput = document.getElementById('gravel-depth') as HTMLInputElement | null;
   const wasteInput = document.getElementById('gravel-waste') as HTMLInputElement | null;
+  const densityInput = document.getElementById('gravel-density') as HTMLInputElement | null;
 
   const grvBtns = document.querySelectorAll('.grv-btn');
 
-  let activeDensity = 1.40;
-  let activeGravelName = '#57 Crushed Gravel';
+  let activeGravelName = 'Crushed stone';
 
   function calculate() {
-    if (!lengthInput || !widthInput || !depthInput || !wasteInput) return;
+    if (!lengthInput || !widthInput || !depthInput || !wasteInput || !densityInput) return;
 
-    const length = Math.max(0.5, parseFloat(lengthInput.value) || 0);
-    const width = Math.max(0.5, parseFloat(widthInput.value) || 0);
-    const depthInches = Math.max(0.5, parseFloat(depthInput.value) || 0);
-    const wastePercent = parseFloat(wasteInput.value) || 0;
+    const inputs = [lengthInput, widthInput, depthInput, wasteInput, densityInput];
+    const values = inputs.map(input => Number(input.value));
+    const [length, width, depthInches, wastePercent, density] = values;
+    const valid = inputs.every(input => input.value.trim() !== '' && input.validity.valid)
+      && values.every(Number.isFinite) && length > 0 && width > 0 && depthInches > 0 && wastePercent >= 0 && density > 0;
+    const error = document.getElementById('gravel-input-error');
+    if (error) error.style.display = valid ? 'none' : 'block';
+    if (!valid) {
+      ['kpi-grv-tons', 'kpi-grv-lbs', 'kpi-grv-yards', 'kpi-grv-cuft', 'kpi-grv-finished', 'kpi-grv-area', 'row-grv-area', 'row-grv-compaction'].forEach(id => {
+        const output = document.getElementById(id);
+        if (output) output.textContent = '—';
+      });
+      return;
+    }
 
     const area = length * width;
     const netCuFt = area * (depthInches / 12);
+    const finishedYards = netCuFt / 27;
     const totalCuFt = netCuFt * (1 + wastePercent / 100);
     const totalYards = totalCuFt / 27;
 
-    const totalTons = totalYards * activeDensity;
+    const totalTons = totalYards * density;
     const totalLbs = totalTons * 2000;
-
-    const fabricSqFt = Math.ceil(area * 1.10);
-    const rolls3x100 = Math.ceil(fabricSqFt / 300);
-
-    const truckTrips = Math.ceil(totalTons / 15);
 
     // Update KPIs
     const kpiTons = document.getElementById('kpi-grv-tons');
     const kpiLbs = document.getElementById('kpi-grv-lbs');
     const kpiYards = document.getElementById('kpi-grv-yards');
     const kpiCuFt = document.getElementById('kpi-grv-cuft');
-    const kpiSqFt = document.getElementById('kpi-grv-sqft');
-    const kpiRolls = document.getElementById('kpi-grv-rolls');
-    const kpiTruck = document.getElementById('kpi-grv-truck');
-    const kpiTruckSpec = document.getElementById('kpi-grv-truck-spec');
+    const kpiFinished = document.getElementById('kpi-grv-finished');
+    const kpiArea = document.getElementById('kpi-grv-area');
     const badge = document.getElementById('gravel-badge');
 
     const rowArea = document.getElementById('row-grv-area');
     const rowCompaction = document.getElementById('row-grv-compaction');
 
     if (kpiTons) kpiTons.textContent = totalTons.toFixed(2);
-    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lbs net delivery`;
+    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lb estimated weight`;
     if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
-    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft volume`;
-    if (kpiSqFt) kpiSqFt.textContent = Math.round(area).toLocaleString();
-    if (kpiRolls) kpiRolls.textContent = `${rolls3x100} roll${rolls3x100 === 1 ? '' : 's'} geotextile (3'x100')`;
-    if (kpiTruck) kpiTruck.textContent = `${truckTrips} Truck${truckTrips === 1 ? '' : 's'}`;
-    if (kpiTruckSpec) kpiTruckSpec.textContent = totalTons <= 10 ? 'Single axle hauler' : 'Tandem axle hauler (15 T)';
+    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft including allowance`;
+    if (kpiFinished) kpiFinished.textContent = finishedYards.toFixed(2);
+    if (kpiArea) kpiArea.textContent = Math.round(area).toLocaleString();
     if (badge) badge.textContent = activeGravelName;
 
     if (rowArea) rowArea.textContent = `${Math.round(area).toLocaleString()} sq ft (${length}' × ${width}')`;
-    if (rowCompaction) rowCompaction.textContent = `${wastePercent}% included for tire wheel compaction`;
+    if (rowCompaction) rowCompaction.textContent = `${wastePercent}% included in order estimate`;
   }
 
-  if (modeDriveBtn && modeWalkBtn && depthInput && wasteInput) {
+  if (modeDriveBtn && modeWalkBtn && lengthInput && widthInput && depthInput && wasteInput) {
     modeDriveBtn.addEventListener('click', () => {
       modeDriveBtn.classList.add('active');
       modeWalkBtn.classList.remove('active');
+      modeDriveBtn.setAttribute('aria-pressed', 'true');
+      modeWalkBtn.setAttribute('aria-pressed', 'false');
+      lengthInput.value = '50';
+      widthInput.value = '12';
       depthInput.value = '4.0';
       wasteInput.value = '15';
+      (grvBtns[0] as HTMLButtonElement | undefined)?.click();
       const guideText = document.getElementById('gravel-guide-text');
       if (guideText) {
-        guideText.textContent = 'For long-lasting gravel driveways, install a 4" compacted sub-base of #411 Crusher Run over heavy geotextile fabric, followed by a 2" top surface layer of angular #57 clean stone. Angular stones lock together under vehicle tires, preventing ruts and stone displacement.';
+        guideText.textContent = 'This is one gravel layer. For a driveway with a separate base and surface, calculate each layer using its own depth, density, and allowance.';
       }
       calculate();
     });
@@ -469,11 +495,16 @@ function initGravelCalculator() {
     modeWalkBtn.addEventListener('click', () => {
       modeWalkBtn.classList.add('active');
       modeDriveBtn.classList.remove('active');
+      modeWalkBtn.setAttribute('aria-pressed', 'true');
+      modeDriveBtn.setAttribute('aria-pressed', 'false');
+      lengthInput.value = '30';
+      widthInput.value = '4';
       depthInput.value = '2.5';
       wasteInput.value = '10';
+      (grvBtns[2] as HTMLButtonElement | undefined)?.click();
       const guideText = document.getElementById('gravel-guide-text');
       if (guideText) {
-        guideText.textContent = 'For walkways and garden patios, a 2.5" depth provides comfortable pedestrian walkability without feeling spongy or deep. Use landscape edging to hold stones inside the path perimeter.';
+        guideText.textContent = 'For a path or patio, use the finished depth you plan to install. Edging can help contain loose rounded stone; adjust the allowance for low spots and handling loss.';
       }
       calculate();
     });
@@ -481,16 +512,20 @@ function initGravelCalculator() {
 
   grvBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      grvBtns.forEach(b => b.classList.remove('active'));
+      grvBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
-      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.40');
+      btn.setAttribute('aria-pressed', 'true');
+      if (densityInput) densityInput.value = btn.getAttribute('data-density') || densityInput.value;
       const titleEl = btn.querySelector('.grv-title');
       if (titleEl) activeGravelName = titleEl.textContent || 'Gravel';
       calculate();
     });
   });
 
-  [lengthInput, widthInput, depthInput, wasteInput].forEach(input => {
+  [lengthInput, widthInput, depthInput, wasteInput, densityInput].forEach(input => {
     if (input) {
       input.addEventListener('input', calculate);
     }

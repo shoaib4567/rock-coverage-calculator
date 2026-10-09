@@ -3,166 +3,165 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import CrushedStoneCalculator from '../components/calculators/CrushedStoneCalculator.astro';
-import CrushedStoneVisualizer from '../components/visualizers/CrushedStoneVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
-import CivilStructuralBlock from '../components/intent/CivilStructuralBlock.astro';
+import { getMaterialById } from '../scripts/materials-data.js';
 
+const pageTitle = 'Crushed Stone Calculator';
+const density57 = getMaterialById('clean-stone-57').tonsPerCuYd;
+const densityBase = getMaterialById('crusher-run-21a').tonsPerCuYd;
+const exampleOrderYards = 40 * 12 * 4 / 324 * 1.10;
+const exampleTons = exampleOrderYards * density57;
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Crushed Stone Calculator', url: '/crushed-stone-calculator' }
+  { name: pageTitle, url: '/crushed-stone-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Crushed Rock Coverage' },
-  { label: 'AASHTO Sieve Grades', value: '#57 Clean, #411 Dense, #4 Ballast' },
-  { label: 'Bulk Density', value: '1.40 to 1.50 Tons/yd³' },
-  { label: 'Angular Interlock', value: 'High Friction Angle (CBR > 80%)' }
+  { label: 'Measure', value: 'Length × width × finished depth' },
+  { label: 'Results', value: 'Cubic yards and US short tons' },
+  { label: 'Choose', value: '#57, crusher run, #4 or #1' }
 ];
-
 const quickStats = [
-  { value: '3/4" Stone', label: 'Leading Quarry Size', desc: '#57 crushed stone is the universal standard for civil projects' },
-  { value: '2,800 lbs', label: 'Weight per Yard', desc: 'Average dry weight for clean crushed limestone and granite' },
-  { value: '40% Void', label: 'Clean Stone Drainage', desc: 'Hydraulic permeability for foundation weeping tiles and French drains' }
+  { value: '5.93 yd³', label: '40 × 12 ft at 4 in.', desc: 'Installed volume before any allowance' },
+  { value: `${exampleTons.toFixed(2)} tons`, label: 'Example order', desc: `#57 at ${density57.toFixed(2)} short tons/yd³ with 10% added` },
+  { value: 'Ask the quarry', label: 'Before ordering', desc: 'Confirm gradation, loose density and delivery access' }
 ];
-
 const faqItems = [
   {
-    q: 'How many tons of 3/4 inch crushed stone do I need for 100 square feet?',
-    a: 'For 100 square feet installed at a standard 3-inch depth, you need 0.93 cubic yards of aggregate. Multiplying by a standard bulk density of 1.40 tons per yard gives 1.30 tons. Factoring in a 10% safety margin for irregular subgrade, order approximately 1.45 tons.'
+    q: 'How much crushed stone do I need for 100 square feet at 3 inches deep?',
+    a: `The installed volume is 100 × 3 ÷ 324 = 0.93 cubic yard. At the calculator's ${density57.toFixed(2)} US short tons per cubic yard planning density, that is about ${(100 * 3 / 324 * density57).toFixed(2)} tons before any allowance, or ${(100 * 3 / 324 * 1.10 * density57).toFixed(2)} tons with 10% added. Your supplier’s actual density may differ.`
   },
   {
-    q: 'What is the difference between #57 and #411 crushed stone?',
-    a: '#57 stone is washed clean to 1" down to No. 4 sieve (nominal 3/4" angular stone) with zero fine dust, providing maximum stormwater drainage and clean appearance. #411 stone (crusher run) contains a continuous gradation from 3/4" stones down to microscopic rock flour, enabling it to compact into a rigid, cement-like structural base.'
+    q: 'Is #57 stone the same as crusher run?',
+    a: 'No. #57 is a coarse gradation usually supplied with little fine material; crusher run is a dense blend of stone and fines designed to compact as a base. “#411” is a regional trade name for some dense-graded products. Ask your supplier for its gradation rather than ordering by name alone.'
   },
   {
-    q: 'Can crushed stone be used behind concrete retaining walls?',
-    a: 'Yes. Clean #57 crushed stone is mandatory behind retaining walls to eliminate hydrostatic pressure. Dense soil or clay traps water behind walls, creating massive horizontal hydraulic pressure that causes wall bowing. Clean crushed stone allows water to drop straight down into the perforated collection pipe.'
+    q: 'Should I add 10% for compaction?',
+    a: 'Ten percent is only a planning allowance, not a universal compaction factor. Whether extra material is needed depends on the aggregate, whether your depth is loose or finished, the subgrade and placement method. If your supplier provides a loose-to-compacted factor, use that information and avoid adding the same allowance twice.'
   },
   {
-    q: 'How much does a tandem truckload of crushed stone cost?',
-    a: 'A standard tandem-axle dump truck carries between 14 and 16 tons of crushed stone. At average quarry prices of $35 to $55 per ton plus a $75 to $120 delivery drop fee, a full truckload typically costs between $560 and $980 delivered to your site.'
+    q: 'Can the calculator verify the weight on a delivery ticket?',
+    a: 'No. It estimates tons from dimensions and an assumed loose bulk density. A quarry scale ticket records the actual delivered weight. For a disputed load, compare the ticket and the ordered tonnage; a photo of the pile cannot establish its weight reliably.'
   }
 ];
 ---
 
 <BaseLayout
-  title="Crushed Stone & Rock Coverage Calculator - Sieve Sizes & Tonnage"
-  description="Calculate crushed stone and crushed rock coverage in cubic yards and tons across standard sieve sizes (#57 clean, #411 crusher run, #4 ballast). Free aggregate estimator."
+  title={pageTitle}
+  description="Estimate crushed stone in cubic yards and US short tons from length, width, finished depth, stone grade and a clear order allowance. Includes a worked example and supplier checklist."
   canonicalPath="/crushed-stone-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Crushed Stone & Rock Coverage Calculator",
-      "url": "https://rockcoveragecalculator.com/crushed-stone-calculator",
-      "description": "Calculates crushed stone and crushed rock coverage quantities by AASHTO sieve sizes including #57, #411, and #4 ballast.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "about": {
-        "@type": "Thing",
-        "name": "Crushed Rock Coverage"
-      }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="Crushed Stone & Rock Coverage Calculator"
-      highlightWord="Rock Coverage"
-      badge="AASHTO Sieve Sizing & Scale Tonnage"
-      subtitle="Accurate volumetric and certified scale weight calculations for #57 clean stone, #411 dense graded base, track ballast, and heavy erosion riprap."
+      title={pageTitle}
+      highlightWord="Crushed Stone"
+      badge="Estimate by grade, depth and local density"
+      subtitle={`For a 40 × 12 ft area at 4 inches deep, allow 5.93 cubic yards in place. With 10% extra and a #57 planning density of ${density57.toFixed(2)} US short tons per cubic yard, the order estimate is 6.52 cubic yards or ${exampleTons.toFixed(2)} tons.`}
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
       theme="civil"
     />
 
+    <section class="intro-section" aria-labelledby="estimate-heading">
+      <div class="container intro-layout">
+        <div>
+          <h2 id="estimate-heading">Turn a measured layer into an order</h2>
+          <p>Measure the area and the <strong>finished layer depth</strong>, then choose the stone you actually need: a clean, open gradation for a drainage layer or a dense blend with fines for a compacted base. The calculator converts that volume to cubic yards and estimated US short tons. If the quarry quotes a different loose bulk density, enter its number for a better local estimate.</p>
+        </div>
+        <div class="formula-callout">
+          <span class="eyebrow">The calculation</span>
+          <strong>Yards³ = length (ft) × width (ft) × depth (in) ÷ 324</strong>
+          <span>Tons = yards³ × (1 + allowance ÷ 100) × loose tons/yd³</span>
+        </div>
+      </div>
+    </section>
+
     <CrushedStoneCalculator />
 
-    <CrushedStoneVisualizer />
-
-    <!-- Civil Truckload Logistics & Subgrade Stabilization Block -->
-    <CivilStructuralBlock />
-
-    <!-- Technical Guide on Crushed Stone Sieve Specs -->
     <article class="content-guide-section">
       <div class="container">
-        <div class="content-card">
-          <h2>Understanding Crushed Stone Sieve Numbering & Specifications</h2>
-          <p>
-            In North American aggregate quarrying, crushed stone is categorized using standardized <strong>AASHTO (American Association of State Highway and Transportation Officials)</strong> sieve numbers. Understanding these numbers ensures you order the exact material grade engineered for your specific drainage or structural application.
-          </p>
+        <section class="content-card" aria-labelledby="grade-heading">
+          <div class="section-kicker">Choose the material first</div>
+          <h2 id="grade-heading">Clean stone or compactable base?</h2>
+          <p>The stone grade affects both the job and the weight estimate. The names on a quarry’s price sheet can differ by region. <a href="/gravel-trade-names-by-state">Check local trade names</a> and ask for a gradation sheet if the material has to meet a project specification.</p>
+
+          <div class="grade-visual" role="img" aria-label="Illustration comparing clean open-graded stone with gaps between particles and dense-graded crusher run with smaller particles filling the gaps. The drawing is conceptual, not a measured cross section.">
+            <div class="visual-side clean">
+              <span class="visual-label">Open-graded stone</span>
+              <div class="stones"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <span class="visual-caption">Space remains between larger particles</span>
+            </div>
+            <div class="visual-side dense">
+              <span class="visual-label">Dense-graded base</span>
+              <div class="stones"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <span class="visual-caption">Smaller particles fill many gaps</span>
+            </div>
+          </div>
 
           <div class="table-container">
             <table>
-              <thead>
-                <tr>
-                  <th>Sieve Grade</th>
-                  <th>Nominal Stone Size</th>
-                  <th>Dust / Fines Content</th>
-                  <th>Primary Engineered Application</th>
-                </tr>
-              </thead>
+              <caption>Common quarry choices and how to use them</caption>
+              <thead><tr><th scope="col">Material</th><th scope="col">What to ask for</th><th scope="col">Typical use</th><th scope="col">Calculator assumption</th></tr></thead>
               <tbody>
-                <tr>
-                  <td><strong>#57 Clean Stone</strong></td>
-                  <td>1" to No. 4 (25 - 4.75mm)</td>
-                  <td>Zero (Washed)</td>
-                  <td>French drains, retaining wall backfill, driveway top dressing</td>
-                </tr>
-                <tr>
-                  <td><strong>#411 / Crusher Run</strong></td>
-                  <td>Dust up to 3/4" (0 - 19mm)</td>
-                  <td>High (Stone Flour)</td>
-                  <td>Compacted patio sub-base, asphalt roadway foundation</td>
-                </tr>
-                <tr>
-                  <td><strong>#4 Track Ballast</strong></td>
-                  <td>1.5" to 2.5" (37 - 63mm)</td>
-                  <td>Low (< 2%)</td>
-                  <td>Construction entrance stabilization, muddy site access pads</td>
-                </tr>
-                <tr>
-                  <td><strong>#1 Rip-Rap</strong></td>
-                  <td>3" to 6" (75 - 150mm)</td>
-                  <td>Zero</td>
-                  <td>Culvert stormwater outfalls, severe slope erosion defense</td>
-                </tr>
-                <tr>
-                  <td><strong>Screenings / Stone Dust</strong></td>
-                  <td>Fines up to 3/16"</td>
-                  <td>100% Fines</td>
-                  <td>Paver setting bed, horse arena footing, walking trails</td>
-                </tr>
+                <tr><th scope="row"><a href="/57-stone-size-guide">#57 clean stone</a></th><td>Coarse, low-fines gradation; confirm whether it is washed</td><td>Drainage aggregate and some surface layers</td><td>{density57.toFixed(2)} short tons/yd³</td></tr>
+                <tr><th scope="row"><a href="/crusher-run-calculator">Crusher run / dense-graded base</a></th><td>Top size and amount of fines; “#411” varies by market</td><td>Compacted driveway or patio base</td><td>{densityBase.toFixed(2)} short tons/yd³</td></tr>
+                <tr><th scope="row">#4 clean stone</th><td>Coarse gradation, roughly 2 in. down to 3/4 in.; confirm local product</td><td>Coarse drainage or stabilization layer where specified</td><td>1.45 short tons/yd³</td></tr>
+                <tr><th scope="row">#1 large stone</th><td>Large gradation, roughly 3½ in. down to 1½ in.</td><td>Deep stabilization or coarse fill where specified</td><td>1.50 short tons/yd³</td></tr>
               </tbody>
             </table>
           </div>
+          <p class="small-note">Grade numbers describe particle size ranges, not density or guaranteed performance. <a href="https://store.astm.org/d0448-12r22.html" rel="noopener noreferrer">ASTM D448</a> classifies standard aggregate sizes; project requirements and local quarry products still control. Larger erosion armor is a separate selection: use the <a href="/riprap-calculator">riprap calculator</a> for that work.</p>
+        </section>
 
-          <h3>The Angular Friction Advantage</h3>
-          <p>
-            Unlike naturally rounded river pebbles that roll freely under load, crushed stone is produced by mechanical jaw and cone crushers that fracture solid bedrock into sharp, multi-faceted angular stones. When spread and compacted, these sharp edges lock together mechanically through <strong>aggregate interlock</strong>, creating high shear strength that resists rutting under heavy vehicular tires.
-          </p>
-        </div>
+        <section class="two-column" aria-label="Estimate and order guidance">
+          <div class="content-card">
+            <div class="section-kicker">Check the math</div>
+            <h2>Worked example: 40 × 12 ft at 4 in.</h2>
+            <ol class="steps">
+              <li><strong>Area:</strong> 40 × 12 = 480 sq ft.</li>
+              <li><strong>Installed volume:</strong> 480 × 4 ÷ 324 = 5.93 yd³.</li>
+              <li><strong>With 10% added:</strong> 5.93 × 1.10 = 6.52 yd³.</li>
+              <li><strong>Estimated #57 weight:</strong> 6.52 × {density57.toFixed(2)} = {exampleTons.toFixed(2)} US short tons.</li>
+            </ol>
+            <p>If the area is irregular, divide it into rectangles, total their square footage and enter an equivalent length and width. The <a href="/crushed-stone-yardage-calculator">yardage calculator</a> focuses on volume; the <a href="/crushed-stone-tons-calculator">tons calculator</a> focuses on weight.</p>
+          </div>
+          <div class="content-card">
+            <div class="section-kicker">Before placing an order</div>
+            <h2>Five details worth confirming</h2>
+            <ul class="checklist">
+              <li><strong>Finished depth:</strong> measure low spots as well as the average layer.</li>
+              <li><strong>Grade:</strong> describe the use, then confirm top size and fines with the yard.</li>
+              <li><strong>Loose bulk density:</strong> request the supplier’s tons per cubic yard for this material.</li>
+              <li><strong>Allowance:</strong> cover uneven ground, spillage or a known compaction factor without counting one issue twice.</li>
+              <li><strong>Delivery:</strong> ask the hauler about payload, gate width, overhead clearance and where the pile can be tipped.</li>
+            </ul>
+            <p>For a base on soft ground, stone volume alone does not solve a weak subgrade. See <a href="/how-to-fix-rock-sinking-into-soil">how to address rock sinking into soil</a>. For a drainage project, compare <a href="/drain-rock-calculator">drain rock</a> and plan a suitable outlet.</p>
+          </div>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions</h2>
+        <section class="content-card" aria-labelledby="limits-heading">
+          <div class="section-kicker">Understand the estimate</div>
+          <h2 id="limits-heading">Why the delivered weight can differ</h2>
+          <p>These preset densities are <strong>planning assumptions</strong>. Rock type, particle shape, gradation, stockpile moisture and how a load is measured all change the tons in a cubic yard. <a href="https://store.astm.org/c0029_c0029m-23.html" rel="noopener noreferrer">ASTM C29/C29M</a> measures aggregate bulk density under defined loose or compacted test conditions; it does not make one conversion factor universal. A <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/" rel="noopener noreferrer">Penn State road materials calculator</a> likewise separates finished depth from loose delivered quantity and permits a custom density and compaction ratio.</p>
+          <p>Drainage and bearing behavior also depend on the complete gradation and layer design. <a href="https://www.fhwa.dot.gov/publications/research/infrastructure/pavements/97148/073.cfm" rel="noopener noreferrer">FHWA guidance</a> notes that gradation changes a granular base’s stability and permeability. Clean crushed stone can form an open drainage layer, while a dense blend with suitable fines is used for stable compacted bases. A clean-stone layer still needs a compatible separator and a route for water to leave; <a href="https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/07a.cfm" rel="noopener noreferrer">FHWA’s drainage guidance</a> explains why fines entering that layer matter.</p>
+        </section>
+
+        <section class="content-card faq-card" aria-labelledby="faq-heading">
+          <h2 id="faq-heading">Crushed stone questions</h2>
           <div class="faq-list">
             {faqItems.map((item) => (
               <div class="faq-item">
@@ -171,109 +170,49 @@ const faqItems = [
               </div>
             ))}
           </div>
-        </div>
+        </section>
       </div>
     </article>
 
-    <TopicClusterNav activePage="crushed-stone-calculator" />
+    <TopicClusterNav currentPage="/crushed-stone-calculator" />
   </main>
-
   <Footer />
 </BaseLayout>
 
 <style>
-.content-guide-section {
-  padding: var(--space-12) 0;
-  background: var(--color-bg);
-}
-
-.content-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-8);
-  margin-bottom: var(--space-8);
-}
-
-.content-card h2 {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: var(--space-4);
-}
-
-.content-card h3 {
-  font-size: var(--text-lg);
-  font-weight: 600;
-  color: var(--color-text);
-  margin: var(--space-6) 0 var(--space-3) 0;
-}
-
-.content-card p {
-  color: var(--color-text-muted);
-  line-height: 1.7;
-  margin-bottom: var(--space-4);
-}
-
-.table-container {
-  overflow-x: auto;
-  margin: var(--space-4) 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--text-sm);
-}
-
-th {
-  text-align: left;
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-bg);
-  color: var(--color-text);
-  border-bottom: 2px solid var(--color-border);
-  font-weight: 600;
-}
-
-td {
-  padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
-  color: var(--color-text-muted);
-}
-
-tr:hover td {
-  background: rgba(202, 138, 4, 0.04);
-}
-
-.faq-card {
-  margin-top: var(--space-8);
-}
-
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  margin-top: var(--space-4);
-}
-
-.faq-item {
-  padding: var(--space-4);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-}
-
-.faq-item h3 {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-  margin: 0 0 var(--space-2) 0;
-}
-
-.faq-item p {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  line-height: 1.6;
-  margin: 0;
-}
+  .intro-section { padding: var(--space-8) 0 0; }
+  .intro-layout { display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: var(--space-6); }
+  .intro-layout h2, .content-card h2 { color: var(--color-text); font-size: var(--text-2xl); margin: 0 0 var(--space-4); }
+  .intro-layout p, .content-card p { color: var(--color-text-muted); line-height: 1.7; margin: 0 0 var(--space-4); }
+  .intro-layout a, .content-card a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+  .formula-callout { display: grid; gap: var(--space-3); padding: var(--space-5); background: var(--color-surface); border: 1px solid var(--color-border); border-left: 3px solid var(--color-primary); border-radius: var(--radius-lg); color: var(--color-text-muted); line-height: 1.5; }
+  .formula-callout strong { color: var(--color-text); }
+  .eyebrow, .section-kicker { display: block; color: var(--color-primary); font-size: var(--text-xs); font-weight: 700; letter-spacing: .07em; text-transform: uppercase; margin-bottom: var(--space-2); }
+  .content-guide-section { padding: var(--space-10) 0; background: var(--color-bg); }
+  .content-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-8); margin-bottom: var(--space-8); }
+  .content-card h3 { color: var(--color-text); font-size: var(--text-base); margin: 0 0 var(--space-2); }
+  .grade-visual { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin: var(--space-6) 0; }
+  .visual-side { padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border); background: var(--color-bg); }
+  .visual-label { display: block; color: var(--color-text); font-weight: 700; margin-bottom: var(--space-3); }
+  .visual-caption { display: block; color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-3); }
+  .stones { min-height: 94px; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 11px; padding: 12px; border-radius: var(--radius-md); background: rgba(71,85,105,.12); }
+  .stones i { width: 34px; height: 30px; display: block; background: #94a3b8; clip-path: polygon(13% 14%,70% 0,100% 42%,77% 100%,17% 89%,0 46%); }
+  .stones i:nth-child(even) { transform: rotate(25deg); background: #64748b; }
+  .dense .stones { gap: 2px; background: radial-gradient(circle at 20% 35%,#64748b 1px,transparent 2px),radial-gradient(circle at 70% 70%,#94a3b8 1px,transparent 2px),rgba(100,116,139,.27); background-size: 7px 7px,9px 9px,auto; }
+  .table-container { overflow-x: auto; margin: var(--space-5) 0 var(--space-4); }
+  table { width: 100%; min-width: 650px; border-collapse: collapse; color: var(--color-text-muted); font-size: var(--text-sm); }
+  caption { text-align: left; color: var(--color-text); font-weight: 700; margin-bottom: var(--space-2); }
+  th, td { padding: var(--space-3); text-align: left; vertical-align: top; border-bottom: 1px solid var(--color-border); }
+  thead th { color: var(--color-text); background: var(--color-bg); }
+  tbody th { color: var(--color-text); font-weight: 600; }
+  .content-card .small-note { font-size: var(--text-sm); }
+  .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+  .steps, .checklist { padding-left: 1.3rem; color: var(--color-text-muted); line-height: 1.7; }
+  .steps li, .checklist li { margin-bottom: var(--space-3); }
+  .steps strong, .checklist strong { color: var(--color-text); }
+  .faq-list { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .faq-item { padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-bg); }
+  .faq-item p { font-size: var(--text-sm); margin: 0; }
+  @media (max-width: 850px) { .intro-layout, .two-column, .faq-list { grid-template-columns: 1fr; } }
+  @media (max-width: 580px) { .grade-visual { grid-template-columns: 1fr; } .content-card { padding: var(--space-5); } }
 </style>

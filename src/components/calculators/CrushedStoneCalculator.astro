@@ -1,12 +1,17 @@
 ---
-// Crushed Stone & Sieve Grade Sizer Calculator
+import { getMaterialById } from '../../scripts/materials-data.js';
+
+const density57 = getMaterialById('clean-stone-57').tonsPerCuYd;
+const densityBase = getMaterialById('crusher-run-21a').tonsPerCuYd;
+const exampleCuFt = 40 * 12 * (4 / 12) * 1.10;
+const exampleTons = exampleCuFt / 27 * density57;
 ---
 <section class="section" id="crushed-calc">
   <div class="container">
     <div class="section-header">
-      <h2>Crushed Stone Sieve Sizing & Tonnage Calculator</h2>
+      <h2>Estimate crushed stone yards and tons</h2>
       <div class="section-divider"></div>
-      <p>Calculate certified quarry tons and cubic yards across AASHTO standard sieve sizes: #57 clean stone, #411 dense graded aggregate, #4 ballast, and heavy riprap.</p>
+      <p>Enter the finished dimensions, select a common grade, and replace the sample bulk density with your supplier’s value when you have it. Results are estimates; the delivery scale ticket gives actual tons.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -14,121 +19,103 @@
       <div class="calc-panel animate-fade-in-up">
         <div class="calc-panel-title">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          <h3>AASHTO Sieve Specification</h3>
+          <h3>Stone grade</h3>
         </div>
 
-        <div class="sieve-grid" role="radiogroup">
-          <button type="button" class="sieve-btn active" data-density="1.40" data-comp="5" data-name="#57 Clean Crushed Stone (3/4&quot;)">
-            <div class="sieve-title">#57 Clean Stone (1" to No. 4)</div>
-            <div class="sieve-spec">1.40 T/yd³ | Washed drainage stone, retaining walls, driveway top course</div>
+        <div class="sieve-grid" aria-label="Stone grade">
+          <button type="button" class="sieve-btn active" aria-pressed="true" data-density={density57} data-name="#57 clean stone">
+            <span class="sieve-title">#57 clean stone</span>
+            <span class="sieve-spec">Low-fines drainage aggregate · planning {density57.toFixed(2)} US short tons/yd³</span>
           </button>
-          <button type="button" class="sieve-btn" data-density="1.50" data-comp="20" data-name="#411 Dense Graded (Crusher Run)">
-            <div class="sieve-title">#411 / DGA / Crusher Run</div>
-            <div class="sieve-spec">1.50 T/yd³ | 3/4" stone mixed with limestone fines for solid base</div>
+          <button type="button" class="sieve-btn" aria-pressed="false" data-density={densityBase} data-name="Crusher run / dense-graded base">
+            <span class="sieve-title">Crusher run / dense-graded base</span>
+            <span class="sieve-spec">Stone with fines for a compacted base · planning {densityBase.toFixed(2)} US short tons/yd³</span>
           </button>
-          <button type="button" class="sieve-btn" data-density="1.45" data-comp="8" data-name="#4 Sub-Base & Track-Out Stone (1.5&quot;-3/4&quot;)">
-            <div class="sieve-title">#4 Clean Sub-Base (1.5" - 3/4")</div>
-            <div class="sieve-spec">1.45 T/yd³ | Driveway sub-base, construction entrance track-out pads</div>
+          <button type="button" class="sieve-btn" aria-pressed="false" data-density="1.45" data-name="#4 clean stone">
+            <span class="sieve-title">#4 clean stone</span>
+            <span class="sieve-spec">Coarse stone, roughly 2 in. to 3/4 in. · sample 1.45 US short tons/yd³</span>
           </button>
-          <button type="button" class="sieve-btn" data-density="1.50" data-comp="5" data-name="#1 Heavy Ballast Stone (3.5&quot;-1.5&quot;)">
-            <div class="sieve-title">#1 Heavy Ballast (3.5" - 1.5")</div>
-            <div class="sieve-spec">1.50 T/yd³ | Heavy site tracking pads, railway ballast, deep stability</div>
+          <button type="button" class="sieve-btn" aria-pressed="false" data-density="1.50" data-name="#1 large stone">
+            <span class="sieve-title">#1 large stone</span>
+            <span class="sieve-spec">Large gradation, roughly 3½ in. to 1½ in. · sample 1.50 US short tons/yd³</span>
           </button>
         </div>
 
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <h3>Excavation Area & Depth</h3>
+          <h3>Area, finished depth and order allowance</h3>
         </div>
 
         <div class="dim-grid">
           <div class="input-field">
             <label for="crushed-length">Length</label>
-            <input type="number" id="crushed-length" value="40" min="1" step="0.5" />
+            <input type="number" id="crushed-length" value="40" min="0.01" step="any" />
             <span class="unit-label">feet</span>
           </div>
           <div class="input-field">
             <label for="crushed-width">Width</label>
-            <input type="number" id="crushed-width" value="12" min="1" step="0.5" />
+            <input type="number" id="crushed-width" value="12" min="0.01" step="any" />
             <span class="unit-label">feet</span>
           </div>
         </div>
 
         <div class="dim-grid">
           <div class="input-field">
-            <label for="crushed-depth">Depth</label>
-            <input type="number" id="crushed-depth" value="4.0" min="1" max="24" step="0.5" />
+            <label for="crushed-depth">Finished layer depth</label>
+            <input type="number" id="crushed-depth" value="4.0" min="0.01" step="any" />
             <span class="unit-label">inches</span>
           </div>
           <div class="input-field">
-            <label for="crushed-waste">Compaction / Overage</label>
-            <input type="number" id="crushed-waste" value="10" min="0" max="25" step="1" />
+            <label for="crushed-waste">Order allowance</label>
+            <input type="number" id="crushed-waste" value="10" min="0" step="any" />
             <span class="unit-label">% extra</span>
           </div>
         </div>
+        <div class="input-field density-field">
+          <label for="crushed-density">Loose bulk density (ask your supplier)</label>
+          <input type="number" id="crushed-density" value={density57} min="0.01" step="any" />
+          <span class="unit-label">short tons/yd³</span>
+        </div>
+        <p class="calculator-note">The default 10% is an editable planning allowance. Use 0% if your measured depth and supplier quantity already account for compaction and irregular ground.</p>
       </div>
 
       <!-- Output Panel -->
       <div class="calc-results-panel animate-fade-in-up">
         <div class="results-header">
-          <div class="results-title">Crushed Aggregate Order Specs</div>
-          <div class="results-badge" id="crushed-badge">#57 Clean Stone</div>
+          <div class="results-title">Estimated order quantity</div>
+          <div class="results-badge" id="crushed-badge">#57 clean stone</div>
         </div>
+        <p id="crushed-input-error" class="calculator-note" role="alert" style="display: none;">Enter positive dimensions and density. The order allowance can be zero or more.</p>
 
         <div class="kpi-grid">
           <div class="kpi-card highlight">
-            <div class="kpi-value" id="kpi-crushed-tons">9.13</div>
-            <div class="kpi-label">Certified Weight (Tons)</div>
-            <div class="kpi-subtext" id="kpi-crushed-lbs">18,252 lbs total delivery</div>
+            <div class="kpi-value" id="kpi-crushed-tons">{exampleTons.toFixed(2)}</div>
+            <div class="kpi-label">Estimated US short tons</div>
+            <div class="kpi-subtext" id="kpi-crushed-lbs">{Math.round(exampleTons * 2000).toLocaleString('en-US')} lbs estimated</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-crushed-yards">6.52</div>
-            <div class="kpi-label">Delivery Volume (Cubic Yards)</div>
-            <div class="kpi-subtext" id="kpi-crushed-cuft">176.0 cu ft volume</div>
+            <div class="kpi-label">Order volume (cubic yards)</div>
+            <div class="kpi-subtext" id="kpi-crushed-cuft">176.0 cu ft including allowance</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-crushed-sqft">480</div>
-            <div class="kpi-label">Surface Area (Sq Ft)</div>
-            <div class="kpi-subtext">480 sq ft footprint</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-value" id="kpi-crushed-trips">1</div>
-            <div class="kpi-label">Dump Truck Loads</div>
-            <div class="kpi-subtext">Tri-axle or tandem hauler</div>
-          </div>
-        </div>
-
-        <!-- Sieve Technical Spec Sheet -->
-        <div class="sieve-spec-card">
-          <div class="spec-card-title">Quarry Technical Sieve Breakdown</div>
-          <div class="spec-table-wrap">
-            <table class="spec-table">
-              <tr>
-                <td>Nominal Size Range:</td>
-                <td id="spec-size-range">1" to No. 4 sieve (25mm to 4.75mm)</td>
-              </tr>
-              <tr>
-                <td>Void Ratio / Permeability:</td>
-                <td id="spec-void-ratio">38% - 42% void space (Free Draining)</td>
-              </tr>
-              <tr>
-                <td>Standard Sub-Base Application:</td>
-                <td id="spec-app-use">Driveways, French drains, and paver bedding</td>
-              </tr>
-            </table>
+            <div class="kpi-label">Measured area (sq ft)</div>
+            <div class="kpi-subtext">Length × width</div>
           </div>
         </div>
 
         <div class="breakdown-list">
           <div class="breakdown-row">
-            <span>Theoretical In-Place Solid Volume</span>
-            <span class="breakdown-val" id="row-crushed-solid">160.0 cu ft (5.9 yd³)</span>
+            <span>Finished layer volume before allowance</span>
+            <span class="breakdown-val" id="row-crushed-solid">160.0 cu ft (5.93 yd³)</span>
           </div>
           <div class="breakdown-row">
-            <span>Total Tonnage Order Buffer</span>
-            <span class="breakdown-val" id="row-crushed-buffer">10% included for subgrade settlement</span>
+            <span>Order allowance</span>
+            <span class="breakdown-val" id="row-crushed-buffer">10% added</span>
           </div>
         </div>
+        <p class="calculator-note">Confirm the quarry’s loose density and the hauler’s load capacity. The estimate cannot certify the delivered weight.</p>
       </div>
     </div>
   </div>
@@ -246,12 +233,14 @@
 }
 
 .sieve-title {
+  display: block;
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-text);
 }
 
 .sieve-spec {
+  display: block;
   font-size: var(--text-xs);
   color: var(--color-text-muted);
 }
@@ -287,6 +276,8 @@
   margin-bottom: var(--space-4);
 }
 
+.kpi-card:last-child { grid-column: 1 / -1; }
+
 .kpi-card {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
@@ -319,40 +310,6 @@
   margin-top: 0.15rem;
 }
 
-.sieve-spec-card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  margin-bottom: var(--space-3);
-}
-
-.spec-card-title {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-2);
-}
-
-.spec-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.75rem;
-}
-
-.spec-table td {
-  padding: 4px 0;
-  color: var(--color-text-muted);
-}
-
-.spec-table td:last-child {
-  text-align: right;
-  font-weight: 600;
-  color: var(--color-text);
-}
-
 .breakdown-list {
   display: flex;
   flex-direction: column;
@@ -362,6 +319,8 @@
 .breakdown-row {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
   font-size: var(--text-xs);
   padding: var(--space-2) 0;
   border-bottom: 1px solid var(--color-border);
@@ -376,6 +335,15 @@
   font-weight: 600;
   color: var(--color-text);
 }
+
+.density-field { margin-bottom: var(--space-3); }
+.density-field input { padding-right: 8.5rem; }
+.calculator-note {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.55;
+  margin: var(--space-3) 0 0;
+}
 </style>
 
 <script>
@@ -384,52 +352,36 @@ function initCrushedStoneCalculator() {
   const widthInput = document.getElementById('crushed-width') as HTMLInputElement | null;
   const depthInput = document.getElementById('crushed-depth') as HTMLInputElement | null;
   const wasteInput = document.getElementById('crushed-waste') as HTMLInputElement | null;
+  const densityInput = document.getElementById('crushed-density') as HTMLInputElement | null;
 
   const sieveBtns = document.querySelectorAll('.sieve-btn');
 
-  let activeDensity = 1.40;
-  let activeName = '#57 Clean Stone';
-
-  const specsMap: Record<string, { size: string; void: string; app: string }> = {
-    '#57 Clean Crushed Stone (3/4")': {
-      size: '1" to No. 4 sieve (25mm to 4.75mm)',
-      void: '38% - 42% void space (Free Draining)',
-      app: 'Driveways, French drains, and paver bedding'
-    },
-    '#411 Dense Graded (Crusher Run)': {
-      size: 'Dust up to 3/4" (0mm to 19mm)',
-      void: '10% - 15% void space (Packs Solid)',
-      app: 'Compacted paver base, asphalt driveway sub-base'
-    },
-    '#4 Sub-Base & Track-Out Stone (1.5"-3/4")': {
-      size: '1.5" to 3/4" (37.5mm to 19mm)',
-      void: '40% - 45% void space (Heavy Interlocking)',
-      app: 'Driveway sub-base, construction entrance track-out, septic fields'
-    },
-    '#1 Heavy Ballast Stone (3.5"-1.5")': {
-      size: '3.5" to 1.5" (90mm to 37.5mm)',
-      void: '45% - 50% void space (High Load Support)',
-      app: 'Heavy civil ballast, site access tracking pads, stabilized entrances'
-    }
-  };
+  let activeName = '#57 clean stone';
 
   function calculate() {
-    if (!lengthInput || !widthInput || !depthInput || !wasteInput) return;
+    if (!lengthInput || !widthInput || !depthInput || !wasteInput || !densityInput) return;
 
-    const length = Math.max(0.5, parseFloat(lengthInput.value) || 0);
-    const width = Math.max(0.5, parseFloat(widthInput.value) || 0);
-    const depthInches = Math.max(0.5, parseFloat(depthInput.value) || 0);
-    const wastePercent = parseFloat(wasteInput.value) || 0;
+    const values = [lengthInput, widthInput, depthInput, wasteInput, densityInput].map(input => Number(input.value));
+    const [length, width, depthInches, wastePercent, density] = values;
+    const valid = [lengthInput, widthInput, depthInput, wasteInput, densityInput].every(input => input.value.trim() !== '' && input.validity.valid)
+      && values.every(Number.isFinite) && length > 0 && width > 0 && depthInches > 0 && wastePercent >= 0 && density > 0;
+    const error = document.getElementById('crushed-input-error');
+    if (error) error.style.display = valid ? 'none' : 'block';
+    if (!valid) {
+      ['kpi-crushed-tons', 'kpi-crushed-lbs', 'kpi-crushed-yards', 'kpi-crushed-cuft', 'kpi-crushed-sqft', 'row-crushed-solid', 'row-crushed-buffer'].forEach(id => {
+        const output = document.getElementById(id);
+        if (output) output.textContent = '—';
+      });
+      return;
+    }
 
     const area = length * width;
     const netCuFt = area * (depthInches / 12);
     const totalCuFt = netCuFt * (1 + wastePercent / 100);
     const totalYards = totalCuFt / 27;
 
-    const totalTons = totalYards * activeDensity;
+    const totalTons = totalYards * density;
     const totalLbs = totalTons * 2000;
-
-    const truckTrips = Math.ceil(totalTons / 15);
 
     // Update KPIs
     const kpiTons = document.getElementById('kpi-crushed-tons');
@@ -437,45 +389,37 @@ function initCrushedStoneCalculator() {
     const kpiYards = document.getElementById('kpi-crushed-yards');
     const kpiCuFt = document.getElementById('kpi-crushed-cuft');
     const kpiSqFt = document.getElementById('kpi-crushed-sqft');
-    const kpiTrips = document.getElementById('kpi-crushed-trips');
     const badge = document.getElementById('crushed-badge');
 
     const rowSolid = document.getElementById('row-crushed-solid');
     const rowBuffer = document.getElementById('row-crushed-buffer');
 
     if (kpiTons) kpiTons.textContent = totalTons.toFixed(2);
-    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lbs net delivery`;
+    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lbs estimated`;
     if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
-    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft volume`;
+    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft including allowance`;
     if (kpiSqFt) kpiSqFt.textContent = Math.round(area).toLocaleString();
-    if (kpiTrips) kpiTrips.textContent = `${truckTrips} Load${truckTrips === 1 ? '' : 's'}`;
     if (badge) badge.textContent = activeName;
 
-    if (rowSolid) rowSolid.textContent = `${netCuFt.toFixed(1)} cu ft (${(netCuFt / 27).toFixed(2)} yd³) in place`;
-    if (rowBuffer) rowBuffer.textContent = `${wastePercent}% included for subgrade settlement`;
-
-    // Spec card updates
-    const spec = specsMap[activeName] || specsMap['#57 Clean Crushed Stone (3/4")'];
-    const specSize = document.getElementById('spec-size-range');
-    const specVoid = document.getElementById('spec-void-ratio');
-    const specApp = document.getElementById('spec-app-use');
-
-    if (specSize) specSize.textContent = spec.size;
-    if (specVoid) specVoid.textContent = spec.void;
-    if (specApp) specApp.textContent = spec.app;
+    if (rowSolid) rowSolid.textContent = `${netCuFt.toFixed(1)} cu ft (${(netCuFt / 27).toFixed(2)} yd³)`;
+    if (rowBuffer) rowBuffer.textContent = `${wastePercent}% added`;
   }
 
   sieveBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      sieveBtns.forEach(b => b.classList.remove('active'));
+      sieveBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
-      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.40');
-      activeName = btn.getAttribute('data-name') || '#57 Clean Stone';
+      btn.setAttribute('aria-pressed', 'true');
+      if (densityInput) densityInput.value = btn.getAttribute('data-density') || densityInput.value;
+      activeName = btn.getAttribute('data-name') || '#57 clean stone';
       calculate();
     });
   });
 
-  [lengthInput, widthInput, depthInput, wasteInput].forEach(input => {
+  [lengthInput, widthInput, depthInput, wasteInput, densityInput].forEach(input => {
     if (input) {
       input.addEventListener('input', calculate);
     }
@@ -484,5 +428,9 @@ function initCrushedStoneCalculator() {
   calculate();
 }
 
-document.addEventListener('DOMContentLoaded', initCrushedStoneCalculator);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCrushedStoneCalculator);
+} else {
+  initCrushedStoneCalculator();
+}
 </script>

@@ -4,13 +4,12 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 
+const title = 'How to Stop Gravel Washing Out on a Slope';
+const metaDescription = 'Find why gravel washes down a sloped driveway or path, then choose drainage, compacted stone, grids, and outlet protection that fit the problem.';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Slope Washout Guide', url: '/how-to-stop-gravel-washing-out-on-slope' }
+  { name: 'Stop Gravel Washout', url: '/how-to-stop-gravel-washing-out-on-slope' }
 ];
-
-const title = "How to Stop Gravel Washing Out on a Slope - 5 Civil Engineering Fixes";
-const metaDescription = "Proven civil engineering methods to stop gravel and stone washing down hillsides and sloped driveways. Angular aggregate locking, geocell grid stabilization, check dams, and drainage cutoffs.";
 ---
 
 <BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/how-to-stop-gravel-washing-out-on-slope">
@@ -18,349 +17,306 @@ const metaDescription = "Proven civil engineering methods to stop gravel and sto
 
   <main id="main-content">
     <PageHero
-      title="How to Stop Gravel Washing Out on a Slope"
-      subtitle="Rounded gravel rolls like ball bearings when stormwater hits a hillside. Discover the 5 proven civil engineering techniques that permanently lock sloped gravel in place."
-      badge="Hillside Civil Engineering Guide"
+      title={title}
+      subtitle="Find where the water enters, give it a safe way off the slope, then rebuild the surface with stone suited to traffic. Replacing washed-away gravel alone leaves the cause in place."
+      badge="Sloped driveways, paths and landscape beds"
       breadcrumbs={breadcrumbs}
       theme="civil"
     />
 
-    <section class="section" style="padding-top: 0;">
+    <article class="washout-guide">
       <div class="container">
-        <!-- Key Solution Takeaway Box -->
-        <div class="aeo-box">
-          <div class="aeo-header">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-            <h3>Quick Civil Fix: The Slope Rule of Thumb</h3>
+        <section class="first-answer" aria-labelledby="start-heading">
+          <div>
+            <p class="eyebrow">Start here</p>
+            <h2 id="start-heading">Follow the water before buying more gravel</h2>
+            <p>After the next safe rain, look for the first place runoff reaches the gravel and the point where it leaves. A rill down the middle calls for surface drainage; stone sliding under tires calls for a better base or confinement. If the soil is soft, repair that layer before topping it with fresh rock.</p>
           </div>
-          <p>
-            If your slope exceeds a <strong>4% grade</strong> (a 4-inch drop every 8 feet), you must <strong>never use smooth river rock or pea gravel</strong>. Smooth rounded stones have zero mechanical friction and will wash into ruts during heavy downpours. Slopes require <strong>100% crushed angular stone (#57 or Crusher Run)</strong> or <strong>honeycomb geocell grid mats</strong> that mechanically lock particles together.
-          </p>
-        </div>
+          <ol class="priority-list">
+            <li><span aria-hidden="true">1</span><strong>Intercept</strong> runoff entering from uphill.</li>
+            <li><span aria-hidden="true">2</span><strong>Shed</strong> water across the surface before it forms a channel.</li>
+            <li><span aria-hidden="true">3</span><strong>Stabilize</strong> the stone and its discharge point.</li>
+          </ol>
+        </section>
 
-        <!-- 5 Proven Engineering Methods -->
-        <div class="methods-container" style="margin-top: var(--space-10);">
-          <!-- Fix 1 -->
-          <article class="method-card">
-            <div class="method-num-badge">Fix 1</div>
-            <div class="method-content">
-              <h3>Switch to Angular Fractured Aggregate (Interlocking Friction)</h3>
-              <p>
-                In civil geotechnical engineering, stability on an incline is governed by the <strong>angle of internal friction (&phi;)</strong>:
-              </p>
-              <ul>
-                <li><strong>Rounded River Rock &amp; Pea Gravel:</strong> Smooth, rounded surface geometry provides a friction angle of only 26&deg; to 30&deg;. Water easily rolls stones downhill.</li>
-                <li><strong>Quarry-Crushed Fractured Stone (#57):</strong> Sharp angular facets lock against each other under gravity and compaction, producing an internal friction angle of 38&deg; to 45&deg;.</li>
-              </ul>
-              <div class="method-tip">
-                <strong>Best Aggregate Choice:</strong> Use <strong>#57 Crushed Granite or Limestone</strong> (1-inch clean stone) for surface drainage, or <strong>Crusher Run / CA-6</strong> (dense-graded base) compacted with a roller so mineral fines cement the slope.
-              </div>
-              <div class="method-cta">
-                <a href="/crushed-stone-calculator" class="btn btn-sm btn-secondary">Calculate Crushed Stone for Slopes &rarr;</a>
-              </div>
-            </div>
-          </article>
+        <nav class="jump-links" aria-label="On this page">
+          <a href="#diagnose">Diagnose</a>
+          <a href="#measure">Measure the grade</a>
+          <a href="#fixes">Choose a fix</a>
+          <a href="#repair">Repair sequence</a>
+          <a href="#quantity">Estimate rock</a>
+          <a href="#questions">Questions</a>
+        </nav>
 
-          <!-- Fix 2 -->
-          <article class="method-card">
-            <div class="method-num-badge">Fix 2</div>
-            <div class="method-content">
-              <h3>Install Geocell Grid Stabilization Mats (Cellular Confinement)</h3>
-              <p>
-                For steep hillsides, walkways, and driveways with a grade of <strong>8% to 25%</strong>, loose stone alone will eventually migrate. <strong>Geocells (honeycomb gravel grids)</strong> provide 3-dimensional confinement:
-              </p>
-              <ul>
-                <li>High-density polyethylene (HDPE) interconnected cells (typically 3" or 4" deep) expand across the slope and are staked down with rebar anchors.</li>
-                <li>When filled with gravel, lateral hydrostatic water pressure is dissipated across individual cellular walls, preventing stones from sliding downhill.</li>
-                <li>Vehicles and wheelbarrows drive over the grid ribs without sinking or leaving ruts.</li>
-              </ul>
-              <div class="method-tip">
-                <strong>Installation Note:</strong> Always lay a heavy woven geotextile fabric beneath the geocell grid to prevent subgrade soil intermixing.
-              </div>
-            </div>
-          </article>
+        <figure class="site-diagram">
+          <img
+            src="/slope-washout-diagram.svg"
+            width="1100"
+            height="570"
+            loading="lazy"
+            decoding="async"
+            alt="Plan view of a sloped gravel driveway: an uphill diversion swale intercepts incoming runoff, the cross-sloped driving surface sheds rain to a side swale, and a broad cross-drain leads to a protected outlet."
+          />
+          <figcaption>Plan view, not a construction drawing. Each arrow needs a real, stable outlet; a berm that traps water against a driveway simply moves the washout.</figcaption>
+        </figure>
 
-          <!-- Fix 3 -->
-          <article class="method-card">
-            <div class="method-num-badge">Fix 3</div>
-            <div class="method-content">
-              <h3>Construct Transverse Timber or Stone Check Dams (Water Breaks)</h3>
-              <p>
-                Water gathers speed as it travels downhill. Doubling water velocity increases its erosive gravel-carrying capacity by <strong>four times</strong> (v&sup2; kinetic energy).
-              </p>
-              <ul>
-                <li>Install pressure-treated 6&times;6 timber beams, railroad ties, or granite cobblestone curbs buried flush every <strong>15 to 25 feet</strong> perpendicular to the slope.</li>
-                <li>These act as terraced hydraulic check dams, dividing a long 60-foot steep run into four gentle steps.</li>
-                <li>Water velocity resets to zero at each step, preventing stormwater torrents from carving deep channels down your driveway.</li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Fix 4 -->
-          <article class="method-card">
-            <div class="method-num-badge">Fix 4</div>
-            <div class="method-content">
-              <h3>Install an Upslope Cutoff Swale / French Drain (Intercept the Water)</h3>
-              <p>
-                The vast majority of gravel washouts occur not from rain falling directly on the gravel, but from <strong>sheet water flowing off a roof, patio, or uphill yard</strong> onto the gravel surface.
-              </p>
-              <ul>
-                <li>Excavate a shallow French drain or turf swale along the <strong>top crest</strong> of the hillside.</li>
-                <li>Line the trench with non-woven filter fabric, install a 4-inch perforated drain pipe, and backfill with coarse drain rock.</li>
-                <li>Divert this incoming surface water around the perimeter to a designated discharge outlet (such as a dry creek bed or pop-up emitter), so it never enters the gravel bed.</li>
-              </ul>
-              <div class="method-cta">
-                <a href="/drain-rock-calculator" class="btn btn-sm btn-secondary">Calculate Drain Rock for Cutoff Trenches &rarr;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Fix 5 -->
-          <article class="method-card">
-            <div class="method-num-badge">Fix 5</div>
-            <div class="method-content">
-              <h3>Armor the Slope Toe &amp; Outfall with Heavy Riprap (Class 1 / 2)</h3>
-              <p>
-                The bottom base ("toe") of a slope is where water energy reaches its peak momentum. Without heavy stabilization at the bottom, the entire slope foundation will undercut and collapse.
-              </p>
-              <ul>
-                <li>Excavate an anchor key trench at the bottom toe of the slope.</li>
-                <li>Place angular <strong>Class 1 or Class 2 Riprap (4" to 12" broken stone)</strong> to form a heavy retaining plunge pool.</li>
-                <li>The heavy mass of riprap absorbs water velocity, dissipates hydraulic energy, and physically prevents smaller uphill gravel from washing into streets or storm drains.</li>
-              </ul>
-              <div class="method-cta">
-                <a href="/riprap-calculator" class="btn btn-sm btn-secondary">Calculate Riprap Tonnage &rarr;</a>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <!-- Slope Sizing Reference Table -->
-        <div class="section-header" style="margin-top: var(--space-12);">
-          <h2>Slope Grade vs. Recommended Engineering Fix</h2>
-          <div class="section-divider"></div>
-          <p>Find your project slope percentage to select the correct stabilization protocol.</p>
-        </div>
-
-        <div class="slope-table-card">
-          <div class="table-responsive">
-            <table class="slope-table">
-              <thead>
-                <tr>
-                  <th>Slope Incline (Grade)</th>
-                  <th>Vertical Drop per 100 ft</th>
-                  <th>Recommended Aggregate</th>
-                  <th>Required Stabilization Method</th>
-                </tr>
-              </thead>
+        <section id="diagnose" class="guide-section" aria-labelledby="diagnose-heading">
+          <div class="section-intro">
+            <p class="eyebrow">01 / Diagnosis</p>
+            <h2 id="diagnose-heading">What is actually moving the gravel?</h2>
+            <p>Take photos during a storm from a safe location. Where the first rill starts matters more than the final pile of stone at the bottom.</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <caption>Match the visible symptom to the first thing to inspect</caption>
+              <thead><tr><th scope="col">What you see</th><th scope="col">Likely problem</th><th scope="col">First move</th></tr></thead>
               <tbody>
-                <tr>
-                  <td><strong>Gentle (0%–3%)</strong></td>
-                  <td>0 to 3 feet</td>
-                  <td>Pea Gravel, River Rock, #57 Stone</td>
-                  <td>Standard 4" border edging + landscape fabric</td>
-                </tr>
-                <tr>
-                  <td><strong>Moderate (4%–7%)</strong></td>
-                  <td>4 to 7 feet</td>
-                  <td>#57 Crushed Stone or Crusher Run</td>
-                  <td>Switch to 100% angular rock; compact with vibratory roller</td>
-                </tr>
-                <tr>
-                  <td><strong>Steep (8%–14%)</strong></td>
-                  <td>8 to 14 feet</td>
-                  <td>Crushed Stone within Geocell Grid</td>
-                  <td>Honeycomb geocell grid mats + timber check dams every 20 ft</td>
-                </tr>
-                <tr>
-                  <td><strong>Severe (&gt; 15%)</strong></td>
-                  <td>15+ feet</td>
-                  <td>Heavy Class 1/2 Riprap or Paving</td>
-                  <td>Engineered geogrid revetment, riprap swale, or asphalt/concrete</td>
-                </tr>
+                <tr><td>Rills or a channel down the drive</td><td>Runoff is traveling along the surface.</td><td>Find its entry point; reshape the surface and plan a cross drain with an outlet.</td></tr>
+                <tr><td>Stone piles at the bottom, little sign of flowing water</td><td>Loose, rounded stone or traffic is shifting it.</td><td>Check the aggregate, compacted base, tire paths and edging.</td></tr>
+                <tr><td>Mud squeezes into wheel ruts</td><td>The subgrade is weak or remains wet.</td><td>Address drainage and rebuild the soft section; consider a separation geotextile.</td></tr>
+                <tr><td>Washout starts at the road or uphill yard</td><td>Outside runoff enters the driveway.</td><td>Intercept it before resurfacing; ask the road authority before changing a roadside ditch or culvert.</td></tr>
+                <tr><td>Soil erodes where a drain ends</td><td>The outlet is concentrated and unprotected.</td><td>Spread or armor the discharge after confirming where it can legally and safely drain.</td></tr>
               </tbody>
             </table>
           </div>
-        </div>
+          <p class="source-line">The <a href="https://www.fhwa.dot.gov/construction/pubs/ots15002.pdf">FHWA gravel roads guide</a> connects surface shape, aggregate quality and drainage to road performance. The <a href="https://www.epa.gov/sites/default/files/2015-10/documents/environmentallysensitivemaintenance_dirtgravelroads.pdf">EPA dirt and gravel roads manual</a> describes intercepting upslope runoff with diversion swales.</p>
+        </section>
 
-        <!-- Related Troubleshooting & Engineering Guides -->
-        <div style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border-subtle);">
-          <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.5rem;">Related Problem-Solving Guides &amp; Tools</h2>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
-            <a href="/how-to-stop-weeds-in-landscape-rock" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
-              <span style="display: inline-block; padding: 2px 8px; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Weed Prevention</span>
-              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Stop Weeds in Landscape Rock</h4>
-              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Why weeds germinate above fabric in windblown silt and how flame weeders &amp; pre-emergents stop them.</p>
-            </a>
-            <a href="/how-to-fix-rock-sinking-into-soil" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
-              <span style="display: inline-block; padding: 2px 8px; background: rgba(239, 68, 68, 0.15); color: var(--accent-rose); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Subgrade Fix</span>
-              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Fix Rock Sinking into Mud &amp; Clay</h4>
-              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Subgrade CBR failure, geotextile separation, and crusher run bridging layers.</p>
-            </a>
-            <a href="/rock-vs-mulch-calculator" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
-              <span style="display: inline-block; padding: 2px 8px; background: rgba(212, 168, 83, 0.15); color: var(--gold-400); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Economic Model</span>
-              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Rock vs Mulch 10-Year Calculator</h4>
-              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Calculate the exact 3.4-year break-even point when rock beats recurring mulch costs.</p>
-            </a>
-            <a href="/rock-bag-weight-and-price-guide" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
-              <span style="display: inline-block; padding: 2px 8px; background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Retail Pricing</span>
-              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Bag Weight &amp; Price Database</h4>
-              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Home Depot &amp; Lowe's 0.5 cu ft bag weights, payload safety, and bulk cost tipping points.</p>
-            </a>
+        <section id="measure" class="guide-section measure-section" aria-labelledby="measure-heading">
+          <div class="section-intro">
+            <p class="eyebrow">02 / Site notes</p>
+            <h2 id="measure-heading">Measure the grade and the water path</h2>
+            <p>Grade describes how fast the ground falls; it does not by itself tell you which grid, rock size or drain will work. Rainfall, soil, traffic, slope length and the outlet also matter.</p>
           </div>
-        </div>
+          <div class="measure-grid">
+            <div class="formula-card">
+              <h3>Calculate slope percentage</h3>
+              <p class="formula">Grade (%) = vertical drop ÷ horizontal run × 100</p>
+              <p>For example, a 1 ft drop over a 20 ft horizontal run is a <strong>5% grade</strong>. Use a level, string or laser to measure the drop. For an order estimate, measure the actual <em>surface length</em> of the sloped area.</p>
+            </div>
+            <div class="notes-card">
+              <h3>Record these before choosing a fix</h3>
+              <ul>
+                <li>Where roof, yard, road and ditch water enters</li>
+                <li>Where surface water can leave without eroding soil</li>
+                <li>Length of uninterrupted downhill flow</li>
+                <li>Whether cars, pedestrians or only landscaping use the area</li>
+                <li>Whether ruts reveal soft ground or moving surface stone</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="fixes" class="guide-section" aria-labelledby="fixes-heading">
+          <div class="section-intro">
+            <p class="eyebrow">03 / Fixes that work together</p>
+            <h2 id="fixes-heading">Match each treatment to the failure</h2>
+            <p>Most persistent washouts need a drainage change plus a stable surface. Choose the parts that address what you observed; the order below follows the path of the water.</p>
+          </div>
+
+          <div class="fix-list">
+            <section class="fix-card" aria-labelledby="fix-intercept">
+              <div class="fix-number">01</div>
+              <div>
+                <h3 id="fix-intercept">Catch incoming surface runoff uphill</h3>
+                <p>A shallow diversion swale or berm can keep yard runoff from crossing the gravel. It must carry water to a stable place where it can spread or drain. Keep water away from foundations and do not redirect concentrated flow onto a neighbor or into a public drain without approval.</p>
+                <p><strong>Use a French drain when water is seeping through the ground,</strong> rather than assuming a buried pipe will capture a visible sheet of fast-moving surface water. A drain needs a suitable filter, pipe layout where used, maintenance access and a real outlet. If a subsurface trench is appropriate, the <a href="/drain-rock-calculator">drain rock calculator</a> estimates trench stone from its dimensions and pipe choice.</p>
+              </div>
+            </section>
+
+            <section class="fix-card" aria-labelledby="fix-shape">
+              <div class="fix-number">02</div>
+              <div>
+                <h3 id="fix-shape">Give a driveway cross fall and a way out</h3>
+                <p>Reshape a traveled gravel surface so rain runs toward a maintained side swale instead of following wheel ruts downhill. Depending on the site, that may be a crown or a one-sided cross slope. The side swale needs an outlet too.</p>
+                <p>On a longer run, a properly shaped, driveable <strong>rolling dip</strong> or designed cross drain can turn water off the road before it gains volume. A flush timber laid across a drive may trap gravel, but it does not automatically drain water and can create a driving hazard. Drain spacing and profile depend on local flow, soil and vehicle clearance. The <a href="https://www.fs.usda.gov/t-d/pubs/pdf/w-r/98771806.pdf">US Forest Service surface cross-drain guide</a> distinguishes driveable dips from waterbars commonly used on roads closed to traffic.</p>
+              </div>
+            </section>
+
+            <section class="fix-card" aria-labelledby="fix-stone">
+              <div class="fix-number">03</div>
+              <div>
+                <h3 id="fix-stone">Use aggregate that fits the surface</h3>
+                <p>For a vehicle surface, ask a local quarry for a <strong>well-graded, angular surface gravel</strong> with a suitable blend of coarse particles and fines, then compact it in lifts to the intended profile. Local names include crusher run, dense-graded aggregate and road base; the actual gradation matters more than the trade name. Clean <a href="/57-stone-size-guide">#57 stone</a> is useful in drainage work but has little fine material to bind a traveled surface.</p>
+                <p>Loose <a href="/pea-gravel-calculator">pea gravel</a> and rounded river rock tend to move under tires and feet on a slope. On a decorative bed or path with little runoff, angular stone and solid edging may be enough. On a driveway, edging only contains lateral scatter; it cannot replace surface drainage. Compare <a href="/angular-vs-rounded-rock">angular and rounded rock</a> before choosing the finish.</p>
+              </div>
+            </section>
+
+            <section class="fix-card" aria-labelledby="fix-grid">
+              <div class="fix-number">04</div>
+              <div>
+                <h3 id="fix-grid">Add confinement where stone still migrates</h3>
+                <p>A gravel grid or geocell can confine infill on a sloped path or driveway, but select a product rated for the intended traffic and slope. Prepare and drain the base first; follow that product's requirements for cell depth, infill, anchorage and edge restraint. A grid over a wet, rutting base will not correct the water problem.</p>
+                <p>Use a <strong>separation geotextile</strong> where soft soil is mixing into the aggregate, specified for the soil and load; ordinary weed barrier is not automatically a road fabric. Geocell manufacturers such as <a href="https://www.prestogeo.com/installation/soil-stabilization/geoweb-slope-protection-system/">Presto Geosystems</a> publish installation and anchoring instructions for their systems.</p>
+              </div>
+            </section>
+
+            <section class="fix-card" aria-labelledby="fix-outlet">
+              <div class="fix-number">05</div>
+              <div>
+                <h3 id="fix-outlet">Protect the outlet, not just the gravel bed</h3>
+                <p>Where a ditch, culvert or cross drain discharges, a stable vegetated spreader or properly sized rock apron can prevent a new gully. Riprap is for an eroding bank, channel or outlet; it is not a normal driving surface. Stone size, thickness, filter layer and apron dimensions depend on flow and site conditions, so avoid choosing a universal “Class 1” size from a label alone.</p>
+                <p>After the outlet detail is selected, the <a href="/riprap-calculator">riprap calculator</a> estimates volume and weight from area, thickness and an allowance. If the water threatens a building, public road, culvert or neighboring property, have a local drainage professional assess the discharge.</p>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section id="repair" class="guide-section" aria-labelledby="repair-heading">
+          <div class="section-intro">
+            <p class="eyebrow">04 / Work plan</p>
+            <h2 id="repair-heading">A practical repair sequence</h2>
+          </div>
+          <ol class="repair-steps">
+            <li><span class="step-number" aria-hidden="true">1</span><span><strong>Map the storm path.</strong> Mark inflow, rills, low points and outlets; locate buried utilities before digging.</span></li>
+            <li><span class="step-number" aria-hidden="true">2</span><span><strong>Set the drainage route.</strong> Intercept outside runoff and provide cross fall or a cross drain that leads to a stable discharge area.</span></li>
+            <li><span class="step-number" aria-hidden="true">3</span><span><strong>Remove failed material.</strong> Excavate soft or mud-mixed sections rather than burying mud beneath new stone.</span></li>
+            <li><span class="step-number" aria-hidden="true">4</span><span><strong>Rebuild and compact the base.</strong> Use the local aggregate specification for the load; add separation fabric only where the subgrade needs it.</span></li>
+            <li><span class="step-number" aria-hidden="true">5</span><span><strong>Contain and finish the surface.</strong> Use a rated grid or edging if migration remains a problem after the drainage and base are sound.</span></li>
+            <li><span class="step-number" aria-hidden="true">6</span><span><strong>Inspect after rain.</strong> Clear blocked swales and cross drains, repair the first small rill, and check the outlet for scour.</span></li>
+          </ol>
+          <aside class="site-caution"><strong>Roadside and property lines:</strong> A driveway connection, culvert or public ditch may be regulated locally. Confirm the allowed outlet and required permits before altering road drainage.</aside>
+        </section>
+
+        <section id="quantity" class="guide-section quantity-section" aria-labelledby="quantity-heading">
+          <div class="section-intro">
+            <p class="eyebrow">05 / Ordering</p>
+            <h2 id="quantity-heading">Estimate stone after you choose the section</h2>
+            <p>Measure the finished dimensions of each layer separately. A calculator estimates material quantity; it cannot size a ditch, culvert, grid anchor or riprap apron for storm flow.</p>
+          </div>
+          <div class="quantity-layout">
+            <div class="formula-card">
+              <h3>Example: a 40 × 10 ft gravel surface</h3>
+              <p>At a 3 in. <strong>finished</strong> layer depth: 40 × 10 × 3 ÷ 324 = <strong>3.70 cubic yards in place</strong>. The order amount may be higher if the chosen material needs compaction or the excavated area is irregular. Ask the supplier for its actual gradation and loose bulk density, and avoid adding the same allowance twice.</p>
+            </div>
+            <div class="tool-links">
+              <a href="/crushed-stone-calculator"><strong>Crushed stone calculator</strong><span>Enter length, width, finished depth, stone grade, bulk density and order allowance.</span></a>
+              <a href="/crusher-run-calculator"><strong>Crusher run calculator</strong><span>Estimate a compacted base using its length, width, target depth and editable compaction allowance.</span></a>
+              <a href="/drain-rock-calculator"><strong>Drain rock calculator</strong><span>Estimate trench backfill from run length, trench size and pipe selection.</span></a>
+            </div>
+          </div>
+        </section>
+
+        <section id="questions" class="guide-section faq-section" aria-labelledby="questions-heading">
+          <div class="section-intro">
+            <p class="eyebrow">Common decisions</p>
+            <h2 id="questions-heading">Questions to settle before a repair</h2>
+          </div>
+          <div class="faq-grid">
+            <details><summary>Will bigger gravel stop a driveway from washing out?</summary><p>Not if runoff continues down the tire tracks. Larger stone may resist movement but can leave a rough, unstable surface and will not fix a weak base or missing outlet. Address the water path first, then choose the surface gradation.</p></details>
+            <details><summary>Should I install a French drain across the driveway?</summary><p>A buried drain is suited to seepage or a designed collection system, but exposed surface flow needs an inlet and a sized, maintainable outlet. A silted trench or pipe can worsen washout. For visible runoff, assess surface shaping, a swale or a traffic-rated cross drain first.</p></details>
+            <details><summary>Does landscape fabric keep gravel on a slope?</summary><p>Fabric can separate aggregate from soft soil when specified for that job. It does not hold the surface stone in place or redirect water, and weed-control fabric should not be assumed to carry driveway loads.</p></details>
+            <details><summary>When should I get a site-specific design?</summary><p>Get local help when washout repeatedly reaches a road or building, a culvert is involved, the slope shows cracks or slumping, or you cannot identify a stable and permitted discharge point. A high-flow outlet or steep vehicle access needs more than a generic grade rule.</p></details>
+          </div>
+        </section>
+
+        <section class="further-reading" aria-labelledby="related-heading">
+          <div>
+            <h2 id="related-heading">Continue the site plan</h2>
+            <p>Use the material guides after drainage and subgrade conditions are clear.</p>
+          </div>
+          <div class="related-links">
+            <a href="/how-to-fix-rock-sinking-into-soil">Fix rock sinking into soil <span aria-hidden="true">→</span></a>
+            <a href="/driveway-rock-calculator">Plan driveway rock <span aria-hidden="true">→</span></a>
+            <a href="/dry-creek-bed">Plan a dry creek bed <span aria-hidden="true">→</span></a>
+            <a href="/rock-coverage-calculator-yard">Convert area and depth to yards <span aria-hidden="true">→</span></a>
+          </div>
+        </section>
+
+        <section class="references" aria-labelledby="references-heading">
+          <h2 id="references-heading">Field references</h2>
+          <p>These references inform the drainage and aggregate principles above; they do not replace a design for an individual property.</p>
+          <ul>
+            <li><a href="https://www.fhwa.dot.gov/construction/pubs/ots15002.pdf">Federal Highway Administration — Gravel Roads Construction and Maintenance Guide</a></li>
+            <li><a href="https://www.epa.gov/sites/default/files/2015-10/documents/environmentallysensitivemaintenance_dirtgravelroads.pdf">U.S. EPA — Environmentally Sensitive Maintenance for Dirt and Gravel Roads</a></li>
+            <li><a href="https://www.fs.usda.gov/t-d/pubs/pdf/w-r/98771806.pdf">U.S. Forest Service — Water/Road Interaction: Surface Cross Drains</a></li>
+            <li><a href="https://extension.wsu.edu/clark/naturalresources/smallacreageprogram/improving-drainage/">Washington State University Extension — Improving Drainage</a></li>
+          </ul>
+        </section>
       </div>
-    </section>
+    </article>
   </main>
 
   <Footer />
 </BaseLayout>
 
 <style>
-  .aeo-box {
-    background: rgba(20, 26, 33, 0.7);
-    border: 1px solid var(--border-card);
-    border-radius: var(--radius-xl);
-    padding: var(--space-6);
-    box-shadow: var(--shadow-lg);
+  .washout-guide { padding: clamp(1.5rem, 3vw, 3rem) 0 4rem; }
+  .washout-guide :is(h2, h3) { color: var(--text-primary); }
+  .washout-guide p, .washout-guide li { color: var(--text-secondary); line-height: 1.7; }
+  .washout-guide a { color: var(--accent-blue); text-underline-offset: 3px; }
+  .eyebrow { margin: 0 0 .5rem; color: var(--accent-blue) !important; font-size: .76rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .first-answer { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(240px, 1fr); gap: 2rem; align-items: center; padding: clamp(1.25rem, 3vw, 2rem); background: var(--slate-900); border: 1px solid var(--border-card); border-radius: var(--radius-xl); }
+  .first-answer h2 { margin: 0 0 .65rem; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.2; }
+  .first-answer p:last-child { margin: 0; }
+  .priority-list { margin: 0; padding: 0; list-style: none; display: grid; gap: .8rem; }
+  .priority-list li { display: flex; align-items: baseline; gap: .65rem; font-size: .92rem; }
+  .priority-list span { display: inline-grid; place-items: center; flex: 0 0 1.7rem; height: 1.7rem; border-radius: 50%; color: #fff; background: #2563eb; font-weight: 800; }
+  .priority-list strong { color: var(--text-primary); }
+  .jump-links { display: flex; flex-wrap: wrap; gap: .55rem; margin: 1.4rem 0 2rem; }
+  .jump-links a { padding: .48rem .75rem; border: 1px solid var(--border-subtle); border-radius: 999px; background: var(--bg-card); color: var(--text-secondary); font-size: .84rem; font-weight: 650; text-decoration: none; }
+  .jump-links a:hover, .jump-links a:focus-visible { border-color: var(--accent-blue); color: var(--text-primary); }
+  .site-diagram { margin: 0 0 2rem; overflow: hidden; border: 1px solid var(--border-card); border-radius: var(--radius-xl); background: #0b1728; }
+  .site-diagram img { display: block; width: 100%; height: auto; }
+  .site-diagram figcaption { padding: .8rem 1.2rem; color: #cbd5e1; font-size: .82rem; line-height: 1.5; }
+  .guide-section { padding: clamp(2rem, 5vw, 3.5rem) 0; border-top: 1px solid var(--border-subtle); scroll-margin-top: 2rem; }
+  .section-intro { max-width: 760px; margin-bottom: 1.45rem; }
+  .section-intro h2 { margin: 0 0 .55rem; font-size: clamp(1.55rem, 3vw, 2.15rem); line-height: 1.18; }
+  .section-intro p:last-child { margin: 0; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border-card); border-radius: var(--radius-lg); }
+  table { width: 100%; border-collapse: collapse; min-width: 660px; font-size: .9rem; }
+  caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  th, td { padding: .9rem 1rem; border-bottom: 1px solid var(--border-subtle); vertical-align: top; text-align: left; line-height: 1.55; }
+  th { color: var(--text-primary); background: var(--slate-900); }
+  td { color: var(--text-secondary); }
+  tr:last-child td { border-bottom: 0; }
+  .source-line { max-width: 860px; margin: 1rem 0 0; font-size: .82rem; }
+  .measure-grid, .quantity-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .formula-card, .notes-card { padding: clamp(1.2rem, 2.5vw, 1.7rem); border: 1px solid var(--border-card); border-radius: var(--radius-lg); background: var(--slate-900); }
+  .formula-card h3, .notes-card h3 { margin: 0 0 .7rem; font-size: 1.15rem; }
+  .formula-card p:last-child, .notes-card ul { margin-bottom: 0; }
+  .formula { padding: .75rem 1rem; border-left: 3px solid #60a5fa; border-radius: .25rem; background: rgba(59,130,246,.1); font-weight: 750; color: var(--text-primary) !important; }
+  .notes-card ul { padding-left: 1.2rem; }
+  .notes-card li + li { margin-top: .35rem; }
+  .fix-list { display: grid; gap: 1rem; }
+  .fix-card { display: grid; grid-template-columns: 2.7rem minmax(0, 1fr); gap: 1rem; padding: clamp(1.2rem, 2.6vw, 1.8rem); background: var(--slate-900); border: 1px solid var(--border-card); border-radius: var(--radius-lg); }
+  .fix-number { display: grid; place-items: center; width: 2.55rem; height: 2.55rem; border-radius: .7rem; background: rgba(59,130,246,.15); color: #60a5fa; font-weight: 850; }
+  .fix-card h3 { margin: .1rem 0 .6rem; font-size: clamp(1.1rem, 2vw, 1.35rem); }
+  .fix-card p { margin: 0; }
+  .fix-card p + p { margin-top: .7rem; }
+  .repair-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin: 0; padding: 0; list-style: none; }
+  .repair-steps li { display: flex; align-items: flex-start; gap: .7rem; padding: 1rem; border: 1px solid var(--border-card); border-radius: var(--radius-md); background: var(--bg-card); }
+  .step-number { display: inline-grid; flex: 0 0 1.5rem; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #2563eb; color: #fff; font-size: .75rem; font-weight: 800; line-height: 1; }
+  .repair-steps strong { color: var(--text-primary); }
+  .site-caution { margin-top: 1rem; padding: 1rem 1.15rem; border-left: 3px solid #eab308; border-radius: .3rem; background: rgba(234,179,8,.08); color: var(--text-secondary); line-height: 1.6; }
+  .site-caution strong { color: var(--text-primary); }
+  .tool-links { display: grid; gap: .7rem; }
+  .tool-links a { display: grid; gap: .2rem; padding: 1rem 1.15rem; border: 1px solid var(--border-card); border-radius: var(--radius-md); background: var(--bg-card); text-decoration: none; }
+  .tool-links a:hover, .tool-links a:focus-visible { border-color: var(--accent-blue); }
+  .tool-links strong { color: var(--text-primary); }
+  .tool-links span { color: var(--text-secondary); font-size: .86rem; line-height: 1.5; }
+  .faq-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+  .faq-grid details { padding: 1rem 1.2rem; border: 1px solid var(--border-card); border-radius: var(--radius-md); background: var(--bg-card); }
+  .faq-grid summary { cursor: pointer; color: var(--text-primary); font-weight: 700; line-height: 1.45; }
+  .faq-grid details p { margin: .7rem 0 0; font-size: .9rem; }
+  .further-reading { display: grid; grid-template-columns: minmax(200px, .8fr) minmax(0, 1.2fr); gap: 1.5rem; padding: 2rem; border: 1px solid rgba(59,130,246,.27); border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(37,99,235,.12), var(--slate-900)); }
+  .further-reading h2 { margin: 0 0 .4rem; font-size: 1.5rem; }
+  .further-reading p { margin: 0; }
+  .related-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+  .related-links a { display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: .8rem; border: 1px solid var(--border-card); border-radius: var(--radius-md); background: var(--bg-card); color: var(--text-primary); font-size: .85rem; font-weight: 650; text-decoration: none; }
+  .related-links a:hover, .related-links a:focus-visible { border-color: var(--accent-blue); }
+  .references { max-width: 900px; padding-top: 2.4rem; }
+  .references h2 { margin: 0 0 .4rem; font-size: 1.25rem; }
+  .references p, .references li { font-size: .84rem; }
+  .references ul { padding-left: 1.2rem; }
+  .references li + li { margin-top: .35rem; }
+  @media (max-width: 760px) {
+    .first-answer, .measure-grid, .quantity-layout, .repair-steps, .faq-grid, .further-reading { grid-template-columns: 1fr; }
+    .related-links { grid-template-columns: 1fr; }
+    .site-diagram figcaption { padding: .7rem .9rem; }
   }
-
-  .aeo-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    color: var(--gold-400);
-    margin-bottom: var(--space-2);
-  }
-
-  .aeo-header h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--text-primary);
-  }
-
-  .aeo-box p {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
-    font-size: 0.95rem;
-  }
-
-  .methods-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-
-  .method-card {
-    background: var(--slate-900);
-    border: 1px solid var(--border-card);
-    border-radius: var(--radius-xl);
-    padding: var(--space-6);
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-5);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .method-num-badge {
-    background: rgba(212, 168, 83, 0.15);
-    border: 1px solid rgba(212, 168, 83, 0.3);
-    color: var(--gold-400);
-    font-weight: 800;
-    font-size: 0.85rem;
-    padding: 6px 14px;
-    border-radius: var(--radius-md);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .method-content {
-    flex: 1;
-  }
-
-  .method-content h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0 0 var(--space-2) 0;
-  }
-
-  .method-content p {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0 0 var(--space-3) 0;
-  }
-
-  .method-content ul {
-    margin: 0 0 var(--space-3) 0;
-    padding-left: var(--space-4);
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .method-content li {
-    margin-bottom: var(--space-2);
-  }
-
-  .method-tip {
-    background: rgba(59, 130, 246, 0.08);
-    border: 1px solid rgba(59, 130, 246, 0.25);
-    border-radius: var(--radius-md);
-    padding: var(--space-3);
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-    margin-bottom: var(--space-4);
-  }
-
-  .method-tip strong {
-    color: #60a5fa;
-  }
-
-  .method-cta {
-    margin-top: var(--space-2);
-  }
-
-  /* Table */
-  .slope-table-card {
-    background: var(--slate-900);
-    border: 1px solid var(--border-card);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    box-shadow: var(--shadow-xl);
-  }
-
-  .table-responsive {
-    overflow-x: auto;
-  }
-
-  .slope-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-    text-align: left;
-  }
-
-  .slope-table th {
-    background: var(--slate-850);
-    padding: var(--space-4);
-    color: var(--text-primary);
-    font-weight: 600;
-    border-bottom: 1px solid var(--border-subtle);
-    white-space: nowrap;
-  }
-
-  .slope-table td {
-    padding: var(--space-4);
-    border-bottom: 1px solid rgba(107, 122, 141, 0.15);
-    color: var(--text-secondary);
-  }
-
-  .slope-table tr:hover td {
-    background: rgba(255, 255, 255, 0.02);
+  @media (max-width: 480px) {
+    .fix-card { grid-template-columns: 1fr; gap: .5rem; }
+    .first-answer { gap: 1.25rem; }
   }
 </style>

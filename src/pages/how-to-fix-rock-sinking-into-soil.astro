@@ -4,355 +4,209 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 
+const title = 'How to Fix Rock Sinking into Soil or Mud';
+const metaDescription = 'Find out why gravel or landscape rock disappears into soil. Diagnose mud, buried stone, and drainage; rebuild a bed, path, or driveway with the right base and separator.';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Fix Sinking Rock Guide', url: '/how-to-fix-rock-sinking-into-soil' }
+  { name: 'Rock Sinking into Soil', url: '/how-to-fix-rock-sinking-into-soil' }
 ];
-
-const title = "Why Landscape Rock Sinks into Soil & How to Fix It - Remediation Guide";
-const metaDescription = "Diagnose and fix landscape rock, river pebbles, and gravel sinking into muddy ground. Geotechnical subgrade failure causes, geotextile CBR puncture rules, and 4 practical fixes.";
 ---
 
 <BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/how-to-fix-rock-sinking-into-soil">
   <Header />
-
   <main id="main-content">
     <PageHero
-      title="Why Landscape Rock Sinks into Mud & How to Fix It"
-      subtitle="Heavy stone laid directly over bare dirt will sink into the subgrade within 1 to 2 seasons. Understand the geotechnical root cause and learn 4 practical ways to fix sinking gravel."
-      badge="Geotechnical Troubleshooting"
+      title={title}
+      subtitle="If stone keeps disappearing, lift a small patch before buying more. Mud between the stones calls for a firm base and separation; a clean bed buried under leaves or silt needs cleaning and runoff control. Driveway ruts need a stronger repair than a fresh surface layer."
+      badge="Landscape rock and gravel repair"
       breadcrumbs={breadcrumbs}
       theme="utility"
     />
 
-    <section class="section" style="padding-top: 0;">
-      <div class="container">
-        <!-- Diagnosis Summary Box -->
-        <div class="aeo-box">
-          <div class="aeo-header">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <h3>The Root Cause: Subgrade Shear Failure</h3>
+    <article class="repair-guide">
+      <div class="container article-width">
+        <nav class="jump-nav" aria-label="On this page">
+          <span>Go to</span>
+          <a href="#diagnose">Find the cause</a>
+          <a href="#bed-path">Bed or path</a>
+          <a href="#driveway">Driveway</a>
+          <a href="#materials">Choose a layer</a>
+          <a href="#estimate">Estimate stone</a>
+        </nav>
+
+        <section id="diagnose" class="guide-section">
+          <p class="eyebrow">Start with a shovel, not another load of rock</p>
+          <h2>Is the rock sinking, being buried, or washing away?</h2>
+          <p>Pull back roughly one square foot of the problem area. Look at the underside of the stone, the soil surface, and what happens after rain. These clues change the repair.</p>
+          <div class="diagnosis-grid">
+            <div class="diagnosis-card">
+              <span class="card-mark">01 / Mixing</span>
+              <h3>Mud comes up through the rock</h3>
+              <p>Soft soil and stone are mixing, especially under feet or tires. Remove contaminated material, correct persistent wetness, and rebuild over a suitable separation layer.</p>
+            </div>
+            <div class="diagnosis-card">
+              <span class="card-mark">02 / Burial</span>
+              <h3>Stone is still there under dirt</h3>
+              <p>Leaf litter, mulch, and windblown soil can cover a firm rock bed. Clean or sift reusable stone and keep new debris from collecting. Fabric underneath cannot stop buildup on top.</p>
+            </div>
+            <div class="diagnosis-card">
+              <span class="card-mark">03 / Movement</span>
+              <h3>Stone collects downhill</h3>
+              <p>Runoff or traffic is moving the surface. Redirect water, contain the edge, and choose stone that suits the slope. See the <a href="/how-to-stop-gravel-washing-out-on-slope">gravel washout guide</a> for slope repairs.</p>
+            </div>
           </div>
-          <p>
-            When heavy rock (weighing 100 to 110 lbs per cubic foot) is poured onto native soil without an engineered geotextile separation barrier, three forces cause it to disappear: <strong>(1) Rainwater saturation</strong> softens the soil's California Bearing Ratio (CBR); <strong>(2) Point-load ground pressure</strong> forces sharp stone edges downward; and <strong>(3) Earthworm and biological activity</strong> pushes loose muddy castings upward over the stones. Within 18 months, your expensive rock bed turns into a lumpy, muddy weed patch.
-          </p>
-        </div>
+          <p class="field-note"><strong>Check the water first:</strong> A downspout, a low spot, or a blocked edge can keep the ground wet. Give runoff a lawful, stable route away from the house before covering the problem with stone.</p>
+        </section>
 
-        <!-- 4 Remediation Fixes -->
-        <div class="methods-container" style="margin-top: var(--space-10);">
-          <article class="method-card">
-            <div class="method-num-badge">Method 1</div>
-            <div class="method-content">
-              <h3>The "Scrape and Underlay" (Permanent Gold-Standard Fix)</h3>
-              <p>
-                If your rock is sinking in a decorative bed or pathway, temporary surface patches will only waste money. The permanent fix:
-              </p>
-              <ul>
-                <li>Use a flat-edge transfer shovel or landscape rake to scrape the top stone into temporary staging piles or wheelbarrows.</li>
-                <li>Rake the muddy subsoil flat and compact it using a hand tamper.</li>
-                <li>Lay a high-tensile <strong>4 oz to 6 oz Non-Woven or Class 1 Woven Geotextile Fabric</strong> (ASTM D4833 CBR puncture tested &gt; 300 lbs). Overlap all seams by at least <strong>12 inches</strong> and anchor with 6-inch steel landscape staples.</li>
-                <li>Shovel the cleaned stone back over the fabric at the recommended <strong>3-inch minimum depth</strong>.</li>
-              </ul>
-              <div class="method-tip">
-                <strong>Why Cheap Landscape Fabric Fails:</strong> Standard thin spunbonded plastic weed barrier from hardware stores has a puncture resistance under 40 lbs. The first person who steps on a sharp rock drives it straight through the fabric like a nail.
-              </div>
+        <section id="bed-path" class="guide-section">
+          <p class="eyebrow">For decorative beds and footpaths</p>
+          <h2>Rebuild the rock where soil and stone are mixing</h2>
+          <figure class="layer-figure">
+            <img src="/rock-sinking-repair-layers.svg" width="960" height="420" loading="lazy" alt="Cross-section comparing rock mixed into wet soil with a rebuilt bed: clean stone above a permeable separator on a prepared, draining soil surface." />
+            <figcaption>A separator keeps fine soil and stone in their own layers; it cannot make a waterlogged site drain on its own.</figcaption>
+          </figure>
+          <ol class="repair-steps">
+            <li>
+              <h3>Recover usable stone</h3>
+              <p>Rake or shovel it onto a tarp. If soil has filled the gaps, screen small batches and reuse the clean rock. Remove leaves, roots, and loose muddy material from the work area.</p>
+            </li>
+            <li>
+              <h3>Prepare a firm, draining surface</h3>
+              <p>Correct the source of standing water. Shape the exposed soil so water does not run toward the foundation or collect in the bed. Let saturated soil dry enough to work, then firm it without creating a bowl that traps water.</p>
+            </li>
+            <li>
+              <h3>Separate only where it solves the problem</h3>
+              <p>Where fine soil repeatedly enters the stone, lay a <strong>permeable geotextile intended for separation</strong> on smooth prepared soil. Follow its product guidance for overlaps, fastening, and cover. Thin weed-barrier film is not a substitute for a traffic-rated separator. Around plants you expect to divide or move, consider whether a buried sheet will complicate future work.</p>
+            </li>
+            <li>
+              <h3>Replace stone to your chosen finished depth</h3>
+              <p>Spread the cleaned rock evenly and add only the amount needed to restore the surface. Keep soil and mulch from spilling over the edge. For a walking path, use a compactable angular base where needed before the visible stone; loose rounded pebbles alone make an unstable walking surface.</p>
+            </li>
+          </ol>
+          <p class="field-note">If large edging stones appear to sink while the surrounding bed rises, dig one out and compare soil levels. Decomposed mulch and deposited soil may be burying it; clean and reset the edge instead of rebuilding the whole bed.</p>
+        </section>
+
+        <section id="driveway" class="guide-section">
+          <p class="eyebrow">For wheel loads and recurring ruts</p>
+          <h2>A muddy driveway needs drainage and a sound base</h2>
+          <p>Repeatedly topping up a rut can waste stone when tires are pressing aggregate into wet fine soil or pumping mud into the base. First restore a surface shape that sheds water and an outlet that can carry it away. Then excavate the soft pocket or failing section to a firm working surface. A contractor can size the base for the soil, traffic, and climate; there is no universal three-inch fix for every muddy driveway.</p>
+          <div class="driveway-panel">
+            <div>
+              <h3>Typical rebuild sequence</h3>
+              <ol>
+                <li>Remove loose, mud-contaminated aggregate and soft organic material.</li>
+                <li>Repair the water path and prepare the subgrade without churning wet soil into more mud.</li>
+                <li>Where specified, place road-grade separation geotextile; add geogrid only when the base design calls for reinforcement.</li>
+                <li>Place suitable angular aggregate in compacted lifts, then finish the surface so water can leave it.</li>
+              </ol>
             </div>
-          </article>
+            <aside>
+              <h3>Geotextile ≠ geogrid</h3>
+              <p>Geotextile can keep fine soil from mixing into the aggregate. Geogrid helps restrain aggregate laterally, but its open apertures do not filter fine soil by themselves. A weak, wet subgrade may need both, plus enough aggregate cover. Product choice and thickness depend on site conditions.</p>
+            </aside>
+          </div>
+          <p class="field-note">A spring, persistent ponding, or ruts that return after a base rebuild deserve a site assessment. A perforated drain helps only when it has the right location, filter detail, and permitted outlet.</p>
+        </section>
 
-          <article class="method-card">
-            <div class="method-num-badge">Method 2</div>
-            <div class="method-content">
-              <h3>The "Bridging Base Course" (For Driveways &amp; Parking Areas)</h3>
-              <p>
-                On vehicular surfaces, sinking rock is caused by tire shear loads. If you cannot remove all existing sunken gravel:
-              </p>
-              <ul>
-                <li>Do not add more clean river rock or pea gravel—it will simply sink deeper into the mud.</li>
-                <li>Instead, spread a <strong>3- to 4-inch layer of Crusher Run (21-A / CA-6 dense aggregate base)</strong> directly over the existing sunken stone.</li>
-                <li>The angular stones and mineral stone dust will lock into the sunken gravel voids, creating a rigid bridging slab that distributes vehicle tire loads across a wider surface area.</li>
-                <li>Compact with a heavy vibratory plate compactor or roller while lightly misting with water.</li>
-              </ul>
-              <div class="method-cta">
-                <a href="/crusher-run-calculator" class="btn btn-sm btn-secondary">Calculate Crusher Run Base Volume &rarr;</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="method-card">
-            <div class="method-num-badge">Method 3</div>
-            <div class="method-content">
-              <h3>Install Biaxial Geogrid Over Wet Clay (Tensioned Membrane Effect)</h3>
-              <p>
-                In areas with expansive high-plasticity clay soil (common in the Midwest, Texas, and the South), saturated subsoil turns into liquid mud during spring rains:
-              </p>
-              <ul>
-                <li>Roll out a <strong>Biaxial Geogrid (rigid polypropylene polymer mesh)</strong>.</li>
-                <li>When crushed stone aggregate is dumped and compacted over the grid, the stone particles lock into the open aperture squares.</li>
-                <li>This creates an interlocked "geosynthetic-reinforced mattress" that prevents rocks from being pushed down into the clay, acting like a snowshoe on soft powder snow.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="method-card">
-            <div class="method-num-badge">Method 4</div>
-            <div class="method-content">
-              <h3>Subgrade Drainage &amp; Perforated Collector Pipes (Remove the Water)</h3>
-              <p>
-                Soil only liquefies and loses its bearing strength when saturated with trapped water. If water has nowhere to drain, the soil beneath your rock bed remains soft mud year-round:
-              </p>
-              <ul>
-                <li>Ensure the excavation subgrade is graded with a <strong>1% to 2% slope</strong> away from your home's foundation.</li>
-                <li>If the area forms a low spot or natural basin, install a perforated French drain collector trench at the lowest edge.</li>
-                <li>Draining subsurface pore water keeps the underlying clay firm and compacted, physically preventing stones from sinking.</li>
-              </ul>
-              <div class="method-cta">
-                <a href="/drain-rock-calculator" class="btn btn-sm btn-secondary">Calculate Drain Rock for Drainage Remediation &rarr;</a>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <!-- Fabric Selection Table -->
-        <div class="section-header" style="margin-top: var(--space-12);">
-          <h2>Geotextile Underlayment Comparison Guide</h2>
-          <div class="section-divider"></div>
-          <p>Choosing the correct fabric specification is the #1 factor preventing future rock sinkage.</p>
-        </div>
-
-        <div class="fabric-table-card">
-          <div class="table-responsive">
-            <table class="fabric-table">
-              <thead>
-                <tr>
-                  <th>Fabric Classification</th>
-                  <th>CBR Puncture Strength</th>
-                  <th>Water Permeability</th>
-                  <th>Recommended Use Case</th>
-                  <th>Will Rock Sink Through It?</th>
-                </tr>
-              </thead>
+        <section id="materials" class="guide-section">
+          <p class="eyebrow">Make the layers match the job</p>
+          <h2>What belongs beneath the visible rock?</h2>
+          <div class="table-scroll">
+            <table>
+              <caption>Choose by failure mode and traffic, not by fabric weight alone</caption>
+              <thead><tr><th scope="col">Area</th><th scope="col">Useful layer or action</th><th scope="col">What it will not solve</th></tr></thead>
               <tbody>
-                <tr>
-                  <td><strong>Cheap Spunbonded Plastic</strong></td>
-                  <td>&lt; 50 lbs (Very Low)</td>
-                  <td>Poor (Puddles)</td>
-                  <td>Temporary annual flower beds only</td>
-                  <td><span class="badge-fails">Yes, within 6 months</span></td>
-                </tr>
-                <tr>
-                  <td><strong>4 oz Non-Woven Geotextile</strong></td>
-                  <td>250–350 lbs (High)</td>
-                  <td>Excellent (High GPM)</td>
-                  <td>Landscape garden beds, river rock, French drains</td>
-                  <td><span class="badge-passes">No, 15+ year barrier</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Class 1 Woven Stabilization Fabric</strong></td>
-                  <td>400–700 lbs (Extreme)</td>
-                  <td>Moderate</td>
-                  <td>Vehicular driveways, gravel roads, paver subbases</td>
-                  <td><span class="badge-passes">Never (Truck load rated)</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Biaxial Geogrid Mesh</strong></td>
-                  <td>Tensile Aperture Lock</td>
-                  <td>100% Free Flow</td>
-                  <td>Severe wet clay subgrades, parking pads</td>
-                  <td><span class="badge-passes">Locks stone into grid</span></td>
-                </tr>
+                <tr><th scope="row">Decorative bed</th><td>Clean the stone and correct runoff; use a permeable separator if soil keeps mixing into it.</td><td>Leaves and dust accumulating above the stone.</td></tr>
+                <tr><th scope="row">Walking path</th><td>Firm subgrade, suitable separator where needed, and a compactable base below the finish stone.</td><td>A soft path caused by standing water or a buried organic layer.</td></tr>
+                <tr><th scope="row">Driveway</th><td>Drainage, road-grade separator where needed, and an aggregate base sized for vehicle loads.</td><td>Ongoing pumping if the subgrade and water source remain untreated.</td></tr>
+                <tr><th scope="row">Very weak ground</th><td>Site-specific stabilization, sometimes geogrid with a separate filtration layer.</td><td>Waterlogged soil with nowhere for water to go.</td></tr>
               </tbody>
             </table>
           </div>
-        </div>
+          <p>Don't buy fabric from an ounce-per-square-yard number alone. For a loaded base, the supplier or designer should check separation and filtration needs, survivability during placement, and the aggregate placed above it. FHWA guidance distinguishes these functions from reinforcement.</p>
+        </section>
 
-        <!-- Related Troubleshooting & Engineering Guides -->
-        <div style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border-subtle);">
-          <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.5rem;">Related Problem-Solving Guides &amp; Tools</h2>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
-            <a href="/how-to-stop-weeds-in-landscape-rock" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
-              <span style="display: inline-block; padding: 2px 8px; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Weed Prevention</span>
-              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Stop Weeds in Landscape Rock</h4>
-              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Why weeds germinate above fabric in windblown silt and how flame weeders &amp; pre-emergents stop them.</p>
-            </a>
-            <a href="/how-to-stop-gravel-washing-out-on-slope" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
-              <span style="display: inline-block; padding: 2px 8px; background: rgba(234, 179, 8, 0.15); color: #eab308; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Erosion Fix</span>
-              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Stop Gravel Washing Out on Slopes</h4>
-              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Angular stone interlocking, check dams, and geocell stabilization methods for erosion.</p>
-            </a>
-            <a href="/rock-vs-mulch-calculator" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
-              <span style="display: inline-block; padding: 2px 8px; background: rgba(212, 168, 83, 0.15); color: var(--gold-400); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Economic Model</span>
-              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Rock vs Mulch 10-Year Calculator</h4>
-              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Calculate the exact 3.4-year break-even point when rock beats recurring mulch costs.</p>
-            </a>
-            <a href="/rock-bag-weight-and-price-guide" style="background: var(--slate-900); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; display: block;">
-              <span style="display: inline-block; padding: 2px 8px; background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Retail Pricing</span>
-              <h4 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.05rem;">Bag Weight &amp; Price Database</h4>
-              <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Home Depot &amp; Lowe's 0.5 cu ft bag weights, payload safety, and bulk cost tipping points.</p>
-            </a>
+        <section id="estimate" class="guide-section estimate-section">
+          <p class="eyebrow">Order after the repair depth is decided</p>
+          <h2>Estimate the stone to put back</h2>
+          <p>Measure the repaired <strong>length × width</strong> and the finished depth of each layer. For a rectangular area, cubic yards = length (ft) × width (ft) × depth (in) ÷ 324. Reused clean rock reduces the amount you need to buy.</p>
+          <div class="estimate-example"><strong>Example:</strong> A 10 × 12 ft bed restored to 2 in of stone needs <strong>0.74 cubic yards</strong> before any project-specific ordering allowance: 10 × 12 × 2 ÷ 324 = 0.74. Ask the supplier for the delivered material's bulk density if you order by tons.</div>
+          <div class="tool-grid">
+            <a href="/rock-calculator"><strong>Rock calculator <span aria-hidden="true">↗</span></strong><span>Size a decorative surface layer by area and depth.</span></a>
+            <a href="/crusher-run-calculator"><strong>Crusher run calculator <span aria-hidden="true">↗</span></strong><span>Enter the target compacted depth and adjust its compaction allowance for a base layer.</span></a>
+            <a href="/drain-rock-calculator"><strong>Drain rock calculator <span aria-hidden="true">↗</span></strong><span>Estimate clean aggregate for a separately designed drainage trench.</span></a>
           </div>
-        </div>
-      </div>
-    </section>
-  </main>
+          <p class="calc-caveat">These tools estimate material volume. They cannot diagnose the soil, size a road base, or determine a drain outlet.</p>
+        </section>
 
+        <section class="guide-section related-section" aria-labelledby="related-heading">
+          <h2 id="related-heading">Keep the repaired surface working</h2>
+          <div class="related-grid">
+            <a href="/how-to-stop-gravel-washing-out-on-slope"><strong>Gravel moving downhill?</strong><span>Control runoff and stabilize the slope.</span></a>
+            <a href="/how-to-stop-weeds-in-landscape-rock"><strong>Weeds in the recovered stone?</strong><span>Remove the soil and organic matter that feeds new growth.</span></a>
+            <a href="/rock-depth-guide"><strong>Unsure about finished depth?</strong><span>Compare depth by material size and application.</span></a>
+          </div>
+        </section>
+
+        <aside class="source-note" aria-label="Research sources">
+          <h2>Field references</h2>
+          <p>This guide applies the separation, reinforcement, and drainage distinctions in the <a href="https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/07d.cfm">FHWA geosynthetics guidance</a> and its <a href="https://www.fhwa.dot.gov/construction/pubs/ots15002.pdf">gravel roads construction guide</a>. The <a href="https://www.ncagr.gov/divisions/nc-forest-service/wq0214/download?attachment=">North Carolina Forest Service road guide</a> describes geotextile and stone choices for soft, wet areas. Final driveway details depend on the site.</p>
+        </aside>
+      </div>
+    </article>
+  </main>
   <Footer />
 </BaseLayout>
 
 <style>
-  .aeo-box {
-    background: rgba(20, 26, 33, 0.7);
-    border: 1px solid var(--border-card);
-    border-radius: var(--radius-xl);
-    padding: var(--space-6);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .aeo-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    color: #f87171;
-    margin-bottom: var(--space-2);
-  }
-
-  .aeo-header h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--text-primary);
-  }
-
-  .aeo-box p {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
-    font-size: 0.95rem;
-  }
-
-  .methods-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-
-  .method-card {
-    background: var(--slate-900);
-    border: 1px solid var(--border-card);
-    border-radius: var(--radius-xl);
-    padding: var(--space-6);
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-5);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .method-num-badge {
-    background: rgba(212, 168, 83, 0.15);
-    border: 1px solid rgba(212, 168, 83, 0.3);
-    color: var(--gold-400);
-    font-weight: 800;
-    font-size: 0.85rem;
-    padding: 6px 14px;
-    border-radius: var(--radius-md);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .method-content {
-    flex: 1;
-  }
-
-  .method-content h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0 0 var(--space-2) 0;
-  }
-
-  .method-content p {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0 0 var(--space-3) 0;
-  }
-
-  .method-content ul {
-    margin: 0 0 var(--space-3) 0;
-    padding-left: var(--space-4);
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .method-content li {
-    margin-bottom: var(--space-2);
-  }
-
-  .method-tip {
-    background: rgba(239, 68, 68, 0.08);
-    border: 1px solid rgba(239, 68, 68, 0.25);
-    border-radius: var(--radius-md);
-    padding: var(--space-3);
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-    margin-bottom: var(--space-4);
-  }
-
-  .method-tip strong {
-    color: #f87171;
-  }
-
-  .method-cta {
-    margin-top: var(--space-2);
-  }
-
-  /* Table */
-  .fabric-table-card {
-    background: var(--slate-900);
-    border: 1px solid var(--border-card);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    box-shadow: var(--shadow-xl);
-  }
-
-  .table-responsive {
-    overflow-x: auto;
-  }
-
-  .fabric-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-    text-align: left;
-  }
-
-  .fabric-table th {
-    background: var(--slate-850);
-    padding: var(--space-4);
-    color: var(--text-primary);
-    font-weight: 600;
-    border-bottom: 1px solid var(--border-subtle);
-    white-space: nowrap;
-  }
-
-  .fabric-table td {
-    padding: var(--space-4);
-    border-bottom: 1px solid rgba(107, 122, 141, 0.15);
-    color: var(--text-secondary);
-  }
-
-  .fabric-table tr:hover td {
-    background: rgba(255, 255, 255, 0.02);
-  }
-
-  .badge-fails {
-    color: #f87171;
-    font-weight: 700;
-  }
-
-  .badge-passes {
-    color: #34d399;
-    font-weight: 700;
-  }
+  .repair-guide { padding: clamp(2rem, 4vw, 4rem) 0 5rem; }
+  .article-width { max-width: 1100px; }
+  .jump-nav { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; padding: 1rem 1.2rem; margin-bottom: 3rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--surface-card); }
+  .jump-nav span { font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); margin-right: .3rem; }
+  .jump-nav a { color: var(--text-primary); text-decoration: none; padding: .35rem .65rem; border-radius: 999px; background: rgba(245, 158, 11, .1); font-size: .86rem; }
+  .jump-nav a:hover, .jump-nav a:focus-visible { background: rgba(245, 158, 11, .24); }
+  .guide-section { margin: 0 0 4.5rem; scroll-margin-top: 5rem; }
+  .eyebrow { margin: 0 0 .5rem; color: var(--accent-gold); text-transform: uppercase; letter-spacing: .12em; font-size: .76rem; font-weight: 800; }
+  .guide-section h2 { color: var(--text-primary); font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.2; margin: 0 0 1.2rem; letter-spacing: -.025em; }
+  .guide-section h3 { color: var(--text-primary); font-size: 1.1rem; line-height: 1.3; margin: 0 0 .55rem; }
+  .guide-section p, .guide-section li { color: var(--text-secondary); line-height: 1.72; }
+  .guide-section > p:not(.eyebrow), .guide-section > .field-note { max-width: 800px; }
+  .guide-section a { color: var(--accent-gold); }
+  .diagnosis-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 1.6rem 0; }
+  .diagnosis-card { padding: 1.35rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); background: var(--surface-card); }
+  .card-mark { display: block; color: var(--accent-gold); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .8rem; }
+  .diagnosis-card p { font-size: .93rem; margin: 0; }
+  .field-note { background: rgba(245, 158, 11, .1); border-left: 3px solid var(--accent-gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: .9rem 1.2rem; margin: 1.5rem 0 0; }
+  .field-note strong { color: var(--text-primary); }
+  .layer-figure { margin: 1.8rem 0 2rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; background: #f2efe8; }
+  .layer-figure img { display: block; width: 100%; height: auto; }
+  .layer-figure figcaption { padding: .8rem 1rem; color: var(--text-secondary); font-size: .84rem; background: var(--surface-card); }
+  .repair-steps { counter-reset: step; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .repair-steps li { counter-increment: step; position: relative; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--surface-card); padding: 1.25rem 1.35rem 1.25rem 4rem; }
+  .repair-steps li::before { content: counter(step, decimal-leading-zero); position: absolute; left: 1.2rem; top: 1.2rem; color: var(--accent-gold); font-weight: 800; }
+  .repair-steps p { margin: 0; font-size: .94rem; }
+  .driveway-panel { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1rem; margin-top: 1.4rem; }
+  .driveway-panel > div, .driveway-panel aside { padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); background: var(--surface-card); }
+  .driveway-panel ol { margin: .5rem 0 0; padding-left: 1.25rem; }
+  .driveway-panel li { padding-left: .2rem; margin-bottom: .5rem; }
+  .driveway-panel aside { border-color: rgba(245, 158, 11, .4); }
+  .driveway-panel aside p { margin: 0; }
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); margin: 1.5rem 0; }
+  table { width: 100%; border-collapse: collapse; min-width: 640px; background: var(--surface-card); }
+  caption { text-align: left; padding: 1rem 1.2rem; color: var(--text-muted); font-size: .87rem; }
+  th, td { text-align: left; vertical-align: top; padding: 1rem 1.2rem; border-top: 1px solid var(--border-subtle); color: var(--text-secondary); line-height: 1.5; }
+  thead th, tbody th { color: var(--text-primary); font-weight: 700; }
+  thead th { background: rgba(245, 158, 11, .08); }
+  .estimate-example { max-width: 800px; padding: 1.1rem 1.3rem; background: rgba(245, 158, 11, .1); border-radius: var(--radius-md); color: var(--text-primary); line-height: 1.6; margin: 1.3rem 0; }
+  .tool-grid, .related-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .tool-grid a, .related-grid a { display: flex; flex-direction: column; gap: .5rem; padding: 1.2rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--surface-card); text-decoration: none; color: var(--text-primary); }
+  .tool-grid a:hover, .related-grid a:hover { border-color: var(--accent-gold); }
+  .tool-grid span, .related-grid span { color: var(--text-secondary); font-size: .89rem; line-height: 1.5; }
+  .calc-caveat { font-size: .88rem; }
+  .related-section { padding-top: 2rem; border-top: 1px solid var(--border-subtle); }
+  .source-note { border-top: 1px solid var(--border-subtle); padding-top: 1.2rem; max-width: 800px; }
+  .source-note h2 { color: var(--text-primary); font-size: 1rem; margin: 0 0 .5rem; }
+  .source-note p { color: var(--text-muted); font-size: .83rem; line-height: 1.65; }
+  .source-note a { color: var(--text-secondary); }
+  @media (max-width: 760px) { .diagnosis-grid, .tool-grid, .related-grid, .repair-steps, .driveway-panel { grid-template-columns: 1fr; } .guide-section { margin-bottom: 3.5rem; } }
 </style>

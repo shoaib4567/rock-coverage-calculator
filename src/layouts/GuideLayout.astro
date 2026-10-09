@@ -36,7 +36,7 @@ const {
   guideSubtitle,
   standardBadge,
   readingTime = '6 min read',
-  lastUpdated = 'September 2026',
+  lastUpdated,
   calculatorsSupported = [],
   schemaType = 'Article',
   schemaData = {},
@@ -61,12 +61,10 @@ const articleSchema = {
   "description": metaDescription,
   "inLanguage": "en-US",
   "url": canonicalURL,
-  "datePublished": "2026-01-15T08:00:00+00:00",
-  "dateModified": "2026-09-22T08:00:00+00:00",
   "author": {
     "@type": "Organization",
-    "name": "Civil & Geotechnical Editorial Board",
-    "url": `${siteUrl}/about#editorial-board`
+    "name": "Rock Coverage Calculator",
+    "url": `${siteUrl}/about`
   },
   "publisher": {
     "@type": "Organization",
@@ -120,7 +118,7 @@ const articleSchema = {
         <div class="guide-hero-badge-row">
           <span class="standard-badge">{standardBadge}</span>
           <span class="reading-meta">{readingTime}</span>
-          <span class="reading-meta">Updated: {lastUpdated}</span>
+          {lastUpdated && <span class="reading-meta">Updated: {lastUpdated}</span>}
         </div>
 
         <h1 class="guide-hero-title">{guideTitle}</h1>
@@ -131,8 +129,8 @@ const articleSchema = {
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
           <div class="author-info">
-            <span class="author-name"><a href="/about#editorial-board" style="color: inherit; text-decoration: none;">Reviewed by Civil &amp; Geotechnical Editorial Board</a></span>
-            <span class="author-title">ASTM C29 &amp; AASHTO Standards Verification</span>
+            <span class="author-name"><a href="/about" style="color: inherit; text-decoration: none;">Rock Coverage Calculator</a></span>
+            <span class="author-title">Planning guidance; verify local material specifications before ordering.</span>
           </div>
         </div>
       </div>
@@ -174,27 +172,23 @@ const articleSchema = {
         <aside class="guide-sidebar-col">
           <div class="sidebar-sticky-wrapper">
             <div class="sidebar-card">
-              <h3 class="sidebar-title">Engineering Standards</h3>
+              <h3 class="sidebar-title">Useful reference points</h3>
               <ul class="standards-list">
                 <li>
-                  <strong>ASTM C29 / C29M:</strong>
-                  <span>Bulk density unit weight testing for loose stockpiles.</span>
+                  <strong>1 cubic yard:</strong>
+                  <span>27 cubic feet of volume.</span>
                 </li>
                 <li>
-                  <strong>ASTM D448:</strong>
-                  <span>Standard sizes of coarse aggregate for civil construction.</span>
+                  <strong>1 US short ton:</strong>
+                  <span>2,000 pounds of weight.</span>
                 </li>
                 <li>
-                  <strong>AASHTO M43:</strong>
-                  <span>Standard sizes for highway and road base aggregates.</span>
+                  <strong>Material weight:</strong>
+                  <span>Use the supplier's loose bulk density when available.</span>
                 </li>
                 <li>
-                  <strong>AASHTO M147:</strong>
-                  <span>Dense graded materials for sub-base and base courses.</span>
-                </li>
-                <li>
-                  <strong>ASTM C136:</strong>
-                  <span>Sieve analysis test method for fine and coarse aggregates.</span>
+                  <strong>More detail:</strong>
+                  <a href="/rock-density-chart">Compare the site's density planning factors.</a>
                 </li>
               </ul>
             </div>

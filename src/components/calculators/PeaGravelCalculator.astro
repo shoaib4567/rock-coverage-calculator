@@ -1,12 +1,12 @@
 ---
-// Pea Gravel Patio, Walkway, & Playground Calculator
+// Pea gravel quantity estimator for rectangular areas
 ---
 <section class="section" id="pea-calc">
   <div class="container">
     <div class="section-header">
-      <h2>Pea Gravel Patio & Walkway Calculator</h2>
+      <h2>Estimate pea gravel for your area</h2>
       <div class="section-divider"></div>
-      <p>Calculate exact tonnage and bag counts for 3/8" smooth pea gravel with walkability depth limiters (max 2.5" to prevent shoe sinkage) and linear edging containment.</p>
+      <p>Enter a rectangular footprint and the planned loose layer depth. Results include volume, an estimated bulk weight, half-cubic-foot bags, and the full perimeter if every side needs edging.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -14,12 +14,12 @@
       <div class="calc-panel animate-fade-in-up">
         <div class="calc-panel-title">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <h3>Application Type & Depth Guard</h3>
+          <h3>Project and dimensions</h3>
         </div>
 
-        <div class="unit-toggle mode-toggle" role="tablist">
-          <button class="active" id="pea-mode-patio" type="button">Patio / Fire Pit / Path</button>
-          <button id="pea-mode-play" type="button">Playground Cushion Fall Zone</button>
+        <div class="unit-toggle mode-toggle" role="group" aria-label="Project type">
+          <button class="active" id="pea-mode-patio" type="button" aria-pressed="true">Patio / Path / Bed</button>
+          <button id="pea-mode-play" type="button" aria-pressed="false">Play area</button>
         </div>
 
         <div class="dim-grid">
@@ -37,13 +37,13 @@
 
         <div class="dim-grid">
           <div class="input-field">
-            <label for="pea-depth">Layer Depth</label>
-            <input type="number" id="pea-depth" value="2.5" min="1" max="12" step="0.5" />
+            <label for="pea-depth">Loose gravel depth</label>
+            <input type="number" id="pea-depth" value="2" min="0.5" step="0.5" />
             <span class="unit-label">inches</span>
           </div>
           <div class="input-field">
-            <label for="pea-waste">Safety Buffer</label>
-            <input type="number" id="pea-waste" value="10" min="0" max="25" step="1" />
+            <label for="pea-waste">Order allowance</label>
+            <input type="number" id="pea-waste" value="10" min="0" step="1" />
             <span class="unit-label">% extra</span>
           </div>
         </div>
@@ -51,39 +51,45 @@
         <!-- Walkability Advisory Alert -->
         <div id="pea-advisory-box" class="advisory-box">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <span id="pea-advisory-text">Walkability Guard: 2.0" - 2.5" is the optimal depth. Exceeding 2.5" causes shoes and patio furniture to sink.</span>
+          <span id="pea-advisory-text" role="status">For a patio or path, start with about 2 inches over a prepared base. Rounded stone still moves under feet and furniture.</span>
         </div>
 
         <!-- Pea Gravel Size -->
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
-          <h3>Pea Gravel Variety</h3>
+          <h3>Bulk density assumption</h3>
         </div>
 
-        <div class="pea-type-grid" role="radiogroup">
-          <button type="button" class="pea-btn active" data-density="1.35" data-name="Natural Mixed Tan / Brown Pea Gravel">
-            <div class="pea-btn-title">Natural River Pea Gravel (3/8")</div>
-            <div class="pea-btn-spec">1.35 T/yd³ | Smooth river quartz pebbles | Most popular</div>
+        <div class="pea-type-grid" role="group" aria-label="Estimated material density">
+          <button type="button" class="pea-btn active" aria-pressed="true" data-density="1.35">
+            <div class="pea-btn-title">Typical estimate</div>
+            <div class="pea-btn-spec">1.35 US short tons per cubic yard (2,700 lb/yd³)</div>
           </button>
-          <button type="button" class="pea-btn" data-density="1.40" data-name="Grey / Blue Granite Pea Stone">
-            <div class="pea-btn-title">Blue / Grey Pea Gravel (3/8")</div>
-            <div class="pea-btn-spec">1.40 T/yd³ | Architectural neutral modern tone</div>
+          <button type="button" class="pea-btn" aria-pressed="false" data-density="1.40">
+            <div class="pea-btn-title">Heavier estimate</div>
+            <div class="pea-btn-spec">1.40 US short tons per cubic yard (2,800 lb/yd³)</div>
           </button>
         </div>
+        <div class="input-field density-field">
+          <label for="pea-density">Supplier loose bulk weight (US short tons per cubic yard)</label>
+          <input type="number" id="pea-density" value="1.35" min="0.5" max="3" step="any" aria-describedby="pea-density-feedback" />
+          <span class="unit-label">t/yd³</span>
+        </div>
+        <p class="calc-note" id="pea-density-feedback" role="status">Presets are planning assumptions. Enter your supplier’s weight if available; divide lb/yd³ by 2,000 to convert to US short tons/yd³.</p>
       </div>
 
       <!-- Output Panel -->
       <div class="calc-results-panel animate-fade-in-up">
         <div class="results-header">
           <div class="results-title">Pea Gravel Requirements</div>
-          <div class="results-badge" id="pea-badge">Patio Footing Compliant</div>
+          <div class="results-badge" id="pea-badge">Planning estimate</div>
         </div>
 
         <div class="kpi-grid">
           <div class="kpi-card highlight">
             <div class="kpi-value" id="kpi-pea-tons">0.00</div>
-            <div class="kpi-label">Quarry Weight (Tons)</div>
-            <div class="kpi-subtext" id="kpi-pea-lbs">0 lbs bulk payload</div>
+            <div class="kpi-label">Estimated US Short Tons</div>
+            <div class="kpi-subtext" id="kpi-pea-lbs">0 lb estimated weight</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-pea-yards">0.00</div>
@@ -92,36 +98,36 @@
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-pea-bags">0</div>
-            <div class="kpi-label">0.5 Cu Ft Retail Bags</div>
-            <div class="kpi-subtext" id="kpi-pea-pallets">0 full pallets</div>
+            <div class="kpi-label">0.5 Cubic Foot Bags</div>
+            <div class="kpi-subtext">Confirm the bag's labeled volume</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-pea-edging">0</div>
-            <div class="kpi-label">Perimeter Edging (Ft)</div>
-            <div class="kpi-subtext">Linear containment border</div>
+            <div class="kpi-label">Full Perimeter (Feet)</div>
+            <div class="kpi-subtext">Subtract sides already contained</div>
           </div>
         </div>
 
         <!-- Containment Caution Box -->
         <div class="containment-card">
-          <div class="containment-title">Containment & Edging Critical Rule</div>
+          <div class="containment-title">Before you order</div>
           <p class="containment-text">
-            Because 3/8" round pea gravel consists of spherical pebbles, it acts like ball bearings underfoot. Without a rigid 3" high landscape edging barrier (steel, aluminum, or Belgian block border), stones will migrate uncontrollably into adjacent lawn grass.
+            The allowance is applied to yards, tons, and bags. Pea gravel shifts because its rounded stones do not interlock; a secure edge helps keep it out of adjacent lawn or paving. The edging figure assumes all four sides of a rectangle need a border.
           </p>
         </div>
 
         <div class="breakdown-list">
           <div class="breakdown-row">
-            <span>Patio Surface Footprint</span>
+            <span>Measured footprint</span>
             <span class="breakdown-val" id="row-pea-area">400 sq ft</span>
           </div>
           <div class="breakdown-row">
-            <span>Non-Woven Underlayment Fabric</span>
-            <span class="breakdown-val" id="row-pea-fabric">440 sq ft (2 rolls)</span>
+            <span>Optional separator fabric estimate</span>
+            <span class="breakdown-val" id="row-pea-fabric">440 sq ft</span>
           </div>
           <div class="breakdown-row">
-            <span>Walkability Firmness Rating</span>
-            <span class="breakdown-val" id="row-pea-firmness">Excellent (2.5" depth locked)</span>
+            <span>Surface note</span>
+            <span class="breakdown-val" id="row-pea-firmness">Rounded stone remains loose</span>
           </div>
         </div>
       </div>
@@ -296,10 +302,27 @@
   color: var(--color-text-muted);
 }
 
+.calc-note {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.density-field {
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.calc-note.error {
+  color: #f87171;
+}
+
 .results-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
   margin-bottom: var(--space-4);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-border);
@@ -392,6 +415,8 @@
 .breakdown-row {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
   font-size: var(--text-xs);
   padding: var(--space-2) 0;
   border-bottom: 1px solid var(--color-border);
@@ -405,6 +430,7 @@
 .breakdown-val {
   font-weight: 600;
   color: var(--color-text);
+  text-align: right;
 }
 </style>
 
@@ -417,59 +443,77 @@ function initPeaGravelCalculator() {
   const widthInput = document.getElementById('pea-width') as HTMLInputElement | null;
   const depthInput = document.getElementById('pea-depth') as HTMLInputElement | null;
   const wasteInput = document.getElementById('pea-waste') as HTMLInputElement | null;
+  const densityInput = document.getElementById('pea-density') as HTMLInputElement | null;
+  const densityFeedback = document.getElementById('pea-density-feedback');
 
   const peaBtns = document.querySelectorAll('.pea-btn');
 
-  let activeDensity = 1.35;
   let activeMode = 'patio';
 
   function calculate() {
-    if (!lengthInput || !widthInput || !depthInput || !wasteInput) return;
+    if (!lengthInput || !widthInput || !depthInput || !wasteInput || !densityInput) return;
 
-    const length = Math.max(0.5, parseFloat(lengthInput.value) || 0);
-    const width = Math.max(0.5, parseFloat(widthInput.value) || 0);
-    const depthInches = Math.max(0.5, parseFloat(depthInput.value) || 0);
-    const wastePercent = parseFloat(wasteInput.value) || 0;
+    const length = Math.max(0, parseFloat(lengthInput.value) || 0);
+    const width = Math.max(0, parseFloat(widthInput.value) || 0);
+    const depthInches = Math.max(0, parseFloat(depthInput.value) || 0);
+    const wastePercent = Math.max(0, parseFloat(wasteInput.value) || 0);
+    const density = Number(densityInput.value);
+    const densityValid = densityInput.value.trim() !== '' && Number.isFinite(density) && density >= 0.5 && density <= 3;
+    densityInput.setAttribute('aria-invalid', String(!densityValid));
+    if (densityFeedback) {
+      densityFeedback.textContent = densityValid
+        ? 'Presets are planning assumptions. Enter your supplier’s weight if available; divide lb/yd³ by 2,000 to convert to US short tons/yd³.'
+        : 'Enter a loose bulk weight from 0.5 to 3.0 US short tons per cubic yard.';
+      densityFeedback.classList.toggle('error', !densityValid);
+    }
 
     const area = length * width;
     const netCuFt = area * (depthInches / 12);
     const totalCuFt = netCuFt * (1 + wastePercent / 100);
     const totalYards = totalCuFt / 27;
 
-    const totalTons = totalYards * activeDensity;
+    const totalTons = totalYards * density;
     const totalLbs = totalTons * 2000;
 
-    const totalBags = Math.ceil(totalCuFt / 0.5);
-    const pallets = (totalBags / 60).toFixed(1);
-
+    // Ignore binary floating-point noise at exact half-cubic-foot boundaries.
+    const totalBags = Math.ceil(totalCuFt / 0.5 - 1e-10);
     // Edging perimeter: 2 * (length + width)
-    const edgingFt = Math.ceil(2 * (length + width));
+    const edgingFt = length && width ? Math.ceil(2 * (length + width)) : 0;
 
     // Advisory check
     const advisoryText = document.getElementById('pea-advisory-text');
     const badge = document.getElementById('pea-badge');
     const firmnessRow = document.getElementById('row-pea-firmness');
 
-    if (activeMode === 'patio') {
+    if (!length || !width || !depthInches) {
+      if (advisoryText) advisoryText.textContent = 'Enter a positive length, width, and depth to estimate material.';
+      if (badge) badge.textContent = 'Enter dimensions';
+      if (firmnessRow) firmnessRow.textContent = 'Enter dimensions';
+    } else if (activeMode === 'patio') {
       if (depthInches > 2.5) {
-        if (advisoryText) advisoryText.textContent = `Warning: ${depthInches}" is too deep for a walkway/patio. Excess pea gravel shifts like dry beach sand. Keep depth to 2.0" - 2.5".`;
-        if (badge) badge.textContent = 'Caution: Sinking Risk';
-        if (firmnessRow) firmnessRow.textContent = 'Spongy / Furniture Will Sink';
+        if (advisoryText) advisoryText.textContent = 'A deep layer of rounded pea gravel can shift under shoes and chair legs. Consider a thinner decorative layer over a prepared, compacted base.';
+        if (badge) badge.textContent = 'Deep loose layer';
+        if (firmnessRow) firmnessRow.textContent = 'More movement likely';
+      } else if (depthInches < 1.5) {
+        if (advisoryText) advisoryText.textContent = 'A thin layer can be kicked aside and reveal the base. Check coverage after raking it level.';
+        if (badge) badge.textContent = 'Thin loose layer';
+        if (firmnessRow) firmnessRow.textContent = 'Base may show through';
       } else {
-        if (advisoryText) advisoryText.textContent = 'Optimal Walkability: 2.0" - 2.5" depth provides firm foot interlock without sinking.';
-        if (badge) badge.textContent = 'Patio Footing Compliant';
-        if (firmnessRow) firmnessRow.textContent = 'Firm & Stable (Walkable)';
+        if (advisoryText) advisoryText.textContent = 'About 1.5–2.5 inches is a practical starting range for a patio or path topping. Pea gravel stays loose; firmness depends on the base and use.';
+        if (badge) badge.textContent = 'Patio / path estimate';
+        if (firmnessRow) firmnessRow.textContent = 'Loose rounded surface';
       }
     } else {
-      if (depthInches < 9.0) {
-        if (advisoryText) advisoryText.textContent = 'Safety Notice: CPSC Pub #325 mandates a minimum 9" compressed depth (12" initial fill) of pea gravel for playground fall safety (up to 5 ft fall height).';
-        if (badge) badge.textContent = 'Below CPSC 9" Guideline';
+      if (depthInches < 12) {
+        if (advisoryText) advisoryText.textContent = 'CPSC Table 2 gives 12 inches at installation and 9 inches maintained for non-impact-tested pea gravel at a 5-foot critical height. This depth is below that initial fill figure.';
+        if (badge) badge.textContent = 'Below initial fill guide';
       } else {
-        if (advisoryText) advisoryText.textContent = 'CPSC Compliant: Meets public playground safety fall cushion standard for equipment up to 5 ft height.';
-        if (badge) badge.textContent = 'CPSC Safety Compliant';
+        if (advisoryText) advisoryText.textContent = 'CPSC Table 2 gives 12 inches installed and 9 inches maintained for non-impact-tested pea gravel at a 5-foot critical height. Quantity alone does not establish playground safety.';
+        if (badge) badge.textContent = 'Quantity estimate only';
       }
-      if (firmnessRow) firmnessRow.textContent = 'Shock Absorbing Cushion';
+      if (firmnessRow) firmnessRow.textContent = 'Check fall height and use zone';
     }
+    if (badge && !densityValid && length && width && depthInches) badge.textContent = 'Check bulk weight';
 
     // Update KPIs
     const kpiTons = document.getElementById('kpi-pea-tons');
@@ -477,53 +521,63 @@ function initPeaGravelCalculator() {
     const kpiYards = document.getElementById('kpi-pea-yards');
     const kpiCuFt = document.getElementById('kpi-pea-cuft');
     const kpiBags = document.getElementById('kpi-pea-bags');
-    const kpiPallets = document.getElementById('kpi-pea-pallets');
     const kpiEdging = document.getElementById('kpi-pea-edging');
 
     const rowArea = document.getElementById('row-pea-area');
     const rowFabric = document.getElementById('row-pea-fabric');
 
-    if (kpiTons) kpiTons.textContent = totalTons.toFixed(2);
-    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lbs net`;
+    if (kpiTons) kpiTons.textContent = densityValid ? totalTons.toFixed(2) : '—';
+    if (kpiLbs) kpiLbs.textContent = densityValid ? `${Math.round(totalLbs).toLocaleString()} lb incl. allowance` : 'Enter a valid bulk weight';
     if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
     if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft volume`;
     if (kpiBags) kpiBags.textContent = totalBags.toLocaleString();
-    if (kpiPallets) kpiPallets.textContent = `${pallets} pallets (60 bags/pl)`;
     if (kpiEdging) kpiEdging.textContent = `${edgingFt} LF`;
 
-    if (rowArea) rowArea.textContent = `${Math.round(area).toLocaleString()} sq ft (${length}' × ${width}')`;
-    if (rowFabric) {
-      const fab = Math.ceil(area * 1.10);
-      const rolls = Math.ceil(fab / 300);
-      rowFabric.textContent = `${fab.toLocaleString()} sq ft (${rolls} rolls 3'x100')`;
-    }
+    if (rowArea) rowArea.textContent = `${area.toLocaleString(undefined, { maximumFractionDigits: 2 })} sq ft (${length}' × ${width}')`;
+    if (rowFabric) rowFabric.textContent = `${Math.ceil(area * 1.10).toLocaleString()} sq ft incl. 10% allowance`;
   }
 
   if (modePatioBtn && modePlayBtn && depthInput) {
     modePatioBtn.addEventListener('click', () => {
       modePatioBtn.classList.add('active');
       modePlayBtn.classList.remove('active');
+      modePatioBtn.setAttribute('aria-pressed', 'true');
+      modePlayBtn.setAttribute('aria-pressed', 'false');
       activeMode = 'patio';
-      depthInput.value = '2.5';
+      depthInput.value = '2';
       calculate();
     });
 
     modePlayBtn.addEventListener('click', () => {
       modePlayBtn.classList.add('active');
       modePatioBtn.classList.remove('active');
+      modePlayBtn.setAttribute('aria-pressed', 'true');
+      modePatioBtn.setAttribute('aria-pressed', 'false');
       activeMode = 'play';
-      depthInput.value = '9.0';
+      depthInput.value = '12';
       calculate();
     });
   }
 
   peaBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      peaBtns.forEach(b => b.classList.remove('active'));
+      peaBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
-      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.35');
+      btn.setAttribute('aria-pressed', 'true');
+      if (densityInput) densityInput.value = btn.getAttribute('data-density') || '1.35';
       calculate();
     });
+  });
+
+  if (densityInput) densityInput.addEventListener('input', () => {
+    peaBtns.forEach(btn => {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-pressed', 'false');
+    });
+    calculate();
   });
 
   [lengthInput, widthInput, depthInput, wasteInput].forEach(input => {

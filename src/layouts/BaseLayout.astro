@@ -40,14 +40,14 @@ const canonicalURL = `${siteUrl}${canonicalPath}`;
   <meta property="og:image" content={`${siteUrl}/og-image.png`} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Rock Coverage Calculator - Quarry-Calibrated Aggregate Estimator" />
+  <meta property="og:image:alt" content="Rock Coverage Calculator website preview" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={pageDescription} />
   <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
-  <meta name="twitter:image:alt" content="Rock Coverage Calculator - Quarry-Calibrated Aggregate Estimator" />
+  <meta name="twitter:image:alt" content="Rock Coverage Calculator website preview" />
 
   <title>{title}</title>
 
@@ -59,40 +59,14 @@ const canonicalURL = `${siteUrl}${canonicalPath}`;
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "WebApplication",
-        "@id": `${canonicalURL}#webapp`,
+        "@type": "WebPage",
+        "@id": `${canonicalURL}#webpage`,
         "name": title,
         "url": canonicalURL,
-        "description": description,
-        "applicationCategory": "UtilityApplication",
-        "operatingSystem": "All",
+        "description": pageDescription,
         "inLanguage": "en-US",
-        "audience": {
-          "@type": "Audience",
-          "audienceType": "Landscape Contractors, Civil Engineers, Builders, Homeowners"
-        },
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "author": {
-          "@type": "Organization",
-          "@id": "https://rockcoveragecalculator.com/#organization"
-        },
-        "reviewedBy": {
-          "@type": "Organization",
-          "name": "Civil & Geotechnical Editorial Review Board",
-          "url": "https://rockcoveragecalculator.com/about#editorial-board"
-        },
-        "knowsAbout": [
-          "ASTM C29/C29M Bulk Density",
-          "ASTM C33 Concrete Aggregates",
-          "AASHTO Sieve Sizes (#57, #411, #4)",
-          "Cubic Yard to Short Ton Conversion",
-          "Landscape Gravel Coverage",
-          "Aggregate Compaction Factors"
-        ]
+        "isPartOf": { "@id": `${siteUrl}/#website` },
+        "publisher": { "@id": `${siteUrl}/#organization` }
       },
       {
         "@type": "Organization",
@@ -113,7 +87,7 @@ const canonicalURL = `${siteUrl}${canonicalPath}`;
         "@id": "https://rockcoveragecalculator.com/#website",
         "url": "https://rockcoveragecalculator.com",
         "name": "Rock Coverage Calculator",
-        "description": "Quarry-calibrated rock, gravel, and stone coverage calculator for US landscaping and civil projects.",
+        "description": "Rock, gravel, and stone coverage estimators and practical project guides.",
         "inLanguage": "en-US",
         "publisher": {
           "@id": "https://rockcoveragecalculator.com/#organization"

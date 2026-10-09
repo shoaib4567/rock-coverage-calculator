@@ -4,9 +4,9 @@
 <section class="section" id="how-much-calc">
   <div class="container">
     <div class="section-header">
-      <h2>"How Much Rock Do I Need?" Guided Estimator</h2>
+      <h2>Estimate rock by project area and depth</h2>
       <div class="section-divider"></div>
-      <p>Select your landscape project type below to automatically configure the recommended rock size, depth, and safety overage for instant volume, tonnage, and bag counts.</p>
+      <p>Choose a starting setup, measure the area, then adjust the finished depth, order allowance, and supplier density. Results show estimated order quantities.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -14,25 +14,25 @@
       <div class="calc-panel animate-fade-in-up">
         <div class="calc-panel-title">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <h3>Step 1: Select Your Landscape Project Type</h3>
+          <h3>Step 1: Choose a starting setup</h3>
         </div>
 
-        <div class="project-preset-grid" role="radiogroup">
-          <button type="button" class="preset-btn active" data-depth="3.0" data-dens="1.35" data-waste="10" data-name="Garden Bed Rock Mulch" data-stone="1-3&quot; River Rock">
-            <div class="preset-title">Garden Bed Rock Mulch</div>
-            <div class="preset-spec">1" - 3" River Rock | 3.0" Depth | Permanent weed control</div>
+        <div class="project-preset-grid" role="group" aria-label="Project examples">
+          <button type="button" class="preset-btn active" aria-pressed="true" data-depth="3" data-dens="1.35" data-waste="10" data-name="Decorative garden gravel" data-stone="Small decorative gravel">
+            <div class="preset-title">Decorative garden gravel</div>
+            <div class="preset-spec">Small gravel · 3 in starting depth · adjust for the site</div>
           </button>
-          <button type="button" class="preset-btn" data-depth="4.0" data-dens="1.40" data-waste="12" data-name="Gravel Driveway Top Dressing" data-stone="#57 Crushed Stone">
-            <div class="preset-title">Gravel Driveway Top Layer</div>
-            <div class="preset-spec">#57 Crushed Stone | 4.0" Depth | Heavy vehicular load</div>
+          <button type="button" class="preset-btn" aria-pressed="false" data-depth="3" data-dens="1.35" data-waste="10" data-name="Driveway surface layer" data-stone="#57 clean crushed stone">
+            <div class="preset-title">Driveway surface layer</div>
+            <div class="preset-spec">#57 clean stone · 3 in example · base calculated separately</div>
           </button>
-          <button type="button" class="preset-btn" data-depth="2.5" data-dens="1.40" data-waste="10" data-name="Pea Gravel Patio / Fire Pit" data-stone="3/8&quot; Pea Gravel">
-            <div class="preset-title">Pea Gravel Patio / Fire Pit</div>
-            <div class="preset-spec">3/8" Pea Gravel | 2.5" Depth | Firm walkability</div>
+          <button type="button" class="preset-btn" aria-pressed="false" data-depth="2.5" data-dens="1.35" data-waste="10" data-name="Pea gravel sitting area" data-stone="3/8 in pea gravel">
+            <div class="preset-title">Pea gravel sitting area</div>
+            <div class="preset-spec">3/8 in rounded gravel · 2.5 in example · check footing</div>
           </button>
-          <button type="button" class="preset-btn" data-depth="24.0" data-dens="1.35" data-waste="10" data-name="French Drain Water Trench" data-stone="#57 Washed Drain Rock">
-            <div class="preset-title">French Drain Water Trench</div>
-            <div class="preset-spec">#57 Washed Rock | 24" Depth | Deep drainage curtain</div>
+          <button type="button" class="preset-btn" aria-pressed="false" data-depth="12" data-dens="1.35" data-waste="10" data-name="Drain trench, gross volume" data-stone="#57 washed drain stone">
+            <div class="preset-title">Drain trench, gross volume</div>
+            <div class="preset-spec">#57 washed stone · 12 in example · subtract pipe space</div>
           </button>
         </div>
 
@@ -56,53 +56,62 @@
 
         <div class="dim-grid">
           <div class="input-field">
-            <label for="hm-depth">Recommended Depth</label>
-            <input type="number" id="hm-depth" value="3.0" min="0.5" max="36" step="0.5" />
+            <label for="hm-depth">Finished stone depth</label>
+            <input type="number" id="hm-depth" value="3" min="0.5" max="36" step="0.1" />
             <span class="unit-label">inches</span>
           </div>
           <div class="input-field">
-            <label for="hm-waste">Safety Buffer</label>
+            <label for="hm-waste">Extra order allowance</label>
             <input type="number" id="hm-waste" value="10" min="0" max="25" step="1" />
             <span class="unit-label">% extra</span>
           </div>
         </div>
+        <div class="dim-grid">
+          <div class="input-field">
+            <label for="hm-density">Loose bulk density</label>
+            <input type="number" id="hm-density" value="1.35" min="0.25" max="2.5" step="0.01" />
+            <span class="unit-label">tons/yd³</span>
+          </div>
+        </div>
+        <p class="calc-basis-note">Presets are examples, not project specifications. Use your supplier's loose bulk density and the depth suited to your material. For a drain trench, subtract pipe and other displaced volume separately.</p>
+        <p id="hm-input-error" class="calc-input-error" role="status" hidden></p>
       </div>
 
       <!-- Output Panel -->
       <div class="calc-results-panel animate-fade-in-up">
         <div class="results-header">
-          <div class="results-title">Instant Answers For Your Project</div>
-          <div class="results-badge" id="hm-project-badge">Garden Bed Rock Mulch</div>
+          <div class="results-title">Estimated order quantities</div>
+          <div class="results-badge" id="hm-project-badge">Decorative garden gravel</div>
         </div>
 
         <div class="kpi-grid">
           <div class="kpi-card highlight">
             <div class="kpi-value" id="kpi-hm-tons">0.00</div>
-            <div class="kpi-label">How Many Tons You Need</div>
-            <div class="kpi-subtext" id="kpi-hm-lbs">0 lbs bulk aggregate</div>
+            <div class="kpi-label">US short tons</div>
+            <div class="kpi-subtext" id="kpi-hm-lbs">At selected planning density</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-hm-yards">0.00</div>
-            <div class="kpi-label">How Many Yards You Need</div>
-            <div class="kpi-subtext" id="kpi-hm-cuft">0 cu ft volume</div>
+            <div class="kpi-label">Cubic yards to order</div>
+            <div class="kpi-subtext" id="kpi-hm-cuft">Includes order allowance</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-hm-bags">0</div>
-            <div class="kpi-label">How Many Bags You Need</div>
-            <div class="kpi-subtext" id="kpi-hm-pallets">0 full pallets (0.5 cu ft)</div>
+            <div class="kpi-label">0.5 cu ft bags</div>
+            <div class="kpi-subtext" id="kpi-hm-pallets">Check the bag's printed volume</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-value" id="kpi-hm-barrows">0</div>
-            <div class="kpi-label">Wheelbarrow Trips</div>
-            <div class="kpi-subtext">6 cu ft contractor loads</div>
+            <div class="kpi-value" id="kpi-hm-net">0.00</div>
+            <div class="kpi-label">Cubic yards in place</div>
+            <div class="kpi-subtext">Before order allowance</div>
           </div>
         </div>
 
         <!-- Guided Project Recommendation -->
         <div class="project-advice-card">
-          <div class="advice-title">Expert Contractor Installation Advice</div>
+          <div class="advice-title">Check before ordering</div>
           <p class="advice-desc" id="hm-advice-text">
-            For Garden Bed Rock Mulch, always install a heavy commercial-grade geotextile weed fabric before spreading stones. Lay stones 3 inches deep (Two-Stone Rule) to fully obscure the fabric from UV sunlight breakdown.
+            Rock can reduce some weed growth, but it will still need maintenance. In planting beds, choose underlayment for the site and plants rather than assuming fabric is required.
           </p>
         </div>
 
@@ -113,12 +122,12 @@
             <span class="breakdown-val" id="row-hm-area">300 sq ft</span>
           </div>
           <div class="breakdown-row">
-            <span>Recommended Stone Specification</span>
-            <span class="breakdown-val" id="row-hm-stone">1" - 3" River Rock</span>
+            <span>Selected material example</span>
+            <span class="breakdown-val" id="row-hm-stone">Small decorative gravel</span>
           </div>
           <div class="breakdown-row">
-            <span>Estimated Bulk Cost Range (Delivered)</span>
-            <span class="breakdown-val" id="row-hm-cost">$250 - $420</span>
+            <span>Price and delivery</span>
+            <span class="breakdown-val">Request a local quote</span>
           </div>
         </div>
       </div>
@@ -238,6 +247,17 @@
 .input-field input:focus {
   border-color: var(--color-primary);
 }
+
+.calc-basis-note, .calc-input-error {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.calc-input-error { color: #b91c1c; }
+
+.input-field input[aria-invalid="true"] { border-color: #b91c1c; }
 
 .input-field .unit-label {
   position: absolute;
@@ -366,44 +386,53 @@ function initHowMuchCalculator() {
   const widthInput = document.getElementById('hm-width') as HTMLInputElement | null;
   const depthInput = document.getElementById('hm-depth') as HTMLInputElement | null;
   const wasteInput = document.getElementById('hm-waste') as HTMLInputElement | null;
+  const densityInput = document.getElementById('hm-density') as HTMLInputElement | null;
+  const errorText = document.getElementById('hm-input-error');
 
-  const presetBtns = document.querySelectorAll('.preset-btn');
+  const presetBtns = document.querySelectorAll<HTMLButtonElement>('.preset-btn');
 
-  let activeDensity = 1.35;
-  let activeStoneSpec = '1" - 3" River Rock';
-  let activeProjectName = 'Garden Bed Rock Mulch';
+  let activeStoneSpec = 'Small decorative gravel';
+  let activeProjectName = 'Decorative garden gravel';
 
   const adviceMap: Record<string, string> = {
-    'Garden Bed Rock Mulch': 'Install non-woven weed barrier fabric and lay stones 3" deep (Two-Stone Rule) to fully hide underlayment from UV degradation.',
-    'Gravel Driveway Top Dressing': 'Driveway stone must be compacted crushed stone (#57 or #411) at 4" minimum to lock together under passenger vehicle wheel torque.',
-    'Pea Gravel Patio / Fire Pit': 'Limit pea gravel to 2.0" - 2.5" depth. Exceeding 2.5" creates loose unstable footing where patio chairs sink like quicksand.',
-    'French Drain Water Trench': 'Wrap the entire trench in 4 oz non-woven geotextile fabric. Bed a 4" perforated pipe with 2" of washed stone underneath, then backfill to grade.'
+    'Decorative garden gravel': 'A 3 in layer is a quantity example, not a weed-control guarantee. Rock can collect windblown soil and seeds. Match depth and underlayment to the material, plants, and maintenance plan.',
+    'Driveway surface layer': 'This is the visible layer only. A driveway may also need a separately specified and compacted base; soil, traffic, and drainage determine its design.',
+    'Pea gravel sitting area': 'Rounded pea gravel shifts under feet and furniture. Check the finished surface and edging before ordering; a stable patio may call for a different material.',
+    'Drain trench, gross volume': 'This rectangle gives gross trench volume. Subtract pipe and other displaced space before ordering stone, and follow the drainage design for depth and outlet.'
   };
 
   function calculate() {
-    if (!lengthInput || !widthInput || !depthInput || !wasteInput) return;
+    if (!lengthInput || !widthInput || !depthInput || !wasteInput || !densityInput) return;
 
-    const length = Math.max(0.5, parseFloat(lengthInput.value) || 0);
-    const width = Math.max(0.5, parseFloat(widthInput.value) || 0);
-    const depthInches = Math.max(0.5, parseFloat(depthInput.value) || 0);
-    const wastePercent = parseFloat(wasteInput.value) || 0;
+    const inputs = [lengthInput, widthInput, depthInput, wasteInput, densityInput];
+    const invalid = inputs.filter(input => input.value.trim() === '' || !input.validity.valid || !Number.isFinite(Number(input.value)));
+    inputs.forEach(input => input.setAttribute('aria-invalid', String(invalid.includes(input))));
+    if (errorText) {
+      errorText.hidden = invalid.length === 0;
+      errorText.textContent = invalid.length ? 'Enter values within the shown input limits to update the estimate.' : '';
+    }
+    if (invalid.length) {
+      ['kpi-hm-tons', 'kpi-hm-yards', 'kpi-hm-bags', 'kpi-hm-net', 'row-hm-area'].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = '—';
+      });
+      return;
+    }
+
+    const length = Number(lengthInput.value);
+    const width = Number(widthInput.value);
+    const depthInches = Number(depthInput.value);
+    const wastePercent = Number(wasteInput.value);
+    const densityTonsPerYard = Number(densityInput.value);
 
     const area = length * width;
     const netCuFt = area * (depthInches / 12);
     const totalCuFt = netCuFt * (1 + wastePercent / 100);
     const totalYards = totalCuFt / 27;
-
-    const totalTons = totalYards * activeDensity;
+    const netYards = netCuFt / 27;
+    const totalTons = totalYards * densityTonsPerYard;
     const totalLbs = totalTons * 2000;
-
-    const totalBags = Math.ceil(totalCuFt / 0.5);
-    const pallets = (totalBags / 60).toFixed(1);
-
-    const barrows = Math.ceil(totalCuFt / 6);
-
-    // Estimated Delivered Bulk Cost Range ($55 - $85/ton delivered)
-    const minCost = Math.round(totalTons * 55 + 60);
-    const maxCost = Math.round(totalTons * 85 + 75);
+    const totalBags = Math.ceil(totalCuFt / 0.5 - 1e-9);
 
     // Update KPIs
     const kpiTons = document.getElementById('kpi-hm-tons');
@@ -412,48 +441,47 @@ function initHowMuchCalculator() {
     const kpiCuFt = document.getElementById('kpi-hm-cuft');
     const kpiBags = document.getElementById('kpi-hm-bags');
     const kpiPallets = document.getElementById('kpi-hm-pallets');
-    const kpiBarrows = document.getElementById('kpi-hm-barrows');
+    const kpiNet = document.getElementById('kpi-hm-net');
     const badge = document.getElementById('hm-project-badge');
     const adviceText = document.getElementById('hm-advice-text');
 
     const rowArea = document.getElementById('row-hm-area');
     const rowStone = document.getElementById('row-hm-stone');
-    const rowCost = document.getElementById('row-hm-cost');
-
     if (kpiTons) kpiTons.textContent = totalTons.toFixed(2);
-    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lbs bulk aggregate`;
+    if (kpiLbs) kpiLbs.textContent = `≈ ${Math.round(totalLbs).toLocaleString()} lb at ${densityTonsPerYard.toFixed(2)} tons/yd³`;
     if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
-    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft volume`;
+    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft including allowance`;
     if (kpiBags) kpiBags.textContent = totalBags.toLocaleString();
-    if (kpiPallets) kpiPallets.textContent = `${pallets} pallets (60 bags/pl)`;
-    if (kpiBarrows) kpiBarrows.textContent = barrows.toString();
+    if (kpiPallets) kpiPallets.textContent = 'At 0.5 cu ft per bag; check the label';
+    if (kpiNet) kpiNet.textContent = netYards.toFixed(2);
     if (badge) badge.textContent = activeProjectName;
     if (adviceText) adviceText.textContent = adviceMap[activeProjectName] || '';
 
     if (rowArea) rowArea.textContent = `${Math.round(area).toLocaleString()} sq ft (${length}' × ${width}')`;
     if (rowStone) rowStone.textContent = activeStoneSpec;
-    if (rowCost) rowCost.textContent = `$${minCost} - $${maxCost}`;
   }
 
   presetBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      presetBtns.forEach(b => b.classList.remove('active'));
+      presetBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
 
       const depth = parseFloat(btn.getAttribute('data-depth') || '3.0');
-      activeDensity = parseFloat(btn.getAttribute('data-dens') || '1.35');
+      const density = parseFloat(btn.getAttribute('data-dens') || '1.35');
       const waste = parseFloat(btn.getAttribute('data-waste') || '10');
       activeProjectName = btn.getAttribute('data-name') || 'Project';
       activeStoneSpec = btn.getAttribute('data-stone') || 'Stone';
 
       if (depthInput) depthInput.value = depth.toFixed(1);
       if (wasteInput) wasteInput.value = waste.toString();
+      if (densityInput) densityInput.value = density.toFixed(2);
 
       calculate();
     });
   });
 
-  [lengthInput, widthInput, depthInput, wasteInput].forEach(input => {
+  [lengthInput, widthInput, depthInput, wasteInput, densityInput].forEach(input => {
     if (input) {
       input.addEventListener('input', calculate);
     }

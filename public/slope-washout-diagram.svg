@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 570" role="img" aria-labelledby="title desc">
+  <title id="title">Drainage plan for a sloped gravel driveway</title>
+  <desc id="desc">Uphill water is intercepted before the gravel, a cross-sloped driveway sheds rain into a side swale, and a driveable cross drain leads to a protected outlet.</desc>
+  <defs>
+    <linearGradient id="ground" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#183d3b"/>
+      <stop offset="1" stop-color="#102e39"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b6878"/>
+      <stop offset=".5" stop-color="#6c7787"/>
+      <stop offset="1" stop-color="#4c5a6e"/>
+    </linearGradient>
+    <pattern id="gravel" width="31" height="31" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="8" r="2" fill="#b7c1cb" opacity=".48"/>
+      <circle cx="17" cy="17" r="2.5" fill="#d4dce4" opacity=".35"/>
+      <circle cx="26" cy="4" r="1.4" fill="#d4dce4" opacity=".4"/>
+      <circle cx="8" cy="27" r="1.4" fill="#d4dce4" opacity=".28"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1 L11 6 L1 11 Z" fill="#67d4f4"/>
+    </marker>
+    <marker id="slope-arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1 L11 6 L1 11 Z" fill="#fbbf24"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="570" fill="#0b1728"/>
+  <text x="48" y="48" fill="#edf6fb" font-family="Arial, sans-serif" font-size="26" font-weight="700">Where the water should go</text>
+  <text x="49" y="75" fill="#aabccc" font-family="Arial, sans-serif" font-size="15">Plan view of a gravel driveway · high ground at left, low ground at right</text>
+
+  <rect x="48" y="100" width="1004" height="402" rx="18" fill="url(#ground)" stroke="#31515c" stroke-width="2"/>
+  <g fill="none" stroke="#9fbe9f" stroke-width="2" opacity=".12">
+    <path d="M70 124 Q160 161 82 226 Q178 292 72 364"/>
+    <path d="M116 115 Q213 177 127 240 Q225 316 119 398"/>
+    <path d="M952 117 Q1011 186 944 239 Q1027 306 959 365"/>
+  </g>
+
+  <!-- Gravel driveway -->
+  <path d="M300 165 L889 165 Q909 165 909 183 L909 384 Q909 402 889 402 L300 402 Z" fill="url(#road)" stroke="#c4d2da" stroke-width="3"/>
+  <path d="M300 165 L889 165 Q909 165 909 183 L909 384 Q909 402 889 402 L300 402 Z" fill="url(#gravel)"/>
+  <path d="M303 283 H909" fill="none" stroke="#e4ecf0" stroke-width="3" stroke-dasharray="10 13" opacity=".55"/>
+  <path d="M315 215 Q550 205 895 219 M315 351 Q550 340 895 352" fill="none" stroke="#2e3d4f" stroke-width="18" opacity=".25"/>
+  <text x="462" y="270" fill="#f3f8fb" font-family="Arial, sans-serif" font-size="21" font-weight="700">Compacted angular surface</text>
+
+  <!-- Surface diversion at the upper end -->
+  <path d="M263 156 Q284 269 262 412" fill="none" stroke="#0a3850" stroke-width="25" stroke-linecap="round"/>
+  <path d="M263 156 Q284 269 262 412" fill="none" stroke="#67d4f4" stroke-width="7" stroke-linecap="round"/>
+  <path d="M120 242 C168 242 189 238 232 238" fill="none" stroke="#67d4f4" stroke-width="5" marker-end="url(#arrow)"/>
+  <path d="M154 298 C195 296 208 293 234 288" fill="none" stroke="#67d4f4" stroke-width="5" marker-end="url(#arrow)"/>
+  <path d="M265 293 Q273 356 263 412" fill="none" stroke="#67d4f4" stroke-width="5" marker-end="url(#arrow)"/>
+  <path d="M263 412 Q272 438 300 439" fill="none" stroke="#67d4f4" stroke-width="5"/>
+  <rect x="71" y="147" width="184" height="42" rx="8" fill="#0c263a" stroke="#3a7c95"/>
+  <text x="88" y="174" fill="#e8f7fc" font-family="Arial, sans-serif" font-size="17" font-weight="700">1  Intercept runoff</text>
+  <text x="88" y="220" fill="#b9d3dd" font-family="Arial, sans-serif" font-size="15">Uphill yard or road</text>
+  <text x="91" y="382" fill="#9ee8f7" font-family="Arial, sans-serif" font-size="15" font-weight="700">Diversion swale</text>
+
+  <!-- Crown/cross fall -->
+  <path d="M424 282 V363 M501 282 V363 M788 281 V365" fill="none" stroke="#67d4f4" stroke-width="5" marker-end="url(#arrow)"/>
+  <rect x="422" y="104" width="237" height="41" rx="8" fill="#0c263a" stroke="#3a7c95"/>
+  <text x="438" y="131" fill="#e8f7fc" font-family="Arial, sans-serif" font-size="17" font-weight="700">2  Shed rain to the side</text>
+
+  <!-- Rolling dip and safe side channel -->
+  <path d="M650 165 Q641 265 620 393" fill="none" stroke="#182e45" stroke-width="26" opacity=".75"/>
+  <path d="M648 168 Q638 271 617 393" fill="none" stroke="#88dcf2" stroke-width="7" stroke-dasharray="15 12"/>
+  <path d="M617 382 Q630 410 659 434" fill="none" stroke="#67d4f4" stroke-width="5" marker-end="url(#arrow)"/>
+  <path d="M300 439 Q532 443 667 439 T912 439" fill="none" stroke="#0b4157" stroke-width="27" stroke-linecap="round"/>
+  <path d="M300 439 Q532 443 667 439 T912 439" fill="none" stroke="#67d4f4" stroke-width="6" marker-end="url(#arrow)"/>
+  <text x="326" y="474" fill="#aeeaf6" font-family="Arial, sans-serif" font-size="15" font-weight="700">Maintained side swale</text>
+  <rect x="660" y="108" width="200" height="42" rx="8" fill="#0c263a" stroke="#3a7c95"/>
+  <text x="676" y="135" fill="#e8f7fc" font-family="Arial, sans-serif" font-size="17" font-weight="700">3  Cross drain</text>
+
+  <!-- Protected outlet -->
+  <g fill="#98a9b7" stroke="#d5e0e7" stroke-width="2">
+    <path d="M929 423 l15 -12 21 8 5 18 -20 7 -21 -8z"/>
+    <path d="M965 442 l13 -17 22 3 9 19 -20 11 -20 -4z"/>
+    <path d="M930 454 l19 -11 19 12 -4 19 -24 2 -12 -9z"/>
+  </g>
+  <path d="M1005 442 Q1024 438 1037 448" fill="none" stroke="#67d4f4" stroke-width="5" marker-end="url(#arrow)"/>
+  <text x="912" y="389" fill="#f0f7fb" font-family="Arial, sans-serif" font-size="15" font-weight="700">Protected outlet</text>
+
+  <!-- Downhill indicator -->
+  <path d="M756 527 H966" fill="none" stroke="#fbbf24" stroke-width="4" marker-end="url(#slope-arrow)"/>
+  <text x="590" y="532" fill="#f7d995" font-family="Arial, sans-serif" font-size="16" font-weight="700">Downhill direction</text>
+  <text x="49" y="537" fill="#b7c7d4" font-family="Arial, sans-serif" font-size="13">Illustration only · dimensions and outlet must fit the site</text>
+</svg>

@@ -161,13 +161,14 @@ const {
         <!-- Waste Factor -->
         <div class="calc-panel-title">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="panel-icon"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
-          <h3>Waste / Settling Factor</h3>
+          <h3>Extra Material Allowance</h3>
         </div>
-        <div class="waste-toggle" role="radiogroup" aria-label="Waste settling factor">
-          <button class="waste-chip" data-waste="5" role="radio" aria-checked="false" aria-label="5 percent waste factor">5%</button>
-          <button class="waste-chip active" data-waste="10" role="radio" aria-checked="true" aria-label="10 percent waste factor">10%</button>
-          <button class="waste-chip" data-waste="15" role="radio" aria-checked="false" aria-label="15 percent waste factor">15%</button>
-          <button class="waste-chip" data-waste="20" role="radio" aria-checked="false" aria-label="20 percent waste factor">20%</button>
+        <div class="waste-toggle" role="radiogroup" aria-label="Extra material allowance">
+          <button class="waste-chip" data-waste="0" role="radio" aria-checked="false" aria-label="0 percent extra material allowance">0%</button>
+          <button class="waste-chip" data-waste="5" role="radio" aria-checked="false" aria-label="5 percent extra material allowance">5%</button>
+          <button class="waste-chip active" data-waste="10" role="radio" aria-checked="true" aria-label="10 percent extra material allowance">10%</button>
+          <button class="waste-chip" data-waste="15" role="radio" aria-checked="false" aria-label="15 percent extra material allowance">15%</button>
+          <button class="waste-chip" data-waste="20" role="radio" aria-checked="false" aria-label="20 percent extra material allowance">20%</button>
         </div>
 
         <!-- Advanced Geotechnical Settings (Density Override & Compaction) -->
@@ -175,14 +176,14 @@ const {
           <summary class="geotech-summary">
             <div class="geotech-title">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              <span>Advanced Geotechnical Controls</span>
+              <span>Advanced Density and Compaction</span>
             </div>
-            <span class="geotech-tag">ASTM C29 Overrides</span>
+            <span class="geotech-tag">Supplier Values</span>
           </summary>
           <div class="geotech-body">
             <div class="geotech-field">
               <div class="geotech-label-row">
-                <label for="custom-density-input">Custom Quarry Density</label>
+                <label for="custom-density-input">Supplier Loose Bulk Density</label>
                 <button type="button" id="btn-reset-density" class="btn-text-reset" style="display: none;">Reset Default</button>
               </div>
               <div class="input-field mini">
@@ -192,12 +193,13 @@ const {
                   placeholder="2600" 
                   min="500" 
                   max="5000" 
-                  step="25"
+                  step="any"
                   aria-label="Custom loose bulk density in lbs per cubic yard"
                 />
                 <span class="unit-label">lbs/yd³</span>
               </div>
-              <span class="field-hint" id="density-standard-hint">Standard ASTM C29 loose density: 2,600 lbs/yd³</span>
+              <span class="field-hint" id="density-standard-hint">Planning density: 2,700 lbs/yd³. Replace with your supplier's loose bulk density.</span>
+              <span class="field-hint" id="density-input-error" role="alert" style="display: none; color: #dc2626;">Enter 500–5,000 lbs/yd³, or clear the field to use the planning value.</span>
             </div>
 
             <div class="geotech-field" id="compaction-control-group">
@@ -205,11 +207,11 @@ const {
                 <input type="checkbox" id="toggle-compaction" />
                 <span class="checkbox-custom"></span>
                 <span class="checkbox-text">
-                  <strong>Compacted In-Place Subgrade</strong>
-                  <span class="compaction-factor-badge" id="compaction-factor-text">+18% Proctor overage</span>
+                  <strong>Compactable Base Layer</strong>
+                  <span class="compaction-factor-badge" id="compaction-factor-text">+18% loose material allowance</span>
                 </span>
               </label>
-              <span class="field-hint">Accounts for roller/tamper consolidation and nesting of mineral fines.</span>
+              <span class="field-hint">Adds loose material for compactable aggregate with fines. Confirm the factor for your job.</span>
             </div>
           </div>
         </details>
@@ -311,8 +313,9 @@ const {
         <div class="breakdown-section">
           <div class="breakdown-header">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-            <h4>Custom Rates & Cost Estimator</h4>
+            <h4>Illustrative Cost Estimator</h4>
           </div>
+          <p class="field-hint">Sample rates are for trying the tool. Replace every price and tax rate with your local quote; optional costs can be set to $0.</p>
           <div class="cost-fields-grid">
             <div class="cost-input-cell">
               <label for="cost-material-rate">Material Rate</label>
@@ -376,7 +379,7 @@ const {
               <span id="cost-summary-tax" class="cost-val">$0.00</span>
             </div>
             <div class="cost-grand-total-row">
-              <span class="grand-label">Total Estimated Investment</span>
+              <span class="grand-label">Illustrative Total</span>
               <span id="cost-total" class="grand-val">$0.00</span>
             </div>
           </div>
@@ -411,14 +414,14 @@ const {
           <div class="outcome-header">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
             <div class="outcome-title-group">
-              <h4>Finished Your Project? Help Calibrate Field Tolerances</h4>
-              <p>Did this estimate match your real-world delivery and compaction? Share your jobsite outcome:</p>
+              <h4>Finished Your Project? Record the Outcome</h4>
+              <p>Compare your actual material use with this estimate. Your entry is saved in this browser.</p>
             </div>
           </div>
           <div class="outcome-options" role="group" aria-label="Project coverage outcome">
             <button type="button" class="btn-outcome-chip" data-outcome="exact">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-              Spot On / Exact Fit
+              Matched Estimate
             </button>
             <button type="button" class="btn-outcome-chip" data-outcome="needed-more">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
@@ -438,7 +441,7 @@ const {
           </div>
           <div class="outcome-confirmation" id="outcome-confirmation" style="display: none;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-            <span>Thank you! Your field calibration report has been recorded locally to verify ASTM bulk density tolerances.</span>
+            <span>Your project outcome was saved in this browser.</span>
           </div>
         </div>
       </div>
@@ -455,7 +458,7 @@ const {
           <button type="button" class="quote-modal-close" id="btn-close-quote-modal" aria-label="Close quote modal">&times;</button>
         </div>
         <p class="quote-modal-desc">
-          Copy or send this pre-filled message directly to your local landscape supply yard or rock quarry to get fast, accurate pricing and delivery lead times.
+          Copy this draft to ask a local supplier about product availability, pricing, and delivery.
         </p>
         <div class="quote-modal-form">
           <div class="quote-input-group">
@@ -489,9 +492,9 @@ const {
           <div class="quote-pro-tips">
             <strong>Quarry Pro-Tips When Ordering:</strong>
             <ul>
-              <li><strong>Scale Weight vs. Volume:</strong> Most bulk quarries sell by certified scale weight (tons), not cubic yards. Our RFQ includes both so there is zero confusion.</li>
-              <li><strong>Tailgate Spreading:</strong> Ask if the driver can tailgate spread along your driveway for a small tip—saves hours of manual wheelbarrow shoveling.</li>
-              <li><strong>Overhead Clearance:</strong> Standard tri-axle dump beds reach 18–22 feet high when tipped. Ensure trees and electrical wires are clear.</li>
+              <li><strong>Scale Weight vs. Volume:</strong> Ask whether your supplier sells this product by short ton or cubic yard. The request includes both estimates and the density assumption.</li>
+              <li><strong>Unloading:</strong> Ask whether the driver can place or spread the material where you need it and whether there is an extra charge.</li>
+              <li><strong>Access:</strong> Tell the supplier about narrow gates, slopes, trees, and overhead wires so they can choose a suitable vehicle.</li>
             </ul>
           </div>
         </div>

@@ -3,66 +3,49 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import LandscapeRockCalculator from '../components/calculators/LandscapeRockCalculator.astro';
-import LandscapeRockVisualizer from '../components/visualizers/LandscapeRockVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Landscape Rock Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Landscape Rock Calculator', url: '/landscape-rock-calculator' }
-];
-
-const entityTags = [
-  { label: 'Material', value: 'Landscape Rock Coverage' },
-  { label: 'Bulk Density', value: '1.30 to 1.45 Tons/yd³' },
-  { label: 'Standard Depth', value: '2.5 to 3.0 Inches' },
-  { label: 'Bedding Base', value: 'Heavy Woven Geotextile' }
-];
-
-const quickStats = [
-  { value: '100 sq ft', label: 'Coverage per Yard', desc: 'At recommended 3.0 inch weed-barrier depth' },
-  { value: '2,700 lbs', label: 'Average Ton Weight', desc: 'Quarry certified crushed stone per cubic yard' },
-  { value: '10% Overage', label: 'Recommended Margin', desc: 'Compensates for grade dips and perimeter edging' }
+  { name: pageTitle, url: '/landscape-rock-calculator' }
 ];
 
 const faqItems = [
   {
-    q: 'How many cubic yards of landscape rock do I need for a 500 sq ft bed?',
-    a: 'For a 500 square foot landscape bed at the contractor recommended depth of 3 inches, you need approximately 4.63 cubic yards of landscape rock, or roughly 5.1 cubic yards when factoring in a standard 10% compaction and edge settling allowance. This converts to approximately 6.9 tons of crushed stone.'
+    q: 'How much landscape rock do I need for 500 square feet?',
+    a: 'At a 3-inch finished depth, 500 square feet needs 4.63 cubic yards before any extra material. A 10% allowance brings the order estimate to 5.09 cubic yards. At an assumed bulk density of 1.35 short tons per cubic yard, that is about 6.88 short tons. Confirm the density with your supplier.'
   },
   {
-    q: 'What is the best depth for landscape rock around house foundations?',
-    a: 'Install landscape rock at a minimum compacted depth of 3 inches around house foundations. This layer thickness prevents solar ultraviolet rays from reaching weed seeds while ensuring the stone layer does not trap excess surface moisture against concrete foundation walls.'
+    q: 'How deep should landscape rock be in a planting bed?',
+    a: 'Two to three inches is a useful starting range for many inorganic mulches. The right depth also depends on the stone size, desired coverage, plants, and site. Test a small area before ordering, especially when individual stones are nearly as thick as the planned layer.'
   },
   {
-    q: 'Should I install landscape fabric under decorative landscape rock?',
-    a: 'Yes. Always install commercial grade non-woven or woven geotextile fabric beneath landscape rock. Without fabric, heavier stones migrate downward into native clay and loam soils during freeze-thaw cycles, resulting in bare dirt patches and rapid weed growth within two seasons.'
+    q: 'Does landscape fabric keep a rock bed weed-free?',
+    a: 'No. Permeable fabric can separate stone from soil and reduce some weeds, but windblown soil and seeds can collect above it. Fabric can also complicate planting and later changes. Remove new weeds and leaf debris before they become established.'
   },
   {
-    q: 'Is it cheaper to buy landscape rock in bags or by the dump truck load?',
-    a: 'Bulk truck delivery is significantly cheaper once your project requires more than 1.5 to 2.0 cubic yards (approximately 80 to 110 bags of 0.5 cubic feet). Retail bags cost roughly $4 to $6 per bag ($216 to $324 per yard), whereas quarry bulk rock averages $45 to $75 per yard plus a flat delivery fee.'
+    q: 'Can I calculate bag count from a 50-pound bag label?',
+    a: 'Not reliably. This calculator counts 0.5-cubic-foot bags by volume. Bags sold only by weight cover different volumes depending on the stone and packing; check the bag’s cubic-foot coverage or ask the seller.'
   }
 ];
 ---
 
 <BaseLayout
-  title="Landscape Rock Coverage Calculator - Yards, Tons & Bags for Beds"
-  description="Calculate landscape rock coverage in cubic yards, tons, and bags for flower beds, shrubs, and borders. Includes weed barrier fabric, depth rules, and pricing analysis."
+  title={pageTitle}
+  description="Estimate cubic yards, short tons, and 0.5-cu-ft bags of landscape rock for garden beds and borders. Measure the bed, choose depth and stone, then check your supplier’s density."
   canonicalPath="/landscape-rock-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Landscape Rock Coverage Calculator",
+      "name": pageTitle,
       "url": "https://rockcoveragecalculator.com/landscape-rock-calculator",
-      "description": "Commercial landscape rock coverage calculator. Computes volume in cubic yards, weight in tons, and retail bag counts for landscaping beds.",
+      "description": "Estimate landscape rock volume, weight, and 0.5-cubic-foot bag count from bed dimensions, depth, allowance, and bulk density.",
       "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "about": {
-        "@type": "Thing",
-        "name": "Landscape Rock Coverage"
-      }
+      "operatingSystem": "Web"
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -70,10 +53,7 @@ const faqItems = [
       "mainEntity": faqItems.map(item => ({
         "@type": "Question",
         "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": item.a }
       }))
     })} />
   </Fragment>
@@ -82,99 +62,123 @@ const faqItems = [
 
   <main>
     <PageHero
-      title="Landscape Rock Coverage Calculator"
-      highlightWord="Coverage"
-      badge="Landscape Bedding & Mulch Alternative"
-      subtitle="Calculate exact cubic yards, quarry scale tonnage, and retail bags required for residential flower beds, foundation plantings, and landscape borders."
+      title={pageTitle}
+      highlightWord="Landscape Rock"
+      badge="Garden beds and borders"
+      subtitle="For a 100-square-foot bed at 3 inches deep, plan on 0.93 cubic yard of rock before extra material. That is about 1.25 short tons at an assumed density of 1.35 tons per cubic yard. Enter your own bed dimensions below."
       breadcrumbs={breadcrumbs}
-      entityTags={entityTags}
-      quickStats={quickStats}
+      theme="decorative"
+      entityTags={[
+        { label: 'Use', value: 'Decorative rock mulch' },
+        { label: 'Starting depth', value: '2–3 inches' },
+        { label: 'Order units', value: 'Yards, short tons, bags' }
+      ]}
     />
 
     <LandscapeRockCalculator />
 
-    <LandscapeRockVisualizer />
-
-    <!-- Deep Authority Content Section -->
-    <article class="content-guide-section">
+    <article class="landscape-guide">
       <div class="container">
-        <div class="content-card">
-          <h2>Engineering Specifications for Landscape Rock Coverage</h2>
-          <p>
-            Landscape rock serves as a permanent, erosion-resistant alternative to organic wood mulch. Unlike wood chips that decompose annually and acidify underlying soils, mineral rock creates a stable thermal blanket across garden root zones. However, achieving complete visual soil opacity without over-purchasing heavy aggregate requires precise volumetric calculation.
-          </p>
-
-          <h3>The Mathematics of Landscape Bed Sizing</h3>
-          <p>
-            The fundamental formula for landscape rock volume converts length and width dimensions into cubic feet, incorporates layer depth in fractions of a foot, and divides by 27 to yield cubic yards:
-          </p>
-          <div class="formula-box">
-            <code>Volume (Cubic Yards) = [Area (Square Feet) × Depth (Inches)] / 324</code>
+        <section class="guide-intro" aria-labelledby="measure-title">
+          <div>
+            <span class="eyebrow">Before you order</span>
+            <h2 id="measure-title">Measure the rock-covered area, then set the finished depth</h2>
+            <p>A bed’s square footage is its length times its <strong>average</strong> width. For a curved border, measure its width in several places and average those readings, or split it into smaller rectangles and add their areas. Subtract large paved sections and plant islands that will stay bare.</p>
+            <p>Use the depth you want <em>after</em> spreading. A 2–3 inch layer is a useful starting point for inorganic mulch, but a larger stone may leave visible gaps at the shallow end. Spread a small test patch with your chosen rock before you commit to a truckload.</p>
           </div>
-          <p>
-            To convert cubic yards into scale tonnage for quarry ordering, multiply by the aggregate bulk density. Clean crushed granite and limestone average 1.35 tons per cubic yard (2,700 pounds). If your landscape border features curves, irregular tree rings, or elevation changes, add a 10% safety overage to absorb subgrade unevenness.
-          </p>
+          <figure class="measure-figure">
+            <img src="/landscape-rock-bed-measurement.svg" width="900" height="390" loading="lazy" alt="Plan view of a 40-foot by 8-foot landscape bed and side view showing a 3-inch finished rock layer" />
+            <figcaption>Measure the area in plan view; depth is the thickness of the finished rock layer. Illustration is not to scale.</figcaption>
+          </figure>
+        </section>
 
-          <div class="table-wrapper">
-            <table class="guide-table">
-              <thead>
-                <tr>
-                  <th>Bed Area (Sq Ft)</th>
-                  <th>Depth (Inches)</th>
-                  <th>Cubic Yards Needed</th>
-                  <th>Weight (Tons)</th>
-                  <th>50 lb Bags</th>
-                </tr>
-              </thead>
+        <section class="math-section" aria-labelledby="math-title">
+          <div class="section-heading">
+            <span class="eyebrow">Check the number</span>
+            <h2 id="math-title">From bed dimensions to the order quantity</h2>
+            <p>The calculator converts square feet and inches into cubic yards, then uses the selected bulk density to estimate short tons. The allowance is added to volume before converting to tons and bags.</p>
+          </div>
+          <div class="math-grid">
+            <div class="math-card"><span class="math-step">01 · Area</span><strong>Length × average width</strong><p>40 ft × 8 ft = <b>320 sq ft</b></p></div>
+            <div class="math-card"><span class="math-step">02 · Rock volume</span><strong>Area × depth ÷ 324</strong><p>320 × 3 in ÷ 324 = <b>2.96 yd³</b></p></div>
+            <div class="math-card"><span class="math-step">03 · Order estimate</span><strong>Volume × (1 + allowance)</strong><p>2.96 yd³ × 1.10 = <b>3.26 yd³</b>, or <b>4.40 short tons</b> at 1.35 t/yd³</p></div>
+          </div>
+          <p class="math-note">The same example fills <strong>176 bags at 0.5 cu ft each</strong>: 320 × (3 ÷ 12) × 1.10 ÷ 0.5. A bag marked only in pounds needs its own volume or coverage figure.</p>
+        </section>
+
+        <section class="choice-section" aria-labelledby="choice-title">
+          <div class="section-heading">
+            <span class="eyebrow">Material choice</span>
+            <h2 id="choice-title">Choose the rock for the bed, not just the color</h2>
+          </div>
+          <div class="choice-grid">
+            <div class="choice-card">
+              <h3>Rounded river rock</h3>
+              <p>A smooth finish suits broad borders and dry stream accents. Rounded pieces move more easily at an open edge or on a slope, so plan for containment and assess drainage. For a dedicated estimate, use the <a href="/river-rock-calculator">river rock calculator</a>.</p>
+            </div>
+            <div class="choice-card">
+              <h3>Angular crushed stone</h3>
+              <p>Angular pieces tend to nest together more firmly than rounded stone. The actual bulk weight depends on grading and source. Compare options in the <a href="/crushed-stone-calculator">crushed stone calculator</a> and ask the yard which product it will deliver.</p>
+            </div>
+            <div class="choice-card">
+              <h3>Porous lava rock</h3>
+              <p>Lava rock can be much lighter by volume than dense natural stone. Its porosity and piece size vary, so treat the preset density as a starting estimate. See the <a href="/lava-rock-calculator">lava rock calculator</a> for that material.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="practical-section" aria-labelledby="practical-title">
+          <div class="section-heading">
+            <span class="eyebrow">After the calculation</span>
+            <h2 id="practical-title">A rock bed still needs a planting and maintenance plan</h2>
+          </div>
+          <div class="practical-grid">
+            <div class="practical-card">
+              <h3>Decide whether fabric helps here</h3>
+              <p>Permeable landscape fabric can keep rock from mixing into soft soil. It is less convenient in beds you replant often, and weeds can establish in dust and leaves above it. Do not rely on solid plastic as a universal weed fix; it restricts water and air movement. Read the <a href="/how-to-stop-weeds-in-landscape-rock">rock-bed weed guide</a> and the <a href="/how-to-fix-rock-sinking-into-soil">stone-sinking guide</a>.</p>
+            </div>
+            <div class="practical-card">
+              <h3>Protect plants and bed edges</h3>
+              <p>Keep stone a few inches clear of woody stems and root collars. Check the site’s sun exposure: rock can warm the soil in summer, which may matter around heat-sensitive plants. Remove leaf litter before it turns into a growing medium for weeds. For installation details, see <a href="/how-to-install-landscape-rock">how to install landscape rock</a>.</p>
+            </div>
+            <div class="practical-card">
+              <h3>Confirm the purchase unit</h3>
+              <p>Bring your yardage, chosen stone, and target depth to the supplier. Ask whether they sell by cubic yard or short ton and what bulk density they use. The calculator’s three rock presets are estimates; replace the density with the supplier’s figure when available. For a broader depth comparison, see the <a href="/rock-depth-guide">rock depth guide</a>.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="reference-section" aria-labelledby="reference-title">
+          <h2 id="reference-title">Landscape rock coverage examples</h2>
+          <p>These figures use 1.35 short tons per cubic yard and 0.5-cu-ft bags, with <strong>no added allowance</strong>. Your supplier’s density and packaging can differ.</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Estimated material at two common bed depths, before extra material</caption>
+              <thead><tr><th scope="col">Bed area</th><th scope="col">Depth</th><th scope="col">Cubic yards</th><th scope="col">Short tons</th><th scope="col">0.5-cu-ft bags</th></tr></thead>
               <tbody>
-                <tr><td>100 sq ft</td><td>2.0 in</td><td>0.62 yd³</td><td>0.84 tons</td><td>33 bags</td></tr>
-                <tr><td>100 sq ft</td><td>3.0 in</td><td>0.93 yd³</td><td>1.25 tons</td><td>50 bags</td></tr>
-                <tr><td>250 sq ft</td><td>3.0 in</td><td>2.31 yd³</td><td>3.12 tons</td><td>125 bags</td></tr>
-                <tr><td>500 sq ft</td><td>3.0 in</td><td>4.63 yd³</td><td>6.25 tons</td><td>250 bags</td></tr>
-                <tr><td>1,000 sq ft</td><td>3.0 in</td><td>9.26 yd³</td><td>12.50 tons</td><td>500 bags</td></tr>
+                <tr><th scope="row">100 sq ft</th><td>2 in</td><td>0.62</td><td>0.83</td><td>34</td></tr>
+                <tr><th scope="row">100 sq ft</th><td>3 in</td><td>0.93</td><td>1.25</td><td>50</td></tr>
+                <tr><th scope="row">250 sq ft</th><td>3 in</td><td>2.31</td><td>3.13</td><td>125</td></tr>
+                <tr><th scope="row">500 sq ft</th><td>3 in</td><td>4.63</td><td>6.25</td><td>250</td></tr>
               </tbody>
             </table>
           </div>
+        </section>
 
-          <h3>Contractor Standards: Site Preparation and Installation Steps</h3>
-          <ol class="steps-list">
-            <li>
-              <strong>Excavate Subgrade Bed:</strong> Dig out organic topsoil to a uniform depth of 3.5 inches below adjacent lawn sod. Grade the excavation with a 1% slope away from residential siding to direct runoff toward swales.
-            </li>
-            <li>
-              <strong>Anchor Commercial Geotextile:</strong> Lay professional 4.5 oz woven landscape fabric across the excavation. Overlap adjoining seams by at least 12 inches and secure with 6-inch steel sod staples every 3 feet.
-            </li>
-            <li>
-              <strong>Install Rigid Perimeter Edging:</strong> Anchor 14-gauge steel or thick composite landscape borders along the bed perimeter. Edging must stand 0.5 inches higher than the final rock surface to lock aggregate in place during storm runoff.
-            </li>
-            <li>
-              <strong>Uniform Aggregate Distribution:</strong> Dump rock in small piles and rake evenly across the fabric. Avoid using heavy skid steer tires directly on exposed fabric to prevent punctures and tears.
-            </li>
-          </ol>
+        <section class="faq-section" aria-labelledby="faq-title">
+          <h2 id="faq-title">Landscape rock questions</h2>
+          {faqItems.map(item => (
+            <details>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </section>
 
-          <h3>Common Mistakes in Landscape Rock Estimation</h3>
-          <p>
-            The most frequent mistake homeowners make is installing rock at a 1-inch depth to save costs. At 1 inch, aggregate shifts easily under rain, revealing black geotextile fabric within weeks. Conversely, applying rock deeper than 4 inches suffocates shrub root flares by cutting off atmospheric oxygen exchange. For standard 3/4-inch to 1.5-inch landscape rock, a 3-inch depth provides the ideal balance of complete visual coverage and healthy plant respiration.
-          </p>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Landscape Rock</h2>
-          <div class="faq-accordion">
-            {faqItems.map((item, index) => (
-              <details class="faq-detail" open={index === 0}>
-                <summary class="faq-summary">
-                  <span>{item.q}</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                </summary>
-                <div class="faq-answer">
-                  <p>{item.a}</p>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
+        <aside class="sources" aria-label="Gardening and weed-management references">
+          <h2>Field references</h2>
+          <p>Depth and maintenance guidance follows <a href="https://extension.usu.edu/cwel/principles">Utah State University Extension</a>, <a href="https://yardandgarden.extension.iastate.edu/how-to/using-mulch-garden">Iowa State University Extension</a>, and <a href="https://ipm.ucanr.edu/home-and-landscape/weed-management-in-landscapes/">University of California IPM</a>. Supplier density and installed depth still need local confirmation.</p>
+        </aside>
       </div>
     </article>
 
@@ -186,112 +190,40 @@ const faqItems = [
 </BaseLayout>
 
 <style>
-  .content-guide-section {
-    padding: var(--space-12) 0;
-    background: var(--bg-body);
-  }
-
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-
-  .content-card h2 {
-    font-size: var(--text-2xl);
-    color: var(--text-primary);
-    margin-bottom: var(--space-4);
-  }
-
-  .content-card h3 {
-    font-size: var(--text-xl);
-    color: var(--text-primary);
-    margin: var(--space-6) 0 var(--space-3) 0;
-  }
-
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-  }
-
-  .table-wrapper {
-    overflow-x: auto;
-    margin: var(--space-6) 0;
-  }
-
-  .guide-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-    text-align: left;
-  }
-
-  .guide-table th, .guide-table td {
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .guide-table th {
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    font-weight: 700;
-  }
-
-  .guide-table tr:hover td {
-    background: rgba(212, 168, 83, 0.04);
-  }
-
-  .steps-list {
-    padding-left: var(--space-6);
-    margin: var(--space-4) 0;
-  }
-
-  .steps-list li {
-    margin-bottom: var(--space-3);
-  }
-
-  .faq-detail {
-    border-bottom: 1px solid var(--border-subtle);
-    padding: var(--space-4) 0;
-  }
-
-  .faq-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--text-primary);
-    font-size: var(--text-base);
-    list-style: none;
-  }
-
-  .faq-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq-summary svg {
-    transition: transform var(--transition-fast);
-  }
-
-  .faq-detail[open] .faq-summary svg {
-    transform: rotate(180deg);
-  }
-
-  .faq-answer {
-    padding-top: var(--space-3);
-    color: var(--text-muted);
-    font-size: var(--text-sm);
-    line-height: 1.6;
-  }
+  .landscape-guide { padding: var(--space-12) 0; background: var(--bg-body); color: var(--text-secondary); line-height: 1.7; }
+  .landscape-guide section { margin-bottom: var(--space-12); }
+  .landscape-guide h2, .landscape-guide h3 { color: var(--text-primary); line-height: 1.25; }
+  .landscape-guide h2 { font-size: clamp(1.45rem, 2.5vw, 2rem); margin: var(--space-2) 0 var(--space-4); }
+  .landscape-guide h3 { font-size: var(--text-lg); margin: 0 0 var(--space-2); }
+  .landscape-guide p { margin: 0 0 var(--space-3); }
+  .landscape-guide a { color: var(--accent-gold); text-underline-offset: 3px; }
+  .eyebrow { color: var(--accent-gold); font-size: var(--text-xs); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .guide-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--space-8); align-items: center; }
+  .measure-figure { margin: 0; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; }
+  .measure-figure img { display: block; width: 100%; height: auto; }
+  .measure-figure figcaption { padding: var(--space-2) var(--space-4) var(--space-4); font-size: var(--text-xs); color: var(--text-muted); }
+  .section-heading { max-width: 760px; }
+  .math-grid, .choice-grid, .practical-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-5); }
+  .math-card, .choice-card, .practical-card, .reference-section, .faq-section { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-6); }
+  .math-card { border-top: 3px solid var(--accent-gold); }
+  .math-step { display: block; color: var(--accent-gold); font-size: var(--text-xs); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin-bottom: var(--space-3); }
+  .math-card strong { color: var(--text-primary); display: block; }
+  .math-card p { margin: var(--space-2) 0 0; }
+  .math-card b, .math-note strong { color: var(--text-primary); }
+  .math-note { margin-top: var(--space-4) !important; }
+  .choice-card, .practical-card { background: var(--bg-surface); }
+  .table-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 600px; text-align: left; }
+  caption { text-align: left; font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-2); }
+  th, td { padding: var(--space-3); border-bottom: 1px solid var(--border-subtle); }
+  thead th { color: var(--text-primary); background: var(--bg-surface); }
+  tbody th { color: var(--text-primary); }
+  .faq-section details { border-bottom: 1px solid var(--border-subtle); padding: var(--space-3) 0; }
+  .faq-section details:last-child { border: 0; }
+  .faq-section summary { cursor: pointer; color: var(--text-primary); font-weight: 700; }
+  .faq-section details p { margin: var(--space-2) 0 0; }
+  .sources { border-left: 3px solid var(--accent-gold); padding: var(--space-3) var(--space-5); background: var(--bg-surface); border-radius: 0 var(--radius-md) var(--radius-md) 0; font-size: var(--text-sm); }
+  .sources h2 { font-size: var(--text-base); margin: 0 0 var(--space-2); }
+  .sources p { margin: 0; }
+  @media (max-width: 900px) { .guide-intro { grid-template-columns: 1fr; } .math-grid, .choice-grid, .practical-grid { grid-template-columns: 1fr; } }
 </style>

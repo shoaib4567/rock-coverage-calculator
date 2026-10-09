@@ -1,12 +1,17 @@
 ---
-// General Rock Calculator Component
+import { getMaterialById } from '../../scripts/materials-data.js';
+
+const riverRock = getMaterialById('river-rock-1');
+const crushedGranite = getMaterialById('crushed-granite');
+const decomposedGranite = getMaterialById('decomposed-granite');
+const lavaRock = getMaterialById('lava-rock');
 ---
 <section class="section" id="general-rock-calc">
   <div class="container">
     <div class="section-header">
-      <h2>General Rock Coverage & Volume Calculator</h2>
+      <h2>Estimate Rock for Your Measured Area</h2>
       <div class="section-divider"></div>
-      <p>Quick multi-shape rock estimator for landscape beds, pathways, and fill projects. Supports rectangle, circle, and direct square footage inputs with instant unit conversion.</p>
+      <p>Choose a rectangular bed, a full circle, or known square footage. Enter finished rock depth and extra material to see the volume to order.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -17,22 +22,22 @@
           <h3>Bed Geometry Shape</h3>
         </div>
 
-        <div class="unit-toggle mode-toggle" role="tablist">
-          <button class="active" id="gen-shape-rect" type="button">Rectangle Bed</button>
-          <button id="gen-shape-circle" type="button">Circle / Ring</button>
-          <button id="gen-shape-sqft" type="button">Direct Square Feet</button>
+        <div class="unit-toggle mode-toggle" role="group" aria-label="Area shape">
+          <button class="active" id="gen-shape-rect" type="button" aria-pressed="true">Rectangle Bed</button>
+          <button id="gen-shape-circle" type="button" aria-pressed="false">Full Circle</button>
+          <button id="gen-shape-sqft" type="button" aria-pressed="false">Known Area</button>
         </div>
 
         <!-- Rect Inputs -->
         <div id="gen-rect-inputs" class="dim-grid">
           <div class="input-field">
             <label for="gen-length">Length</label>
-            <input type="number" id="gen-length" value="35" min="1" step="0.5" />
+            <input type="number" id="gen-length" value="35" min="0.01" step="any" />
             <span class="unit-label">feet</span>
           </div>
           <div class="input-field">
             <label for="gen-width">Width</label>
-            <input type="number" id="gen-width" value="12" min="1" step="0.5" />
+            <input type="number" id="gen-width" value="12" min="0.01" step="any" />
             <span class="unit-label">feet</span>
           </div>
         </div>
@@ -41,7 +46,7 @@
         <div id="gen-circle-inputs" class="dim-grid" style="display: none;">
           <div class="input-field" style="grid-column: 1 / -1;">
             <label for="gen-diameter">Circle Diameter</label>
-            <input type="number" id="gen-diameter" value="20" min="1" step="0.5" />
+            <input type="number" id="gen-diameter" value="20" min="0.01" step="any" />
             <span class="unit-label">feet</span>
           </div>
         </div>
@@ -50,7 +55,7 @@
         <div id="gen-sqft-inputs" class="dim-grid" style="display: none;">
           <div class="input-field" style="grid-column: 1 / -1;">
             <label for="gen-direct-sqft">Known Area</label>
-            <input type="number" id="gen-direct-sqft" value="420" min="1" step="10" />
+            <input type="number" id="gen-direct-sqft" value="420" min="0.01" step="any" />
             <span class="unit-label">sq ft</span>
           </div>
         </div>
@@ -58,15 +63,16 @@
         <div class="dim-grid">
           <div class="input-field">
             <label for="gen-depth">Layer Depth</label>
-            <input type="number" id="gen-depth" value="3.0" min="0.5" max="24" step="0.5" />
+            <input type="number" id="gen-depth" value="3.0" min="0.25" max="24" step="any" />
             <span class="unit-label">inches</span>
           </div>
           <div class="input-field">
             <label for="gen-waste">Safety Buffer</label>
-            <input type="number" id="gen-waste" value="10" min="0" max="25" step="1" />
+            <input type="number" id="gen-waste" value="10" min="0" max="25" step="any" />
             <span class="unit-label">% extra</span>
           </div>
         </div>
+        <p class="input-error" id="gen-input-error" role="alert" hidden>Enter positive area measurements, a depth from 0.25 to 24 inches, and extra material from 0% to 25%.</p>
 
         <!-- Rock Material Presets -->
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
@@ -74,41 +80,42 @@
           <h3>Rock Density Preset</h3>
         </div>
 
-        <div class="density-pills" role="radiogroup">
-          <button type="button" class="gen-dens-btn active" data-dens="1.35" data-name="River Rock / Round Gravel">River Rock (1.35 T/yd³)</button>
-          <button type="button" class="gen-dens-btn" data-dens="1.40" data-name="Crushed Limestone / Granite">Crushed Stone (1.40 T/yd³)</button>
-          <button type="button" class="gen-dens-btn" data-dens="1.45" data-name="Decomposed Granite">Decomposed Granite (1.45 T/yd³)</button>
-          <button type="button" class="gen-dens-btn" data-dens="0.85" data-name="Lava Rock (Red/Black)">Lava Rock (0.85 T/yd³)</button>
+        <div class="density-pills" role="group" aria-label="Rock weight planning factor">
+          <button type="button" class="gen-dens-btn active" aria-pressed="true" data-dens={riverRock.tonsPerCuYd} data-name="River rock (1–3 in)">River rock (1–3 in) ({riverRock.tonsPerCuYd} US tons/yd³)</button>
+          <button type="button" class="gen-dens-btn" aria-pressed="false" data-dens={crushedGranite.tonsPerCuYd} data-name="Crushed granite (3/4 in)">Crushed granite (3/4 in) ({crushedGranite.tonsPerCuYd} US tons/yd³)</button>
+          <button type="button" class="gen-dens-btn" aria-pressed="false" data-dens={decomposedGranite.tonsPerCuYd} data-name="Decomposed granite (1/4 in minus)">Decomposed granite (1/4 in minus) ({decomposedGranite.tonsPerCuYd} US tons/yd³)</button>
+          <button type="button" class="gen-dens-btn" aria-pressed="false" data-dens={lavaRock.tonsPerCuYd} data-name="Lava rock (3/4–2 in)">Lava rock (3/4–2 in) ({lavaRock.tonsPerCuYd} US tons/yd³)</button>
         </div>
+        <p class="density-note">These are planning weight factors, not measured weights for a particular delivery. For a supplier-provided density, use the <a href="/">full rock coverage calculator</a>.</p>
       </div>
 
       <!-- Output Panel -->
       <div class="calc-results-panel animate-fade-in-up">
         <div class="results-header">
-          <div class="results-title">Calculated Rock Quantities</div>
-          <div class="results-badge" id="gen-badge">River Rock (1.35 T/yd³)</div>
+            <div class="results-title">Estimated Order Quantities</div>
+          <div class="results-badge" id="gen-badge">River rock (1–3 in) ({riverRock.tonsPerCuYd} US tons/yd³)</div>
         </div>
 
         <div class="kpi-grid">
           <div class="kpi-card highlight">
             <div class="kpi-value" id="kpi-gen-yards">0.00</div>
-            <div class="kpi-label">Volume (Cubic Yards)</div>
-            <div class="kpi-subtext" id="kpi-gen-cuft">0 cu ft net volume</div>
+            <div class="kpi-label">Volume to Order (Cubic Yards)</div>
+            <div class="kpi-subtext" id="kpi-gen-cuft">0 cu ft including extra</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-gen-tons">0.00</div>
-            <div class="kpi-label">Quarry Weight (Tons)</div>
-            <div class="kpi-subtext" id="kpi-gen-lbs">0 lbs total payload</div>
+            <div class="kpi-label">Estimated Weight (Short Tons)</div>
+            <div class="kpi-subtext" id="kpi-gen-lbs">0 lbs including extra</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-gen-bags">0</div>
-            <div class="kpi-label">0.5 Cu Ft Retail Bags</div>
-            <div class="kpi-subtext" id="kpi-gen-pallets">0 full pallets</div>
+            <div class="kpi-label">0.5 Cu Ft Bags (Whole)</div>
+            <div class="kpi-subtext" id="kpi-gen-pallets">0 pallet equivalents at 60 bags each</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-gen-barrows">0</div>
-            <div class="kpi-label">Wheelbarrow Trips</div>
-            <div class="kpi-subtext">6 cu ft contractor loads</div>
+            <div class="kpi-label">Wheelbarrow Loads</div>
+            <div class="kpi-subtext">At 6 cu ft per full load</div>
           </div>
         </div>
 
@@ -119,11 +126,11 @@
             <span class="breakdown-val" id="row-gen-area">420 sq ft</span>
           </div>
           <div class="breakdown-row">
-            <span>Weed Barrier Fabric (Sq Ft)</span>
+            <span>Fabric Estimate (10% Overlap)</span>
             <span class="breakdown-val" id="row-gen-fabric">462 sq ft (2 rolls)</span>
           </div>
           <div class="breakdown-row">
-            <span>Rule of 324 Coverage Yield</span>
+            <span>Coverage per Cubic Yard at This Depth</span>
             <span class="breakdown-val" id="row-gen-yield">108 sq ft per cubic yard</span>
           </div>
         </div>
@@ -268,6 +275,17 @@
   background: rgba(202, 138, 4, 0.08);
 }
 
+.density-note, .input-error {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  margin: var(--space-3) 0 0;
+}
+
+.density-note a { color: var(--accent-gold); }
+.input-error { color: #dc2626; }
+.input-field input:invalid { border-color: #dc2626; }
+
 .results-header {
   display: flex;
   justify-content: space-between;
@@ -377,26 +395,56 @@ function initGeneralRockCalculator() {
   const densBtns = document.querySelectorAll('.gen-dens-btn');
 
   let activeShape = 'rect';
-  let activeDensity = 1.35;
-  let activeMatName = 'River Rock';
+  let activeDensity = Number(densBtns[0]?.getAttribute('data-dens'));
+  let activeMatName = densBtns[0]?.getAttribute('data-name') || 'Rock';
+
+  function readInput(input: HTMLInputElement | null, min: number, max = Infinity) {
+    if (!input || input.value.trim() === '') return NaN;
+    const value = Number(input.value);
+    return input.validity.valid && Number.isFinite(value) && value >= min && value <= max ? value : NaN;
+  }
+
+  function updateShapePress(active: HTMLElement) {
+    [btnRect, btnCircle, btnSqft].forEach(btn => {
+      btn?.setAttribute('aria-pressed', String(btn === active));
+    });
+  }
+
+  // Ignore floating-point dust at an exact whole bag/load/roll boundary.
+  function roundUpWholeUnit(value: number) {
+    return Math.ceil(Number(value.toFixed(9)));
+  }
 
   function calculate() {
     let area = 0;
 
     if (activeShape === 'rect') {
-      const l = Math.max(0.5, parseFloat(lengthInput?.value || '35') || 0);
-      const w = Math.max(0.5, parseFloat(widthInput?.value || '12') || 0);
+      const l = readInput(lengthInput, 0.01);
+      const w = readInput(widthInput, 0.01);
       area = l * w;
     } else if (activeShape === 'circle') {
-      const d = Math.max(0.5, parseFloat(diameterInput?.value || '20') || 0);
+      const d = readInput(diameterInput, 0.01);
       const r = d / 2;
       area = Math.PI * r * r;
     } else {
-      area = Math.max(1, parseFloat(directSqftInput?.value || '420') || 0);
+      area = readInput(directSqftInput, 0.01);
     }
 
-    const depthInches = Math.max(0.25, parseFloat(depthInput?.value || '3.0') || 0);
-    const wastePercent = parseFloat(wasteInput?.value || '10') || 0;
+    const depthInches = readInput(depthInput, 0.25, 24);
+    const wastePercent = readInput(wasteInput, 0, 25);
+    const inputError = document.getElementById('gen-input-error');
+
+    if (![area, depthInches, wastePercent].every(Number.isFinite)) {
+      if (inputError) inputError.hidden = false;
+      ['kpi-gen-yards', 'kpi-gen-cuft', 'kpi-gen-tons', 'kpi-gen-lbs',
+        'kpi-gen-bags', 'kpi-gen-pallets', 'kpi-gen-barrows',
+        'row-gen-area', 'row-gen-fabric', 'row-gen-yield'].forEach(id => {
+        const output = document.getElementById(id);
+        if (output) output.textContent = '—';
+      });
+      return;
+    }
+    if (inputError) inputError.hidden = true;
 
     const netCuFt = area * (depthInches / 12);
     const totalCuFt = netCuFt * (1 + wastePercent / 100);
@@ -405,10 +453,10 @@ function initGeneralRockCalculator() {
     const totalTons = totalYards * activeDensity;
     const totalLbs = totalTons * 2000;
 
-    const totalBags = Math.ceil(totalCuFt / 0.5);
+    const totalBags = roundUpWholeUnit(totalCuFt / 0.5);
     const pallets = (totalBags / 60).toFixed(1);
 
-    const barrows = Math.ceil(totalCuFt / 6);
+    const barrows = roundUpWholeUnit(totalCuFt / 6);
     const yieldSqFt = Math.round(324 / depthInches);
 
     // Update KPIs
@@ -426,18 +474,18 @@ function initGeneralRockCalculator() {
     const rowYield = document.getElementById('row-gen-yield');
 
     if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
-    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft total`;
+    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft including extra`;
     if (kpiTons) kpiTons.textContent = totalTons.toFixed(2);
-    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lbs net`;
+    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lbs including extra`;
     if (kpiBags) kpiBags.textContent = totalBags.toLocaleString();
-    if (kpiPallets) kpiPallets.textContent = `${pallets} pallets (60 bags/pl)`;
+    if (kpiPallets) kpiPallets.textContent = `${pallets} pallet equivalents at 60 bags each`;
     if (kpiBarrows) kpiBarrows.textContent = barrows.toString();
-    if (badge) badge.textContent = `${activeMatName} (${activeDensity.toFixed(2)} T/yd³)`;
+    if (badge) badge.textContent = `${activeMatName} (${activeDensity} US tons/yd³)`;
 
     if (rowArea) rowArea.textContent = `${Math.round(area).toLocaleString()} sq ft`;
     if (rowFabric) {
-      const fab = Math.ceil(area * 1.10);
-      const rolls = Math.ceil(fab / 300);
+      const fab = roundUpWholeUnit(area * 1.10);
+      const rolls = roundUpWholeUnit(fab / 300);
       rowFabric.textContent = `${fab.toLocaleString()} sq ft (${rolls} rolls 3'x100')`;
     }
     if (rowYield) rowYield.textContent = `${yieldSqFt} sq ft per cubic yard at ${depthInches}" depth`;
@@ -446,6 +494,7 @@ function initGeneralRockCalculator() {
   // Shape toggles
   if (btnRect && btnCircle && btnSqft && rectInputs && circleInputs && sqftInputs) {
     btnRect.addEventListener('click', () => {
+      updateShapePress(btnRect);
       btnRect.classList.add('active');
       btnCircle.classList.remove('active');
       btnSqft.classList.remove('active');
@@ -457,6 +506,7 @@ function initGeneralRockCalculator() {
     });
 
     btnCircle.addEventListener('click', () => {
+      updateShapePress(btnCircle);
       btnCircle.classList.add('active');
       btnRect.classList.remove('active');
       btnSqft.classList.remove('active');
@@ -468,6 +518,7 @@ function initGeneralRockCalculator() {
     });
 
     btnSqft.addEventListener('click', () => {
+      updateShapePress(btnSqft);
       btnSqft.classList.add('active');
       btnRect.classList.remove('active');
       btnCircle.classList.remove('active');
@@ -481,9 +532,13 @@ function initGeneralRockCalculator() {
 
   densBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      densBtns.forEach(b => b.classList.remove('active'));
+      densBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
-      activeDensity = parseFloat(btn.getAttribute('data-dens') || '1.35');
+      btn.setAttribute('aria-pressed', 'true');
+      activeDensity = Number(btn.getAttribute('data-dens'));
       activeMatName = btn.getAttribute('data-name') || 'Rock';
       calculate();
     });

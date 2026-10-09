@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-labelledby="title desc">
+  <title id="title">Rock bed area and depth diagram</title>
+  <desc id="desc">A ten foot by ten foot bed has one hundred square feet of area. At a three inch finished depth it contains twenty five cubic feet, or about zero point nine three cubic yard of rock before extra material.</desc>
+  <defs>
+    <linearGradient id="ground" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#d6b889"/><stop offset="1" stop-color="#af865e"/></linearGradient>
+    <linearGradient id="side" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#827260"/><stop offset="1" stop-color="#544a42"/></linearGradient>
+    <pattern id="stones" width="46" height="38" patternUnits="userSpaceOnUse"><circle cx="11" cy="12" r="7" fill="#f5e9d8"/><circle cx="36" cy="24" r="9" fill="#e3d5c0"/><circle cx="25" cy="3" r="5" fill="#c9b8a1"/></pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#445568" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="900" height="420" rx="18" fill="#f7f3ea"/>
+  <text x="46" y="50" fill="#243244" font-family="Arial, sans-serif" font-size="27" font-weight="700">The volume is in the layer, not the footprint</text>
+  <path d="M125 168 L520 112 L719 194 L325 252 Z" fill="url(#ground)" stroke="#5a6b73" stroke-width="3"/>
+  <path d="M125 168 L520 112 L719 194 L325 252 Z" fill="url(#stones)" opacity=".85"/>
+  <path d="M125 168 L325 252 L325 291 L125 207 Z" fill="url(#side)" stroke="#5a6b73" stroke-width="3"/>
+  <path d="M325 252 L719 194 L719 233 L325 291 Z" fill="#766c61" stroke="#5a6b73" stroke-width="3"/>
+  <line x1="125" y1="230" x2="325" y2="314" stroke="#445568" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="128" y="308" fill="#243244" font-family="Arial, sans-serif" font-size="20" font-weight="700">10 ft</text>
+  <line x1="542" y1="99" x2="741" y2="181" stroke="#445568" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="664" y="111" fill="#243244" font-family="Arial, sans-serif" font-size="20" font-weight="700">10 ft</text>
+  <line x1="758" y1="195" x2="758" y2="233" stroke="#445568" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="774" y="220" fill="#243244" font-family="Arial, sans-serif" font-size="20" font-weight="700">3 in</text>
+  <rect x="360" y="325" width="468" height="61" rx="10" fill="#243244"/>
+  <text x="383" y="363" fill="#fff" font-family="Arial, sans-serif" font-size="21" font-weight="700">100 sq ft × 3 in ÷ 324 = 0.93 yd³</text>
+</svg>

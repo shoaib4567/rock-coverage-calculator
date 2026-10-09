@@ -126,7 +126,8 @@ export const RockEngine = {
 
   bags(cuFt) {
     // Standard retail bag volume basis: 0.5 cubic feet (~14 liters)
-    return Math.ceil(cuFt / BAG_CU_FT);
+    // Avoid an extra bag when binary floating point lands just above an integer.
+    return Math.ceil(cuFt / BAG_CU_FT - 1e-9);
   },
 
   superSacks(cuFt) {
@@ -204,6 +205,7 @@ export const RockEngine = {
       densityKgPerCuM,
       tonsPerCuYd,
       isCompacted,
+      compactionMultiplier,
       isCustomDensity: Boolean(customDensity)
     };
   },

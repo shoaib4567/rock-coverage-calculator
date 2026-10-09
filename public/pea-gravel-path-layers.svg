@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 400" role="img" aria-labelledby="title desc">
+  <title id="title">Typical pea gravel walking path layers</title>
+  <desc id="desc">Illustration of a modest pea gravel surface over a prepared angular stone base, with an optional geotextile separator above soil and firm edging on both sides.</desc>
+  <defs>
+    <linearGradient id="back" x2="0" y2="1"><stop stop-color="#15233a"/><stop offset="1" stop-color="#101a2c"/></linearGradient>
+    <pattern id="soil" width="24" height="18" patternUnits="userSpaceOnUse"><rect width="24" height="18" fill="#6b4b35"/><path d="M2 12h5m5-7h7m0 10h3" stroke="#9b7554" stroke-width="2" opacity=".55"/></pattern>
+    <pattern id="base" width="44" height="30" patternUnits="userSpaceOnUse"><rect width="44" height="30" fill="#475569"/><path d="m2 10 9-7 10 5-1 11-10 7-9-6zm25-5 10-3 7 10-5 12-11-3-5-8z" fill="#64748b" stroke="#94a3b8" stroke-width="1.5"/></pattern>
+    <pattern id="peas" width="38" height="25" patternUnits="userSpaceOnUse"><rect width="38" height="25" fill="#b99469"/><circle cx="5" cy="6" r="5" fill="#e0c39a"/><circle cx="21" cy="6" r="6" fill="#b47d57"/><circle cx="34" cy="8" r="5" fill="#d7aa72"/><circle cx="12" cy="19" r="6" fill="#d7ae83"/><circle cx="29" cy="20" r="5" fill="#ead0a9"/></pattern>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 7 3.5 0 7" fill="none" stroke="#fbbf24" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="980" height="400" fill="url(#back)"/>
+  <text x="48" y="49" fill="#f8fafc" font-size="27" font-family="Arial,sans-serif" font-weight="700">How a pea gravel path is layered</text>
+  <text x="48" y="77" fill="#cbd5e1" font-size="16" font-family="Arial,sans-serif">Material estimate above covers the rounded top layer only</text>
+  <rect x="84" y="290" width="812" height="74" fill="url(#soil)"/>
+  <path d="M100 290H880" stroke="#67e8f9" stroke-width="4" stroke-dasharray="11 7"/>
+  <rect x="100" y="217" width="780" height="71" fill="url(#base)" stroke="#94a3b8" stroke-width="2"/>
+  <rect x="100" y="177" width="780" height="38" fill="url(#peas)" stroke="#ead0a9" stroke-width="2"/>
+  <rect x="79" y="155" width="18" height="135" rx="3" fill="#94a3b8" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="883" y="155" width="18" height="135" rx="3" fill="#94a3b8" stroke="#e2e8f0" stroke-width="2"/>
+  <path d="M79 290h18m786 0h18" stroke="#475569" stroke-width="6"/>
+  <path d="M350 158V121H245" stroke="#fbbf24" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="52" y="117" fill="#fbbf24" font-size="17" font-family="Arial,sans-serif" font-weight="700">Rounded pea gravel</text>
+  <text x="52" y="139" fill="#cbd5e1" font-size="13" font-family="Arial,sans-serif">Choose loose top-layer depth</text>
+  <path d="M570 236h123v-28" stroke="#fbbf24" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="700" y="234" fill="#fbbf24" font-size="17" font-family="Arial,sans-serif" font-weight="700">Compacted angular base</text>
+  <text x="700" y="255" fill="#cbd5e1" font-size="13" font-family="Arial,sans-serif">Designed for site and traffic</text>
+  <path d="M535 291v47h135" stroke="#67e8f9" stroke-width="2" fill="none"/>
+  <text x="686" y="342" fill="#67e8f9" font-size="15" font-family="Arial,sans-serif" font-weight="700">Optional soil separator</text>
+  <path d="M890 164V114H740" stroke="#fbbf24" stroke-width="2" fill="none"/>
+  <text x="744" y="104" fill="#fbbf24" font-size="16" font-family="Arial,sans-serif" font-weight="700">Secure border</text>
+  <text x="53" y="386" fill="#94a3b8" font-size="12" font-family="Arial,sans-serif">Illustration only · not to scale · local ground and drainage conditions govern the build</text>
+</svg>

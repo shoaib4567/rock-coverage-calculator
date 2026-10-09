@@ -1,12 +1,12 @@
 ---
-
+import { ROCK_MATERIALS } from '../scripts/materials-data.js';
 ---
 <section class="section" id="how-it-works">
   <div class="container">
     <div class="section-header">
       <h2>How It Works</h2>
       <div class="section-divider"></div>
-      <p>Three steps to get exact rock, gravel, or stone quantities for your project.</p>
+      <p>Three steps from a measured footprint to a useful material estimate.</p>
     </div>
 
     <div class="steps-grid">
@@ -40,7 +40,7 @@
           </svg>
         </div>
         <h3>Pick Your Rock Type</h3>
-        <p>Select from 12 quarry-calibrated aggregates, each with real bulk density values. Set your rock depth from 1 to 12 inches, and choose a settling/waste factor.</p>
+        <p>Select from {ROCK_MATERIALS.length} materials with editable planning densities. Set the finished depth and an extra material allowance.</p>
       </div>
 
       <div class="step-connector" aria-hidden="true">
@@ -58,7 +58,7 @@
           </svg>
         </div>
         <h3>Get Your Quantities</h3>
-        <p>Instantly see the total cubic yards, tons, number of bags, Super Sacks, wheelbarrow loads, and dump truck loads. Print a quarry spec sheet or export to CSV.</p>
+        <p>See cubic yards, estimated short tons, and 0.5-cubic-foot bags. Confirm bag yield, supplier density, and delivery limits before placing an order.</p>
       </div>
     </div>
   </div>

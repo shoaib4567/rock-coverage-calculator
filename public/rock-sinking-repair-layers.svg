@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">Why rock disappears into soil and how a separated layer helps</title>
+  <desc id="desc">The left section shows stones mixed with soft mud and water pooling. The right section shows clean surface stone over a permeable separator on prepared soil with surface water directed away.</desc>
+  <rect width="960" height="420" fill="#f4f0e8"/>
+  <g font-family="system-ui, sans-serif">
+    <text x="30" y="39" fill="#2d3440" font-size="22" font-weight="750">Two surfaces that look alike from above</text>
+    <text x="30" y="63" fill="#616b78" font-size="14">Lift a stone to see whether the problem is below it.</text>
+    <rect x="28" y="86" width="435" height="303" rx="16" fill="#fffaf3" stroke="#dbd4c6"/>
+    <rect x="497" y="86" width="435" height="303" rx="16" fill="#fffaf3" stroke="#dbd4c6"/>
+    <text x="48" y="118" fill="#934c36" font-size="17" font-weight="700">Stone mixed into soft soil</text>
+    <text x="517" y="118" fill="#246458" font-size="17" font-weight="700">Stone kept in a separate layer</text>
+
+    <path d="M48 186 Q120 179 180 189 T300 187 T443 190 L443 366 L48 366Z" fill="#9f765a"/>
+    <path d="M48 202 Q115 195 180 205 T300 203 T443 207" fill="none" stroke="#76543f" stroke-width="3" opacity=".45"/>
+    <path d="M61 170 Q92 147 118 168 Q138 185 105 192 L70 191Z M150 192 Q171 170 203 184 Q225 200 196 211 L158 210Z M262 174 Q286 155 312 178 Q325 196 300 204 L271 199Z M361 196 Q390 172 422 193 Q437 213 400 218 L368 214Z" fill="#737f82" stroke="#586369" stroke-width="3"/>
+    <path d="M101 222 Q125 201 145 223 L139 250 L109 247Z M225 241 Q250 215 273 241 L264 263 L231 260Z M326 222 Q350 197 373 221 L365 247 L334 245Z" fill="#758085" stroke="#586369" stroke-width="3"/>
+    <path d="M50 168 Q95 158 141 169 T234 169 T330 170 T441 170" fill="none" stroke="#4b99b4" stroke-width="9" stroke-linecap="round" opacity=".7"/>
+    <path d="M80 250 L80 291 M205 267 L205 308 M310 258 L310 299" stroke="#874e39" stroke-width="4" stroke-linecap="round"/>
+    <path d="M80 291 l-7 -10 m7 10 l7 -10 M205 308 l-7 -10 m7 10 l7 -10 M310 299 l-7 -10 m7 10 l7 -10" fill="none" stroke="#874e39" stroke-width="3"/>
+    <text x="66" y="346" fill="#fff" font-size="14" font-weight="650">Mud rises; stone is pushed down</text>
+
+    <path d="M517 233 Q600 231 690 232 T912 232 L912 366 L517 366Z" fill="#a27c60"/>
+    <path d="M517 232 Q600 230 690 232 T912 232" fill="none" stroke="#694d3a" stroke-width="4"/>
+    <path d="M517 211 Q600 209 690 211 T912 211" fill="none" stroke="#246458" stroke-width="10" stroke-dasharray="20 7"/>
+    <path d="M528 174 Q550 149 579 174 L572 196 L537 196Z M592 166 Q617 143 644 166 L637 195 L600 196Z M659 177 Q685 151 713 178 L705 199 L668 199Z M727 166 Q752 145 781 167 L773 197 L735 198Z M793 176 Q820 152 846 174 L839 199 L800 200Z M850 165 Q874 148 903 169 L898 195 L861 197Z" fill="#78868b" stroke="#56666b" stroke-width="3"/>
+    <path d="M531 148 Q600 141 690 145 T882 145" fill="none" stroke="#4b99b4" stroke-width="5" stroke-linecap="round"/>
+    <path d="M882 145 l-12 -7 m12 7 l-12 7" fill="none" stroke="#4b99b4" stroke-width="3"/>
+    <text x="530" y="282" fill="#fff" font-size="14" font-weight="650">Prepared soil</text>
+    <text x="530" y="337" fill="#fff" font-size="14">Fabric separates fine soil from stone</text>
+    <text x="532" y="155" fill="#2b7087" font-size="12" font-weight="700">runoff</text>
+  </g>
+</svg>

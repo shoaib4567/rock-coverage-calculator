@@ -38,11 +38,78 @@ document.addEventListener('DOMContentLoaded', async () => {
     return feetDims;
   }
 
+  function calculateCurrentResult() {
+    return RockEngine.calculate(
+      state.shape,
+      getDimsInFeet(),
+      state.depthInches,
+      getMaterialById(state.materialId),
+      state.wastePercent,
+      { customDensity: state.customDensity, isCompacted: state.isCompacted }
+    );
+  }
+
+  function nonNegativeInput(input, fallback) {
+    const value = input?.value;
+    if (value === '' || value === undefined) return fallback;
+    const number = Number(value);
+    return Number.isFinite(number) ? Math.max(0, number) : fallback;
+  }
+
+  const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  })[character]);
+  const savedNumber = (value, fallback = 0) => {
+    const number = Number(value);
+    return Number.isFinite(number) ? number : fallback;
+  };
+  const csvCell = value => {
+    const raw = String(value ?? '');
+    const safe = /^[\s]*[=+\-@]/.test(raw) ? `'${raw}` : raw;
+    return /[",\r\n]/.test(safe) ? `"${safe.replace(/"/g, '""')}"` : safe;
+  };
+  const zoneShapeKeys = {
+    rectangle: ['length', 'width'], circle: ['radius'], ring: ['outerRadius', 'innerRadius'],
+    triangle: ['base', 'height'], trapezoid: ['top', 'bottom', 'height'],
+    lshape: ['length1', 'width1', 'length2', 'width2']
+  };
+  function normalizeSavedZones(input) {
+    if (!Array.isArray(input)) return [];
+    return input.filter(zone => {
+      if (!zone || typeof zone !== 'object' || !Object.hasOwn(zoneShapeKeys, zone.shape)) return false;
+      const dimensions = zone.rawDims || zone.dims;
+      if (!dimensions || typeof dimensions !== 'object') return false;
+      if (!zoneShapeKeys[zone.shape].every(key => Number.isFinite(Number(dimensions[key])) && Number(dimensions[key]) > 0)) return false;
+      if (zone.shape === 'ring' && Number(dimensions.outerRadius) <= Number(dimensions.innerRadius)) return false;
+      if (!ROCK_MATERIALS.some(material => material.id === zone.materialId)) return false;
+      if (!['ft', 'in', 'yd', 'm'].includes(zone.unit || 'ft')) return false;
+      return ['depthInches', 'wastePercent', 'areaSqFt', 'volumeCuYd', 'weightTons', 'bags', 'totalCost'].every(key => Number.isFinite(Number(zone[key])))
+        && Number(zone.depthInches) > 0 && [0, 5, 10, 15, 20].includes(Number(zone.wastePercent));
+    }).map((zone, index) => ({
+      ...zone,
+      id: Number.isSafeInteger(Number(zone.id)) ? Number(zone.id) : Date.now() + index,
+      name: String(zone.name ?? 'Project zone').slice(0, 120),
+      unit: zone.unit || 'ft',
+      rawDims: Object.fromEntries(zoneShapeKeys[zone.shape].map(key => [key, Number((zone.rawDims || zone.dims)[key])])),
+      materialName: getMaterialById(zone.materialId).name,
+      depthInches: Number(zone.depthInches),
+      wastePercent: Number(zone.wastePercent),
+      customDensity: Number.isFinite(Number(zone.customDensity)) && Number(zone.customDensity) >= 500 && Number(zone.customDensity) <= 5000 ? Number(zone.customDensity) : null,
+      isCompacted: Boolean(zone.isCompacted && getMaterialById(zone.materialId).isCompactable),
+      areaSqFt: Number(zone.areaSqFt),
+      volumeCuYd: Number(zone.volumeCuYd),
+      weightTons: Number(zone.weightTons),
+      bags: Number(zone.bags),
+      totalCost: Number(zone.totalCost),
+      date: String(zone.date ?? '').slice(0, 60)
+    }));
+  }
+
   // Saved Projects storage
   let savedProjects = [];
   try {
     const rawSaved = localStorage.getItem('rock_saved_projects');
-    if (rawSaved) savedProjects = JSON.parse(rawSaved);
+    if (rawSaved) savedProjects = normalizeSavedZones(JSON.parse(rawSaved));
   } catch (e) {
     savedProjects = [];
   }
@@ -53,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const encoded = window.location.hash.replace('#project=', '');
       const decoded = JSON.parse(decodeURIComponent(atob(encoded)));
       if (Array.isArray(decoded) && decoded.length > 0) {
-        savedProjects = decoded;
+        savedProjects = normalizeSavedZones(decoded);
       }
     } catch (e) {
       console.warn('Could not restore shared project:', e);
@@ -152,6 +219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Geotechnical controls elements
   const customDensityInput = document.getElementById('custom-density-input');
+  const densityInputError = document.getElementById('density-input-error');
   const btnResetDensity = document.getElementById('btn-reset-density');
   const toggleCompaction = document.getElementById('toggle-compaction');
   const compactionGroup = document.getElementById('compaction-control-group');
@@ -354,7 +422,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  function renderInvalidResults() {
+  function renderInvalidResults(message = 'Correct the project dimensions to calculate quantities.') {
     [kpiArea, kpiVolume, kpiWeight, kpiBags].forEach(card => {
       const value = card?.querySelector('.kpi-value');
       if (value) {
@@ -362,9 +430,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         value.textContent = '—';
       }
       const subtext = card?.querySelector('.kpi-subtext');
-      if (subtext) subtext.textContent = 'Enter valid dimensions';
+      if (subtext) subtext.textContent = 'Enter valid inputs';
     });
-    if (breakdownBody) breakdownBody.innerHTML = '<tr><td colspan="2" class="invalid-results-message">Correct the project dimensions to calculate quantities.</td></tr>';
+    if (breakdownBody) breakdownBody.innerHTML = `<tr><td colspan="2" class="invalid-results-message">${message}</td></tr>`;
     if (purchaseGrid) purchaseGrid.innerHTML = '<p class="invalid-results-message">Purchasing recommendations will appear when the dimensions are valid.</p>';
     [costSummaryMaterial, costSummaryDelivery, costSummaryLabor, costSummaryFabric, costSummaryTax, costTotal].forEach(element => {
       if (element) element.textContent = '—';
@@ -433,6 +501,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         c.classList.toggle('active', isActive);
         c.setAttribute('aria-checked', isActive ? 'true' : 'false');
       });
+      if (state.materialId !== card.dataset.material) {
+        state.customDensity = null;
+        state.isCompacted = false;
+        if (toggleCompaction) toggleCompaction.checked = false;
+      }
       state.materialId = card.dataset.material;
 
       // Card selection pulse animation
@@ -461,8 +534,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     if (densityHint) {
-      const rangeText = mat.typicalRange ? ` (Regional range: ${mat.typicalRange[0].toLocaleString()}–${mat.typicalRange[1].toLocaleString()} lbs/yd³)` : '';
-      densityHint.textContent = `Standard ASTM C29 loose density: ${mat.densityLbsPerCuYd.toLocaleString()} lbs/yd³${rangeText}`;
+      densityHint.textContent = `Planning factor: ${mat.densityLbsPerCuYd.toLocaleString()} lbs/yd³. Use your supplier's loose bulk density when available.`;
     }
 
     if (compactionGroup) {
@@ -470,7 +542,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         compactionGroup.style.display = 'block';
         if (compactionFactorText) {
           const pct = Math.round(((mat.compactionFactor || 1.15) - 1) * 100);
-          compactionFactorText.textContent = `+${pct}% Proctor overage`;
+          compactionFactorText.textContent = `+${pct}% loose material allowance`;
         }
       } else {
         compactionGroup.style.display = 'none';
@@ -482,13 +554,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (customDensityInput) {
     customDensityInput.addEventListener('input', () => {
-      const val = parseFloat(customDensityInput.value);
-      if (!isNaN(val) && val >= 500 && val <= 5000) {
+      const val = Number(customDensityInput.value);
+      if (customDensityInput.value.trim() !== '' && Number.isFinite(val) && val >= 500 && val <= 5000) {
         state.customDensity = val;
         if (btnResetDensity) btnResetDensity.style.display = 'inline-block';
       } else {
         state.customDensity = null;
-        if (btnResetDensity) btnResetDensity.style.display = 'none';
+        if (btnResetDensity) btnResetDensity.style.display = customDensityInput.value.trim() === '' ? 'none' : 'inline-block';
       }
       recalculate();
     });
@@ -570,19 +642,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ── Export & Sharing Actions ── */
   if (btnPrint) {
     btnPrint.addEventListener('click', () => {
-      const dimsInFeet = getDimsInFeet();
-      const material = getMaterialById(state.materialId);
-      const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
-      RockExporter.printSpecSheet(result);
+      RockExporter.printQuarryTicket(calculateCurrentResult());
     });
   }
 
   if (btnCSV) {
     btnCSV.addEventListener('click', () => {
-      const dimsInFeet = getDimsInFeet();
-      const material = getMaterialById(state.materialId);
-      const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
-      RockExporter.exportToCSV(result);
+      RockExporter.exportToCSV(calculateCurrentResult());
     });
   }
 
@@ -606,7 +672,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     const destination = rfqDestination?.value.trim() || '[Specify City / ZIP / Cross Streets]';
-    const accessNotes = rfqAccessNotes?.value.trim() || 'Paved driveway access, standard dump truck clearance';
+    const accessNotes = rfqAccessNotes?.value.trim() || '[Please confirm truck access and overhead clearance]';
 
     return `Subject: Material Quote & Delivery Availability: ${result.weightTons.toFixed(2)} Tons of ${material.name}
 
@@ -616,7 +682,8 @@ I am requesting price and delivery availability for an upcoming landscaping proj
 
 • Material Requested: ${material.name}
 • Quantity Needed: ${result.weightTons.toFixed(2)} Short Tons (~${result.volumeCuYd.toFixed(2)} Cubic Yards)
-• Coverage Footprint: ${result.areaSqFt.toFixed(0)} sq ft at ${state.depthInches}" depth (includes ${state.wastePercent}% compaction & settling buffer)
+• Coverage Footprint: ${result.areaSqFt.toFixed(0)} sq ft at ${state.depthInches}" depth (includes ${state.wastePercent}% extra material${result.isCompacted ? ' plus a compactable-base allowance' : ''})
+• Weight Conversion: ${result.densityLbsPerCuYd.toLocaleString()} lbs per loose cubic yard${result.isCustomDensity ? ' (entered value)' : ' (planning factor)'}
 • Delivery Destination: ${destination}
 • Site Access Notes: ${accessNotes}
 
@@ -635,8 +702,7 @@ Thank you!`;
     rfqTextPreview.value = text;
 
     const material = getMaterialById(state.materialId);
-    const dimsInFeet = getDimsInFeet();
-    const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
+    const result = calculateCurrentResult();
     const subject = encodeURIComponent(`Material Quote: ${result.weightTons.toFixed(2)} Tons of ${material.name}`);
     const body = encodeURIComponent(text);
 
@@ -700,8 +766,7 @@ Thank you!`;
   if (btnSubmitOutcome) {
     btnSubmitOutcome.addEventListener('click', () => {
       const material = getMaterialById(state.materialId);
-      const dimsInFeet = getDimsInFeet();
-      const result = RockEngine.calculate(state.shape, dimsInFeet, state.depthInches, material, state.wastePercent);
+      const result = calculateCurrentResult();
 
       const fieldReport = {
         id: Date.now(),
@@ -755,7 +820,7 @@ Thank you!`;
     const compactionMultiplier = isCompacted ? (material.compactionFactor || 1.25) : 1.0;
     const wasteMultiplier = 1 + (wastePercent / 100);
     const totalMultiplier = (wasteMultiplier * compactionMultiplier).toFixed(2);
-    const compactionNote = isCompacted ? ` (includes ×${material.compactionFactor || 1.25} mechanical tamping allowance)` : '';
+    const compactionNote = isCompacted ? ` (includes ×${material.compactionFactor || 1.25} compactable-base allowance)` : '';
 
     container.innerHTML = `
       <div class="explainer-step">
@@ -768,22 +833,22 @@ Thank you!`;
       <div class="explainer-step">
         <span class="step-number">Step 2</span>
         <div class="step-content">
-          <strong>Excavation Volume (Uncompacted):</strong>
+          <strong>Finished Layer Volume (Before Allowances):</strong>
           <div class="step-formula">${RockEngine.formatNumber(result.areaSqFt)} sq ft × (${depthInches}" ÷ 12) = ${RockEngine.formatNumber(baseCuFt)} cu ft (${RockEngine.formatNumber(baseCuYd)} cu yds)</div>
         </div>
       </div>
       <div class="explainer-step">
         <span class="step-number">Step 3</span>
         <div class="step-content">
-          <strong>Waste &amp; Settling Allowance (+${wastePercent}% buffer${compactionNote}):</strong>
+          <strong>Extra Material Allowance (+${wastePercent}%${compactionNote}):</strong>
           <div class="step-formula">${RockEngine.formatNumber(baseCuFt)} cu ft × ${totalMultiplier} = <strong>${RockEngine.formatNumber(result.volumeCuYd)} cu yds</strong> (${RockEngine.formatNumber(result.volumeCuFt)} cu ft)</div>
         </div>
       </div>
       <div class="explainer-step">
         <span class="step-number">Step 4</span>
         <div class="step-content">
-          <strong>Quarry Scale Weight (${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ nominal bulk density):</strong>
-          <div class="step-formula">${RockEngine.formatNumber(result.volumeCuYd)} cu yds × ${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ = ${RockEngine.formatNumber(result.weightLbs)} lbs ÷ 2,000 = <strong>${RockEngine.formatNumber(result.weightTons)} Short Tons</strong> (${RockEngine.formatNumber(result.weightTonnes)} Tonnes)</div>
+          <strong>Estimated Weight (${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ ${result.isCustomDensity ? 'entered density' : 'planning density'}):</strong>
+          <div class="step-formula">${(result.volumeCuFt / 27).toFixed(4)} cu yds (before rounding) × ${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ ≈ ${RockEngine.formatNumber(result.weightLbs)} lbs ÷ 2,000 ≈ <strong>${RockEngine.formatNumber(result.weightTons)} Short Tons</strong> (${RockEngine.formatNumber(result.weightTonnes)} Tonnes)</div>
         </div>
       </div>
       <div class="explainer-step">
@@ -810,11 +875,11 @@ Thank you!`;
       const name = window.prompt('Enter a name for this project zone:', defaultName) || defaultName;
 
       // Calculate itemized cost
-      const matRate = parseFloat(costMaterialInput?.value) || 55;
-      const deliveryFee = parseFloat(costDeliveryInput?.value) || 75;
-      const laborRate = parseFloat(costLaborInput?.value) || 35;
-      const fabricCost = parseFloat(costFabricInput?.value) || 40;
-      const taxRate = parseFloat(costTaxInput?.value) || 7.0;
+      const matRate = nonNegativeInput(costMaterialInput, 55);
+      const deliveryFee = nonNegativeInput(costDeliveryInput, 75);
+      const laborRate = nonNegativeInput(costLaborInput, 35);
+      const fabricCost = nonNegativeInput(costFabricInput, 40);
+      const taxRate = nonNegativeInput(costTaxInput, 7.0);
 
       const subtotal = (result.weightTons * matRate) + deliveryFee + (result.weightTons * laborRate) + fabricCost;
       const totalCost = subtotal + subtotal * (taxRate / 100);
@@ -830,6 +895,11 @@ Thank you!`;
         materialName: material.name,
         depthInches: state.depthInches,
         wastePercent: state.wastePercent,
+        customDensity: state.customDensity,
+        isCompacted: state.isCompacted,
+        densityLbsPerCuYd: result.densityLbsPerCuYd,
+        compactionMultiplier: result.compactionMultiplier,
+        costRates: { material: matRate, delivery: deliveryFee, labor: laborRate, fabric: fabricCost, tax: taxRate },
         areaSqFt: result.areaSqFt,
         volumeCuYd: result.volumeCuYd,
         weightTons: result.weightTons,
@@ -865,17 +935,27 @@ Thank you!`;
         alert('No project zones saved yet.');
         return;
       }
-      let csv = 'Zone Name,Shape,Material,Depth (in),Area (sq ft),Volume (cu yd),Weight (tons),Bags (0.5 cu ft),Estimated Cost,Date\n';
-      savedProjects.forEach(z => {
-        csv += `"${z.name}","${z.shape}","${z.materialName}",${z.depthInches},${z.areaSqFt},${z.volumeCuYd},${z.weightTons},${z.bags},"${z.totalCost.toFixed(2)}","${z.date}"\n`;
-      });
+      const rows = [
+        ['Zone Name', 'Shape', 'Material', 'Depth (in)', 'Extra Allowance (%)', 'Area (sq ft)', 'Volume (cu yd)', 'Weight (short tons)', 'Density (lbs/cu yd)', 'Compactable Base Factor', 'Bags (0.5 cu ft)', 'Saved Cost Estimate', 'Material Rate', 'Delivery Fee', 'Labor Rate', 'Fabric Cost', 'Tax Rate (%)', 'Date'],
+        ...savedProjects.map(z => [
+          z.name, z.shape, z.materialName, z.depthInches, z.wastePercent, z.areaSqFt,
+          z.volumeCuYd, z.weightTons, z.densityLbsPerCuYd ?? z.customDensity ?? '',
+          z.isCompacted ? (z.compactionMultiplier ?? '') : 1, z.bags,
+          savedNumber(z.totalCost).toFixed(2), z.costRates?.material ?? '',
+          z.costRates?.delivery ?? '', z.costRates?.labor ?? '', z.costRates?.fabric ?? '',
+          z.costRates?.tax ?? '', z.date
+        ])
+      ];
+      const csv = rows.map(row => row.map(csvCell).join(',')).join('\n');
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       a.download = `rock_coverage_project_zones_${Date.now()}.csv`;
+      document.body.appendChild(a);
       a.click();
-      URL.revokeObjectURL(url);
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
   }
 
@@ -909,17 +989,23 @@ Thank you!`;
         try {
           const imported = JSON.parse(event.target.result);
           if (Array.isArray(imported)) {
+            const validZones = normalizeSavedZones(imported);
+            if (validZones.length === 0) {
+              alert('No valid project zones were found in that backup.');
+              inputImportSaved.value = '';
+              return;
+            }
             if (savedProjects.length > 0) {
-              if (window.confirm(`Found ${imported.length} project zones in backup. Merge with existing zones? (Click Cancel to replace current list)`)) {
-                savedProjects = [...savedProjects, ...imported];
+              if (window.confirm(`Found ${validZones.length} valid project zones in backup. Merge with existing zones? (Click Cancel to replace current list)`)) {
+                savedProjects = [...savedProjects, ...validZones];
               } else {
-                savedProjects = imported;
+                savedProjects = validZones;
               }
             } else {
-              savedProjects = imported;
+              savedProjects = validZones;
             }
             persistAndRenderSaved();
-            alert(`Successfully loaded ${imported.length} project zone(s)!`);
+            alert(`Successfully loaded ${validZones.length} project zone(s)!`);
           } else {
             alert('Invalid project backup file format.');
           }
@@ -977,18 +1063,18 @@ Thank you!`;
     savedProjectsList.innerHTML = savedProjects.map(z => `
       <div class="saved-zone-card">
         <div class="saved-zone-info">
-          <div class="saved-zone-name">${z.name}</div>
-          <div class="saved-zone-meta">${z.materialName} &bull; ${z.depthInches}" deep &bull; ${z.date}</div>
+          <div class="saved-zone-name">${escapeHtml(z.name)}</div>
+          <div class="saved-zone-meta">${escapeHtml(z.materialName)} &bull; ${savedNumber(z.depthInches)}" deep &bull; ${escapeHtml(z.date)}</div>
         </div>
         <div class="saved-zone-stats">
-          <div class="saved-stat-badge">${z.areaSqFt.toFixed(0)} sq ft</div>
-          <div class="saved-stat-badge">${z.weightTons.toFixed(2)} tons</div>
-          <div class="saved-stat-badge">${z.volumeCuYd.toFixed(2)} yd³</div>
-          <div class="saved-stat-badge">$${z.totalCost.toFixed(2)}</div>
+          <div class="saved-stat-badge">${savedNumber(z.areaSqFt).toFixed(0)} sq ft</div>
+          <div class="saved-stat-badge">${savedNumber(z.weightTons).toFixed(2)} tons</div>
+          <div class="saved-stat-badge">${savedNumber(z.volumeCuYd).toFixed(2)} yd³</div>
+          <div class="saved-stat-badge" title="Cost estimate when this zone was saved">Saved $${savedNumber(z.totalCost).toFixed(2)}</div>
         </div>
         <div class="saved-zone-actions">
-          <button class="btn btn-secondary btn-sm btn-load-zone" data-id="${z.id}" title="Load zone into calculator">Load</button>
-          <button class="btn btn-ghost btn-sm btn-del-zone" data-id="${z.id}" title="Delete zone">Delete</button>
+          <button class="btn btn-secondary btn-sm btn-load-zone" data-id="${savedNumber(z.id)}" title="Load zone into calculator">Load</button>
+          <button class="btn btn-ghost btn-sm btn-del-zone" data-id="${savedNumber(z.id)}" title="Delete zone">Delete</button>
         </div>
       </div>
     `).join('');
@@ -1005,15 +1091,46 @@ Thank you!`;
           state.materialId = zone.materialId;
           state.depthInches = zone.depthInches;
           state.wastePercent = zone.wastePercent;
+          state.customDensity = zone.customDensity ?? null;
+          state.isCompacted = Boolean(zone.isCompacted);
+          if (zone.costRates && typeof zone.costRates === 'object') {
+            [
+              [costMaterialInput, zone.costRates.material],
+              [costDeliveryInput, zone.costRates.delivery],
+              [costLaborInput, zone.costRates.labor],
+              [costFabricInput, zone.costRates.fabric],
+              [costTaxInput, zone.costRates.tax]
+            ].forEach(([input, value]) => {
+              if (input && value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value)) && Number(value) >= 0) input.value = String(value);
+            });
+          }
 
           // Update UI
-          shapeTabs.forEach(t => t.classList.toggle('active', t.dataset.shape === state.shape));
-          materialCards.forEach(c => c.classList.toggle('active', c.dataset.material === state.materialId));
-          unitButtons.forEach(b => b.classList.toggle('active', b.dataset.unit === state.unit));
-          wasteChips.forEach(c => c.classList.toggle('active', parseInt(c.dataset.waste, 10) === state.wastePercent));
+          shapeTabs.forEach(t => {
+            const active = t.dataset.shape === state.shape;
+            t.classList.toggle('active', active);
+            t.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+          materialCards.forEach(c => {
+            const active = c.dataset.material === state.materialId;
+            c.classList.toggle('active', active);
+            c.setAttribute('aria-checked', active ? 'true' : 'false');
+          });
+          unitButtons.forEach(b => {
+            const active = b.dataset.unit === state.unit;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-checked', active ? 'true' : 'false');
+          });
+          wasteChips.forEach(c => {
+            const active = parseInt(c.dataset.waste, 10) === state.wastePercent;
+            c.classList.toggle('active', active);
+            c.setAttribute('aria-checked', active ? 'true' : 'false');
+          });
           if (depthSlider) depthSlider.value = state.depthInches;
           updateDepthDisplay();
           renderDimensionInputs(state.shape);
+          updateGeotechUI();
+          if (toggleCompaction) toggleCompaction.checked = state.isCompacted;
           recalculate();
 
           // Scroll smoothly to calculator
@@ -1037,6 +1154,21 @@ Thank you!`;
     renderDimensionValidation(dimensionErrors);
     if (dimensionErrors.length) {
       renderInvalidResults();
+      return;
+    }
+
+    const densityText = customDensityInput?.value.trim() || '';
+    const densityValue = Number(densityText);
+    const densityInvalid = densityText !== '' && (!customDensityInput.validity.valid || !Number.isFinite(densityValue) || densityValue < 500 || densityValue > 5000);
+    if (densityInputError) densityInputError.style.display = densityInvalid ? 'block' : 'none';
+    if (customDensityInput) customDensityInput.setAttribute('aria-invalid', densityInvalid ? 'true' : 'false');
+    if (densityInvalid) {
+      resultActionButtons.forEach(button => {
+        if (!button) return;
+        button.disabled = true;
+        button.setAttribute('aria-disabled', 'true');
+      });
+      renderInvalidResults('Correct the loose bulk density or clear it to use the planning factor.');
       return;
     }
 
@@ -1087,7 +1219,7 @@ Thank you!`;
 
     // Breakdown table with dual units
     if (breakdownBody) {
-      const densityBadges = `${result.isCustomDensity ? ' <span style="color:#d97706;font-weight:600;font-size:0.75rem;">(Custom Quarry Override)</span>' : ''}${result.isCompacted ? ' <span style="color:#10b981;font-weight:600;font-size:0.75rem;">(Compacted In-Place)</span>' : ''}`;
+      const densityBadges = `${result.isCustomDensity ? ' <span style="color:#d97706;font-weight:600;font-size:0.75rem;">(Entered density)</span>' : ''}${result.isCompacted ? ' <span style="color:#10b981;font-weight:600;font-size:0.75rem;">(Base compaction allowance)</span>' : ''}`;
       breakdownBody.innerHTML = `
         <tr><td>Volume (cubic yards / m³)</td><td><strong>${RockEngine.formatNumber(result.volumeCuYd)} yd³</strong> &bull; ${RockEngine.formatNumber(result.volumeCuM)} m³</td></tr>
         <tr><td>Volume (cubic feet)</td><td>${RockEngine.formatNumber(result.volumeCuFt)} cu ft</td></tr>
@@ -1108,7 +1240,7 @@ Thank you!`;
         <div class="purchase-card">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M4 6L8 2h8l4 4"/><line x1="12" y1="10" x2="12" y2="16"/></svg>
           <div class="purchase-value">${result.superSacks}</div>
-          <div class="purchase-label">Super Sacks (~1 yd³ / 0.76 m³)</div>
+          <div class="purchase-label">35 cu ft Reference Sacks (verify product size)</div>
         </div>
         <div class="purchase-card">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="19" r="2"/><path d="M5 19H2V14L4 8H10"/><path d="M7 8V3H22V14H17"/></svg>
@@ -1118,7 +1250,7 @@ Thank you!`;
         <div class="purchase-card">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 17L12 22L22 17"/><rect x="5" y="5" width="14" height="8" rx="2"/></svg>
           <div class="purchase-value">${result.dumpTruckLoads}</div>
-          <div class="purchase-label">Dump Truck Loads (10 yd³)</div>
+          <div class="purchase-label">10 yd³ Reference Loads (confirm payload)</div>
         </div>
       `;
     }
@@ -1133,23 +1265,23 @@ Thank you!`;
         depthStatus.className = 'depth-status danger';
         depthStatus.innerHTML = `
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-          Depth is below the recommended minimum of ${result.minDepthInches}" for ${result.materialName}
+          Depth is below this tool's ${result.minDepthInches}" suggested starting layer for ${result.materialName}
         `;
       } else {
         depthStatus.className = 'depth-status good';
         depthStatus.innerHTML = `
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-          Depth meets recommended minimum for ${result.materialName}
+          Depth meets this tool's suggested starting layer for ${result.materialName}
         `;
       }
     }
 
     // Advanced Cost & Service Estimator
-    const matRate = parseFloat(costMaterialInput?.value) || 55;
-    const deliveryFee = parseFloat(costDeliveryInput?.value) || 75;
-    const laborRate = parseFloat(costLaborInput?.value) || 35;
-    const fabricCost = parseFloat(costFabricInput?.value) || 40;
-    const taxRate = parseFloat(costTaxInput?.value) || 7.0;
+    const matRate = nonNegativeInput(costMaterialInput, 55);
+    const deliveryFee = nonNegativeInput(costDeliveryInput, 75);
+    const laborRate = nonNegativeInput(costLaborInput, 35);
+    const fabricCost = nonNegativeInput(costFabricInput, 40);
+    const taxRate = nonNegativeInput(costTaxInput, 7.0);
 
     const materialCost = result.weightTons * matRate;
     const laborCost = result.weightTons * laborRate;

@@ -1,1426 +1,205 @@
 ---
-/**
- * HomeContent Component - rockcoveragecalculator.com
- * Authoritative technical guide, reference guides,
- * aggregate density charts, mathematical formulas, and contractor installation protocols.
- * Zero emojis, zero em/en-dashes, strict technical EEAT standards.
- */
+import { ROCK_MATERIALS } from '../scripts/materials-data.js';
+
+const materialPages = {
+  'pea-gravel': '/pea-gravel-calculator',
+  'river-rock-1': '/river-rock-calculator',
+  'crushed-limestone': '/crushed-stone-calculator',
+  'crushed-granite': '/crushed-granite-calculator',
+  'decomposed-granite': '/decomposed-granite-calculator',
+  'lava-rock': '/lava-rock-calculator',
+  'marble-chips': '/marble-chips-calculator',
+  'river-rock-3-5': '/river-rock-calculator',
+  'quarry-process': '/crusher-run-calculator',
+  'rip-rap': '/riprap-calculator',
+  'egg-rock': '/egg-rock-calculator',
+  'clean-stone-57': '/drain-rock-calculator',
+  'crusher-run-21a': '/crusher-run-calculator',
+  'base-gravel-21a': '/driveway-rock-calculator'
+};
+
+const coverageAt = (material, depth) => material.minDepthInches > depth
+  ? '—'
+  : Math.round(324 / (depth * material.tonsPerCuYd)).toLocaleString('en-US');
 ---
-<article class="home-content-section" id="rock-coverage-guide">
+
+<article class="home-guide" id="rock-coverage-guide">
   <div class="container">
+    <header class="guide-heading">
+      <p class="eyebrow">From measurements to an order</p>
+      <h2>How much rock will cover your space?</h2>
+      <p>Start with volume. Area and finished depth tell you the cubic yards; the selected rock's loose bulk density converts that volume to an estimated weight. One cubic yard covers <strong>108 square feet at 3 inches</strong> before extra material.</p>
+      <p>Need a worked measurement example? Read <a href="/how-much-rock-do-i-need">how much rock to order</a>. For a simpler single-bed tool, use the <a href="/rock-calculator">rock calculator</a>; compare project-specific layer depths in the <a href="/rock-depth-guide">depth guide</a>.</p>
+    </header>
 
-    <!-- Deep Technical Content & Topical Authority Network -->
-    <div class="content-body">
+    <section class="example-card" aria-labelledby="example-title">
+      <div>
+        <p class="eyebrow">A 10 × 10 foot bed, 3 inches deep</p>
+        <h3 id="example-title">What the default pea gravel estimate means</h3>
+        <p>The measured bed needs 25 cubic feet, or 0.93 cubic yard. With the calculator's selected 10% extra allowance, plan for <strong>1.02 cubic yards, about 1.38 short tons, or 55 bags of 0.5 cubic foot</strong>. The tonnage uses the current pea gravel planning factor of 1.35 tons per cubic yard. Confirm the supplier's actual density and bag yield before ordering.</p>
+        <a class="text-link" href="#calculator">Try your own measurements →</a>
+      </div>
+      <figure>
+        <img src="/rock-volume-diagram.svg" width="900" height="420" loading="lazy" alt="Diagram of a 10 by 10 foot rock bed with a 3 inch finished layer: 100 square feet times 3 inches equals 25 cubic feet or 0.93 cubic yard before extra material." />
+        <figcaption>Area sets the footprint; depth creates the volume. Diagram is illustrative, not to scale.</figcaption>
+      </figure>
+    </section>
 
-      <!-- Executive Summary / AEO Quick Reference Box -->
-      <section class="aeo-summary-card" aria-label="Quick Rock Coverage Summary for Contractors and Estimators">
-        <div class="aeo-header">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span class="aeo-title">Quick Contractor Reference: US Aggregate Sizing &amp; Formulas</span>
-        </div>
-        <div class="aeo-grid">
-          <div class="aeo-item">
-            <span class="aeo-label">Cubic Yards Formula</span>
-            <span class="aeo-value">Volume (yd³) = (Area [sq ft] × Depth [in]) / 324</span>
-            <p class="aeo-desc">Derived from 12 in/ft × 27 cu ft/yd³ = 324 constant divisor.</p>
-          </div>
-          <div class="aeo-item">
-            <span class="aeo-label">Tonnage Conversion</span>
-            <span class="aeo-value">Tons = Cubic Yards × Bulk Density (t/yd³)</span>
-            <p class="aeo-desc">Standard gravel &amp; river rock = 1.35 t/yd³ (2,700 lbs); granite = 1.40 t/yd³.</p>
-          </div>
-          <div class="aeo-item">
-            <span class="aeo-label">Retail Bags (0.5 cu ft)</span>
-            <span class="aeo-value">Bags = Cubic Yards × 54 (or Cu Ft / 0.5)</span>
-            <p class="aeo-desc">Standard 0.5 cu ft bags weigh 28 lbs (lava) to 52 lbs (granite).</p>
-          </div>
-          <div class="aeo-item">
-            <span class="aeo-label">Standard Depth Rule</span>
-            <span class="aeo-value">Depth = 1.5× to 2× Average Stone Caliper</span>
-            <p class="aeo-desc">Min 2" for pea gravel; 3" to 4" for 1-3" river rock; 4" to 6" for driveways.</p>
-          </div>
-        </div>
-      </section>
+    <section class="guide-section" id="mathematical-derivation">
+      <div class="section-heading">
+        <p class="eyebrow">The calculation</p>
+        <h2>Turn square feet and inches into yards, tons, and bags</h2>
+      </div>
+      <div class="formula-grid">
+        <div class="formula-card"><span class="step">01 · Volume</span><strong>Cubic yards = square feet × depth in inches ÷ 324</strong><p>The divisor combines 12 inches per foot with 27 cubic feet per cubic yard. For a circle or ring, the calculator finds its area first.</p></div>
+        <div class="formula-card"><span class="step">02 · Weight</span><strong>Short tons = cubic yards × tons per cubic yard</strong><p>Loose bulk density varies by material, gradation, packing, and moisture. Use the supplier's value when available.</p></div>
+        <div class="formula-card"><span class="step">03 · Bags</span><strong>0.5 ft³ bags = cubic yards × 54</strong><p>Round up to whole bags. The tool assumes each bag contains 0.5 cubic foot; check the volume printed on the product you buy.</p></div>
+      </div>
+      <p class="guide-note">The calculator applies your extra material allowance after finding the finished layer volume. It changes order volume, tons, and bag count together. A density change affects <em>weight</em>, while the same volume still needs the same number of volume-labeled bags.</p>
+    </section>
 
-      <!-- Mathematical Derivation Section -->
-      <section class="content-block" id="mathematical-derivation">
-        <div class="block-header">
-          <span class="block-kicker">Aggregate Engineering</span>
-          <h2>The Mathematical Derivation of Rock Coverage</h2>
-          <div class="block-line"></div>
-        </div>
-
-        <p>
-          Calculating aggregate volume requires translating area measurements in feet and depth measurements in inches into standard units of commerce: <a href="/rock-coverage-calculator-yard" class="text-gold">cubic yards</a> and <a href="/rock-tons-calculator" class="text-gold">short tons</a>.
-          Quarries and aggregate supply yards in the United States distribute materials either by volumetric measure (cubic yards) or certified scale weight (short tons of 2,000 pounds).
-        </p>
-
-        <p>
-          The standard volumetric equation for a three-dimensional rectangular slab is:
-        </p>
-
-        <div class="code-callout">
-          <code>Volume (cubic feet) = Length (feet) x Width (feet) x Depth (feet)</code>
-        </div>
-
-        <p>
-          Because landscape and construction depths are almost universally measured in inches rather than decimal feet, depth must be divided by 12.
-          Furthermore, because commerce relies on cubic yards rather than cubic feet, total cubic feet must be divided by 27 (the number of cubic feet in a three-foot by three-foot by three-foot cube).
-          Combining both conversions yields the contractor constant 324:
-        </p>
-
-        <div class="code-callout">
-          <code>Divisor = 12 inches per foot x 27 cubic feet per cubic yard = 324</code>
-          <code>Volume (cubic yards) = (Length [ft] x Width [ft] x Depth [in]) / 324</code>
-        </div>
-
-        <p>
-          For circular and curved borders, the geometric radius applies:
-        </p>
-
-        <div class="code-callout">
-          <code>Circular Area (sq ft) = 3.14159 x Radius (ft) x Radius (ft)</code>
-          <code>Circular Volume (cu yd) = (3.14159 x Radius [ft]^2 x Depth [in]) / 324</code>
-        </div>
-
-        <p>
-          For ring shapes (such as stone borders around trees or fire pits), subtract the area of the inner circle from the outer circle before applying the depth calculation.
-        </p>
-      </section>
-
-      <!-- Bulk Density and Quarry Weight Reference Table -->
-      <section class="content-block" id="density-reference-table">
-        <div class="block-header">
-          <span class="block-kicker">Quarry Specifications</span>
-          <h2>Bulk Density and Weight Reference Table by Material</h2>
-          <div class="block-line"></div>
-        </div>
-
-        <p>
-          Aggregate density is governed by mineral composition, grain size distribution, particle shape, and moisture content.
-          The table below provides calibrated bulk densities based on typical loose stockpile unit weights, determined per ASTM C29/C29M (Standard Test Method for Bulk Density / "Unit Weight" and Voids in Aggregate) methodology and AASHTO aggregate specifications.
-        </p>
-
-        <div class="table-responsive-wrapper">
-          <table class="specs-table">
-            <caption class="sr-only">Quarry Aggregate Bulk Density, Gradation, and Coverage Specifications (ASTM C29 / AASHTO M 43)</caption>
-            <thead>
+    <section class="guide-section" id="density-reference-table">
+      <div class="section-heading">
+        <p class="eyebrow">Choose the material</p>
+        <h2>Rock weight and coverage by material</h2>
+        <p>These are the same planning factors used by the calculator above. Coverage per ton is geometric and excludes its extra material allowance. A dash means the stated depth is thinner than this tool's minimum suggested layer for that stone size.</p>
+      </div>
+      <div class="table-scroll" role="region" aria-label="Rock density and coverage table" tabindex="0">
+        <table>
+          <caption>Current calculator defaults, not supplier specifications</caption>
+          <thead><tr><th scope="col">Rock</th><th scope="col">Typical size</th><th scope="col">Tons/yd³</th><th scope="col">Sq ft/ton at 2 in</th><th scope="col">Sq ft/ton at 3 in</th></tr></thead>
+          <tbody>
+            {ROCK_MATERIALS.map((material) => (
               <tr>
-                <th scope="col">Material Name</th>
-                <th scope="col">Gradation / Caliper</th>
-                <th scope="col">Bulk Density (lbs/cu ft)</th>
-                <th scope="col">Tons per Cubic Yard</th>
-                <th scope="col">Coverage per Ton at 2" Depth</th>
-                <th scope="col">Coverage per Ton at 3" Depth</th>
-                <th scope="col">Common Applications</th>
+                <th scope="row"><a href={materialPages[material.id]}>{material.name}</a></th>
+                <td>{material.typicalSize}</td>
+                <td>{material.tonsPerCuYd.toFixed(3).replace(/0+$/, '').replace(/\.$/, '')}</td>
+                <td>{coverageAt(material, 2)}</td>
+                <td>{coverageAt(material, 3)}</td>
               </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><a href="/pea-gravel-calculator" class="table-mat-link"><strong>Pea Gravel</strong></a></td>
-                <td>3/8 inch rounded</td>
-                <td>100 lbs/cu ft</td>
-                <td>1.35 tons</td>
-                <td>120 sq ft</td>
-                <td>80 sq ft</td>
-                <td>Walkways, dog runs, French drain pipe backfill</td>
-              </tr>
-              <tr>
-                <td><a href="/river-rock-calculator" class="table-mat-link"><strong>River Rock (1 to 3 inch)</strong></a></td>
-                <td>1 to 3 inch tumbled</td>
-                <td>100 lbs/cu ft</td>
-                <td>1.35 tons</td>
-                <td>120 sq ft</td>
-                <td>80 sq ft</td>
-                <td>Garden mulch, dry creek beds, foundation perimeter</td>
-              </tr>
-              <tr>
-                <td><a href="/crushed-stone-calculator" class="table-mat-link"><strong>Crushed Limestone (#57)</strong></a></td>
-                <td>1/2 to 1 inch angular</td>
-                <td>100 lbs/cu ft</td>
-                <td>1.35 tons</td>
-                <td>120 sq ft</td>
-                <td>80 sq ft</td>
-                <td>Driveway topcoats, concrete aggregate, subgrade drainage</td>
-              </tr>
-              <tr>
-                <td><a href="/crushed-stone-calculator" class="table-mat-link"><strong>Crushed Granite</strong></a></td>
-                <td>3/4 inch fractured</td>
-                <td>104 lbs/cu ft</td>
-                <td>1.40 tons</td>
-                <td>116 sq ft</td>
-                <td>77 sq ft</td>
-                <td>Heavy driveway surfacing, high-traffic parking pads</td>
-              </tr>
-              <tr>
-                <td><a href="/decorative-rock-calculator" class="table-mat-link"><strong>Decomposed Granite (DG)</strong></a></td>
-                <td>1/4 inch minus with fines</td>
-                <td>93 lbs/cu ft</td>
-                <td>1.25 tons</td>
-                <td>130 sq ft</td>
-                <td>86 sq ft</td>
-                <td>Compacted pathways, bocce courts, naturalized patios</td>
-              </tr>
-              <tr>
-                <td><a href="/decorative-rock-calculator" class="table-mat-link"><strong>Lava Rock (Scoria)</strong></a></td>
-                <td>3/4 to 1.5 inch vesicular</td>
-                <td>56 lbs/cu ft</td>
-                <td>0.75 tons</td>
-                <td>216 sq ft</td>
-                <td>144 sq ft</td>
-                <td>Mulch beds, fire pit surrounds, bio-swale filtration</td>
-              </tr>
-              <tr>
-                <td><a href="/decorative-rock-calculator" class="table-mat-link"><strong>White Marble Chips</strong></a></td>
-                <td>1/2 to 1 inch crushed</td>
-                <td>93 lbs/cu ft</td>
-                <td>1.25 tons</td>
-                <td>130 sq ft</td>
-                <td>86 sq ft</td>
-                <td>Reflective borders, formal garden beds, tree wells</td>
-              </tr>
-              <tr>
-                <td><a href="/river-rock-calculator" class="table-mat-link"><strong>Large River Rock</strong></a></td>
-                <td>3 to 5 inch river stone</td>
-                <td>100 lbs/cu ft</td>
-                <td>1.35 tons</td>
-                <td>120 sq ft</td>
-                <td>80 sq ft</td>
-                <td>Erosion control swales, pond edges, drainage basins</td>
-              </tr>
-              <tr>
-                <td><a href="/gravel-calculator" class="table-mat-link"><strong>Quarry Process (Crusher Run)</strong></a></td>
-                <td>3/4 inch down to dust</td>
-                <td>100 lbs/cu ft</td>
-                <td>1.35 tons</td>
-                <td>120 sq ft</td>
-                <td>80 sq ft</td>
-                <td>Paver base, retaining wall footing, shed sub-bases</td>
-              </tr>
-              <tr>
-                <td><a href="/crushed-stone-calculator" class="table-mat-link"><strong>Compacted Road Base (#411 / DGA)</strong></a></td>
-                <td>3/4 inch minus with fines</td>
-                <td>110 lbs/cu ft</td>
-                <td>1.50 tons</td>
-                <td>108 sq ft</td>
-                <td>72 sq ft</td>
-                <td>Dense vehicular road base, heavy-duty parking foundation</td>
-              </tr>
-              <tr>
-                <td><a href="/drain-rock-calculator" class="table-mat-link"><strong>Riprap (Class 1)</strong></a></td>
-                <td>6 to 12 inch rock</td>
-                <td>104 lbs/cu ft</td>
-                <td>1.40 tons</td>
-                <td>116 sq ft</td>
-                <td>77 sq ft</td>
-                <td>Culvert outfalls, steep slope stabilization, shorelines</td>
-              </tr>
-              <tr>
-                <td><a href="/landscape-rock-calculator" class="table-mat-link"><strong>Egg Rock / Beach Pebble</strong></a></td>
-                <td>1 to 3 inch polished</td>
-                <td>100 lbs/cu ft</td>
-                <td>1.35 tons</td>
-                <td>120 sq ft</td>
-                <td>80 sq ft</td>
-                <td>Modern landscape borders, potted planter tops, splash blocks</td>
-              </tr>
-              <tr>
-                <td><a href="/gravel-calculator" class="table-mat-link"><strong>Road Base Gravel (21-A)</strong></a></td>
-                <td>1 inch minus fractured</td>
-                <td>104 lbs/cu ft</td>
-                <td>1.40 tons</td>
-                <td>116 sq ft</td>
-                <td>77 sq ft</td>
-                <td>Vehicular driveways, heavy equipment staging pads</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="table-hint">Swipe or scroll sideways to see every column. If your supplier gives a loose bulk density in pounds per cubic yard, enter it under Advanced Density and Compaction for a more useful ton estimate.</p>
+    </section>
 
-        <!-- How We Source Our Densities & Field Specifications -->
-        <div class="editorial-trust-card">
-          <div class="trust-badge-row">
-            <span class="trust-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              Quarry Verified Data
-            </span>
-            <span class="trust-date">Last Updated: September 2026</span>
-          </div>
+    <section class="guide-section" id="depth-guidelines">
+      <div class="section-heading">
+        <p class="eyebrow">Match depth to the job</p>
+        <h2>Calculate each layer for its actual purpose</h2>
+        <p>A decorative top layer, compacted driveway base, and drainage trench solve different problems. Enter the <strong>finished depth of one layer</strong>, then run another calculation if the project also has a base.</p>
+      </div>
+      <div class="decision-grid">
+        <div class="decision-card"><h3>Garden beds</h3><p>Start around 2–3 inches for small decorative stone, then adjust for particle size and the look you want. Rock can collect airborne weed seeds and warm the soil; it does not make a planting bed maintenance free.</p><a href="/landscape-rock-calculator">Explore landscape rock →</a></div>
+        <div class="decision-card"><h3>Walkways</h3><p>For a walkable surface, distinguish the visible stone from any prepared base. Rounded <a href="/pea-gravel-calculator">pea gravel</a> moves underfoot; compactable <a href="/decomposed-granite-calculator">decomposed granite</a> behaves differently.</p><a href="/rock-depth-guide">Compare layer depths →</a></div>
+        <div class="decision-card"><h3>Driveways</h3><p>Use the driveway plan's separate base and surface thicknesses. Local soil, traffic, drainage, and aggregate specification decide the build; one universal depth will not fit every site.</p><a href="/driveway-rock-calculator">Plan a driveway →</a></div>
+        <div class="decision-card"><h3>Drainage and creek beds</h3><p>Stone size, channel shape, pipe, and drainage design change the quantity. For a pipe trench, subtract pipe displacement and use the specified washed aggregate.</p><a href="/drain-rock-calculator">Estimate drain rock →</a></div>
+      </div>
+    </section>
 
-          <p>
-            <strong>How we source our densities:</strong> All volumetric conversions and material densities published on Rock Coverage Calculator are calibrated using standard loose stockpile unit weights in accordance with <a href="https://www.astm.org/c0029_c0029m-17a.html" target="_blank" rel="noopener noreferrer" class="text-gold"><strong>ASTM C29/C29M</strong></a> (<em>Standard Test Method for Bulk Density / "Unit Weight" and Voids in Aggregate</em>) and <a href="https://standards.transportation.org/" target="_blank" rel="noopener noreferrer" class="text-gold"><strong>AASHTO T 19</strong></a> test procedures.
-          </p>
-          <p>
-            Field data is cross-referenced with technical bulletins from the <a href="https://www.nssga.org" target="_blank" rel="noopener noreferrer" class="text-gold"><strong>National Stone, Sand &amp; Gravel Association (NSSGA)</strong></a>, state Department of Transportation (DOT) aggregate manuals, and certified scale manifests from commercial aggregate quarries across North America.
-          </p>
+    <section class="guide-section split-section" id="angular-vs-rounded">
+      <div>
+        <p class="eyebrow">Shape changes performance</p>
+        <h2>Angular stone and rounded rock are not interchangeable</h2>
+      </div>
+      <div>
+        <p>Angular crushed stone can interlock when appropriately graded and compacted. Smooth river rock rolls and shifts more easily, making it better suited to decorative beds than a vehicle surface. Clean stone has open spaces for drainage; dense graded base contains fines that help it bind. The right choice depends on the project, not just its color.</p>
+        <a class="text-link" href="/angular-vs-rounded-rock">Compare particle shapes →</a>
+      </div>
+    </section>
 
-          <div class="reviewer-meta-box">
-            <div class="reviewer-avatar">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div class="reviewer-details">
-              <div class="reviewer-name">Engineering Standards &amp; Methodology</div>
-              <div class="reviewer-credentials">Calibrated against ASTM C29/C29M, ASTM D448, and AASHTO M43 / M147 Technical Specifications</div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <section class="guide-section split-section" id="compaction-factors">
+      <div>
+        <p class="eyebrow">Allowances explained</p>
+        <h2>Use extra material and compaction deliberately</h2>
+      </div>
+      <div>
+        <p>The default 10% is an adjustable planning cushion for low spots and measurement error, not a guaranteed requirement. If you are estimating a compacted layer of crusher run or other material with fines, the Advanced Controls can apply an additional loose-to-finished volume factor. Keep that factor separate from the ordinary extra allowance, and confirm the target compacted thickness with the project's specification or supplier.</p>
+        <a class="text-link" href="/crusher-run-calculator">See compactable base material →</a>
+      </div>
+    </section>
 
-      <!-- Depth Guidelines by Project Use -->
-      <section class="content-block" id="depth-guidelines">
-        <div class="block-header">
-          <span class="block-kicker">Field Specifications</span>
-          <h2>Recommended Aggregate Depth by Application</h2>
-          <div class="block-line"></div>
-        </div>
+    <section class="guide-section" id="bulk-vs-bags">
+      <div class="section-heading">
+        <p class="eyebrow">Before checkout</p>
+        <h2>Buy by the unit the seller actually uses</h2>
+      </div>
+      <div class="buying-grid">
+        <div><h3>Bags</h3><p>Convenient for a small patch or a location with difficult access. One cubic yard equals 54 half-cubic-foot bags; 20 such bags equal only 0.37 cubic yard. Bag volumes vary, so compare cubic feet rather than counting bags alone.</p></div>
+        <div><h3>Bulk by yard or ton</h3><p>Ask for the actual material and gradation, its loose tons-per-yard factor, order minimum, delivery fee, and where a truck can unload. A scale ticket reports weight; it establishes density only when the corresponding load volume is known.</p></div>
+      </div>
+      <p class="guide-note">Compare the delivered total for your project. Vehicle payload and access limits vary; check the vehicle rating and supplier loading policy before choosing pickup.</p>
+      <a class="text-link" href="/bulk-vs-bagged-rock">Compare bulk and bagged rock →</a>
+    </section>
 
-        <p>
-          Applying aggregate at incorrect depths causes frequent maintenance problems.
-          If rock is spread too thin, bare soil and landscape fabric remain visible, and weeds penetrate easily.
-          If rock is spread too deep in pedestrian areas, walking becomes fatiguing due to aggregate displacement under foot.
-          Follow these trade-standard depths:
-        </p>
+    <section class="guide-section split-section" id="installation-protocol">
+      <div>
+        <p class="eyebrow">Prepare the site</p>
+        <h2>The calculator estimates material, not the whole installation</h2>
+      </div>
+      <div>
+        <p>Mark the boundary, measure in sections, check finished grade and drainage, and plan how the stone will be contained. Uneven soil can use more material than a flat rectangle suggests. Calculate edging, fabric, base, and visible stone separately where your design calls for them.</p>
+        <a class="text-link" href="/how-to-install-landscape-rock">Read the installation guide →</a>
+      </div>
+    </section>
 
-        <div class="guidelines-grid">
-          <div class="guide-card">
-            <div class="guide-header">
-              <span class="guide-badge">2 to 3 Inches</span>
-              <h3>Landscape Mulch & Flower Beds</h3>
-            </div>
-            <p>
-              Provides thorough soil shading to suppress weed seeds and lock in subgrade moisture.
-              Prevents sunlight degradation of underlying geotextile fabrics.
-              Best with 3/8-inch pea gravel, 1-inch river rock, or 3/4-inch crushed slate.
-            </p>
-          </div>
+    <section class="guide-section" id="calculation-pitfalls">
+      <div class="section-heading"><p class="eyebrow">Final order check</p><h2>Four details worth confirming</h2></div>
+      <ol class="checklist">
+        <li>Measure the actual footprint, including curves or separate beds. Do not mistake a radius for a diameter.</li>
+        <li>Enter the finished stone depth, and estimate a compacted base as a separate material layer.</li>
+        <li>Match the seller's unit: cubic yards, short tons, or bags with a stated cubic-foot yield.</li>
+        <li>Ask for the supplier's density, availability, delivery minimum, and space needed to unload.</li>
+      </ol>
+    </section>
 
-          <div class="guide-card">
-            <div class="guide-header">
-              <span class="guide-badge">2 to 3 Inches</span>
-              <h3>Pedestrian Walkways & Paths</h3>
-            </div>
-            <p>
-              Maintains firm footing without excessive shifting.
-              Aggregates larger than 1/2 inch must be confined between solid edging restraints.
-              Best with 3/8-inch pea gravel or 1/4-inch minus decomposed granite over a compacted base.
-            </p>
-          </div>
-
-          <div class="guide-card">
-            <div class="guide-header">
-              <span class="guide-badge">4 to 6 Inches</span>
-              <h3>Residential Driveways & Parking</h3>
-            </div>
-            <p>
-              Requires a layered cross-section: 3 to 4 inches of compacted #3 or #4 crushed base, followed by a 2-inch top dressing of #57 angular crushed limestone or granite.
-              Angular stone interlocks to prevent tire rutting.
-            </p>
-          </div>
-
-          <div class="guide-card">
-            <div class="guide-header">
-              <span class="guide-badge">4 to 8 Inches</span>
-              <h3>Dry Creek Beds & Drainage Swales</h3>
-            </div>
-            <p>
-              Blends 1-inch to 3-inch river stones across the channel bed, with 4-inch to 8-inch cobbles positioned along outer curves and grade drops.
-              Deep rock beds dissipate fast-flowing storm runoff without washing out.
-            </p>
-          </div>
-
-          <div class="guide-card">
-            <div class="guide-header">
-              <span class="guide-badge">8 to 12 Inches</span>
-              <h3>French Drains & Dry Wells</h3>
-            </div>
-            <p>
-              Surrounds perforated pipe with washed #57 stone or 3/4-inch round gravel.
-              Must be wrapped in non-woven drainage fabric to prevent silt intrusion while maintaining rapid hydraulic conductivity.
-            </p>
-          </div>
-
-          <div class="guide-card">
-            <div class="guide-header">
-              <span class="guide-badge">3 to 4 Inches</span>
-              <h3>Fire Pit Surrounds & Patios</h3>
-            </div>
-            <p>
-              Use only dry, non-porous crushed granite, limestone, or volcanic lava rock.
-              Avoid wet river stones or porous flint pebbles near open flames, as trapped internal moisture can steam and pop when subjected to extreme heat.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Particle Shape & Mechanical Interlock -->
-      <section class="content-block" id="angular-vs-rounded">
-        <div class="block-header">
-          <span class="block-kicker">Geotechnical Mechanics</span>
-          <h2>Angular Versus Rounded Aggregates: Structural Behavior</h2>
-          <div class="block-line"></div>
-        </div>
-
-        <p>
-          Selecting an aggregate involves more than aesthetics.
-          The morphological shape of individual stone particles determines structural stability, load distribution, and drainage performance.
-        </p>
-
-        <div class="comparison-dual-grid">
-          <div class="comparison-card">
-            <h3>Angular Crushed Stone</h3>
-            <span class="comparison-sub">Crushed Limestone, Traprock, Crushed Granite</span>
-            <ul class="comparison-list">
-              <li><strong>Fractured Faces:</strong> Created by industrial mechanical jaw crushers, producing sharp edges and flat planes.</li>
-              <li><strong>High Interlocking:</strong> Under compaction, sharp edges lock into adjacent voids, creating a rigid structural matrix that resists wheel ruts.</li>
-              <li><strong>Friction Angle:</strong> High internal friction angle (40 to 45 degrees) allows building stable gravel shoulders and driveway slopes.</li>
-              <li><strong>Best Applications:</strong> Driveway bases, subgrade support, retaining wall backfill, and foundation perimeter drainage.</li>
-            </ul>
-          </div>
-
-          <div class="comparison-card">
-            <h3>Rounded River Stone & Gravel</h3>
-            <span class="comparison-sub">Pea Gravel, Tumbled River Rock, Beach Pebble</span>
-            <ul class="comparison-list">
-              <li><strong>Water-Worn Faces:</strong> Smoothed over centuries by river flow and glacial abrasion, eliminating sharp points.</li>
-              <li><strong>Fluid Displacement:</strong> Stones roll against one another under pressure rather than interlocking. They shift easily under car tires.</li>
-              <li><strong>Barefoot Comfort:</strong> Rounded contours eliminate cut hazards, making them comfortable for garden pathways, dog runs, and water features.</li>
-              <li><strong>High Flow Rates:</strong> Spheroidal shapes maintain open void spaces, facilitating rapid water percolation in French drain trenches.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- Compaction, Settling, and Void Ratios -->
-      <section class="content-block" id="compaction-factors">
-        <div class="block-header">
-          <span class="block-kicker">Jobsite Precision</span>
-          <h2>Accounting for Void Ratios, Compaction, and Settling</h2>
-          <div class="block-line"></div>
-        </div>
-
-        <p>
-          One common purchasing mistake is ordering only the theoretical geometric volume.
-          In the field, freshly delivered loose aggregate settles and compacts once installed.
-          Understanding void ratios and compaction factors prevents mid-installation material shortages.
-        </p>
-
-        <div class="details-grid">
-          <div class="detail-box">
-            <h3>1. Void Ratio and Interstitial Spaces</h3>
-            <p>
-              When loose rock is dumped from a truck, open air spaces (voids) occupy 30% to 45% of the total bulk volume.
-              Smaller gravel sizes pack tighter with lower void ratios, whereas large 3-inch river rocks have larger voids that can settle unevenly over time.
-            </p>
-          </div>
-
-          <div class="detail-box">
-            <h3>2. Compaction Under Plate Tampers</h3>
-            <p>
-              Base materials containing fines (such as Quarry Process, Crusher Run, or Decomposed Granite) lose 15% to 22% of their loose volume when tamped with a mechanical plate compactor.
-              If a 4-inch compacted depth is specified, place 5 inches of loose material prior to rolling.
-            </p>
-          </div>
-
-          <div class="detail-box">
-            <h3>3. Subgrade Irregularities</h3>
-            <p>
-              Excavated soil is rarely laser-flat.
-              Ruts, root cavities, and grade transitions consume additional aggregate.
-              Applying a standard 10% safety buffer guarantees full coverage to the specified elevation across the entire boundary.
-            </p>
-          </div>
-
-          <div class="detail-box">
-            <h3>4. Edge Trench Containment</h3>
-            <p>
-              Around outer perimeters, rock drops into edge trenches along steel or poly edging.
-              This border retention uses an additional 2% to 5% of material that standard square footage measurements do not capture.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Purchasing Economics: Bulk Delivery vs Bags -->
-      <section class="content-block" id="bulk-vs-bags">
-        <div class="block-header">
-          <span class="block-kicker">Procurement Economics</span>
-          <h2>Bulk Delivery Versus Bagged Rock: Cost and Logistics</h2>
-          <div class="block-line"></div>
-        </div>
-
-        <p>
-          Choosing between standard 0.5 cubic foot retail bags from a home improvement store and bulk delivery by dump truck from a local quarry depends on project scale, site access, and transport capacity. While homeowners often refer to retail bags colloquially as "50-lb bags," bagged aggregate is sold strictly by volume (0.5 cu ft). Actual bag weight varies by mineral density, ranging from ~28 lbs for lightweight volcanic lava rock to ~50-52 lbs for crushed stone and granite.
-        </p>
-
-        <div class="economics-table-card">
-          <table class="economics-table">
-            <thead>
-              <tr>
-                <th scope="col">Factor</th>
-                <th scope="col">Bagged Aggregate (0.5 cu ft)</th>
-                <th scope="col">Bulk Quarry Delivery (Tons / Yards)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Economic Tipping Point</strong></td>
-                <td>Projects requiring under 20 bags (under 10 cu ft or 0.37 cu yd).</td>
-                <td>Projects requiring over 20 bags (more than 0.5 cu yd or ~1,500 lbs).</td>
-              </tr>
-              <tr>
-                <td><strong>Average Cost per Ton</strong></td>
-                <td>$160 to $280 per ton ($4 to $7 per 0.5 cu ft bag).</td>
-                <td>$35 to $85 per ton at quarry plus $60 to $120 delivery drop fee.</td>
-              </tr>
-              <tr>
-                <td><strong>Material Handling</strong></td>
-                <td>Multiple hand-carried bags. Ideal for enclosed backyards with narrow side gates.</td>
-                <td>Dumped directly on driveway or tarp. Requires wheelbarrow and shovel staging.</td>
-              </tr>
-              <tr>
-                <td><strong>Vehicle Limitations</strong></td>
-                <td>Car trunks carry 6 to 8 bags maximum (300 to 400 lbs). Half-ton pickups carry 20 to 25 bags.</td>
-                <td>Commercial dump trucks deliver 5 to 22 tons per trip directly to the site.</td>
-              </tr>
-              <tr>
-                <td><strong>Packaging Waste</strong></td>
-                <td>Generates 50 to 200 plastic bags requiring disposal.</td>
-                <td>Zero packaging waste. Material is dumped loose.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Truck Capacity Explanations -->
-        <div class="truck-capacity-grid">
-          <div class="truck-card">
-            <h3>Single-Axle Dump Truck</h3>
-            <span class="truck-payload">Payload: 5 to 7 Tons (4 to 5 cu yd)</span>
-            <p>Ideal for residential driveways with tight turns or overhead tree branches. Minimizes risk of cracking asphalt or concrete aprons.</p>
-          </div>
-          <div class="truck-card">
-            <h3>Tandem-Axle Dump Truck</h3>
-            <span class="truck-payload">Payload: 12 to 15 Tons (9 to 11 cu yd)</span>
-            <p>Standard delivery vehicle for full landscaping overhauls and residential driveway resurfacing. Requires 10 feet of width clearance.</p>
-          </div>
-          <div class="truck-card">
-            <h3>Tri-Axle Commercial Rig</h3>
-            <span class="truck-payload">Payload: 18 to 22 Tons (14 to 17 cu yd)</span>
-            <p>Maximum payload efficiency for large commercial installations or new home construction sites with heavy-duty gravel road access.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Professional Installation Protocol -->
-      <section class="content-block" id="installation-protocol">
-        <div class="block-header">
-          <span class="block-kicker">Contractor Method</span>
-          <h2>Step-by-Step Aggregate Installation Protocol</h2>
-          <div class="block-line"></div>
-        </div>
-
-        <p>
-          A durable rock landscape requires proper site preparation.
-          Placing stone directly over unprepared turf or bare subsoil leads to sinking rock, mud bleed-through, and persistent weed infestation within two seasons.
-          Follow this proven five-phase process:
-        </p>
-
-        <div class="installation-timeline">
-          <div class="timeline-step">
-            <div class="timeline-marker">1</div>
-            <div class="timeline-content">
-              <h3>Excavation and Slope Grading</h3>
-              <p>
-                Remove turf and topsoil to your target depth plus 1 inch.
-                Establish a positive grade sloping away from building foundations at a minimum rate of 1/4 inch per linear foot (2% slope).
-                Ensure base runoff routes to designated drainage corridors.
-              </p>
-            </div>
-          </div>
-
-          <div class="timeline-step">
-            <div class="timeline-marker">2</div>
-            <div class="timeline-content">
-              <h3>Subgrade Soil Compaction</h3>
-              <p>
-                Pass over the exposed soil subgrade with a vibrating plate compactor or hand tamper.
-                Compacting native soil eliminates air pockets, stiffens bearing capacity, and prevents uneven settlement under future rock weight.
-              </p>
-            </div>
-          </div>
-
-          <div class="timeline-step">
-            <div class="timeline-marker">3</div>
-            <div class="timeline-content">
-              <h3>Commercial Geotextile Membrane Installation</h3>
-              <p>
-                Roll out heavy-duty needle-punched non-woven geotextile fabric (minimum 4 to 6 oz weight).
-                Avoid cheap thin plastic sheeting, which tears and traps stagnant water.
-                Overlap all fabric seams by a minimum of 12 inches and secure with 6-inch steel sod staples every 3 feet.
-              </p>
-            </div>
-          </div>
-
-          <div class="timeline-step">
-            <div class="timeline-marker">4</div>
-            <div class="timeline-content">
-              <h3>Heavy-Duty Edging Restraint Placement</h3>
-              <p>
-                Anchor commercial steel, aluminum, or concrete curbing along all project boundaries.
-                Set edging 1/2 inch above the finished rock grade to contain rolling stones during heavy rains and foot traffic.
-              </p>
-            </div>
-          </div>
-
-          <div class="timeline-step">
-            <div class="timeline-marker">5</div>
-            <div class="timeline-content">
-              <h3>Layered Placement and Final Screeding</h3>
-              <p>
-                Dump aggregate onto plywood boards or wheelbarrow into place to prevent tearing the fabric.
-                Spread in uniform 2-inch lifts using a heavy-duty bow rake.
-                Smooth with the flat backside of a landscape rake, then rinse with a garden hose to clear quarry dust and reveal true stone color.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Frequent Calculation Pitfalls -->
-      <section class="content-block" id="calculation-pitfalls">
-        <div class="block-header">
-          <span class="block-kicker">Troubleshooting & Accuracy</span>
-          <h2>Frequent Calculation Pitfalls and Field Verification Rules</h2>
-          <div class="block-line"></div>
-        </div>
-
-        <div class="pitfalls-grid">
-          <div class="pitfall-item">
-            <h3>Confusing Tons and Cubic Yards</h3>
-            <p>
-              A cubic yard is volume; a ton is weight.
-              One cubic yard of standard gravel weighs 2,700 pounds (1.35 tons).
-              Ordering 10 tons yields only 7.4 cubic yards.
-              Always confirm whether your supplier quotes prices per cubic yard or per ton.
-            </p>
-          </div>
-
-          <div class="pitfall-item">
-            <h3>Underestimating Bed Depth for Large Stone</h3>
-            <p>
-              Stone caliper dictates bed depth.
-              A bed of 1-3" river rock installed only 2 inches deep will expose the black fabric beneath.
-              As an aggregate rule of thumb, minimum bed depth should be at least 1.5 to 2 times the average stone size (or at least 1 times the maximum stone caliper). For 1-3" river rock (average 2"), maintain a 3" to 4" depth; for 3-5" large river stone (average 4"), install at 4" to 6" minimum.
-            </p>
-          </div>
-
-          <div class="pitfall-item">
-            <h3>Ignoring Moisture Weight at the Quarry Scale</h3>
-            <p>
-              Aggregates stored in outdoor quarry stockpiles absorb rainwater.
-              Wet crushed stone can weigh 5% to 8% more per cubic yard than dry material.
-              When buying by certified scale weight after heavy rainfall, slight volumetric adjustments occur.
-            </p>
-          </div>
-
-          <div class="pitfall-item">
-            <h3>Over-Compacting Rounded Aggregates</h3>
-            <p>
-              Never attempt to mechanically compact clean pea gravel or smooth river stone with a plate tamper.
-              Rounded stones do not interlock and will displace sideways, potentially damaging the compactor shoe and puncturing subgrade fabric.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Regional Quarry Scale Calibration & Custom Densities -->
-      <section class="content-block" id="quarry-calibration">
-        <div class="block-header">
-          <span class="block-kicker">Jobsite Precision</span>
-          <h2>Regional Quarry Scale Calibration &amp; Custom Densities</h2>
-          <div class="block-line"></div>
-        </div>
-
-        <p>
-          While published standards like ASTM C29 provide reliable baseline figures, real-world aggregate bulk densities fluctuate by region, moisture level, mineral formation, and quarry crushing equipment. A blue granite quarry in Georgia will have a slightly different bulk density than limestone in Texas or alluvial river gravel in Washington.
-        </p>
-
-        <div class="highlight-callout" style="margin: var(--space-6) 0;">
-          <h3>Pro Contractor Tip: Use Your Certified Scale Ticket</h3>
-          <p>
-            When ordering commercial bulk loads from a local aggregate supplier or stone yard, check the certified scale manifest ticket. If your supplier lists a specific loose density (for example, 2,650 lbs/yd³ instead of standard 2,700 lbs/yd³), open the <strong>Advanced Geotechnical Controls</strong> in our calculator to input your exact quarry density. The calculator will immediately re-calibrate all tonnage, bag, and truckload outputs.
-          </p>
-        </div>
-
-        <!-- Quarry Ticket Contribution Banner -->
-        <div class="quarry-ticket-callout">
-          <div class="callout-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          </div>
-          <div class="callout-content">
-            <h3>Submit Your Regional Scale Tickets</h3>
-            <p>Help us continuously refine regional aggregate density references. If you have certified scale weigh tickets or ASTM test data from your local quarry, submit them to our technical review desk.</p>
-            <a href="/contact" class="btn btn-secondary btn-sm" style="display: inline-block; margin-top: var(--space-2);">Submit Scale Data</a>
-          </div>
-        </div>
-      </section>
-
-    </div>
+    <section class="guide-section source-section" id="quarry-calibration">
+      <h2>How the estimate is grounded</h2>
+      <p>The volume math is geometry. The material densities are editable starting estimates, not measured values for a particular quarry load. <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/" target="_blank" rel="noopener noreferrer">Penn State's materials calculator</a> also advises using local supplier factors. <a href="https://store.astm.org/c0029_c0029m-23.html" target="_blank" rel="noopener noreferrer">ASTM C29/C29M</a> describes a way to measure aggregate bulk density under defined conditions; naming the method does not certify this site's defaults. For bag sizing, check the manufacturer's published cubic-foot yield, such as <a href="https://pdf.lowes.com/productdocuments/3479d7f1-7cfc-43e0-8988-acf9bdb79b69/68529643.pdf" target="_blank" rel="noopener noreferrer">SAKRETE's product data</a>.</p>
+    </section>
   </div>
 </article>
 
 <style>
-  /* --- Content Section Styling --- */
-  .home-content-section {
-    padding: var(--space-16) 0 var(--space-20);
-    position: relative;
-    z-index: var(--z-base);
-  }
-
-  /* --- Content Body & Subsections --- */
-  .content-body {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-16);
-  }
-
-  .content-block {
-    background: var(--surface-raised);
-    border: 1px solid var(--surface-glass-border);
-    border-radius: var(--radius-xl);
-    padding: var(--space-8) var(--space-10);
-  }
-
-  .block-header {
-    margin-bottom: var(--space-6);
-  }
-
-  .block-kicker {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--gold-400);
-    display: block;
-    margin-bottom: var(--space-2);
-  }
-
-  .block-header h2 {
-    font-size: clamp(1.35rem, 2.5vw, 1.875rem);
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-  }
-
-  .block-line {
-    width: 48px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold-500), var(--gold-600));
-    border-radius: var(--radius-full);
-    margin-top: var(--space-3);
-  }
-
-  .content-block p {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: var(--space-4);
-  }
-
-  .code-callout {
-    background: var(--slate-950);
-    border-left: 3px solid var(--gold-500);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    padding: var(--space-4) var(--space-5);
-    margin: var(--space-4) 0 var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .code-callout code {
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-    color: var(--gold-300);
-  }
-
-  /* Responsive Specs Table */
-  .table-responsive-wrapper {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-    -webkit-overflow-scrolling: touch;
-    margin: var(--space-6) 0;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--slate-700);
-  }
-
-  .specs-table {
-    width: 100%;
-    min-width: 780px;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-    text-align: left;
-  }
-
-  .specs-table th {
-    background: var(--slate-950);
-    color: var(--gold-400);
-    font-weight: 600;
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 2px solid var(--slate-700);
-  }
-
-  .specs-table td {
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 1px solid var(--slate-750);
-    color: var(--text-primary);
-    background: var(--slate-900);
-  }
-
-  .specs-table tr:hover td {
-    background: var(--slate-850);
-  }
-
-  /* Guidelines Grid */
-  .guidelines-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-5);
-    margin-top: var(--space-6);
-  }
-
-  .guide-card {
-    background: var(--slate-900);
-    border: 1px solid var(--slate-750);
-    border-radius: var(--radius-lg);
-    padding: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .guide-header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .guide-badge {
-    align-self: flex-start;
-    font-size: 0.75rem;
-    font-weight: 700;
-    font-family: var(--font-mono);
-    color: var(--gold-400);
-    background: var(--gold-glow);
-    padding: 2px 8px;
-    border-radius: var(--radius-sm);
-  }
-
-  .guide-card h3 {
-    font-size: 1.1rem;
-    color: var(--text-primary);
-  }
-
-  .guide-card p {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-    margin: 0;
-  }
-
-  /* Comparison Dual Grid */
-  .comparison-dual-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: var(--space-6);
-    margin-top: var(--space-6);
-  }
-
-  .comparison-card {
-    background: var(--slate-900);
-    border: 1px solid var(--slate-750);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-  }
-
-  .comparison-card h3 {
-    font-size: 1.25rem;
-    color: var(--text-primary);
-    margin-bottom: 2px;
-  }
-
-  .comparison-sub {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--gold-400);
-    display: block;
-    margin-bottom: var(--space-4);
-  }
-
-  .comparison-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .comparison-list li {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    position: relative;
-    padding-left: var(--space-4);
-  }
-
-  .comparison-list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 8px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--gold-500);
-  }
-
-  .comparison-list li strong {
-    color: var(--text-primary);
-  }
-
-  /* Details Grid */
-  .details-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-5);
-    margin-top: var(--space-6);
-  }
-
-  .detail-box {
-    background: var(--slate-900);
-    border: 1px solid var(--slate-750);
-    border-radius: var(--radius-md);
-    padding: var(--space-5);
-  }
-
-  .detail-box h3 {
-    color: var(--text-primary);
-    font-size: 1rem;
-    margin-bottom: var(--space-2);
-  }
-
-  .detail-box p {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  /* Economics Table */
-  .economics-table-card {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-    -webkit-overflow-scrolling: touch;
-    border: 1px solid var(--slate-700);
-    border-radius: var(--radius-lg);
-    margin: var(--space-6) 0;
-  }
-
-  .economics-table {
-    width: 100%;
-    min-width: 650px;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-    text-align: left;
-  }
-
-  .economics-table th {
-    background: var(--slate-950);
-    color: var(--gold-400);
-    font-weight: 600;
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 2px solid var(--slate-700);
-  }
-
-  .economics-table td {
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 1px solid var(--slate-750);
-    color: var(--text-primary);
-    background: var(--slate-900);
-  }
-
-  /* Truck Capacity Grid */
-  .truck-capacity-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-4);
-    margin-top: var(--space-6);
-  }
-
-  .truck-card {
-    background: var(--slate-900);
-    border: 1px solid var(--slate-750);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-  }
-
-  .truck-card h3 {
-    font-size: 1rem;
-    color: var(--text-primary);
-  }
-
-  .truck-payload {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--gold-400);
-    margin: var(--space-1) 0 var(--space-2);
-  }
-
-  .truck-card p {
-    font-size: 0.825rem;
-    color: var(--text-secondary);
-    line-height: 1.45;
-    margin: 0;
-  }
-
-  /* Installation Timeline */
-  .installation-timeline {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    margin-top: var(--space-6);
-  }
-
-  .timeline-step {
-    display: flex;
-    gap: var(--space-4);
-    background: var(--slate-900);
-    border: 1px solid var(--slate-750);
-    border-radius: var(--radius-lg);
-    padding: var(--space-5);
-  }
-
-  .timeline-marker {
-    width: 38px;
-    height: 38px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
-    color: var(--slate-950);
-    font-weight: 800;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .timeline-content h3 {
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    margin-bottom: var(--space-2);
-  }
-
-  .timeline-content p {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-    margin: 0;
-  }
-
-  /* Pitfalls Grid */
-  .pitfalls-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-5);
-    margin-top: var(--space-6);
-  }
-
-  .pitfall-item {
-    background: var(--slate-900);
-    border-left: 3px solid var(--status-warn);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    padding: var(--space-4) var(--space-5);
-  }
-
-  .pitfall-item h3 {
-    font-size: 1rem;
-    color: var(--text-primary);
-    margin-bottom: var(--space-2);
-  }
-
-  .pitfall-item p {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  /* Editorial Trust Card */
-  .editorial-trust-card {
-    background: var(--slate-900);
-    border: 1px solid var(--slate-750);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-top: var(--space-6);
-  }
-
-  .trust-badge-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--slate-750);
-  }
-
-  .trust-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--gold-400);
-    background: var(--gold-glow);
-    padding: 3px 10px;
-    border-radius: var(--radius-full);
-    border: 1px solid rgba(212, 168, 83, 0.25);
-  }
-
-  .trust-date {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-  }
-
-  .reviewer-meta-box {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    margin-top: var(--space-5);
-    padding: var(--space-4);
-    background: var(--slate-950);
-    border-radius: var(--radius-md);
-    border-left: 3px solid var(--gold-500);
-  }
-
-  .reviewer-avatar {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--slate-800);
-    border: 1px solid var(--gold-500);
-    color: var(--gold-400);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .reviewer-name {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-
-  .reviewer-credentials {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  /* AEO Executive Summary Card */
-  .aeo-summary-card {
-    background: linear-gradient(135deg, var(--slate-900) 0%, var(--slate-850) 100%);
-    border: 1px solid var(--gold-500);
-    border-radius: var(--radius-xl);
-    padding: var(--space-6) var(--space-8);
-    box-shadow: var(--shadow-gold), 0 8px 24px rgba(0, 0, 0, 0.3);
-  }
-
-  .aeo-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    margin-bottom: var(--space-5);
-    color: var(--gold-400);
-  }
-
-  .aeo-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--gold-400);
-  }
-
-  .aeo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--space-5);
-  }
-
-  .aeo-item {
-    background: var(--slate-950);
-    border: 1px solid var(--slate-750);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .aeo-label {
-    font-size: 0.725rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--gold-400);
-  }
-
-  .aeo-value {
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1.4;
-  }
-
-  .aeo-desc {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-    line-height: 1.4;
-  }
-
-  .table-mat-link {
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-smooth);
-  }
-
-  .table-mat-link:hover {
-    color: var(--gold-400);
-    text-decoration: underline;
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .content-block {
-      padding: var(--space-6) var(--space-4);
-    }
-
-    .aeo-summary-card {
-      padding: var(--space-5) var(--space-4);
-    }
-
-  /* --- Validation Studies & Reviews --- */
-  .validation-studies-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-5);
-    margin: var(--space-6) 0 var(--space-8);
-  }
-
-  .validation-study-card {
-    background: var(--slate-900);
-    border: 1px solid var(--slate-750);
-    border-radius: var(--radius-lg);
-    padding: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .study-badge-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .study-badge {
-    font-size: 0.725rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--gold-400);
-    background: rgba(217, 119, 6, 0.12);
-    padding: 2px 8px;
-    border-radius: var(--radius-full);
-  }
-
-  .study-accuracy {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #10b981;
-    background: rgba(16, 185, 129, 0.12);
-    padding: 2px 8px;
-    border-radius: var(--radius-full);
-  }
-
-  .validation-study-card h4 {
-    font-size: 1.05rem;
-    color: var(--text-primary);
-    margin: 0;
-  }
-
-  .study-specs {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-  }
-
-  .study-metrics {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--space-2);
-    background: var(--slate-950);
-    border: 1px solid var(--slate-800);
-    border-radius: var(--radius-md);
-    padding: var(--space-3);
-    text-align: center;
-  }
-
-  .metric-col {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .metric-label {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-  }
-
-  .metric-val {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-
-  .metric-val.variance {
-    color: #10b981;
-  }
-
-  .study-note {
-    font-size: 0.8rem !important;
-    line-height: 1.5 !important;
-    color: var(--text-muted) !important;
-    margin: 0 !important;
-  }
-
-  .contractor-reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-5);
-    margin-bottom: var(--space-8);
-  }
-
-  .contractor-review-card {
-    background: var(--slate-900);
-    border: 1px solid var(--slate-750);
-    border-radius: var(--radius-lg);
-    padding: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .review-stars {
-    color: #f59e0b;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    margin-bottom: var(--space-2);
-  }
-
-  .review-quote {
-    font-size: 0.9rem !important;
-    font-style: italic;
-    color: var(--text-secondary) !important;
-    line-height: 1.6 !important;
-    margin-bottom: var(--space-4) !important;
-    flex-grow: 1;
-  }
-
-  .reviewer-author-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    border-top: 1px solid var(--slate-800);
-    padding-top: var(--space-3);
-  }
-
-  .reviewer-author-info strong {
-    font-size: 0.85rem;
-    color: var(--text-primary);
-  }
-
-  .reviewer-author-info span {
-    font-size: 0.75rem;
-    color: var(--gold-400);
-  }
-
-  .quarry-ticket-callout {
-    display: flex;
-    align-items: center;
-    gap: var(--space-5);
-    background: linear-gradient(135deg, rgba(217, 119, 6, 0.08) 0%, rgba(24, 24, 27, 0.6) 100%);
-    border: 1px solid rgba(217, 119, 6, 0.3);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-  }
-
-  .callout-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: var(--radius-md);
-    background: rgba(217, 119, 6, 0.15);
-    color: var(--gold-400);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .callout-content h3 {
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    margin: 0 0 var(--space-2);
-  }
-
-  .callout-content p {
-    color: var(--text-secondary) !important;
-    font-size: 0.9rem !important;
-    margin: 0 0 var(--space-3) !important;
-  }
-
-  @media (max-width: 768px) {
-    .quarry-ticket-callout {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-3);
-    }
-  }
+  .home-guide { padding: clamp(3rem, 6vw, 6rem) 0; color: var(--text-primary); }
+  .home-guide .container { max-width: 1120px; }
+  .guide-heading { max-width: 780px; margin-bottom: 2rem; }
+  .eyebrow { color: var(--gold-500); font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .6rem; }
+  h2 { font-size: clamp(1.6rem, 3vw, 2.35rem); line-height: 1.2; letter-spacing: -.025em; margin: 0 0 1rem; }
+  h3 { font-size: 1.12rem; line-height: 1.35; margin: 0 0 .65rem; }
+  p, li { color: var(--text-secondary); line-height: 1.75; }
+  p { margin: 0 0 1rem; }
+  strong { color: var(--text-primary); }
+  a { color: var(--gold-500); }
+  .text-link { display: inline-block; font-weight: 700; text-underline-offset: .2em; }
+  .example-card { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; padding: clamp(1.25rem, 3vw, 2.5rem); background: var(--surface-raised); border: 1px solid var(--surface-glass-border); border-radius: var(--radius-lg); }
+  figure { margin: 0; min-width: 0; }
+  figure img { width: 100%; height: auto; display: block; border-radius: .75rem; }
+  figcaption { color: var(--text-muted); font-size: .8rem; margin-top: .65rem; line-height: 1.4; }
+  .guide-section { padding: clamp(2.5rem, 5vw, 4.5rem) 0; border-bottom: 1px solid var(--surface-glass-border); }
+  .section-heading { max-width: 800px; margin-bottom: 1.5rem; }
+  .formula-grid, .decision-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .formula-card, .decision-card, .buying-grid > div { background: var(--surface-raised); border: 1px solid var(--surface-glass-border); border-radius: var(--radius-md); padding: 1.35rem; }
+  .formula-card .step { display: block; color: var(--gold-500); font-size: .75rem; font-weight: 800; letter-spacing: .08em; margin-bottom: .8rem; text-transform: uppercase; }
+  .formula-card strong { display: block; font-size: 1rem; line-height: 1.4; margin-bottom: .65rem; }
+  .formula-card p, .decision-card p, .buying-grid p { margin-bottom: 0; }
+  .guide-note { background: var(--gold-glow); border-left: 3px solid var(--gold-500); padding: 1rem 1.25rem; margin: 1.25rem 0 0; border-radius: .25rem; }
+  .table-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; border: 1px solid var(--surface-glass-border); border-radius: var(--radius-md); }
+  table { width: 100%; min-width: 730px; border-collapse: collapse; font-size: .875rem; }
+  caption { text-align: left; color: var(--text-secondary); font-weight: 700; padding: 1rem; }
+  th, td { text-align: left; padding: .75rem 1rem; border-top: 1px solid var(--surface-glass-border); }
+  thead th { color: var(--text-primary); background: var(--surface-raised); white-space: nowrap; }
+  tbody th { font-weight: 600; }
+  tbody tr:nth-child(even) { background: var(--surface-raised); }
+  .table-hint { font-size: .85rem; margin: .7rem 0 0; }
+  .decision-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .decision-card a { display: inline-block; margin-top: .8rem; font-weight: 700; }
+  .split-section { display: grid; grid-template-columns: minmax(220px, .7fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); }
+  .buying-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .checklist { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 2rem; padding-left: 1.35rem; margin: 0; }
+  .checklist li { padding-left: .35rem; }
+  .source-section { border: 0; padding-bottom: 0; max-width: 850px; }
+  @media (max-width: 780px) { .example-card, .split-section { grid-template-columns: 1fr; } .formula-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .decision-grid, .buying-grid, .checklist { grid-template-columns: 1fr; } .home-guide { overflow-x: clip; } }
 </style>

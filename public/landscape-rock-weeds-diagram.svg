@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-labelledby="title desc">
+  <title id="title">How weeds enter a landscape rock bed</title>
+  <desc id="desc">The left cross-section shows a seedling rooted in debris between stones above permeable fabric. The right cross-section shows a perennial runner entering from the bed edge and emerging through a gap.</desc>
+  <defs>
+    <pattern id="stones" width="78" height="62" patternUnits="userSpaceOnUse">
+      <ellipse cx="14" cy="19" rx="18" ry="12" fill="#8ca49b"/>
+      <ellipse cx="52" cy="16" rx="19" ry="13" fill="#b5a588"/>
+      <ellipse cx="24" cy="49" rx="22" ry="12" fill="#a6a894"/>
+      <ellipse cx="67" cy="48" rx="18" ry="13" fill="#748e86"/>
+    </pattern>
+    <pattern id="soil" width="36" height="28" patternUnits="userSpaceOnUse">
+      <rect width="36" height="28" fill="#554a39"/>
+      <circle cx="7" cy="10" r="2" fill="#74624a"/>
+      <circle cx="27" cy="19" r="3" fill="#6a5843"/>
+      <circle cx="20" cy="5" r="1.5" fill="#8a7556"/>
+    </pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="none" stroke="#86efac" stroke-width="1.5"/></marker>
+    <clipPath id="left-bed"><rect x="54" y="250" width="400" height="69" rx="3"/></clipPath>
+    <clipPath id="right-bed"><rect x="546" y="250" width="365" height="69" rx="3"/></clipPath>
+  </defs>
+  <rect width="1000" height="520" rx="20" fill="#10251f"/>
+  <text x="32" y="48" fill="#f4f7ee" font-family="system-ui, sans-serif" font-size="25" font-weight="750">Why weeds return to rock beds</text>
+  <text x="32" y="76" fill="#b3c9bf" font-family="system-ui, sans-serif" font-size="14">Look at the roots before choosing a fix.</text>
+  <rect x="30" y="101" width="456" height="381" rx="16" fill="#19352c" stroke="#3b6554"/>
+  <rect x="514" y="101" width="456" height="381" rx="16" fill="#19352c" stroke="#3b6554"/>
+  <text x="53" y="140" fill="#86efac" font-family="system-ui, sans-serif" font-size="13" font-weight="750" letter-spacing="1.5">01  SURFACE SEEDLING</text>
+  <text x="53" y="170" fill="#f4f7ee" font-family="system-ui, sans-serif" font-size="20" font-weight="700">Seed lands above fabric</text>
+  <text x="53" y="195" fill="#b3c9bf" font-family="system-ui, sans-serif" font-size="13">Dust and leaf litter fill the rock's gaps.</text>
+  <rect x="54" y="250" width="400" height="69" fill="url(#stones)" clip-path="url(#left-bed)"/>
+  <path d="M54 269 Q101 255 143 267 T232 267 T325 270 T454 264" fill="none" stroke="#c69b63" stroke-width="8" opacity=".92"/>
+  <path d="M54 327 H454" stroke="#c2d4c8" stroke-width="8" stroke-dasharray="18 5"/>
+  <rect x="54" y="338" width="400" height="98" fill="url(#soil)"/>
+  <path d="M244 255 L242 229 M242 233 C221 215 209 217 203 228 C220 240 232 240 242 233 M243 236 C258 213 274 211 283 223 C272 238 258 242 243 236" fill="#74c77e" stroke="#4ca767" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M243 254 C249 267 245 279 244 297 M244 277 Q231 284 226 297 M245 283 Q256 287 260 300" fill="none" stroke="#d6bf8c" stroke-width="3" stroke-linecap="round"/>
+  <path d="M93 225 C132 207 175 214 199 224" fill="none" stroke="#86efac" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="63" y="238" fill="#b4e7c5" font-family="system-ui, sans-serif" font-size="12">airborne seed</text>
+  <text x="69" y="371" fill="#f4f7ee" font-family="system-ui, sans-serif" font-size="13" font-weight="650">Permeable fabric separates stone and soil</text>
+  <text x="69" y="397" fill="#b3c9bf" font-family="system-ui, sans-serif" font-size="12">The seedling can root in debris on top.</text>
+  <text x="538" y="140" fill="#86efac" font-family="system-ui, sans-serif" font-size="13" font-weight="750" letter-spacing="1.5">02  EDGE OR SEAM</text>
+  <text x="538" y="170" fill="#f4f7ee" font-family="system-ui, sans-serif" font-size="20" font-weight="700">Runner enters from the side</text>
+  <text x="538" y="195" fill="#b3c9bf" font-family="system-ui, sans-serif" font-size="13">A perennial can reappear until its roots are dealt with.</text>
+  <rect x="546" y="250" width="365" height="69" fill="url(#stones)" clip-path="url(#right-bed)"/>
+  <path d="M546 327 H722 M763 327 H911" stroke="#c2d4c8" stroke-width="8" stroke-dasharray="18 5"/>
+  <rect x="546" y="338" width="400" height="98" fill="url(#soil)"/>
+  <rect x="912" y="250" width="34" height="88" fill="#688575"/>
+  <path d="M755 371 C810 365 850 385 925 377 M755 371 C739 349 740 320 744 296 M925 377 Q938 366 950 353" fill="none" stroke="#cbbb89" stroke-width="5" stroke-linecap="round"/>
+  <path d="M744 297 L744 247 M744 252 C726 231 713 230 704 240 C719 258 729 261 744 252 M745 250 C760 226 778 225 788 235 C775 251 758 256 745 250" fill="#79cb7e" stroke="#4ca767" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M906 228 C919 222 930 225 938 233 M923 237 L922 251" fill="none" stroke="#86c382" stroke-width="4" stroke-linecap="round"/>
+  <text x="552" y="453" fill="#f4f7ee" font-family="system-ui, sans-serif" font-size="13" font-weight="650">Trace growth to the edge or fabric gap</text>
+  <text x="552" y="474" fill="#b3c9bf" font-family="system-ui, sans-serif" font-size="12">Surface-only treatments may leave roots alive.</text>
+  <text x="32" y="501" fill="#9bb6a8" font-family="system-ui, sans-serif" font-size="12">Schematic only · layer thicknesses and plant species are illustrative</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
+  <title id="title">How to measure river rock area and depth</title>
+  <desc id="desc">A top view of a rectangular rock bed shows length times width. Below, a cross section labels the installed layer depth and shows that a creek's lined surface width follows its bottom and two banks.</desc>
+  <defs>
+    <pattern id="stone" width="47" height="35" patternUnits="userSpaceOnUse">
+      <ellipse cx="15" cy="12" rx="11" ry="7" fill="#b9c9c7" stroke="#6c8584" stroke-width="1.5"/>
+      <ellipse cx="38" cy="28" rx="9" ry="5" fill="#d5dfd9" stroke="#78928e" stroke-width="1.5"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10Z" fill="#28676c"/>
+    </marker>
+  </defs>
+  <rect width="900" height="520" rx="22" fill="#f5f8f6"/>
+  <text x="38" y="45" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#183e42">Measure the space the stone will fill</text>
+  <text x="38" y="75" font-family="Arial,sans-serif" font-size="15" fill="#4c6262">Use feet for length and width; use inches for the finished rock depth.</text>
+
+  <rect x="38" y="102" width="395" height="310" rx="16" fill="white" stroke="#cbd9d6" stroke-width="2"/>
+  <text x="58" y="135" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#183e42">Rectangular bed · plan view</text>
+  <rect x="105" y="177" width="255" height="160" rx="10" fill="url(#stone)" stroke="#6c8584" stroke-width="3"/>
+  <line x1="105" y1="359" x2="360" y2="359" stroke="#28676c" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="232" y="384" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#28676c">length</text>
+  <line x1="82" y1="177" x2="82" y2="337" stroke="#28676c" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="73" y="265" text-anchor="middle" transform="rotate(-90 73 265)" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#28676c">width</text>
+  <text x="232" y="263" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#183e42">Area = length × width</text>
+
+  <rect x="453" y="102" width="409" height="310" rx="16" fill="white" stroke="#cbd9d6" stroke-width="2"/>
+  <text x="473" y="135" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#183e42">Dry creek · cross section</text>
+  <path d="M483 208 Q563 257 651 265 Q752 257 832 208 L832 352 L483 352Z" fill="#b5a491" stroke="#796f63" stroke-width="2"/>
+  <path d="M483 187 Q563 237 651 245 Q752 237 832 187 L832 208 Q752 257 651 265 Q563 257 483 208Z" fill="url(#stone)" stroke="#6c8584" stroke-width="2"/>
+  <path d="M483 187 Q563 237 651 245 Q752 237 832 187" fill="none" stroke="#28676c" stroke-width="4" stroke-dasharray="10 6"/>
+  <text x="658" y="168" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#28676c">lined surface width follows bottom + banks</text>
+  <line x1="650" y1="245" x2="650" y2="265" stroke="#994f19" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="658" y="303" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#994f19">rock layer depth</text>
+  <text x="658" y="326" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#4c6262">Use the installed thickness, not stone diameter.</text>
+
+  <rect x="38" y="432" width="824" height="61" rx="12" fill="#e4efeb"/>
+  <text x="58" y="457" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#183e42">Quantity only</text>
+  <text x="58" y="479" font-family="Arial,sans-serif" font-size="14" fill="#4c6262">This measurement gives stone volume. Flow rate and slope determine whether the channel lining is stable.</text>
+</svg>

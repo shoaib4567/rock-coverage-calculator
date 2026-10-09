@@ -3,447 +3,353 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import HowMuchCalculator from '../components/calculators/HowMuchCalculator.astro';
-import HowMuchVisualizer from '../components/visualizers/HowMuchVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
-import QuickConverterBlock from '../components/intent/QuickConverterBlock.astro';
 
+const pageTitle = 'How Much Rock Do I Need?';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'How Much Rock Do I Need?', url: '/how-much-rock-do-i-need' }
+  { name: pageTitle, url: '/how-much-rock-do-i-need' }
 ];
-
 const entityTags = [
-  { label: 'Primary Intent', value: 'Project Quantity Estimation' },
-  { label: 'Standard Formula', value: '(Length × Width × Depth in Inches) / 324' },
-  { label: 'Conversion Factor', value: '1 Cubic Yard = ~1.35 Tons' },
-  { label: 'Retail Equivalent', value: '54 Bags (0.5 cu ft) = 1 Yard³' }
+  { label: 'Start with', value: 'Area × finished depth' },
+  { label: 'Bulk order', value: 'Cubic yards or short tons' },
+  { label: 'Bag order', value: 'Check package volume' }
 ];
-
 const quickStats = [
-  { value: '324 Factor', label: 'Rule of 324', desc: 'Square feet at 1 inch depth contained in one cubic yard' },
-  { value: '1.35 Tons', label: 'Weight per Yard', desc: 'Average quarry scale weight for typical landscape stone' },
-  { value: '10% Margin', label: 'Safety Buffer', desc: 'Accounts for subgrade undulations and perimeter settling' }
+  { value: '0.93 yd³', label: '100 sq ft at 3 in', desc: 'Rock volume before an allowance' },
+  { value: '1.02 yd³', label: 'With 10% extra', desc: 'The same area with an optional buffer' },
+  { value: '55 bags', label: 'If bags are 0.5 cu ft', desc: 'Round the full order volume up to whole bags' }
 ];
-
 const faqItems = [
   {
-    q: 'How much rock do I need for a 10x10 foot area?',
-    a: 'A 10x10 foot area equals 100 square feet. At the standard 3-inch depth for landscape bed rock mulch, you need 0.93 cubic yards of stone (approximately 1.25 tons, or 50 bags of 0.5 cubic feet). With a 10% safety buffer, order 1.0 cubic yard (around 1.35 tons).'
+    q: 'How much rock do I need for a 10 × 10 foot area?',
+    a: 'At a finished depth of 3 inches, a 10 × 10 foot area needs 0.93 cubic yard before extra material. With a 10% allowance, it needs about 1.02 cubic yards, equal to 55 bags if each bag contains 0.5 cubic foot. Tonnage depends on the actual stone.'
   },
   {
-    q: 'How many yards of rock do I need for my project?',
-    a: 'Measure your project length and width in feet, multiply them together to get square footage, multiply by your intended depth in inches, and divide by 324. For example, a 30x10 foot garden bed at 3 inches depth is: (30 × 10 × 3) / 324 = 900 / 324 = 2.78 cubic yards.'
+    q: 'How many tons are in a cubic yard of rock?',
+    a: 'There is no single conversion for every rock. The calculator starts with a planning density for each project preset. At 1.35 U.S. short tons per cubic yard, one cubic yard weighs about 2,700 pounds. Ask your supplier for its product-specific conversion before a weight-based order.'
   },
   {
-    q: 'How do I know what depth of rock to install?',
-    a: 'Follow the Two-Stone Rule: your depth should equal at least twice the average diameter of your stone. For 3/8-inch pea gravel on walkways, 2.0 to 2.5 inches is ideal. For 1-3 inch river rock, install at 3.0 to 3.5 inches. For gravel driveways, install 4.0 to 6.0 inches of compacted stone.'
+    q: 'Should I add 10% extra rock?',
+    a: 'A 10% allowance can cover small measurement errors, irregular edges, and shallow low spots. It is optional, not a substitute for measuring a seriously uneven surface. Enter 0% if you have accurate dimensions and your supplier can deliver a small top-up.'
   },
   {
-    q: 'Is it cheaper to order rock in cubic yards or by the ton?',
-    a: 'Quarries sell loose bulk rock by the certified ton on vehicle weigh scales, while retail landscape yards often sell by the loader bucket (cubic yard). In general, 1 cubic yard equals approximately 1.35 tons of gravel. If bulk ordering more than 2 cubic yards, buying directly by the ton from an aggregate supplier with flat dump truck delivery is usually the most cost-effective approach.'
+    q: 'How do I estimate rock for an L-shaped bed or several areas?',
+    a: 'Split the space into rectangles, calculate each uncovered area at its own finished depth, and add the volumes. Subtract patios, pavers, or planting islands that will not receive rock. Use the calculator once per zone when depths differ.'
   }
 ];
-
-const upLinks = [
-  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' }
-];
-
+const upLinks = [{ title: 'Rock Coverage Calculator', slug: '/', badge: 'Coverage' }];
 const lateralLinks = [
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Reference' },
   { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
   { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Yards' },
   { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags' }
 ];
-
 const bridgeLinks = [
-  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'River Rock' },
-  { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: 'Pea Gravel' },
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Crushed Stone' },
-  { title: 'Decomposed Granite Calculator', slug: '/decomposed-granite-calculator', badge: 'DG' }
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'River rock' },
+  { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: 'Pea gravel' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Crushed stone' },
+  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Drain rock' }
 ];
-
 const supportGuides = [
-  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Buying' },
   { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'Density' }
 ];
 ---
 
 <BaseLayout
-  title="How Much Rock Do I Need? Instant Yards, Tons & Bags Estimator"
-  metaDescription="Calculate exactly how much rock you need for any project. Convert dimensions to cubic yards, quarry tons, and 0.5 cu ft retail bags with real-time costs."
+  title={pageTitle}
+  metaDescription="Find how much rock to order from area and finished depth. Calculate cubic yards, estimated tons, and 0.5-cu-ft bags, with a worked example and ordering checklist."
   canonicalPath="/how-much-rock-do-i-need"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "How Much Rock Do I Need Calculator",
-      "url": "https://rockcoveragecalculator.com/how-much-rock-do-i-need",
-      "description": "Calculates exact rock volume in cubic yards, weight in tons, and retail bags required for landscaping projects.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "about": {
-        "@type": "Thing",
-        "name": "Landscape Rock Quantity Estimation"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/how-much-rock-do-i-need',
+      description: 'Estimates landscape rock volume, weight, and half-cubic-foot bag counts from area, depth, and an optional allowance.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="How Much Rock Do I Need?"
-      highlightWord="Need?"
-      badge="Contractor Quantity & Cost Guide"
-      subtitle="Answer the exact question for your project: compute cubic yards, quarry scale tonnage, retail bags, and delivered freight costs in seconds."
+      title={pageTitle}
+      highlightWord="Rock"
+      badge="Rock quantity planner"
+      subtitle="Measure the area in square feet, multiply by the finished rock depth in inches, then divide by 324 for cubic yards. A 10 × 10 foot bed at 3 inches needs 0.93 cubic yard before extra material, or about 1.02 cubic yards with a 10% allowance. Use the estimator below to turn your measurements into an order."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
       theme="utility"
     />
 
+    <nav class="page-jumps" aria-label="On this page">
+      <div class="container jump-inner">
+        <span>Plan your order</span>
+        <a href="#how-much-calc">Use calculator</a>
+        <a href="#read-result">Read the result</a>
+        <a href="#measure-rock-area">Measure the area</a>
+        <a href="#order-rock">Order with confidence</a>
+      </div>
+    </nav>
+
     <HowMuchCalculator />
 
-    <HowMuchVisualizer />
-
-    <!-- Instant Unit Equivalents Block -->
-    <QuickConverterBlock />
-
-    <!-- Engineering Guide Section -->
-    <article class="content-guide-section">
+    <article class="quantity-guide">
       <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Rock Quantity Estimation Guidelines">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Rock Quantity Estimation Rules & Formulas</span>
+        <section class="guide-section" id="read-result" aria-labelledby="result-heading">
+          <div class="section-heading">
+            <span class="eyebrow">Make sense of the numbers</span>
+            <h2 id="result-heading">Read the result before you order</h2>
+            <p>Volume is the measurement. Tons and bags translate that volume into the units a seller may quote.</p>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Yards = (L × W × Depth in) / 324</span>
-              <p class="aeo-quick-desc">Standard Rule of 324 used by commercial contractors.</p>
+          <div class="result-grid">
+            <div class="result-tile">
+              <span class="tile-number">01</span>
+              <h3>Cubic yards tell you the space to fill</h3>
+              <p>Square feet alone cannot tell you how much rock to buy. The planned <strong>finished depth</strong> determines volume: square feet × inches of depth ÷ 324. A cubic yard contains 27 cubic feet.</p>
+              <a href="/rock-yardage-calculator">Work from cubic yards</a>
             </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yard to Tons</span>
-              <span class="aeo-quick-value">1 Yard³ ≈ 1.35 to 1.40 Tons</span>
-              <p class="aeo-quick-desc">Certified quarry bulk weight for gravel, river rock, and limestone.</p>
+            <div class="result-tile">
+              <span class="tile-number">02</span>
+              <h3>Tons depend on the actual product</h3>
+              <p>The calculator starts with a planning density from the selected project. Stone type, grading, moisture, and supplier handling change weight per cubic yard. Confirm the seller’s factor for a ton-based quote.</p>
+              <a href="/rock-density-chart">Check rock density</a>
             </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bags per Yard</span>
-              <span class="aeo-quick-value">54 Bags (0.5 cu ft)</span>
-              <p class="aeo-quick-desc">Retail bags needed to equal one standard bulk cubic yard.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Depth Standard</span>
-              <span class="aeo-quick-value">3.0 Inches (Landscape)</span>
-              <p class="aeo-quick-desc">Optimal depth for weed suppression and full ground opacity.</p>
+            <div class="result-tile">
+              <span class="tile-number">03</span>
+              <h3>Bags depend on the volume label</h3>
+              <p>The bag result assumes <strong>0.5 cubic foot per bag</strong> and rounds up to whole bags. A bag sold by weight alone needs its own coverage or volume information; 50 pounds is not automatically 0.5 cubic foot.</p>
+              <a href="/rock-bag-calculator">Plan a bag purchase</a>
             </div>
           </div>
+          <div class="worked-example">
+            <div>
+              <span class="eyebrow">The calculator’s starting dimensions</span>
+              <h3>30 ft × 10 ft at 3 in deep</h3>
+              <p>That is 300 square feet and <strong>2.78 cubic yards</strong> of placed rock. Add the default 10% allowance to plan for <strong>3.06 cubic yards</strong>. At 1.35 short tons per cubic yard, that is about <strong>4.13 short tons</strong>, or <strong>165 half-cubic-foot bags</strong>.</p>
+            </div>
+            <div class="example-math" aria-label="Worked volume formula">
+              <span>300 sq ft × 3 in</span>
+              <span class="math-rule"></span>
+              <span>324</span>
+              <strong>= 2.78 yd³</strong>
+            </div>
+          </div>
+          <p class="assumption-note"><strong>Before placing the order:</strong> Keep the calculated volume, then replace the default density with your supplier’s figure for this stone. Ask for a delivered price and check the actual bag volume if you are buying packaged rock.</p>
         </section>
 
-        <!-- Rule of 324 Explanation -->
-        <section class="content-card">
-          <h2>The Fundamental Rock Coverage Formula: Rule of 324</h2>
-          <p>
-            Determining how much rock you need begins with calculating the three-dimensional volume of your planting beds, paths, or driveway.
-            Because volume is sold by the <strong>Cubic Yard</strong> (27 cubic feet), civil contractors use the <strong>Rule of 324</strong> to compute material volume directly without converting inches to fractions of a foot:
-          </p>
-
-          <div class="formula-callout">
-            <div class="formula-math">Cubic Yards = (Length in Feet × Width in Feet × Depth in Inches) / 324</div>
-            <div class="formula-desc">Where 324 represents 27 cubic feet per yard multiplied by 12 inches per foot.</div>
+        <section class="guide-section measure-section" id="measure-rock-area" aria-labelledby="measure-heading">
+          <div class="measure-copy">
+            <span class="eyebrow">Field measurement</span>
+            <h2 id="measure-heading">Measure the surface and the layer separately</h2>
+            <p>Sketch the area before opening a supplier quote. A little time with a tape measure prevents a large error in the order.</p>
+            <ol class="measure-steps">
+              <li><strong>Find the net area.</strong> For a rectangle, multiply length × width in feet. Divide an L-shaped space into rectangles and add them. Do not count a patio, stepping stones, or other space that stays bare.</li>
+              <li><strong>Set the finished depth.</strong> Measure the rock layer you want <em>after placement</em>. If you are refreshing an existing bed, estimate only the added thickness.</li>
+              <li><strong>Calculate each depth separately.</strong> A shallow border and a deep path should be separate zones. Add their cubic yards at the end, then choose an allowance for irregular edges or low spots.</li>
+            </ol>
           </div>
+          <figure class="measure-figure">
+            <svg viewBox="0 0 600 360" role="img" aria-labelledby="volume-diagram-title volume-diagram-desc">
+              <title id="volume-diagram-title">Rock area and finished depth measurement</title>
+              <desc id="volume-diagram-desc">A 10 foot by 10 foot surface has 100 square feet of area. A side view shows a 3 inch rock layer above soil. These measurements produce 25 cubic feet, or 0.93 cubic yard, before extra material.</desc>
+              <rect x="1" y="1" width="598" height="358" rx="18" fill="#15202d" stroke="#475569" />
+              <text x="36" y="42" fill="#fbbf24" font-size="18" font-weight="700">1. Surface area</text>
+              <rect x="90" y="84" width="170" height="170" rx="6" fill="#8b8170" stroke="#e0b964" stroke-width="3" />
+              <circle cx="118" cy="116" r="6" fill="#b7ab96" /><circle cx="173" cy="133" r="5" fill="#d3c4a6" /><circle cx="222" cy="109" r="7" fill="#b7ab96" /><circle cx="132" cy="205" r="7" fill="#d3c4a6" /><circle cx="199" cy="211" r="6" fill="#b7ab96" /><circle cx="234" cy="175" r="5" fill="#d3c4a6" />
+              <line x1="90" y1="274" x2="260" y2="274" stroke="#e0b964" stroke-width="2" /><text x="175" y="298" fill="#e8edf3" font-size="15" text-anchor="middle">10 ft long</text>
+              <line x1="69" y1="84" x2="69" y2="254" stroke="#e0b964" stroke-width="2" /><text x="52" y="170" fill="#e8edf3" font-size="15" text-anchor="middle" transform="rotate(-90 52 170)">10 ft wide</text>
+              <text x="175" y="334" fill="#cbd5e1" font-size="15" text-anchor="middle">100 sq ft</text>
+              <line x1="300" y1="60" x2="300" y2="326" stroke="#475569" />
+              <text x="333" y="42" fill="#fbbf24" font-size="18" font-weight="700">2. Finished depth</text>
+              <rect x="344" y="146" width="190" height="58" fill="#8b8170" stroke="#e0b964" stroke-width="2" />
+              <rect x="344" y="204" width="190" height="70" fill="#594a3b" />
+              <line x1="548" y1="146" x2="548" y2="204" stroke="#e0b964" stroke-width="2" />
+              <text x="555" y="179" fill="#e8edf3" font-size="14">3 in</text>
+              <text x="438" y="181" fill="#fff8e7" font-size="16" text-anchor="middle">Rock layer</text>
+              <text x="438" y="245" fill="#d4c1a7" font-size="16" text-anchor="middle">Soil</text>
+              <text x="438" y="315" fill="#cbd5e1" font-size="14" text-anchor="middle">100 × 3 ÷ 12 = 25 cu ft</text>
+              <text x="438" y="337" fill="#cbd5e1" font-size="14" text-anchor="middle">25 ÷ 27 = 0.93 yd³</text>
+            </svg>
+            <figcaption>Area is the footprint; depth turns that footprint into volume. Diagram is schematic, with dimensions shown in the labels.</figcaption>
+          </figure>
+        </section>
 
-          <h3>Coverage Benchmarks: What 1 Cubic Yard of Rock Covers</h3>
-          <div class="table-container">
+        <section class="guide-section comparison-section" aria-labelledby="comparison-heading">
+          <div class="section-heading">
+            <span class="eyebrow">See what depth changes</span>
+            <h2 id="comparison-heading">The same 100 square feet at three depths</h2>
+            <p>These are geometric examples, not universal depth recommendations. Pick a finished depth that fits your stone size and the layer you are building.</p>
+          </div>
+          <div class="table-scroll">
             <table>
-              <thead>
-                <tr>
-                  <th>Layer Depth</th>
-                  <th>Coverage per Yard³</th>
-                  <th>Coverage per Ton (1.35 T/yd³)</th>
-                  <th>Standard Project Use</th>
-                </tr>
-              </thead>
+              <caption>Rock quantities for 100 square feet with 10% extra</caption>
+              <thead><tr><th scope="col">Finished depth</th><th scope="col">Net volume</th><th scope="col">With 10% extra</th><th scope="col">0.5-cu-ft bags</th></tr></thead>
               <tbody>
-                <tr>
-                  <td><strong>1.0 Inch</strong></td>
-                  <td>324 sq ft</td>
-                  <td>240 sq ft</td>
-                  <td>Light top-dressing refresh over existing rock</td>
-                </tr>
-                <tr>
-                  <td><strong>2.0 Inches</strong></td>
-                  <td>162 sq ft</td>
-                  <td>120 sq ft</td>
-                  <td>3/8" Pea gravel garden walkways and patio accents</td>
-                </tr>
-                <tr>
-                  <td><strong>2.5 Inches</strong></td>
-                  <td>130 sq ft</td>
-                  <td>96 sq ft</td>
-                  <td>Firm patio footing and small decorative pebbles</td>
-                </tr>
-                <tr>
-                  <td><strong>3.0 Inches</strong></td>
-                  <td>108 sq ft</td>
-                  <td>80 sq ft</td>
-                  <td>Standard 1"-3" river rock mulch in garden beds</td>
-                </tr>
-                <tr>
-                  <td><strong>4.0 Inches</strong></td>
-                  <td>81 sq ft</td>
-                  <td>60 sq ft</td>
-                  <td>Gravel driveways, parking pads, and heavy 2"-4" cobble</td>
-                </tr>
-                <tr>
-                  <td><strong>6.0 Inches</strong></td>
-                  <td>54 sq ft</td>
-                  <td>40 sq ft</td>
-                  <td>French drain water trenches and heavy riprap ballast</td>
-                </tr>
+                <tr><th scope="row">2 in</th><td>0.62 yd³</td><td>0.68 yd³</td><td>37</td></tr>
+                <tr><th scope="row">3 in</th><td>0.93 yd³</td><td>1.02 yd³</td><td>55</td></tr>
+                <tr><th scope="row">4 in</th><td>1.23 yd³</td><td>1.36 yd³</td><td>74</td></tr>
               </tbody>
             </table>
           </div>
+          <p class="table-note">Bag counts use the unrounded cubic-foot volume and round up to a whole bag. One cubic yard covers 108 square feet at exactly 3 inches before any allowance; for the reverse question, use the <a href="/">rock coverage calculator</a>.</p>
+        </section>
 
-          <h3>How Many Tons Do I Need?</h3>
-          <p>
-            Once you calculate your total volume in cubic yards, convert to tons by multiplying by the bulk density of your stone. Most standard crushed limestone, granite, and washed river gravel weigh approximately <strong>1.35 to 1.40 tons per cubic yard</strong> (2,700 to 2,800 lbs).
-          </p>
-          <p>
-            For example, if your garden bed requires 4.0 cubic yards of river rock:
-          </p>
-          <div class="formula-callout">
-            <div class="formula-math">4.0 Cubic Yards × 1.35 Tons/Yard = 5.4 Tons (10,800 lbs)</div>
+        <section class="guide-section" aria-labelledby="project-heading">
+          <div class="section-heading">
+            <span class="eyebrow">Use the right quantity for the job</span>
+            <h2 id="project-heading">Check the layer you are actually buying</h2>
           </div>
-
-          <h3>How Many Bags Do I Need?</h3>
-          <p>
-            Standard retail bags sold at big-box home improvement stores contain <strong>0.5 cubic feet</strong> of rock. Because there are 27 cubic feet in one cubic yard, there are exactly <strong>54 bags per cubic yard</strong>:
-          </p>
-          <ul>
-            <li><strong>1/2 Cubic Yard:</strong> 27 bags</li>
-            <li><strong>1.0 Cubic Yard:</strong> 54 bags</li>
-            <li><strong>2.0 Cubic Yards:</strong> 108 bags</li>
-            <li><strong>3.0 Cubic Yards:</strong> 162 bags</li>
-          </ul>
-
-          <div class="highlight-box">
-            <h4>Contractor Rule of Thumb on Bulk vs. Bags</h4>
-            <p>
-              If your project requires more than <strong>1.5 cubic yards (80 bags)</strong>, stop buying bags. A bulk delivery from a local quarry or landscape supply yard will save you between $150 and $400, and prevents you from hauling thousands of pounds in the trunk of your personal vehicle.
-            </p>
+          <div class="project-grid">
+            <div class="project-card">
+              <h3>Decorative bed</h3>
+              <p>Count the exposed soil area, then choose a layer that covers at the size of your stone. A 3-inch setting is a starting measurement, not a promise that large river rock will hide soil at that depth.</p>
+              <p>Rock and fabric can reduce some weeds, but dust and organic matter eventually collect above them. See the <a href="/river-rock-calculator">river rock calculator</a> and <a href="/how-to-stop-weeds-in-landscape-rock">weed control guide</a>.</p>
+            </div>
+            <div class="project-card">
+              <h3>Driveway layer</h3>
+              <p>Estimate a new base and a surface layer separately. The calculator’s driveway preset represents only the entered layer; it does not design a complete driveway for your soil, drainage, traffic, and compaction needs.</p>
+              <p>For a specific gradation and project, use the <a href="/driveway-rock-calculator">driveway rock calculator</a> or <a href="/crushed-stone-calculator">crushed stone calculator</a>.</p>
+            </div>
+            <div class="project-card">
+              <h3>Drainage trench</h3>
+              <p>Measure the width, length, and height of the <em>stone-filled zone</em>, rather than assuming the entire trench is rock. Pipe and other layers occupy space. Drainage details and stone grading should follow your site plan.</p>
+              <p>Use the <a href="/drain-rock-calculator">drain rock calculator</a> for a more specific takeoff.</p>
+            </div>
           </div>
         </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Rock Estimation</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
+        <section class="guide-section order-section" id="order-rock" aria-labelledby="order-heading">
+          <div class="order-copy">
+            <span class="eyebrow">Turn an estimate into a delivery</span>
+            <h2 id="order-heading">What to tell the rock supplier</h2>
+            <p>Bring the name and size of the stone, your calculated cubic yards, chosen allowance, and the depth of each layer. Then ask these questions before paying:</p>
+            <ul>
+              <li>Is this product sold by the cubic yard, U.S. short ton, or bag?</li>
+              <li>What is this product’s actual tons-per-cubic-yard factor or coverage at my depth?</li>
+              <li>What are the minimum order, delivery charge, access needs, and dump location?</li>
+              <li>If bagged, what <strong>volume</strong> does each bag contain, and how many bags are on a pallet?</li>
+            </ul>
+            <p>Compare the delivered bulk quote against bags using the same volume. The <a href="/bulk-vs-bagged-rock">bulk versus bagged guide</a> helps with that decision.</p>
+          </div>
+          <aside class="quote-card" aria-label="Example supplier request">
+            <span class="quote-label">Example request</span>
+            <p>“I need rock for a 30 × 10 foot bed at 3 inches finished depth. My estimate is 2.78 cubic yards net, or about 3.06 cubic yards with 10% extra. What is the delivered quote for this specific stone, and how many tons is that at your density?”</p>
+            <small>Use a local delivered quote for your budget.</small>
+          </aside>
+        </section>
+
+        <section class="guide-section" aria-labelledby="faq-heading">
+          <div class="section-heading">
+            <span class="eyebrow">Common ordering questions</span>
+            <h2 id="faq-heading">Frequently asked questions</h2>
+          </div>
+          <div class="faq-grid">
+            {faqItems.map(item => (
               <div class="faq-item">
                 <h3>{item.q}</h3>
                 <p>{item.a}</p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
+
+        <aside class="source-note" aria-label="Measurement and material references">
+          <h2>How these estimates are grounded</h2>
+          <p>The volume formula follows standard cubic-foot to cubic-yard measurement. <a href="https://www.emnrd.nm.gov/mmd/wp-content/uploads/sites/5/ConvFctrs.pdf">New Mexico’s construction-material conversion table</a> shows why gravel, limestone, and lightweight scoria need different weight factors. <a href="https://www.quikrete.com/dealers/products/products-hardscapes.asp">QUIKRETE’s product catalog</a> documents 0.5-cu-ft landscape-stone bags; check the label on the bag you buy. <a href="https://ipm.ucanr.edu/home-and-landscape/weed-management-in-landscapes/">UC IPM</a> explains the role and limits of fabric under rock mulch, and <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/">Penn State’s materials calculator</a> notes that shipped quantity and density vary by source and compaction.</p>
+        </aside>
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/how-much-rock-do-i-need"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav currentPage="/how-much-rock-do-i-need" category="quantity" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
   </main>
-
   <Footer />
 </BaseLayout>
 
 <style>
-.content-guide-section {
-  padding: var(--space-12) 0;
-  background: var(--color-bg);
-}
-
-.aeo-quick-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-primary);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  margin-bottom: var(--space-8);
-  box-shadow: 0 4px 20px rgba(202, 138, 4, 0.08);
-}
-.aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--color-primary); }
-.aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-.aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-.aeo-quick-item { background: var(--color-bg); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--color-border); }
-.aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); margin-bottom: 2px; }
-.aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--color-text); margin-bottom: 2px; }
-.aeo-quick-desc { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.35; }
-
-.content-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-8);
-  margin-bottom: var(--space-8);
-}
-
-.content-card h2 {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: var(--space-4);
-}
-
-.content-card h3 {
-  font-size: var(--text-lg);
-  font-weight: 600;
-  color: var(--color-text);
-  margin: var(--space-6) 0 var(--space-3) 0;
-}
-
-.content-card p {
-  color: var(--color-text-muted);
-  line-height: 1.7;
-  margin-bottom: var(--space-4);
-}
-
-.content-card ul {
-  color: var(--color-text-muted);
-  line-height: 1.7;
-  margin-bottom: var(--space-4);
-  padding-left: var(--space-6);
-}
-
-.content-card li {
-  margin-bottom: var(--space-2);
-}
-
-.formula-callout {
-  background: rgba(202, 138, 4, 0.08);
-  border: 1px solid rgba(202, 138, 4, 0.25);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4) var(--space-6);
-  margin: var(--space-4) 0;
-}
-
-.formula-math {
-  font-size: var(--text-base);
-  font-weight: 700;
-  color: var(--color-primary);
-  font-family: monospace;
-}
-
-.formula-desc {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  margin-top: var(--space-1);
-}
-
-.table-container {
-  overflow-x: auto;
-  margin: var(--space-4) 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--text-sm);
-}
-
-th {
-  text-align: left;
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-bg);
-  color: var(--color-text);
-  border-bottom: 2px solid var(--color-border);
-  font-weight: 600;
-}
-
-td {
-  padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
-  color: var(--color-text-muted);
-}
-
-tr:hover td {
-  background: rgba(202, 138, 4, 0.04);
-}
-
-.highlight-box {
-  background: var(--color-bg);
-  border-left: 4px solid var(--color-primary);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: var(--space-4) var(--space-6);
-  margin: var(--space-6) 0;
-}
-
-.highlight-box h4 {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: var(--space-2);
-}
-
-.highlight-box p {
-  margin-bottom: 0;
-  font-size: var(--text-sm);
-}
-
-.faq-card {
-  margin-top: var(--space-8);
-}
-
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  margin-top: var(--space-4);
-}
-
-.faq-item {
-  padding: var(--space-4);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-}
-
-.faq-item h3 {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-  margin: 0 0 var(--space-2) 0;
-}
-
-.faq-item p {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  line-height: 1.6;
-  margin: 0;
-}
+  .page-jumps { background: var(--bg-card); border-bottom: 1px solid var(--border-subtle); }
+  .jump-inner { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3) var(--space-6); padding-top: var(--space-4); padding-bottom: var(--space-4); }
+  .jump-inner span { color: var(--text-muted); font-size: var(--text-xs); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .jump-inner a, .quantity-guide a { color: var(--accent-gold); text-underline-offset: 3px; }
+  .jump-inner a { font-size: var(--text-sm); font-weight: 600; }
+  .quantity-guide { padding: var(--space-12) 0 var(--space-16); background: var(--bg-body); }
+  .guide-section { margin-bottom: var(--space-16); scroll-margin-top: 2rem; }
+  .section-heading { max-width: 740px; margin-bottom: var(--space-6); }
+  .eyebrow { display: inline-block; margin-bottom: var(--space-2); color: var(--accent-gold); font-size: var(--text-xs); font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .quantity-guide h2 { margin: 0 0 var(--space-3); color: var(--text-primary); font-size: clamp(1.6rem, 3vw, 2.15rem); line-height: 1.2; }
+  .quantity-guide h3 { margin: 0 0 var(--space-3); color: var(--text-primary); font-size: var(--text-lg); line-height: 1.35; }
+  .quantity-guide p, .quantity-guide li { color: var(--text-secondary); line-height: 1.7; }
+  .quantity-guide p { margin: 0 0 var(--space-4); }
+  .quantity-guide strong { color: var(--text-primary); }
+  .result-grid, .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+  .result-tile, .project-card, .faq-item { padding: var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-card); }
+  .result-tile { display: flex; flex-direction: column; }
+  .tile-number { display: block; margin-bottom: var(--space-4); font: 800 1.6rem var(--font-mono); color: var(--accent-gold); }
+  .result-tile p { flex: 1; }
+  .result-tile a { font-weight: 700; }
+  .worked-example { display: grid; grid-template-columns: 1fr auto; gap: var(--space-8); align-items: center; margin-top: var(--space-5); padding: var(--space-6); border: 1px solid rgba(212,168,83,.35); border-radius: var(--radius-lg); background: linear-gradient(125deg, rgba(212,168,83,.12), var(--bg-card)); }
+  .worked-example p { margin-bottom: 0; }
+  .example-math { display: flex; flex-direction: column; align-items: center; min-width: 190px; color: var(--text-primary); font: 700 var(--text-base) var(--font-mono); }
+  .math-rule { height: 2px; width: 100%; margin: .35rem 0; background: var(--accent-gold); }
+  .example-math strong { margin-top: .6rem; color: var(--accent-gold); font-size: var(--text-lg); }
+  .assumption-note { margin-top: var(--space-5) !important; padding-left: var(--space-4); border-left: 3px solid var(--accent-gold); font-size: var(--text-sm); }
+  .measure-section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-8); align-items: center; }
+  .measure-steps { margin: var(--space-5) 0 0; padding-left: var(--space-6); }
+  .measure-steps li { padding-left: var(--space-2); margin-bottom: var(--space-4); }
+  .measure-steps li::marker { color: var(--accent-gold); font-weight: 800; }
+  .measure-figure { margin: 0; padding: var(--space-4); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+  .measure-figure svg { display: block; width: 100%; height: auto; border-radius: var(--radius-md); }
+  .measure-figure figcaption { margin-top: var(--space-3); color: var(--text-muted); font-size: var(--text-xs); line-height: 1.5; }
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+  .comparison-section table { width: 100%; border-collapse: collapse; min-width: 590px; text-align: left; }
+  .comparison-section caption { padding: var(--space-4) var(--space-5); color: var(--text-primary); background: var(--bg-card); text-align: left; font-weight: 700; }
+  .comparison-section th, .comparison-section td { padding: var(--space-4) var(--space-5); border-top: 1px solid var(--border-subtle); }
+  .comparison-section thead { color: var(--text-primary); background: var(--bg-surface); }
+  .comparison-section tbody { color: var(--text-secondary); background: var(--bg-card); }
+  .comparison-section tbody th { color: var(--accent-gold); }
+  .table-note { margin-top: var(--space-4) !important; font-size: var(--text-sm); }
+  .project-card { border-top: 3px solid var(--accent-gold); }
+  .project-card p:last-child { margin-bottom: 0; }
+  .order-section { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); gap: var(--space-8); align-items: start; }
+  .order-copy ul { margin: var(--space-4) 0; padding-left: var(--space-6); }
+  .order-copy li { margin-bottom: var(--space-2); }
+  .quote-card { padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid rgba(212,168,83,.35); background: var(--bg-card); }
+  .quote-label { display: block; margin-bottom: var(--space-3); color: var(--accent-gold); font-size: var(--text-xs); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .quote-card p { color: var(--text-primary); font-size: var(--text-lg); line-height: 1.6; }
+  .quote-card small { color: var(--text-muted); line-height: 1.5; }
+  .faq-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); }
+  .faq-item p { margin-bottom: 0; font-size: var(--text-sm); }
+  .source-note { padding: var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-card); }
+  .source-note h2 { font-size: var(--text-lg); }
+  .source-note p { margin-bottom: 0; font-size: var(--text-sm); }
+  @media (max-width: 950px) {
+    .result-grid, .project-grid { grid-template-columns: 1fr; }
+    .measure-section, .order-section { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .quantity-guide { padding: var(--space-8) 0 var(--space-12); }
+    .guide-section { margin-bottom: var(--space-12); }
+    .worked-example, .faq-grid { grid-template-columns: 1fr; }
+    .example-math { justify-self: start; }
+    .result-tile, .project-card, .faq-item, .quote-card { padding: var(--space-5); }
+  }
 </style>

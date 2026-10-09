@@ -1,9 +1,8 @@
 ---
-/**
- * HeroSection Component - rockcoveragecalculator.com
- * Catchy, problem-solving, answerable headline and instant contractor rule.
- * Emotional & professional touch: eliminates the fear of running short or overpaying.
- */
+import { ROCK_MATERIALS } from '../scripts/materials-data.js';
+
+interface Props { title: string }
+const { title } = Astro.props;
 ---
 <section class="hero" id="hero">
   <div class="hero-bg">
@@ -20,20 +19,18 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 2L4 7.5V16.5L12 22L20 16.5V7.5L12 2Z"/>
       </svg>
-      <span>Quarry-Calibrated Aggregate Estimator</span>
+      <span>Area, depth, and material in one estimate</span>
     </div>
 
-    <h1 class="hero-title">
-      Rock Coverage <span class="text-gold">Calculator</span>
-    </h1>
+    <h1 class="hero-title">{title}</h1>
 
     <p class="hero-subtitle">
-      Never run short. Never overpay. Calculate exact cubic yards, tons, and bags for gravel, stone, and aggregate projects with quarry-grade precision before ordering.
+      Measure your area and choose a finished depth to estimate cubic yards, tons, and bags. At 3 inches, 100 square feet takes 0.93 cubic yard before extra material; the weight depends on the rock you choose.
     </p>
 
     <div class="hero-stats">
       <div class="hero-stat">
-        <span class="hero-stat-value">12</span>
+        <span class="hero-stat-value">{ROCK_MATERIALS.length}</span>
         <span class="hero-stat-label">Rock Types</span>
       </div>
       <div class="hero-stat-divider"></div>
@@ -48,8 +45,8 @@
       </div>
       <div class="hero-stat-divider"></div>
       <div class="hero-stat">
-        <span class="hero-stat-value">ASTM C29</span>
-        <span class="hero-stat-label">Methodology</span>
+        <span class="hero-stat-value">Edit</span>
+        <span class="hero-stat-label">Supplier Density</span>
       </div>
     </div>
 
@@ -67,7 +64,7 @@
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
           <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
         </svg>
-        <span>View Density Guide</span>
+        <span>Read the Coverage Guide</span>
       </a>
     </div>
   </div>
@@ -83,7 +80,7 @@
 <style>
   .hero {
     position: relative;
-    min-height: 85vh;
+    min-height: 60vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -266,7 +263,7 @@
 
   @media (max-width: 640px) {
     .hero {
-      min-height: 75vh;
+      min-height: auto;
       padding: var(--space-12) 0 var(--space-8);
     }
 

@@ -1,28 +1,31 @@
 ---
+import { ROCK_MATERIALS, getMaterialById } from '../scripts/materials-data.js';
+const pea = getMaterialById('pea-gravel');
+const lava = getMaterialById('lava-rock');
 const faqs = [
   {
     question: "How many cubic yards of rock do I need?",
-    answer: "Multiply your area in square feet by the depth in feet, then divide by 27 (since there are 27 cubic feet in a cubic yard). For example, a 200 sq ft area at 3 inches deep: (200 x 0.25) / 27 = 1.85 cubic yards. Our calculator does this automatically for any shape and depth, including a waste factor for settling."
+    answer: "Multiply square feet by depth in inches, then divide by 324. A 200 sq ft area at 3 inches needs 1.85 cubic yards before extra material. The calculator first finds the area of your selected shape, then applies the depth and allowance."
   },
   {
     question: "How much does a cubic yard of rock weigh?",
-    answer: "Weight varies by material. Pea gravel and river rock average about 2,700 lbs (1.35 tons) per cubic yard. Crushed granite is heavier at 2,800 lbs (1.40 tons). Lava rock is much lighter at 1,500 lbs (0.75 tons) per cubic yard. Our calculator uses real quarry densities for each of the 12 rock types."
+    answer: `It varies by material and supplier. This calculator starts at ${pea.tonsPerCuYd} short tons per cubic yard for pea gravel and ${lava.tonsPerCuYd} for lava rock, across ${ROCK_MATERIALS.length} selectable materials. These are planning factors; enter your supplier's loose bulk density for a better weight estimate.`
   },
   {
     question: "How deep should landscape rock be?",
-    answer: "Recommended minimum depth follows the aggregate trade rule of 1.5 to 2 times the average stone size (or at least 1x the maximum diameter): pea gravel (3/8\") and small crushed stone work best at 2 to 2.5 inches; medium river rock (1-3\", average 2\") requires 3 to 4 inches minimum; large river rock (3-5\", average 4\") needs 4 to 6 inches minimum; and heavy rip rap requires 6 to 12 inches. Our calculator warns you if your selected depth is below the recommended minimum for your chosen material."
+    answer: "Choose a finished layer depth that suits the stone size and the job. A small decorative rock bed may start around 2 to 3 inches, but larger stone and structural layers need different designs. The calculator flags depths below its material-specific starting value; a project specification or supplier should guide construction work."
   },
   {
     question: "How many bags of rock do I need?",
-    answer: "Standard retail rock bags hold 0.5 cubic feet (about 54 bags per cubic yard). Homeowners often refer to these colloquially as '50 lb bags', but that weight only applies to standard 100 lb/cu ft stone. Lightweight lava rock (56 lbs/cu ft) weighs only ~28 lbs per 0.5 cu ft bag, while dense granite weighs ~52 lbs. To calculate bags accurately, divide total cubic feet needed (area x depth in feet, plus waste factor) by 0.5. For projects needing more than 40-50 bags, bulk delivery by dump truck or 35 cu ft Super Sacks is significantly cheaper."
+    answer: "For bags labeled 0.5 cubic foot, divide the total cubic feet by 0.5 and round up: one cubic yard takes 54 bags. Check the package yield because bag sizes vary. Bag count follows volume, so changing the density input changes tonnage but not the number of volume-labeled bags."
   },
   {
     question: "What is the difference between cubic yards and tons?",
-    answer: "Cubic yards measure volume (how much space the rock fills), while tons measure weight. The relationship depends on the rock density. Most landscaping aggregates weigh between 1.25 and 1.40 tons per cubic yard. Quarries and suppliers may sell by the cubic yard (volume) or by the ton (weight), so knowing both measurements helps you compare prices accurately."
+    answer: "Cubic yards measure space; short tons measure weight. Multiply cubic yards by the material's loose tons-per-yard factor to estimate weight. Suppliers may sell by either unit, so confirm the quote unit and conversion they use."
   },
   {
     question: "Should I add extra rock for waste and settling?",
-    answer: "Yes. A 10% waste factor is standard for most landscape rock projects. This accounts for settling, compaction, material lost during installation, and minor measurement variations. For base materials like quarry process that compact significantly, consider 15-20%. Our calculator lets you choose 5%, 10%, 15%, or 20% waste factors."
+    answer: "An allowance can cover irregular edges, low spots, and measurement uncertainty. The default is an editable 10%, not a guarantee. For a compacted base with fines, the optional separate compaction factor adds loose material to reach the planned finished layer."
   },
   {
     question: "How do I calculate rock for a circular area?",
@@ -30,7 +33,7 @@ const faqs = [
   },
   {
     question: "What is the most cost-effective way to buy rock?",
-    answer: "For small projects under 1 cubic yard, bagged rock from a home center may be convenient but costs 3-5x more per unit. For anything over 1 cubic yard, bulk delivery from a local quarry or landscape supply yard is far more economical. Most quarries deliver by the load (typically 10 cubic yards per dump truck). Our calculator shows you the breakdown in bags, Super Sacks, and truck loads so you can compare options."
+    answer: "Compare the total price for the same volume or weight, including bag yield, bulk minimum, delivery, and access. Bags can be simpler for a small repair, while bulk may suit a larger area. Check your vehicle payload before pickup."
   }
 ];
 ---

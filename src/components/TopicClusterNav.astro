@@ -31,13 +31,13 @@ const {
 
 const CORE_MATERIALS: LinkItem[] = [
   { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: '1.35 t/yd³', desc: '3/8 inch rounded pea gravel for walkways, dog runs, and patio surfaces.' },
-  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³', desc: '1-3 inch and 3-5 inch smooth river rock for dry creek beds and borders.' },
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.35-1.50 t/yd³', desc: 'ASTM D448 #57, #411, and dense graded aggregate for driveways and bases.' },
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'Rounded stone', desc: '1-3 inch and 3-5 inch smooth river rock for dry creek beds and borders.' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'By stone grade', desc: 'Compare clean stone and dense graded base for drainage or compacted layers.' },
   { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³', desc: 'Driveway gravel, road gravel, and parking pad aggregate estimation.' },
   { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: '1.35 t/yd³', desc: 'Washed #57 clean stone for French drains, weeping tile, and dry wells.' },
   { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: '0.75-1.40 t/yd³', desc: 'Lava rock, marble chips, and architectural rock for xeriscaping.' },
   { title: 'Cobblestone Calculator', slug: '/cobblestone-calculator', badge: '1.45 t/yd³', desc: 'Belgian block cobbles, driveway aprons, and granite border curbing.' },
-  { title: 'Landscape Rock Calculator', slug: '/landscape-rock-calculator', badge: '1.30 t/yd³', desc: 'Decorative bed coverage, shrub borders, and weed suppression stone.' },
+  { title: 'Landscape Rock Calculator', slug: '/landscape-rock-calculator', badge: 'By rock type', desc: 'Decorative bed quantities in yards, short tons, and bags with editable bulk density.' },
   { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: '1.40 t/yd³', desc: 'Compacted crushed stone base, walkway fines, and structural sub-base.' }
 ];
 
@@ -46,22 +46,23 @@ const EXPANSION_MATERIALS: LinkItem[] = [
   { title: 'Egg Rock Calculator', slug: '/egg-rock-calculator', badge: '1.35 t/yd³', desc: '1-2 inch and 2-3 inch smooth egg pebbles for decorative beds and modern mulch replacement.' },
   { title: 'Trap Rock Calculator', slug: '/trap-rock-calculator', badge: '1.52 t/yd³', desc: 'Dense igneous basalt and diabase aggregate for driveways, track ballast, and borders.' },
   { title: 'Garden Rock Calculator', slug: '/garden-rock-calculator', badge: 'Horticultural', desc: 'Decorative rock mulch estimator for flower beds, perennials, and garden borders.' },
-  { title: 'Decomposed Granite Calculator', slug: '/decomposed-granite-calculator', badge: '1.25 t/yd³', desc: '1/4 inch minus with fines for compacted pathways, patios, and bocce courts.' },
-  { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: '0.75 t/yd³', desc: 'Lightweight volcanic scoria for garden beds, mulch replacement, and fire pits.' },
-  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: '1.25 t/yd³', desc: 'Sparkling white crystalline dolomite rock for formal borders and tree wells.' },
+  { title: 'Decomposed Granite Calculator', slug: '/decomposed-granite-calculator', badge: 'Compactable fines', desc: '1/4 inch minus with fines for compacted pathways, patios, and bocce courts.' },
+  { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: 'Lightweight', desc: 'Volcanic scoria for garden beds and decorative cover.' },
+  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'Decorative chips', desc: 'White marble aggregate for borders and garden accents.' },
   { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: '1.40 t/yd³', desc: '3/4 inch fractured angular granite for heavy driveways and parking pads.' },
-  { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: '1.40 t/yd³', desc: '6-12 inch Class 1 erosion control rock for culverts, slopes, and shorelines.' },
+  { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: 'Erosion stone', desc: 'Large stone for culverts, slopes, and shorelines where specified.' },
   { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: '1.45 t/yd³', desc: 'Dense graded aggregate (AASHTO M147) blending crushed stone and rock dust.' },
   { title: 'Beach Pebble Calculator', slug: '/beach-pebble-calculator', badge: '1.35 t/yd³', desc: 'Smooth Mexican beach pebbles for contemporary borders and planter tops.' }
 ];
 
 const GENERIC_CONVERSIONS: LinkItem[] = [
+  { title: 'Rock Calculator', slug: '/rock-calculator', badge: 'Simple estimate', desc: 'Estimate a measured bed in cubic yards, short tons, and bags with editable density.' },
   { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: '27 cu ft / yd³', desc: 'Convert length, width, and depth into cubic yards for bulk ordering.' },
   { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: '2,000 lbs / ton', desc: 'Convert cubic volume into commercial scale weight using bulk density.' },
   { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: '0.5 cu ft bags', desc: 'Calculate retail 0.5 cu ft bags needed with bulk break-even cost analysis.' },
   { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'sq ft coverage', desc: 'Calculate aggregate tons and cubic yards needed from known square footage.' },
   { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Truckload Sizing', desc: 'Estimate dump truck delivery payloads, axle weight limits, and settling margins.' },
-  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Intent Hub', desc: 'Guided calculator matching your specific project type to depth and volume.' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Worked guide', desc: 'Measure area and depth, check a worked example, then estimate yards, tons, and bags.' },
   { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Conversion Hub', desc: 'Interactive depth matrix showing square feet per yard and square feet per ton.' }
 ];
 
@@ -92,11 +93,11 @@ const SUPPORTING_GUIDES: LinkItem[] = [
   { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448', desc: 'Complete gradation envelope, sieve specs, and applications for #57 aggregate.' },
   { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43', desc: 'Standard aggregate size numbers from #1 down to #10 with sieve dimensions.' },
   { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech Guide', desc: 'Particle interlock, friction angles (40-45 deg), and structural load behavior.' },
-  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules', desc: 'Standard thickness guidelines by aggregate size and project application.' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth planning', desc: 'Choose a finished layer depth for the material and project before calculating volume.' },
   { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Contractor Protocol', desc: 'Step by step site preparation, geotextile fabric, edging, and screeding.' },
   { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Analysis', desc: 'Economic break-even point between 0.5 cu ft bags and bulk quarry truckloads.' },
   { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Drainage Design', desc: 'Sizing channels, parabolic cross-sections, and placing river rock and riprap.' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29', desc: 'Calibrated bulk density table with loose stockpile unit weights and moisture ranges.' }
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'Planning factors', desc: 'Compare loose bulk density estimates and adjust them for your supplier.' }
 ];
 
 const hasContextLinks = upLinks.length > 0 || lateralLinks.length > 0 || bridgeLinks.length > 0 || supportGuides.length > 0;
@@ -198,7 +199,7 @@ const hasContextLinks = upLinks.length > 0 || lateralLinks.length > 0 || bridgeL
       <div class="cluster-header">
         <span class="badge-cluster">Quarry Knowledge Network</span>
         <h2>Complete Landscape Aggregate Calculator Library</h2>
-        <p>Explore all 41 specialized volumetric engines, rock grading tools, unit conversion calculators, and civil engineering guides.</p>
+        <p>Explore material calculators, unit conversions, and practical field guides by project.</p>
       </div>
 
       <div class="cluster-columns-three">

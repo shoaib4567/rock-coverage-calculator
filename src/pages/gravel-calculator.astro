@@ -3,313 +3,223 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import GravelCalculator from '../components/calculators/GravelCalculator.astro';
-import GravelVisualizer from '../components/visualizers/GravelVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import { getMaterialById } from '../scripts/materials-data.js';
 
+const pageTitle = 'Gravel Calculator: Cubic Yards and Tons';
+const crushedDensity = getMaterialById('crushed-granite').tonsPerCuYd;
+const baseDensity = getMaterialById('crusher-run-21a').tonsPerCuYd;
+const peaDensity = getMaterialById('pea-gravel').tonsPerCuYd;
+const exampleOrderYards = 50 * 12 * 4 / 324 * 1.15;
+const exampleTons = exampleOrderYards * crushedDensity;
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Gravel Calculator', url: '/gravel-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Gravel Coverage Calculator' },
-  { label: 'Application Grades', value: '#57 Crushed Stone, Crusher Run, Pea Gravel' },
-  { label: 'Bulk Density', value: '1.40 Tons/yd³ (2,800 lbs)' },
-  { label: 'Traffic Engineering', value: 'Vehicular (4"-6") vs Pedestrian (2"-3")' }
+  { label: 'Inputs', value: 'Length × Width × Finished Depth' },
+  { label: 'Results', value: 'Cubic Yards and US Tons' },
+  { label: 'Materials', value: 'Crushed Stone, Crusher Run, Pea Gravel' }
 ];
-
 const quickStats = [
-  { value: '4"-6" Depth', label: 'Driveway Standard', desc: 'Engineered depth required to resist passenger vehicle ruts' },
-  { value: '15% Overage', label: 'Compaction Factor', desc: 'Volume loss caused by mechanical plate tamper or tire compaction' },
-  { value: '14 Tons', label: 'Tandem Truckload', desc: 'Standard bulk dump truck payload delivery capacity' }
+  { value: '27 cu ft', label: 'Per cubic yard', desc: 'Volume conversion for bulk gravel orders' },
+  { value: '2,000 lb', label: 'Per US ton', desc: 'Weight unit used in the ton estimate' },
+  { value: 'Your choice', label: 'Order allowance', desc: 'Adjust for compaction, low spots, and grading' }
 ];
-
 const faqItems = [
   {
-    q: 'How much gravel do I need for a 50 foot driveway?',
-    a: 'A standard single-lane driveway is 10 to 12 feet wide. For a 50x12 foot driveway (600 sq ft) with a 4-inch compacted gravel surface, you need 7.41 cubic yards. Adding a 15% compaction allowance yields approximately 8.5 cubic yards, which converts to approximately 11.9 tons of #57 crushed gravel.'
+    q: 'How much gravel do I need for a 50 × 12 ft driveway?',
+    a: `At a 4-inch finished depth, the area is 600 sq ft and the finished volume is 7.41 cubic yards. A 15% allowance makes the estimated order ${exampleOrderYards.toFixed(2)} cubic yards. At the calculator’s ${crushedDensity.toFixed(2)} US tons per cubic yard starting density for crushed stone, that is ${exampleTons.toFixed(2)} US tons. Calculate a separate layer if your driveway also needs a base.`
   },
   {
-    q: 'What is the best gravel size for a driveway?',
-    a: 'Civil contractors recommend angular 3/4-inch crushed gravel (#57 stone). Unlike rounded pea gravel that shifts and rolls beneath car tires, angular fractured stones interlock under compaction to form a stable, durable roadway surface that sheds stormwater.'
+    q: 'Does the calculator include a base and a surface layer?',
+    a: 'It estimates one material and one depth at a time. Run it once for the compacted base, then again for the surface material. Add the two order quantities only after using the correct density and allowance for each material.'
   },
   {
-    q: 'How thick should gravel be for a garden walkway?',
-    a: 'Install walkway gravel at a compacted depth of 2.0 to 2.5 inches. Layers thicker than 2.5 inches feel spongy and cause pedestrian footwear to sink, while layers thinner than 2 inches expose underlayment fabric and allow weeds to penetrate.'
+    q: 'How many tons are in a cubic yard of gravel?',
+    a: `There is no single value for every gravel. This calculator starts with ${crushedDensity.toFixed(2)} US tons per cubic yard for crushed stone, ${baseDensity.toFixed(2)} for dense graded base, and ${peaDensity.toFixed(2)} for pea gravel. Change the density to your supplier’s figure when available; gradation, source, and moisture affect the delivered weight.`
   },
   {
-    q: 'Why does gravel need a crushed stone base beneath it?',
-    a: 'Pouring loose gravel directly onto native dirt will fail within one rainy season, as car tires push gravel into soft mud. A 4-inch compacted sub-base of dense graded stone (#411 crusher run) over heavy geotextile fabric creates a permanent rigid foundation that prevents ruts.'
+    q: 'Should I add a compaction allowance to pea gravel?',
+    a: 'The allowance is optional. A compacted, dense graded base may need more loose material than its finished volume. Loose pea gravel is not compacted in the same way, though extra material may still be useful for uneven ground or spreading loss. Ask your supplier how their quoted cubic yards and tons are measured.'
   }
 ];
 ---
 
 <BaseLayout
-  title="Gravel Coverage Calculator - Driveway & Walkway Tons & Yards Estimator"
-  description="Calculate gravel coverage in tons, cubic yards, and square feet for driveways, walkways, and patios. Includes base vs top course calculations and 15% mechanical compaction allowances."
+  title={pageTitle}
+  description="Enter area, finished depth, gravel type, and allowance to estimate cubic yards and US tons. See the exact formula and a worked driveway example."
   canonicalPath="/gravel-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Gravel Coverage Calculator",
-      "url": "https://rockcoveragecalculator.com/gravel-calculator",
-      "description": "Calculates gravel coverage requirements for driveways, pathways, and patios with compaction and dual-layer engineering.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "about": {
-        "@type": "Thing",
-        "name": "Gravel Coverage"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/gravel-calculator',
+      description: 'Estimates gravel volume and US tons from length, width, finished depth, an optional order allowance, and material bulk density.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="Gravel Coverage Calculator"
-      highlightWord="Coverage"
-      badge="Driveway & Pathway Engineering"
-      subtitle="Accurate volumetric and scale tonnage calculations for #57 crushed gravel driveways, garden pathways, and structural foundation base courses."
+      title={pageTitle}
+      highlightWord="Gravel Calculator"
+      badge="Bulk gravel planning"
+      subtitle="Measure the area and choose a finished gravel depth. This calculator converts that volume to cubic yards, adds your order allowance, then estimates US tons using a material density you can adjust to match your supplier."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
     />
 
+    <section class="answer-strip" aria-label="Gravel calculation at a glance">
+      <div class="container answer-grid">
+        <p><strong>For a rectangle:</strong> square feet = length × width. Finished cubic yards = square feet × depth in inches ÷ 324.</p>
+        <p><strong>For an order:</strong> multiply finished yards by 1 + your allowance, then by tons per cubic yard if the yard sells by weight.</p>
+      </div>
+    </section>
+
     <GravelCalculator />
 
-    <GravelVisualizer />
-
-    <!-- Technical Guide on Gravel Engineering -->
     <article class="content-guide-section">
-      <div class="container">
-        <div class="content-card">
-          <h2>Engineering a Long-Lasting Gravel Surface</h2>
-          <p>
-            Gravel is one of the most cost-effective and permeable surface materials available for driveways, walkways, and parking pads. However, the difference between a gravel driveway that lasts twenty years and one that turns into a rutted mud pit within six months lies in <strong>layered construction engineering</strong> and <strong>compaction allowance math</strong>.
-          </p>
-
-          <h3>The Two-Layer Driveway System</h3>
-          <p>
-            Professional roadway contractors never build a gravel driveway using a single rock grade. Heavy vehicle loads require a structured two-layer system:
-          </p>
-          <ul>
-            <li>
-              <strong>Layer 1: Subgrade Base (4 to 6 Inches of #411 Crusher Run):</strong> This dense aggregate contains particle sizes ranging from 3/4-inch down to fine stone dust. When watered and rolled with a vibratory compactor, the fines cement the angular stones together into a solid, unyielding sub-base.
-            </li>
-            <li>
-              <strong>Layer 2: Surface Wearing Course (2 Inches of Clean #57 Crushed Stone):</strong> Clean washed 3/4-inch angular stone provides a clean driving surface without dust, allows stormwater to drain rapidly, and locks together mechanically to resist tire torque.
-            </li>
-          </ul>
-
-          <div class="highlight-box">
-            <h4>The Critical Compaction Rule</h4>
-            <p>
-              When purchasing crusher run or dense graded gravel, always multiply your theoretical volume by <strong>1.15 to 1.20 (15% to 20% overage)</strong>. Compaction tamps down the air pockets between loose rocks, requiring more quarry tons to achieve your finished design elevation.
-            </p>
+      <div class="container guide-grid">
+        <section class="content-card math-card" aria-labelledby="gravel-math-heading">
+          <h2 id="gravel-math-heading">How the gravel estimate is calculated</h2>
+          <p>The depth you enter is the <strong>finished layer depth</strong>. The calculator shows both that geometric volume and an estimated order volume after your allowance. Its tonnage is an estimate of order volume multiplied by the chosen loose bulk density, not a weighbridge ticket.</p>
+          <figure class="formula-figure">
+            <svg viewBox="0 0 680 170" role="img" aria-labelledby="formula-title formula-desc">
+              <title id="formula-title">Gravel quantity calculation</title>
+              <desc id="formula-desc">Length times width gives square feet; square feet times depth in inches divided by 324 gives cubic yards; the chosen allowance and material density give an estimated order in US tons.</desc>
+              <rect x="2" y="2" width="676" height="166" rx="15" fill="#17212b" stroke="#586575" />
+              <rect x="22" y="30" width="145" height="110" rx="10" fill="#29465c" />
+              <text x="94" y="75" text-anchor="middle" fill="white" font-size="16" font-weight="700">Length × width</text>
+              <text x="94" y="101" text-anchor="middle" fill="#c6d8e6" font-size="13">square feet</text>
+              <text x="182" y="91" fill="#fbbf24" font-size="22">→</text>
+              <rect x="215" y="30" width="145" height="110" rx="10" fill="#29465c" />
+              <text x="287" y="75" text-anchor="middle" fill="white" font-size="16" font-weight="700">× depth ÷ 324</text>
+              <text x="287" y="101" text-anchor="middle" fill="#c6d8e6" font-size="13">finished yd³</text>
+              <text x="376" y="91" fill="#fbbf24" font-size="22">→</text>
+              <rect x="408" y="30" width="245" height="110" rx="10" fill="#29465c" />
+              <text x="530" y="70" text-anchor="middle" fill="white" font-size="16" font-weight="700">× (1 + allowance)</text>
+              <text x="530" y="96" text-anchor="middle" fill="#c6d8e6" font-size="13">order yd³</text>
+              <text x="530" y="118" text-anchor="middle" fill="#c6d8e6" font-size="13">× density = US tons</text>
+            </svg>
+            <figcaption>One calculation covers one material layer. Run it separately for each base or surface layer, or use the <a href="/layered-project-calculator">multi-layer project planner</a>.</figcaption>
+          </figure>
+          <div class="example">
+            <h3>Worked example: 50 ft × 12 ft at 4 in</h3>
+            <p>600 sq ft × 4 ÷ 324 = <strong>7.41 finished yd³</strong>. With a 15% allowance, 7.41 × 1.15 = <strong>{exampleOrderYards.toFixed(2)} order yd³</strong>. At {crushedDensity.toFixed(2)} US tons per yd³, the estimate is <strong>{exampleTons.toFixed(2)} US tons</strong>. Confirm the actual density, order increment, and delivery options with the supplier.</p>
           </div>
+        </section>
 
-          <h3>Gravel Depth & Specification Quick Reference</h3>
+        <section class="content-card planning-card" aria-labelledby="gravel-planning-heading">
+          <h2 id="gravel-planning-heading">Measure and order without surprises</h2>
+          <ol>
+            <li><strong>Measure the footprint.</strong> Break curves, flares, and wider parking areas into rectangles and add their square footage. Use average depth only if the existing ground is reasonably even; measure low spots separately.</li>
+            <li><strong>Specify the finished layer.</strong> A thin top-up over a sound driveway and a new base are different jobs. Enter each material and depth in its own calculation.</li>
+            <li><strong>Choose an allowance deliberately.</strong> Zero gives the geometric volume. Increase it if a compacted base, rough grade, or handling loss calls for more loose material. A fixed percentage cannot replace site measurements.</li>
+            <li><strong>Check the supplier’s unit.</strong> Ask whether the quote is in loose cubic yards or US short tons, what material name and gradation they use, and whether they can provide tons per cubic yard. Also confirm the smallest deliverable load and a safe place to tip it.</li>
+          </ol>
+        </section>
+
+        <section class="content-card source-card" aria-labelledby="gravel-sources-heading">
+          <h2 id="gravel-sources-heading">Where these assumptions come from</h2>
+          <p>The <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/" target="_blank" rel="noopener noreferrer">Penn State Center for Dirt and Gravel Road Studies</a> distinguishes finished depth from shipped loose material and advises using local density and compaction figures when available. The <a href="https://www.epa.gov/nps/gravel-roads-maintenance-and-design-manual" target="_blank" rel="noopener noreferrer">Gravel Roads: Maintenance and Design Manual</a> explains the importance of surface material, crown, and drainage. Those road references inform the planning notes; a residential driveway design still depends on its soil, traffic, and climate.</p>
+        </section>
+
+        <section class="content-card material-card" aria-labelledby="gravel-material-heading">
+          <h2 id="gravel-material-heading">Match the material to the job</h2>
+          <p>Local names and gradations vary. These are calculator starting points for <em>loose bulk density</em>, not guarantees for every quarry.</p>
           <div class="table-container">
             <table>
-              <thead>
-                <tr>
-                  <th>Application</th>
-                  <th>Recommended Depth</th>
-                  <th>Recommended Stone Grade</th>
-                  <th>Compaction Allowance</th>
-                </tr>
-              </thead>
+              <thead><tr><th scope="col">Material</th><th scope="col">Starting density</th><th scope="col">Useful distinction</th></tr></thead>
               <tbody>
-                <tr>
-                  <td><strong>Residential Driveway</strong></td>
-                  <td>4" Base + 2" Top</td>
-                  <td>#411 Base + #57 Clean Top</td>
-                  <td>15% to 20%</td>
-                </tr>
-                <tr>
-                  <td><strong>Garden Walkway / Path</strong></td>
-                  <td>2.0" to 2.5"</td>
-                  <td>3/8" Pea Gravel or 1/2" Chip</td>
-                  <td>10%</td>
-                </tr>
-                <tr>
-                  <td><strong>Outdoor Fire Pit Patio</strong></td>
-                  <td>2.5"</td>
-                  <td>Decomposed Granite or Pea Stone</td>
-                  <td>10%</td>
-                </tr>
-                <tr>
-                  <td><strong>Shed / RV Parking Pad</strong></td>
-                  <td>6.0"</td>
-                  <td>#411 Crusher Run Base</td>
-                  <td>20%</td>
-                </tr>
+                <tr><th scope="row">Crushed stone</th><td>{crushedDensity.toFixed(2)} US tons/yd³</td><td>Angular aggregate; this starting figure uses the site’s crushed granite preset. Confirm size and fines if used as a driveway surface.</td></tr>
+                <tr><th scope="row">Crusher run / dense graded base</th><td>{baseDensity.toFixed(2)} US tons/yd³</td><td>Mixed sizes and fines are intended to compact into a base; name and blend vary locally.</td></tr>
+                <tr><th scope="row">Pea gravel</th><td>{peaDensity.toFixed(2)} US tons/yd³</td><td>Rounded gravel works well in contained pedestrian areas, but can shift under tires.</td></tr>
               </tbody>
             </table>
           </div>
-        </div>
+          <p>For a weak or wet driveway, first address the subgrade and drainage. A fabric separator can help in some conditions, but the need, type, and placement depend on the site. The <a href="/gravel-sizes">gravel size guide</a> and <a href="/angular-vs-rounded-rock">angular versus rounded stone guide</a> can help when comparing supplier samples.</p>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions</h2>
+        <section class="content-card faq-card" aria-labelledby="gravel-faq-heading">
+          <h2 id="gravel-faq-heading">Gravel calculator questions</h2>
           <div class="faq-list">
-            {faqItems.map((item) => (
+            {faqItems.map(item => (
               <div class="faq-item">
                 <h3>{item.q}</h3>
                 <p>{item.a}</p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
       </div>
     </article>
 
-    <TopicClusterNav activePage="gravel-calculator" />
+    <TopicClusterNav
+      currentPage="/gravel-calculator"
+      bridgeLinks={[
+        { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', desc: 'Focus on weight-based ordering.' },
+        { title: 'Gravel Cubic Yard Calculator', slug: '/gravel-cubic-yard-calculator', desc: 'Focus on bulk volume.' }
+      ]}
+      lateralLinks={[
+        { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', desc: 'Estimate a dense graded driveway base.' },
+        { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', desc: 'Estimate rounded gravel for a path or patio.' }
+      ]}
+      supportGuides={[
+        { title: 'Gravel Size Guide', slug: '/gravel-sizes', desc: 'Compare aggregate size labels.' },
+        { title: 'Rock Density Chart', slug: '/rock-density-chart', desc: 'Check material weight assumptions.' }
+      ]}
+    />
   </main>
-
   <Footer />
 </BaseLayout>
 
 <style>
-.content-guide-section {
-  padding: var(--space-12) 0;
-  background: var(--color-bg);
-}
-
-.content-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-8);
-  margin-bottom: var(--space-8);
-}
-
-.content-card h2 {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: var(--space-4);
-}
-
-.content-card h3 {
-  font-size: var(--text-lg);
-  font-weight: 600;
-  color: var(--color-text);
-  margin: var(--space-6) 0 var(--space-3) 0;
-}
-
-.content-card p {
-  color: var(--color-text-muted);
-  line-height: 1.7;
-  margin-bottom: var(--space-4);
-}
-
-.content-card ul {
-  color: var(--color-text-muted);
-  line-height: 1.7;
-  margin-bottom: var(--space-4);
-  padding-left: var(--space-6);
-}
-
-.content-card li {
-  margin-bottom: var(--space-2);
-}
-
-.highlight-box {
-  background: var(--color-bg);
-  border-left: 4px solid var(--color-primary);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: var(--space-4) var(--space-6);
-  margin: var(--space-6) 0;
-}
-
-.highlight-box h4 {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: var(--space-2);
-}
-
-.highlight-box p {
-  margin-bottom: 0;
-  font-size: var(--text-sm);
-}
-
-.table-container {
-  overflow-x: auto;
-  margin: var(--space-4) 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--text-sm);
-}
-
-th {
-  text-align: left;
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-bg);
-  color: var(--color-text);
-  border-bottom: 2px solid var(--color-border);
-  font-weight: 600;
-}
-
-td {
-  padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
-  color: var(--color-text-muted);
-}
-
-tr:hover td {
-  background: rgba(202, 138, 4, 0.04);
-}
-
-.faq-card {
-  margin-top: var(--space-8);
-}
-
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  margin-top: var(--space-4);
-}
-
-.faq-item {
-  padding: var(--space-4);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-}
-
-.faq-item h3 {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-  margin: 0 0 var(--space-2) 0;
-}
-
-.faq-item p {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  line-height: 1.6;
-  margin: 0;
-}
+  .answer-strip { padding: var(--space-5) 0; background: var(--color-surface); border-block: 1px solid var(--color-border); }
+  .answer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
+  .answer-grid p { margin: 0; color: var(--color-text-muted); line-height: 1.65; }
+  .answer-grid strong { color: var(--color-text); }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--color-bg); }
+  .guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); align-items: start; }
+  .content-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-8); }
+  .math-card, .material-card, .faq-card { grid-column: 1 / -1; }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--color-text); margin: 0 0 var(--space-4); }
+  .content-card h3 { font-size: var(--text-lg); color: var(--color-text); margin: 0 0 var(--space-2); }
+  .content-card p, .content-card li { color: var(--color-text-muted); line-height: 1.7; }
+  .content-card p:last-child { margin-bottom: 0; }
+  .content-card a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+  .content-card ol { padding-left: var(--space-6); margin: 0; }
+  .content-card li { padding-left: var(--space-2); margin-bottom: var(--space-3); }
+  .content-card li:last-child { margin-bottom: 0; }
+  .formula-figure { margin: var(--space-6) 0; }
+  .formula-figure svg { display: block; max-width: 680px; width: 100%; height: auto; }
+  .formula-figure figcaption { color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-2); }
+  .example { padding: var(--space-5); background: var(--color-bg); border-left: 4px solid var(--color-primary); border-radius: var(--radius-md); }
+  .example p { margin: 0; }
+  .table-container { overflow-x: auto; margin: var(--space-4) 0; }
+  table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+  th, td { padding: var(--space-3) var(--space-4); text-align: left; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+  thead th { color: var(--color-text); background: var(--color-bg); }
+  tbody th { color: var(--color-text); font-weight: 600; }
+  td { color: var(--color-text-muted); }
+  .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+  .faq-item { padding: var(--space-5); background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .faq-item h3 { font-size: var(--text-base); }
+  .faq-item p { font-size: var(--text-sm); margin: 0; }
+  @media (max-width: 750px) { .answer-grid, .guide-grid, .faq-list { grid-template-columns: 1fr; } .math-card, .material-card, .faq-card { grid-column: auto; } .content-card { padding: var(--space-5); } }
 </style>
