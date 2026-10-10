@@ -407,6 +407,20 @@ const decomposedGraniteDensity = getMaterialById('decomposed-granite').tonsPerCu
   margin-top: 0.15rem;
 }
 
+@media (max-width: 520px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+  .kpi-card {
+    display: grid;
+    grid-template-columns: minmax(4rem, auto) 1fr;
+    column-gap: var(--space-3);
+    align-items: center;
+    text-align: left;
+  }
+  .kpi-value { grid-row: 1 / span 2; }
+  .kpi-label { margin-top: 0; }
+  .kpi-subtext { grid-column: 2; line-height: 1.35; overflow-wrap: anywhere; }
+}
+
 .compaction-diagram-card {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
