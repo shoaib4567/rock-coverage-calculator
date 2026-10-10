@@ -1,12 +1,17 @@
 ---
-// Landscape Stone & Mechanical Compaction Shrinkage Calculator
+// Crushed landscape stone order estimator
+import { getMaterialById } from '../../scripts/materials-data.js';
+
+const cleanStoneDensity = getMaterialById('clean-stone-57').tonsPerCuYd;
+const denseBaseDensity = getMaterialById('crusher-run-21a').tonsPerCuYd;
+const decomposedGraniteDensity = getMaterialById('decomposed-granite').tonsPerCuYd;
 ---
 <section class="section" id="stone-calc">
   <div class="container">
     <div class="section-header">
-      <h2>Landscape Stone & Base Compaction Calculator</h2>
+      <h2>Estimate the stone to order</h2>
       <div class="section-divider"></div>
-      <p>Calculate exact tonnage and loose quarry delivery volume for clean drainage stone vs dense-graded base (#411 / crusher run) accounting for 20% roller compaction shrinkage.</p>
+      <p>Enter the area and finished layer depth. Select a stone, then replace the sample loose density and settlement allowance with numbers from your local supplier when available.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -14,136 +19,144 @@
       <div class="calc-panel animate-fade-in-up">
         <div class="calc-panel-title">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          <h3>Stone Specification & Grading</h3>
+          <h3>Choose a loose stone</h3>
         </div>
 
-        <div class="stone-spec-grid" role="radiogroup">
-          <button type="button" class="spec-btn active" data-type="clean" data-density="1.35" data-compaction="5">
-            <div class="spec-title">#57 Clean Crushed Limestone (3/4")</div>
-            <div class="spec-detail">Washed aggregate without dust / fines | 5% natural settlement</div>
+        <div class="stone-spec-grid" aria-label="Stone examples">
+          <button type="button" class="spec-btn active" aria-pressed="true" data-type="clean" data-density={cleanStoneDensity} data-compaction="0" data-name="Clean #57 stone">
+            <div class="spec-title">Clean #57 angular stone</div>
+            <div class="spec-detail">Open graded; for drainage or a specified open graded base. Starts at 0% loose-to-placed loss.</div>
           </button>
-          <button type="button" class="spec-btn" data-type="dense" data-density="1.50" data-compaction="20">
-            <div class="spec-title">#411 / Crusher Run (With Fines)</div>
-            <div class="spec-detail">Structural base for driveways & patios | 20% plate roller compaction</div>
+          <button type="button" class="spec-btn" aria-pressed="false" data-type="dense" data-density={denseBaseDensity} data-compaction="15" data-name="Dense graded base">
+            <div class="spec-title">Dense graded base / crusher run</div>
+            <div class="spec-detail">Stone plus fines for a compacted base. Starts with an editable 15% loose-to-finished loss.</div>
           </button>
-          <button type="button" class="spec-btn" data-type="dg" data-density="1.45" data-compaction="18">
-            <div class="spec-title">Decomposed Granite (Stabilized DG)</div>
-            <div class="spec-detail">Pathways & pet runs | 18% compaction shrinkage</div>
+          <button type="button" class="spec-btn" aria-pressed="false" data-type="dg" data-density={decomposedGraniteDensity} data-compaction="10" data-name="Decomposed granite">
+            <div class="spec-title">Decomposed granite (DG)</div>
+            <div class="spec-detail">For a compacted path surface; stabilizers vary by product. Starts with an editable 10% loss.</div>
           </button>
         </div>
 
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <h3>Target Project Dimensions</h3>
+          <h3>Measure the area</h3>
         </div>
 
         <div class="dim-grid">
           <div class="input-field">
             <label for="stone-length">Length</label>
-            <input type="number" id="stone-length" value="30" min="1" step="0.5" />
+            <input type="number" id="stone-length" value="20" min="0.1" step="any" inputmode="decimal" />
             <span class="unit-label">feet</span>
           </div>
           <div class="input-field">
             <label for="stone-width">Width</label>
-            <input type="number" id="stone-width" value="15" min="1" step="0.5" />
+            <input type="number" id="stone-width" value="20" min="0.1" step="any" inputmode="decimal" />
             <span class="unit-label">feet</span>
           </div>
         </div>
 
         <div class="dim-grid">
           <div class="input-field">
-            <label for="stone-compacted-depth">Finished Compacted Depth</label>
-            <input type="number" id="stone-compacted-depth" value="4.0" min="1" max="18" step="0.5" />
+            <label for="stone-compacted-depth">Finished Layer Depth</label>
+            <input type="number" id="stone-compacted-depth" value="4" min="0.1" max="36" step="any" inputmode="decimal" />
             <span class="unit-label">inches</span>
           </div>
           <div class="input-field">
-            <label for="stone-waste">Subgrade Irregularity Buffer</label>
-            <input type="number" id="stone-waste" value="10" min="0" max="25" step="1" />
+            <label for="stone-waste">Extra for Low Spots / Spillage</label>
+            <input type="number" id="stone-waste" value="5" min="0" max="25" step="1" />
             <span class="unit-label">% extra</span>
           </div>
         </div>
 
-        <!-- Compaction Slider -->
+        <div class="input-field density-field">
+          <label for="stone-density">Loose Bulk Density <span>(short tons per cubic yard)</span></label>
+          <input type="number" id="stone-density" value={cleanStoneDensity} min="0.3" max="3" step="0.01" inputmode="decimal" />
+          <p>Example only. Ask the yard for the weight of one loose cubic yard of your selected stone.</p>
+        </div>
+
+        <!-- Editable settlement allowance -->
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M8 5l4-3 4 3M8 19l4 3 4-3"/></svg>
-          <h3>Compaction Shrinkage Factor</h3>
+          <h3>Loose-to-Finished Volume Loss</h3>
         </div>
 
         <div class="range-container">
           <div class="range-header">
-            <span>Compaction Loss Allowance</span>
-            <span class="range-val" id="compaction-display">20% (Crusher Run)</span>
+            <label for="stone-compaction-slider">Estimated loss as material settles or compacts</label>
+            <span class="range-val" id="compaction-display">0% (Clean #57 stone)</span>
           </div>
-          <input type="range" id="stone-compaction-slider" min="0" max="30" value="20" step="1" />
+          <input type="range" id="stone-compaction-slider" min="0" max="30" value="0" step="1" />
+          <p class="calc-assumption">This is a planning input, not a fixed property of #57, crusher run, or DG. A 20% loss means 1 loose yard becomes 0.8 finished yard; order volume is finished volume ÷ 0.8.</p>
+          <p id="stone-input-error" class="calc-error" role="alert" hidden>Check the highlighted fields: use positive dimensions, a depth up to 36 in, a density from 0.3 to 3, and 0–25% extra.</p>
         </div>
       </div>
 
       <!-- Output Panel -->
       <div class="calc-results-panel animate-fade-in-up">
         <div class="results-header">
-          <div class="results-title">Loose vs Compacted Order Specs</div>
-          <div class="results-badge" id="stone-badge">Crusher Run (20% Compaction)</div>
+          <div class="results-title">Order estimate</div>
+          <div class="results-badge" id="stone-badge">Clean #57 stone · 0% loss</div>
         </div>
 
         <div class="kpi-grid">
           <div class="kpi-card highlight">
             <div class="kpi-value" id="kpi-stone-tons">0.00</div>
-            <div class="kpi-label">Quarry Weight (Tons)</div>
-            <div class="kpi-subtext" id="kpi-stone-lbs">0 lbs total delivery</div>
+            <div class="kpi-label">Estimated Short Tons to Order</div>
+            <div class="kpi-subtext" id="kpi-stone-lbs">US short tons × 2,000 lb</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-loose-yards">0.00</div>
-            <div class="kpi-label">Loose Delivery (Cubic Yards)</div>
-            <div class="kpi-subtext" id="kpi-loose-depth">Pour 4.8" loose to get 4" compacted</div>
+            <div class="kpi-label">Loose Cubic Yards to Order</div>
+            <div class="kpi-subtext" id="kpi-loose-depth">Before placement</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-compacted-yards">0.00</div>
-            <div class="kpi-label">Compacted Solid Volume</div>
-            <div class="kpi-subtext" id="kpi-shrinkage-loss">0.0 yd³ lost to compaction</div>
+            <div class="kpi-label">Finished Layer Volume</div>
+            <div class="kpi-subtext" id="kpi-shrinkage-loss">Includes voids between stones</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-stone-sqft">0</div>
             <div class="kpi-label">Surface Area (Sq Ft)</div>
-            <div class="kpi-subtext" id="kpi-stone-geotextile">500 sq ft stabilization fabric</div>
+            <div class="kpi-subtext" id="kpi-stone-geotextile">Length × width</div>
           </div>
         </div>
 
         <!-- Compaction Cross Section Diagram -->
         <div class="compaction-diagram-card">
-          <div class="diagram-title">Compaction Shrinkage Cross Section</div>
+          <div class="diagram-title">Placement depth at the selected loss</div>
           <div class="diagram-bars">
             <div class="bar-col">
               <div class="bar-fill loose-bar" id="bar-loose">
-                <span id="bar-loose-text">Loose Dump: 4.8"</span>
+                <span id="bar-loose-text">Loose: 4.0"</span>
               </div>
-              <div class="bar-caption">Uncompacted Pour</div>
+              <div class="bar-caption">Before settling</div>
             </div>
             <div class="bar-arrow">→</div>
             <div class="bar-col">
               <div class="bar-fill compact-bar" id="bar-compact">
-                <span id="bar-compact-text">Finished Base: 4.0"</span>
+                <span id="bar-compact-text">Finished: 4.0"</span>
               </div>
-              <div class="bar-caption">After Plate Compactor</div>
+              <div class="bar-caption">Finished layer</div>
             </div>
           </div>
           <p class="diagram-note">
-            Dense graded stone with fines packs into microscopic air voids. Ordering only the theoretical compacted volume will leave your project short!
+            The extra percentage for low spots or spillage is included in the order quantity, not in the loose depth shown here. Check the actual layer with a grade stake as you place it.
           </p>
         </div>
 
         <!-- Breakdown List -->
         <div class="breakdown-list">
           <div class="breakdown-row">
-            <span>Theoretical In-Place Volume</span>
-            <span class="breakdown-val" id="row-compact-cuft">150.0 cu ft (5.5 yd³)</span>
+            <span>Finished Layer</span>
+            <span class="breakdown-val" id="row-compact-cuft">133.3 cu ft (4.94 yd³)</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Loose Before Extra</span>
+            <span class="breakdown-val" id="row-base-loose">133.3 cu ft (4.94 yd³)</span>
           </div>
           <div class="breakdown-row">
             <span>Loose Delivery Volume to Order</span>
-            <span class="breakdown-val highlight-order" id="row-loose-cuft">187.5 cu ft (6.9 yd³)</span>
-          </div>
-          <div class="breakdown-row">
-            <span>Plate Compactor Equipment</span>
-            <span class="breakdown-val">Reversible 3,000 to 5,000 lbf vibratory tamper</span>
+            <span class="breakdown-val highlight-order" id="row-loose-cuft">140.0 cu ft (5.19 yd³)</span>
           </div>
         </div>
       </div>
@@ -227,6 +240,11 @@
   border-color: var(--color-primary);
 }
 
+.input-field input[aria-invalid="true"] {
+  border-color: #f87171;
+  box-shadow: 0 0 0 1px #f87171;
+}
+
 .input-field .unit-label {
   position: absolute;
   right: 0.75rem;
@@ -235,6 +253,35 @@
   color: var(--color-text-muted);
   pointer-events: none;
 }
+
+.density-field {
+  margin: var(--space-3) 0 var(--space-5);
+}
+
+.density-field input {
+  max-width: 12rem;
+}
+
+.density-field label span,
+.density-field p,
+.calc-assumption {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+.density-field p,
+.calc-assumption {
+  margin: var(--space-2) 0 0;
+}
+
+.calc-error {
+  color: #fca5a5;
+  font-size: var(--text-sm);
+  margin: var(--space-3) 0 0;
+}
+
+.calc-error[hidden] { display: none; }
 
 .stone-spec-grid {
   display: flex;
@@ -447,6 +494,8 @@
   padding: var(--space-2) 0;
   border-bottom: 1px solid var(--color-border);
   color: var(--color-text-muted);
+  gap: var(--space-3);
+  flex-wrap: wrap;
 }
 
 .breakdown-row:last-child {
@@ -469,55 +518,69 @@ function initLandscapeStoneCalculator() {
   const widthInput = document.getElementById('stone-width') as HTMLInputElement | null;
   const depthInput = document.getElementById('stone-compacted-depth') as HTMLInputElement | null;
   const wasteInput = document.getElementById('stone-waste') as HTMLInputElement | null;
+  const densityInput = document.getElementById('stone-density') as HTMLInputElement | null;
   const compactionSlider = document.getElementById('stone-compaction-slider') as HTMLInputElement | null;
   const compactionDisplay = document.getElementById('compaction-display');
+  const error = document.getElementById('stone-input-error');
 
-  const specBtns = document.querySelectorAll('.spec-btn');
-
-  let activeDensity = 1.35; // clean stone default
-  let activeCompaction = 5; // clean stone default 5%
-  let activeSpecName = '#57 Clean Stone';
+  const specBtns = document.querySelectorAll<HTMLButtonElement>('#stone-calc .spec-btn');
+  let activeSpecName = 'Clean #57 stone';
 
   function calculate() {
-    if (!lengthInput || !widthInput || !depthInput || !wasteInput) return;
+    if (!lengthInput || !widthInput || !depthInput || !wasteInput || !densityInput || !compactionSlider) return;
 
-    const length = Math.max(0.5, parseFloat(lengthInput.value) || 0);
-    const width = Math.max(0.5, parseFloat(widthInput.value) || 0);
-    const compactedDepthInches = Math.max(0.5, parseFloat(depthInput.value) || 0);
-    const wastePercent = parseFloat(wasteInput.value) || 0;
+    const length = Number(lengthInput.value);
+    const width = Number(widthInput.value);
+    const finishedDepth = Number(depthInput.value);
+    const extraPercent = Number(wasteInput.value);
+    const density = Number(densityInput.value);
+    const lossPercent = Number(compactionSlider.value);
+    const numberInputs = [lengthInput, widthInput, depthInput, wasteInput, densityInput];
+    const valid = numberInputs.map(input => {
+      const inputValid = input.value !== '' && input.checkValidity() && Number.isFinite(Number(input.value));
+      if (inputValid) {
+        input.removeAttribute('aria-invalid');
+        input.removeAttribute('aria-describedby');
+      } else {
+        input.setAttribute('aria-invalid', 'true');
+        input.setAttribute('aria-describedby', 'stone-input-error');
+      }
+      return inputValid;
+    }).every(Boolean);
+    if (error) error.hidden = valid;
+    if (!valid) {
+      const resetText: Record<string, string> = {
+        'kpi-stone-tons': '—', 'kpi-stone-lbs': 'Enter valid inputs',
+        'kpi-loose-yards': '—', 'kpi-loose-depth': 'Enter valid inputs',
+        'kpi-compacted-yards': '—', 'kpi-shrinkage-loss': 'Enter valid inputs',
+        'kpi-stone-sqft': '—', 'kpi-stone-geotextile': 'Enter valid inputs',
+        'bar-loose-text': 'Loose: —', 'bar-compact-text': 'Finished: —',
+        'row-compact-cuft': '—', 'row-base-loose': '—', 'row-loose-cuft': '—',
+        'stone-badge': 'Check inputs'
+      };
+      Object.entries(resetText).forEach(([id, value]) => {
+        const target = document.getElementById(id);
+        if (target) target.textContent = value;
+      });
+      return;
+    }
 
-    let compactionPercent = parseFloat(compactionSlider?.value || '20') || 0;
     if (compactionDisplay) {
-      compactionDisplay.textContent = `${compactionPercent}% (${activeSpecName})`;
+      compactionDisplay.textContent = `${lossPercent}% (${activeSpecName})`;
     }
 
     const area = length * width;
-    
-    // Theoretical compacted volume in place
-    const compactedCuFt = area * (compactedDepthInches / 12);
-    const compactedYards = compactedCuFt / 27;
+    const finishedCuFt = area * finishedDepth / 12;
+    const finishedYards = finishedCuFt / 27;
+    // Loss describes the share of loose volume removed during placement:
+    // finished = looseBeforeExtra × (1 - loss).
+    const remainingFraction = 1 - lossPercent / 100;
+    const looseBeforeExtraCuFt = finishedCuFt / remainingFraction;
+    const orderCuFt = looseBeforeExtraCuFt * (1 + extraPercent / 100);
+    const orderYards = orderCuFt / 27;
+    const placementDepth = finishedDepth / remainingFraction;
+    const tons = orderYards * density;
 
-    // Loose dump volume required:
-    // When compacted, volume = Loose * (1 - compaction/100).
-    // Therefore: Loose = Compacted / (1 - compaction/100)
-    const compactionFactor = 1 - (compactionPercent / 100);
-    const looseCuFtBeforeWaste = compactionFactor > 0 ? (compactedCuFt / compactionFactor) : compactedCuFt;
-    
-    // Add excavation irregularity / safety buffer
-    const looseCuFt = looseCuFtBeforeWaste * (1 + wastePercent / 100);
-    const looseYards = looseCuFt / 27;
-
-    // Required loose pour depth to achieve target compacted depth
-    const looseDepthInches = (compactedDepthInches / compactionFactor) * (1 + wastePercent / 100);
-
-    // Tonnage (based on uncompacted quarry delivery density)
-    const netTons = looseYards * activeDensity;
-    const netLbs = netTons * 2000;
-
-    // Volume lost to compaction
-    const lostYards = Math.max(0, looseYards - compactedYards);
-
-    // Update KPI displays
     const kpiTons = document.getElementById('kpi-stone-tons');
     const kpiLbs = document.getElementById('kpi-stone-lbs');
     const kpiLooseYds = document.getElementById('kpi-loose-yards');
@@ -528,46 +591,46 @@ function initLandscapeStoneCalculator() {
     const kpiFabric = document.getElementById('kpi-stone-geotextile');
     const badge = document.getElementById('stone-badge');
 
-    if (kpiTons) kpiTons.textContent = netTons.toFixed(2);
-    if (kpiLbs) kpiLbs.textContent = `${Math.round(netLbs).toLocaleString()} lbs net delivery`;
-    if (kpiLooseYds) kpiLooseYds.textContent = looseYards.toFixed(2);
-    if (kpiLooseDepth) kpiLooseDepth.textContent = `Pour ${looseDepthInches.toFixed(1)}" loose to achieve ${compactedDepthInches}" compacted`;
-    if (kpiCompactYds) kpiCompactYds.textContent = compactedYards.toFixed(2) + ' yd³';
-    if (kpiShrinkage) kpiShrinkage.textContent = `${lostYards.toFixed(2)} yd³ packed into void space`;
+    if (kpiTons) kpiTons.textContent = tons.toFixed(2);
+    if (kpiLbs) kpiLbs.textContent = `${Math.round(tons * 2000).toLocaleString()} lb estimated at ${density.toFixed(2)} tons/yd³`;
+    if (kpiLooseYds) kpiLooseYds.textContent = orderYards.toFixed(2);
+    if (kpiLooseDepth) kpiLooseDepth.textContent = `About ${placementDepth.toFixed(1)}" placed loose, before the extra allowance`;
+    if (kpiCompactYds) kpiCompactYds.textContent = finishedYards.toFixed(2) + ' yd³';
+    if (kpiShrinkage) kpiShrinkage.textContent = `${finishedDepth.toFixed(1)}" finished depth`;
     if (kpiSqFt) kpiSqFt.textContent = Math.round(area).toLocaleString();
-    if (kpiFabric) kpiFabric.textContent = `${Math.round(area * 1.10).toLocaleString()} sq ft stabilization fabric`;
-    if (badge) badge.textContent = `${activeSpecName} (${compactionPercent}% Compaction)`;
+    if (kpiFabric) kpiFabric.textContent = `${length.toLocaleString()} ft × ${width.toLocaleString()} ft`;
+    if (badge) badge.textContent = `${activeSpecName} · ${lossPercent}% loss`;
 
-    // Diagram updates
     const barLooseText = document.getElementById('bar-loose-text');
     const barCompactText = document.getElementById('bar-compact-text');
-    if (barLooseText) barLooseText.textContent = `Loose Dump: ${looseDepthInches.toFixed(1)}"`;
-    if (barCompactText) barCompactText.textContent = `Finished Base: ${compactedDepthInches.toFixed(1)}"`;
+    if (barLooseText) barLooseText.textContent = `Loose: ${placementDepth.toFixed(1)}"`;
+    if (barCompactText) barCompactText.textContent = `Finished: ${finishedDepth.toFixed(1)}"`;
 
-    // Row updates
     const rowCompact = document.getElementById('row-compact-cuft');
+    const rowBaseLoose = document.getElementById('row-base-loose');
     const rowLoose = document.getElementById('row-loose-cuft');
-    if (rowCompact) rowCompact.textContent = `${compactedCuFt.toFixed(1)} cu ft (${compactedYards.toFixed(2)} yd³) in place`;
-    if (rowLoose) rowLoose.textContent = `${looseCuFt.toFixed(1)} cu ft (${looseYards.toFixed(2)} yd³) quarry order`;
+    if (rowCompact) rowCompact.textContent = `${finishedCuFt.toFixed(1)} cu ft (${finishedYards.toFixed(2)} yd³)`;
+    if (rowBaseLoose) rowBaseLoose.textContent = `${looseBeforeExtraCuFt.toFixed(1)} cu ft (${(looseBeforeExtraCuFt / 27).toFixed(2)} yd³)`;
+    if (rowLoose) rowLoose.textContent = `${orderCuFt.toFixed(1)} cu ft (${orderYards.toFixed(2)} yd³)`;
+
+    document.dispatchEvent(new CustomEvent('landscape-stone-calculated', { detail: {
+      finishedDepth, placementDepth, lossPercent, finishedYards, looseBeforeExtraYards: looseBeforeExtraCuFt / 27, orderYards
+    } }));
   }
 
   specBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      specBtns.forEach(b => b.classList.remove('active'));
+      specBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
-      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.35');
-      activeCompaction = parseInt(btn.getAttribute('data-compaction') || '5', 10);
-      const titleEl = btn.querySelector('.spec-title');
-      if (titleEl) activeSpecName = titleEl.textContent || 'Stone';
-
-      if (compactionSlider) {
-        compactionSlider.value = activeCompaction.toString();
-      }
+      btn.setAttribute('aria-pressed', 'true');
+      activeSpecName = btn.dataset.name || 'Stone';
+      if (densityInput && btn.dataset.density) densityInput.value = btn.dataset.density;
+      if (compactionSlider) compactionSlider.value = btn.dataset.compaction || '0';
       calculate();
     });
   });
 
-  [lengthInput, widthInput, depthInput, wasteInput, compactionSlider].forEach(input => {
+  [lengthInput, widthInput, depthInput, wasteInput, densityInput, compactionSlider].forEach(input => {
     if (input) {
       input.addEventListener('input', calculate);
     }

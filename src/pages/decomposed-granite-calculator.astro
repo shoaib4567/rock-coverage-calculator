@@ -13,20 +13,20 @@ const breadcrumbs = [
 const entityTags = [
   { label: 'Material', value: 'Decomposed Granite (DG)' },
   { label: 'Particle Caliper', value: '1/4" Minus with Granite Fines' },
-  { label: 'Bulk Density', value: '1.25 t/yd³ Loose | 1.50 t/yd³ Compacted' },
-  { label: 'Compaction Drop', value: '18% to 22% Volume Loss Under Roller' }
+  { label: 'Loose Density Preset', value: '1.25 short t/yd³ (editable)' },
+  { label: 'Order Allowance', value: '20% starting estimate (editable)' }
 ];
 
 const quickStats = [
   { value: '1/4" Minus', label: 'Gradation', desc: 'Crushed granite blended with natural mineral rock flour' },
-  { value: '1.25 t/yd³', label: 'Loose Density', desc: 'Standard ASTM C29 loose stockpile weight (2,500 lbs/yd³)' },
-  { value: '20% Overage', label: 'Compaction Factor', desc: 'Extra material required for plate tamper compaction' }
+  { value: '1.25 t/yd³', label: 'Loose Density Preset', desc: 'Planning estimate of 2,500 lb/yd³; verify with your supplier' },
+  { value: '20% Extra', label: 'Order Allowance', desc: 'Adjust for your product and finished depth' }
 ];
 
 const faqItems = [
   {
     q: 'How much decomposed granite do I need for a 10x20 foot patio?',
-    a: 'A 10x20 foot patio equals 200 square feet. For a compacted pedestrian patio, install a 3-inch layer. At 3 inches depth, you need 1.85 cubic yards of loose DG. Adding a 20 percent mechanical compaction allowance, order 2.22 cubic yards (approximately 2.78 tons) to achieve a firm finished 3-inch elevation.'
+    a: 'A 10x20 foot patio is 200 square feet. At a 3-inch finished depth, the geometric volume is 1.85 cubic yards. With the calculator’s editable 20% order allowance, plan for 2.22 loose cubic yards. At the editable 1.25-short-ton-per-yard planning density, that is about 2.78 short tons. Confirm the density and allowance for the DG you buy.'
   },
   {
     q: 'What is the difference between standard DG and stabilized DG?',
@@ -67,8 +67,8 @@ const supportGuides = [
 ---
 
 <BaseLayout
-  title="Decomposed Granite Calculator - Pathways, Patios & Compaction"
-  metaDescription="Calculate cubic yards and tons of decomposed granite (DG) for pathways and patios. Calibrated for 1/4 inch minus fines with 20% compaction allowance."
+  title="Decomposed Granite Calculator"
+  metaDescription="Estimate cubic yards and short tons of decomposed granite for paths and patios. Adjust finished depth, loose bulk density, and extra material before ordering."
   canonicalPath="/decomposed-granite-calculator"
 >
   <Fragment slot="head">
@@ -111,7 +111,7 @@ const supportGuides = [
       title="Decomposed Granite Calculator"
       highlightWord="Calculator"
       badge="Pathways & Compacted Patio Engine"
-      subtitle="Accurate cubic yards and scale tonnage calculations for 1/4 inch minus decomposed granite. Built-in compaction factors for plates and rollers."
+      subtitle="Estimate cubic yards and short tons for a finished DG path or patio. Adjust the loose density and extra material to match your supplier’s product."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -142,10 +142,16 @@ const supportGuides = [
               <input type="number" id="dg-depth" value="3.0" min="1" max="12" step="0.5" />
             </div>
             <div class="input-field">
-              <label for="dg-compaction">Compaction Factor (%)</label>
-              <input type="number" id="dg-compaction" value="20" min="10" max="30" step="1" />
+              <label for="dg-compaction">Extra Material for Ordering (%)</label>
+              <input type="number" id="dg-compaction" value="20" min="0" max="50" step="1" />
+            </div>
+            <div class="input-field">
+              <label for="dg-density">Loose Bulk Density (Short Tons/Yard³)</label>
+              <input type="number" id="dg-density" value="1.25" min="0.3" max="3" step="0.01" inputmode="decimal" aria-describedby="dg-density-hint" />
+              <small id="dg-density-hint">Use your supplier’s tons per loose cubic yard when available.</small>
             </div>
           </div>
+          <p id="dg-input-error" class="calc-error" role="alert" hidden>Enter positive dimensions, 0–50% extra material, and a loose density from 0.3 to 3 short tons per cubic yard.</p>
           </div>
 
           <!-- RIGHT: Results Panel -->
@@ -159,12 +165,12 @@ const supportGuides = [
               <div class="kpi-card highlight">
               <div class="kpi-value" id="kpi-dg-yards">0.00</div>
               <div class="kpi-label">Order Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-dg-loose">Includes 20% compaction allowance</div>
+              <div class="kpi-subtext" id="kpi-dg-loose">Includes 20% extra material</div>
             </div>
             <div class="kpi-card">
               <div class="kpi-value" id="kpi-dg-tons">0.00</div>
-              <div class="kpi-label">Quarry Weight (Tons)</div>
-              <div class="kpi-subtext">At 1.25 t/yd³ loose density</div>
+              <div class="kpi-label">Estimated Weight (Short Tons)</div>
+              <div class="kpi-subtext" id="kpi-dg-density">At 1.25 t/yd³ loose density</div>
             </div>
             <div class="kpi-card">
               <div class="kpi-value" id="kpi-dg-bags">0</div>
@@ -189,19 +195,19 @@ const supportGuides = [
           </div>
           <div class="aeo-quick-grid">
             <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Loose Volume</span>
+              <span class="aeo-quick-label">Finished Layer Volume</span>
               <span class="aeo-quick-value">Yards = (Area [sq ft] × Depth [in]) / 324</span>
-              <p class="aeo-quick-desc">Net theoretical geometric volume before mechanical rolling.</p>
+              <p class="aeo-quick-desc">The geometric space occupied by the target finished layer.</p>
             </div>
             <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Compaction Factor</span>
-              <span class="aeo-quick-value">Order Yards = Finished Yards × 1.25</span>
-              <p class="aeo-quick-desc">DG loses ~20% volume under a plate compactor; divide target volume by 0.80 (multiply by 1.25).</p>
+              <span class="aeo-quick-label">Order Allowance</span>
+              <span class="aeo-quick-value">Order Yards = Finished Yards × 1.20</span>
+              <p class="aeo-quick-desc">The default adds 20% of finished volume. Enter a different allowance for your product and site.</p>
             </div>
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Bulk Density</span>
-              <span class="aeo-quick-value">1.25 t/yd³ (2,500 lbs/yd³)</span>
-              <p class="aeo-quick-desc">ASTM C29 loose stockpile weight; compacts to 1.50 t/yd³.</p>
+              <span class="aeo-quick-value">1.25 t/yd³ (2,500 lb/yd³)</span>
+              <p class="aeo-quick-desc">Editable loose-density planning preset. ASTM C29 is a test method, not a prescribed DG density.</p>
             </div>
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Standard Depth</span>
@@ -217,33 +223,35 @@ const supportGuides = [
             <strong>Decomposed Granite (DG)</strong> is natural granitic rock that has weathered through geological time to the point where it fractures easily into a mixture of small stone flakes (up to 1/4 inch) and microscopic rock flour.
           </p>
           <p>
-            Unlike washed crushed granite stone, DG is a <strong>dense-graded aggregate with fines</strong>. When moistened with water and rolled with a vibratory plate compactor or roller, the fine mineral particles act as an adhesive matrix, locking the angular quartz and feldspar chips into a firm, smooth, pedestrian-safe pavement that drains naturally while resisting erosion.
+            Unlike washed crushed granite stone, DG includes fine particles as well as small angular grains. Moistening and compacting a suitable product can form a firmer walking surface. Drainage, erosion resistance, and installation steps depend on the DG gradation, stabilizer, base, and site slope.
           </p>
 
           <div class="formula-box">
             <code>Target Compacted Volume (yd³) = [Area (sq ft) × Finished Depth (in)] / 324</code>
             <br />
-            <code>Required Quarry Loose Order (yd³) = Target Compacted Volume ÷ 0.80 (equals Finished Volume × 1.25)</code>
+            <code>Estimated Loose Order (yd³) = Finished Volume × (1 + Extra Material % ÷ 100)</code>
             <br />
-            <code>Quarry Scale Weight (Tons) = Required Quarry Loose Order × 1.25 t/yd³</code>
+            <code>Estimated Short Tons = Loose Order (yd³) × Entered Loose Density (short t/yd³)</code>
           </div>
 
-          <h3>Installation Protocol for Rock-Hard DG Pathways</h3>
+          <p>The calculator starts at <strong>1.25 short tons per loose cubic yard</strong>, or 2,500 lb/yd³. It is a planning estimate, not a value set by <a href="https://store.astm.org/c0029_c0029m-23.html" rel="noopener noreferrer">ASTM C29/C29M</a>. That standard describes how to measure aggregate bulk density. Published seller figures show why the density is editable: <a href="https://www.gravelshop.com/shop/calculate-cubic-yard-feet-ton.asp?groupid=30&amp;productid=819" rel="noopener noreferrer">Gravelshop lists one ½-inch-minus DG at 2,410 lb/yd³</a>, while <a href="https://www.outdoorwarehousesupply.com/product/decomposed-granite/" rel="noopener noreferrer">Outdoor Warehouse Supply lists its ¼-inch-minus DG at 2,700–3,000 lb/yd³</a>. Ask your supplier for the loose conversion and product-specific installation guidance before ordering.</p>
+
+          <h3>Planning a DG Pathway Installation</h3>
           <ol class="steps-list">
             <li>
-              <strong>Excavation:</strong> Dig out the path 3 to 4 inches below turf level. Install heavy-duty commercial steel or poly edging anchored with 10-inch spikes every 2 feet.
+              <strong>Set the finished grade:</strong> Mark the path edges and finished elevation, then excavate enough for the DG layer and any base your site requires. Keep the surface graded so water does not collect against a building.
             </li>
             <li>
-              <strong>Geotextile Membrane:</strong> Lay a non-woven 4 oz needle-punched geotextile fabric. Pin securely with 6-inch sod staples.
+              <strong>Check the subgrade:</strong> Firm up soft or wet spots before placing material. Use a separation fabric only when the soil and base design call for one; follow the fabric maker's overlap and anchoring directions.
             </li>
             <li>
-              <strong>First 1.5-Inch Lift:</strong> Spread decomposed granite in a 1.5-inch loose layer. Lightly mist with a garden hose nozzle until evenly damp (like brown sugar). Do not oversaturate into soup.
+              <strong>Place manageable lifts:</strong> Spread the DG at the thickness recommended for your product and compactor. Some stabilized blends have their own mixing and moisture instructions.
             </li>
             <li>
-              <strong>Plate Compaction:</strong> Make three overlapping passes with a gas plate compactor.
+              <strong>Compact as specified:</strong> Follow the product and equipment guidance for moisture, passes, and finished thickness. Check the grade after compacting rather than assuming a fixed percentage of volume loss.
             </li>
             <li>
-              <strong>Second 1.5-Inch Lift:</strong> Spread the remaining DG, moisten lightly, and compact again until the surface rings hard under a hammer tap.
+              <strong>Finish and remeasure:</strong> Add material to low areas, compact again as needed, and measure the finished layer at several points. Keep loose DG from spilling into drains or planting beds.
             </li>
           </ol>
         </div>
@@ -278,26 +286,48 @@ const supportGuides = [
 
   <script>
     function updateDG() {
-      const l = parseFloat((document.getElementById('dg-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('dg-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('dg-depth') as HTMLInputElement)?.value) || 0;
-      const c = parseFloat((document.getElementById('dg-compaction') as HTMLInputElement)?.value) || 20;
-
-      const netYards = (l * w * d) / 324;
-      const orderYards = netYards * (1 + c / 100);
-      const tons = orderYards * 1.25;
-      const bags = Math.ceil(orderYards * 54);
+      const lengthInput = document.getElementById('dg-length') as HTMLInputElement | null;
+      const widthInput = document.getElementById('dg-width') as HTMLInputElement | null;
+      const depthInput = document.getElementById('dg-depth') as HTMLInputElement | null;
+      const extraInput = document.getElementById('dg-compaction') as HTMLInputElement | null;
+      const densityInput = document.getElementById('dg-density') as HTMLInputElement | null;
+      if (!lengthInput || !widthInput || !depthInput || !extraInput || !densityInput) return;
 
       const yEl = document.getElementById('kpi-dg-yards');
       const tEl = document.getElementById('kpi-dg-tons');
       const bEl = document.getElementById('kpi-dg-bags');
+      const errorEl = document.getElementById('dg-input-error');
+      const valid = [lengthInput, widthInput, depthInput, extraInput, densityInput]
+        .every(input => input.value !== '' && input.checkValidity());
+      if (errorEl) errorEl.hidden = valid;
+      if (!valid) {
+        if (yEl) yEl.textContent = '—';
+        if (tEl) tEl.textContent = '—';
+        if (bEl) bEl.textContent = '—';
+        return;
+      }
 
-      if (yEl) yEl.innerText = orderYards.toFixed(2);
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (bEl) bEl.innerText = bags.toLocaleString();
+      const l = Number(lengthInput.value);
+      const w = Number(widthInput.value);
+      const d = Number(depthInput.value);
+      const extra = Number(extraInput.value);
+      const density = Number(densityInput.value);
+
+      const netYards = (l * w * d) / 324;
+      const orderYards = netYards * (1 + extra / 100);
+      const tons = orderYards * density;
+      const bags = Math.ceil(orderYards * 54);
+
+      if (yEl) yEl.textContent = orderYards.toFixed(2);
+      if (tEl) tEl.textContent = tons.toFixed(2);
+      if (bEl) bEl.textContent = bags.toLocaleString();
+      const extraEl = document.getElementById('kpi-dg-loose');
+      const densityEl = document.getElementById('kpi-dg-density');
+      if (extraEl) extraEl.textContent = `Includes ${extra}% extra material`;
+      if (densityEl) densityEl.textContent = `At ${density.toFixed(2)} t/yd³ loose density`;
     }
 
-    ['dg-length', 'dg-width', 'dg-depth', 'dg-compaction'].forEach(id => {
+    ['dg-length', 'dg-width', 'dg-depth', 'dg-compaction', 'dg-density'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', updateDG);
     });
     updateDG();

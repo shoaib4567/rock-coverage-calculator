@@ -2,7 +2,7 @@
 import GuideLayout from '../layouts/GuideLayout.astro';
 
 const calculatorsSupported = [
-  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons', desc: 'Convert loose cubic yard volume into certified quarry scale weight in tons.' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons', desc: 'Estimate short tons from loose cubic yards using a material-specific density.' },
   { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Depth Matrix', desc: 'Interactive depth matrix showing square feet per ton and square feet per yard.' },
   { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: 'Volume', desc: 'Convert length, width, and depth into cubic yards for bulk ordering.' }
 ];
@@ -26,14 +26,14 @@ const bridgeLinks = [
 ---
 
 <GuideLayout
-  title="Rock Weight and Density Reference Chart - ASTM C29 Unit Weights"
-  metaDescription="Complete aggregate density and weight chart. Loose stockpile unit weights, tons per cubic yard, and coverage yields per ASTM C29 and AASHTO standards."
+  title="Rock Weight and Density Reference Chart"
+  metaDescription="Compare planning bulk densities, short tons per cubic yard, and coverage yields for common aggregates. Learn why supplier measurements can differ from chart values."
   canonicalPath="/rock-density-chart"
-  guideTitle="Rock Weight & Density Reference: ASTM C29 Bulk Densities"
-  guideSubtitle="A certified quarry engineering reference. Loose stockpile unit weights, mineral density ranges, moisture impacts, and square foot coverage per ton."
-  standardBadge="ASTM C29 / C29M & AASHTO T 19"
+  guideTitle="Rock Weight and Density Reference Chart"
+  guideSubtitle="Planning bulk densities, supplier variation, and coverage per short ton for common landscape aggregates."
+  standardBadge="ASTM C29 / C29M test method"
   readingTime="8 min read"
-  lastUpdated="September 2026"
+  lastUpdated="October 2026"
   calculatorsSupported={calculatorsSupported}
   upLinks={upLinks}
   lateralLinks={lateralLinks}
@@ -43,13 +43,13 @@ const bridgeLinks = [
   <section class="aeo-guide-box" aria-label="Summary of Aggregate Density">
     <div class="aeo-guide-header">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      <span class="aeo-guide-title">Standard Quarry Densities</span>
+      <span class="aeo-guide-title">Planning Bulk Density Presets</span>
     </div>
     <div class="aeo-guide-grid">
       <div class="aeo-guide-item">
-        <span class="aeo-guide-label">Standard Gravel / Rock</span>
+        <span class="aeo-guide-label">Gravel / Rock Example</span>
         <span class="aeo-guide-value">1.35 t/yd³ (2,700 lbs/yd³)</span>
-        <p class="aeo-guide-desc">Covers river rock, pea gravel, and #57 washed limestone.</p>
+        <p class="aeo-guide-desc">Example for common gravel and rock; verify the weight of each supplier product.</p>
       </div>
       <div class="aeo-guide-item">
         <span class="aeo-guide-label">Crushed Granite / Stone</span>
@@ -72,7 +72,7 @@ const bridgeLinks = [
   <div class="guide-text-block">
     <h2>The Science of Aggregate Bulk Density</h2>
     <p>
-      In the aggregate supply industry, <strong>bulk density</strong> (historically termed "unit weight") defines the weight of aggregate particles per unit of volume, including the open air spaces (voids) between individual stones. Bulk density is universally determined in North America per <strong>ASTM C29 / C29M</strong> (<em>Standard Test Method for Bulk Density and Voids in Aggregate</em>) and <strong>AASHTO T 19</strong>.
+      <strong>Bulk density</strong> (also called "unit weight") is the weight of aggregate per unit of volume, including spaces between particles. <a href="https://store.astm.org/c0029_c0029m-23.html" rel="noopener noreferrer">ASTM C29/C29M</a> and AASHTO T 19 describe methods for measuring it in loose or compacted test samples. They do not assign a fixed density to each material. ASTM also notes that dry test values may differ from moist material in a stockpile or hauling unit.
     </p>
     <p>
       Understanding bulk density is vital because materials are bought and sold across two different physical metrics: landscape drawings specify <strong>volume (cubic yards)</strong>, whereas quarries bill clients by <strong>weight (short tons of 2,000 pounds)</strong> across certified platform scales.
@@ -80,7 +80,7 @@ const bridgeLinks = [
 
     <h2>The Master Quarry Bulk Density & Coverage Table</h2>
     <p>
-      The table below compiles loose stockpile bulk densities, typical density ranges, scale weights per cubic yard, and square foot coverage yields across 16 primary aggregate varieties:
+      The table below gives starting estimates for loose bulk aggregate. The tons and coverage figures use the listed planning density; actual delivery weight depends on the supplier's product and moisture. Check a local conversion before placing a weight-based order.
     </p>
 
     <div class="table-container">
@@ -88,9 +88,9 @@ const bridgeLinks = [
         <thead>
           <tr>
             <th scope="col">Aggregate Material</th>
-            <th scope="col">Typical Density (t/yd³)</th>
-            <th scope="col">Density Range (lbs/cu ft)</th>
-            <th scope="col">Pounds per Cubic Yard</th>
+            <th scope="col">Planning Density (short t/yd³)</th>
+            <th scope="col">Example Range (lb/cu ft)</th>
+            <th scope="col">Planning Pounds per Cubic Yard</th>
             <th scope="col">Yield at 2" Depth</th>
             <th scope="col">Yield at 3" Depth</th>
           </tr>
@@ -139,7 +139,7 @@ const bridgeLinks = [
           <tr>
             <td><strong>Decomposed Granite (DG)</strong></td>
             <td>1.25 t/yd³</td>
-            <td>90 to 96 lbs/cu ft</td>
+            <td>89 to 111 lb/cu ft</td>
             <td>2,500 lbs</td>
             <td>130 sq ft/ton</td>
             <td>86 sq ft/ton</td>
@@ -228,6 +228,8 @@ const bridgeLinks = [
       </table>
     </div>
 
+    <p>The DG row starts at 2,500 lb per loose cubic yard, or 1.25 US short tons. It is a planning preset, not an ASTM value. <a href="https://www.gravelshop.com/shop/calculate-cubic-yard-feet-ton.asp?groupid=30&amp;productid=819" rel="noopener noreferrer">Gravelshop lists one ½-inch-minus DG at 2,410 lb/yd³</a>, while <a href="https://www.outdoorwarehousesupply.com/product/decomposed-granite/" rel="noopener noreferrer">Outdoor Warehouse Supply lists its ¼-inch-minus DG at 2,700–3,000 lb/yd³</a>. The example range rounds those supplier figures to about 2,400–3,000 lb/yd³ (89–111 lb/ft³). Use the measured or quoted density for your specific product.</p>
+
     <h2>Why Densities Vary: The Three Field Factors</h2>
     <p>
       Experienced civil engineers and contractors understand that bulk density is not a single static number. True field densities fluctuate based on three key physical variables:
@@ -245,7 +247,7 @@ const bridgeLinks = [
 
     <h3>3. Loose vs Compacted State</h3>
     <p>
-      When dumped loosely from a truck, open voids account for 30 to 45 percent of total volume. When dense graded aggregates (like crusher run or decomposed granite) are subjected to mechanical plate compaction, small stone fines migrate into open voids, reducing total volume by <strong>15 to 20 percent</strong> and increasing compacted density up to 3,200 pounds per cubic yard.
+      Dense-graded aggregates such as crusher run or decomposed granite can occupy less volume after compaction. That changes their bulk density, but the change depends on gradation, moisture, equipment, and site conditions. Use a supplier's loose-to-finished allowance when estimating material for a specified finished depth.
     </p>
   </div>
 </GuideLayout>

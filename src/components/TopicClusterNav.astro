@@ -38,7 +38,7 @@ const CORE_MATERIALS: LinkItem[] = [
   { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: '0.75-1.40 t/yd³', desc: 'Lava rock, marble chips, and architectural rock for xeriscaping.' },
   { title: 'Cobblestone Calculator', slug: '/cobblestone-calculator', badge: '1.45 t/yd³', desc: 'Belgian block cobbles, driveway aprons, and granite border curbing.' },
   { title: 'Landscape Rock Calculator', slug: '/landscape-rock-calculator', badge: 'By rock type', desc: 'Decorative bed quantities in yards, short tons, and bags with editable bulk density.' },
-  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: '1.40 t/yd³', desc: 'Compacted crushed stone base, walkway fines, and structural sub-base.' }
+  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: 'Editable density', desc: 'Estimate loose crushed stone for paths and bases from finished depth, bulk weight, and placement loss.' }
 ];
 
 const EXPANSION_MATERIALS: LinkItem[] = [
@@ -67,7 +67,7 @@ const GENERIC_CONVERSIONS: LinkItem[] = [
 ];
 
 const MATERIAL_CONVERSIONS: LinkItem[] = [
-  { title: 'River Rock Coverage Calculator', slug: '/river-rock-coverage-calculator', badge: 'Coverage Solver', desc: 'Calculate square foot coverage per ton and cubic yard for 1-3 inch and 3-5 inch river stone.' },
+  { title: 'River Rock Coverage Calculator', slug: '/river-rock-coverage-calculator', badge: 'Coverage Solver', desc: 'Convert river rock tons, yards, or bags to area at your depth and supplier bulk weight.' },
   { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Tons Solver', desc: 'Calculate exact quarry scale tons for crushed and driveway gravel.' },
   { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Yards Solver', desc: 'Calculate cubic yards of gravel needed for driveways and paths.' },
   { title: 'Gravel Bag Calculator', slug: '/gravel-bag-calculator', badge: 'Bag Solver', desc: 'Calculate 0.5 cu ft retail bags of gravel for small installations.' },
@@ -81,9 +81,9 @@ const MATERIAL_CONVERSIONS: LinkItem[] = [
   { title: 'Pea Gravel Tons Calculator', slug: '/pea-gravel-tons-calculator', badge: 'Tons Solver', desc: 'Determine quarry scale tonnage for ASTM D448 #8 pea stone.' },
   { title: 'Pea Gravel Cubic Yard Calculator', slug: '/pea-gravel-cubic-yard-calculator', badge: 'Yards Solver', desc: 'Calculate cubic yards of pea gravel needed for patios and pathways.' },
   { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Bag Solver', desc: 'Calculate 0.5 cu ft bags of pea gravel for patios and walkways.' },
-  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Coverage Solver', desc: 'Estimate square foot coverage per ton and cubic yard for 3/8 inch pea gravel.' },
-  { title: 'Decomposed Granite Tons Calculator', slug: '/decomposed-granite-tons-calculator', badge: 'Tons Solver', desc: 'Calculate DG tonnage with 20% plate tamper compaction allowances.' },
-  { title: 'Decomposed Granite Coverage Calculator', slug: '/decomposed-granite-coverage-calculator', badge: 'Coverage Solver', desc: 'Estimate compacted square foot coverage per ton and loose cubic yard.' },
+  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Coverage Solver', desc: 'Convert pea gravel tons, yards, or bags to area, or estimate an order from area and depth.' },
+  { title: 'Decomposed Granite Tons Calculator', slug: '/decomposed-granite-tons-calculator', badge: 'Tons Solver', desc: 'Estimate DG tonnage from area, depth, and an editable ordering allowance.' },
+  { title: 'Decomposed Granite Coverage Calculator', slug: '/decomposed-granite-coverage-calculator', badge: 'Coverage Solver', desc: 'Estimate DG square foot coverage per short ton and loose cubic yard.' },
   { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Bag Solver', desc: 'Calculate lightweight 0.5 cu ft bags of red or black volcanic scoria.' },
   { title: 'Lava Rock Coverage Calculator', slug: '/lava-rock-coverage-calculator', badge: 'Coverage Solver', desc: 'Calculate high-yield square footage for lightweight volcanic lava rock.' },
   { title: 'Marble Chips Bag Calculator', slug: '/marble-chips-bag-calculator', badge: 'Bag Solver', desc: 'Calculate 0.5 cu ft bags of sparkling white dolomite marble chips.' }

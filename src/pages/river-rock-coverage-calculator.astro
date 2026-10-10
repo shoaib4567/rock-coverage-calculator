@@ -5,92 +5,78 @@ import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'River Rock Coverage Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'River Rock Calculator', url: '/river-rock-calculator' },
-  { name: 'River Rock Coverage Calculator', url: '/river-rock-coverage-calculator' }
+  { name: pageTitle, url: '/river-rock-coverage-calculator' }
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'River Rock Coverage' },
-  { label: 'Yield at 3"', value: '80 sq ft per Ton (108 sq ft / Yd³)' },
-  { label: 'Yield at 4"', value: '60 sq ft per Ton (81 sq ft / Yd³)' },
-  { label: 'Bulk Density', value: '1.35 t/yd³ (2,700 lbs/yd³)' }
-];
-
-const quickStats = [
-  { value: '80 sq ft', label: 'Per Ton at 3"', desc: 'Square foot coverage per ton of 1-3 inch medium river stone' },
-  { value: '60 sq ft', label: 'Per Ton at 4"', desc: 'Square foot coverage per ton of 3-5 inch large river cobbles' },
-  { value: '3.0 Inches', label: 'Optimum Depth', desc: 'Minimum depth to ensure 100% soil and fabric opacity' }
+  { label: 'Coverage', value: 'Square feet per ton, yard, or bag' },
+  { label: 'Depth', value: 'Finished layer in inches' },
+  { label: 'Weight', value: 'Editable loose bulk density' }
 ];
 
 const faqItems = [
   {
-    q: 'How many square feet does 1 ton of river rock cover?',
-    a: 'One ton of 1-inch to 3-inch river rock covers approximately 120 square feet at 2 inches depth, 80 square feet at 3 inches depth, and 60 square feet at 4 inches depth. For larger 3-inch to 5-inch cobbles installed at 4 inches depth, one ton covers 60 square feet.'
+    q: 'How many square feet will one ton of river rock cover?',
+    a: 'At an assumed loose bulk weight of 1.35 US short tons per cubic yard, one short ton covers about 120 square feet at 2 inches, 80 square feet at 3 inches, or 60 square feet at 4 inches. These are volume-based estimates before any ordering allowance. Ask your supplier for its product weight and coverage guidance.'
   },
   {
-    q: 'How much river rock do I need for 400 square feet?',
-    a: 'For 400 square feet at a standard 3-inch depth, you need 3.70 cubic yards of river rock. Multiplying by 1.35 tons per yard and adding a 10 percent safety buffer yields approximately 5.50 short tons (11,000 lbs).'
+    q: 'How much ground does one cubic yard of river rock cover?',
+    a: 'One cubic yard covers 162 square feet at 2 inches deep, 108 square feet at 3 inches, or 81 square feet at 4 inches. Those figures come from volume and do not depend on weight. Actual visual coverage depends on how evenly the stone is spread.'
   },
   {
-    q: 'Why does river rock require deeper installation than crushed stone?',
-    a: 'Because river rocks have smooth, rounded shapes, they roll against each other and leave larger natural gaps. To prevent underlying weed barrier fabric or bare soil from showing through, install at a depth equal to at least 1.5 to 2 times the maximum stone diameter.'
+    q: 'Is a 3-inch rock a 3-inch-deep layer?',
+    a: 'No. The product size describes individual stones or a size range; layer depth is the average thickness of the installed bed. With large cobbles placed in a single layer, gaps and irregular shapes make a volume estimate less reliable. Set a few stones on a measured patch or ask the yard for coverage for that specific product.'
   },
   {
-    q: 'How many cubic yards of river rock do I need for 1,000 square feet?',
-    a: 'For 1,000 square feet at 3 inches depth, you need 9.26 cubic yards (approximately 12.5 tons). At 4 inches depth, you need 12.35 cubic yards (approximately 16.7 tons).'
+    q: 'How many 0.5-cubic-foot bags cover 100 square feet at 3 inches?',
+    a: 'The bed needs 25 cubic feet of rock, so it takes 50 bags if each bag contains 0.5 cubic foot. Add any extra you want to order separately and check the volume printed on the actual bag; bag weight alone does not define its volume.'
+  },
+  {
+    q: 'Will more river rock or landscape fabric permanently stop weeds?',
+    a: 'No permanent weed-free result is guaranteed. Weed seeds can germinate in material that collects above rock or fabric. Colorado State University Extension advises against woven weed-barrier fabric beneath mulch in landscape beds because it can clog, interfere with air and water exchange, and make new weeds harder to remove. Keep leaves and sediment out of the rock and maintain the bed.'
   }
 ];
 
 const upLinks = [
-  { title: 'River Rock Calculator (Material Parent)', slug: '/river-rock-calculator', badge: 'Material' },
-  { title: 'Rock Square Foot Calculator (Unit Parent)', slug: '/rock-square-foot-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'Material' },
+  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Area' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Chart' }
 ];
-
 const lateralLinks = [
   { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'Tons' },
   { title: 'River Rock Cubic Yard Calculator', slug: '/river-rock-cubic-yard-calculator', badge: 'Yards' },
-  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Pea Gravel' }
+  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Pea gravel' }
 ];
-
 const bridgeLinks = [
-  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Drainage' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
+  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Creek beds' },
+  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Stone shape' }
 ];
-
 const supportGuides = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Drainage' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Weight' },
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'Project planning' }
 ];
 ---
 
 <BaseLayout
-  title="River Rock Coverage Calculator - Square Feet per Ton & Yard"
-  metaDescription="Calculate exact square foot coverage per ton and cubic yard for 1-3 inch and 3-5 inch river rock. Coverage tables, depth rules, and ton solvers."
+  title={pageTitle}
+  description="Find how many square feet your river rock will cover per US short ton, cubic yard, or bag at your chosen depth. Change the supplier bulk weight or work backward from an area."
   canonicalPath="/river-rock-coverage-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "River Rock Coverage Calculator",
+      "name": pageTitle,
       "url": "https://rockcoveragecalculator.com/river-rock-coverage-calculator",
-      "description": "Calculates square foot coverage yields per ton and cubic yard for smooth river stone and cobbles.",
+      "description": "Estimates river rock ground coverage or required material from quantity, area, installed depth, bag volume, and adjustable loose bulk weight.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Landscape Designers, Gardeners, Homeowners"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "River Rock Coverage Calculation"
-      }
+      "inLanguage": "en-US"
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -98,192 +84,176 @@ const supportGuides = [
       "mainEntity": faqItems.map(item => ({
         "@type": "Question",
         "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="River Rock Coverage Calculator"
+      title={pageTitle}
       highlightWord="Coverage"
-      badge="Coverage Yield Engine"
-      subtitle="Calculate square foot yields per ton and cubic yard for 1-3 inch and 3-5 inch smooth river stone."
+      badge="River rock area and quantity"
+      subtitle="At a finished depth of 3 inches, one US short ton of river rock covers about 80 square feet if the loose stone weighs 1.35 tons per cubic yard. Enter the amount you have, or enter the area you need to cover; the supplier’s weight can change the result."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
-      quickStats={quickStats}
+      theme="decorative"
     />
 
-    <!-- Interactive River Rock Coverage Calculator Tool -->
-    <section class="section" id="rrc-calculator-tool">
+    <section class="coverage-tool section" id="coverage-tool" aria-labelledby="tool-heading">
       <div class="container">
-        <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-              <h3>River Rock Project Dimensions</h3>
+        <div class="tool-intro">
+          <p class="eyebrow">Calculate coverage in either direction</p>
+          <h2 id="tool-heading">Start with the rock you have or the ground you need to cover</h2>
+          <p>The depth is the thickness of the <em>finished layer</em>, measured vertically. A 1–3 inch product label describes stone size, not the depth of the layer.</p>
+        </div>
+        <div class="tool-grid">
+          <div class="tool-panel">
+            <div class="mode-switch" role="group" aria-label="Calculation direction">
+              <button type="button" class="mode-button active" data-mode="supply" aria-pressed="true">I have rock</button>
+              <button type="button" class="mode-button" data-mode="area" aria-pressed="false">I know the area</button>
             </div>
-
-            <div class="dim-grid single-col">
-              <div class="input-field">
-                <label for="rrc-area">Project Area (Square Feet)</label>
-                <input type="number" id="rrc-area" value="350" min="1" step="10" />
+            <div class="field-grid">
+              <div class="input-field" id="supply-field">
+                <label for="rrc-quantity">Amount of river rock</label>
+                <input type="number" id="rrc-quantity" value="1" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field" id="unit-field">
+                <label for="rrc-unit">Amount unit</label>
+                <select id="rrc-unit">
+                  <option value="tons">US short tons (2,000 lb)</option>
+                  <option value="yards">Cubic yards</option>
+                  <option value="bags">Bags</option>
+                </select>
+              </div>
+              <div class="input-field" id="area-field" hidden>
+                <label for="rrc-area">Area to cover (square feet)</label>
+                <input type="number" id="rrc-area" value="400" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field" id="allowance-field" hidden>
+                <label for="rrc-allowance">Extra to order (%)</label>
+                <input type="number" id="rrc-allowance" value="10" min="0" max="25" step="1" inputmode="decimal" />
               </div>
               <div class="input-field">
-                <label for="rrc-depth">Layer Depth (Inches)</label>
-                <input type="number" id="rrc-depth" value="3.0" min="1" max="12" step="0.5" />
+                <label for="rrc-depth">Finished layer depth (inches)</label>
+                <input type="number" id="rrc-depth" value="3" min="0.5" max="24" step="0.5" inputmode="decimal" />
               </div>
               <div class="input-field">
-                <label for="rrc-waste">Safety Buffer (%)</label>
-                <input type="number" id="rrc-waste" value="10" min="0" max="25" step="1" />
+                <label for="rrc-density">Loose bulk weight (US short tons/yd³)</label>
+                <input type="number" id="rrc-density" value="1.35" min="0.5" max="3" step="0.01" inputmode="decimal" aria-describedby="density-help" />
+              </div>
+              <div class="input-field">
+                <label for="rrc-bag-volume">Volume per bag (cubic feet)</label>
+                <input type="number" id="rrc-bag-volume" value="0.5" min="0.1" max="4" step="0.1" inputmode="decimal" aria-describedby="bag-help" />
               </div>
             </div>
+            <p class="field-help" id="density-help">1.35 is a planning default for loose river rock, not a certified value for every product. Ask the stone yard for pounds per cubic yard and divide by 2,000.</p>
+            <p class="field-help" id="bag-help">Use the bag’s printed cubic-foot volume. Pounds per bag and cubic feet per bag are different measurements.</p>
           </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
+          <div class="result-panel" aria-live="polite">
+            <p class="eyebrow">Your estimate</p>
+            <div class="result-main">
+              <strong id="rrc-primary-value">80</strong>
+              <span id="rrc-primary-label">square feet covered</span>
             </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-                <div class="kpi-value" id="kpi-rrc-tons">0.00</div>
-                <div class="kpi-label">Quarry Weight (Tons)</div>
-                <div class="kpi-subtext" id="kpi-rrc-lbs">0 lbs total weight</div>
-              </div>
-              <div class="kpi-card">
-                <div class="kpi-value" id="kpi-rrc-yards">0.00</div>
-                <div class="kpi-label">Volume (Cubic Yards)</div>
-                <div class="kpi-subtext" id="kpi-rrc-yield">0 sq ft / ton</div>
-              </div>
-              <div class="kpi-card">
-                <div class="kpi-value" id="kpi-rrc-bags">0</div>
-                <div class="kpi-label">0.5 Cu Ft Bags</div>
-                <div class="kpi-subtext">50 lbs each</div>
-              </div>
+            <p id="rrc-result-context">With 1 US short ton spread 3 inches deep.</p>
+            <div class="result-grid">
+              <div><span id="rrc-secondary-label">Equivalent volume</span><strong id="rrc-secondary-value">0.74 yd³</strong></div>
+              <div><span id="rrc-tertiary-label">Equivalent weight</span><strong id="rrc-tertiary-value">1.00 short tons</strong></div>
+              <div><span id="rrc-fourth-label">Equivalent bags by volume</span><strong id="rrc-fourth-value">40 bags</strong></div>
             </div>
-
-            <!-- Material Purchasing Tip -->
-            <div class="purchase-card" style="margin-top: var(--space-6);">
-              <div class="purchase-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              </div>
-              <div class="purchase-content">
-                <div class="purchase-title">Delivery Recommendation</div>
-                <div class="purchase-desc">Bulk dump truck delivery is recommended for orders over 1.5 tons (approx. 1 cubic yard) to avoid retail bag markup.</div>
-              </div>
-            </div>
+            <p class="result-note" id="rrc-feedback">This is a volume estimate for an even layer. It does not account for visible gaps between large cobbles.</p>
           </div>
         </div>
+        <p class="tool-footnote">In “I have rock” mode, coverage excludes any extra reserved for uneven spreading. In “I know the area” mode, the extra percentage is added to the order quantity. For project dimensions and cost, use the <a href="/river-rock-calculator">main river rock calculator</a>.</p>
       </div>
     </section>
 
-    <!-- Technical Guide on River Rock Coverage -->
-    <article class="content-guide-section">
+    <article class="coverage-guide">
       <div class="container">
+        <nav class="page-jumps" aria-label="On this page">
+          <strong>Coverage guide</strong>
+          <a href="#coverage-table">Coverage table</a>
+          <a href="#coverage-formula">The math</a>
+          <a href="#coverage-size">Stone size and depth</a>
+          <a href="#coverage-order">Before ordering</a>
+        </nav>
 
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="River Rock Coverage Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">River Rock Coverage Reference</span>
+        <section class="guide-panel" id="coverage-table" aria-labelledby="table-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Keep these numbers beside the quote</p>
+              <h2 id="table-heading">River rock coverage per ton, yard, and bag</h2>
+            </div>
+            <p>Each row assumes an even layer, a loose bulk weight of <strong>1.35 US short tons per cubic yard</strong>, and a <strong>0.5 ft³ bag</strong>. Figures exclude extra for ordering.</p>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Coverage at 3"</span>
-              <span class="aeo-quick-value">80 sq ft / Ton (108 sq ft / Yd)</span>
-              <p class="aeo-quick-desc">Standard depth for 1-inch to 3-inch medium river stone.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Coverage at 4"</span>
-              <span class="aeo-quick-value">60 sq ft / Ton (81 sq ft / Yd)</span>
-              <p class="aeo-quick-desc">Recommended depth for 3-inch to 5-inch large river cobbles.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Rule of 324</span>
-              <span class="aeo-quick-value">Sq Ft per Yard = 324 / Depth (in)</span>
-              <p class="aeo-quick-desc">Multiply yard yield by 0.741 to calculate sq ft per short ton.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Depth Rule</span>
-              <span class="aeo-quick-value">1.5x to 2x Stone Caliper</span>
-              <p class="aeo-quick-desc">Prevents bare soil and weed barrier fabric show-through.</p>
-            </div>
-          </div>
-        </section>
-
-        <div class="content-card">
-          <h2>River Rock Square Footage Coverage Chart</h2>
-          <p>
-            Because river rock has a certified bulk density of approximately <strong>1.35 tons per cubic yard (2,700 lbs/yd³)</strong>, one ton equals 0.741 cubic yards. Below is the reference coverage matrix:
-          </p>
-
-          <div style="overflow-x: auto; margin: var(--space-6) 0;">
-            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: var(--text-sm);">
+          <div class="table-wrap">
+            <table>
+              <caption>Estimated square feet covered at each finished depth</caption>
               <thead>
-                <tr style="border-bottom: 2px solid var(--border-subtle); color: var(--accent-gold);">
-                  <th style="padding: 10px;">Depth (Inches)</th>
-                  <th style="padding: 10px;">Sq Ft per Cubic Yard</th>
-                  <th style="padding: 10px;">Sq Ft per Short Ton</th>
-                  <th style="padding: 10px;">Sq Ft per 0.5 cu ft Bag</th>
-                  <th style="padding: 10px;">Recommended Stone Caliper</th>
-                </tr>
+                <tr><th scope="col">Finished depth</th><th scope="col">1 cubic yard</th><th scope="col">1 US short ton</th><th scope="col">1 bag (0.5 ft³)</th></tr>
               </thead>
               <tbody>
-                <tr style="border-bottom: 1px solid var(--border-subtle);">
-                  <td style="padding: 10px; font-weight: 600;">2.0"</td>
-                  <td style="padding: 10px;">162 sq ft</td>
-                  <td style="padding: 10px;">120 sq ft</td>
-                  <td style="padding: 10px;">3.0 sq ft</td>
-                  <td style="padding: 10px;">Small 3/8" to 3/4" river pebbles</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(212, 168, 83, 0.05);">
-                  <td style="padding: 10px; font-weight: 600;">3.0"</td>
-                  <td style="padding: 10px;">108 sq ft</td>
-                  <td style="padding: 10px;">80 sq ft</td>
-                  <td style="padding: 10px;">2.0 sq ft</td>
-                  <td style="padding: 10px;">Medium 1" to 3" river rock (Standard)</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(212, 168, 83, 0.1);">
-                  <td style="padding: 10px; font-weight: 600;">4.0"</td>
-                  <td style="padding: 10px;">81 sq ft</td>
-                  <td style="padding: 10px;">60 sq ft</td>
-                  <td style="padding: 10px;">1.5 sq ft</td>
-                  <td style="padding: 10px;">Large 3" to 5" river cobbles</td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px; font-weight: 600;">6.0"</td>
-                  <td style="padding: 10px;">54 sq ft</td>
-                  <td style="padding: 10px;">40 sq ft</td>
-                  <td style="padding: 10px;">1.0 sq ft</td>
-                  <td style="padding: 10px;">Dry creek bed channels and drainage swales</td>
-                </tr>
+                <tr><th scope="row">2 in</th><td>162 sq ft</td><td>120 sq ft</td><td>3 sq ft</td></tr>
+                <tr class="featured-row"><th scope="row">3 in</th><td>108 sq ft</td><td>80 sq ft</td><td>2 sq ft</td></tr>
+                <tr><th scope="row">4 in</th><td>81 sq ft</td><td>60 sq ft</td><td>1.5 sq ft</td></tr>
+                <tr><th scope="row">5 in</th><td>64.8 sq ft</td><td>48 sq ft</td><td>1.2 sq ft</td></tr>
+                <tr><th scope="row">6 in</th><td>54 sq ft</td><td>40 sq ft</td><td>1 sq ft</td></tr>
               </tbody>
             </table>
           </div>
-        </div>
+          <p class="source-note">The 120 / 80 / 60 sq ft per ton figures agree with <a href="https://newtonrock.com/river-rock/" target="_blank" rel="noopener noreferrer">Newton Rock &amp; Mulch’s published river rock coverage guide</a>. Another supplier lists its river rock at about <a href="https://www.landscapecentre.com/products/bulk-materials/river-rock" target="_blank" rel="noopener noreferrer">2,600 lb/yd³</a>, showing why the value for your product may differ. Use the editable weight above when you have a supplier figure.</p>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About River Rock Coverage</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
+        <section class="guide-panel formula-panel" id="coverage-formula" aria-labelledby="formula-heading">
+          <div>
+            <p class="eyebrow">What the calculator is measuring</p>
+            <h2 id="formula-heading">Coverage is volume spread to a chosen depth</h2>
+            <p>A cubic yard contains 27 cubic feet. At 3 inches deep, that volume makes a layer one quarter of a foot thick: <strong>27 ÷ 0.25 = 108 square feet</strong>. One short ton at 1.35 short tons/yd³ is <strong>0.741 yd³</strong>, so it covers <strong>108 ÷ 1.35 = 80 square feet</strong>.</p>
+            <div class="formula-box"><code>sq ft per yd³ = 324 ÷ depth (in)</code><code>sq ft per short ton = 324 ÷ [depth (in) × tons per yd³]</code><code>sq ft per bag = bag ft³ × 12 ÷ depth (in)</code></div>
+            <p>The formulas use <em>bulk</em> volume and bulk weight: the spaces between loose stones are already part of the supplier’s cubic-yard quantity. They do not calculate the solid mineral volume of each rock.</p>
+          <p><strong>For a 400 sq ft bed at 3 inches:</strong> 400 × 3 ÷ 324 = 3.70 yd³ installed. With 10% extra, order about 4.07 yd³, or 5.50 US short tons at the 1.35 tons/yd³ default. If buying 0.5 ft³ bags instead, that is 220 bags after rounding up. The extra is a user choice, not a fixed requirement for every site.</p>
           </div>
-        </div>
+          <figure class="depth-figure">
+            <img src="/river-rock-coverage-depth-diagram.svg" width="820" height="520" loading="lazy" alt="Diagram of the same one cubic yard of river rock spread 2, 3, or 4 inches deep; coverage changes from 162 to 108 to 81 square feet." />
+            <figcaption>The same volume covers less ground as the finished layer gets deeper.</figcaption>
+          </figure>
+        </section>
 
+        <section class="guide-panel" id="coverage-size" aria-labelledby="size-heading">
+          <p class="eyebrow">The field check</p>
+          <h2 id="size-heading">Choose depth from the actual stone, surface, and look</h2>
+          <p>“1–3 inch river rock” is a size range, not an instruction to spread it 3 inches deep. Use a few stones from the actual load to test whether the soil shows through at your intended depth. A mixed-size product can fill gaps differently from a uniform large cobble. The table is a starting estimate; a sample patch is the better guide to the finished appearance.</p>
+          <div class="use-grid">
+            <div><h3>Small river pebbles</h3><p>For a decorative border, start your estimate near 2 inches, then rake a sample area level and check for bare spots.</p></div>
+            <div><h3>1–3 inch river rock</h3><p>Start near 3 inches for a broad bed. Adjust the layer when the actual grading leaves visible soil or an uneven surface.</p></div>
+            <div><h3>Large cobbles</h3><p>For a single visible layer, measure the average installed thickness across a trial patch. Gaps may be intentional, so a blanket-volume estimate has greater uncertainty.</p></div>
+          </div>
+          <p><strong>For a single layer of cobbles:</strong> mark a small, measured area, place the actual stones to the look you want, and ask the supplier to weigh or measure the amount used. Multiply that amount by your full area divided by the patch area. This avoids pretending that a 6–10 inch size label tells you the layer depth or the coverage by weight.</p>
+          <p>Rounded rock does not lock together like angular aggregate. A border helps keep it in a bed, while a frequently walked surface may call for a different material. See the <a href="/angular-vs-rounded-rock">rounded versus angular rock guide</a>. A dry creek or swale also needs a site-specific look at flow and stone stability; the <a href="/dry-creek-bed">dry creek bed guide</a> covers that planning context.</p>
+        </section>
+
+        <section class="guide-panel" id="coverage-order" aria-labelledby="order-heading">
+          <p class="eyebrow">Three checks before buying</p>
+          <h2 id="order-heading">Make the estimate match the supplier’s product</h2>
+          <ol class="order-list">
+            <li><strong>Confirm the selling unit.</strong> One US short ton is 2,000 lb. One cubic yard is a volume, so converting between them requires that product’s loose bulk weight. Check the <a href="/rock-density-chart">density guide</a> if the quote only lists pounds per yard.</li>
+            <li><strong>Check the bag volume.</strong> A 0.5 ft³ bag covers 2 sq ft at 3 inches by volume, but retail bags come in other volumes and weights. Read the label before scaling up a bag count.</li>
+            <li><strong>Allow for the site.</strong> Uneven grade, edges, and the look you want can change how much you spread. If the area varies, divide it into sections, estimate each depth separately, then add the quantities.</li>
+          </ol>
+          <p class="source-note">A rock layer is not a promise of a weed-free bed. <a href="https://extension.colostate.edu/resource/mulching/" target="_blank" rel="noopener noreferrer">Colorado State University Extension’s mulching guide</a> distinguishes small gravel used as mulch from larger decorative stone and cautions against woven weed-barrier fabric beneath mulch in landscape beds. Its <a href="https://extension.colostate.edu/resource/weed-management/" target="_blank" rel="noopener noreferrer">weed management guide</a> notes that seeds can germinate above fabric and become difficult to remove. Keep organic debris out of the rock and consider nearby plants when choosing material.</p>
+        </section>
+
+        <section class="guide-panel faq-panel" aria-labelledby="faq-heading">
+          <h2 id="faq-heading">River rock coverage questions</h2>
+          {faqItems.map(item => (
+            <details>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </section>
       </div>
     </article>
 
@@ -296,84 +266,174 @@ const supportGuides = [
       supportGuides={supportGuides}
     />
   </main>
-
   <Footer />
 
   <script>
-    function updateRRC() {
-      const a = parseFloat((document.getElementById('rrc-area') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('rrc-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('rrc-waste') as HTMLInputElement)?.value) || 0;
+    const modeButtons = document.querySelectorAll<HTMLButtonElement>('.mode-button');
+    const supplyField = document.getElementById('supply-field');
+    const unitField = document.getElementById('unit-field');
+    const areaField = document.getElementById('area-field');
+    const allowanceField = document.getElementById('allowance-field');
+    const quantityInput = document.getElementById('rrc-quantity') as HTMLInputElement | null;
+    const unitInput = document.getElementById('rrc-unit') as HTMLSelectElement | null;
+    const areaInput = document.getElementById('rrc-area') as HTMLInputElement | null;
+    const allowanceInput = document.getElementById('rrc-allowance') as HTMLInputElement | null;
+    const depthInput = document.getElementById('rrc-depth') as HTMLInputElement | null;
+    const densityInput = document.getElementById('rrc-density') as HTMLInputElement | null;
+    const bagInput = document.getElementById('rrc-bag-volume') as HTMLInputElement | null;
+    let mode: 'supply' | 'area' = 'supply';
 
-      const netYards = (a * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const tons = totalYards * 1.35;
-      const lbs = tons * 2000;
-      const bags = Math.ceil(totalYards * 54);
-      const yieldPerTon = d > 0 ? ((324 / d) / 1.35) : 0;
-
-      const tEl = document.getElementById('kpi-rrc-tons');
-      const yEl = document.getElementById('kpi-rrc-yards');
-      const bEl = document.getElementById('kpi-rrc-bags');
-      const lbsEl = document.getElementById('kpi-rrc-lbs');
-      const yieldEl = document.getElementById('kpi-rrc-yield');
-
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (bEl) bEl.innerText = bags.toLocaleString();
-      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs';
-      if (yieldEl) yieldEl.innerText = Math.round(yieldPerTon) + ' sq ft / ton yield';
+    function setText(id: string, value: string) {
+      const element = document.getElementById(id);
+      if (element) element.textContent = value;
     }
 
-    ['rrc-area', 'rrc-depth', 'rrc-waste'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateRRC);
+    function getValidNumber(input: HTMLInputElement | null, min: number, max = Infinity): number | null {
+      if (!input || input.value.trim() === '') return null;
+      const value = Number(input.value);
+      const valid = Number.isFinite(value) && value >= min && value <= max;
+      input.setAttribute('aria-invalid', String(!valid));
+      return valid ? value : null;
+    }
+
+    function updateCoverage() {
+      const depth = getValidNumber(depthInput, 0.5, 24);
+      const density = getValidNumber(densityInput, 0.5, 3);
+      const bagVolume = getValidNumber(bagInput, 0.1, 4);
+      const amount = mode === 'supply' ? getValidNumber(quantityInput, 0.01) : getValidNumber(areaInput, 0.01);
+      const allowance = mode === 'area' ? getValidNumber(allowanceInput, 0, 25) : 0;
+      if (depth === null || density === null || bagVolume === null || amount === null || allowance === null) {
+        ['rrc-primary-value', 'rrc-secondary-value', 'rrc-tertiary-value', 'rrc-fourth-value'].forEach(id => setText(id, '—'));
+        setText('rrc-feedback', 'Enter positive amounts and a depth of 0.5–24 in, bulk weight of 0.5–3 tons/yd³, bag volume of 0.1–4 ft³, and extra of 0–25%.');
+        return;
+      }
+
+      const perYard = 324 / depth;
+      if (mode === 'supply') {
+        const unit = unitInput?.value || 'tons';
+        const yards = unit === 'tons' ? amount / density : unit === 'bags' ? amount * bagVolume / 27 : amount;
+        const tons = yards * density;
+        const bags = yards * 27 / bagVolume;
+        setText('rrc-primary-label', 'square feet covered');
+        setText('rrc-primary-value', (yards * perYard).toLocaleString(undefined, { maximumFractionDigits: 1 }));
+        const unitName = unit === 'tons' ? 'US short ton' : unit === 'yards' ? 'cubic yard' : 'bag';
+        setText('rrc-result-context', 'With ' + amount.toLocaleString() + ' ' + unitName + (amount === 1 ? '' : 's') + ' spread ' + depth + ' inches deep.');
+        setText('rrc-secondary-label', 'Equivalent volume');
+        setText('rrc-secondary-value', yards.toFixed(2) + ' yd³');
+        setText('rrc-tertiary-label', 'Equivalent weight');
+        setText('rrc-tertiary-value', tons.toFixed(2) + ' short tons');
+        setText('rrc-fourth-label', 'Equivalent bags by volume');
+        setText('rrc-fourth-value', bags.toLocaleString(undefined, { maximumFractionDigits: 1 }) + ' bags');
+        setText('rrc-feedback', 'An even-layer volume estimate. Large single-layer cobbles may leave visible gaps; test a patch with the actual stone.');
+      } else {
+        const installedYards = amount / perYard;
+        const orderYards = installedYards * (1 + allowance / 100);
+        const tons = orderYards * density;
+        const bags = Math.ceil(orderYards * 27 / bagVolume - 1e-9);
+        setText('rrc-primary-label', 'US short tons to order');
+        setText('rrc-primary-value', tons.toFixed(2));
+        setText('rrc-result-context', 'For ' + amount.toLocaleString() + ' sq ft at ' + depth + ' inches, including ' + allowance + '% extra.');
+        setText('rrc-secondary-label', 'Cubic yards to order');
+        setText('rrc-secondary-value', orderYards.toFixed(2) + ' yd³');
+        setText('rrc-tertiary-label', 'Bags to order');
+        setText('rrc-tertiary-value', bags.toLocaleString() + ' bags');
+        setText('rrc-fourth-label', 'Coverage per short ton');
+        setText('rrc-fourth-value', (perYard / density).toLocaleString(undefined, { maximumFractionDigits: 1 }) + ' sq ft');
+        setText('rrc-feedback', 'The extra is added after the installed volume is calculated. Confirm the selling increment and bulk weight with your supplier.');
+      }
+    }
+
+    modeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        mode = button.dataset.mode === 'area' ? 'area' : 'supply';
+        modeButtons.forEach(item => {
+          const active = item === button;
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-pressed', String(active));
+        });
+        if (supplyField) supplyField.hidden = mode !== 'supply';
+        if (unitField) unitField.hidden = mode !== 'supply';
+        if (areaField) areaField.hidden = mode !== 'area';
+        if (allowanceField) allowanceField.hidden = mode !== 'area';
+        updateCoverage();
+      });
     });
-    updateRRC();
+    [quantityInput, unitInput, areaInput, allowanceInput, depthInput, densityInput, bagInput].forEach(input => input?.addEventListener('input', updateCoverage));
+    updateCoverage();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .section { padding: var(--space-10) 0; }
+  .coverage-tool { background: var(--bg-body); }
+  .tool-intro { max-width: 750px; margin-bottom: var(--space-6); }
+  .eyebrow { color: var(--accent-gold); text-transform: uppercase; letter-spacing: .09em; font-size: var(--text-xs); font-weight: 700; }
+  .tool-intro h2, .guide-panel h2 { color: var(--text-primary); font-size: var(--text-2xl); line-height: 1.25; margin: 0 0 var(--space-4); }
+  .tool-intro p, .guide-panel p { color: var(--text-secondary); line-height: 1.7; }
+  .tool-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr); gap: var(--space-5); }
+  .tool-panel, .result-panel, .guide-panel { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); }
+  .mode-switch { display: flex; gap: var(--space-2); padding: 4px; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); margin-bottom: var(--space-5); }
+  .mode-button { flex: 1; border: 0; border-radius: var(--radius-sm); padding: var(--space-3); color: var(--text-secondary); background: transparent; font: inherit; font-weight: 700; cursor: pointer; }
+  .mode-button.active { background: var(--accent-gold); color: #151922; }
+  .mode-button:focus-visible, .input-field input:focus-visible, .input-field select:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 2px; }
+  .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+  .coverage-tool .input-field { display: block; min-width: 0; }
+  .coverage-tool .input-field[hidden] { display: none; }
+  .input-field label { display: block; color: var(--text-primary); font-size: var(--text-sm); font-weight: 700; margin-bottom: var(--space-2); }
+  .input-field input, .input-field select { width: 100%; min-width: 0; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: var(--space-3); background: var(--bg-surface); color: var(--text-primary); font: inherit; }
+  .input-field [aria-invalid="true"] { border-color: #d9534f; }
+  .field-help, .tool-footnote, .result-note { font-size: var(--text-sm); line-height: 1.6; color: var(--text-muted); }
+  .field-help { margin: var(--space-3) 0 0; }
+  .tool-footnote { margin-top: var(--space-5); }
+  .tool-footnote a, .guide-panel a { color: var(--accent-gold); text-underline-offset: .2em; }
+  .result-panel { border-color: rgba(212,168,83,.5); background: linear-gradient(135deg, var(--bg-card), var(--bg-surface)); display: flex; flex-direction: column; }
+  .result-panel > .eyebrow { margin: 0 0 var(--space-2); }
+  .result-main { padding: var(--space-3) 0 var(--space-4); border-bottom: 1px solid var(--border-subtle); }
+  .result-main strong { display: block; font-size: clamp(3rem, 6vw, 5rem); line-height: 1; color: var(--accent-gold); font-variant-numeric: tabular-nums; }
+  .result-main span { display: block; margin-top: var(--space-2); color: var(--text-primary); font-size: var(--text-lg); font-weight: 700; }
+  #rrc-result-context { color: var(--text-secondary); margin: var(--space-4) 0; }
+  .result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .result-grid div { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: var(--space-3); }
+  .result-grid span { display: block; font-size: var(--text-xs); color: var(--text-muted); }
+  .result-grid strong { display: block; margin-top: 3px; color: var(--text-primary); font-size: var(--text-base); }
+  .result-note { margin: auto 0 0; padding-top: var(--space-5); }
+  .coverage-guide { padding: var(--space-4) 0 var(--space-12); background: var(--bg-body); }
+  .page-jumps { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); align-items: center; margin: 0 0 var(--space-6); font-size: var(--text-sm); }
+  .page-jumps strong { color: var(--text-primary); }
+  .page-jumps a { color: var(--accent-gold); text-underline-offset: .2em; }
+  .guide-panel { margin-bottom: var(--space-6); scroll-margin-top: 1rem; }
+  .guide-panel > .eyebrow { margin: 0 0 var(--space-2); }
+  .guide-panel h3 { color: var(--text-primary); font-size: var(--text-lg); margin: 0 0 var(--space-2); }
+  .guide-panel p:last-child { margin-bottom: 0; }
+  .section-heading { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: end; }
+  .section-heading .eyebrow { margin: 0 0 var(--space-2); }
+  .section-heading p:last-child { margin: 0 0 var(--space-4); }
+  .table-wrap { overflow-x: auto; margin: var(--space-5) 0; }
+  table { width: 100%; min-width: 560px; border-collapse: collapse; text-align: left; }
+  caption { text-align: left; color: var(--text-primary); font-weight: 700; margin-bottom: var(--space-3); }
+  th, td { padding: var(--space-3); border-bottom: 1px solid var(--border-subtle); }
+  thead th { color: var(--text-primary); background: var(--bg-surface); font-size: var(--text-sm); }
+  tbody th { color: var(--text-primary); }
+  tbody td { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+  .featured-row { background: rgba(212,168,83,.09); }
+  .source-note { font-size: var(--text-sm); }
+  .formula-panel { display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,.9fr); gap: var(--space-6); align-items: center; }
+  .formula-panel > * { min-width: 0; }
+  .formula-box { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); border-radius: var(--radius-sm); margin: var(--space-5) 0; overflow-x: auto; }
+  .formula-box code { display: block; color: var(--text-primary); line-height: 1.7; white-space: nowrap; font-size: var(--text-sm); }
+  .depth-figure { margin: 0; }
+  .depth-figure img { display: block; width: 100%; height: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .depth-figure figcaption { color: var(--text-muted); font-size: var(--text-xs); line-height: 1.5; margin-top: var(--space-2); }
+  .use-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--space-3); margin: var(--space-5) 0; }
+  .use-grid div { padding: var(--space-4); border-radius: var(--radius-md); background: var(--bg-surface); border-top: 2px solid var(--accent-gold); }
+  .use-grid p { margin: 0; font-size: var(--text-sm); }
+  .order-list { padding-left: var(--space-6); color: var(--text-secondary); line-height: 1.7; }
+  .order-list li { padding-left: var(--space-2); margin-bottom: var(--space-3); }
+  .order-list strong { color: var(--text-primary); }
+  .faq-panel details { border-top: 1px solid var(--border-subtle); padding: var(--space-4) 0; }
+  .faq-panel summary { color: var(--text-primary); font-weight: 700; cursor: pointer; }
+  .faq-panel details p { font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+  @media (max-width: 850px) { .tool-grid, .section-heading { grid-template-columns: 1fr; } .formula-panel { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 650px) { .tool-panel, .result-panel, .guide-panel { padding: var(--space-5); } .use-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 450px) { .field-grid { grid-template-columns: 1fr; } .result-grid { grid-template-columns: 1fr 1fr; } }
 </style>
