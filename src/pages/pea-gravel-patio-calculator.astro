@@ -5,41 +5,45 @@ import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Pea Gravel Patio Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Pea Gravel Calculator', url: '/pea-gravel-calculator' },
-  { name: 'Pea Gravel Patio Calculator', url: '/pea-gravel-patio-calculator' }
+  { name: pageTitle, url: '/pea-gravel-patio-calculator' }
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Pea Gravel Patio System' },
-  { label: 'Surface Depth', value: '1.5 to 2.0 Inches (#8 Stone)' },
-  { label: 'Compacted Base', value: '4.0 Inches (AASHTO M147 Crusher Run)' },
-  { label: 'Bulk Density', value: '1.35 t/yd³ (2,700 lbs/yd³)' }
+  { label: 'Top layer', value: 'Washed, rounded pea gravel (often 3/8 in)' },
+  { label: 'Base', value: 'Compacted angular crushed aggregate' },
+  { label: 'Outputs', value: 'Yards, US short tons, 0.5 ft³ bags, edging' }
 ];
 
 const quickStats = [
-  { value: '120 sq ft', label: 'Per Ton at 2"', desc: 'Square foot surface coverage per ton of 3/8 inch pea stone' },
-  { value: '4 Inches', label: 'Compacted Base', desc: 'Crusher run subbase depth to prevent patio rutting and sinking' },
-  { value: '2.0 Inches', label: 'Max Surface Depth', desc: 'Maximum pea gravel depth to prevent unstable, sinking footing' }
+  { value: '1.19 yd³', label: '12 × 16 ft top layer', desc: 'At the default 2-inch loose pea gravel depth' },
+  { value: '2.84 yd³', label: '12 × 16 ft base order', desc: 'At 4 inches finished depth plus 20% loose-order allowance' },
+  { value: '59 ft', label: '12 × 16 ft edging', desc: 'All four sides plus a 5% cutting allowance' }
 ];
 
 const faqItems = [
   {
-    q: 'How much pea gravel do I need for a 12x16 foot patio?',
-    a: 'A 12x16 foot patio equals 192 square feet. For the 2-inch pea gravel top layer, you need 1.19 cubic yards (approximately 1.60 tons or 64 fifty-pound bags). For the 4-inch compacted crusher run base beneath it, you need 2.37 cubic yards plus 20 percent compaction, totaling approximately 2.84 cubic yards (4.1 tons).'
+    q: 'How much pea gravel and base do I need for a 12 × 16-foot patio?',
+    a: 'At the default 2-inch top layer and 4-inch finished base, a 192-square-foot patio needs 1.19 cubic yards of pea gravel (about 1.60 US short tons or 64 bags labeled 0.5 cubic foot). The base needs 2.37 cubic yards at finished depth, or 2.84 loose cubic yards with this calculator’s 20% order allowance (about 4.12 US short tons at its assumed density). Confirm bulk weights with your supplier.'
   },
   {
-    q: 'Why can I not just pour 4 inches of pea gravel directly on dirt?',
-    a: 'Pea gravel consists of rounded stones that do not interlock. If installed deeper than 2.5 inches directly on dirt, it behaves like dry ball bearings, making walking difficult and causing patio furniture legs to sink. A solid 4-inch compacted road base with a 2-inch pea gravel top layer provides both stability and comfortable footing.'
+    q: 'Why use a crushed-stone base under pea gravel?',
+    a: 'Angular crushed aggregate compacts into a firmer support layer; rounded pea gravel remains mobile even when tamped. A base and contained, modest top layer usually make a seating area easier to use. Four inches is this calculator’s starting assumption, not a site specification: soft soil, freeze–thaw, drainage and anticipated loads can change the design.'
   },
   {
-    q: 'What kind of edging is required for a pea gravel patio?',
-    a: 'Use rigid commercial steel or heavy aluminum landscape edging staked with 10 to 12 inch spiral metal spikes every 18 to 24 inches. The edging must sit approximately 0.5 inches above the finished gravel line to prevent stones from scattering into the lawn.'
+    q: 'Does a pea gravel patio need edging?',
+    a: 'Yes, a firm border helps keep rounded stones out of lawn and paths. Steel, aluminum, timber, stone or pavers can work when installed for the site. Measure only exposed edges: a wall or existing curb may already contain one side. For an irregular shape, enter its measured perimeter rather than relying on the calculator’s square estimate.'
   },
   {
-    q: 'Does a pea gravel patio need landscape fabric?',
-    a: 'Yes. Install commercial 4 oz to 6 oz non-woven geotextile fabric directly on top of the compacted crusher run base before spreading the pea gravel. This prevents the loose pea stones from migrating downward into the base over time.'
+    q: 'Where should geotextile go, and will it stop weeds?',
+    a: 'Where separation is needed on soft or fine soil, a permeable geotextile can go over the prepared subgrade, beneath the crushed base. Some designs also use a separator between stone layers; follow the product and site design. Fabric does not stop seeds from germinating in leaves and soil that collect on top, so surface cleaning still matters.'
+  },
+  {
+    q: 'Will pea gravel support dining chairs or a wheelchair?',
+    a: 'Narrow chair legs can sink or wobble because rounded stones roll. Broad furniture feet or a firm pad help, but loose pea gravel is still difficult for many mobility devices. For a reliably firm accessible route or dining surface, consider a properly built paver or other stable surface.'
   }
 ];
 
@@ -69,17 +73,17 @@ const supportGuides = [
 ---
 
 <BaseLayout
-  title="Pea Gravel Patio Calculator - Base Course & Stone Estimator"
-  metaDescription="Calculate pea gravel and crushed stone base materials for a stable, long-lasting patio. Includes 4-inch base compaction, 2-inch surface depth, and bag counts."
+  title={pageTitle}
+  description="Estimate pea gravel, compacted crushed-stone base, 0.5-cubic-foot bags, fabric and edging for a patio. Adjust layer depths and see the exact formulas."
   canonicalPath="/pea-gravel-patio-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Pea Gravel Patio Calculator",
+      "name": pageTitle,
       "url": "https://rockcoveragecalculator.com/pea-gravel-patio-calculator",
-      "description": "Calculates complete dual-layer pea gravel patio material requirements including compacted base and surface stone.",
+      "description": "Estimates pea gravel patio surface stone, an optional compacted angular base, fabric, and edging with editable depths and density assumptions.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "inLanguage": "en-US",
@@ -110,13 +114,14 @@ const supportGuides = [
 
   <main>
     <PageHero
-      title="Pea Gravel Patio Calculator"
+      title={pageTitle}
       highlightWord="Patio"
-      badge="Dual-Layer Hardscape Engine"
-      subtitle="Calculate exact materials for both the 4-inch compacted foundation base and the 2-inch pea stone surface wearing course."
+      badge="Pea gravel patio material plan"
+      subtitle="A 12 × 16-foot patio with a 2-inch pea gravel top takes 1.19 cubic yards of stone. A 4-inch compacted crushed-stone base needs about 2.84 loose cubic yards with the 20% ordering allowance used here. Change the dimensions and depths below for your own site."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="decorative"
     />
 
     <!-- Interactive Calculator Section -->
@@ -125,11 +130,11 @@ const supportGuides = [
         <div class="section-header">
           <div class="hero-badge" style="margin-bottom: var(--space-3);">
             <span class="badge-dot"></span>
-            <span>Dual-Layer Hardscape Solver</span>
+            <span>Patio order worksheet</span>
           </div>
-          <h2>Calculate Pea Gravel Patio Requirements</h2>
+          <h2>Estimate the surface, base and border</h2>
           <div class="section-divider"></div>
-          <p>A professional patio requires both a compacted subbase and a smooth surface layer. Enter your patio dimensions below for complete material totals.</p>
+          <p>Use the patio’s finished footprint. The surface and base are separate orders; the base allowance estimates extra loose material needed to reach the chosen finished depth.</p>
         </div>
 
         <div class="calc-wrapper">
@@ -164,18 +169,23 @@ const supportGuides = [
                 <label for="patio-sqft-input">Total Surface Area (Square Feet)</label>
                 <input type="number" id="patio-sqft-input" value="192" min="1" step="1" />
               </div>
+              <div class="input-field">
+                <label for="patio-perimeter-input">Measured Exposed Perimeter (Feet, Optional)</label>
+                <input type="number" id="patio-perimeter-input" min="0" step="0.5" placeholder="Leave blank for square estimate" />
+                <small>For curves or edges against a wall, measure only the border you need.</small>
+              </div>
             </div>
 
             <!-- Top Layer Pea Gravel Depth -->
             <div class="input-field" style="margin-bottom: var(--space-4);">
               <div class="label-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-1);">
                 <label for="patio-top-depth" style="margin: 0;">Pea Gravel Surface Depth (Inches)</label>
-                <span class="depth-hint" style="font-size: var(--text-xs); color: var(--gold-400); font-weight: 600;">Recommended: 2.0 inches</span>
+                <span class="depth-hint" style="font-size: var(--text-xs); color: var(--gold-400); font-weight: 600;">Default: 2 inches</span>
               </div>
               <select id="patio-top-depth" class="select-input">
-                <option value="1.5">1.5 Inches (Firmest Footing under Patio Chairs)</option>
-                <option value="2.0" selected>2.0 Inches (Standard Contractor Depth)</option>
-                <option value="2.5">2.5 Inches (Maximum Recommended Depth)</option>
+                <option value="1.5">1.5 Inches (Thinner Loose Layer)</option>
+                <option value="2.0" selected>2.0 Inches (Planning Default)</option>
+                <option value="2.5">2.5 Inches (More Stone Movement)</option>
               </select>
             </div>
 
@@ -183,36 +193,53 @@ const supportGuides = [
             <div class="input-field" style="margin-bottom: var(--space-4);">
               <div class="label-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-1);">
                 <label for="patio-base-depth" style="margin: 0;">Compacted Base Depth (Inches)</label>
-                <span class="depth-hint" style="font-size: var(--text-xs); color: var(--gold-400); font-weight: 600;">Standard: 4.0 inches</span>
+                <span class="depth-hint" style="font-size: var(--text-xs); color: var(--gold-400); font-weight: 600;">Default: 4 inches finished</span>
               </div>
               <select id="patio-base-depth" class="select-input">
-                <option value="0">None (Not Recommended - Direct Soil Install)</option>
-                <option value="3.0">3.0 Inches (Light Pedestrian / Warm Climates)</option>
-                <option value="4.0" selected>4.0 Inches (Standard Commercial Base)</option>
-                <option value="6.0">6.0 Inches (Heavy Freeze-Thaw / Clay Subgrades)</option>
+                <option value="0">No Base (Quantity Comparison Only)</option>
+                <option value="3.0">3.0 Inches (Site-Dependent)</option>
+                <option value="4.0" selected>4.0 Inches (Planning Default)</option>
+                <option value="6.0">6.0 Inches (Site-Dependent)</option>
               </select>
             </div>
 
             <!-- Edging Perimeter Calculation -->
             <div class="input-field">
-              <label for="patio-edging-buffer">Perimeter Edging Buffer</label>
+              <label for="patio-edging-buffer">Edging Cut Allowance</label>
               <select id="patio-edging-buffer" class="select-input">
-                <option value="1.05" selected>5% Extra Edging (Standard Rectangle)</option>
-                <option value="1.10">10% Extra Edging (Curved or Irregular Perimeter)</option>
+                <option value="1.05" selected>5% (Simple Layout)</option>
+                <option value="1.10">10% (More Cuts or Curves)</option>
               </select>
+              <small>Rectangle mode counts all four sides. Use area mode to enter only exposed edges.</small>
             </div>
+
+            <details class="density-details">
+              <summary>Adjust supplier weight per cubic yard</summary>
+              <p>These values change tons only. The yard and bag volumes stay the same.</p>
+              <div class="dim-grid">
+                <div class="input-field">
+                  <label for="patio-top-density">Pea Gravel (US Short Tons/Yd³)</label>
+                  <input type="number" id="patio-top-density" value="1.35" min="0.01" step="0.01" />
+                </div>
+                <div class="input-field">
+                  <label for="patio-base-density">Loose Base (US Short Tons/Yd³)</label>
+                  <input type="number" id="patio-base-density" value="1.45" min="0.01" step="0.01" />
+                </div>
+              </div>
+            </details>
+            <p id="patio-input-error" class="calc-error" role="alert" hidden></p>
           </div>
 
           <!-- RIGHT: Outputs Column -->
           <div class="calc-results-panel animate-fade-in-up">
             <div class="calc-panel-title">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Complete Bill of Materials</h3>
+              <h3>Estimated Material Order</h3>
             </div>
 
             <!-- Surface Layer Box -->
             <div class="material-summary-box">
-              <h4>Layer 1: Pea Gravel Surface (3/8" Stone)</h4>
+              <h4>Surface: Washed Pea Gravel</h4>
               <div class="summary-row">
                 <span>Weight Required:</span>
                 <strong id="res-top-tons" style="color: var(--accent-gold);">1.60 Short Tons (3,200 lbs)</strong>
@@ -222,36 +249,36 @@ const supportGuides = [
                 <strong id="res-top-yards">1.19 Cubic Yards</strong>
               </div>
               <div class="summary-row">
-                <span>50-lb Retail Bags:</span>
+                <span>0.5-ft³ Bags:</span>
                 <strong id="res-top-bags">64 Bags</strong>
               </div>
             </div>
 
             <!-- Base Layer Box -->
             <div class="material-summary-box base-box">
-              <h4>Layer 2: Compacted Base (Crusher Run)</h4>
+              <h4>Base: Compactable Angular Aggregate</h4>
               <div class="summary-row">
                 <span>Weight Required:</span>
                 <strong id="res-base-tons" style="color: var(--text-primary);">4.12 Short Tons</strong>
               </div>
               <div class="summary-row">
-                <span>Volume (incl. 20% tamp):</span>
+                <span>Loose Order (+20%):</span>
                 <strong id="res-base-yards">2.84 Cubic Yards</strong>
               </div>
               <div class="summary-row">
-                <span>Vibratory Passes:</span>
-                <strong>3 to 4 with water misting</strong>
+                <span>Finished Base Volume:</span>
+                <strong id="res-base-finished">2.37 Cubic Yards</strong>
               </div>
             </div>
 
             <!-- Hardware & Fabric Box -->
             <div class="hardware-box">
               <div class="hw-item">
-                <span class="hw-label">Geotextile Fabric:</span>
-                <strong id="res-fabric" style="color: var(--text-primary); font-size: var(--text-sm);">211 Sq Ft (10% overlap)</strong>
+                <span class="hw-label">One Geotextile Layer:</span>
+                <strong id="res-fabric" style="color: var(--text-primary); font-size: var(--text-sm);">212 Sq Ft (+10%)</strong>
               </div>
               <div class="hw-item">
-                <span class="hw-label">Commercial Edging:</span>
+                <span class="hw-label">Retaining Edging:</span>
                 <strong id="res-edging" style="color: var(--text-primary); font-size: var(--text-sm);">59 Linear Feet</strong>
               </div>
             </div>
@@ -260,51 +287,48 @@ const supportGuides = [
       </div>
     </section>
 
-    <!-- Technical Guide Content -->
+    <!-- Patio planning guide -->
     <article class="guide-content">
       <div class="guide-container">
+        <figure class="patio-section-figure">
+          <div class="patio-diagram-scroll" role="region" aria-label="Pea gravel patio layer diagram" tabindex="0">
+            <img src="/pea-gravel-patio-layers.svg" width="980" height="430" loading="lazy" alt="Cross-section of a pea gravel patio showing a two-inch loose pea gravel surface over a four-inch compacted angular base, optional geotextile between base and soil, compacted subgrade and retaining edging." />
+          </div>
+          <figcaption>The calculator’s default layer stack. Swipe to inspect the diagram on a narrow screen. Fabric placement, base thickness and drainage should follow the actual soil and site conditions.</figcaption>
+        </figure>
 
-        <!-- Engineering Summary Card -->
-        <div class="summary-card">
-          <h3>How Much Pea Gravel Do You Need for a Patio?</h3>
-          <p>
-            An engineered pea gravel patio requires a <strong>dual-layer system</strong>: a <strong>4-inch compacted road base</strong> (crusher run or dense-graded aggregate) topped with a <strong>2.0-inch surface layer of 3/8-inch pea gravel</strong> (#8 stone).
-          </p>
-          <p>
-            At 2 inches depth, <strong>one short ton (2,000 lbs) of pea gravel covers 120 square feet</strong> (162 square feet per cubic yard). Never install pea gravel deeper than 2.5 inches; excess depth causes pedestrian footing to shift and patio furniture to sink.
-          </p>
-        </div>
+        <section aria-labelledby="estimate-method">
+          <h2 id="estimate-method">What the calculator includes</h2>
+          <p>The example is a <strong>12 × 16-foot patio (192 square feet)</strong>. At 2 inches deep, the loose pea gravel surface needs <strong>32 cubic feet = 1.19 cubic yards</strong>. At the assumed 1.35 US short tons per cubic yard, that is about <strong>1.60 tons</strong>. By package volume, it is <strong>64 bags labeled 0.5 cubic foot</strong>. A bag labeled 50 pounds is a weight measure and may hold a different volume.</p>
+          <div class="formula-grid">
+            <div class="formula-card">
+              <h3>Pea gravel surface</h3>
+              <p>Area (ft²) × top depth (in) ÷ 12 ÷ 27 = cubic yards</p>
+            </div>
+            <div class="formula-card">
+              <h3>Crushed-stone base order</h3>
+              <p>Area (ft²) × finished base depth (in) ÷ 12 ÷ 27 × 1.20 = loose cubic yards</p>
+            </div>
+          </div>
+          <p>The same footprint at 4 inches of <em>finished</em> base needs 2.37 cubic yards after compaction. The 20% order allowance raises that to <strong>2.84 loose cubic yards</strong>, or about <strong>4.12 US short tons</strong> at the assumed 1.45 tons per loose cubic yard. The allowance is a planning factor, not a measured compaction rate for every quarry product. Ask the yard for both loose bulk densities and expected compacted yield, then adjust the weight fields above. For another material alone, use the <a href="/crusher-run-calculator">crusher run calculator</a> or <a href="/pea-gravel-cubic-yard-calculator">pea gravel cubic yard calculator</a>.</p>
+          <p>The fabric line budgets <strong>one layer</strong> at the patio footprint plus 10% for cuts and overlaps; roll width and seam layout may require more. The edging line adds 5% or 10% to the perimeter. In area mode, enter a measured exposed perimeter for curves or walls; otherwise the tool estimates the perimeter of a square with the same area.</p>
+        </section>
 
-        <h2>The Engineering Behind a Stable Pea Gravel Patio</h2>
-        <p>
-          Pea gravel patios offer a charming, permeable, and affordable alternative to poured concrete or paver stones. However, the most frequent homeowner mistake is digging a 4-inch trench and filling it entirely with loose pea gravel.
-        </p>
-        <p>
-          Because pea gravel particles are rounded river pebbles (naturally tumbled with zero angular friction), they cannot interlock. When installed more than 2.5 inches deep, walking across the patio feels like trekking through deep beach sand. Patio chairs wobble, table legs sink unevenly, and high heels plunge into the stone.
-        </p>
-        <p>
-          Professional landscape contractors eliminate this problem using the <strong>4+2 Dual Layer Method</strong>:
-        </p>
-        <ul>
-          <li><strong>4 Inches of Compacted Base (#411 Crusher Run):</strong> This dense-graded blend of angular stone and stone dust compacts into a rock-hard, unyielding subbase that supports the load of patio furniture and foot traffic.</li>
-          <li><strong>Heavy Geotextile Separation:</strong> A 4 oz to 6 oz non-woven landscape fabric placed between the base and the pea gravel prevents the rounded pebbles from migrating into the road base.</li>
-          <li><strong>1.5 to 2.0 Inches of Pea Gravel (#8 Stone):</strong> This thin top layer provides the aesthetic beauty, soft crunch, and natural drainage of stone while resting firmly atop the compacted base beneath.</li>
-        </ul>
-
-        <!-- Material Estimation Table -->
+        <section aria-labelledby="size-table">
+          <h2 id="size-table">Patio sizes at the default depths</h2>
+          <p>These figures use 2 inches of pea gravel, 4 inches of finished crushed base, 20% extra loose base volume, the stated densities and 5% extra edging. They include no extra top-layer waste. Round a bulk order to your supplier’s selling increment.</p>
         <div class="table-card">
-          <h3>Common Patio Dimensions & Material Requirements</h3>
-          <p>Material breakdown for standard residential patio sizes (2" pea gravel surface + 4" compacted base):</p>
           <div class="table-wrapper">
             <table>
+              <caption class="visually-hidden">Pea gravel patio material examples by rectangular size</caption>
               <thead>
                 <tr>
                   <th>Patio Size</th>
                   <th>Area (Sq Ft)</th>
                   <th>Pea Gravel (Tons)</th>
-                  <th>50-lb Bags</th>
-                  <th>Crusher Run Base (Tons)</th>
-                  <th>Linear Ft Edging</th>
+                  <th>0.5-ft³ Bags</th>
+                  <th>Base Order (Tons)</th>
+                  <th>Edging (Ft)</th>
                 </tr>
               </thead>
               <tbody>
@@ -321,8 +345,8 @@ const supportGuides = [
                   <td>144 sq ft</td>
                   <td>1.20 tons</td>
                   <td>48 bags</td>
-                  <td>3.10 tons</td>
-                  <td>50 ft</td>
+                  <td>3.09 tons</td>
+                  <td>51 ft</td>
                 </tr>
                 <tr>
                   <td><strong>12 × 16 ft</strong></td>
@@ -337,7 +361,7 @@ const supportGuides = [
                   <td>300 sq ft</td>
                   <td>2.50 tons</td>
                   <td>100 bags</td>
-                  <td>6.45 tons</td>
+                  <td>6.44 tons</td>
                   <td>74 ft</td>
                 </tr>
                 <tr>
@@ -345,37 +369,47 @@ const supportGuides = [
                   <td>400 sq ft</td>
                   <td>3.33 tons</td>
                   <td>134 bags</td>
-                  <td>8.60 tons</td>
+                  <td>8.59 tons</td>
                   <td>84 ft</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+        </section>
 
-        <h2>Step-by-Step Construction Protocol</h2>
+        <section aria-labelledby="build-sequence">
+        <h2 id="build-sequence">Plan the patio from the ground up</h2>
+        <p>A shallow top layer still moves under narrow furniture legs. The base supports the area; edging contains the rounded stone. On clay, soft fill or a site with water collecting near the house, solve the drainage and subgrade problem before adding gravel. A loose stone top does not make a dense base below it freely draining.</p>
         <div class="feature-grid">
           <div class="feature-card">
             <span class="feature-num">01</span>
-            <h4>Excavation & Subgrade Pitch</h4>
-            <p>Excavate 6 inches below your target finished grade. Slope the dirt subgrade at 1/8 inch per linear foot away from your home foundation to guarantee positive stormwater runoff.</p>
+            <h3>Set the finished height</h3>
+            <p>Mark the full seating footprint and where water can leave it. The default 4-inch base plus 2-inch top means roughly 6 inches of total layer thickness below the intended finish. Remove sod and organic soil, then compact the prepared subgrade. Keep runoff directed away from the building.</p>
           </div>
           <div class="feature-card">
             <span class="feature-num">02</span>
-            <h4>Heavy-Duty Rigid Edging</h4>
-            <p>Install heavy commercial aluminum or 1/8-inch steel edging around the perimeter. Anchor firmly with 10-inch spiral steel spikes every 18 inches to prevent spreading under foot traffic.</p>
+            <h3>Choose any separator for its job</h3>
+            <p>If fine or soft soil may mix with the base, lay a suitable permeable geotextile over the subgrade, with seams overlapped according to its manufacturer. Fabric is a separator, not a lasting cure for weeds seeded in surface debris. The calculator budgets one layer.</p>
           </div>
           <div class="feature-card">
             <span class="feature-num">03</span>
-            <h4>Base Compaction in Lifts</h4>
-            <p>Spread crusher run in two 2-inch lifts. Lightly mist each lift with water and compact using a gas-powered plate compactor (3 to 4 passes) until the surface is rock-hard and does not yield under heel pressure.</p>
+            <h3>Build a firm, graded base</h3>
+            <p>Spread compactable angular aggregate in manageable lifts and compact each with suitable equipment. Check finished depth and grade before the top stone arrives. Base depth depends on soil, use and climate; a thicker layer alone will not repair trapped water.</p>
           </div>
           <div class="feature-card">
             <span class="feature-num">04</span>
-            <h4>Geotextile & Stone Screed</h4>
-            <p>Lay non-woven landscape fabric across the compacted base, overlapping seams by 12 inches. Spread 2 inches of clean washed 3/8-inch pea gravel evenly using an aluminum landscape rake.</p>
+            <h3>Contain and spread the finish</h3>
+            <p>Install the chosen edging as its manufacturer directs, allowing it to contain the finished stone without becoming a trip edge. Spread washed pea gravel evenly to the selected depth. Rake after settling; try the actual chairs before deciding whether a firmer seating pad is needed.</p>
           </div>
         </div>
+        </section>
+
+        <section aria-labelledby="patio-tradeoffs">
+          <h2 id="patio-tradeoffs">Where pea gravel works, and where it frustrates</h2>
+          <p>Pea gravel suits a relaxed garden seating nook where the soft, shifting texture is part of the appeal. It is less convenient under thin chair legs, on frequently used dining routes and wherever wheels need a firm surface. A small paver landing beneath a table can solve furniture wobble while keeping gravel around it; for a continuous accessible route, choose a stable surface throughout.</p>
+          <p>Plan on occasional leaf removal, hand weeding and raking. Windblown soil can collect between stones and grow weeds even over fabric. Where runoff repeatedly carries stones away, revisit grading and drainage rather than just adding more gravel. The <a href="/how-to-stop-weeds-in-landscape-rock">weed guide</a>, <a href="/how-to-stop-gravel-washing-out-on-slope">slope guide</a> and <a href="/angular-vs-rounded-rock">angular versus rounded stone guide</a> cover those decisions in more detail.</p>
+        </section>
 
         <!-- FAQ Section -->
         <h2>Frequently Asked Questions About Pea Gravel Patios</h2>
@@ -387,6 +421,8 @@ const supportGuides = [
             </div>
           ))}
         </div>
+
+        <p class="source-note">Method references: <a href="https://extension.umaine.edu/gardening/2021/07/30/weed-barrier-stone/" rel="noopener noreferrer">University of Maine Cooperative Extension</a> on layered gravel patios and edging; <a href="https://yardandgarden.extension.iastate.edu/article/1995/6-30-1995/icppt.html" rel="noopener noreferrer">Iowa State University Extension</a> on compacted aggregate and drainage grade; <a href="https://extension.psu.edu/construction-of-equine-all-weather-paddocks-for-mud-free-management" rel="noopener noreferrer">Penn State Extension</a> on geotextile separation of soil and aggregate. Their examples are not a site-specific patio specification.</p>
 
       </div>
     </article>
@@ -413,17 +449,23 @@ const supportGuides = [
       const inputLen = document.getElementById('patio-len');
       const inputWid = document.getElementById('patio-wid');
       const inputArea = document.getElementById('patio-sqft-input');
+      const inputPerimeter = document.getElementById('patio-perimeter-input');
       const inputTopDepth = document.getElementById('patio-top-depth');
       const inputBaseDepth = document.getElementById('patio-base-depth');
       const inputEdgingBuffer = document.getElementById('patio-edging-buffer');
+      const inputTopDensity = document.getElementById('patio-top-density');
+      const inputBaseDensity = document.getElementById('patio-base-density');
+      const inputError = document.getElementById('patio-input-error');
 
       const resTopTons = document.getElementById('res-top-tons');
       const resTopYards = document.getElementById('res-top-yards');
       const resTopBags = document.getElementById('res-top-bags');
       const resBaseTons = document.getElementById('res-base-tons');
       const resBaseYards = document.getElementById('res-base-yards');
+      const resBaseFinished = document.getElementById('res-base-finished');
       const resFabric = document.getElementById('res-fabric');
       const resEdging = document.getElementById('res-edging');
+      const resultFields = [resTopTons, resTopYards, resTopBags, resBaseTons, resBaseYards, resBaseFinished, resFabric, resEdging];
 
       let mode = 'dimensions';
 
@@ -446,31 +488,66 @@ const supportGuides = [
       });
 
       function recalculate() {
+        inputError.hidden = true;
+        [inputLen, inputWid, inputArea, inputPerimeter, inputTopDensity, inputBaseDensity].forEach(input => input.removeAttribute('aria-invalid'));
+
+        function showError(message, fields) {
+          inputError.textContent = message;
+          inputError.hidden = false;
+          fields.forEach(input => input.setAttribute('aria-invalid', 'true'));
+          resultFields.forEach(result => { result.textContent = '—'; });
+        }
+
         let area = 0;
         let perimeter = 0;
+        let perimeterEstimated = false;
         if (mode === 'dimensions') {
-          const l = parseFloat(inputLen.value) || 0;
-          const w = parseFloat(inputWid.value) || 0;
+          const l = Number(inputLen.value);
+          const w = Number(inputWid.value);
+          if (!Number.isFinite(l) || l <= 0 || !Number.isFinite(w) || w <= 0) {
+            showError('Enter a patio length and width greater than zero.', [inputLen, inputWid]);
+            return;
+          }
           area = l * w;
           perimeter = 2 * (l + w);
         } else {
-          area = parseFloat(inputArea.value) || 0;
-          perimeter = 4 * Math.sqrt(area); // estimate square perimeter
+          area = Number(inputArea.value);
+          if (!Number.isFinite(area) || area <= 0) {
+            showError('Enter a patio area greater than zero.', [inputArea]);
+            return;
+          }
+          perimeterEstimated = inputPerimeter.value.trim() === '';
+          const measuredPerimeter = Number(inputPerimeter.value);
+          if (!perimeterEstimated && (!Number.isFinite(measuredPerimeter) || measuredPerimeter < 0)) {
+            showError('Enter an exposed perimeter of zero or more, or leave it blank for an estimate.', [inputPerimeter]);
+            return;
+          }
+          perimeter = perimeterEstimated ? 4 * Math.sqrt(area) : measuredPerimeter;
+        }
+        if (!Number.isFinite(area) || !Number.isFinite(perimeter)) {
+          showError('The measured size is too large. Enter a smaller patio area or perimeter.', mode === 'dimensions' ? [inputLen, inputWid] : [inputArea, inputPerimeter]);
+          return;
         }
 
         const topDepth = parseFloat(inputTopDepth.value) || 0;
         const baseDepth = parseFloat(inputBaseDepth.value) || 0;
         const edgingBuffer = parseFloat(inputEdgingBuffer.value) || 1.05;
+        const topDensity = Number(inputTopDensity.value);
+        const baseDensity = Number(inputBaseDensity.value);
+        if (!Number.isFinite(topDensity) || topDensity <= 0 || !Number.isFinite(baseDensity) || baseDensity <= 0) {
+          showError('Enter both supplier densities as positive US short tons per cubic yard.', [inputTopDensity, inputBaseDensity]);
+          return;
+        }
 
-        // Top layer: Pea gravel density 1.35 t/yd³
+        // Top layer volume is independent of supplier density.
         const topYards = (area * (topDepth / 12)) / 27;
-        const topTons = topYards * 1.35;
-        const topBags = Math.ceil((topTons * 2000) / 50);
+        const topTons = topYards * topDensity;
+        const topBags = Math.ceil((topYards * 27) / 0.5); // bags labeled 0.5 ft³
 
-        // Base layer: Crusher run density 1.45 t/yd³ loose, 20% compaction (Order = Compacted Volume ÷ 0.80 = × 1.25)
+        // Base layer: 20% extra loose-order allowance over finished volume.
         const baseFinishedYards = (area * (baseDepth / 12)) / 27;
-        const baseAdjustedYards = baseFinishedYards * 1.25; // 20% consolidation compensation
-        const baseTons = baseAdjustedYards * 1.45;
+        const baseAdjustedYards = baseFinishedYards * 1.20;
+        const baseTons = baseAdjustedYards * baseDensity;
 
         // Fabric (area + 10% overlap)
         const fabricSqFt = Math.ceil(area * 1.10);
@@ -485,16 +562,18 @@ const supportGuides = [
         if (baseDepth > 0) {
           resBaseTons.textContent = `${baseTons.toFixed(2)} Short Tons`;
           resBaseYards.textContent = `${baseAdjustedYards.toFixed(2)} Cubic Yards`;
+          resBaseFinished.textContent = `${baseFinishedYards.toFixed(2)} Cubic Yards`;
         } else {
           resBaseTons.textContent = 'None Selected';
           resBaseYards.textContent = '0.00 Cubic Yards';
+          resBaseFinished.textContent = '0.00 Cubic Yards';
         }
 
-        resFabric.textContent = `${fabricSqFt.toLocaleString()} Sq Ft (10% overlap)`;
-        resEdging.textContent = `${edgingFt.toLocaleString()} Linear Feet`;
+        resFabric.textContent = `${fabricSqFt.toLocaleString()} Sq Ft (+10%)`;
+        resEdging.textContent = `${edgingFt.toLocaleString()} Linear Feet${perimeterEstimated ? ' (square estimate)' : ''}`;
       }
 
-      [inputLen, inputWid, inputArea, inputTopDepth, inputBaseDepth, inputEdgingBuffer].forEach(el => {
+      [inputLen, inputWid, inputArea, inputPerimeter, inputTopDepth, inputBaseDepth, inputEdgingBuffer, inputTopDensity, inputBaseDensity].forEach(el => {
         el.addEventListener('input', recalculate);
         el.addEventListener('change', recalculate);
       });
@@ -692,6 +771,48 @@ const supportGuides = [
     margin-bottom: var(--space-1);
   }
 
+  .input-field small {
+    display: block;
+    margin-top: var(--space-2);
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+  }
+
+  .density-details {
+    margin-top: var(--space-4);
+    padding: var(--space-3);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+  }
+
+  .density-details summary {
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  .density-details p {
+    margin: var(--space-3) 0;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .calc-error:not([hidden]) {
+    margin-top: var(--space-3);
+    padding: var(--space-3);
+    border: 1px solid #ef9a9a;
+    border-radius: var(--radius-md);
+    color: #b91c1c;
+    background: #fff1f2;
+    font-size: var(--text-sm);
+  }
+
+  .input-field input[aria-invalid="true"] {
+    border-color: #ef4444;
+  }
+
   /* Guide Content */
   .guide-content {
     padding: var(--space-12) var(--space-4);
@@ -700,6 +821,63 @@ const supportGuides = [
   .guide-container {
     max-width: 860px;
     margin: 0 auto;
+  }
+
+  .patio-section-figure {
+    margin: 0 0 var(--space-8);
+  }
+
+  .patio-diagram-scroll { overflow-x: auto; }
+
+  .patio-section-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .patio-section-figure figcaption {
+    margin-top: var(--space-2);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 680px) {
+    .patio-section-figure img { min-width: 720px; }
+  }
+
+  .formula-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-5) 0;
+  }
+
+  .formula-card {
+    padding: var(--space-4);
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid var(--accent-gold);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+  }
+
+  .formula-card h3 {
+    margin: 0 0 var(--space-2);
+    color: var(--text-primary);
+    font-size: var(--text-base);
+  }
+
+  .formula-card p {
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  .source-note {
+    margin-top: var(--space-8);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border-subtle);
+    font-size: var(--text-sm) !important;
   }
 
   .aeo-quick-card {
@@ -790,6 +968,18 @@ const supportGuides = [
     overflow-x: auto;
   }
 
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -843,6 +1033,13 @@ const supportGuides = [
     margin-bottom: var(--space-2);
   }
 
+  .feature-card h3 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-2);
+  }
+
   .feature-card p {
     font-size: var(--text-sm);
     color: var(--color-text-muted);
@@ -870,5 +1067,16 @@ const supportGuides = [
     color: var(--color-text-muted);
     line-height: 1.6;
     margin-bottom: 0;
+  }
+
+  @media (max-width: 640px) {
+    .formula-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .summary-row {
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
   }
 </style>

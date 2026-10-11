@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="250" viewBox="0 0 960 250" role="img" aria-labelledby="title desc">
+  <title id="title">From finished decomposed granite volume to tons ordered</title>
+  <desc id="desc">For a 30 by 10 foot path at 3 inches finished depth: 2.78 cubic yards of finished material, times 1.20 for extra material gives 3.33 loose cubic yards, times 1.25 short tons per loose cubic yard gives 4.17 US short tons.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#9b6934" />
+    </marker>
+  </defs>
+  <rect width="960" height="250" rx="16" fill="#f6f2e8" />
+  <text x="34" y="39" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#193b33">A 300 sq ft DG path, finished 3 in deep</text>
+  <text x="34" y="64" font-family="Arial, sans-serif" font-size="14" fill="#52665d">Follow the units to the quantity on a weight-based quote</text>
+
+  <rect x="34" y="87" width="250" height="126" rx="12" fill="#fffdf7" stroke="#b9c9be" stroke-width="2" />
+  <text x="51" y="115" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#426558">FINISHED LAYER</text>
+  <text x="51" y="157" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#193b33">2.78 yd³</text>
+  <text x="51" y="185" font-family="Arial, sans-serif" font-size="14" fill="#52665d">300 sq ft × 3 in ÷ 324</text>
+
+  <path d="M294 149 H345" stroke="#9b6934" stroke-width="3" marker-end="url(#arrow)" />
+  <text x="319" y="133" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#9b6934">× 1.20</text>
+
+  <rect x="356" y="87" width="250" height="126" rx="12" fill="#fffdf7" stroke="#b9c9be" stroke-width="2" />
+  <text x="373" y="115" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#426558">LOOSE ORDER VOLUME</text>
+  <text x="373" y="157" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#193b33">3.33 yd³</text>
+  <text x="373" y="185" font-family="Arial, sans-serif" font-size="14" fill="#52665d">20% extra material</text>
+
+  <path d="M616 149 H667" stroke="#9b6934" stroke-width="3" marker-end="url(#arrow)" />
+  <text x="641" y="133" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#9b6934">× 1.25</text>
+
+  <rect x="678" y="87" width="248" height="126" rx="12" fill="#e5eee7" stroke="#739783" stroke-width="2" />
+  <text x="695" y="115" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#426558">ESTIMATED WEIGHT</text>
+  <text x="695" y="157" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#193b33">4.17 short tons</text>
+  <text x="695" y="185" font-family="Arial, sans-serif" font-size="14" fill="#52665d">1.25 short tons / loose yd³</text>
+  <text x="34" y="237" font-family="Arial, sans-serif" font-size="13" fill="#52665d">The 20% and 1.25 are editable planning inputs, not fixed properties of all DG.</text>
+</svg>

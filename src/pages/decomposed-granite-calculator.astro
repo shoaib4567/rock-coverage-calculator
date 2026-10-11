@@ -12,13 +12,13 @@ const breadcrumbs = [
 
 const entityTags = [
   { label: 'Material', value: 'Decomposed Granite (DG)' },
-  { label: 'Particle Caliper', value: '1/4" Minus with Granite Fines' },
+  { label: 'Gradation', value: 'Granite Particles with Fines; Check Product' },
   { label: 'Loose Density Preset', value: '1.25 short t/yd³ (editable)' },
   { label: 'Order Allowance', value: '20% starting estimate (editable)' }
 ];
 
 const quickStats = [
-  { value: '1/4" Minus', label: 'Gradation', desc: 'Crushed granite blended with natural mineral rock flour' },
+  { value: 'Check Product', label: 'Gradation', desc: 'Particle size and fines content vary by supplier' },
   { value: '1.25 t/yd³', label: 'Loose Density Preset', desc: 'Planning estimate of 2,500 lb/yd³; verify with your supplier' },
   { value: '20% Extra', label: 'Order Allowance', desc: 'Adjust for your product and finished depth' }
 ];
@@ -30,15 +30,15 @@ const faqItems = [
   },
   {
     q: 'What is the difference between standard DG and stabilized DG?',
-    a: 'Standard decomposed granite is natural crushed stone with fines that packs firmly when watered and tamped. Stabilized DG includes a blended organic or polymer binding agent that hardens like soft sandstone, preventing mud tracking and erosive rain runoff on sloped paths.'
+    a: 'Standard DG contains granite particles and fines that can be compacted for a walking surface. Stabilized products add a binder; their mixing, base, moisture, and compaction directions vary by manufacturer. A stabilizer can improve surface cohesion, but drainage and slope still need to be designed for the site.'
   },
   {
     q: 'How deep should decomposed granite be installed for pathways?',
-    a: 'For pedestrian garden walkways, install decomposed granite at a finished compacted depth of 2.0 to 3.0 inches over a firm subgrade. For vehicular driveways, install a 2-inch DG wearing course over a 4-inch compacted crushed stone base.'
+    a: 'Specify the finished DG depth using the product guide and the path’s traffic, soil, and drainage conditions. The depth entered here is the finished DG layer only; it does not include a separate aggregate base. Do not apply one path or driveway section to every site.'
   },
   {
     q: 'Can decomposed granite be installed without a plate compactor?',
-    a: 'No. Hand tamping or foot walking does not generate sufficient downward pressure to pack the granite fines into the void spaces. Always use a gas-powered vibratory plate compactor, moistening the DG in thin 1.5-inch lifts to achieve a rock-hard, non-shifting surface.'
+    a: 'Follow the directions for the DG product and project scale. A manufacturer may specify a plate compactor or roller for a new path, while a hand tamper may be suitable for a small repair. Walking over loose material is not a reliable compaction method; check the finished thickness and grade after compacting.'
   }
 ];
 
@@ -77,7 +77,7 @@ const supportGuides = [
       "@type": "WebApplication",
       "name": "Decomposed Granite Calculator",
       "url": "https://rockcoveragecalculator.com/decomposed-granite-calculator",
-      "description": "Calculates decomposed granite volume, compaction allowances, and quarry scale tons for pathways and patios.",
+      "description": "Calculates finished decomposed granite layer volume, estimated loose order yards, and short tons for paths and patios with editable ordering assumptions.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "inLanguage": "en-US",
@@ -125,7 +125,7 @@ const supportGuides = [
           <div class="calc-panel animate-fade-in-up">
             <div class="calc-panel-title">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Decomposed Granite Dimensions</h3>
+            <h2>Decomposed Granite Dimensions</h2>
           </div>
 
           <div class="dim-grid">
@@ -158,7 +158,7 @@ const supportGuides = [
           <div class="calc-results-panel animate-fade-in-up">
             <div class="calc-panel-title">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
+              <h2>Required Material Totals</h2>
             </div>
 
             <div class="kpi-grid">
@@ -210,9 +210,9 @@ const supportGuides = [
               <p class="aeo-quick-desc">Editable loose-density planning preset. ASTM C29 is a test method, not a prescribed DG density.</p>
             </div>
             <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Standard Depth</span>
-              <span class="aeo-quick-value">2" Path | 3" Patio | 4" Drive</span>
-              <p class="aeo-quick-desc">Always compact in thin 1.5-inch moist lifts with a plate tamper or heavy hand tamper.</p>
+              <span class="aeo-quick-label">Finished Depth</span>
+              <span class="aeo-quick-value">Enter Your Specified Layer</span>
+              <p class="aeo-quick-desc">Product, traffic, soil, and base design determine the depth and compaction method.</p>
             </div>
           </div>
         </section>
@@ -220,7 +220,7 @@ const supportGuides = [
         <div class="content-card">
           <h2>Engineering Mechanics of Decomposed Granite</h2>
           <p>
-            <strong>Decomposed Granite (DG)</strong> is natural granitic rock that has weathered through geological time to the point where it fractures easily into a mixture of small stone flakes (up to 1/4 inch) and microscopic rock flour.
+            <strong>Decomposed granite (DG)</strong> is weathered granitic material sold as a mixture of small particles and fines. Gradation varies by quarry and product, so check the size and binder information for the material you plan to install.
           </p>
           <p>
             Unlike washed crushed granite stone, DG includes fine particles as well as small angular grains. Moistening and compacting a suitable product can form a firmer walking surface. Drainage, erosion resistance, and installation steps depend on the DG gradation, stabilizer, base, and site slope.
@@ -234,9 +234,12 @@ const supportGuides = [
             <code>Estimated Short Tons = Loose Order (yd³) × Entered Loose Density (short t/yd³)</code>
           </div>
 
-          <p>The calculator starts at <strong>1.25 short tons per loose cubic yard</strong>, or 2,500 lb/yd³. It is a planning estimate, not a value set by <a href="https://store.astm.org/c0029_c0029m-23.html" rel="noopener noreferrer">ASTM C29/C29M</a>. That standard describes how to measure aggregate bulk density. Published seller figures show why the density is editable: <a href="https://www.gravelshop.com/shop/calculate-cubic-yard-feet-ton.asp?groupid=30&amp;productid=819" rel="noopener noreferrer">Gravelshop lists one ½-inch-minus DG at 2,410 lb/yd³</a>, while <a href="https://www.outdoorwarehousesupply.com/product/decomposed-granite/" rel="noopener noreferrer">Outdoor Warehouse Supply lists its ¼-inch-minus DG at 2,700–3,000 lb/yd³</a>. Ask your supplier for the loose conversion and product-specific installation guidance before ordering.</p>
+          <p>The calculator starts at <strong>1.25 short tons per loose cubic yard</strong>, or 2,500 lb/yd³. It is a planning estimate, not a value set by <a href="https://store.astm.org/c0029_c0029m-23.html" rel="noopener noreferrer">ASTM C29/C29M</a>. That standard describes how to measure aggregate bulk density. Published seller figures show why the density is editable: <a href="https://www.gravelshop.com/shop/calculate-cubic-yard-feet-ton.asp?groupid=30&amp;productid=819" rel="noopener noreferrer">Gravelshop lists one ½-inch-minus DG at 2,410 lb/yd³</a>, while <a href="https://centraltexasmaterials.com/materials/crushed-granite" rel="noopener noreferrer">Central Texas Materials lists its DG at 2,700 lb/yd³</a>. Ask your supplier for the loose conversion and product-specific installation guidance before ordering.</p>
+
+          <p>Need a different starting point? Use the <a href="/decomposed-granite-tons-calculator">DG tons calculator</a> when the supplier quotes by weight, or the <a href="/decomposed-granite-coverage-calculator">DG coverage calculator</a> when you already know how many tons or yards are available. These tools use the same editable loose-density and order-allowance assumptions.</p>
 
           <h3>Planning a DG Pathway Installation</h3>
+          <p>Use the installation sheet for the exact product you buy. For example, <a href="https://www.kafkagranite.com/wp-content/uploads/2023/04/Standard_Pathway_Spec.pdf" rel="noopener noreferrer">Kafka Granite's standard pathway specification</a> defines its own subbase, placement, and compaction requirements. Those details are product and project specifications, not defaults built into this quantity calculator.</p>
           <ol class="steps-list">
             <li>
               <strong>Set the finished grade:</strong> Mark the path edges and finished elevation, then excavate enough for the DG layer and any base your site requires. Keep the surface graded so water does not collect against a building.
@@ -335,6 +338,8 @@ const supportGuides = [
 </BaseLayout>
 
 <style>
+  .calc-panel-title h2 { margin: 0; color: var(--text-primary); font-size: var(--text-lg); font-weight: 700; }
+  .calc-panel .input-field input { flex: 0 0 auto; min-height: 44px; }
   .section {
     padding: var(--space-8) 0;
   }

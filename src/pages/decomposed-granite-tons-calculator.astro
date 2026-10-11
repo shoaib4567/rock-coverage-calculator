@@ -5,81 +5,85 @@ import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Decomposed Granite Tons Calculator';
+
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Decomposed Granite Calculator', url: '/decomposed-granite-calculator' },
-  { name: 'Decomposed Granite Tons Calculator', url: '/decomposed-granite-tons-calculator' }
+  { name: pageTitle, url: '/decomposed-granite-tons-calculator' }
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Decomposed Granite Tonnage' },
-  { label: 'Gradation', value: '1/4" Minus with Fines' },
-  { label: 'Bulk Density', value: '1.25 t/yd³ (Loose) / 1.50 t/yd³ (Compacted)' },
-  { label: 'Compaction Factor', value: '20% Volume Reduction' }
+  { label: 'Material', value: 'Decomposed granite with fines' },
+  { label: 'Weight unit', value: 'US short ton = 2,000 lb' },
+  { label: 'Loose density preset', value: '1.25 short t/yd³, editable' },
+  { label: 'Order allowance', value: '20% extra, editable' }
 ];
 
 const quickStats = [
-  { value: '1.25 t/yd³', label: 'Loose Density', desc: 'Quarry scale weight for uncompacted 1/4" minus decomposed granite' },
-  { value: '20% Factor', label: 'Compaction', desc: 'Mandatory volume allowance for mechanical plate tamper compaction' },
-  { value: '65 sq ft', label: 'Yield at 3"', desc: 'Finished square foot coverage per ton after 20% plate compaction' }
+  { value: '4.17 short tons', label: '30 × 10 ft Example', desc: '3 in finished depth, 20% extra, 1.25 short t/yd³' },
+  { value: '72 sq ft', label: 'Per Short Ton at 3 in', desc: 'At the same editable starting assumptions' },
+  { value: '2,000 lb', label: 'One US Short Ton', desc: 'Confirm the unit on your supplier quote' }
 ];
 
 const faqItems = [
   {
-    q: 'How many tons of decomposed granite do I need for a 12x25 foot patio?',
-    a: 'A 12x25 foot patio equals 300 square feet. At a standard 3-inch compacted depth, you need 2.78 cubic yards of finished volume. Accounting for 20 percent volume loss under compaction (dividing by 0.80, or multiplying by 1.25) requires 3.47 loose cubic yards. Multiplying by 1.25 tons per yard equals approximately 4.34 tons of decomposed granite.'
+    q: 'How many tons of decomposed granite do I need for a 30 by 10 foot path?',
+    a: 'At a 3-inch finished depth, 300 square feet needs 2.78 cubic yards of finished volume. With 20% extra material, the estimated loose order is 3.33 cubic yards. At 1.25 US short tons per loose cubic yard, that is 4.17 short tons, or about 8,333 pounds. Replace the allowance and density with figures for the DG you will buy.'
   },
   {
-    q: 'How do you calculate tons of decomposed granite with compaction?',
-    a: 'Calculate finished volume in cubic yards: (Length ft × Width ft × Depth in) / 324. To account for 20% compaction volume loss, multiply by 1.25 (Finished Volume ÷ 0.80). Then multiply by loose bulk density (1.25 tons/yd³). Formula: Tons = [(Area × Depth) / 324] × 1.25 × 1.25.'
+    q: 'How many tons are in a cubic yard of decomposed granite?',
+    a: 'There is no single conversion for every decomposed granite product. This calculator starts at 1.25 US short tons, or 2,500 pounds, per loose cubic yard. Gradation, moisture, and the seller’s material can change the weight. Ask for your supplier’s loose cubic-yard-to-ton conversion.'
   },
   {
-    q: 'How many square feet does 1 ton of decomposed granite cover?',
-    a: 'After mechanical plate compaction, one ton of decomposed granite covers approximately 97 square feet at 2 inches depth, 65 square feet at 3 inches depth, and 49 square feet at 4 inches depth.'
+    q: 'How much does one ton of decomposed granite cover at 3 inches?',
+    a: 'With this page’s 1.25-short-ton-per-loose-yard density and 20% extra-material presets, one US short ton supports about 72 square feet at a 3-inch finished depth. Without the extra-material allowance, mathematical coverage would be 86.4 square feet. Use the supplier’s figures for an actual order.'
   },
   {
-    q: 'Why must compaction factor be included when ordering DG by the ton?',
-    a: 'Decomposed granite contains a high proportion of stone dust and fine particles. When moistened and compacted with a vibratory plate tamper, air voids collapse and the layer reduces in thickness by approximately 20 percent.'
+    q: 'Is a 20% compaction allowance always required?',
+    a: 'No. The 20% input is an editable ordering allowance, not a measured shrinkage rate or product specification. It can cover the gap between finished geometric volume and the loose quantity you buy, including placement and grade variation. Follow your product’s installation instructions or a field trial to choose a better value.'
+  },
+  {
+    q: 'Does this tonnage include a road-base layer?',
+    a: 'No. It estimates only the decomposed granite layer entered in the depth field. If a pathway or driveway design requires a separate compacted base, calculate that material independently using its own depth and density.'
   }
 ];
 
 const upLinks = [
-  { title: 'Decomposed Granite Calculator (Material Parent)', slug: '/decomposed-granite-calculator', badge: 'Material' },
-  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+  { title: 'Decomposed Granite Calculator', slug: '/decomposed-granite-calculator', badge: 'Material hub' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Weight conversion' }
 ];
 
 const lateralLinks = [
-  { title: 'Decomposed Granite Coverage Calculator', slug: '/decomposed-granite-coverage-calculator', badge: 'Coverage' },
-  { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: 'Granite' },
-  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Base' }
+  { title: 'Decomposed Granite Coverage Calculator', slug: '/decomposed-granite-coverage-calculator', badge: 'Reverse estimate' },
+  { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: 'Coarser granite' },
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Base aggregate' }
 ];
 
 const bridgeLinks = [
-  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Density' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Finished depth' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Measurement' }
 ];
 
 const supportGuides = [
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
-  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' }
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Site prep' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Coverage' }
 ];
 ---
 
 <BaseLayout
-  title="Decomposed Granite Tons Calculator - Compaction & Scale Weights"
-  metaDescription="Calculate exact tons of decomposed granite needed for pathways, patios, and bocce courts. Calibrated for 1/4 inch minus DG with 20% compaction math."
+  title={pageTitle}
+  metaDescription="Estimate US short tons of decomposed granite from area and finished depth. Adjust loose bulk density and extra material, then see yards, pounds, and coverage per ton."
   canonicalPath="/decomposed-granite-tons-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Decomposed Granite Tons Calculator",
+      "name": pageTitle,
       "url": "https://rockcoveragecalculator.com/decomposed-granite-tons-calculator",
-      "description": "Calculates quarry scale tonnage for decomposed granite pathways and patios including 20% mechanical compaction.",
+      "description": "Estimates US short tons of decomposed granite using editable loose bulk density and extra-material allowance.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "inLanguage": "en-US",
@@ -89,7 +93,7 @@ const supportGuides = [
       },
       "about": {
         "@type": "Thing",
-        "name": "Decomposed Granite Tonnage Calculation"
+        "name": "Decomposed Granite"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -110,10 +114,10 @@ const supportGuides = [
 
   <main>
     <PageHero
-      title="Decomposed Granite Tons Calculator"
+      title={pageTitle}
       highlightWord="Tons"
-      badge="Compacted Tonnage Engine"
-      subtitle="Calculate exact scale tons for 1/4-inch minus decomposed granite pathways, patios, and driveways with 20% compaction."
+      badge="DG bulk-order estimator"
+      subtitle="A 30 × 10 ft decomposed granite path at 3 in finished depth needs about 4.17 US short tons with the starting 20% extra-material allowance and 1.25-short-ton-per-loose-yard density. Enter your dimensions and supplier’s figures for your own estimate."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -127,125 +131,174 @@ const supportGuides = [
           <div class="calc-panel animate-fade-in-up">
             <div class="calc-panel-title">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Decomposed Granite Dimensions</h3>
+            <h2>Measure the DG layer</h2>
           </div>
 
           <div class="dim-grid">
             <div class="input-field">
-              <label for="dgt-length">Length (Feet)</label>
-              <input type="number" id="dgt-length" value="30" min="1" step="0.5" />
+              <label for="dgt-length">Length (feet)</label>
+              <input type="number" id="dgt-length" value="30" min="0.1" step="any" inputmode="decimal" />
             </div>
             <div class="input-field">
-              <label for="dgt-width">Width (Feet)</label>
-              <input type="number" id="dgt-width" value="10" min="1" step="0.5" />
+              <label for="dgt-width">Width (feet)</label>
+              <input type="number" id="dgt-width" value="10" min="0.1" step="any" inputmode="decimal" />
             </div>
             <div class="input-field">
-              <label for="dgt-depth">Finished Compacted Depth (Inches)</label>
-              <input type="number" id="dgt-depth" value="3.0" min="1" max="12" step="0.5" />
+              <label for="dgt-depth">Finished DG depth (inches)</label>
+              <input type="number" id="dgt-depth" value="3" min="0.1" max="12" step="any" inputmode="decimal" />
+              <small>Measure the finished layer only; estimate a separate base separately.</small>
             </div>
             <div class="input-field">
-              <label for="dgt-compaction">Compaction Allowance (%)</label>
-              <input type="number" id="dgt-compaction" value="20" min="0" max="30" step="1" />
+              <label for="dgt-extra">Extra material for ordering (%)</label>
+              <input type="number" id="dgt-extra" value="20" min="0" max="50" step="any" inputmode="decimal" aria-describedby="dgt-extra-hint" />
+              <small id="dgt-extra-hint">Editable planning allowance, not a fixed compaction rate.</small>
+            </div>
+            <div class="input-field">
+              <label for="dgt-density">Loose bulk density (short tons/yd³)</label>
+              <input type="number" id="dgt-density" value="1.25" min="0.3" max="3" step="any" inputmode="decimal" aria-describedby="dgt-density-hint" />
+              <small id="dgt-density-hint">Use your supplier’s weight per loose cubic yard when available.</small>
             </div>
           </div>
+          <p id="dgt-input-error" class="calc-error" role="alert" hidden>Enter positive dimensions and depth, 0–50% extra material, and a loose density of 0.3–3 short tons per cubic yard.</p>
           </div>
 
           <!-- RIGHT: Results Panel -->
           <div class="calc-results-panel animate-fade-in-up">
             <div class="calc-panel-title">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
+              <h2>Estimated DG order</h2>
             </div>
 
-            <div class="kpi-grid">
+            <div class="dgt-results-grid">
               <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-dgt-tons">0.00</div>
-              <div class="kpi-label">Quarry Weight (Tons)</div>
-              <div class="kpi-subtext" id="kpi-dgt-lbs">0 lbs total weight</div>
+              <div class="kpi-value" id="kpi-dgt-tons">4.17</div>
+              <div class="kpi-label">US short tons</div>
+              <div class="kpi-subtext" id="kpi-dgt-lbs">About 8,333 lb</div>
             </div>
             <div class="kpi-card">
-              <div class="kpi-value" id="kpi-dgt-yards">0.00</div>
-              <div class="kpi-label">Loose Volume (Cubic Yards)</div>
-              <div class="kpi-subtext">Includes 20% compaction</div>
+              <div class="kpi-value" id="kpi-dgt-yards">3.33</div>
+              <div class="kpi-label">Loose cubic yards to order</div>
+              <div class="kpi-subtext" id="kpi-dgt-extra">Includes 20% extra material</div>
             </div>
             <div class="kpi-card">
-              <div class="kpi-value" id="kpi-dgt-yield">0</div>
-              <div class="kpi-label">Compacted Yield (Sq Ft/Ton)</div>
-              <div class="kpi-subtext">Finished coverage</div>
+              <div class="kpi-value" id="kpi-dgt-finished">2.78</div>
+              <div class="kpi-label">Finished cubic yards</div>
+              <div class="kpi-subtext">Area × finished depth</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-value" id="kpi-dgt-yield">72</div>
+              <div class="kpi-label">Finished sq ft/short ton</div>
+              <div class="kpi-subtext" id="kpi-dgt-depth-label">At 3 in finished depth</div>
             </div>
             </div>
+            <p class="result-note" id="dgt-density-label">Using 1.25 short tons per loose cubic yard. Confirm how your supplier sells and weighs this product.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on DG Tonnage -->
-    <article class="content-guide-section">
-      <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="DG Tonnage Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Decomposed Granite Tonnage Reference</span>
+    <article class="dgt-guide">
+      <div class="container dgt-guide-inner">
+        <section class="dgt-section" aria-labelledby="dgt-math-title">
+          <div class="section-heading">
+            <p class="eyebrow">The order path</p>
+            <h2 id="dgt-math-title">From finished path to truck-scale weight</h2>
+            <p>Keep finished volume, loose order volume, and delivered weight separate. They answer different questions, and the last step changes when the supplier’s DG is heavier or lighter.</p>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Tons = [(Area × Depth) / 324] × 1.20 × 1.25</span>
-              <p class="aeo-quick-desc">Includes 20% mechanical compaction factor.</p>
+          <figure class="flow-figure">
+            <img src="/dg-tons-order-path.svg" width="960" height="250" loading="lazy" alt="For a 30 by 10 foot decomposed granite path at 3 inches finished depth: 2.78 finished cubic yards, 3.33 loose order cubic yards with 20 percent extra, and 4.17 US short tons at 1.25 tons per loose cubic yard." />
+            <figcaption>Illustrative calculation using the editable starting inputs above. The separate base layer is outside this estimate.</figcaption>
+          </figure>
+          <div class="formula-panel">
+            <h3>Use the same steps for any rectangle</h3>
+            <ol>
+              <li><strong>Finished cubic yards</strong> = length (ft) × width (ft) × finished DG depth (in) ÷ 324.</li>
+              <li><strong>Loose order cubic yards</strong> = finished cubic yards × (1 + extra material % ÷ 100).</li>
+              <li><strong>US short tons</strong> = loose order cubic yards × loose bulk density (short t/yd³).</li>
+            </ol>
+            <p>For a 30 × 10 ft path at 3 in: 300 × 3 ÷ 324 is about 2.78 finished yd³. Applying 20% extra to the unrounded figure gives 3.33 loose order yd³; multiplying that unrounded value by 1.25 gives <strong>4.17 short tons</strong>.</p>
+          </div>
+        </section>
+
+        <section class="dgt-section" aria-labelledby="dgt-inputs-title">
+          <div class="section-heading">
+            <p class="eyebrow">Make the quote fit the job</p>
+            <h2 id="dgt-inputs-title">Three numbers to check before calling the yard</h2>
+          </div>
+          <div class="check-grid">
+            <div class="check-card">
+              <span class="check-number">01</span>
+              <h3>Finished DG depth</h3>
+              <p>Use the depth of the compacted DG wearing layer, not the full excavation. A separate road-base layer has its own material, thickness, and density. For irregular shapes, split the space into rectangles, calculate each, and add the areas.</p>
             </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Loose Bulk Density</span>
-              <span class="aeo-quick-value">1.25 t/yd³ (2,500 lbs/yd³)</span>
-              <p class="aeo-quick-desc">Standard quarry weight for loose stockpiled 1/4" minus DG.</p>
+            <div class="check-card">
+              <span class="check-number">02</span>
+              <h3>Extra material</h3>
+              <p>The 20% starter adds order volume for the difference between a neat finished rectangle and material needed on site. It is <strong>not</strong> a universal 20% loss during compaction. Product gradation, moisture, subgrade, and grading affect what actually happens.</p>
             </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Compacted Density</span>
-              <span class="aeo-quick-value">1.50 t/yd³ (3,000 lbs/yd³)</span>
-              <p class="aeo-quick-desc">Density after wetting and vibratory plate tamper passes.</p>
+            <div class="check-card">
+              <span class="check-number">03</span>
+              <h3>Loose weight per yard</h3>
+              <p>Ask for the weight of one <em>loose</em> cubic yard of the exact product quoted. Our 1.25-short-ton preset equals 2,500 lb/yd³. A supplier’s quoted density or coverage per ton should replace it, especially for a stabilized blend or a different gradation.</p>
             </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 3"</span>
-              <span class="aeo-quick-value">65 sq ft per Ton</span>
-              <p class="aeo-quick-desc">Finished compacted coverage per short ton of material.</p>
+          </div>
+          <p class="source-line"><a href="https://store.astm.org/c0029_c0029m-23.html" rel="noopener noreferrer">ASTM C29/C29M</a> defines a method for loose and compacted aggregate bulk density. The standard cautions that test density does not necessarily match stockpile or truck compaction and moisture, so the number for your delivered material matters.</p>
+        </section>
+
+        <section class="dgt-section dgt-table-section" aria-labelledby="dgt-density-title">
+          <div class="section-heading">
+            <p class="eyebrow">What changes the tons?</p>
+            <h2 id="dgt-density-title">Same path, different bulk weights</h2>
+            <p>For the 300 sq ft, 3 in example with 20% extra, the loose order stays at 3.33 yd³. Only the estimated weight changes below.</p>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Loose density</th><th scope="col">Estimated short tons</th><th scope="col">Estimated pounds</th></tr></thead>
+              <tbody>
+                <tr><td>1.20 short t/yd³</td><td>4.00</td><td>8,000</td></tr>
+                <tr class="is-preset"><td>1.25 short t/yd³ <span>page preset</span></td><td>4.17</td><td>8,333</td></tr>
+                <tr><td>1.35 short t/yd³</td><td>4.50</td><td>9,000</td></tr>
+                <tr><td>1.50 short t/yd³</td><td>5.00</td><td>10,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="source-line">The preset is a planning value, not a standard DG weight. <a href="https://www.gravelshop.com/shop/calculate-cubic-yard-feet-ton.asp?groupid=30&amp;productid=819" rel="noopener noreferrer">Gravelshop</a> lists 2,410 lb/yd³ for one ½-in-minus DG; <a href="https://centraltexasmaterials.com/materials/crushed-granite" rel="noopener noreferrer">Central Texas Materials</a> lists 2,700 lb/yd³ for its fines-to-⅜-in DG. Supplier figures can also change with moisture. If your quote is by the ton, ask whether “ton” means a 2,000-lb US short ton.</p>
+        </section>
+
+        <section class="dgt-section dgt-order-section" aria-labelledby="dgt-order-title">
+          <div class="section-heading">
+            <p class="eyebrow">Order and installation</p>
+            <h2 id="dgt-order-title">Turn the estimate into a delivery request</h2>
+          </div>
+          <div class="order-columns">
+            <div>
+              <h3>Tell the supplier</h3>
+              <ul>
+                <li>The DG product or gradation you want, such as ¼-in-minus with fines.</li>
+                <li>Your estimated US short tons and loose cubic yards.</li>
+                <li>The finished DG depth, delivery address, and unloading access.</li>
+                <li>Whether they sell by scale weight, full or half yards, or a minimum load.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Keep the product instructions separate</h3>
+              <p>Plain DG and stabilized pathway mix have different installation specifications. For one example, <a href="https://www.kafkagranite.com/natural-crushed-stone/pathway-materials/stabilized-pathway-mix/" rel="noopener noreferrer">Kafka Granite’s stabilized mix</a> calls for a 3-in compacted pedestrian layer and a 4-in vehicular layer with its specified base and moisture process. Use the depth and compaction method for the product you actually buy.</p>
+              <p>After delivery, the scale ticket’s net weight is the real purchased weight. Compare it with the estimate and check the installed finish depth at several places before ordering more.</p>
             </div>
           </div>
         </section>
 
-        <div class="content-card">
-          <h2>Engineering Calculations for Decomposed Granite Tonnage</h2>
-          <p>
-            Decomposed granite consists of weathered granite rock particles blended with stone dust (1/4" minus). Unlike clean decorative gravel, DG is designed to be compacted into a firm, semi-impervious surface:
-          </p>
-
-          <div class="formula-box">
-            <code>Loose Cubic Yards = [Length (ft) × Width (ft) × Finished Depth (in)] / 324 × 1.20 Compaction</code>
-            <br />
-            <code>Scale Weight (Tons) = Loose Cubic Yards × 1.25 t/yd³</code>
-          </div>
-
-          <h3>Finished Compacted Yields per Ton</h3>
-          <ul>
-            <li><strong>2.0 Inches Compacted Depth:</strong> 97 sq ft per ton (light pedestrian paths and garden trails).</li>
-            <li><strong>3.0 Inches Compacted Depth:</strong> 65 sq ft per ton (patios, fire pits, and heavy walkways).</li>
-            <li><strong>4.0 Inches Compacted Depth:</strong> 49 sq ft per ton (vehicular driveways and parking areas).</li>
-          </ul>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Decomposed Granite Tonnage</h2>
+        <section class="dgt-section faq-section" aria-labelledby="dgt-faq-title">
+          <h2 id="dgt-faq-title">Decomposed granite tonnage questions</h2>
           <div class="faq-list">
-            {faqItems.map((item) => (
+            {faqItems.map(item => (
               <div class="faq-item">
                 <h3>{item.q}</h3>
                 <p>{item.a}</p>
               </div>
             ))}
           </div>
-        </div>
-
+        </section>
       </div>
     </article>
 
@@ -263,29 +316,47 @@ const supportGuides = [
 
   <script>
     function updateDGT() {
-      const l = parseFloat((document.getElementById('dgt-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('dgt-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('dgt-depth') as HTMLInputElement)?.value) || 0;
-      const comp = parseFloat((document.getElementById('dgt-compaction') as HTMLInputElement)?.value) || 0;
+      const lengthInput = document.getElementById('dgt-length') as HTMLInputElement | null;
+      const widthInput = document.getElementById('dgt-width') as HTMLInputElement | null;
+      const depthInput = document.getElementById('dgt-depth') as HTMLInputElement | null;
+      const extraInput = document.getElementById('dgt-extra') as HTMLInputElement | null;
+      const densityInput = document.getElementById('dgt-density') as HTMLInputElement | null;
+      if (!lengthInput || !widthInput || !depthInput || !extraInput || !densityInput) return;
 
-      const netYards = (l * w * d) / 324;
-      const looseYards = netYards * (1 + comp / 100);
-      const tons = looseYards * 1.25;
-      const lbs = tons * 2000;
-      const yieldPerTon = (d > 0 && tons > 0) ? ((l * w) / tons) : 0;
+      const valid = [lengthInput, widthInput, depthInput, extraInput, densityInput]
+        .every(input => input.value !== '' && input.checkValidity());
+      const errorEl = document.getElementById('dgt-input-error');
+      if (errorEl) errorEl.hidden = valid;
+      const setText = (id: string, value: string) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      };
+      if (!valid) {
+        ['kpi-dgt-tons', 'kpi-dgt-yards', 'kpi-dgt-finished', 'kpi-dgt-yield'].forEach(id => setText(id, '—'));
+        ['kpi-dgt-lbs', 'kpi-dgt-extra', 'kpi-dgt-depth-label', 'dgt-density-label'].forEach(id => setText(id, 'Check the inputs to update this result.'));
+        return;
+      }
 
-      const tEl = document.getElementById('kpi-dgt-tons');
-      const yEl = document.getElementById('kpi-dgt-yards');
-      const yldEl = document.getElementById('kpi-dgt-yield');
-      const lbsEl = document.getElementById('kpi-dgt-lbs');
+      const area = Number(lengthInput.value) * Number(widthInput.value);
+      const depth = Number(depthInput.value);
+      const extra = Number(extraInput.value);
+      const density = Number(densityInput.value);
+      const finishedYards = area * depth / 324;
+      const orderYards = finishedYards * (1 + extra / 100);
+      const tons = orderYards * density;
+      const yieldPerTon = area / tons;
 
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (yEl) yEl.innerText = looseYards.toFixed(2);
-      if (yldEl) yldEl.innerText = Math.round(yieldPerTon).toString();
-      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+      setText('kpi-dgt-tons', tons.toFixed(2));
+      setText('kpi-dgt-yards', orderYards.toFixed(2));
+      setText('kpi-dgt-finished', finishedYards.toFixed(2));
+      setText('kpi-dgt-yield', Math.round(yieldPerTon).toLocaleString());
+      setText('kpi-dgt-lbs', `About ${Math.round(tons * 2000).toLocaleString()} lb`);
+      setText('kpi-dgt-extra', `Includes ${extra}% extra material`);
+      setText('kpi-dgt-depth-label', `At ${depth} in finished depth`);
+      setText('dgt-density-label', `Using ${density.toFixed(2)} short tons per loose cubic yard. Confirm how your supplier sells and weighs this product.`);
     }
 
-    ['dgt-length', 'dgt-width', 'dgt-depth', 'dgt-compaction'].forEach(id => {
+    ['dgt-length', 'dgt-width', 'dgt-depth', 'dgt-extra', 'dgt-density'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', updateDGT);
     });
     updateDGT();
@@ -294,46 +365,59 @@ const supportGuides = [
 
 <style>
   .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  .calc-panel-title h2 { margin: 0; color: var(--text-primary); font-size: var(--text-lg); font-weight: 700; }
+  .calc-panel .input-field input { flex: 0 0 auto; min-height: 44px; }
+  .calc-error { color: #fca5a5; font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+  .calc-error[hidden] { display: none; }
+  .dgt-results-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .dgt-results-grid .kpi-card { min-width: 0; }
+  .dgt-results-grid .kpi-value { overflow-wrap: anywhere; }
+  .result-note { margin: var(--space-4) 0 0; color: var(--text-muted); font-size: var(--text-sm); line-height: 1.5; }
+  .dgt-guide { padding: var(--space-12) 0; background: var(--bg-body); }
+  .dgt-guide-inner { max-width: 1040px; }
+  .dgt-section { margin-bottom: var(--space-12); }
+  .section-heading { max-width: 720px; margin-bottom: var(--space-5); }
+  .eyebrow { color: var(--accent-gold); font-size: var(--text-xs); font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin: 0 0 var(--space-2); }
+  .dgt-section h2 { color: var(--text-primary); font-size: clamp(1.6rem, 3vw, 2.1rem); line-height: 1.2; margin: 0 0 var(--space-3); }
+  .dgt-section h3 { color: var(--text-primary); font-size: var(--text-lg); margin: 0 0 var(--space-3); }
+  .dgt-section p, .dgt-section li { color: var(--text-secondary); line-height: 1.7; }
+  .dgt-section a { color: var(--accent-gold); text-underline-offset: 3px; }
+  .flow-figure { margin: 0 0 var(--space-5); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-4); overflow-x: auto; }
+  .flow-figure img { display: block; width: 100%; height: auto; border-radius: var(--radius-md); }
+  .flow-figure figcaption { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.5; margin-top: var(--space-3); }
+  .formula-panel { border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent-gold); border-radius: var(--radius-md); background: var(--bg-card); padding: var(--space-6); }
+  .formula-panel ol { margin: 0 0 var(--space-3); padding-left: 1.4rem; }
+  .formula-panel li { padding-left: .35rem; margin-bottom: var(--space-2); }
+  .formula-panel p { margin-bottom: 0; }
+  .check-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+  .check-card { min-width: 0; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-card); padding: var(--space-5); }
+  .check-card p { margin: 0; }
+  .check-number { display: inline-block; color: var(--accent-gold); font-size: var(--text-xs); font-weight: 800; letter-spacing: .08em; margin-bottom: var(--space-3); }
+  .source-line { font-size: var(--text-sm); margin-top: var(--space-4); }
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+  .dgt-table-section table { width: 100%; border-collapse: collapse; background: var(--bg-card); min-width: 520px; }
+  .dgt-table-section th, .dgt-table-section td { padding: var(--space-3) var(--space-4); text-align: left; border-bottom: 1px solid var(--border-subtle); }
+  .dgt-table-section th { color: var(--text-primary); font-size: var(--text-sm); }
+  .dgt-table-section td { color: var(--text-secondary); }
+  .dgt-table-section tr:last-child td { border-bottom: 0; }
+  .dgt-table-section .is-preset { background: rgba(212, 168, 83, .1); font-weight: 700; }
+  .dgt-table-section .is-preset span { display: inline-block; color: var(--accent-gold); font-size: var(--text-xs); margin-left: .3rem; }
+  .order-columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+  .order-columns > div { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-6); }
+  .order-columns ul { padding-left: 1.4rem; margin: 0; }
+  .order-columns li { margin-bottom: var(--space-2); }
+  .order-columns p:last-child { margin-bottom: 0; }
+  .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+  .faq-item { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  .faq-item h3 { font-size: var(--text-base); margin: 0 0 var(--space-2); }
+  .faq-item p { color: var(--text-secondary); font-size: var(--text-sm); margin: 0; }
+  @media (max-width: 800px) {
+    .check-grid, .order-columns { grid-template-columns: 1fr; }
   }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
+  @media (max-width: 620px) {
+    .dgt-results-grid, .faq-list { grid-template-columns: 1fr; }
+    .dgt-guide { padding: var(--space-8) 0; }
+    .formula-panel, .order-columns > div { padding: var(--space-4); }
+    .flow-figure img { min-width: 720px; }
   }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
 </style>
