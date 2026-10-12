@@ -5,41 +5,45 @@ import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Pea Gravel Bag Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Pea Gravel Calculator', url: '/pea-gravel-calculator' },
-  { name: 'Pea Gravel Bag Calculator', url: '/pea-gravel-bag-calculator' }
+  { name: pageTitle, url: '/pea-gravel-bag-calculator' }
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Bagged Pea Gravel' },
-  { label: 'Sieve Size', value: 'ASTM D448 #8 (3/8" Smooth)' },
-  { label: 'Standard Bag Volume', value: '0.5 Cubic Feet per Bag' },
-  { label: 'Yard Equivalent', value: '54 Bags = 1.0 Cubic Yard' }
+  { label: 'Material', value: 'Bagged pea gravel' },
+  { label: 'Order unit', value: 'Bag volume printed on the label' },
+  { label: 'Default bag', value: '0.5 cubic foot' }
 ];
 
 const quickStats = [
-  { value: '54 Bags', label: 'Per Cubic Yard', desc: 'Exact bag multiplier based on 27 cubic feet per yard' },
-  { value: '3.0 sq ft', label: 'Yield at 2"', desc: 'Ground coverage per 0.5 cu ft bag at standard 2-inch walkway depth' },
-  { value: '20 Bags', label: 'Tipping Point', desc: 'Break-even threshold where bulk delivery becomes cheaper than retail bags' }
+  { value: '3 sq ft', label: 'One 0.5 ft³ bag', desc: 'Coverage at a level 2-inch depth, before extra' },
+  { value: '54 bags', label: 'One cubic yard', desc: 'Volume equivalent for 0.5 ft³ bags' },
+  { value: '53 bags', label: '12 × 12 ft example', desc: 'At 2 inches with a chosen 10% extra allowance' }
 ];
 
 const faqItems = [
   {
-    q: 'How many bags of pea gravel do I need for a 10x10 foot patio?',
-    a: 'A 10x10 foot patio equals 100 square feet. At a recommended 2.5-inch depth for barefoot walkability, you need 20.8 cubic feet of gravel, which equals approximately 42 bags of 0.5 cubic feet each (2,100 lbs total weight).'
+    q: 'How many half-cubic-foot bags cover 100 square feet?',
+    a: 'At 2 inches deep, 100 square feet needs 16.67 cubic feet, so round 33.33 up to 34 bags labeled 0.5 cubic foot. With a 10% extra allowance, multiply the volume before rounding: 16.67 × 1.10 ÷ 0.5 = 36.67, or 37 bags. At 3 inches with no extra, it takes 50 bags.'
   },
   {
-    q: 'How much does one 0.5 cubic foot bag of pea gravel cover?',
-    a: 'One standard 0.5 cubic foot bag covers 3.0 square feet at 2 inches depth, 2.0 square feet at 3 inches depth, and 1.5 square feet at 4 inches depth.'
+    q: 'How many 0.5 cubic foot bags make one cubic yard?',
+    a: 'Exactly 54 by volume: 1 cubic yard is 27 cubic feet, and 27 ÷ 0.5 = 54. This is a volume conversion, before any extra allowance or rounding for a particular project.'
   },
   {
-    q: 'How much does a bag of pea gravel weigh?',
-    a: 'A 0.5 cubic foot bag of pea gravel weighs between 48 and 52 pounds when dry, and up to 55 pounds if damp from quarry washing or outdoor pallet storage.'
+    q: 'Can I treat every 50-pound bag as half a cubic foot?',
+    a: 'No. Use the volume stated on the bag to calculate coverage. A 50-pound bag may yield a different volume depending on its product and aggregate; for example, Sakrete lists approximately 0.6 cubic foot for its 50-pound pea gravel bag. Bag weight is useful for estimating the load you will carry.'
   },
   {
-    q: 'Is it cheaper to buy pea gravel in bags or in bulk?',
-    a: 'Buying bags is cheaper for small jobs under 20 bags (under 10 cubic feet or 0.37 cubic yards). For jobs requiring 20 bags or more, bulk delivery by dump truck costs approximately $40 to $65 per cubic yard compared to $240 to $270 per yard in retail bags.'
+    q: 'How much will my pea gravel bag order weigh?',
+    a: 'Multiply the rounded bag count by the weight printed on your bag. For the example of 53 bags, a product labeled 50 pounds per bag gives 2,650 pounds of bagged product. Enter your actual bag weight in the calculator; leave it blank if the label does not provide one.'
+  },
+  {
+    q: 'Is the 2-inch setting suitable under playground equipment?',
+    a: 'No. The 2-inch example is for a decorative surface, not fall protection. Playground surfacing needs a separate design based on equipment fall height, impact performance, installed depth, containment, and maintenance. Consult the current CPSC playground handbook and the surface manufacturer.'
   }
 ];
 
@@ -50,209 +54,241 @@ const upLinks = [
 ];
 
 const lateralLinks = [
-  { title: 'Gravel Bag Calculator', slug: '/gravel-bag-calculator', badge: 'Gravel Bags' },
+  { title: 'Pea Gravel Cubic Yard Calculator', slug: '/pea-gravel-cubic-yard-calculator', badge: 'Bulk Yards' },
   { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Coverage' },
   { title: 'Pea Gravel Patio Calculator', slug: '/pea-gravel-patio-calculator', badge: 'Patio' }
 ];
 
 const bridgeLinks = [
   { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
+  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Surface Choice' }
 ];
 
 const supportGuides = [
   { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Gravel Size and Sieve Guide', slug: '/gravel-sizes', badge: 'Gradations' },
+  { title: 'Gravel Size and Sieve Guide', slug: '/gravel-sizes', badge: 'Stone Size' },
   { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' }
 ];
 ---
 
 <BaseLayout
-  title="Pea Gravel Bag Calculator - 0.5 Cu Ft Sizing & Cost Analysis"
-  metaDescription="Calculate exact 0.5 cu ft bags of pea gravel needed for patios, walkways, and dog runs. Sizing formulas, coverage yields, and bulk vs bag break-even analysis."
+  title={pageTitle}
+  metaDescription="Find how many bags of pea gravel to buy from area, depth and the bag's labeled cubic feet. See coverage per bag, optional extra, carry weight and a local bulk quote comparison."
   canonicalPath="/pea-gravel-bag-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Pea Gravel Bag Calculator",
-      "url": "https://rockcoveragecalculator.com/pea-gravel-bag-calculator",
-      "description": "Calculates 0.5 cu ft retail bags of pea gravel needed from square footage and depth.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Homeowners, DIY Landscapers, Garden Designers, Patio Builders"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Bagged Pea Gravel Sizing"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/pea-gravel-bag-calculator',
+      description: 'Calculates bagged pea gravel from area, depth, labeled bag volume and optional extra allowance.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="Pea Gravel Bag Calculator"
-      highlightWord="Bags"
-      badge="Retail Bag Sizing Engine"
-      subtitle="Accurate 0.5 cu ft bag calculations for smooth #8 pea gravel patios, walkways, play spaces, and dog runs."
+      title={pageTitle}
+      highlightWord="Bag"
+      badge="Retail bag planning"
+      subtitle="A 12 × 12 ft area at 2 inches needs 48 half-cubic-foot bags before extra, or 53 with a 10% allowance. Enter your bag's labeled volume below; its weight alone does not tell you its coverage."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="utility"
     />
 
-    <!-- Interactive Pea Gravel Bag Calculator Tool -->
-    <section class="section">
+    <section class="section" aria-labelledby="bag-tool-heading">
       <div class="container">
+        <div class="section-intro">
+          <h2 id="bag-tool-heading">Build your bag order</h2>
+          <p>Measure the finished surface, choose its pea gravel depth, then read the cubic feet printed on the bag. The 10% extra is an editable planning choice for edges, uneven spots or spillage.</p>
+        </div>
         <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
+          <div class="calc-panel">
             <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Pea Gravel Area Dimensions</h3>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 9v12"/></svg>
+              <h3>Project and package</h3>
+            </div>
+
+            <div class="mode-tabs" role="group" aria-label="Area entry method">
+              <button type="button" class="mode-btn active" id="pgb-mode-dims" aria-pressed="true">Length × width</button>
+              <button type="button" class="mode-btn" id="pgb-mode-area" aria-pressed="false">Known square feet</button>
+            </div>
+
+            <div class="dim-grid" id="pgb-dim-fields">
+              <div class="input-field">
+                <label for="pgb-length">Length (ft)</label>
+                <input type="number" id="pgb-length" value="12" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="pgb-width">Width (ft)</label>
+                <input type="number" id="pgb-width" value="12" min="0.01" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <div class="dim-grid" id="pgb-area-fields" hidden>
+              <div class="input-field">
+                <label for="pgb-area">Measured area (sq ft)</label>
+                <input type="number" id="pgb-area" value="144" min="0.01" step="any" inputmode="decimal" />
+              </div>
+            </div>
+
+            <div class="dim-grid">
+              <div class="input-field">
+                <label for="pgb-depth">Pea gravel depth (in)</label>
+                <input type="number" id="pgb-depth" value="2" min="0.1" max="24" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="pgb-capacity">Bag volume (ft³)</label>
+                <input type="number" id="pgb-capacity" value="0.5" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="pgb-extra">Extra allowance (%)</label>
+                <input type="number" id="pgb-extra" value="10" min="0" max="50" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <p class="field-note">Use the bag's stated <strong>volume</strong> for coverage. Enter 0% for exact geometric volume, or add only what suits your site.</p>
+
+            <h4 class="optional-heading">Optional store and delivery details</h4>
+            <div class="dim-grid optional-grid">
+              <div class="input-field">
+                <label for="pgb-price">Price per bag ($)</label>
+                <input type="number" id="pgb-price" min="0" step="any" inputmode="decimal" placeholder="From your store" />
+              </div>
+              <div class="input-field">
+                <label for="pgb-bagfees">Bag order tax / transport ($)</label>
+                <input type="number" id="pgb-bagfees" min="0" step="any" inputmode="decimal" placeholder="Optional total" />
+              </div>
+              <div class="input-field">
+                <label for="pgb-weight">Weight per bag (lb)</label>
+                <input type="number" id="pgb-weight" min="0.01" step="any" inputmode="decimal" placeholder="From the label" />
+              </div>
+              <div class="input-field">
+                <label for="pgb-bulk">Delivered bulk quote ($)</label>
+                <input type="number" id="pgb-bulk" min="0" step="any" inputmode="decimal" placeholder="Same quantity" />
+              </div>
+            </div>
+            <p class="field-note">For a fair comparison, include your bag order's tax and transport and use a bulk quote that includes the supplier's minimum, delivery, taxes and fees for at least the planned volume.</p>
+            <p id="pgb-error" class="dimension-error" role="alert" hidden></p>
           </div>
 
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="pgb-length">Length (Feet)</label>
-              <input type="number" id="pgb-length" value="16" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="pgb-width">Width (Feet)</label>
-              <input type="number" id="pgb-width" value="12" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="pgb-depth">Depth (Inches)</label>
-              <input type="number" id="pgb-depth" value="2.5" min="1" max="12" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="pgb-price">Price per Bag ($)</label>
-              <input type="number" id="pgb-price" value="4.75" min="1" step="0.25" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
+          <div class="calc-results-panel" aria-live="polite">
             <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h8"/></svg>
+              <h3>Your purchase estimate</h3>
             </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-pgb-bags">0</div>
-              <div class="kpi-label">0.5 Cu Ft Bags Needed</div>
-              <div class="kpi-subtext" id="kpi-pgb-lbs">0 lbs total weight</div>
+            <div id="pgb-results">
+              <div class="bag-count">
+                <span class="bag-count-label">Whole bags to buy</span>
+                <strong id="pgb-bags">53</strong>
+                <span id="pgb-bag-size">at 0.5 ft³ per bag</span>
+              </div>
+              <div class="result-grid">
+                <div class="result-item"><span>Area</span><strong id="pgb-area-result">144 sq ft</strong></div>
+                <div class="result-item"><span>Net fill volume</span><strong id="pgb-net">24.0 ft³</strong></div>
+                <div class="result-item"><span>Planned volume</span><strong id="pgb-planned">26.4 ft³</strong></div>
+                <div class="result-item"><span>Planned cubic yards</span><strong id="pgb-yards">0.98 yd³</strong></div>
+                <div class="result-item"><span>One bag covers</span><strong id="pgb-coverage">3.0 sq ft</strong></div>
+                <div class="result-item"><span>Bag order total</span><strong id="pgb-cost">Add price</strong></div>
+              </div>
+              <p class="result-note" id="pgb-weight-result">Enter the labeled bag weight to estimate your carry load.</p>
+              <p class="quote-note" id="pgb-compare">Enter both a bag price and a delivered bulk quote to compare this order.</p>
+              <p class="rounding-note">Bag count rounds up once, after the extra allowance. Coverage per bag is geometric and excludes the extra allowance.</p>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-pgb-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-pgb-cuft">0 cu ft</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-pgb-cost">$0.00</div>
-              <div class="kpi-label">Estimated Material Cost</div>
-              <div class="kpi-subtext" id="kpi-pgb-bulk-save">Bulk vs bag comparison</div>
-            </div>
-            </div>
+            <p id="pgb-invalid-results" class="invalid-results-message" hidden>Correct the highlighted input to see your bag order.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on Bagged Pea Gravel -->
     <article class="content-guide-section">
-      <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Pea Gravel Bag Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Pea Gravel Bag Reference</span>
+      <div class="container guide-container">
+        <section class="content-card visual-card" aria-labelledby="bag-coverage-heading">
+          <div>
+            <p class="eyebrow">Bag label → ground coverage</p>
+            <h2 id="bag-coverage-heading">A cubic foot is a volume, not an area</h2>
+            <p>A half-cubic-foot bag covers <strong>3 square feet at 2 inches</strong> or <strong>2 square feet at 3 inches</strong>. Spread it thinner and the footprint grows; spread it deeper and the footprint shrinks. The coverage assumes a level layer and uses no extra allowance.</p>
+            <p>NorthRock's <a href="https://www.tccmaterials.com/wp-content/uploads/2020/07/data_Nr-Pea-Gravel-2C-21.03.02-1.pdf" target="_blank" rel="noopener noreferrer">pea gravel product sheet</a> lists a ½ ft³ bag at up to 3 sq ft at 2 inches, which matches the geometry.</p>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Bags = [Area (sq ft) × Depth (in) / 12] × 2</span>
-              <p class="aeo-quick-desc">Converts cubic feet into 0.5 cu ft commercial retail bags.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 2.5"</span>
-              <span class="aeo-quick-value">2.4 sq ft per Bag</span>
-              <p class="aeo-quick-desc">Recommended depth for firm barefoot walkability on patios.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bags per Yard</span>
-              <span class="aeo-quick-value">54 Bags (27 cu ft)</span>
-              <p class="aeo-quick-desc">Exact cubic yard volume equivalent for standard 0.5 cu ft bags.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Tipping Point</span>
-              <span class="aeo-quick-value">20 Bags ($95 to $120)</span>
-              <p class="aeo-quick-desc">Threshold where bulk quarry delivery becomes more economical.</p>
-            </div>
-          </div>
+          <figure>
+            <img src="/pea-gravel-bag-coverage.svg" alt="A 0.5 cubic foot bag spread over 3 square feet at 2 inches deep, or 2 square feet at 3 inches deep." width="780" height="420" loading="lazy" />
+            <figcaption>Same bag volume. A deeper layer covers less area.</figcaption>
+          </figure>
         </section>
 
-        <div class="content-card">
-          <h2>How to Calculate Bags of Pea Gravel</h2>
-          <p>
-            Pea gravel consists of rounded 3/8-inch river pebbles (conforming to <strong>ASTM D448 #8</strong>). When purchasing retail bags from big-box home improvement retailers (such as The Home Depot or Lowe's), bags are packaged in <strong>0.5 cubic foot</strong> volumes:
-          </p>
-
-          <div class="formula-box">
-            <code>Total Cubic Feet = [Length (ft) × Width (ft) × Depth (in)] / 12</code>
-            <br />
-            <code>Number of 0.5 cu ft Bags = Total Cubic Feet × 2</code>
-            <br />
-            <code>Total Weight = Number of Bags × 50 lbs</code>
+        <section class="content-card" aria-labelledby="coverage-table-heading">
+          <h2 id="coverage-table-heading">Coverage by bag size and depth</h2>
+          <p>Use this table when reading a store label or checking a carton quantity. Each cell is the ideal square feet covered by one bag; project orders still need whole bags.</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Square feet covered per bag, before any extra allowance</caption>
+              <thead><tr><th scope="col">Pea gravel depth</th><th scope="col">0.5 ft³ bag</th><th scope="col">0.6 ft³ bag</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">1.5 in</th><td>4.0 sq ft</td><td>4.8 sq ft</td></tr>
+                <tr><th scope="row">2 in</th><td>3.0 sq ft</td><td>3.6 sq ft</td></tr>
+                <tr><th scope="row">2.5 in</th><td>2.4 sq ft</td><td>2.9 sq ft</td></tr>
+                <tr><th scope="row">3 in</th><td>2.0 sq ft</td><td>2.4 sq ft</td></tr>
+              </tbody>
+            </table>
           </div>
+          <p class="table-footnote">The second column matches common half-cubic-foot listings, including this <a href="https://www.lowes.com/pd/earthessentials-by-quikrete-0-5-cu-ft-50-lb-multiple-colors-finishes-pea-gravel/50437606" target="_blank" rel="noopener noreferrer">Lowe's pea gravel listing</a>. A <a href="https://ezmixinc.com/assets/docs-technical/SAKPeaGravelTDS.pdf" target="_blank" rel="noopener noreferrer">Sakrete technical sheet</a> gives approximately 0.6 ft³ for one of its 50 lb bags. Read the product in your hand; pounds alone are not a reliable bag-size input.</p>
+        </section>
 
-          <h3>Why Depth Matters for Pea Gravel Walkways</h3>
-          <p>
-            Unlike jagged crushed stone that locks together under foot traffic, smooth pea gravel rolls. If installed too deeply, it produces a "quicksand" sensation:
-          </p>
-          <ul>
-            <li><strong>Patio & Walkway Depth:</strong> Keep to 2.0 to 2.5 inches maximum over a compacted crusher run base. A 0.5 cu ft bag covers 2.4 to 3.0 sq ft.</li>
-            <li><strong>Dog Runs & Utility Areas:</strong> Install at 2.5 to 3.0 inches for clean pet drainage. A 0.5 cu ft bag covers 2.0 to 2.4 sq ft.</li>
-          </ul>
-          <p class="field-hint" style="margin-top: var(--space-4); font-size: 0.85rem; color: var(--text-muted);">
-            <em>Playground Safety Note:</em> For public playground fall zones, CPSC guidelines require a minimum 9-inch compressed depth of pea gravel. Shallow applications (2–3") should never be used as a fall cushion for elevated play equipment.
-          </p>
-        </div>
+        <section class="content-card" aria-labelledby="bag-method-heading">
+          <p class="eyebrow">Worked order</p>
+          <h2 id="bag-method-heading">Calculate volume, add extra, then round once</h2>
+          <div class="formula-box">
+            <code>Net ft³ = area (sq ft) × depth (in) ÷ 12</code>
+            <code>Planned ft³ = net ft³ × (1 + extra % ÷ 100)</code>
+            <code>Bags = round up (planned ft³ ÷ labeled ft³ per bag)</code>
+          </div>
+          <p>For a <strong>12 × 12 ft</strong> space at <strong>2 inches</strong>, the surface requires 144 × 2 ÷ 12 = <strong>24 ft³</strong>. A chosen 10% extra makes that <strong>26.4 ft³</strong>. With a bag labeled 0.5 ft³, 26.4 ÷ 0.5 = 52.8, so buy <strong>53 whole bags</strong>. Without extra, the same space needs 48 bags.</p>
+          <p>For a curved bed, divide it into measured sections or use its known square footage in the calculator. If the subgrade has low spots, measure the extra fill separately; a flat-area formula cannot discover them. The <a href="/pea-gravel-coverage-calculator">pea gravel coverage calculator</a> solves the reverse question when you already know the quantity on hand.</p>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Bagged Pea Gravel</h2>
+        <section class="content-card buying-card" aria-labelledby="buying-heading">
+          <p class="eyebrow">At the supplier</p>
+          <h2 id="buying-heading">Three checks before loading the bags</h2>
+          <ol class="buying-list">
+            <li><strong>Read the volume line.</strong> If it says 0.5 ft³, use 0.5. If it says 0.6 ft³, use 0.6. A weight-only label needs a product yield or supplier confirmation before you can calculate precise coverage.</li>
+            <li><strong>Check the stone and depth.</strong> Rounded pea gravel can move underfoot, so plan a suitable border as <a href="https://extension.umaine.edu/gardening/2021/07/30/weed-barrier-stone/" target="_blank" rel="noopener noreferrer">University of Maine Extension</a> advises for gravel paths and patios. A <a href="/pea-gravel-patio-calculator">patio</a> also needs its base calculated separately. Bag count here is for the pea gravel layer only.</li>
+            <li><strong>Plan the carry load.</strong> Multiply whole bags by the labeled pounds per bag. For 53 bags labeled 50 lb, that is 2,650 lb of product, before passengers or other cargo. Use your vehicle's payload rating or arrange delivery.</li>
+          </ol>
+        </section>
+
+        <section class="content-card" aria-labelledby="bulk-heading">
+          <p class="eyebrow">Bagged or delivered loose?</p>
+          <h2 id="bulk-heading">Compare the full local quotes</h2>
+          <p>There is no universal bag count where bulk becomes cheaper. Bag prices, pallet discounts, a supplier's minimum order and delivery distance change the answer. Enter your local bag price, any bag pickup or delivery costs and a delivered bulk quote for at least the planned volume to compare like for like.</p>
+          <p>As a hypothetical example, 53 bags at $5.75 each cost $304.75 before sales tax and transport. A $240 delivered loose quote for the same volume would be $64.75 less before any taxes or bag transport costs. Bags may still help when access is narrow or the job is spread across several small beds. The <a href="/bulk-vs-bagged-rock">bulk versus bagged guide</a> covers handling and delivery tradeoffs; the <a href="/pea-gravel-cubic-yard-calculator">pea gravel cubic yard calculator</a> converts larger orders.</p>
+        </section>
+
+        <section class="content-card faq-card" aria-labelledby="faq-heading">
+          <h2 id="faq-heading">Pea gravel bag questions</h2>
           <div class="faq-list">
-            {faqItems.map((item) => (
+            {faqItems.map(item => (
               <div class="faq-item">
                 <h3>{item.q}</h3>
                 <p>{item.a}</p>
               </div>
             ))}
           </div>
-        </div>
-
+          <p class="safety-source">For playground surfacing, consult the <a href="https://www.cpsc.gov/Playground-Handbook" target="_blank" rel="noopener noreferrer">current CPSC Public Playground Safety Handbook</a>; a decorative gravel depth is not a fall-protection specification.</p>
+        </section>
       </div>
     </article>
 
@@ -265,102 +301,171 @@ const supportGuides = [
       supportGuides={supportGuides}
     />
   </main>
-
   <Footer />
 
   <script>
+    type InputId = 'pgb-length' | 'pgb-width' | 'pgb-area' | 'pgb-depth' | 'pgb-capacity' | 'pgb-extra' | 'pgb-price' | 'pgb-bagfees' | 'pgb-weight' | 'pgb-bulk';
+    const input = (id: InputId) => document.getElementById(id) as HTMLInputElement;
+    const output = (id: string, value: string) => { const element = document.getElementById(id); if (element) element.textContent = value; };
+    const value = (id: InputId) => {
+      const raw = input(id).value.trim();
+      return raw === '' ? NaN : Number(raw);
+    };
+    const money = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+    let areaMode: 'dimensions' | 'square-feet' = 'dimensions';
+
     function updatePGB() {
-      const l = parseFloat((document.getElementById('pgb-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('pgb-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('pgb-depth') as HTMLInputElement)?.value) || 0;
-      const price = parseFloat((document.getElementById('pgb-price') as HTMLInputElement)?.value) || 0;
+      const required: InputId[] = areaMode === 'dimensions'
+        ? ['pgb-length', 'pgb-width', 'pgb-depth', 'pgb-capacity', 'pgb-extra']
+        : ['pgb-area', 'pgb-depth', 'pgb-capacity', 'pgb-extra'];
+      const optional: InputId[] = ['pgb-price', 'pgb-bagfees', 'pgb-weight', 'pgb-bulk'];
+      const invalid = [...required, ...optional].find(id => {
+        const field = input(id);
+        const number = value(id);
+        if (optional.includes(id) && field.value.trim() === '') return false;
+        const minimum = Number(field.min);
+        const maximum = field.max === '' ? Infinity : Number(field.max);
+        return !Number.isFinite(number) || number < minimum || number > maximum;
+      });
+      [...required, ...optional].forEach(id => {
+        const field = input(id);
+        if (id === invalid) field.setAttribute('aria-invalid', 'true');
+        else field.removeAttribute('aria-invalid');
+      });
 
-      const cuft = (l * w * (d / 12));
-      const bags = Math.ceil(cuft * 2);
-      const yards = cuft / 27;
-      const totalWeight = bags * 50;
-      const totalCost = bags * price;
-
-      const bEl = document.getElementById('kpi-pgb-bags');
-      const yEl = document.getElementById('kpi-pgb-yards');
-      const cEl = document.getElementById('kpi-pgb-cost');
-      const lbsEl = document.getElementById('kpi-pgb-lbs');
-      const cuftEl = document.getElementById('kpi-pgb-cuft');
-      const saveEl = document.getElementById('kpi-pgb-bulk-save');
-
-      if (bEl) bEl.innerText = bags.toLocaleString();
-      if (yEl) yEl.innerText = yards.toFixed(2);
-      if (cEl) cEl.innerText = '$' + totalCost.toFixed(2);
-      if (lbsEl) lbsEl.innerText = totalWeight.toLocaleString() + ' lbs (~' + (totalWeight / 2000).toFixed(2) + ' tons)';
-      if (cuftEl) cuftEl.innerText = cuft.toFixed(1) + ' cu ft net volume';
-
-      if (saveEl) {
-        if (bags >= 20) {
-          const bulkCost = yards * 55 + 75; // $55/yd + $75 delivery
-          const savings = totalCost - bulkCost;
-          if (savings > 0) {
-            saveEl.innerText = 'Bulk saves approx $' + Math.round(savings) + ' vs bags';
-            saveEl.style.color = 'var(--accent-gold)';
-          } else {
-            saveEl.innerText = 'Bags are comparable in price';
-            saveEl.style.color = 'var(--text-muted)';
-          }
-        } else {
-          saveEl.innerText = 'Bags are more economical for this size';
-          saveEl.style.color = 'var(--text-muted)';
-        }
+      const error = document.getElementById('pgb-error') as HTMLElement;
+      const results = document.getElementById('pgb-results') as HTMLElement;
+      const invalidResults = document.getElementById('pgb-invalid-results') as HTMLElement;
+      if (invalid) {
+        error.textContent = 'Enter a valid value for ' + (document.querySelector('label[for="' + invalid + '"]')?.textContent?.trim() || 'the highlighted field') + '.';
+        error.hidden = false;
+        results.hidden = true;
+        invalidResults.hidden = false;
+        return;
       }
+      error.hidden = true;
+      results.hidden = false;
+      invalidResults.hidden = true;
+
+      const area = areaMode === 'dimensions' ? value('pgb-length') * value('pgb-width') : value('pgb-area');
+      const depth = value('pgb-depth');
+      const capacity = value('pgb-capacity');
+      const extra = value('pgb-extra');
+      const net = area * depth / 12;
+      const planned = net * (1 + extra / 100);
+      const bags = Math.ceil(planned / capacity - 1e-10);
+      const price = value('pgb-price');
+      const bagFees = value('pgb-bagfees');
+      const weight = value('pgb-weight');
+      const bulk = value('pgb-bulk');
+      const bagCost = Number.isFinite(price) ? bags * price + (Number.isFinite(bagFees) ? bagFees : 0) : NaN;
+
+      if (![area, net, planned, bags].every(Number.isFinite) || !Number.isSafeInteger(bags)) {
+        error.textContent = 'Use smaller project values to calculate a reliable bag order.';
+        error.hidden = false;
+        results.hidden = true;
+        invalidResults.hidden = false;
+        return;
+      }
+
+      output('pgb-bags', bags.toLocaleString('en-US'));
+      output('pgb-bag-size', 'at ' + capacity.toLocaleString('en-US', { maximumFractionDigits: 3 }) + ' ft³ per bag');
+      output('pgb-area-result', area.toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' sq ft');
+      output('pgb-net', net.toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' ft³');
+      output('pgb-planned', planned.toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' ft³');
+      output('pgb-yards', (planned / 27).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' yd³');
+      output('pgb-coverage', (capacity * 12 / depth).toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' sq ft');
+      output('pgb-cost', Number.isFinite(bagCost) ? money(bagCost) : 'Add price');
+      output('pgb-weight-result', Number.isFinite(weight)
+        ? 'Carry load: ' + (bags * weight).toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' lb of bagged product at your labeled weight.'
+        : 'Enter the labeled bag weight to estimate your carry load.');
+      const comparison = !Number.isFinite(bagCost) || !Number.isFinite(bulk)
+        ? 'Enter both a bag price and a delivered bulk quote to compare this order.'
+        : bagCost > bulk
+          ? 'For the same planned volume, the delivered bulk quote is ' + money(bagCost - bulk) + ' less than these bags.'
+          : bagCost < bulk
+            ? 'For the same planned volume, these bags are ' + money(bulk - bagCost) + ' less than the delivered bulk quote.'
+            : 'The bag order and delivered bulk quote are equal.';
+      output('pgb-compare', comparison);
     }
 
-    ['pgb-length', 'pgb-width', 'pgb-depth', 'pgb-price'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updatePGB);
+    function setMode(next: 'dimensions' | 'square-feet') {
+      areaMode = next;
+      const dimensions = next === 'dimensions';
+      (document.getElementById('pgb-dim-fields') as HTMLElement).hidden = !dimensions;
+      (document.getElementById('pgb-area-fields') as HTMLElement).hidden = dimensions;
+      const dimsButton = document.getElementById('pgb-mode-dims') as HTMLButtonElement;
+      const areaButton = document.getElementById('pgb-mode-area') as HTMLButtonElement;
+      dimsButton.classList.toggle('active', dimensions);
+      areaButton.classList.toggle('active', !dimensions);
+      dimsButton.setAttribute('aria-pressed', String(dimensions));
+      areaButton.setAttribute('aria-pressed', String(!dimensions));
+      updatePGB();
+    }
+
+    document.getElementById('pgb-mode-dims')?.addEventListener('click', () => setMode('dimensions'));
+    document.getElementById('pgb-mode-area')?.addEventListener('click', () => setMode('square-feet'));
+    (['pgb-length', 'pgb-width', 'pgb-area', 'pgb-depth', 'pgb-capacity', 'pgb-extra', 'pgb-price', 'pgb-bagfees', 'pgb-weight', 'pgb-bulk'] as InputId[]).forEach(id => {
+      input(id).addEventListener('input', updatePGB);
     });
     updatePGB();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
+  .section { padding: var(--space-8) 0 var(--space-12); }
+  .section-intro { max-width: 740px; margin: 0 0 var(--space-6); }
+  .section-intro h2 { font-size: clamp(1.45rem, 3vw, 2rem); margin-bottom: var(--space-2); color: var(--text-primary); }
+  .section-intro p { color: var(--text-secondary); line-height: 1.6; margin: 0; }
+  .mode-tabs { display: flex; gap: var(--space-2); margin-bottom: var(--space-5); flex-wrap: wrap; }
+  .mode-btn { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); color: var(--text-secondary); padding: .6rem .85rem; font: inherit; font-size: .84rem; font-weight: 700; cursor: pointer; }
+  .mode-btn.active { background: rgba(212, 168, 83, .14); color: var(--accent-gold); border-color: var(--accent-gold); }
+  .mode-btn:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 2px; }
+  #pgb-area-fields[hidden], #pgb-dim-fields[hidden], #pgb-results[hidden], #pgb-invalid-results[hidden], #pgb-error[hidden] { display: none; }
+  .field-note { margin: calc(var(--space-4) * -1) 0 var(--space-5); font-size: .82rem; line-height: 1.5; color: var(--text-muted); }
+  .optional-heading { color: var(--text-primary); font-size: .88rem; margin: var(--space-5) 0 var(--space-3); }
+  .optional-grid { margin-bottom: var(--space-6); }
+  .input-field input[aria-invalid="true"] { border-color: #dc2626; }
+  .bag-count { display: flex; flex-direction: column; align-items: center; text-align: center; padding: var(--space-5); margin-bottom: var(--space-4); border: 1px solid rgba(212, 168, 83, .4); border-radius: var(--radius-lg); background: rgba(212, 168, 83, .08); }
+  .bag-count-label { text-transform: uppercase; letter-spacing: .08em; font-size: .72rem; font-weight: 700; color: var(--text-muted); }
+  .bag-count strong { font: 800 clamp(2.6rem, 6vw, 4.5rem)/1.1 var(--font-mono); color: var(--accent-gold); margin: var(--space-2) 0; }
+  .bag-count span:last-child { font-size: .82rem; color: var(--text-secondary); }
+  .result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .result-item { min-width: 0; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-3); background: var(--bg-surface); }
+  .result-item span { display: block; color: var(--text-muted); font-size: .7rem; text-transform: uppercase; letter-spacing: .04em; }
+  .result-item strong { display: block; color: var(--text-primary); font: 700 .95rem/1.45 var(--font-mono); overflow-wrap: anywhere; }
+  .result-note, .quote-note, .rounding-note { font-size: .81rem; line-height: 1.5; color: var(--text-secondary); margin: var(--space-4) 0 0; }
+  .quote-note { padding: var(--space-3); border-radius: var(--radius-md); background: rgba(212, 168, 83, .09); }
+  .rounding-note { color: var(--text-muted); font-size: .75rem; }
   .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .guide-container { max-width: 1080px; }
+  .content-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); margin-bottom: var(--space-8); line-height: 1.7; color: var(--text-secondary); }
+  .content-card h2 { color: var(--text-primary); font-size: clamp(1.35rem, 3vw, 1.9rem); line-height: 1.25; margin: 0 0 var(--space-4); }
+  .content-card p { margin: 0 0 var(--space-4); }
+  .content-card p:last-child { margin-bottom: 0; }
+  .content-card a { color: var(--accent-gold); text-underline-offset: 3px; }
+  .eyebrow { color: var(--accent-gold); font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: var(--space-2) !important; }
+  .visual-card { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-6); align-items: center; }
+  .visual-card figure { margin: 0; min-width: 0; }
+  .visual-card img { display: block; width: 100%; height: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .visual-card figcaption { font-size: .75rem; color: var(--text-muted); margin-top: var(--space-2); }
+  .table-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 440px; margin: var(--space-4) 0; }
+  caption { text-align: left; color: var(--text-muted); font-size: .75rem; margin-bottom: var(--space-2); }
+  th, td { border-bottom: 1px solid var(--border-subtle); padding: .7rem .8rem; text-align: left; }
+  thead th { color: var(--text-primary); background: var(--bg-surface); }
+  tbody th { color: var(--text-primary); font-weight: 700; }
+  .table-footnote { font-size: .82rem; color: var(--text-muted); }
+  .formula-box { display: grid; gap: var(--space-2); background: var(--bg-surface); border-left: 3px solid var(--accent-gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: var(--space-4); margin: var(--space-4) 0; }
+  .formula-box code { color: var(--accent-gold); font-size: .84rem; white-space: normal; overflow-wrap: anywhere; }
+  .buying-list { padding-left: 1.4rem; margin: var(--space-4) 0 0; }
+  .buying-list li { padding-left: .3rem; margin-bottom: var(--space-4); }
+  .buying-list li:last-child { margin-bottom: 0; }
+  .faq-list { display: grid; gap: var(--space-3); }
+  .faq-item { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); background: var(--bg-surface); }
+  .faq-item h3 { color: var(--text-primary); font-size: 1rem; margin: 0 0 var(--space-2); }
+  .faq-item p { color: var(--text-secondary); font-size: .88rem; margin: 0; }
+  .safety-source { margin-top: var(--space-5) !important; font-size: .82rem; }
+  @media (max-width: 800px) { .visual-card { grid-template-columns: 1fr; } }
+  @media (max-width: 540px) { .content-card { padding: var(--space-5); } .result-grid { grid-template-columns: 1fr; } }
 </style>

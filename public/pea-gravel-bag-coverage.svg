@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 420" role="img" aria-labelledby="title desc">
+  <title id="title">How depth changes coverage from one pea gravel bag</title>
+  <desc id="desc">The same 0.5 cubic foot of pea gravel covers three one-foot squares at two inches deep or two one-foot squares at three inches deep.</desc>
+  <defs>
+    <pattern id="pebbles" width="32" height="28" patternUnits="userSpaceOnUse">
+      <rect width="32" height="28" fill="#b9a58c"/>
+      <ellipse cx="6" cy="6" rx="5" ry="3" fill="#e0d1bd"/>
+      <ellipse cx="21" cy="8" rx="7" ry="4" fill="#846d5c"/>
+      <ellipse cx="10" cy="20" rx="7" ry="4" fill="#917c69"/>
+      <ellipse cx="28" cy="23" rx="5" ry="3" fill="#dac9b1"/>
+    </pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="#f0bb68" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="778" height="418" rx="22" fill="#15252e" stroke="#4d6064" stroke-width="2"/>
+  <text x="390" y="38" fill="#f3eee5" font-family="Arial, sans-serif" font-size="23" font-weight="700" text-anchor="middle">One bag, two depths</text>
+  <text x="390" y="62" fill="#c8d1cc" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">A labeled 0.5 ft³ bag contains the same volume in either layout</text>
+
+  <path d="M347 91h86l13 64H334z" fill="#ead8b9" stroke="#f0bb68" stroke-width="2"/>
+  <path d="M349 90h82l-8 15h-66z" fill="#ad8263"/>
+  <text x="390" y="127" fill="#42372e" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="middle">0.5 ft³</text>
+  <path d="M334 147 L208 172" stroke="#f0bb68" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M446 147 L572 172" stroke="#f0bb68" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="31" y="181" width="383" height="204" rx="14" fill="#21343b" stroke="#53676b"/>
+  <rect x="427" y="181" width="322" height="204" rx="14" fill="#21343b" stroke="#53676b"/>
+  <text x="222" y="212" fill="#f5c878" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="middle">2-inch layer</text>
+  <text x="588" y="212" fill="#f5c878" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="middle">3-inch layer</text>
+  <text x="222" y="237" fill="#f3eee5" font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle">3 sq ft covered</text>
+  <text x="588" y="237" fill="#f3eee5" font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle">2 sq ft covered</text>
+
+  <rect x="87" y="261" width="90" height="90" fill="url(#pebbles)" stroke="#ead8b9" stroke-width="2"/>
+  <rect x="177" y="261" width="90" height="90" fill="url(#pebbles)" stroke="#ead8b9" stroke-width="2"/>
+  <rect x="267" y="261" width="90" height="90" fill="url(#pebbles)" stroke="#ead8b9" stroke-width="2"/>
+  <rect x="498" y="261" width="90" height="90" fill="url(#pebbles)" stroke="#ead8b9" stroke-width="2"/>
+  <rect x="588" y="261" width="90" height="90" fill="url(#pebbles)" stroke="#ead8b9" stroke-width="2"/>
+  <text x="222" y="373" fill="#c8d1cc" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">Three 1 ft × 1 ft squares</text>
+  <text x="588" y="373" fill="#c8d1cc" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">Two 1 ft × 1 ft squares</text>
+</svg>

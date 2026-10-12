@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="460" viewBox="0 0 720 460" role="img" aria-labelledby="title desc">
+  <title id="title">Pea gravel yardage from area and depth</title>
+  <desc id="desc">A 20 foot by 12 foot rectangle has 240 square feet of area. At a two inch pea gravel layer, its volume is 240 times 2 divided by 324, or 1.48 cubic yards.</desc>
+  <defs>
+    <pattern id="pebbles" width="36" height="32" patternUnits="userSpaceOnUse">
+      <rect width="36" height="32" fill="#9b8469"/>
+      <ellipse cx="6" cy="8" rx="5" ry="3" fill="#cbb697" transform="rotate(-25 6 8)"/>
+      <ellipse cx="21" cy="7" rx="7" ry="4" fill="#ead6b0" transform="rotate(15 21 7)"/>
+      <ellipse cx="32" cy="17" rx="5" ry="4" fill="#766858"/>
+      <ellipse cx="13" cy="24" rx="8" ry="4" fill="#ddd1b8" transform="rotate(-15 13 24)"/>
+      <ellipse cx="30" cy="30" rx="7" ry="3" fill="#b9a381"/>
+    </pattern>
+  </defs>
+  <rect x="1" y="1" width="718" height="458" rx="20" fill="#15212b" stroke="#46505a" stroke-width="2"/>
+  <text x="34" y="42" fill="#f4e8d2" font-family="Arial,sans-serif" font-size="24" font-weight="700">Measure the area. Then add depth.</text>
+  <text x="34" y="70" fill="#c8d1d5" font-family="Arial,sans-serif" font-size="15">Example: a 20 ft × 12 ft pea gravel surface</text>
+
+  <rect x="94" y="112" width="320" height="170" rx="8" fill="url(#pebbles)" stroke="#edc979" stroke-width="3"/>
+  <rect x="191" y="172" width="126" height="45" rx="8" fill="#15212b" fill-opacity=".91"/>
+  <text x="254" y="201" fill="#fff5d9" font-family="Arial,sans-serif" text-anchor="middle" font-size="20" font-weight="700">240 ft²</text>
+  <path d="M94 100H414M94 94v12M414 94v12" stroke="#edc979" stroke-width="2"/>
+  <text x="254" y="95" fill="#edc979" font-family="Arial,sans-serif" text-anchor="middle" font-size="16" font-weight="700">20 ft</text>
+  <path d="M80 112V282M74 112h12M74 282h12" stroke="#edc979" stroke-width="2"/>
+  <text x="64" y="198" fill="#edc979" font-family="Arial,sans-serif" text-anchor="middle" font-size="16" font-weight="700" transform="rotate(-90 64 198)">12 ft</text>
+
+  <text x="473" y="122" fill="#edc979" font-family="Arial,sans-serif" font-size="16" font-weight="700">Layer profile</text>
+  <path d="M480 180H654" stroke="#86a28b" stroke-width="7" stroke-linecap="round"/>
+  <rect x="480" y="181" width="174" height="35" fill="url(#pebbles)" stroke="#edc979" stroke-width="2"/>
+  <path d="M667 181v35M663 181h8M663 216h8" stroke="#edc979" stroke-width="2"/>
+  <text x="600" y="247" fill="#f4e8d2" font-family="Arial,sans-serif" text-anchor="middle" font-size="17" font-weight="700">2 in of pea gravel</text>
+  <text x="600" y="269" fill="#c8d1d5" font-family="Arial,sans-serif" text-anchor="middle" font-size="13">Measure the finish separately</text>
+  <text x="600" y="286" fill="#c8d1d5" font-family="Arial,sans-serif" text-anchor="middle" font-size="13">from any compacted base</text>
+
+  <rect x="34" y="326" width="652" height="98" rx="12" fill="#25323b" stroke="#58616a"/>
+  <text x="56" y="357" fill="#c8d1d5" font-family="Arial,sans-serif" font-size="16">Layer volume</text>
+  <text x="56" y="392" fill="#fff5d9" font-family="Arial,sans-serif" font-size="25" font-weight="700">240 ft² × 2 in ÷ 324 = 1.48 yd³</text>
+  <text x="56" y="412" fill="#edc979" font-family="Arial,sans-serif" font-size="13">Add optional site extra after measuring the layer.</text>
+</svg>

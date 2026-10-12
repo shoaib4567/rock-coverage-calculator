@@ -12,41 +12,44 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Pea Gravel Tonnage' },
-  { label: 'Sieve Size', value: 'ASTM D448 #8 (3/8" Smooth)' },
-  { label: 'Bulk Density', value: '1.35 t/yd³ (2,700 lbs/yd³)' },
-  { label: 'Yield at 2"', value: '120 sq ft per Ton' }
+  { label: 'Material', value: 'Rounded pea gravel' },
+  { label: 'Purchase unit', value: 'US short ton (2,000 lb)' },
+  { label: 'Density', value: 'Editable supplier value' }
 ];
 
 const quickStats = [
-  { value: '1.35 t/yd³', label: 'Bulk Density', desc: 'Certified quarry scale density for washed #8 pea gravel' },
-  { value: '120 sq ft', label: 'Yield at 2"', desc: 'Square foot coverage per short ton at 2-inch walkway depth' },
-  { value: '14 Tons', label: 'Dump Truck', desc: 'Standard commercial payload for a tandem-axle delivery' }
+  { value: '1.35', label: 'Starting density', desc: 'Short tons per cubic yard; replace with your supplier’s figure' },
+  { value: '120 sq ft', label: 'At 2 inches', desc: 'Approximate coverage per short ton before an extra allowance' },
+  { value: '10%', label: 'Default extra', desc: 'Adjust for low spots, handling loss, and your ordering preference' }
 ];
 
 const faqItems = [
   {
-    q: 'How many tons of pea gravel do I need for a 12x20 foot patio?',
-    a: 'A 12x20 foot patio equals 240 square feet. At a recommended 2.5-inch depth for barefoot patio walkability, you need 1.85 cubic yards of pea gravel. Multiplying by 1.35 tons per yard and adding a 10 percent buffer yields approximately 2.75 short tons (5,500 lbs).'
+    q: 'How many tons of pea gravel do I need for a 12 × 20 foot area?',
+    a: 'At 2 inches deep, 240 square feet needs 1.48 cubic yards, or 2.00 US short tons at the default 1.35 tons per cubic yard. Add the calculator’s 10% allowance and the estimate becomes 1.63 cubic yards or 2.20 tons. Check your supplier’s density before ordering.'
   },
   {
     q: 'How do you convert square feet of pea gravel to tons?',
-    a: 'Multiply square feet by layer depth in inches, divide by 324 to get cubic yards, then multiply by 1.35 tons per yard. Formula: Tons = [(Sq Ft × Depth) / 324] × 1.35.'
+    a: 'Multiply area in square feet by finished depth in inches, divide by 324 to get cubic yards, then multiply by the supplier’s short tons per cubic yard. Multiply once more by 1 plus your extra allowance as a decimal if you want to include one.'
   },
   {
-    q: 'How many square feet does 1 ton of pea gravel cover?',
-    a: 'One ton of pea gravel covers approximately 160 square feet at 1.5 inches depth, 120 square feet at 2 inches depth, 96 square feet at 2.5 inches depth, and 80 square feet at 3 inches depth.'
+    q: 'How many square feet does one ton of pea gravel cover?',
+    a: 'At the 1.35 short tons per cubic yard planning value, one ton covers about 160 square feet at 1.5 inches, 120 at 2 inches, 96 at 2.5 inches, or 80 at 3 inches. These are level-layer yields before any extra allowance.'
   },
   {
     q: 'What does a cubic yard of pea gravel weigh?',
-    a: 'A cubic yard of clean, dry pea gravel weighs approximately 2,700 pounds (1.35 short tons). When wet from rain or quarry washing, weight can reach 2,800 to 2,900 pounds per cubic yard.'
+    a: 'This calculator starts at 2,700 pounds, or 1.35 US short tons, per cubic yard. Actual supplier listings differ: examples include 2,440 and 2,720 pounds per cubic yard. Use the weight for the specific product you plan to buy.'
+  },
+  {
+    q: 'Should I include the crushed-stone base in my pea gravel tonnage?',
+    a: 'No. This estimate is for the finished pea gravel layer only. Measure and order any compactable base aggregate separately because its thickness and bulk density differ.'
   }
 ];
 
 const upLinks = [
-  { title: 'Pea Gravel Calculator (Material Parent)', slug: '/pea-gravel-calculator', badge: 'Material' },
-  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+  { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: 'Material' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Weight' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Coverage' }
 ];
 
 const lateralLinks = [
@@ -56,21 +59,21 @@ const lateralLinks = [
 ];
 
 const bridgeLinks = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Stone Shape' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Ordering' }
 ];
 
 const supportGuides = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Gravel Size and Sieve Guide', slug: '/gravel-sizes', badge: 'Gradations' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
+  { title: 'Gravel Size and Sieve Guide', slug: '/gravel-sizes', badge: 'Stone Size' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'Density' }
 ];
 ---
 
 <BaseLayout
-  title="Pea Gravel Tons Calculator - Scale Weight & Square Foot Yields"
-  metaDescription="Calculate exact tons of pea gravel needed for patios, walkways, and dog runs. Calibrated for ASTM D448 #8 stone at 1.35 t/yd3 with truckload sizing."
+  title="Pea Gravel Tons Calculator"
+  metaDescription="Estimate US short tons of pea gravel from length, width, and finished depth. Adjust bulk density and extra allowance, then compare tons, pounds, and cubic yards."
   canonicalPath="/pea-gravel-tons-calculator"
 >
   <Fragment slot="head">
@@ -79,7 +82,7 @@ const supportGuides = [
       "@type": "WebApplication",
       "name": "Pea Gravel Tons Calculator",
       "url": "https://rockcoveragecalculator.com/pea-gravel-tons-calculator",
-      "description": "Calculates quarry scale tonnage and truckload requirements for ASTM D448 #8 pea gravel.",
+      "description": "Estimates US short tons, pounds, and cubic yards of pea gravel from area, finished depth, editable bulk density, and an optional ordering allowance.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "inLanguage": "en-US",
@@ -112,134 +115,133 @@ const supportGuides = [
     <PageHero
       title="Pea Gravel Tons Calculator"
       highlightWord="Tons"
-      badge="Quarry Weight Engine"
-      subtitle="Calculate exact scale weight in tons for smooth 3/8-inch pea gravel across patios, pathways, and dog runs."
+      badge="Bulk order estimator"
+      subtitle="Estimate US short tons from area and finished depth. At 2 inches, one ton covers about 120 sq ft using the 1.35 tons-per-yard starting value; enter your supplier’s density for a closer order estimate."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
     />
 
-    <!-- Interactive Pea Gravel Tons Calculator Tool -->
-    <section class="section">
+    <section class="section" aria-labelledby="pgt-tool-title">
       <div class="container">
         <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
           <div class="calc-panel animate-fade-in-up">
             <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Pea Gravel Area Dimensions</h3>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+              <h2 id="pgt-tool-title">Measure the finished pea gravel layer</h2>
+            </div>
+            <p class="tool-hint">Enter the inside dimensions of a rectangular area. For bends or separate beds, calculate each rectangle and add the results.</p>
+
+            <div class="dim-grid">
+              <div class="input-field">
+                <label for="pgt-length">Length (feet)</label>
+                <input type="number" id="pgt-length" value="12" min="0.1" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="pgt-width">Width (feet)</label>
+                <input type="number" id="pgt-width" value="20" min="0.1" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="pgt-depth">Finished depth (inches)</label>
+                <input type="number" id="pgt-depth" value="2" min="0.1" max="36" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="pgt-density">Pea gravel density (short tons/yd³)</label>
+                <input type="number" id="pgt-density" value="1.35" min="0.5" max="3" step="any" inputmode="decimal" aria-describedby="pgt-density-help" />
+              </div>
+              <div class="input-field">
+                <label for="pgt-waste">Extra allowance (%)</label>
+                <input type="number" id="pgt-waste" value="10" min="0" max="30" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <p id="pgt-density-help" class="tool-hint">1.35 is a planning value, not a certified scale weight. Ask your supplier for the bulk weight of the pea gravel you are buying.</p>
+            <p id="pgt-error" class="dimension-error" role="alert" hidden></p>
           </div>
 
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="pgt-length">Length (Feet)</label>
-              <input type="number" id="pgt-length" value="24" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="pgt-width">Width (Feet)</label>
-              <input type="number" id="pgt-width" value="12" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="pgt-depth">Depth (Inches)</label>
-              <input type="number" id="pgt-depth" value="2.5" min="1" max="12" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="pgt-waste">Safety Buffer (%)</label>
-              <input type="number" id="pgt-waste" value="10" min="0" max="25" step="1" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
           <div class="calc-results-panel animate-fade-in-up">
             <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h2>Pea gravel to order</h2>
             </div>
-
-            <div class="kpi-grid">
+            <div class="kpi-grid" aria-live="polite">
               <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-pgt-tons">0.00</div>
-              <div class="kpi-label">Quarry Weight (Tons)</div>
-              <div class="kpi-subtext" id="kpi-pgt-lbs">0 lbs total weight</div>
+                <div class="kpi-value" id="kpi-pgt-tons">2.20</div>
+                <div class="kpi-label">US short tons with allowance</div>
+                <div class="kpi-subtext" id="kpi-pgt-lbs">4,400 lb estimated weight</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="kpi-pgt-yards">1.63</div>
+                <div class="kpi-label">Cubic yards with allowance</div>
+                <div class="kpi-subtext">For suppliers selling by volume</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="kpi-pgt-net">2.00</div>
+                <div class="kpi-label">Short tons before allowance</div>
+                <div class="kpi-subtext">At the measured finished depth</div>
+              </div>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-pgt-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext">Includes 10% buffer</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-pgt-loads">0.0</div>
-              <div class="kpi-label">Dump Truck Loads</div>
-              <div class="kpi-subtext">14 tons per tandem axle</div>
-            </div>
-            </div>
+            <p id="pgt-math" class="result-note">240 sq ft × 2 in ÷ 324 = 1.48 yd³; × 1.35 = 2.00 short tons; + 10% = 2.20 short tons.</p>
+            <p class="tool-hint">These are volume-based estimates. Your delivery ticket will reflect the actual scale weight and the seller’s order increment.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on Pea Gravel Tonnage -->
     <article class="content-guide-section">
       <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Pea Gravel Tonnage Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Pea Gravel Tonnage Reference</span>
+        <section class="content-card visual-guide" aria-labelledby="pgt-method-title">
+          <div>
+            <h2 id="pgt-method-title">From measured depth to a tonnage order</h2>
+            <p>The calculator estimates the loose bulk quantity for the <strong>finished pea gravel surface</strong>. It first converts the rectangular layer to cubic yards, then applies bulk density. The optional extra allowance is added once, at the end. A compacted crushed-stone base needs its own estimate.</p>
+            <div class="formula-box">
+              <code>Cubic yards = length (ft) × width (ft) × depth (in) ÷ 324</code><br />
+              <code>US short tons = cubic yards × short tons per cubic yard × (1 + extra % ÷ 100)</code>
+            </div>
+            <p>For a <strong>12 × 20 ft area at 2 inches</strong>, the layer is 1.48 yd³ before extra. At 1.35 short tons/yd³, that is 2.00 tons; with 10% extra, the order estimate is <strong>2.20 short tons</strong> (about 4,400 lb). The calculator opens with this example so you can change one assumption at a time.</p>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Tons = [(Area × Depth) / 324] × 1.35</span>
-              <p class="aeo-quick-desc">Converts dimensions directly to short tons of 2,000 lbs.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Density</span>
-              <span class="aeo-quick-value">1.35 t/yd³ (2,700 lbs/yd³)</span>
-              <p class="aeo-quick-desc">Standard bulk density for ASTM D448 #8 pea stone.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 2"</span>
-              <span class="aeo-quick-value">120 sq ft per Ton</span>
-              <p class="aeo-quick-desc">Coverage yield for pathways and garden borders.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 2.5"</span>
-              <span class="aeo-quick-value">96 sq ft per Ton</span>
-              <p class="aeo-quick-desc">Optimal depth for stable barefoot patio footing.</p>
-            </div>
-          </div>
+          <figure>
+            <img src="/pea-gravel-tons-example.svg" width="640" height="390" loading="lazy" alt="Diagram of a 12 by 20 foot pea gravel layer, 2 inches deep, converting 240 square feet to 1.48 cubic yards, 2 tons, then 2.2 tons with 10 percent extra" />
+            <figcaption>The extra 10% changes the order quantity, not the finished 2-inch depth.</figcaption>
+          </figure>
         </section>
 
-        <div class="content-card">
-          <h2>Engineering Calculations for Pea Gravel Tonnage</h2>
-          <p>
-            Pea gravel consists of natural, rounded 3/8-inch pebbles conforming to <strong>ASTM D448 #8</strong>. When ordering from commercial quarries, material is weighed on certified truck scales in short tons (2,000 lbs):
-          </p>
-
-          <div class="formula-box">
-            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
-            <br />
-            <code>Scale Weight (Tons) = Cubic Yards × 1.35 t/yd³ × 1.10 Buffer</code>
+        <section class="content-card" aria-labelledby="pgt-coverage-title">
+          <h2 id="pgt-coverage-title">How much area does a ton of pea gravel cover?</h2>
+          <p>These are geometric yields for a level layer using <strong>1.35 US short tons per cubic yard</strong>. They exclude the extra allowance and change when you enter a different density. A deeper layer uses more stone for the same area.</p>
+          <div class="table-scroll">
+            <table class="coverage-table">
+              <caption>Pea gravel coverage at the 1.35 short tons per cubic yard planning value</caption>
+              <thead><tr><th scope="col">Finished depth</th><th scope="col">Square feet per short ton</th><th scope="col">Short tons for 100 sq ft</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">1.5 in</th><td>160 sq ft</td><td>0.63 ton</td></tr>
+                <tr><th scope="row">2 in</th><td>120 sq ft</td><td>0.83 ton</td></tr>
+                <tr><th scope="row">2.5 in</th><td>96 sq ft</td><td>1.04 tons</td></tr>
+                <tr><th scope="row">3 in</th><td>80 sq ft</td><td>1.25 tons</td></tr>
+              </tbody>
+            </table>
           </div>
+          <p>At 2 inches, a useful field check is <strong>area ÷ 120 ≈ tons before extra</strong>. For paths and seating areas, choose depth based on the prepared surface and how the space will be used. <a href="https://extension.usu.edu/yardandgarden/files/EC_458.pdf" target="_blank" rel="noopener noreferrer">Utah State University's water-wise landscaping guide</a> describes a 3-inch gravel layer over landscape fabric as an acceptable walkway. Rounded pea gravel still shifts underfoot, so a firm base and edging matter; see the <a href="/rock-depth-guide">depth guide</a> and <a href="/angular-vs-rounded-rock">rounded versus angular stone guide</a> before increasing depth just to make a path feel firmer.</p>
+        </section>
 
-          <h3>Coverage per Ton Across Installation Depths</h3>
-          <ul>
-            <li><strong>1.5 Inches Depth:</strong> 160 sq ft per ton (light decorative mulch over fabric).</li>
-            <li><strong>2.0 Inches Depth:</strong> 120 sq ft per ton (light pedestrian walkways).</li>
-            <li><strong>2.5 Inches Depth:</strong> 96 sq ft per ton (patio seating zones and fire pits).</li>
-            <li><strong>3.0 Inches Depth:</strong> 80 sq ft per ton (dog runs, utility paths, and garden borders).</li>
-          </ul>
-          <p class="field-hint" style="margin-top: var(--space-4); font-size: 0.85rem; color: var(--text-muted);">
-            <em>Playground Safety Notice:</em> Per CPSC (U.S. Consumer Product Safety Commission Publication #325), playground fall zones require a minimum compressed depth of 9 inches (12 inches initial uncompacted fill) of pea gravel for equipment up to 5 feet high. Shallow depths (2–3") should never be used under elevated playground equipment.
-          </p>
-        </div>
+        <section class="content-card" aria-labelledby="pgt-density-title">
+          <h2 id="pgt-density-title">Which pea gravel density should you enter?</h2>
+          <p>The default <strong>1.35 short tons/yd³</strong> equals 2,700 lb/yd³ and keeps this estimator aligned with the site's main <a href="/pea-gravel-calculator">pea gravel calculator</a>. It is a starting point, not a property of every product. For example, <a href="https://southbaymaterials.com/pea-gravel" target="_blank" rel="noopener noreferrer">South Bay Materials lists 2,440 lb/yd³</a> for its 3/8-inch pea gravel (enter 1.22), while <a href="https://www.smokeypointconcrete.com/products/aggregates/pea-gravel/" target="_blank" rel="noopener noreferrer">Smokey Point lists 2,720 lb/yd³</a> for its washed 3/8-inch pea gravel (enter 1.36). Those are product examples, not universal limits.</p>
+          <p>If the supplier quotes pounds per cubic yard, divide by <strong>2,000</strong> to get US short tons per cubic yard. A 1.35 to 1.22 change lowers the tonnage estimate by about 10% even though cubic yards stay the same. For a larger order, ask for the density or weight per cubic yard of the exact stone and whether the quote is by the short ton or by the cubic yard. See the <a href="/rock-density-chart">density reference</a> for other aggregates.</p>
+        </section>
 
-        <!-- FAQ Section -->
+        <section class="content-card" aria-labelledby="pgt-order-title">
+          <h2 id="pgt-order-title">Take the estimate to the supplier</h2>
+          <ol class="order-steps">
+            <li><strong>Measure the finished layer.</strong> Use the inside edge of the border and measure depth from the prepared base to the planned top of the stone. Split irregular shapes into rectangles.</li>
+            <li><strong>Confirm the product and unit.</strong> “Pea gravel” can describe different rounded stones. Give the supplier the size, the estimated cubic yards and short tons, and ask which density applies to their product.</li>
+            <li><strong>Check the delivery quantity.</strong> Ask about the minimum order, available increments, and where a truck can tip the material. Round to the seller's increment only after you have the calculated tonnage.</li>
+            <li><strong>Keep other layers separate.</strong> An angular base, edging, or bags for a small repair are different purchases; use the <a href="/pea-gravel-bag-calculator">bag calculator</a> if a bulk load is more than you need.</li>
+          </ol>
+          <p class="safety-note"><strong>Playground surface?</strong> A 2–3 inch landscape layer is not a playground fall surface. The <a href="https://www.cpsc.gov/s3fs-public/324.pdf" target="_blank" rel="noopener noreferrer">CPSC home playground handbook</a> calls for maintaining 9 inches of sand or pea gravel for equipment up to 5 feet high, with an initial 12-inch fill to allow settling. Public playground surfacing has separate impact-testing guidance in the <a href="https://www.cpsc.gov/Playground-Handbook" target="_blank" rel="noopener noreferrer">CPSC public handbook</a>. Set depth to the applicable design before estimating tons.</p>
+        </section>
+
         <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Pea Gravel Tonnage</h2>
+          <h2>Pea gravel tons questions</h2>
           <div class="faq-list">
             {faqItems.map((item) => (
               <div class="faq-item">
@@ -267,29 +269,46 @@ const supportGuides = [
 
   <script>
     function updatePGT() {
-      const l = parseFloat((document.getElementById('pgt-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('pgt-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('pgt-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('pgt-waste') as HTMLInputElement)?.value) || 0;
+      const fields = ['pgt-length', 'pgt-width', 'pgt-depth', 'pgt-density', 'pgt-waste']
+        .map(id => document.getElementById(id) as HTMLInputElement);
+      const error = document.getElementById('pgt-error') as HTMLParagraphElement;
+      const invalid = fields.some(field => !field || !Number.isFinite(field.valueAsNumber) || !field.validity.valid);
+      fields.forEach(field => field?.setAttribute('aria-invalid', String(!Number.isFinite(field.valueAsNumber) || !field.validity.valid)));
 
-      const netYards = (l * w * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const tons = totalYards * 1.35;
-      const lbs = tons * 2000;
-      const loads = tons / 14;
+      const resultIds = ['kpi-pgt-tons', 'kpi-pgt-yards', 'kpi-pgt-net'];
+      if (invalid) {
+        error.textContent = 'Enter positive dimensions and density, a depth up to 36 inches, and an extra allowance from 0% to 30%.';
+        error.hidden = false;
+        resultIds.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '—'; });
+        const lbsEl = document.getElementById('kpi-pgt-lbs');
+        const mathEl = document.getElementById('pgt-math');
+        if (lbsEl) lbsEl.textContent = 'Check the inputs';
+        if (mathEl) mathEl.textContent = 'Enter valid measurements to see the calculation.';
+        return;
+      }
+      error.hidden = true;
 
-      const tEl = document.getElementById('kpi-pgt-tons');
-      const yEl = document.getElementById('kpi-pgt-yards');
-      const lEl = document.getElementById('kpi-pgt-loads');
+      const [length, width, depth, density, extra] = fields.map(field => field.valueAsNumber);
+      const area = length * width;
+      const netYards = area * depth / 324;
+      const netTons = netYards * density;
+      const orderYards = netYards * (1 + extra / 100);
+      const orderTons = orderYards * density;
+
+      const tonsEl = document.getElementById('kpi-pgt-tons');
+      const yardsEl = document.getElementById('kpi-pgt-yards');
+      const netEl = document.getElementById('kpi-pgt-net');
       const lbsEl = document.getElementById('kpi-pgt-lbs');
+      const mathEl = document.getElementById('pgt-math');
 
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (lEl) lEl.innerText = loads.toFixed(1);
-      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+      if (tonsEl) tonsEl.textContent = orderTons.toFixed(2);
+      if (yardsEl) yardsEl.textContent = orderYards.toFixed(2);
+      if (netEl) netEl.textContent = netTons.toFixed(2);
+      if (lbsEl) lbsEl.textContent = `${Math.round(orderTons * 2000).toLocaleString()} lb estimated weight`;
+      if (mathEl) mathEl.textContent = `${area.toFixed(2)} sq ft × ${depth} in ÷ 324 = ${netYards.toFixed(2)} yd³; × ${density} = ${netTons.toFixed(2)} short tons; + ${extra}% = ${orderTons.toFixed(2)} short tons.`;
     }
 
-    ['pgt-length', 'pgt-width', 'pgt-depth', 'pgt-waste'].forEach(id => {
+    ['pgt-length', 'pgt-width', 'pgt-depth', 'pgt-density', 'pgt-waste'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', updatePGT);
     });
     updatePGT();
@@ -299,21 +318,14 @@ const supportGuides = [
 <style>
   .section { padding: var(--space-8) 0; }
   .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .calc-panel-title h2 { font-size: var(--text-lg); color: var(--text-primary); margin: 0; }
+  .tool-hint, .result-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; }
+  .tool-hint { margin: 0 0 var(--space-4); }
+  .result-note { margin: var(--space-5) 0 var(--space-3); padding: var(--space-3); background: var(--bg-surface); border-radius: var(--radius-md); color: var(--text-secondary); }
+  .calc-results-panel > .tool-hint { margin-bottom: 0; }
+  .calc-wrapper .dim-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .calc-wrapper .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .calc-wrapper .kpi-card.highlight { grid-column: 1 / -1; }
   .content-card {
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
@@ -324,6 +336,13 @@ const supportGuides = [
     color: var(--text-secondary);
   }
   .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .content-card p + p { margin-top: var(--space-4); }
+  .content-card strong { color: var(--text-primary); }
+  .content-card a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 2px; }
+  .visual-guide { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--space-6); align-items: center; border-color: var(--accent-gold); }
+  .visual-guide figure { margin: 0; }
+  .visual-guide img { width: 100%; height: auto; display: block; border-radius: var(--radius-md); }
+  .visual-guide figcaption { margin-top: var(--space-2); font-size: var(--text-xs); color: var(--text-muted); }
   .formula-box {
     background: var(--bg-surface);
     border-left: 3px solid var(--accent-gold);
@@ -334,10 +353,25 @@ const supportGuides = [
     color: var(--accent-gold);
     font-size: var(--text-sm);
     line-height: 1.8;
+    overflow-wrap: anywhere;
   }
-  .faq-card { margin-top: var(--space-8); }
+  .table-scroll { overflow-x: auto; margin: var(--space-5) 0; }
+  .coverage-table { width: 100%; border-collapse: collapse; min-width: 490px; font-size: var(--text-sm); }
+  .coverage-table caption { text-align: left; color: var(--text-muted); font-size: var(--text-xs); padding-bottom: var(--space-2); }
+  .coverage-table th, .coverage-table td { padding: var(--space-3); text-align: left; border-bottom: 1px solid var(--border-subtle); }
+  .coverage-table thead { background: var(--bg-surface); color: var(--text-primary); }
+  .coverage-table tbody th { color: var(--text-primary); }
+  .order-steps { padding-left: 1.4rem; display: grid; gap: var(--space-3); }
+  .safety-note { padding: var(--space-4); margin-top: var(--space-5); background: var(--bg-surface); border-left: 3px solid var(--accent-gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
   .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
   .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
   .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
   .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  @media (max-width: 760px) {
+    .visual-guide { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 540px) {
+    .calc-wrapper .dim-grid, .calc-wrapper .kpi-grid { grid-template-columns: 1fr; }
+    .content-card { padding: var(--space-5); }
+  }
 </style>

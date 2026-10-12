@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 390" role="img" aria-labelledby="title desc">
+  <title id="title">Pea gravel tonnage example</title>
+  <desc id="desc">A 12 by 20 foot layer, 2 inches deep, has an area of 240 square feet and a volume of 1.48 cubic yards. At 1.35 short tons per cubic yard it needs 2 tons before extra, or 2.2 tons with 10 percent extra.</desc>
+  <defs>
+    <pattern id="pebbles" width="34" height="28" patternUnits="userSpaceOnUse">
+      <ellipse cx="8" cy="10" rx="6" ry="4" fill="#c7a978"/>
+      <ellipse cx="25" cy="18" rx="5" ry="3.5" fill="#e8d0a5"/>
+      <ellipse cx="32" cy="4" rx="4" ry="3" fill="#9f9d92"/>
+      <ellipse cx="4" cy="25" rx="4" ry="3" fill="#8e9995"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e5bc72"/>
+    </marker>
+  </defs>
+  <rect width="640" height="390" rx="22" fill="#13222d"/>
+  <text x="32" y="38" fill="#f6ead3" font-family="Arial,sans-serif" font-size="18" font-weight="700">A 12 × 20 ft pea gravel area</text>
+  <text x="32" y="61" fill="#b5c5ce" font-family="Arial,sans-serif" font-size="12">Finished layer: 2 inches deep</text>
+
+  <path d="M 120 115 L 405 115 L 520 185 L 235 185 Z" fill="url(#pebbles)" stroke="#f0d6a2" stroke-width="2"/>
+  <path d="M 235 185 L 520 185 L 520 213 L 235 213 Z" fill="#947655" stroke="#c5a477" stroke-width="2"/>
+  <path d="M 120 115 L 235 185 L 235 213 L 120 143 Z" fill="#af8c62" stroke="#c5a477" stroke-width="2"/>
+  <path d="M 112 96 L 405 96" fill="none" stroke="#e5bc72" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="240" y="88" fill="#f6ead3" font-family="Arial,sans-serif" font-size="13" font-weight="700">20 ft</text>
+  <path d="M 98 121 L 206 188" fill="none" stroke="#e5bc72" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="117" y="178" fill="#f6ead3" font-family="Arial,sans-serif" font-size="13" font-weight="700">12 ft</text>
+  <path d="M 537 184 L 537 213" fill="none" stroke="#e5bc72" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="548" y="203" fill="#f6ead3" font-family="Arial,sans-serif" font-size="13" font-weight="700">2 in</text>
+
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <rect x="30" y="252" width="133" height="100" rx="12" fill="#1c3441" stroke="#466172"/>
+    <text x="96" y="285" fill="#b5c5ce" font-size="11">AREA</text>
+    <text x="96" y="318" fill="#f6ead3" font-size="23" font-weight="700">240 ft²</text>
+    <text x="96" y="339" fill="#b5c5ce" font-size="10">12 × 20</text>
+
+    <rect x="179" y="252" width="133" height="100" rx="12" fill="#1c3441" stroke="#466172"/>
+    <text x="245" y="285" fill="#b5c5ce" font-size="11">VOLUME</text>
+    <text x="245" y="318" fill="#f6ead3" font-size="23" font-weight="700">1.48 yd³</text>
+    <text x="245" y="339" fill="#b5c5ce" font-size="10">240 × 2 ÷ 324</text>
+
+    <rect x="328" y="252" width="133" height="100" rx="12" fill="#1c3441" stroke="#466172"/>
+    <text x="394" y="285" fill="#b5c5ce" font-size="11">BASE WEIGHT</text>
+    <text x="394" y="318" fill="#f6ead3" font-size="23" font-weight="700">2.00 tons</text>
+    <text x="394" y="339" fill="#b5c5ce" font-size="10">× 1.35 tons/yd³</text>
+
+    <rect x="477" y="252" width="133" height="100" rx="12" fill="#283e3c" stroke="#e5bc72" stroke-width="2"/>
+    <text x="543" y="285" fill="#e5bc72" font-size="11">WITH 10% EXTRA</text>
+    <text x="543" y="318" fill="#fff0d4" font-size="23" font-weight="700">2.20 tons</text>
+    <text x="543" y="339" fill="#b5c5ce" font-size="10">order estimate</text>
+  </g>
+  <g fill="#e5bc72" font-family="Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle">
+    <text x="171" y="313">→</text><text x="320" y="313">→</text><text x="469" y="313">→</text>
+  </g>
+</svg>
