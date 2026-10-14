@@ -1,343 +1,223 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'River Rock Tons Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'River Rock Calculator', url: '/river-rock-calculator' },
-  { name: 'River Rock Tons Calculator', url: '/river-rock-tons-calculator' }
+  { name: pageTitle, url: '/river-rock-tons-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'River Rock Tonnage' },
-  { label: 'Bulk Density', value: '1.35 t/yd³ (2,700 lbs/yd³)' },
-  { label: 'ASTM Reference', value: 'ASTM C29 / ASTM C136' },
-  { label: 'Standard Depth', value: '3 to 4 Inches (1.5x Caliper)' }
+  { label: 'Material', value: 'Rounded river rock' },
+  { label: 'Order unit', value: 'US short ton (2,000 lb)' },
+  { label: 'Weight', value: 'Editable loose bulk density' }
 ];
-
-const quickStats = [
-  { value: '1.35 t/yd³', label: 'River Rock', desc: 'Standard bulk density for natural rounded alluvial stone' },
-  { value: '80 sq ft', label: 'Yield at 3"', desc: 'Square foot coverage per ton of medium river rock' },
-  { value: '10% Overage', label: 'Safety Buffer', desc: 'Buffer for stone sorting, irregular grading, and edge settling' }
-];
-
 const faqItems = [
   {
-    q: 'How many tons of river rock do I need for 500 square feet?',
-    a: 'For 500 square feet at a 3-inch depth, you require 4.63 cubic yards of river rock. Multiplying by 1.35 tons per cubic yard and adding a 10 percent buffer equals approximately 6.88 short tons (13,760 lbs).'
+    q: 'How many tons of river rock do I need for 300 square feet?',
+    a: 'At 3 inches deep, 300 square feet needs 2.78 cubic yards before extra. At the 1.35 short tons per cubic yard planning weight, that is 3.75 short tons. With 10% extra, the order estimate is 3.06 cubic yards or 4.13 short tons. Replace the planning weight with your supplier’s value when possible.'
   },
   {
-    q: 'How do you calculate tons of river rock from square footage?',
-    a: 'Multiply square footage by depth in inches, divide by 324 to calculate cubic yards, and multiply by 1.35 tons per cubic yard. Add 10 percent for waste factor and grade variations.'
+    q: 'How do I turn cubic yards of river rock into tons?',
+    a: 'Multiply cubic yards by the loose bulk weight in US short tons per cubic yard for the product you are buying. For example, 3 cubic yards at 1.35 short tons per cubic yard is an estimated 4.05 short tons. A short ton is 2,000 pounds.'
   },
   {
-    q: 'How many square feet does one ton of river rock cover?',
-    a: 'One ton of 1-inch to 3-inch river rock covers approximately 120 square feet at 2 inches depth, 80 square feet at 3 inches depth, and 60 square feet at 4 inches depth.'
+    q: 'How much area does one ton of river rock cover?',
+    a: 'At the calculator’s 1.35 short tons per cubic yard planning value, one short ton covers about 120 square feet at 2 inches deep, 80 square feet at 3 inches, or 60 square feet at 4 inches. This is level-layer coverage before any ordering allowance.'
   },
   {
-    q: 'Why does river rock require deeper installation than crushed stone?',
-    a: 'Because river rocks have naturally rounded surfaces with no sharp interlock, individual stones roll and leave wider gaps. To prevent weed fabric or dirt from showing through, install at a minimum depth of 1.5 to 2 times the maximum stone diameter.'
+    q: 'Is a 6-inch river rock a 6-inch-deep layer?',
+    a: 'A stone-size label describes the rocks, not the layer thickness. Large mixed cobbles placed in one visible layer do not form a uniform blanket, so a depth-based tonnage is only a rough estimate. Ask the stone yard about coverage for that exact grade or lay out a measured sample area.'
+  },
+  {
+    q: 'Does the extra allowance cover wet rock?',
+    a: 'The extra percentage adds order volume for low spots, uneven spreading, and handling loss. It does not predict how much a wet load will weigh. Ask the seller how its tons-per-yard conversion and scale weight are determined.'
   }
-];
-
-const upLinks = [
-  { title: 'River Rock Calculator (Material Parent)', slug: '/river-rock-calculator', badge: 'Material' },
-  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Crushed Stone' },
-  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Gravel Tons' },
-  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Coverage' }
-];
-
-const bridgeLinks = [
-  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Drainage' },
-  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Thickness' }
-];
-
-const supportGuides = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Thickness' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
-  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' }
 ];
 ---
 
-<BaseLayout
-  title="River Rock Tons Calculator - Smooth Stone Weight & Yields"
-  metaDescription="Calculate exact tons of river rock needed for flower beds, dry creek beds, and borders. Calibrated for rounded river stone at 1.35 t/yd3."
-  canonicalPath="/river-rock-tons-calculator"
->
+<BaseLayout title={pageTitle} metaDescription="Estimate US short tons of river rock from bed dimensions or known square footage and installed depth. Edit supplier bulk weight and extra allowance; compare tons, yards, and coverage." canonicalPath="/river-rock-tons-calculator">
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "River Rock Tons Calculator",
-      "url": "https://rockcoveragecalculator.com/river-rock-tons-calculator",
-      "description": "Calculates quarry scale tonnage for smooth rounded river rock, rainbow rock, and river cobbles.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Landscape Contractors, Garden Designers, Homeowners"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "River Rock Tonnage Calculation"
-      }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
-      }))
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebApplication', name: pageTitle, url: 'https://rockcoveragecalculator.com/river-rock-tons-calculator', description: 'Estimates US short tons of river rock from measured area, installed depth, editable loose bulk density, and ordering allowance.', applicationCategory: 'UtilityApplication', operatingSystem: 'Web', inLanguage: 'en-US' })} />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) })} />
   </Fragment>
-
   <Header />
-
   <main>
-    <PageHero
-      title="River Rock Tons Calculator"
-      highlightWord="Tons"
-      badge="Quarry Weight Engine"
-      subtitle="Calculate scale weight in tons for smooth river stone, rainbow cobbles, and decorative landscape beds."
-      breadcrumbs={breadcrumbs}
-      entityTags={entityTags}
-      quickStats={quickStats}
-    />
+    <PageHero title={pageTitle} highlightWord="Tons" badge="River rock bulk order estimator" subtitle="A 30 × 10 ft bed at 3 in deep takes 3.75 US short tons at the 1.35 tons-per-yard planning weight. Add 10% extra and the order estimate becomes 4.13 tons. Enter your own depth and supplier weight below." breadcrumbs={breadcrumbs} entityTags={entityTags} theme="decorative" />
 
-    <!-- Interactive River Rock Tons Calculator Tool -->
-    <section class="section">
+    <section class="rrt-tool" id="rrt-calculator" aria-labelledby="rrt-tool-heading">
       <div class="container">
-        <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>River Rock Bed Dimensions</h3>
+        <div class="rrt-tool-heading"><p class="rrt-eyebrow">Estimate a bulk order</p><h2 id="rrt-tool-heading">How many tons of river rock do you need?</h2><p>Measure only the surface receiving stone, then enter the depth of the finished layer. The tonnage is an estimate until your supplier confirms the loose weight of its river rock.</p></div>
+        <div class="rrt-tool-grid">
+          <div class="rrt-card rrt-input-card">
+            <fieldset class="rrt-mode"><legend>How have you measured the area?</legend><label><input type="radio" name="rrt-measure-mode" value="rectangle" checked /> Length × width</label><label><input type="radio" name="rrt-measure-mode" value="area" /> Square feet known</label></fieldset>
+            <div class="rrt-fields rrt-measure" id="rrt-rectangle-fields">
+              <div class="rrt-field"><label for="rrt-length">Length <span>(feet)</span></label><input id="rrt-length" type="number" value="30" min="0.1" step="any" inputmode="decimal" /></div>
+              <div class="rrt-field"><label for="rrt-width">Width <span>(feet)</span></label><input id="rrt-width" type="number" value="10" min="0.1" step="any" inputmode="decimal" /></div>
+            </div>
+            <div class="rrt-fields rrt-measure" id="rrt-area-fields" hidden><div class="rrt-field"><label for="rrt-area">Measured area <span>(square feet)</span></label><input id="rrt-area" type="number" value="300" min="0.1" step="any" inputmode="decimal" /></div></div>
+            <div class="rrt-fields rrt-main-fields">
+              <div class="rrt-field"><label for="rrt-depth">Installed rock depth <span>(inches)</span></label><input id="rrt-depth" type="number" value="3" min="0.1" max="36" step="any" inputmode="decimal" aria-describedby="rrt-depth-help" /></div>
+              <div class="rrt-field"><label for="rrt-density">Loose bulk weight <span>(short tons/yd³)</span></label><input id="rrt-density" type="number" value="1.35" min="0.1" max="3" step="any" inputmode="decimal" aria-describedby="rrt-density-help" /></div>
+              <div class="rrt-field"><label for="rrt-extra">Extra to order <span>(%)</span></label><input id="rrt-extra" type="number" value="10" min="0" max="100" step="any" inputmode="decimal" aria-describedby="rrt-extra-help" /></div>
+            </div>
+            <div class="rrt-help">
+              <p id="rrt-depth-help"><strong>Depth:</strong> enter the layer you will install, not the size printed on the rock bin. A single layer of large cobbles may need a supplier coverage figure instead.</p>
+              <p id="rrt-density-help"><strong>Weight:</strong> 1.35 is a starting estimate, equal to 2,700 lb per cubic yard. Replace it with the loose bulk weight for the product in your quote.</p>
+              <p id="rrt-extra-help"><strong>Extra:</strong> optional material for low spots and handling. It increases both order yards and order tons; it does not change the planned finished depth.</p>
+            </div>
+            <p id="rrt-error" class="rrt-error" role="alert" hidden></p>
           </div>
-
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="rrt-length">Length (Feet)</label>
-              <input type="number" id="rrt-length" value="30" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="rrt-width">Width (Feet)</label>
-              <input type="number" id="rrt-width" value="10" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="rrt-depth">Depth (Inches)</label>
-              <input type="number" id="rrt-depth" value="3.0" min="1" max="18" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="rrt-waste">Safety Buffer (%)</label>
-              <input type="number" id="rrt-waste" value="10" min="0" max="25" step="1" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-rrt-tons">0.00</div>
-              <div class="kpi-label">Quarry Weight (Tons)</div>
-              <div class="kpi-subtext" id="kpi-rrt-lbs">0 lbs total weight</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-rrt-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext">Includes 10% buffer</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-rrt-loads">0.0</div>
-              <div class="kpi-label">Dump Truck Loads</div>
-              <div class="kpi-subtext">14 tons per tandem axle</div>
-            </div>
-            </div>
+          <div class="rrt-card rrt-result-card" aria-live="polite">
+            <p class="rrt-eyebrow">Estimated amount to order</p><div class="rrt-primary-result"><strong id="rrt-order-tons">4.13</strong><span>US short tons</span></div><p class="rrt-result-caption" id="rrt-result-caption">300 sq ft at 3 in depth, with 10% extra</p>
+            <dl class="rrt-breakdown">
+              <div><dt>Rock at finished depth</dt><dd id="rrt-net-tons">3.75 tons</dd></div><div><dt>Order volume</dt><dd id="rrt-order-yards">3.06 yd³</dd></div><div><dt>Installed volume before extra</dt><dd id="rrt-net-yards">2.78 yd³</dd></div><div><dt>Estimated order weight</dt><dd id="rrt-order-pounds">8,250 lb</dd></div><div><dt>One ton covers at this depth</dt><dd id="rrt-one-ton-area">80 sq ft</dd></div>
+            </dl>
+            <p class="rrt-result-note">Coverage per ton is for a level layer before extra. Ask the yard whether it sells this grade by <strong>scale weight or measured volume</strong> and how it converts between them.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on River Rock Tonnage -->
-    <article class="content-guide-section">
-      <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="River Rock Tonnage Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">River Rock Tonnage Reference</span>
-          </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Tons = [(Area × Depth) / 324] × 1.35</span>
-              <p class="aeo-quick-desc">Converts dimensions directly to short tons (2,000 lbs).</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Density</span>
-              <span class="aeo-quick-value">1.35 t/yd³ (2,700 lbs/yd³)</span>
-              <p class="aeo-quick-desc">Standard density for water-smoothed river stone (ASTM C29).</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 3"</span>
-              <span class="aeo-quick-value">80 sq ft per Ton</span>
-              <p class="aeo-quick-desc">Standard coverage for 1-inch to 3-inch medium river rock.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 4"</span>
-              <span class="aeo-quick-value">60 sq ft per Ton</span>
-              <p class="aeo-quick-desc">Standard coverage for 3-inch to 5-inch large river cobbles.</p>
-            </div>
-          </div>
-        </section>
-
-        <div class="content-card">
-          <h2>Engineering Rules for River Rock Tonnage</h2>
-          <p>
-            River rocks are smooth, rounded stones sculpted by natural water action or mechanical tumblers. Because rounded stones do not compact or interlock like crushed rock, calculating their tonnage requires adherence to specific depth rules:
-          </p>
-
-          <div class="formula-box">
-            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
-            <br />
-            <code>Scale Weight (Tons) = Cubic Yards × 1.35 t/yd³ × 1.10 Buffer</code>
-          </div>
-
-          <h3>Sizing and Depth Correlation</h3>
-          <p>
-            To achieve full ground opacity and prevent weed fabric exposure, follow the 1.5x to 2x stone diameter rule:
-          </p>
-          <ul>
-            <li><strong>Small River Gravel (3/8" to 3/4"):</strong> Install at a 2-inch to 2.5-inch depth. Yield is approximately 96 to 120 sq ft per ton.</li>
-            <li><strong>Medium River Rock (1" to 3"):</strong> Install at a 3-inch to 3.5-inch depth. Yield is approximately 68 to 80 sq ft per ton.</li>
-            <li><strong>Large River Cobbles (3" to 5"):</strong> Install at a 4-inch to 6-inch depth. Yield is approximately 40 to 60 sq ft per ton.</li>
-          </ul>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About River Rock Tonnage</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </article>
-
-    <TopicClusterNav
-      currentPage="/river-rock-tons-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <article class="rrt-guide"><div class="container">
+      <nav class="rrt-jumps" aria-label="On this page"><strong>Plan the purchase</strong><a href="#rrt-formula">See the tonnage math</a><a href="#rrt-coverage">Compare depths</a><a href="#rrt-quote">Check the supplier quote</a><a href="#rrt-questions">Common questions</a></nav>
+      <section class="rrt-panel rrt-formula-panel" id="rrt-formula" aria-labelledby="rrt-formula-heading">
+        <div><p class="rrt-eyebrow">The conversion</p><h2 id="rrt-formula-heading">From a measured layer to a tonnage estimate</h2><p>Square footage and finished depth give you volume. The seller’s <em>loose bulk weight</em> converts that volume to short tons. This weight includes the air spaces between stones; it is different from the density of an individual rock.</p><div class="rrt-formula"><code>cubic yards = area (sq ft) × depth (in) ÷ 324</code><code>short tons = cubic yards × loose short tons per yd³</code></div><p>For the starting example: <strong>300 × 3 ÷ 324 = 2.78 yd³</strong>. At 1.35 tons/yd³, the layer weighs about <strong>3.75 tons</strong>. Multiplying by 1.10 for the chosen 10% extra gives <strong>3.06 yd³, or 4.13 tons to order</strong>.</p><p class="rrt-fine">The 324 divisor combines 12 inches per foot and 27 cubic feet per cubic yard. The 1.35 multiplier is an editable planning assumption, not a guaranteed product weight.</p></div>
+        <figure><img src="/river-rock-tons-conversion.svg" width="840" height="560" loading="lazy" alt="River rock conversion diagram: 300 square feet at 3 inches equals 2.78 cubic yards; at 1.35 short tons per cubic yard this is 3.75 tons before extra, or 4.13 tons with 10 percent extra." /><figcaption><span class="rrt-mobile-figure-hint">Swipe to read the diagram. </span>Keep volume, material weight, and order allowance as separate steps.</figcaption></figure>
+      </section>
+      <section class="rrt-panel" id="rrt-coverage" aria-labelledby="rrt-coverage-heading"><p class="rrt-eyebrow">The depth decision</p><h2 id="rrt-coverage-heading">One ton covers less ground as the layer gets deeper</h2><p>These yields assume 1.35 US short tons per cubic yard, a flat layer, and no extra allowance. They are conversion examples, not promises about the appearance of a particular stone size. A mixed 1–3 in river rock often starts around a 3 in planning depth; inspect the actual grade before committing to a full order.</p>
+        <div class="rrt-table-wrap"><table><caption>River rock area covered before ordering extra</caption><thead><tr><th scope="col">Installed depth</th><th scope="col">One cubic yard covers</th><th scope="col">One short ton covers</th></tr></thead><tbody><tr><th scope="row">2 in</th><td>162 sq ft</td><td>120 sq ft</td></tr><tr><th scope="row">3 in</th><td>108 sq ft</td><td>80 sq ft</td></tr><tr><th scope="row">4 in</th><td>81 sq ft</td><td>60 sq ft</td></tr><tr><th scope="row">6 in</th><td>54 sq ft</td><td>40 sq ft</td></tr></tbody></table></div>
+        <div class="rrt-callout"><strong>For large cobbles:</strong> “6–10 inch rock” names a size range, not a 6–10 inch layer. A single visible course has an uneven surface and gaps, so a blanket-depth estimate can mislead. Ask for coverage of that specific grade per ton or lay out a small sample, measure its area, and scale from the amount used.</div><p class="rrt-fine">If the project is a dry creek, measure the stone-lined bottom and banks by section. This tool estimates quantity; it does not size rock for flowing water. See the <a href="/dry-creek-bed">dry creek bed guide</a> for that separate design question.</p>
+      </section>
+      <section class="rrt-panel" id="rrt-quote" aria-labelledby="rrt-quote-heading"><p class="rrt-eyebrow">Before paying for a load</p><h2 id="rrt-quote-heading">Check the weight attached to the seller’s stone</h2><p>Supplier listings illustrate why the weight field is editable: <a href="https://www.rockytopresources.com/product-page/river-rock-gray-1-2-cubic-yard" target="_blank" rel="noopener noreferrer">Rocky Top Resources</a> uses an approximate 1.30-ton-per-cubic-yard rock conversion on its 1–2 in gray river rock listing, while <a href="https://www.kentcountryside.com/product/38-River-Rock-" target="_blank" rel="noopener noreferrer">Kent Countryside</a> lists about 1.40 tons per cubic yard for 3/8 in river rock. This calculator starts at 1.35; use the figure for the stone you actually select.</p>
+        <div class="rrt-comparison"><div><span>1.30 tons/yd³</span><strong>3.97 tons</strong></div><div><span>1.35 tons/yd³</span><strong>4.13 tons</strong></div><div><span>1.40 tons/yd³</span><strong>4.28 tons</strong></div></div><p class="rrt-fine">Each comparison uses the same 300 sq ft bed, 3 in installed depth, and 10% extra. Only the assumed loose bulk weight changes.</p>
+        <ul class="rrt-checklist"><li><strong>Confirm the exact grade.</strong> “River rock” can include widely different size mixes and amounts of fines; ask to see a sample.</li><li><strong>Confirm the unit.</strong> A quote by the ton and a quote by the cubic yard need the seller’s tons-per-yard factor to compare.</li><li><strong>Confirm delivery limits.</strong> Ask about the minimum order, available truck payload, delivery fee, and where the load may be tipped. Do not treat a generic truck-load figure as universal.</li><li><strong>Keep moisture separate.</strong> <a href="https://store.astm.org/c0029_c0029m-23.html" target="_blank" rel="noopener noreferrer">ASTM C29/C29M</a> describes bulk density testing for aggregate up to 5 in nominal maximum size; it does not assign river rock a universal 1.35 value. Stockpile moisture and placement can make a delivery differ from a dry test value.</li></ul>
+        <p>Need volume or bag quantities instead? Use the <a href="/river-rock-cubic-yard-calculator">river rock cubic yard calculator</a> or <a href="/river-rock-bag-calculator">river rock bag calculator</a>. To work backward from a known tonnage to square feet, use the <a href="/river-rock-coverage-calculator">river rock coverage calculator</a>.</p>
+      </section>
+      <section class="rrt-panel" id="rrt-questions" aria-labelledby="rrt-questions-heading"><h2 id="rrt-questions-heading">River rock tonnage questions</h2><div class="rrt-faq">{faqItems.map(item => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}</div></section>
+    </div></article>
+    <TopicClusterNav currentPage="/river-rock-tons-calculator" category="quantity" />
   </main>
-
   <Footer />
-
   <script>
-    function updateRRT() {
-      const l = parseFloat((document.getElementById('rrt-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('rrt-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('rrt-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('rrt-waste') as HTMLInputElement)?.value) || 0;
-
-      const netYards = (l * w * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const tons = totalYards * 1.35;
-      const lbs = tons * 2000;
-      const loads = tons / 14;
-
-      const tEl = document.getElementById('kpi-rrt-tons');
-      const yEl = document.getElementById('kpi-rrt-yards');
-      const lEl = document.getElementById('kpi-rrt-loads');
-      const lbsEl = document.getElementById('kpi-rrt-lbs');
-
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (lEl) lEl.innerText = totalYards.toFixed(2);
-      if (lEl) lEl.innerText = loads.toFixed(1);
-      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+    const input = (id: string) => document.getElementById(id) as HTMLInputElement | null;
+    const readNumber = (id: string) => { const value = input(id)?.value.trim(); return value ? Number(value) : NaN; };
+    const output = (id: string, value: string) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+    const inputIds = ['rrt-length', 'rrt-width', 'rrt-area', 'rrt-depth', 'rrt-density', 'rrt-extra'];
+    const resultIds = ['rrt-order-tons', 'rrt-net-tons', 'rrt-order-yards', 'rrt-net-yards', 'rrt-order-pounds', 'rrt-one-ton-area'];
+    function updateRiverRockTons() {
+      const mode = (document.querySelector('input[name="rrt-measure-mode"]:checked') as HTMLInputElement | null)?.value || 'rectangle';
+      const rectangle = document.getElementById('rrt-rectangle-fields');
+      const knownArea = document.getElementById('rrt-area-fields');
+      if (rectangle) rectangle.hidden = mode !== 'rectangle';
+      if (knownArea) knownArea.hidden = mode !== 'area';
+      const length = readNumber('rrt-length'), width = readNumber('rrt-width');
+      const enteredArea = readNumber('rrt-area'), depth = readNumber('rrt-depth');
+      const density = readNumber('rrt-density'), extra = readNumber('rrt-extra');
+      const area = mode === 'area' ? enteredArea : length * width;
+      const validArea = mode === 'area' ? Number.isFinite(enteredArea) && enteredArea > 0 : [length, width].every(value => Number.isFinite(value) && value > 0);
+      const valid = validArea && Number.isFinite(area) && area > 0 && Number.isFinite(depth) && depth > 0 && depth <= 36 && Number.isFinite(density) && density > 0 && density <= 3 && Number.isFinite(extra) && extra >= 0 && extra <= 100;
+      const error = document.getElementById('rrt-error');
+      if (!valid) {
+        resultIds.forEach(id => output(id, '—'));
+        output('rrt-result-caption', 'Enter valid measurements, depth, bulk weight, and extra.');
+        if (error) { error.textContent = 'Check the active area inputs, depth (up to 36 in), bulk weight (up to 3 tons/yd³), and extra (0–100%).'; error.hidden = false; }
+        return;
+      }
+      if (error) error.hidden = true;
+      const installedYards = area * depth / 324;
+      const orderYards = installedYards * (1 + extra / 100);
+      const installedTons = installedYards * density;
+      const orderTons = orderYards * density;
+      const coveragePerTon = 324 / (depth * density);
+      output('rrt-order-tons', orderTons.toFixed(2));
+      output('rrt-net-tons', installedTons.toFixed(2) + ' tons');
+      output('rrt-order-yards', orderYards.toFixed(2) + ' yd³');
+      output('rrt-net-yards', installedYards.toFixed(2) + ' yd³');
+      output('rrt-order-pounds', Math.round(orderTons * 2000).toLocaleString('en-US') + ' lb');
+      output('rrt-one-ton-area', Math.round(coveragePerTon).toLocaleString('en-US') + ' sq ft');
+      output('rrt-result-caption', area.toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' sq ft at ' + depth + ' in depth, with ' + extra + '% extra');
     }
-
-    ['rrt-length', 'rrt-width', 'rrt-depth', 'rrt-waste'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateRRT);
-    });
-    updateRRT();
+    inputIds.forEach(id => input(id)?.addEventListener('input', updateRiverRockTons));
+    document.querySelectorAll<HTMLInputElement>('input[name="rrt-measure-mode"]').forEach(item => item.addEventListener('change', updateRiverRockTons));
+    updateRiverRockTons();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .rrt-tool { padding: var(--space-8) 0; }
+  .rrt-tool-heading { max-width: 720px; margin-bottom: var(--space-6); }
+  .rrt-tool-heading h2, .rrt-panel h2 { color: var(--text-primary); font-size: var(--text-2xl); line-height: 1.25; margin: 0 0 var(--space-3); }
+  .rrt-tool-heading p, .rrt-panel p { color: var(--text-secondary); line-height: 1.7; }
+  .rrt-eyebrow { color: var(--accent-gold) !important; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; font-size: var(--text-xs); margin: 0 0 var(--space-2); }
+  .rrt-tool-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--space-5); align-items: start; }
+  .rrt-card, .rrt-panel { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: var(--space-8); }
+  .rrt-mode { border: 0; padding: 0; margin: 0 0 var(--space-5); display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .rrt-mode legend { width: 100%; color: var(--text-primary); font-weight: 700; margin-bottom: var(--space-2); }
+  .rrt-mode label { display: inline-flex; align-items: center; gap: .4rem; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-subtle); border-radius: 999px; padding: .45rem .8rem; cursor: pointer; font-size: var(--text-sm); }
+  .rrt-mode input { accent-color: var(--accent-gold); }
+  .rrt-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-4); }
+  .rrt-measure[hidden] { display: none; }
+  .rrt-main-fields { border-top: 1px solid var(--border-subtle); padding-top: var(--space-5); }
+  .rrt-field { display: flex; flex-direction: column; gap: var(--space-2); }
+  .rrt-field label { font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); }
+  .rrt-field label span { color: var(--text-muted); font-weight: 400; }
+  .rrt-field input { width: 100%; min-width: 0; padding: .7rem .8rem; font: inherit; color: var(--text-primary); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+  .rrt-field input:focus-visible, .rrt-mode input:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 2px; }
+  .rrt-help { border-top: 1px solid var(--border-subtle); padding-top: var(--space-4); }
+  .rrt-help p { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin: 0 0 var(--space-3); }
+  .rrt-help strong { color: var(--text-primary); }
+  .rrt-error { color: #b54037; font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+  .rrt-result-card { border-color: rgba(212,168,83,.5); position: sticky; top: 1rem; }
+  .rrt-primary-result { display: flex; align-items: baseline; flex-wrap: wrap; gap: .3rem .7rem; color: var(--text-primary); }
+  .rrt-primary-result strong { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; }
+  .rrt-primary-result span { font-weight: 700; }
+  .rrt-result-caption { color: var(--text-muted); font-size: var(--text-sm); margin: var(--space-2) 0 var(--space-5); }
+  .rrt-breakdown { margin: 0; }
+  .rrt-breakdown div { display: flex; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) 0; border-top: 1px solid var(--border-subtle); font-size: var(--text-sm); }
+  .rrt-breakdown dt { color: var(--text-secondary); }
+  .rrt-breakdown dd { margin: 0; color: var(--text-primary); font-weight: 700; text-align: right; }
+  .rrt-result-note { margin: var(--space-4) 0 0; padding: var(--space-3); background: var(--bg-surface); border-left: 3px solid var(--accent-gold); border-radius: var(--radius-sm); color: var(--text-secondary); font-size: var(--text-sm); line-height: 1.55; }
+  .rrt-result-note strong { color: var(--text-primary); }
+  .rrt-guide { background: var(--bg-body); padding: var(--space-8) 0 var(--space-12); }
+  .rrt-jumps { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); margin-bottom: var(--space-6); font-size: var(--text-sm); }
+  .rrt-jumps strong { color: var(--text-primary); }
+  .rrt-jumps a, .rrt-panel a { color: var(--accent-gold); text-underline-offset: .2em; }
+  .rrt-panel { margin-bottom: var(--space-6); line-height: 1.7; scroll-margin-top: 1rem; }
+  .rrt-panel p { margin: 0 0 var(--space-4); }
+  .rrt-panel p:last-child { margin-bottom: 0; }
+  .rrt-formula-panel { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: var(--space-6); align-items: center; }
+  .rrt-formula-panel > * { min-width: 0; }
+  .rrt-formula { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); margin: var(--space-4) 0; overflow-x: auto; }
+  .rrt-formula code { display: block; color: var(--text-primary); font-size: var(--text-sm); white-space: nowrap; }
+  .rrt-formula code + code { margin-top: var(--space-2); }
+  .rrt-formula-panel figure { margin: 0; }
+  .rrt-formula-panel img { display: block; width: 100%; height: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+  .rrt-formula-panel figcaption, .rrt-panel .rrt-fine { color: var(--text-muted); font-size: var(--text-sm); }
+  .rrt-formula-panel figcaption { margin-top: var(--space-2); }
+  .rrt-mobile-figure-hint { display: none; }
+  .rrt-table-wrap { overflow-x: auto; margin: var(--space-4) 0; }
+  .rrt-table-wrap table { width: 100%; min-width: 480px; border-collapse: collapse; text-align: left; font-size: var(--text-sm); }
+  .rrt-table-wrap caption { text-align: left; color: var(--text-primary); font-weight: 700; margin-bottom: var(--space-2); }
+  .rrt-table-wrap th, .rrt-table-wrap td { border-bottom: 1px solid var(--border-subtle); padding: var(--space-3); }
+  .rrt-table-wrap thead th { background: var(--bg-surface); color: var(--text-primary); }
+  .rrt-table-wrap tbody th { color: var(--text-primary); }
+  .rrt-callout { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); border-radius: var(--radius-sm); color: var(--text-secondary); margin: var(--space-5) 0; }
+  .rrt-callout strong { color: var(--text-primary); }
+  .rrt-comparison { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); margin: var(--space-5) 0 var(--space-2); }
+  .rrt-comparison div { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .rrt-comparison span { color: var(--text-muted); display: block; font-size: var(--text-sm); }
+  .rrt-comparison strong { color: var(--text-primary); display: block; font-size: var(--text-xl); }
+  .rrt-checklist { padding-left: var(--space-6); color: var(--text-secondary); }
+  .rrt-checklist li { margin-bottom: var(--space-3); }
+  .rrt-checklist strong { color: var(--text-primary); }
+  .rrt-faq details { padding: var(--space-4) 0; border-top: 1px solid var(--border-subtle); }
+  .rrt-faq summary { cursor: pointer; color: var(--text-primary); font-weight: 700; }
+  .rrt-faq details p { font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+  @media (max-width: 900px) { .rrt-tool-grid, .rrt-formula-panel { grid-template-columns: 1fr; } .rrt-result-card { position: static; } }
+  @media (max-width: 560px) { .rrt-card, .rrt-panel { padding: var(--space-5); } .rrt-fields, .rrt-comparison { grid-template-columns: 1fr; } .rrt-formula-panel figure { overflow-x: auto; } .rrt-formula-panel img { min-width: 520px; } .rrt-mobile-figure-hint { display: inline; } }
 </style>

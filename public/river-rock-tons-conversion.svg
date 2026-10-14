@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="560" viewBox="0 0 840 560" role="img" aria-labelledby="title desc">
+  <title id="title">From river rock bed area to order tons</title>
+  <desc id="desc">A 300 square foot bed at three inches deep uses 2.78 cubic yards. At a sample bulk weight of 1.35 short tons per cubic yard, it needs 3.75 tons before extra and 4.13 tons with ten percent extra.</desc>
+  <defs>
+    <linearGradient id="background" x2="1" y2="1"><stop stop-color="#f5f0e6"/><stop offset="1" stop-color="#e9f0eb"/></linearGradient>
+    <pattern id="rock" width="54" height="43" patternUnits="userSpaceOnUse"><ellipse cx="12" cy="13" rx="11" ry="7" fill="#899593"/><ellipse cx="39" cy="17" rx="12" ry="8" fill="#ad9a81"/><ellipse cx="25" cy="38" rx="13" ry="8" fill="#637a78"/></pattern>
+  </defs>
+  <rect width="840" height="560" rx="24" fill="url(#background)"/>
+  <text x="44" y="58" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#213c3d">River rock: from area to order weight</text>
+  <text x="44" y="88" font-family="Arial, sans-serif" font-size="16" fill="#476262">Worked example · US short tons · editable weight assumption</text>
+
+  <rect x="44" y="120" width="340" height="180" rx="17" fill="#fff" stroke="#d6ddd5" stroke-width="2"/>
+  <rect x="68" y="150" width="168" height="108" rx="8" fill="url(#rock)" stroke="#566d67" stroke-width="2"/>
+  <path d="M68 268h168M58 150v108" stroke="#49645c" stroke-width="2"/>
+  <text x="118" y="287" font-family="Arial, sans-serif" font-size="15" fill="#344e4a">30 ft</text>
+  <text x="65" y="141" font-family="Arial, sans-serif" font-size="15" fill="#344e4a">10 ft</text>
+  <text x="258" y="173" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#7d5e2b">BED AREA</text>
+  <text x="258" y="209" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#213c3d">300 ft²</text>
+  <text x="258" y="238" font-family="Arial, sans-serif" font-size="16" fill="#476262">at 3 in deep</text>
+
+  <path d="M399 211h31m-8-9 9 9-9 9" fill="none" stroke="#967440" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="445" y="120" width="350" height="180" rx="17" fill="#fff" stroke="#d6ddd5" stroke-width="2"/>
+  <text x="470" y="158" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#7d5e2b">INSTALLED VOLUME</text>
+  <text x="470" y="205" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#213c3d">2.78 yd³</text>
+  <text x="470" y="236" font-family="Arial, sans-serif" font-size="16" fill="#476262">300 × 3 ÷ 324</text>
+  <text x="470" y="267" font-family="Arial, sans-serif" font-size="14" fill="#607471">One cubic yard = 27 cubic feet</text>
+
+  <path d="M620 311v31m-9-8 9 9 9-9" fill="none" stroke="#967440" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="44" y="355" width="751" height="150" rx="17" fill="#244643"/>
+  <text x="69" y="388" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#e7c78d">SAMPLE LOOSE BULK WEIGHT</text>
+  <text x="69" y="431" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#fff">× 1.35 tons/yd³</text>
+  <text x="69" y="467" font-family="Arial, sans-serif" font-size="15" fill="#d4e3dd">Replace with your supplier’s value</text>
+  <path d="M375 386v88" stroke="#69837a" stroke-width="2"/>
+  <text x="400" y="388" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#e7c78d">BEFORE EXTRA</text>
+  <text x="400" y="430" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#fff">3.75 tons</text>
+  <path d="M578 386v88" stroke="#69837a" stroke-width="2"/>
+  <text x="603" y="388" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#e7c78d">WITH 10% EXTRA</text>
+  <text x="603" y="430" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#fff">4.13 tons</text>
+  <text x="603" y="467" font-family="Arial, sans-serif" font-size="15" fill="#d4e3dd">≈ 8,250 lb to order</text>
+  <text x="44" y="535" font-family="Arial, sans-serif" font-size="14" fill="#476262">Example math only. Stone grade, moisture, and the seller’s conversion can change the delivered weight.</text>
+</svg>

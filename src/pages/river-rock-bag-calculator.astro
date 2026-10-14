@@ -5,92 +5,76 @@ import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'River Rock Bag Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'River Rock Calculator', url: '/river-rock-calculator' },
-  { name: 'River Rock Bag Calculator', url: '/river-rock-bag-calculator' }
+  { name: pageTitle, url: '/river-rock-bag-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Bagged River Rock' },
-  { label: 'Standard Bag Volume', value: '0.5 Cubic Feet per Bag' },
-  { label: 'Average Bag Weight', value: '48 to 52 lbs per Bag' },
-  { label: 'Yard Multiplier', value: '54 Bags = 1.0 Cubic Yard' }
+  { label: 'Measure', value: 'Bed area × installed depth' },
+  { label: 'Check the label', value: 'Bag volume and bag weight' },
+  { label: 'Order', value: 'Whole bags, cost, and carrying weight' }
 ];
-
-const quickStats = [
-  { value: '54 Bags', label: 'Per Cubic Yard', desc: 'Exact bag multiplier based on 27 cubic feet per yard' },
-  { value: '2.0 sq ft', label: 'Yield at 3"', desc: 'Ground coverage per 0.5 cu ft bag at standard 3-inch bed depth' },
-  { value: '20 Bags', label: 'Tipping Point', desc: 'Threshold where bulk quarry delivery becomes cheaper than retail bags' }
-];
-
 const faqItems = [
   {
-    q: 'How many bags of river rock do I need for a 10x10 foot garden bed?',
-    a: 'A 10x10 foot garden bed equals 100 square feet. At a recommended 3-inch depth for 1-3 inch river rock, you need 25 cubic feet of stone, which equals exactly 50 bags of 0.5 cubic feet each (approximately 2,500 lbs total weight).'
+    q: 'How many bags of river rock cover a 10 × 10 ft bed?',
+    a: 'At 3 inches deep, the bed needs 25 cubic feet of installed stone. Divide by 0.5 cubic feet per bag and round up: 50 bags without extra, or 55 bags with a 10% ordering allowance. Change the bag-volume field if your product is a different size.'
   },
   {
-    q: 'How many bags of river rock are in a cubic yard?',
-    a: 'There are exactly 54 bags of 0.5 cubic feet in one cubic yard (27 cubic feet / 0.5 cu ft = 54 bags). In terms of weight, 54 bags equal approximately 2,700 pounds (1.35 short tons).'
+    q: 'How much area does one 0.5 cubic foot bag cover?',
+    a: 'By volume, one 0.5 cubic foot bag covers 3 square feet at 2 inches deep, 2 square feet at 3 inches, or 1.5 square feet at 4 inches. Actual appearance depends on the stone size, shape, and how evenly it is spread.'
   },
   {
-    q: 'How much does one bag of river rock cover?',
-    a: 'One standard 0.5 cubic foot bag covers 3.0 square feet at 2 inches depth, 2.0 square feet at 3 inches depth, and 1.5 square feet at 4 inches depth.'
+    q: 'How many half-cubic-foot bags equal one cubic yard?',
+    a: 'One cubic yard contains 27 cubic feet, so it has the same loose volume as 54 bags labeled 0.5 cubic feet. This is a volume conversion, not a promise that 54 bags weigh the same as a supplier’s cubic yard of a different product.'
   },
   {
-    q: 'When should I buy river rock in bulk instead of bags?',
-    a: 'If your project requires 20 bags or more (over 10 cubic feet or 0.37 cubic yards), ordering bulk river rock from a local landscape yard or quarry saves between 40 and 60 percent on material costs, even after paying delivery fees.'
+    q: 'Can I calculate bags from a 40, 44, or 50 lb label?',
+    a: 'Use the package’s cubic-foot volume or stated coverage for the bag count. Pounds describe weight, not a fixed volume: river rock products labeled 0.5 cubic feet can have different listed weights. Enter the labeled weight only to estimate hauling load.'
+  },
+  {
+    q: 'When is loose bulk river rock cheaper than bags?',
+    a: 'There is no universal bag-count cutoff. Compare your rounded-up bag purchase with a quote for the same stone, including the supplier’s minimum order and delivery charge. Bags may be easier to place in a narrow yard even when their material cost is higher.'
   }
 ];
-
 const upLinks = [
-  { title: 'River Rock Calculator (Material Parent)', slug: '/river-rock-calculator', badge: 'Material' },
-  { title: 'Rock Bag Calculator (Unit Parent)', slug: '/rock-bag-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'Material' },
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'All Stone' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Reference' }
 ];
-
 const lateralLinks = [
   { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'Tons' },
   { title: 'River Rock Cubic Yard Calculator', slug: '/river-rock-cubic-yard-calculator', badge: 'Yards' },
   { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Pea Gravel' }
 ];
-
 const bridgeLinks = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Drainage' }
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Buying' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
+  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Project' }
 ];
-
 const supportGuides = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Bag Weight and Price Guide', slug: '/rock-bag-weight-and-price-guide', badge: 'Hauling' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Install' },
+  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Bulk Weight' }
 ];
 ---
 
 <BaseLayout
-  title="River Rock Bag Calculator - 0.5 Cu Ft Bag Sizing & Yields"
-  metaDescription="Calculate exact 0.5 cu ft bags of river rock needed for landscaping beds, borders, and tree rings. Sizing formulas, coverage yields, and bulk cost analysis."
+  title={pageTitle}
+  description="Calculate whole bags of river rock from bed area, depth, package volume, and extra allowance. Check bag weight, cost, and a local bulk-delivery quote."
   canonicalPath="/river-rock-bag-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "River Rock Bag Calculator",
+      "name": pageTitle,
       "url": "https://rockcoveragecalculator.com/river-rock-bag-calculator",
-      "description": "Calculates 0.5 cu ft retail bags of river rock needed based on area square footage and depth.",
+      "description": "Estimates whole river rock bags, purchased volume, carrying weight, and cost using the package label and project dimensions.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Homeowners, Gardeners, DIY Landscapers"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Bagged River Rock Calculation"
-      }
+      "inLanguage": "en-US"
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -98,154 +82,214 @@ const supportGuides = [
       "mainEntity": faqItems.map(item => ({
         "@type": "Question",
         "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="River Rock Bag Calculator"
-      highlightWord="Bags"
-      badge="Retail Bag Sizing Engine"
-      subtitle="Calculate exact 0.5 cu ft bags of smooth river rock for flower beds, foundation borders, and garden accents."
+      title={pageTitle}
+      highlightWord="Bag"
+      badge="Bagged stone shopping planner"
+      subtitle="A 10 × 10 ft bed at 3 in deep takes 50 half-cubic-foot bags; allow 10% extra and the order becomes 55. One bag covers about 2 sq ft at that depth. Enter the volume printed on your bag for a count you can take to the store."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
-      quickStats={quickStats}
+      theme="decorative"
     />
 
-    <!-- Interactive River Rock Bag Calculator Tool -->
-    <section class="section">
+    <section class="bag-tool-section" id="bag-tool" aria-labelledby="bag-tool-heading">
       <div class="container">
+        <div class="tool-intro">
+          <div>
+            <p class="eyebrow">Plan your purchase</p>
+            <h2 id="bag-tool-heading">Count whole bags for your actual product</h2>
+          </div>
+          <p>Volume gives the bag count. The weight and price on your store's label turn that count into a loading and budget estimate.</p>
+        </div>
         <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>River Rock Area Dimensions</h3>
+          <div class="calc-panel">
+            <h3>1. Measure the stone-covered area</h3>
+            <fieldset class="area-choice">
+              <legend>How do you know the area?</legend>
+              <label><input type="radio" name="rrb-area-mode" value="rectangle" checked /> Length × width</label>
+              <label><input type="radio" name="rrb-area-mode" value="known" /> I know the square feet</label>
+            </fieldset>
+            <div class="dim-grid" id="rrb-rectangle-fields">
+              <div class="input-field">
+                <label for="rrb-length">Length (ft)</label>
+                <input type="number" id="rrb-length" value="10" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="rrb-width">Average width (ft)</label>
+                <input type="number" id="rrb-width" value="10" min="0.01" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <div class="dim-grid" id="rrb-known-fields" hidden>
+              <div class="input-field">
+                <label for="rrb-area">Measured area (sq ft)</label>
+                <input type="number" id="rrb-area" value="100" min="0.01" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <div class="dim-grid">
+              <div class="input-field">
+                <label for="rrb-depth">Installed depth (in)</label>
+                <input type="number" id="rrb-depth" value="3" min="0.1" max="24" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="rrb-extra">Extra to order (%)</label>
+                <input type="number" id="rrb-extra" value="10" min="0" max="100" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <h3>2. Copy your bag label</h3>
+            <div class="dim-grid">
+              <div class="input-field">
+                <label for="rrb-bag-volume">Volume per bag (cu ft)</label>
+                <input type="number" id="rrb-bag-volume" value="0.5" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="rrb-bag-weight">Labeled weight per bag (lb, optional)</label>
+                <input type="number" id="rrb-bag-weight" value="50" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="rrb-bag-price">Store price per bag ($)</label>
+                <input type="number" id="rrb-bag-price" placeholder="Optional" min="0" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <p class="tool-note">The 0.5 cu ft and 50 lb values are examples from one retail product. Other half-cubic-foot river rock bags list 40 or 44 lb; use the package you will buy.</p>
+            <details class="quote-fields">
+              <summary>Compare a loose bulk quote <span>optional</span></summary>
+              <p>Enter a quote for comparable river rock. Include any delivery minimum so the comparison reflects what the supplier will charge.</p>
+              <div class="dim-grid">
+                <div class="input-field">
+                  <label for="rrb-bulk-price">Bulk price per cubic yard ($)</label>
+                  <input type="number" id="rrb-bulk-price" placeholder="Supplier quote" min="0" step="any" inputmode="decimal" />
+                </div>
+                <div class="input-field">
+                  <label for="rrb-delivery">Delivery charge ($, optional)</label>
+                  <input type="number" id="rrb-delivery" placeholder="Blank means $0" min="0" step="any" inputmode="decimal" />
+                </div>
+                <div class="input-field">
+                  <label for="rrb-minimum">Minimum billable yards</label>
+                  <input type="number" id="rrb-minimum" placeholder="0 if none" min="0" step="any" inputmode="decimal" />
+                </div>
+                <div class="input-field">
+                  <label for="rrb-increment">Supplier selling increment</label>
+                  <select id="rrb-increment">
+                    <option value="0">Exact quoted yards</option>
+                    <option value="0.25">Next ¼ yd³</option>
+                    <option value="0.5">Next ½ yd³</option>
+                    <option value="1">Next whole yd³</option>
+                  </select>
+                </div>
+              </div>
+            </details>
+            <p class="input-error" id="rrb-error" role="alert" hidden></p>
           </div>
 
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="rrb-length">Length (Feet)</label>
-              <input type="number" id="rrb-length" value="18" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="rrb-width">Width (Feet)</label>
-              <input type="number" id="rrb-width" value="10" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="rrb-depth">Depth (Inches)</label>
-              <input type="number" id="rrb-depth" value="3.0" min="1" max="12" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="rrb-price">Price per Bag ($)</label>
-              <input type="number" id="rrb-price" value="5.25" min="1" step="0.25" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
+          <div class="calc-results-panel" aria-live="polite" aria-atomic="true">
+            <h3>Your bag list</h3>
             <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-rrb-bags">0</div>
-              <div class="kpi-label">0.5 Cu Ft Bags Needed</div>
-              <div class="kpi-subtext" id="kpi-rrb-lbs">0 lbs total weight</div>
+              <div class="kpi-card kpi-hero">
+                <div class="kpi-value" id="rrb-bags">55</div>
+                <div class="kpi-label">Whole bags to buy</div>
+                <div class="kpi-subtext" id="rrb-bought-volume">27.5 cu ft in purchased bags</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="rrb-coverage">2</div>
+                <div class="kpi-label">Sq ft covered per bag</div>
+                <div class="kpi-subtext" id="rrb-coverage-depth">At 3 in installed depth</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="rrb-weight">2,750 lb</div>
+                <div class="kpi-label">Estimated bags to carry</div>
+                <div class="kpi-subtext">Bag count × labeled weight, if provided</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="rrb-cost">—</div>
+                <div class="kpi-label">Bag purchase estimate</div>
+                <div class="kpi-subtext">Before tax or transport</div>
+              </div>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-rrb-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-rrb-cuft">0 cu ft</div>
+            <div class="result-explainer" id="rrb-breakdown">
+              <strong>How the count is built</strong>
+              <p id="rrb-volume-line">100 sq ft × 3 in ÷ 12 = 25 cu ft installed. Add 10% = 27.5 cu ft to order (1.02 cu yd).</p>
+              <p id="rrb-rounding-line">27.5 cu ft ÷ 0.5 cu ft per bag = 55; buy 55 whole bags.</p>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-rrb-cost">$0.00</div>
-              <div class="kpi-label">Estimated Material Cost</div>
-              <div class="kpi-subtext" id="kpi-rrb-bulk-save">Bulk comparison</div>
+            <div class="quote-result" id="rrb-quote-result">
+              <strong>Bulk comparison</strong>
+              <p id="rrb-quote-text">Enter a store bag price and a local bulk quote to compare delivered material costs.</p>
             </div>
-            </div>
+            <p class="result-caution">Before loading, check bag weight plus passengers and gear against your vehicle's tire and loading label. This result does not set a safe vehicle load.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on Bagged River Rock -->
-    <article class="content-guide-section">
+    <article class="bag-guide">
       <div class="container">
+        <nav class="guide-jumps" aria-label="On this page">
+          <strong>Shop with confidence</strong>
+          <a href="#bag-label">Read the bag</a>
+          <a href="#bag-depth">Set the depth</a>
+          <a href="#bag-order">Check the order</a>
+          <a href="#bag-faq">Questions</a>
+        </nav>
 
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="River Rock Bag Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">River Rock Bag Reference</span>
+        <section class="guide-panel label-panel" id="bag-label">
+          <div>
+            <p class="eyebrow">The package matters</p>
+            <h2>Use cubic feet for quantity, pounds for hauling</h2>
+            <p>A bag is a container, not a standard measure of stone. For a volume-labeled product, divide the stone volume your bed needs by the dry volume printed on the package, then round <em>up</em> to a whole bag. A 0.5 cu ft bag is common, but the calculator lets you replace it.</p>
+            <p>Do not turn a weight-only label into cubic feet using a universal “pounds per bag” rule. Even half-cubic-foot products differ: <a href="https://www.homedepot.com/p/100558618" target="_blank" rel="noopener noreferrer">Vigoro river pebbles list 50 lb</a>, <a href="https://www.lowes.com/pd/0-5-cu-ft-44-lb-Brown-River-Rock/3087183" target="_blank" rel="noopener noreferrer">Lowe's DecoRock lists 44 lb</a>, and <a href="https://www.homedepot.com/p/302985371" target="_blank" rel="noopener noreferrer">Vigoro creek rock lists 40 lb</a>. If only weight is shown, use the maker's stated coverage or ask for the packaged volume.</p>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Bags = [Area (sq ft) × Depth (in) / 12] × 2</span>
-              <p class="aeo-quick-desc">Converts cubic feet into 0.5 cu ft commercial retail bags.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 3"</span>
-              <span class="aeo-quick-value">2.0 sq ft per Bag</span>
-              <p class="aeo-quick-desc">Standard depth for 1-inch to 3-inch river stone mulch.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bags per Yard</span>
-              <span class="aeo-quick-value">54 Bags (27 cu ft)</span>
-              <p class="aeo-quick-desc">Exact cubic yard volume equivalent for standard 0.5 cu ft bags.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Tipping Point</span>
-              <span class="aeo-quick-value">20 Bags ($105 to $130)</span>
-              <p class="aeo-quick-desc">Threshold where bulk quarry delivery becomes more economical.</p>
-            </div>
-          </div>
+          <figure>
+            <img src="/river-rock-bag-coverage.svg" width="840" height="520" loading="lazy" alt="One half-cubic-foot river rock bag spread at different depths: 3 square feet at 2 inches, 2 square feet at 3 inches, and 1.5 square feet at 4 inches." />
+            <figcaption><span class="mobile-figure-hint">Swipe to read the diagram. </span>Equal bag volume covers less area as the layer gets deeper. The drawn stones illustrate coverage, not a prescribed stone size.</figcaption>
+          </figure>
         </section>
 
-        <div class="content-card">
-          <h2>Sizing Retail Bags of River Rock</h2>
-          <p>
-            Standard retail bags of river rock sold at home improvement retailers (such as The Home Depot and Lowe's) hold <strong>0.5 cubic feet</strong> of material and weigh approximately <strong>50 pounds</strong>. Sizing your project accurately prevents multiple trips to the store:
-          </p>
-
-          <div class="formula-box">
-            <code>Total Cubic Feet = [Length (ft) × Width (ft) × Depth (in)] / 12</code>
-            <br />
-            <code>Number of 0.5 cu ft Bags = Total Cubic Feet × 2</code>
+        <section class="guide-panel" id="bag-depth">
+          <p class="eyebrow">Depth changes the shopping list</p>
+          <h2>Choose a finished layer before buying bags</h2>
+          <p>For a decorative inorganic mulch, <a href="https://extension.usu.edu/cwel/principles" target="_blank" rel="noopener noreferrer">Utah State University Extension suggests 2–3 inches</a>. Treat that as a starting point, not a promise that every stone size will hide the ground at the same depth. Spread a small sample at the intended depth; larger mixed river stones can leave visible gaps and rounded stones move more readily on slopes and walked paths.</p>
+          <div class="table-wrap">
+            <table>
+              <caption>Volume-based coverage for a bag labeled 0.5 cu ft, before extra</caption>
+              <thead><tr><th scope="col">Installed depth</th><th scope="col">One bag covers</th><th scope="col">Bags for 100 sq ft</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">2 in</th><td>3 sq ft</td><td>34</td></tr>
+                <tr><th scope="row">3 in</th><td>2 sq ft</td><td>50</td></tr>
+                <tr><th scope="row">4 in</th><td>1.5 sq ft</td><td>67</td></tr>
+              </tbody>
+            </table>
           </div>
+          <p class="small-note">The 4-inch row illustrates how the math changes for a deeper layer; it is not a blanket recommendation. The bag count rounds up to whole bags. Add extra only after calculating installed volume.</p>
+        </section>
 
-          <h3>Coverage per 0.5 Cu Ft Bag by Depth</h3>
-          <ul>
-            <li><strong>2.0 Inches Depth:</strong> Covers 3.0 sq ft per bag (small 3/8" to 3/4" pebbles).</li>
-            <li><strong>3.0 Inches Depth:</strong> Covers 2.0 sq ft per bag (medium 1" to 3" river rock).</li>
-            <li><strong>4.0 Inches Depth:</strong> Covers 1.5 sq ft per bag (large 3" to 5" river cobbles).</li>
-          </ul>
-        </div>
+        <section class="guide-panel" id="bag-order">
+          <p class="eyebrow">From estimate to pickup</p>
+          <h2>Three checks that prevent a second trip</h2>
+          <div class="check-grid">
+            <div><span>01</span><h3>Measure the area the stones touch</h3><p>For a rectangle, multiply length by average width. For curves, split the bed into simple sections, add their areas, then use “I know the square feet.” Exclude large planters or paving that will stay uncovered.</p></div>
+            <div><span>02</span><h3>Match the product and the quote</h3><p>Compare bag and bulk costs for a similar size and color of river rock. Bulk may have a minimum billable order and a delivery fee. The calculator uses your entered prices; it does not assume a universal break-even point.</p></div>
+            <div><span>03</span><h3>Plan the weight before pickup</h3><p>Multiply whole bags by the weight on your chosen product. Check the “occupants and cargo” limit on the vehicle's doorjamb label, then account for people and other cargo. <a href="https://www.nhtsa.gov/vehicle-safety/tires" target="_blank" rel="noopener noreferrer">NHTSA shows where to find the tire and loading label</a>.</p></div>
+          </div>
+          <p>For a larger bed, use the <a href="/river-rock-calculator">river rock calculator</a> to compare yards and tons. If you are choosing between store bags and delivery, read the <a href="/bulk-vs-bagged-rock">bulk versus bagged guide</a>. River rock around plants can heat the soil and does not improve it; <a href="https://extension.umn.edu/garden-and-home/yard-and-garden/gardening-in-minnesota/mulching-for-soil-and-garden-health" target="_blank" rel="noopener noreferrer">University of Minnesota Extension</a> recommends considering that tradeoff.</p>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Bagged River Rock</h2>
+        <section class="guide-panel" id="bag-faq">
+          <h2>River rock bag questions</h2>
           <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
+            {faqItems.map(item => (
+              <details>
+                <summary>{item.q}</summary>
                 <p>{item.a}</p>
-              </div>
+              </details>
             ))}
           </div>
-        </div>
-
+        </section>
       </div>
     </article>
 
@@ -258,102 +302,201 @@ const supportGuides = [
       supportGuides={supportGuides}
     />
   </main>
-
   <Footer />
 
   <script>
-    function updateRRB() {
-      const l = parseFloat((document.getElementById('rrb-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('rrb-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('rrb-depth') as HTMLInputElement)?.value) || 0;
-      const price = parseFloat((document.getElementById('rrb-price') as HTMLInputElement)?.value) || 0;
+    const field = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const output = (id: string, value: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    };
+    const numberText = (value: number, maximumFractionDigits = 2) =>
+      value.toLocaleString('en-US', { maximumFractionDigits });
+    const moneyText = (value: number) =>
+      value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
-      const cuft = (l * w * (d / 12));
-      const bags = Math.ceil(cuft * 2);
-      const yards = cuft / 27;
-      const totalWeight = bags * 50;
-      const totalCost = bags * price;
-
-      const bEl = document.getElementById('kpi-rrb-bags');
-      const yEl = document.getElementById('kpi-rrb-yards');
-      const cEl = document.getElementById('kpi-rrb-cost');
-      const lbsEl = document.getElementById('kpi-rrb-lbs');
-      const cuftEl = document.getElementById('kpi-rrb-cuft');
-      const saveEl = document.getElementById('kpi-rrb-bulk-save');
-
-      if (bEl) bEl.innerText = bags.toLocaleString();
-      if (yEl) yEl.innerText = yards.toFixed(2);
-      if (cEl) cEl.innerText = '$' + totalCost.toFixed(2);
-      if (lbsEl) lbsEl.innerText = totalWeight.toLocaleString() + ' lbs (~' + (totalWeight / 2000).toFixed(2) + ' tons)';
-      if (cuftEl) cuftEl.innerText = cuft.toFixed(1) + ' cu ft net volume';
-
-      if (saveEl) {
-        if (bags >= 20) {
-          const bulkCost = yards * 60 + 75; // $60/yd + $75 delivery
-          const savings = totalCost - bulkCost;
-          if (savings > 0) {
-            saveEl.innerText = 'Bulk saves approx $' + Math.round(savings) + ' vs bags';
-            saveEl.style.color = 'var(--accent-gold)';
-          } else {
-            saveEl.innerText = 'Bags are comparable in price';
-            saveEl.style.color = 'var(--text-muted)';
-          }
-        } else {
-          saveEl.innerText = 'Bags are more economical for this size';
-          saveEl.style.color = 'var(--text-muted)';
-        }
+    function updateBagEstimate() {
+      const mode = (document.querySelector('input[name="rrb-area-mode"]:checked') as HTMLInputElement).value;
+      const required = mode === 'known'
+        ? ['rrb-area', 'rrb-depth', 'rrb-extra', 'rrb-bag-volume']
+        : ['rrb-length', 'rrb-width', 'rrb-depth', 'rrb-extra', 'rrb-bag-volume'];
+      const optional = ['rrb-bag-weight', 'rrb-bag-price', 'rrb-bulk-price', 'rrb-delivery', 'rrb-minimum'];
+      const inactive = mode === 'known' ? ['rrb-length', 'rrb-width'] : ['rrb-area'];
+      inactive.forEach(id => field(id).removeAttribute('aria-invalid'));
+      const invalidRequired: string[] = [];
+      const invalidOptional: string[] = [];
+      for (const id of required) {
+        const input = field(id);
+        const value = Number(input.value);
+        const valid = !input.validity.badInput && input.value.trim() !== '' && Number.isFinite(value) && value >= Number(input.min || 0) &&
+          (!input.max || value <= Number(input.max));
+        input.setAttribute('aria-invalid', String(!valid));
+        if (!valid) invalidRequired.push(id);
       }
+      for (const id of optional) {
+        const input = field(id);
+        const value = Number(input.value);
+        const valid = !input.validity.badInput && (input.value.trim() === '' ||
+          (Number.isFinite(value) && value >= Number(input.min || 0) && (!input.max || value <= Number(input.max))));
+        input.setAttribute('aria-invalid', String(!valid));
+        if (!valid) invalidOptional.push(id);
+      }
+      const error = document.getElementById('rrb-error') as HTMLElement;
+      const invalidFields = [...invalidRequired, ...invalidOptional];
+      error.textContent = invalidFields.length ? 'Enter a valid number for: ' + invalidFields.map(id =>
+        document.querySelector('label[for="' + id + '"]')?.textContent || id).join('; ') + '.' : '';
+      error.hidden = invalidFields.length === 0;
+      if (invalidRequired.length) {
+        ['rrb-bags', 'rrb-coverage', 'rrb-weight', 'rrb-cost'].forEach(id => output(id, '—'));
+        output('rrb-bought-volume', '');
+        output('rrb-coverage-depth', '');
+        output('rrb-volume-line', 'Correct the highlighted input to see the volume.');
+        output('rrb-rounding-line', '');
+        output('rrb-quote-text', 'Correct the input to compare costs.');
+        return;
+      }
+
+      const area = mode === 'known' ? Number(field('rrb-area').value) :
+        Number(field('rrb-length').value) * Number(field('rrb-width').value);
+      const depth = Number(field('rrb-depth').value);
+      const extra = Number(field('rrb-extra').value);
+      const bagVolume = Number(field('rrb-bag-volume').value);
+      const bagWeightRaw = field('rrb-bag-weight').value.trim();
+      const installedVolume = area * depth / 12;
+      const orderVolume = installedVolume * (1 + extra / 100);
+      const bagCount = Math.ceil(orderVolume / bagVolume - 1e-10);
+      const boughtVolume = bagCount * bagVolume;
+      const yards = orderVolume / 27;
+
+      output('rrb-bags', numberText(bagCount, 0));
+      output('rrb-bought-volume', numberText(boughtVolume) + ' cu ft in purchased bags');
+      output('rrb-coverage', numberText(bagVolume * 12 / depth));
+      output('rrb-coverage-depth', 'At ' + numberText(depth) + ' in installed depth');
+      output('rrb-weight', bagWeightRaw === '' || invalidOptional.includes('rrb-bag-weight')
+        ? '—' : numberText(bagCount * Number(bagWeightRaw), 0) + ' lb');
+      output('rrb-volume-line', numberText(area) + ' sq ft × ' + numberText(depth) + ' in ÷ 12 = ' +
+        numberText(installedVolume) + ' cu ft installed. Add ' + numberText(extra) + '% = ' +
+        numberText(orderVolume) + ' cu ft to order (' + numberText(yards) + ' cu yd).');
+      output('rrb-rounding-line', numberText(orderVolume) + ' cu ft ÷ ' + numberText(bagVolume) +
+        ' cu ft per bag = ' + numberText(orderVolume / bagVolume) + '; round up to ' +
+        numberText(bagCount, 0) + ' whole bags.');
+
+      const bagPriceRaw = field('rrb-bag-price').value.trim();
+      const bulkPriceRaw = field('rrb-bulk-price').value.trim();
+      const deliveryRaw = field('rrb-delivery').value.trim();
+      const minimumRaw = field('rrb-minimum').value.trim();
+      const invalidQuote = ['rrb-bulk-price', 'rrb-delivery', 'rrb-minimum'].some(id => invalidOptional.includes(id));
+      if (invalidOptional.includes('rrb-bag-price')) {
+        output('rrb-cost', '—');
+        output('rrb-quote-text', 'Correct the highlighted store bag price to compare costs.');
+        return;
+      }
+      if (bagPriceRaw === '') {
+        output('rrb-cost', '—');
+        output('rrb-quote-text', invalidQuote ? 'Correct the highlighted bulk quote field to compare costs.' :
+          'Enter a store bag price and a local bulk quote to compare delivered material costs.');
+        return;
+      }
+      const bagCost = bagCount * Number(bagPriceRaw);
+      output('rrb-cost', moneyText(bagCost));
+      if (invalidQuote) {
+        output('rrb-quote-text', 'Correct the highlighted bulk quote field to compare costs.');
+        return;
+      }
+      if (bulkPriceRaw === '') {
+        output('rrb-quote-text', 'Bag estimate: ' + moneyText(bagCost) +
+          '. Add a local bulk price per yard to compare your quotes; blank delivery counts as $0.');
+        return;
+      }
+      const deliveryCharge = deliveryRaw === '' ? 0 : Number(deliveryRaw);
+      const minimumYards = Math.max(yards, minimumRaw === '' ? 0 : Number(minimumRaw));
+      const increment = Number((document.getElementById('rrb-increment') as HTMLSelectElement).value);
+      const billableYards = increment > 0 ? Math.ceil((minimumYards - 1e-10) / increment) * increment : minimumYards;
+      const bulkCost = billableYards * Number(bulkPriceRaw) + deliveryCharge;
+      const difference = Math.abs(bagCost - bulkCost);
+      const result = difference < 0.005 ? 'The two estimates are the same' :
+        bagCost < bulkCost ? 'Bags estimate ' + moneyText(difference) + ' less' :
+          'Bulk estimates ' + moneyText(difference) + ' less';
+      output('rrb-quote-text', 'Bags ' + moneyText(bagCost) + ' vs bulk ' + moneyText(bulkCost) +
+        ' (' + numberText(billableYards) + ' billable yd³, ' + moneyText(deliveryCharge) + ' delivery). ' + result +
+        '. Confirm supplier minimums, tax, and the same stone grade.');
     }
 
-    ['rrb-length', 'rrb-width', 'rrb-depth', 'rrb-price'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateRRB);
+    document.querySelectorAll('input[name="rrb-area-mode"]').forEach(input => {
+      input.addEventListener('change', () => {
+        const known = (input as HTMLInputElement).value === 'known' && (input as HTMLInputElement).checked;
+        if (known) {
+          const area = Number(field('rrb-length').value) * Number(field('rrb-width').value);
+          if (Number.isFinite(area) && area > 0) field('rrb-area').value = String(area);
+        }
+        (document.getElementById('rrb-known-fields') as HTMLElement).hidden = !known;
+        (document.getElementById('rrb-rectangle-fields') as HTMLElement).hidden = known;
+        updateBagEstimate();
+      });
     });
-    updateRRB();
+    document.querySelectorAll('#bag-tool input[type="number"]').forEach(input =>
+      input.addEventListener('input', updateBagEstimate));
+    document.getElementById('rrb-increment')?.addEventListener('change', updateBagEstimate);
+    updateBagEstimate();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .bag-tool-section, .bag-guide { padding: var(--space-10) 0; background: var(--bg-body); }
+  .tool-intro { display: flex; justify-content: space-between; align-items: end; gap: var(--space-6); margin-bottom: var(--space-6); }
+  .tool-intro h2, .guide-panel h2 { color: var(--text-primary); font-size: var(--text-2xl); line-height: 1.2; margin: 0 0 var(--space-3); }
+  .tool-intro p:last-child { max-width: 32rem; color: var(--text-secondary); margin: 0; }
+  .eyebrow { color: var(--accent-gold); text-transform: uppercase; font-size: var(--text-xs); font-weight: 700; letter-spacing: .09em; margin: 0 0 var(--space-2); }
+  .calc-panel h3, .calc-results-panel h3 { color: var(--text-primary); font-size: var(--text-lg); margin: 0 0 var(--space-4); }
+  .calc-panel h3:not(:first-child) { margin-top: var(--space-5); }
+  .area-choice { border: 0; padding: 0; margin: 0 0 var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .area-choice legend { color: var(--text-muted); font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: var(--space-2); }
+  .area-choice label { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: .5rem .7rem; cursor: pointer; color: var(--text-secondary); font-size: var(--text-sm); }
+  .area-choice input { accent-color: var(--accent-gold); }
+  .dim-grid[hidden] { display: none; }
+  .tool-note, .result-caution { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin: 0; }
+  .quote-fields { border-top: 1px solid var(--border-subtle); margin-top: var(--space-5); padding-top: var(--space-4); }
+  .quote-fields summary { color: var(--text-primary); font-weight: 700; cursor: pointer; }
+  .quote-fields summary span { font-size: var(--text-xs); font-weight: 400; color: var(--text-muted); }
+  .quote-fields p { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.5; }
+  .quote-fields .dim-grid { margin-bottom: 0; }
+  .quote-fields select { width: 100%; padding: .75rem .8rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); color: var(--text-primary); font: inherit; }
+  .input-error { color: #b91c1c; background: #fef2f2; border: 1px solid #fecaca; border-radius: var(--radius-md); padding: var(--space-3); margin-top: var(--space-4); }
+  .input-error[hidden] { display: none; }
+  #bag-tool input[aria-invalid="true"] { border-color: #dc2626; }
+  .kpi-grid { margin-bottom: var(--space-5); }
+  .kpi-hero .kpi-value { color: var(--accent-gold); }
+  .result-explainer, .quote-result { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-4); }
+  .result-explainer strong, .quote-result strong { color: var(--text-primary); }
+  .result-explainer p, .quote-result p { color: var(--text-secondary); font-size: var(--text-sm); line-height: 1.55; margin: var(--space-2) 0 0; }
+  .result-caution { margin-top: var(--space-5); }
+  .bag-guide { padding-top: 0; }
+  .guide-jumps { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); align-items: center; margin-bottom: var(--space-6); font-size: var(--text-sm); }
+  .guide-jumps strong { color: var(--text-primary); }
+  .guide-jumps a, .guide-panel a { color: var(--accent-gold); text-underline-offset: .18em; }
+  .guide-panel { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: var(--space-8); margin-bottom: var(--space-6); color: var(--text-secondary); line-height: 1.7; scroll-margin-top: var(--space-6); }
+  .guide-panel p { margin: 0 0 var(--space-4); }
+  .guide-panel p:last-child { margin-bottom: 0; }
+  .label-panel { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--space-7); align-items: center; }
+  .label-panel figure { margin: 0; }
+  .label-panel img { display: block; width: 100%; height: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .label-panel figcaption, .small-note { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.5; margin-top: var(--space-2); }
+  .mobile-figure-hint { display: none; }
+  .table-wrap { overflow-x: auto; margin: var(--space-5) 0; }
+  .table-wrap table { width: 100%; min-width: 440px; border-collapse: collapse; text-align: left; font-size: var(--text-sm); }
+  .table-wrap caption { text-align: left; color: var(--text-primary); font-weight: 700; margin-bottom: var(--space-2); }
+  .table-wrap th, .table-wrap td { padding: var(--space-3); border-bottom: 1px solid var(--border-subtle); }
+  .table-wrap thead th { color: var(--text-primary); background: var(--bg-surface); }
+  .table-wrap tbody th { color: var(--text-primary); font-weight: 600; }
+  .check-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin: var(--space-5) 0; }
+  .check-grid > div { border-top: 3px solid var(--accent-gold); background: var(--bg-surface); border-radius: var(--radius-sm); padding: var(--space-4); }
+  .check-grid span { color: var(--accent-gold); font-weight: 700; }
+  .check-grid h3 { color: var(--text-primary); font-size: var(--text-base); margin: var(--space-2) 0; line-height: 1.35; }
+  .check-grid p { font-size: var(--text-sm); margin: 0; }
+  .faq-list { display: grid; gap: var(--space-3); }
+  .faq-list details { border: 1px solid var(--border-subtle); background: var(--bg-surface); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-list summary { color: var(--text-primary); font-weight: 700; cursor: pointer; }
+  .faq-list details p { margin: var(--space-3) 0 0; font-size: var(--text-sm); }
+  @media (max-width: 900px) { .label-panel { grid-template-columns: 1fr; } .check-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 680px) { .tool-intro { display: block; } .tool-intro p:last-child { margin-top: var(--space-3); } .guide-panel { padding: var(--space-5); } .label-panel figure { overflow-x: auto; } .label-panel img { min-width: 520px; } .mobile-figure-hint { display: inline; } }
 </style>

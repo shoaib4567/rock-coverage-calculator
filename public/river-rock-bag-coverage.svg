@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 520" role="img" aria-labelledby="title desc">
+  <title id="title">How depth changes coverage from one half-cubic-foot bag</title>
+  <desc id="desc">A single half-cubic-foot bag covers three square feet at two inches, two square feet at three inches, and one and a half square feet at four inches.</desc>
+  <defs>
+    <linearGradient id="paper" x2="0" y2="1">
+      <stop stop-color="#f7f4ed"/>
+      <stop offset="1" stop-color="#e9eee9"/>
+    </linearGradient>
+    <pattern id="stones" width="42" height="32" patternUnits="userSpaceOnUse">
+      <rect width="42" height="32" fill="#d5dedb"/>
+      <ellipse cx="11" cy="10" rx="10" ry="7" fill="#8ea8a2"/>
+      <ellipse cx="32" cy="9" rx="9" ry="6" fill="#ae9d89"/>
+      <ellipse cx="22" cy="26" rx="12" ry="7" fill="#b9c2ae"/>
+      <ellipse cx="4" cy="29" rx="8" ry="5" fill="#7f968f"/>
+    </pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse">
+      <path d="M8 0 0 4 8 8" fill="none" stroke="#55736d" stroke-width="1.5"/>
+    </marker>
+  </defs>
+  <rect width="840" height="520" rx="22" fill="url(#paper)"/>
+  <rect x="24" y="24" width="792" height="472" rx="16" fill="#fffdfa" stroke="#cbd7ce"/>
+  <text x="48" y="62" fill="#25473f" font-family="Arial, sans-serif" font-size="25" font-weight="700">One 0.5 cu ft bag, three depths</text>
+  <text x="48" y="88" fill="#536a61" font-family="Arial, sans-serif" font-size="15">The same loose volume spreads over less ground as the layer gets deeper.</text>
+  <g font-family="Arial, sans-serif">
+    <g>
+      <rect x="48" y="121" width="744" height="101" rx="13" fill="#f2f7f2" stroke="#d2dfd4"/>
+      <text x="67" y="153" fill="#25473f" font-size="19" font-weight="700">2 in deep</text>
+      <text x="68" y="179" fill="#536a61" font-size="15">3 sq ft per bag</text>
+      <rect x="300" y="145" width="414" height="50" rx="5" fill="url(#stones)" stroke="#55736d" stroke-width="2"/>
+      <line x1="303" x2="711" y1="207" y2="207" stroke="#55736d" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    </g>
+    <g>
+      <rect x="48" y="238" width="744" height="101" rx="13" fill="#f2f7f2" stroke="#d2dfd4"/>
+      <text x="67" y="270" fill="#25473f" font-size="19" font-weight="700">3 in deep</text>
+      <text x="68" y="296" fill="#536a61" font-size="15">2 sq ft per bag</text>
+      <rect x="300" y="262" width="276" height="50" rx="5" fill="url(#stones)" stroke="#55736d" stroke-width="2"/>
+      <line x1="303" x2="573" y1="324" y2="324" stroke="#55736d" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    </g>
+    <g>
+      <rect x="48" y="355" width="744" height="101" rx="13" fill="#f2f7f2" stroke="#d2dfd4"/>
+      <text x="67" y="387" fill="#25473f" font-size="19" font-weight="700">4 in deep</text>
+      <text x="68" y="413" fill="#536a61" font-size="15">1.5 sq ft per bag</text>
+      <rect x="300" y="379" width="207" height="50" rx="5" fill="url(#stones)" stroke="#55736d" stroke-width="2"/>
+      <line x1="303" x2="504" y1="441" y2="441" stroke="#55736d" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    </g>
+  </g>
+  <text x="48" y="480" fill="#536a61" font-family="Arial, sans-serif" font-size="13">Coverage = bag volume × 12 ÷ depth in inches. Illustration is proportional by area.</text>
+</svg>
