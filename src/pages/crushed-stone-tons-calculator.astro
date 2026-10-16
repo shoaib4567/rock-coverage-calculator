@@ -4,329 +4,216 @@ import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
+import { getMaterialById } from '../scripts/materials-data.js';
 
+const pageTitle = 'Crushed Stone Tons Calculator';
+const density57 = getMaterialById('clean-stone-57').tonsPerCuYd;
+const densityBase = getMaterialById('crusher-run-21a').tonsPerCuYd;
+const exampleYards = 30 * 12 * 3 / 324;
+const exampleTons = exampleYards * density57;
+const exampleOrderTons = exampleTons * 1.10;
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Crushed Stone Calculator', url: '/crushed-stone-calculator' },
-  { name: 'Crushed Stone Tons Calculator', url: '/crushed-stone-tons-calculator' }
+  { name: pageTitle, url: '/crushed-stone-tons-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Crushed Stone Tonnage' },
-  { label: 'Standard Sieve', value: 'ASTM D448 #57, #4, and Crusher Run' },
-  { label: 'Bulk Density', value: '1.35 to 1.40 t/yd³ (ASTM C29)' },
-  { label: 'Coverage Yield', value: '77 to 80 sq ft per Ton at 3" Depth' }
+  { label: 'Order unit', value: 'US short tons (2,000 lb)' },
+  { label: 'Grade', value: '#57 clean stone or dense-graded base' },
+  { label: 'Weight', value: 'Editable loose bulk tons per cubic yard' }
 ];
-
-const quickStats = [
-  { value: '1.40 t/yd³', label: 'Granite Stone', desc: 'Standard bulk density for fractured angular crushed stone' },
-  { value: '80 sq ft', label: 'Yield at 3"', desc: 'Coverage per ton of #57 stone at standard 3-inch depth' },
-  { value: '10% Overage', label: 'Safety Buffer', desc: 'Recommended overage for uneven subgrades and tire ruts' }
-];
-
 const faqItems = [
-  {
-    q: 'How many tons of crushed stone do I need for a 12x30 foot driveway?',
-    a: 'A 12x30 foot driveway equals 360 square feet. At a standard 3-inch depth, you need 3.33 cubic yards of stone. Multiplying by 1.40 tons per cubic yard and adding a 10 percent buffer yields approximately 5.13 tons of crushed stone.'
-  },
-  {
-    q: 'How do you convert square feet of crushed stone to tons?',
-    a: 'Multiply your square footage by layer depth in inches, divide by 324 to get cubic yards, then multiply by bulk density (typically 1.40 tons per cubic yard for crushed stone). Formula: Tons = [(Sq Ft × Depth) / 324] × 1.40.'
-  },
-  {
-    q: 'How much does one ton of #57 crushed stone cover?',
-    a: 'One ton of #57 crushed stone covers approximately 120 square feet at 2 inches depth, 80 square feet at 3 inches depth, and 60 square feet at 4 inches depth.'
-  },
-  {
-    q: 'What does a cubic yard of crushed stone weigh?',
-    a: 'A cubic yard of clean crushed limestone weighs approximately 2,700 pounds (1.35 tons). A cubic yard of crushed blue granite weighs 2,800 pounds (1.40 tons), and dense-graded base with stone dust weighs 2,900 to 3,000 pounds (1.45 to 1.50 tons).'
-  }
-];
-
-const upLinks = [
-  { title: 'Crushed Stone Calculator (Material Parent)', slug: '/crushed-stone-calculator', badge: 'Material' },
-  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Yards' },
-  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Gravel Tons' },
-  { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'River Tons' }
-];
-
-const bridgeLinks = [
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
-  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Road Base' },
-  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: 'Structural' }
-];
-
-const supportGuides = [
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
-  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+  { q: 'How many tons of crushed stone do I need for a 12 × 30 ft driveway?', a: `At 3 inches of finished depth, 360 square feet requires ${exampleYards.toFixed(2)} cubic yards in place. At the sample #57 loose bulk weight of ${density57.toFixed(2)} US short tons per cubic yard, that is ${exampleTons.toFixed(2)} tons before extra. Adding an optional 10% order allowance gives ${exampleOrderTons.toFixed(2)} tons. Confirm the layer depth and supplier weight for your job.` },
+  { q: 'How do I convert crushed stone cubic yards to tons?', a: 'Multiply cubic yards by the loose bulk weight of the exact stone in US short tons per cubic yard. Three cubic yards at 1.35 short tons per yard is an estimated 4.05 short tons. A short ton is 2,000 pounds; a metric tonne is a different unit.' },
+  { q: 'How much area does one ton of #57 stone cover?', a: 'At the 1.35 short tons per cubic yard planning weight, one ton covers about 120 square feet at 2 inches deep, 80 square feet at 3 inches, or 60 square feet at 4 inches. These are level-layer estimates before any order allowance. Your quarry’s stone may have a different bulk weight.' },
+  { q: 'Is #57 stone the same as crusher run?', a: '#57 names a coarse aggregate size designation commonly sold as clean stone for drainage. Crusher run is a dense blend of crushed stone and fines used where a compacted base is specified. Product names and gradations vary by supplier; ask for the grading sheet when the choice matters.' },
+  { q: 'Does the calculator tell me the certified scale weight?', a: 'No. It estimates an order from measured volume and an assumed loose bulk weight. The delivery scale ticket records the actual net weight. Check its material description and whether the quoted tons are US short tons or metric tonnes.' }
 ];
 ---
 
-<BaseLayout
-  title="Crushed Stone Tons Calculator - Sieve #57, #4 & Base Weight"
-  metaDescription="Calculate exact tons of crushed stone needed for driveways, bases, and drainage. Calibrated for ASTM D448 #57 limestone and granite at 1.40 t/yd3."
-  canonicalPath="/crushed-stone-tons-calculator"
->
+<BaseLayout title={pageTitle} metaDescription="Estimate US short tons of crushed stone from area and finished depth. Adjust loose bulk weight and order allowance, then compare #57 stone with compactable base." canonicalPath="/crushed-stone-tons-calculator">
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Crushed Stone Tons Calculator",
-      "url": "https://rockcoveragecalculator.com/crushed-stone-tons-calculator",
-      "description": "Calculates quarry scale tonnage of crushed stone across ASTM sieve classifications.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Contractors, Civil Estimators, Paving Installers, Homeowners"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Crushed Stone Tonnage Calculation"
-      }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
-      }))
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebApplication', name: pageTitle, url: 'https://rockcoveragecalculator.com/crushed-stone-tons-calculator', description: 'Estimates US short tons of crushed stone from measured area, installed depth, editable loose bulk density and ordering allowance.', applicationCategory: 'UtilityApplication', operatingSystem: 'Web', inLanguage: 'en-US' })} />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) })} />
   </Fragment>
-
   <Header />
-
   <main>
-    <PageHero
-      title="Crushed Stone Tons Calculator"
-      highlightWord="Tons"
-      badge="Quarry Weight Engine"
-      subtitle="Calculate exact certified scale tons for ASTM D448 #57, #4, and crushed stone base aggregates."
-      breadcrumbs={breadcrumbs}
-      entityTags={entityTags}
-      quickStats={quickStats}
-    />
+    <PageHero title={pageTitle} highlightWord="Tons" badge="Plan an order by quarry weight" subtitle={`A 30 × 12 ft area at 3 in deep needs ${exampleTons.toFixed(2)} US short tons of #57 stone at the sample ${density57.toFixed(2)} tons-per-yard weight. Add 10% extra and the order estimate is ${exampleOrderTons.toFixed(2)} tons. Enter your actual measurements and supplier weight below.`} breadcrumbs={breadcrumbs} entityTags={entityTags} theme="civil" />
 
-    <!-- Interactive Crushed Stone Tons Calculator Tool -->
-    <section class="section">
+    <section class="cst-tool" id="cst-calculator" aria-labelledby="cst-tool-heading">
       <div class="container">
-        <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Crushed Stone Dimensions</h3>
+        <div class="cst-section-heading"><p class="cst-eyebrow">Estimate a tonnage order</p><h2 id="cst-tool-heading">How many short tons should you ask for?</h2><p>Measure the area and the depth you want <em>after placement</em>. The calculator converts that volume to tons with a loose bulk weight you can replace with your quarry’s value.</p></div>
+        <div class="cst-tool-grid">
+          <div class="cst-card cst-input-card">
+            <fieldset class="cst-mode"><legend>How have you measured the area?</legend><label><input type="radio" name="cst-measure-mode" value="rectangle" checked /> Length × width</label><label><input type="radio" name="cst-measure-mode" value="area" /> Square feet known</label></fieldset>
+            <div class="cst-fields" id="cst-rectangle-fields">
+              <div class="cst-field"><label for="cst-length">Length <span>(feet)</span></label><input id="cst-length" type="number" value="30" min="0.01" step="any" inputmode="decimal" /></div>
+              <div class="cst-field"><label for="cst-width">Width <span>(feet)</span></label><input id="cst-width" type="number" value="12" min="0.01" step="any" inputmode="decimal" /></div>
+            </div>
+            <div class="cst-fields" id="cst-area-fields" hidden><div class="cst-field"><label for="cst-area">Measured area <span>(square feet)</span></label><input id="cst-area" type="number" value="360" min="0.01" step="any" inputmode="decimal" /></div></div>
+            <div class="cst-fields cst-core-fields">
+              <div class="cst-field"><label for="cst-depth">Finished layer depth <span>(inches)</span></label><input id="cst-depth" type="number" value="3" min="0.01" step="any" inputmode="decimal" aria-describedby="cst-depth-help" /></div>
+              <div class="cst-field"><label for="cst-density">Loose bulk weight <span>(short tons/yd³)</span></label><input id="cst-density" type="number" value={density57} min="0.01" step="any" inputmode="decimal" aria-describedby="cst-density-help" /></div>
+              <div class="cst-field"><label for="cst-extra">Extra to order <span>(%)</span></label><input id="cst-extra" type="number" value="10" min="0" max="100" step="any" inputmode="decimal" aria-describedby="cst-extra-help" /></div>
+            </div>
+            <div class="cst-help">
+              <p id="cst-depth-help"><strong>Depth:</strong> enter the finished layer thickness. A label such as “#57” names the stone grade, not the installation depth.</p>
+              <p id="cst-density-help"><strong>Weight:</strong> {density57.toFixed(2)} is a #57 planning value equal to 2,700 lb/yd³. Use the loose bulk weight from the supplier of your actual stone.</p>
+              <p id="cst-extra-help"><strong>Extra:</strong> optional material for low spots, handling or a supplier-provided loose-to-finished factor. Use 0% when your quantities already include these needs.</p>
+            </div>
+            <p id="cst-error" class="cst-error" role="alert" hidden></p>
           </div>
-
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="cst-length">Length (Feet)</label>
-              <input type="number" id="cst-length" value="35" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="cst-width">Width (Feet)</label>
-              <input type="number" id="cst-width" value="12" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="cst-depth">Depth (Inches)</label>
-              <input type="number" id="cst-depth" value="3.0" min="1" max="18" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="cst-waste">Safety Buffer (%)</label>
-              <input type="number" id="cst-waste" value="10" min="0" max="25" step="1" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-cst-tons">0.00</div>
-              <div class="kpi-label">Quarry Weight (Tons)</div>
-              <div class="kpi-subtext" id="kpi-cst-lbs">0 lbs total weight</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-cst-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext">Includes 10% buffer</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-cst-loads">0.0</div>
-              <div class="kpi-label">Tri-Axle Truckloads</div>
-              <div class="kpi-subtext">15 tons per load</div>
-            </div>
-            </div>
+          <div class="cst-card cst-result-card" aria-live="polite">
+            <p class="cst-eyebrow">Estimated amount to order</p><div class="cst-main-result"><strong id="cst-order-tons">{exampleOrderTons.toFixed(2)}</strong><span>US short tons</span></div><p class="cst-caption" id="cst-caption">360 sq ft at 3 in depth, with 10% extra</p>
+            <dl class="cst-breakdown">
+              <div><dt>Layer before extra</dt><dd id="cst-net-tons">{exampleTons.toFixed(2)} tons</dd></div>
+              <div><dt>Finished layer volume</dt><dd id="cst-net-yards">{exampleYards.toFixed(2)} yd³</dd></div>
+              <div><dt>Volume with extra</dt><dd id="cst-order-yards">{(exampleYards * 1.10).toFixed(2)} yd³</dd></div>
+              <div><dt>Estimated order weight</dt><dd id="cst-order-pounds">{Math.round(exampleOrderTons * 2000).toLocaleString('en-US')} lb</dd></div>
+              <div><dt>One ton covers at this depth</dt><dd id="cst-ton-coverage">80 sq ft</dd></div>
+            </dl>
+            <p class="cst-result-note">The coverage figure describes a level layer before extra. The quarry scale ticket, rather than this estimate, gives the delivered weight.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on Crushed Stone Tonnage -->
-    <article class="content-guide-section">
-      <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Crushed Stone Tonnage Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Crushed Stone Tonnage Reference</span>
-          </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Tons = [(Area × Depth) / 324] × Density</span>
-              <p class="aeo-quick-desc">Converts dimensions directly to scale tons of 2,000 lbs.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">#57 Limestone</span>
-              <span class="aeo-quick-value">1.35 t/yd³ (2,700 lbs/yd³)</span>
-              <p class="aeo-quick-desc">Standard density for washed 1" to No. 4 sieve drainage stone.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Crushed Granite</span>
-              <span class="aeo-quick-value">1.40 t/yd³ (2,800 lbs/yd³)</span>
-              <p class="aeo-quick-desc">Dense fractured aggregate for heavy vehicular driveways.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 3"</span>
-              <span class="aeo-quick-value">77 to 80 sq ft per Ton</span>
-              <p class="aeo-quick-desc">Standard coverage per short ton across commercial quarries.</p>
-            </div>
-          </div>
-        </section>
-
-        <div class="content-card">
-          <h2>Estimating Tonnage for Crushed Stone Gradations</h2>
-          <p>
-            Crushed stone is categorized according to <strong>ASTM D448</strong> and <strong>AASHTO M43</strong> sieve size numbers. When calculating tonnage, selecting the correct density for your specific stone variety prevents costly delivery shortages:
-          </p>
-
-          <div class="formula-box">
-            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
-            <br />
-            <code>Scale Weight (Tons) = Cubic Yards × Bulk Density (1.35 to 1.40 t/yd³) × 1.10 Buffer</code>
-          </div>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Crushed Stone Tonnage</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </article>
-
-    <TopicClusterNav
-      currentPage="/crushed-stone-tons-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <article class="cst-guide"><div class="container">
+      <nav class="cst-jumps" aria-label="On this page"><strong>Plan the purchase</strong><a href="#cst-math">Follow the math</a><a href="#cst-material">Choose the stone</a><a href="#cst-coverage">Compare depths</a><a href="#cst-ticket">Check the delivery</a><a href="#cst-questions">Questions</a></nav>
+      <section class="cst-panel cst-math-panel" id="cst-math" aria-labelledby="cst-math-heading">
+        <div><p class="cst-eyebrow">Area → volume → weight</p><h2 id="cst-math-heading">Keep the measured layer and the order allowance separate</h2><p>Length times width gives square feet. Multiplying by finished depth gives volume; only then does the stone’s <em>loose bulk weight</em> turn cubic yards into short tons. Bulk weight includes air between stones, so it is different from the density of a solid piece of limestone or granite.</p><div class="cst-formula"><code>cubic yards = area (sq ft) × depth (in) ÷ 324</code><code>order tons = cubic yards × (1 + extra ÷ 100) × loose tons/yd³</code></div><p>For the 30 × 12 ft example, <strong>360 × 3 ÷ 324 = 3.33 yd³</strong> in place. At {density57.toFixed(2)} short tons/yd³, that is <strong>4.50 tons</strong> before extra. A chosen 10% allowance raises the order estimate to <strong>3.67 yd³ or 4.95 tons</strong>.</p><p class="cst-fine">The divisor 324 combines 12 inches per foot with 27 cubic feet per cubic yard. The calculator keeps full precision internally, then rounds the displayed result.</p></div>
+        <figure><img src="/crushed-stone-tons-order-path.svg" width="900" height="520" loading="lazy" alt="Crushed stone tonnage path: 360 square feet at 3 inches is 3.33 cubic yards, which is 4.50 short tons at a sample 1.35 tons per cubic yard; 10 percent extra gives a 4.95-ton order estimate." /><figcaption><span class="cst-mobile-hint">Swipe to read the diagram. </span>Volume, stone weight and extra are different decisions.</figcaption></figure>
+      </section>
+      <section class="cst-panel" id="cst-material" aria-labelledby="cst-material-heading"><p class="cst-eyebrow">Choose the material before the multiplier</p><h2 id="cst-material-heading">Clean #57 and crusher run answer different needs</h2><p>For a drainage layer, ask for clean, low-fines stone in the specified gradation. For a base meant to compact, ask about a dense-graded blend with fines. The quarry’s names can be regional, and a size number alone does not specify a material’s bulk weight.</p><div class="cst-choice-grid"><div><span>Open-graded</span><strong>#57 clean stone</strong><p>Coarser particles leave connected spaces for water. The {density57.toFixed(2)}-ton/yd³ default is a planning weight for the tool, not a standard assigned by ASTM.</p><a href="/57-stone-size-guide">Check #57 size and uses →</a></div><div><span>Dense-graded</span><strong>Crusher run / road base</strong><p>Smaller particles and fines fill many voids. Our <a href="/crushed-stone-calculator">material calculator</a> uses {densityBase.toFixed(2)} tons/yd³ as an editable starting weight for this separate product.</p><a href="/crusher-run-calculator">Estimate crusher run →</a></div></div><p><a href="https://store.astm.org/d0448-12r22.html" target="_blank" rel="noopener noreferrer">ASTM D448</a> classifies aggregate size designations for roads and bridges. It does not make every quarry’s #57 a single weight. <a href="https://store.astm.org/c0029_c0029m-23.html" target="_blank" rel="noopener noreferrer">ASTM C29/C29M</a> describes how bulk density and voids are measured; it also distinguishes dry test results from moist stockpiles and hauled loads.</p></section>
+      <section class="cst-panel" id="cst-coverage" aria-labelledby="cst-coverage-heading"><p class="cst-eyebrow">Depth changes the yield</p><h2 id="cst-coverage-heading">How far will one ton go?</h2><p>The same ton covers half as much area when depth doubles. This reference assumes a flat layer of the sample #57 stone at {density57.toFixed(2)} short tons/yd³, before any extra. It is useful for checking a takeoff; it does not prescribe a suitable construction depth.</p><div class="cst-table-wrap"><table><caption>Geometric coverage at the sample #57 loose bulk weight</caption><thead><tr><th scope="col">Finished depth</th><th scope="col">One cubic yard covers</th><th scope="col">One short ton covers</th></tr></thead><tbody><tr><th scope="row">2 in</th><td>162 sq ft</td><td>120 sq ft</td></tr><tr><th scope="row">3 in</th><td>108 sq ft</td><td>80 sq ft</td></tr><tr><th scope="row">4 in</th><td>81 sq ft</td><td>60 sq ft</td></tr><tr><th scope="row">6 in</th><td>54 sq ft</td><td>40 sq ft</td></tr></tbody></table></div><p>A trench, driveway, and permeable pavement may each call for different stone and layer designs. <a href="https://extension.oregonstate.edu/catalog/pub/em-9210-porous-pavement-low-impact-development-fact-sheet" target="_blank" rel="noopener noreferrer">Oregon State University Extension</a>, for example, describes washed uniform aggregate and project-specific depths for porous pavement. Follow the project specification or local installer’s design rather than treating a calculator default as a construction rule.</p></section>
+      <section class="cst-panel" id="cst-ticket" aria-labelledby="cst-ticket-heading"><p class="cst-eyebrow">Before and after the truck arrives</p><h2 id="cst-ticket-heading">Match the quote and scale ticket to your estimate</h2><p>Supplier listings show why the weight field stays editable: <a href="https://ottrsupply.com/products/57-stone" target="_blank" rel="noopener noreferrer">Ottr Supply’s #57 granite</a> lists roughly 2,700 lb/yd³, while <a href="https://hellogravel.com/products/57-crushed-stone/" target="_blank" rel="noopener noreferrer">Hello Gravel’s #57 listing</a> uses roughly 2,800 lb/yd³. For the same 360 sq ft example at 3 inches with 10% extra, those inputs produce 4.95 versus 5.13 short tons. They are examples from different suppliers, not a universal range.</p><ol class="cst-checklist"><li><strong>Confirm the grade and loose weight.</strong> Tell the yard whether you need clean stone or material with fines. Ask what weight it uses to convert yards to tons.</li><li><strong>Confirm the sales unit.</strong> A US short ton is 2,000 lb. If the quote is in metric tonnes, convert the unit before comparing prices or quantities.</li><li><strong>Ask about delivery.</strong> The usable payload depends on the actual truck and route. Ask the hauler how many tons can be delivered to your site and where the pile can be tipped.</li><li><strong>Read the ticket.</strong> If sold by weight, compare the material and <em>net load weight</em> with the quote. Gross minus tare gives net; a photo of a conical pile cannot establish its tonnage. <a href="https://ia.iowadot.gov/erl/archiveapril2026/IM/content/508ab.htm" target="_blank" rel="noopener noreferrer">Iowa DOT’s aggregate scale guidance</a> identifies these ticket fields.</li></ol><p>Ordering by cubic yard? Use the <a href="/crushed-stone-yardage-calculator">crushed stone yardage calculator</a>. Buying retail bags for a small repair? Use the <a href="/crushed-stone-bag-calculator">crushed stone bag calculator</a>. For a broader comparison of stone grades, return to the <a href="/crushed-stone-calculator">crushed stone calculator</a>.</p></section>
+      <section class="cst-panel" id="cst-questions" aria-labelledby="cst-questions-heading"><h2 id="cst-questions-heading">Crushed stone tonnage questions</h2><div class="cst-faq">{faqItems.map(item => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}</div></section>
+    </div></article>
+    <TopicClusterNav currentPage="/crushed-stone-tons-calculator" category="quantity" />
   </main>
-
   <Footer />
-
   <script>
-    function updateCST() {
-      const l = parseFloat((document.getElementById('cst-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('cst-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('cst-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('cst-waste') as HTMLInputElement)?.value) || 0;
-
-      const netYards = (l * w * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const tons = totalYards * 1.40;
-      const lbs = tons * 2000;
-      const loads = tons / 15;
-
-      const tEl = document.getElementById('kpi-cst-tons');
-      const yEl = document.getElementById('kpi-cst-yards');
-      const lEl = document.getElementById('kpi-cst-loads');
-      const lbsEl = document.getElementById('kpi-cst-lbs');
-
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (lEl) lEl.innerText = loads.toFixed(1);
-      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+    const input = (id: string) => document.getElementById(id) as HTMLInputElement | null;
+    const readNumber = (id: string) => { const value = input(id)?.value.trim(); return value ? Number(value) : NaN; };
+    const output = (id: string, value: string) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+    const numberIds = ['cst-length', 'cst-width', 'cst-area', 'cst-depth', 'cst-density', 'cst-extra'];
+    const resultIds = ['cst-order-tons', 'cst-net-tons', 'cst-net-yards', 'cst-order-yards', 'cst-order-pounds', 'cst-ton-coverage'];
+    function updateCrushedStoneTons() {
+      const mode = (document.querySelector('input[name="cst-measure-mode"]:checked') as HTMLInputElement | null)?.value || 'rectangle';
+      const rectangle = document.getElementById('cst-rectangle-fields');
+      const knownArea = document.getElementById('cst-area-fields');
+      if (rectangle) rectangle.hidden = mode !== 'rectangle';
+      if (knownArea) knownArea.hidden = mode !== 'area';
+      const length = readNumber('cst-length'), width = readNumber('cst-width'), enteredArea = readNumber('cst-area');
+      const depth = readNumber('cst-depth'), density = readNumber('cst-density'), extra = readNumber('cst-extra');
+      const area = mode === 'area' ? enteredArea : length * width;
+      const areaValid = mode === 'area' ? Number.isFinite(enteredArea) && enteredArea > 0 : [length, width].every(value => Number.isFinite(value) && value > 0);
+      const depthValid = Number.isFinite(depth) && depth > 0;
+      const densityValid = Number.isFinite(density) && density > 0;
+      const extraValid = Number.isFinite(extra) && extra >= 0 && extra <= 100;
+      const geometryValid = areaValid && Number.isFinite(area) && area > 0 && depthValid;
+      const error = document.getElementById('cst-error');
+      const validById: Record<string, boolean> = { 'cst-length': mode !== 'rectangle' || Number.isFinite(length) && length > 0, 'cst-width': mode !== 'rectangle' || Number.isFinite(width) && width > 0, 'cst-area': mode !== 'area' || Number.isFinite(enteredArea) && enteredArea > 0, 'cst-depth': depthValid, 'cst-density': densityValid, 'cst-extra': extraValid };
+      numberIds.forEach(id => input(id)?.setAttribute('aria-invalid', validById[id] ? 'false' : 'true'));
+      if (!geometryValid) {
+        resultIds.forEach(id => output(id, '—'));
+        output('cst-caption', 'Enter a positive area and finished depth.');
+        if (error) { error.textContent = 'Enter positive measurements for the selected area method and a positive finished depth.'; error.hidden = false; }
+        return;
+      }
+      const installedYards = area * depth / 324;
+      output('cst-net-yards', installedYards.toFixed(2) + ' yd³');
+      if (densityValid) {
+        output('cst-net-tons', (installedYards * density).toFixed(2) + ' tons');
+        output('cst-ton-coverage', Math.round(324 / (depth * density)).toLocaleString('en-US') + ' sq ft');
+      } else {
+        ['cst-net-tons', 'cst-ton-coverage'].forEach(id => output(id, '—'));
+      }
+      if (extraValid) output('cst-order-yards', (installedYards * (1 + extra / 100)).toFixed(2) + ' yd³');
+      else output('cst-order-yards', '—');
+      if (densityValid && extraValid) {
+        const orderTons = installedYards * (1 + extra / 100) * density;
+        output('cst-order-tons', orderTons.toFixed(2));
+        output('cst-order-pounds', Math.round(orderTons * 2000).toLocaleString('en-US') + ' lb');
+        output('cst-caption', area.toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' sq ft at ' + depth + ' in depth, with ' + extra + '% extra');
+        if (error) error.hidden = true;
+      } else {
+        ['cst-order-tons', 'cst-order-pounds'].forEach(id => output(id, '—'));
+        output('cst-caption', 'Volume is shown; check the weight or extra field.');
+        if (error) { error.textContent = 'Enter a positive loose bulk weight and an extra percentage from 0 to 100.'; error.hidden = false; }
+      }
     }
-
-    ['cst-length', 'cst-width', 'cst-depth', 'cst-waste'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateCST);
-    });
-    updateCST();
+    numberIds.forEach(id => input(id)?.addEventListener('input', updateCrushedStoneTons));
+    document.querySelectorAll<HTMLInputElement>('input[name="cst-measure-mode"]').forEach(item => item.addEventListener('change', updateCrushedStoneTons));
+    updateCrushedStoneTons();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .cst-tool { padding: var(--space-8) 0; }
+  .cst-section-heading { max-width: 760px; margin-bottom: var(--space-6); }
+  .cst-section-heading h2, .cst-panel h2 { color: var(--text-primary); font-size: var(--text-2xl); line-height: 1.25; margin: 0 0 var(--space-3); }
+  .cst-section-heading p, .cst-panel p { color: var(--text-secondary); line-height: 1.7; }
+  .cst-eyebrow { color: var(--accent-gold) !important; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; font-size: var(--text-xs); margin: 0 0 var(--space-2); }
+  .cst-tool-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--space-5); align-items: start; }
+  .cst-card, .cst-panel { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: var(--space-8); }
+  .cst-mode { border: 0; padding: 0; margin: 0 0 var(--space-5); display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .cst-mode legend { color: var(--text-primary); font-weight: 700; padding: 0 0 var(--space-2); }
+  .cst-mode label { color: var(--text-secondary); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-2) var(--space-3); display: inline-flex; align-items: center; gap: var(--space-2); cursor: pointer; }
+  .cst-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-4); }
+  .cst-fields[hidden] { display: none; }
+  .cst-field { min-width: 0; }
+  .cst-field label { display: block; color: var(--text-primary); font-weight: 700; margin-bottom: var(--space-2); }
+  .cst-field label span { color: var(--text-muted); font-weight: 400; }
+  .cst-field input { width: 100%; min-width: 0; color: var(--text-primary); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-3); font: inherit; }
+  .cst-field input[aria-invalid="true"] { border-color: #d87468; }
+  .cst-field input:focus-visible, .cst-mode input:focus-visible, .cst-jumps a:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 2px; }
+  .cst-help { border-top: 1px solid var(--border-subtle); padding-top: var(--space-3); }
+  .cst-help p { color: var(--text-muted); line-height: 1.5; font-size: var(--text-sm); margin: var(--space-2) 0; }
+  .cst-help strong { color: var(--text-primary); }
+  .cst-error { color: #f1a098; font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+  .cst-result-card { border-top: 3px solid var(--accent-gold); }
+  .cst-main-result { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2); color: var(--text-primary); }
+  .cst-main-result strong { font-size: clamp(2.8rem, 6vw, 4.5rem); line-height: 1; font-variant-numeric: tabular-nums; }
+  .cst-main-result span { font-size: var(--text-lg); }
+  .cst-caption { color: var(--text-muted); margin: var(--space-3) 0 var(--space-6); }
+  .cst-breakdown { margin: 0; }
+  .cst-breakdown div { display: flex; justify-content: space-between; gap: var(--space-3); border-top: 1px solid var(--border-subtle); padding: var(--space-3) 0; }
+  .cst-breakdown dt { color: var(--text-secondary); }
+  .cst-breakdown dd { margin: 0; color: var(--text-primary); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  .cst-result-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.5; margin: var(--space-4) 0 0; }
+  .cst-guide { padding: var(--space-8) 0 var(--space-12); background: var(--bg-body); }
+  .cst-jumps { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin-bottom: var(--space-5); }
+  .cst-jumps strong { color: var(--text-primary); margin-right: var(--space-2); }
+  .cst-jumps a { color: var(--accent-gold); font-size: var(--text-sm); }
+  .cst-panel { margin-bottom: var(--space-5); }
+  .cst-panel p:last-child { margin-bottom: 0; }
+  .cst-math-panel { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: var(--space-6); align-items: center; }
+  .cst-math-panel > * { min-width: 0; }
+  .cst-formula { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); margin: var(--space-4) 0; overflow-x: auto; }
+  .cst-formula code { display: block; color: var(--text-primary); font-size: var(--text-sm); white-space: nowrap; }
+  .cst-formula code + code { margin-top: var(--space-2); }
+  .cst-math-panel figure { margin: 0; }
+  .cst-math-panel img { display: block; width: 100%; height: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+  .cst-math-panel figcaption, .cst-panel .cst-fine { color: var(--text-muted); font-size: var(--text-sm); margin-top: var(--space-2); }
+  .cst-mobile-hint { display: none; }
+  .cst-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin: var(--space-5) 0; }
+  .cst-choice-grid > div { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  .cst-choice-grid span { display: block; color: var(--accent-gold); text-transform: uppercase; letter-spacing: .06em; font-size: var(--text-xs); font-weight: 700; }
+  .cst-choice-grid strong { display: block; color: var(--text-primary); font-size: var(--text-lg); margin-top: var(--space-2); }
+  .cst-choice-grid p { font-size: var(--text-sm); }
+  .cst-table-wrap { overflow-x: auto; margin: var(--space-4) 0; }
+  .cst-table-wrap table { width: 100%; min-width: 480px; border-collapse: collapse; text-align: left; font-size: var(--text-sm); }
+  .cst-table-wrap caption { text-align: left; color: var(--text-primary); font-weight: 700; margin-bottom: var(--space-2); }
+  .cst-table-wrap th, .cst-table-wrap td { border-bottom: 1px solid var(--border-subtle); padding: var(--space-3); }
+  .cst-table-wrap thead th { background: var(--bg-surface); color: var(--text-primary); }
+  .cst-table-wrap tbody th { color: var(--text-primary); }
+  .cst-checklist { padding-left: var(--space-6); color: var(--text-secondary); line-height: 1.7; }
+  .cst-checklist li { margin-bottom: var(--space-3); }
+  .cst-checklist strong { color: var(--text-primary); }
+  .cst-faq details { padding: var(--space-4) 0; border-top: 1px solid var(--border-subtle); }
+  .cst-faq summary { cursor: pointer; color: var(--text-primary); font-weight: 700; }
+  .cst-faq details p { font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+  @media (max-width: 900px) { .cst-tool-grid, .cst-math-panel { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) { .cst-card, .cst-panel { padding: var(--space-5); } .cst-fields, .cst-choice-grid { grid-template-columns: 1fr; } .cst-math-panel figure { overflow-x: auto; } .cst-math-panel img { min-width: 700px; } .cst-mobile-hint { display: inline; } }
 </style>

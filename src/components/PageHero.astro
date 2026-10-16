@@ -308,6 +308,16 @@ const {
     border-color: rgba(59, 130, 246, 0.4);
     box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
   }
+  :global(html[data-theme="light"]) .page-hero.theme-civil {
+    background: radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, 0.12) 0%, rgba(226, 232, 240, 0.72) 65%, transparent 100%);
+  }
+  :global(html[data-theme="light"]) .theme-civil .hero-badge,
+  :global(html[data-theme="light"]) .theme-civil .hero-highlight,
+  :global(html[data-theme="light"]) .theme-civil .tag-val,
+  :global(html[data-theme="light"]) .theme-civil .stat-val {
+    color: #1e40af;
+    text-shadow: none;
+  }
 
   /* 2. Decorative Landscaping & Xeriscape Theme (Lush Botanical / Architectural Pebble) */
   .page-hero.theme-decorative {

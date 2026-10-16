@@ -1,335 +1,202 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Crushed Stone Yardage Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Crushed Stone Calculator', url: '/crushed-stone-calculator' },
-  { name: 'Crushed Stone Yardage Calculator', url: '/crushed-stone-yardage-calculator' }
+  { name: pageTitle, url: '/crushed-stone-yardage-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Crushed Stone Yardage Delivery' },
-  { label: 'Delivery Vehicles', value: 'Single-Axle, Tandem, and Tri-Axle' },
-  { label: 'Yard to Ton Factor', value: '1.40 Tons per Cubic Yard' },
-  { label: 'Hauling Capacity', value: '10 to 16 Cubic Yards per Dump Truck' }
+  { label: 'Measure', value: 'Area × finished layer depth' },
+  { label: 'Order unit', value: 'Cubic yards (27 cubic feet each)' },
+  { label: 'Delivery', value: 'Supplier increment and truck limits' }
 ];
-
-const quickStats = [
-  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'Converts delivery yardage to certified scale scale weight' },
-  { value: '10-15 Yards', label: 'Tandem Payload', desc: 'Standard residential crushed stone delivery capacity' },
-  { value: '10% Overage', label: 'Quarry Buffer', desc: 'Prevents running short and paying an extra haul fee' }
-];
-
 const faqItems = [
-  {
-    q: 'How many cubic yards of crushed stone fit in a dump truck?',
-    a: 'A single-axle dump truck carries 4 to 5 cubic yards (5 to 7 tons). A tandem-axle truck hauls 9 to 11 cubic yards (12 to 15 tons), and a commercial tri-axle rig delivers 14 to 17 cubic yards (18 to 22 tons) of crushed stone.'
-  },
-  {
-    q: 'How do you convert crushed stone yards to truckloads?',
-    a: 'Divide total calculated cubic yards by the capacity of your supplier delivery vehicle. For a tandem-axle truck carrying 10 cubic yards per load: 25 cubic yards / 10 = 2.5 (rounded up to 3 full delivery truckloads).'
-  },
-  {
-    q: 'What is the minimum yardage for crushed stone delivery?',
-    a: 'Most commercial quarries and aggregate suppliers impose a 1.0 to 3.0 cubic yard minimum order size for home delivery to justify the truck haul and driver labor expenses.'
-  },
-  {
-    q: 'Why does crushed stone weigh more than mulch per cubic yard?',
-    a: 'Crushed stone is solid quarried bedrock weighing approximately 2,800 pounds (1.40 tons) per cubic yard, whereas organic wood mulch weighs only 600 to 800 pounds per cubic yard. Dump trucks reach legal weight limits on crushed stone long before filling the physical volume of the dump bed.'
-  }
-];
-
-const upLinks = [
-  { title: 'Crushed Stone Calculator (Material Parent)', slug: '/crushed-stone-calculator', badge: 'Material' },
-  { title: 'Rock Yardage Calculator (Unit Parent)', slug: '/rock-yardage-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Tons' },
-  { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Gravel Yards' },
-  { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: 'Volume' }
-];
-
-const bridgeLinks = [
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: 'Structural' }
-];
-
-const supportGuides = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { q: 'How many cubic yards of crushed stone do I need for 600 square feet?', a: 'At a finished depth of 3 inches, 600 × 3 ÷ 324 = 5.56 cubic yards in the layer. With an optional 10% site allowance, plan for 6.11 yards before the supplier rounds the order. At a half-yard ordering increment, that becomes 6.5 cubic yards.' },
+  { q: 'How many square feet does one cubic yard cover?', a: 'One cubic yard covers 162 square feet at 2 inches deep, 108 square feet at 3 inches, or 81 square feet at 4 inches, assuming an even finished layer and no extra allowance. Stone gradation does not change this geometric conversion.' },
+  { q: 'How many cubic yards fit on a delivery truck?', a: 'Ask the supplier for both its bed-volume limit and permitted payload for your delivery. The usable yards per load are the smaller of bed capacity and payload in short tons divided by the quoted tons per cubic yard. Access and local restrictions may reduce the practical load further.' },
+  { q: 'Are loose delivery yards the same as compacted base yards?', a: 'Not necessarily. The geometry gives volume at your chosen finished depth; dense-graded base may settle during compaction. Enter a loose-to-finished factor supplied for the actual product as the extra allowance if needed. Do not add a second blanket compaction factor to an estimate that already includes one.' },
+  { q: 'Can I compare a quote by the ton with a quote by the cubic yard?', a: 'Yes. Multiply the yard quote by the seller’s loose short tons per cubic yard to estimate the scale weight, then compare full delivered totals including minimum charges and fees. The calculator’s 1.35 value is an editable planning example, not a guaranteed quarry weight.' }
 ];
 ---
 
-<BaseLayout
-  title="Crushed Stone Yardage Calculator - Dump Truck Delivery & Sizing"
-  metaDescription="Calculate cubic yards of crushed stone for truckload delivery. Sizing guides for single-axle, tandem, and tri-axle dump trucks at 1.40 t/yd3."
-  canonicalPath="/crushed-stone-yardage-calculator"
->
+<BaseLayout title={pageTitle} metaDescription="Estimate crushed stone cubic yards from area and finished depth, then round to the supplier's yard increment. Check tonnage and delivery loads using editable product weight and truck limits." canonicalPath="/crushed-stone-yardage-calculator">
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Crushed Stone Yardage Calculator",
-      "url": "https://rockcoveragecalculator.com/crushed-stone-yardage-calculator",
-      "description": "Calculates crushed stone cubic yards and dump truck delivery loads for civil and residential projects.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Contractors, Haulers, Estimators, Homeowners"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Crushed Stone Yardage and Delivery Logistics"
-      }
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
-      }))
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebApplication', name: pageTitle, url: 'https://rockcoveragecalculator.com/crushed-stone-yardage-calculator', description: 'Estimates installed and ordered cubic yards of crushed stone, rounded to a supplier increment, with optional delivery capacity planning.', applicationCategory: 'UtilityApplication', operatingSystem: 'Web', inLanguage: 'en-US' })} />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) })} />
   </Fragment>
-
   <Header />
-
   <main>
-    <PageHero
-      title="Crushed Stone Yardage Calculator"
-      highlightWord="Yardage"
-      badge="Delivery Logistics Engine"
-      subtitle="Accurate cubic yards and dump truck delivery load calculations for crushed stone and base aggregate."
-      breadcrumbs={breadcrumbs}
-      entityTags={entityTags}
-      quickStats={quickStats}
-    />
+    <PageHero title={pageTitle} highlightWord="Yardage" badge="Plan a crushed stone delivery" subtitle="A 40 × 15 ft area at 3 inches deep takes 5.56 cubic yards in place. Add 10% for site conditions and the estimate is 6.11 yards; a supplier selling half yards would round that order to 6.5 yards." breadcrumbs={breadcrumbs} entityTags={entityTags} theme="civil" />
 
-    <!-- Interactive Crushed Stone Yardage Calculator Tool -->
-    <section class="section">
-      <div class="container">
-        <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Crushed Stone Delivery Dimensions</h3>
+    <section class="csy-tool" id="csy-calculator" aria-labelledby="csy-tool-heading"><div class="container">
+      <div class="csy-heading"><p class="csy-kicker">Measure → plan → order</p><h2 id="csy-tool-heading">How many cubic yards should you order?</h2><p>Enter the area receiving stone and its <strong>finished depth</strong>. The calculator keeps the installed volume, optional extra, and supplier rounding separate so each number has a clear purpose.</p></div>
+      <div class="csy-tool-grid">
+        <div class="csy-card csy-input-card">
+          <fieldset class="csy-mode"><legend>How did you measure the area?</legend><label><input type="radio" name="csy-mode" value="rectangle" checked /> Length × width</label><label><input type="radio" name="csy-mode" value="area" /> Square feet known</label></fieldset>
+          <div class="csy-fields" id="csy-rectangle-fields"><div class="csy-field"><label for="csy-length">Length <span>(feet)</span></label><input id="csy-length" type="number" value="40" min="0.1" step="any" inputmode="decimal" /></div><div class="csy-field"><label for="csy-width">Width <span>(feet)</span></label><input id="csy-width" type="number" value="15" min="0.1" step="any" inputmode="decimal" /></div></div>
+          <div class="csy-fields" id="csy-area-fields" hidden><div class="csy-field"><label for="csy-area">Measured area <span>(square feet)</span></label><input id="csy-area" type="number" value="600" min="0.1" step="any" inputmode="decimal" /></div></div>
+          <div class="csy-fields csy-main-fields">
+            <div class="csy-field"><label for="csy-depth">Finished stone depth <span>(inches)</span></label><input id="csy-depth" type="number" value="3" min="0.1" max="36" step="any" inputmode="decimal" aria-describedby="csy-depth-help" /></div>
+            <div class="csy-field"><label for="csy-extra">Extra to order <span>(%)</span></label><input id="csy-extra" type="number" value="10" min="0" max="100" step="any" inputmode="decimal" aria-describedby="csy-extra-help" /></div>
+            <div class="csy-field"><label for="csy-increment">Supplier sells in <span>(yd³ increments)</span></label><input id="csy-increment" type="number" value="0.5" min="0.01" max="100" step="any" inputmode="decimal" aria-describedby="csy-increment-help" /></div>
+            <div class="csy-field"><label for="csy-density">Loose bulk weight <span>(short tons/yd³)</span></label><input id="csy-density" type="number" value="1.35" min="0.1" max="3" step="any" inputmode="decimal" aria-describedby="csy-density-help" /></div>
           </div>
-
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="csy-length">Length (Feet)</label>
-              <input type="number" id="csy-length" value="40" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="csy-width">Width (Feet)</label>
-              <input type="number" id="csy-width" value="15" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="csy-depth">Depth (Inches)</label>
-              <input type="number" id="csy-depth" value="3.0" min="1" max="18" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="csy-waste">Safety Buffer (%)</label>
-              <input type="number" id="csy-waste" value="10" min="0" max="25" step="1" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-csy-yards">0.00</div>
-              <div class="kpi-label">Order Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-csy-cuft">Includes 10% buffer</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-csy-tons">0.00</div>
-              <div class="kpi-label">Quarry Weight (Tons)</div>
-              <div class="kpi-subtext">At 1.40 t/yd³ (2,800 lbs/yd³)</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-csy-loads">0.0</div>
-              <div class="kpi-label">Tandem Truckloads</div>
-              <div class="kpi-subtext">10 yards per load</div>
-            </div>
-            </div>
-          </div>
+          <details class="csy-delivery"><summary>Plan delivery loads with supplier truck limits</summary><p>These are example truck limits. Replace both with the supplier's numbers; the smaller of volume capacity and weight-based capacity controls each load.</p><div class="csy-fields"><div class="csy-field"><label for="csy-bed">Bed volume limit <span>(yd³)</span></label><input id="csy-bed" type="number" value="10" min="0.1" max="100" step="any" inputmode="decimal" /></div><div class="csy-field"><label for="csy-payload">Permitted stone payload <span>(short tons)</span></label><input id="csy-payload" type="number" value="12" min="0.1" max="100" step="any" inputmode="decimal" /></div></div></details>
+          <div class="csy-help"><p id="csy-depth-help"><strong>Depth:</strong> measure the layer after placement. A compacted base may need a product-specific loose-to-finished factor from your quarry.</p><p id="csy-extra-help"><strong>Extra:</strong> an optional allowance for low spots, grade variation, or a supplier-provided placement factor. It is not a universal compaction rate.</p><p id="csy-increment-help"><strong>Increment:</strong> use 1 for full yards, 0.5 for half yards, or the minimum step in your quote.</p><p id="csy-density-help"><strong>Weight:</strong> 1.35 short tons/yd³ is a planning example for clean #57 granite. Replace it with the figure for your grade.</p></div>
+          <p id="csy-error" class="csy-error" role="alert" hidden></p>
         </div>
+        <div class="csy-card csy-results" aria-live="polite"><p class="csy-kicker">Rounded order amount</p><div class="csy-primary"><strong id="csy-order-yards">6.50</strong><span>cubic yards</span></div><p id="csy-result-caption" class="csy-caption">600 sq ft at 3 in, with 10% extra; rounded to 0.5 yd³</p><dl class="csy-breakdown"><div><dt>Installed volume</dt><dd id="csy-net-yards">5.56 yd³</dd></div><div><dt>Planned volume before rounding</dt><dd id="csy-plan-yards">6.11 yd³</dd></div><div><dt>Estimated rounded-order weight</dt><dd id="csy-order-tons">8.78 US short tons</dd></div><div><dt>Usable yards per example truck</dt><dd id="csy-effective-load">8.89 yd³</dd></div><div><dt>Estimated deliveries</dt><dd id="csy-loads">1 load</dd></div></dl><p class="csy-result-note">Truck counts are planning math, not a dispatch promise. Confirm the truck, legal payload, route, dump location, and delivery charges with the seller.</p></div>
       </div>
-    </section>
+    </div></section>
 
-    <!-- Technical Guide on Crushed Stone Yardage -->
-    <article class="content-guide-section">
-      <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Crushed Stone Yardage Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Crushed Stone Delivery Reference</span>
-          </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Yards = (Area [sq ft] × Depth [in]) / 324</span>
-              <p class="aeo-quick-desc">Converts dimensions directly to cubic yards.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Tandem Capacity</span>
-              <span class="aeo-quick-value">9 to 11 Cubic Yards</span>
-              <p class="aeo-quick-desc">Standard delivery payload for residential stone orders.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Tri-Axle Capacity</span>
-              <span class="aeo-quick-value">14 to 17 Cubic Yards</span>
-              <p class="aeo-quick-desc">Commercial maximum capacity (18 to 22 scale tons).</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Scale Weight</span>
-              <span class="aeo-quick-value">1.40 Tons per Yard</span>
-              <p class="aeo-quick-desc">Standard bulk density per ASTM C29 loose testing.</p>
-            </div>
-          </div>
-        </section>
-
-        <div class="content-card">
-          <h2>Managing Crushed Stone Truckload Logistics</h2>
-          <p>
-            When ordering crushed stone by the cubic yard, delivery vehicles reach legal axle weight limits before the physical dump body is completely full. One cubic yard of crushed stone weighs 2,800 pounds (1.40 tons).
-          </p>
-          <p>
-            Understanding dump truck payload constraints prevents split delivery surcharges ($65 to $120 per trip) and ensures you have sufficient overhead clearance (14 to 18 feet) for safe dump bed elevation.
-          </p>
-
-          <div class="formula-box">
-            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
-            <br />
-            <code>Tandem Truckloads = (Total Yards × 1.10 Buffer) / 10 Yards per Load</code>
-          </div>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Crushed Stone Yardage</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </article>
-
-    <TopicClusterNav
-      currentPage="/crushed-stone-yardage-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <article class="csy-guide"><div class="container">
+      <nav class="csy-jumps" aria-label="On this page"><strong>Plan the delivery</strong><a href="#csy-math">See the yardage math</a><a href="#csy-rounding">Compare order increments</a><a href="#csy-truck">Check truck capacity</a><a href="#csy-faq">Common questions</a></nav>
+      <section class="csy-panel csy-math-panel" id="csy-math" aria-labelledby="csy-math-heading"><div><p class="csy-kicker">Volume first</p><h2 id="csy-math-heading">A cubic yard is a measured volume, not a fixed weight</h2><p>One cubic yard contains 27 cubic feet. For a rectangular layer, multiply length by width in feet, then multiply by depth in inches and divide by 324. The divisor converts inches to feet and cubic feet to cubic yards.</p><div class="csy-formula"><code>installed yd³ = area (sq ft) × depth (in) ÷ 324</code><code>planned yd³ = installed yd³ × (1 + extra % ÷ 100)</code><code>order yd³ = round planned yd³ up to seller's increment</code></div><p>For 40 × 15 ft at 3 in, the installed layer is <strong>600 × 3 ÷ 324 = 5.56 yd³</strong>. Applying 10% to the unrounded volume gives <strong>6.11 yd³</strong> when displayed. A seller taking half-yard orders would quote <strong>6.5 yd³</strong>.</p><p>To convert the rounded order to weight, multiply 6.5 yd³ by the actual loose bulk tons per yard. At the sample 1.35 rate, the estimate is <strong>8.78 US short tons</strong>. The quarry scale ticket records delivered weight.</p></div><figure><div class="csy-figure-scroll"><img src="/crushed-stone-yardage-order.svg" width="800" height="510" loading="lazy" alt="Crushed stone yardage example: a 600 square foot area at 3 inches deep needs 5.56 installed cubic yards, 6.11 with 10 percent extra, and 6.5 cubic yards after rounding to half yards." /></div><figcaption><span class="csy-swipe-hint">Swipe to read the diagram. </span>Keep measured layer volume, site allowance, and selling increment separate.</figcaption></figure></section>
+      <section class="csy-panel" id="csy-rounding" aria-labelledby="csy-rounding-heading"><p class="csy-kicker">Buying by the yard</p><h2 id="csy-rounding-heading">Ask how your supplier rounds the order</h2><p>At the same 6.11 yd³ planned amount, the step size changes what you actually buy. The step is a supplier term, not a physical property of crushed stone.</p><div class="csy-table-wrap"><table><caption>Example order for a 600 sq ft layer at 3 in with 10% extra</caption><thead><tr><th scope="col">Seller's increment</th><th scope="col">Order quantity</th><th scope="col">More than 6.11 yd³ plan</th></tr></thead><tbody><tr><th scope="row">0.25 yd³</th><td>6.25 yd³</td><td>0.14 yd³</td></tr><tr><th scope="row">0.5 yd³</th><td>6.5 yd³</td><td>0.39 yd³</td></tr><tr><th scope="row">1 yd³</th><td>7 yd³</td><td>0.89 yd³</td></tr></tbody></table></div><p>For irregular areas, divide the project into rectangles and add the square footage before using the calculator. For a trench, use its actual length, width, and aggregate depth; subtract substantial pipe or structure volume if the supplier's takeoff calls for it. If the job has separate clean stone and compactable base layers, estimate and order each grade separately through the <a href="/crushed-stone-calculator">crushed stone material calculator</a>.</p></section>
+      <section class="csy-panel" id="csy-truck" aria-labelledby="csy-truck-heading"><p class="csy-kicker">Delivery constraints</p><h2 id="csy-truck-heading">A truck can run out of payload before bed space</h2><p>A stone order has both volume and weight. The usable cubic yards per load are the smaller of the truck's <strong>bed-volume limit</strong> and its <strong>permitted stone payload ÷ short tons per cubic yard</strong>. For illustration, a 10-yd³ bed with a 12-ton stone payload at 1.35 tons/yd³ is weight-limited to 8.89 yd³ per trip. The example 6.5-yd³ order fits into one such load.</p><div class="csy-callout"><strong>Before scheduling:</strong> ask the yard for its actual truck and payload, minimum order, delivered price, and whether it can tip at your chosen spot. Check gate width, ground firmness, overhead clearance, and local rules for placing stone near a street. A tight access route may call for a smaller load even when the arithmetic fits.</div><p>Many sellers quote this material by scale ton rather than cubic yard. <a href="https://ottrsupply.com/products/57-stone" target="_blank" rel="noopener noreferrer">Ottr Supply's #57 granite listing</a> gives about 2,700 lb/yd³, while <a href="https://hellogravel.com/products/57-crushed-stone/" target="_blank" rel="noopener noreferrer">Hello Gravel lists about 2,800 lb/yd³</a> for its #57 product. They illustrate why one default cannot describe every quarry. <a href="https://store.astm.org/c0029_c0029m-23.html" target="_blank" rel="noopener noreferrer">ASTM C29/C29M</a> provides a method to measure aggregate bulk density in loose or compacted condition; it does not assign a universal value or a truck capacity.</p><p>Want an order by weight instead? Use the <a href="/crushed-stone-tons-calculator">crushed stone tons calculator</a>. For retail packages, use the <a href="/crushed-stone-bag-calculator">crushed stone bag calculator</a>; delivery fees and access can change the better buying format. For a base with fines, check the <a href="/crusher-run-calculator">crusher run calculator</a> and ask for the local product's gradation.</p></section>
+      <section class="csy-panel" id="csy-faq" aria-labelledby="csy-faq-heading"><h2 id="csy-faq-heading">Crushed stone yardage questions</h2><div class="csy-faq">{faqItems.map(item => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}</div></section>
+    </div></article>
+    <TopicClusterNav currentPage="/crushed-stone-yardage-calculator" category="quantity" />
   </main>
-
   <Footer />
-
   <script>
-    function updateCSY() {
-      const l = parseFloat((document.getElementById('csy-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('csy-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('csy-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('csy-waste') as HTMLInputElement)?.value) || 0;
-
-      const netYards = (l * w * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const cuft = totalYards * 27;
-      const tons = totalYards * 1.40;
-      const loads = totalYards / 10;
-
-      const yEl = document.getElementById('kpi-csy-yards');
-      const tEl = document.getElementById('kpi-csy-tons');
-      const lEl = document.getElementById('kpi-csy-loads');
-      const cEl = document.getElementById('kpi-csy-cuft');
-
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (lEl) lEl.innerText = loads.toFixed(1);
-      if (cEl) cEl.innerText = Math.round(cuft).toLocaleString() + ' cu ft total volume';
+    const csyInput = (id: string) => document.getElementById(id) as HTMLInputElement | null;
+    const csyNumber = (id: string) => { const raw = csyInput(id)?.value.trim(); return raw ? Number(raw) : NaN; };
+    const csyOut = (id: string, value: string) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+    const csyResultIds = ['csy-order-yards', 'csy-net-yards', 'csy-plan-yards', 'csy-order-tons', 'csy-effective-load', 'csy-loads'];
+    function updateCrushedYardage() {
+      const mode = (document.querySelector('input[name="csy-mode"]:checked') as HTMLInputElement | null)?.value || 'rectangle';
+      const rectangle = document.getElementById('csy-rectangle-fields'), knownArea = document.getElementById('csy-area-fields');
+      if (rectangle) rectangle.hidden = mode !== 'rectangle';
+      if (knownArea) knownArea.hidden = mode !== 'area';
+      const length = csyNumber('csy-length'), width = csyNumber('csy-width'), known = csyNumber('csy-area');
+      const depth = csyNumber('csy-depth'), extra = csyNumber('csy-extra'), increment = csyNumber('csy-increment');
+      const density = csyNumber('csy-density'), bed = csyNumber('csy-bed'), payload = csyNumber('csy-payload');
+      const validLength = Number.isFinite(length) && length > 0;
+      const validWidth = Number.isFinite(width) && width > 0;
+      const validKnown = Number.isFinite(known) && known > 0;
+      const validDepth = Number.isFinite(depth) && depth > 0 && depth <= 36;
+      const validExtra = Number.isFinite(extra) && extra >= 0 && extra <= 100;
+      const validIncrement = Number.isFinite(increment) && increment > 0 && increment <= 100;
+      const validDensity = Number.isFinite(density) && density > 0 && density <= 3;
+      const validBed = Number.isFinite(bed) && bed > 0 && bed <= 100;
+      const validPayload = Number.isFinite(payload) && payload > 0 && payload <= 100;
+      const fieldValidity: Record<string, boolean> = {
+        'csy-length': mode !== 'rectangle' || validLength,
+        'csy-width': mode !== 'rectangle' || validWidth,
+        'csy-area': mode !== 'area' || validKnown,
+        'csy-depth': validDepth,
+        'csy-extra': validExtra,
+        'csy-increment': validIncrement,
+        'csy-density': validDensity,
+        'csy-bed': validBed,
+        'csy-payload': validPayload
+      };
+      Object.entries(fieldValidity).forEach(([id, isValid]) => csyInput(id)?.setAttribute('aria-invalid', String(!isValid)));
+      const validArea = mode === 'area' ? validKnown : validLength && validWidth;
+      const area = mode === 'area' ? known : length * width;
+      const valid = validArea && Number.isFinite(area) && area > 0 && validDepth && validExtra && validIncrement;
+      const error = document.getElementById('csy-error');
+      if (!valid) {
+        csyResultIds.forEach(id => csyOut(id, '—'));
+        csyOut('csy-result-caption', 'Enter valid area, depth, extra, and supplier increment.');
+        if (error) { error.textContent = 'Check the active area inputs, depth (up to 36 in), extra (0–100%), and selling increment (0.01–100 yd³).'; error.hidden = false; }
+        return;
+      }
+      if (error) error.hidden = true;
+      const net = area * depth / 324;
+      const plan = net * (1 + extra / 100);
+      const order = Math.max(1, Math.ceil((plan / increment) - 1e-10)) * increment;
+      csyOut('csy-order-yards', order.toFixed(2));
+      csyOut('csy-net-yards', net.toFixed(2) + ' yd³');
+      csyOut('csy-plan-yards', plan.toFixed(2) + ' yd³');
+      csyOut('csy-result-caption', area.toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' sq ft at ' + depth + ' in, with ' + extra + '% extra; rounded to ' + increment + ' yd³');
+      csyOut('csy-order-tons', validDensity ? (order * density).toFixed(2) + ' US short tons' : 'Enter valid bulk weight');
+      const validTruck = validDensity && validBed && validPayload;
+      const effective = validTruck ? Math.min(bed, payload / density) : NaN;
+      csyOut('csy-effective-load', validTruck ? effective.toFixed(2) + ' yd³' : 'Enter valid truck limits');
+      if (validTruck) { const loads = Math.ceil(order / effective - 1e-10); csyOut('csy-loads', loads + (loads === 1 ? ' load' : ' loads')); }
+      else csyOut('csy-loads', '—');
     }
-
-    ['csy-length', 'csy-width', 'csy-depth', 'csy-waste'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateCSY);
-    });
-    updateCSY();
+    ['csy-length', 'csy-width', 'csy-area', 'csy-depth', 'csy-extra', 'csy-increment', 'csy-density', 'csy-bed', 'csy-payload'].forEach(id => csyInput(id)?.addEventListener('input', updateCrushedYardage));
+    document.querySelectorAll<HTMLInputElement>('input[name="csy-mode"]').forEach(el => el.addEventListener('change', updateCrushedYardage));
+    updateCrushedYardage();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .csy-tool { padding: var(--space-8) 0; }
+  .csy-heading { max-width: 780px; margin-bottom: var(--space-6); }
+  .csy-heading h2, .csy-panel h2 { color: var(--text-primary); font-size: var(--text-2xl); line-height: 1.25; margin: 0 0 var(--space-3); }
+  .csy-heading p, .csy-panel p { color: var(--text-secondary); line-height: 1.7; }
+  .csy-kicker { color: var(--accent-gold) !important; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; font-size: var(--text-xs); margin: 0 0 var(--space-2); }
+  .csy-tool-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--space-5); align-items: start; }
+  .csy-card, .csy-panel { min-width: 0; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: var(--space-8); }
+  .csy-mode { border: 0; padding: 0; margin: 0 0 var(--space-5); display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .csy-mode legend { width: 100%; color: var(--text-primary); font-weight: 700; margin-bottom: var(--space-2); }
+  .csy-mode label { display: inline-flex; align-items: center; gap: .4rem; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-subtle); border-radius: 999px; padding: .45rem .8rem; cursor: pointer; font-size: var(--text-sm); }
+  .csy-mode input { accent-color: var(--accent-gold); }
+  .csy-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-4); }
+  .csy-fields[hidden] { display: none; }
+  .csy-main-fields { border-top: 1px solid var(--border-subtle); padding-top: var(--space-5); }
+  .csy-field { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+  .csy-field label { font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); }
+  .csy-field label span { color: var(--text-muted); font-weight: 400; }
+  .csy-field input { width: 100%; min-width: 0; padding: .7rem .8rem; font: inherit; color: var(--text-primary); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+  .csy-field input[aria-invalid="true"] { border-color: #b54037; }
+  .csy-field input:focus-visible, .csy-mode input:focus-visible, .csy-delivery summary:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 2px; }
+  .csy-delivery { border-top: 1px solid var(--border-subtle); padding-top: var(--space-4); }
+  .csy-delivery summary { color: var(--text-primary); font-weight: 700; cursor: pointer; }
+  .csy-delivery p { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; }
+  .csy-delivery .csy-fields { margin-top: var(--space-4); }
+  .csy-help { border-top: 1px solid var(--border-subtle); padding-top: var(--space-4); }
+  .csy-help p { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin: 0 0 var(--space-3); }
+  .csy-help strong { color: var(--text-primary); }
+  .csy-error { color: #b54037; font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+  .csy-results { border-color: rgba(212,168,83,.5); position: sticky; top: 1rem; }
+  .csy-primary { display: flex; align-items: baseline; flex-wrap: wrap; gap: .3rem .7rem; color: var(--text-primary); }
+  .csy-primary strong { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; }
+  .csy-primary span { font-weight: 700; }
+  .csy-caption { color: var(--text-muted); font-size: var(--text-sm); margin: var(--space-2) 0 var(--space-5); }
+  .csy-breakdown { margin: 0; }
+  .csy-breakdown div { display: flex; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) 0; border-top: 1px solid var(--border-subtle); font-size: var(--text-sm); }
+  .csy-breakdown dt { color: var(--text-secondary); }
+  .csy-breakdown dd { margin: 0; color: var(--text-primary); font-weight: 700; text-align: right; }
+  .csy-result-note { margin: var(--space-4) 0 0; padding: var(--space-3); background: var(--bg-surface); border-left: 3px solid var(--accent-gold); border-radius: var(--radius-sm); color: var(--text-secondary); font-size: var(--text-sm); line-height: 1.55; }
+  .csy-guide { background: var(--bg-body); padding: var(--space-8) 0 var(--space-12); }
+  .csy-jumps { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); margin-bottom: var(--space-6); font-size: var(--text-sm); }
+  .csy-jumps strong { color: var(--text-primary); }
+  .csy-jumps a, .csy-panel a { color: var(--accent-gold); text-underline-offset: .2em; }
+  .csy-panel { margin-bottom: var(--space-6); line-height: 1.7; scroll-margin-top: 1rem; }
+  .csy-panel p { margin: 0 0 var(--space-4); }
+  .csy-panel p:last-child { margin-bottom: 0; }
+  .csy-math-panel { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: var(--space-6); align-items: center; }
+  .csy-math-panel > * { min-width: 0; }
+  .csy-formula { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); margin: var(--space-4) 0; overflow-x: auto; }
+  .csy-formula code { display: block; color: var(--text-primary); font-size: var(--text-sm); white-space: nowrap; }
+  .csy-formula code + code { margin-top: var(--space-2); }
+  .csy-math-panel figure { margin: 0; min-width: 0; }
+  .csy-figure-scroll { max-width: 100%; overflow-x: auto; }
+  .csy-math-panel img { display: block; width: 100%; height: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+  .csy-math-panel figcaption { color: var(--text-muted); font-size: var(--text-sm); margin-top: var(--space-2); }
+  .csy-swipe-hint { display: none; }
+  .csy-table-wrap { max-width: 100%; overflow-x: auto; margin: var(--space-5) 0; }
+  .csy-table-wrap table { width: 100%; border-collapse: collapse; min-width: 460px; text-align: left; }
+  .csy-table-wrap caption { text-align: left; color: var(--text-muted); font-size: var(--text-sm); margin-bottom: var(--space-2); }
+  .csy-table-wrap th, .csy-table-wrap td { padding: .7rem .8rem; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+  .csy-table-wrap th { color: var(--text-primary); }
+  .csy-callout { padding: var(--space-5); margin: var(--space-5) 0; border-left: 3px solid var(--accent-gold); background: var(--bg-surface); color: var(--text-secondary); border-radius: var(--radius-sm); }
+  .csy-callout strong { color: var(--text-primary); }
+  .csy-faq { display: grid; gap: var(--space-3); }
+  .csy-faq details { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .csy-faq summary { cursor: pointer; color: var(--text-primary); font-weight: 700; }
+  .csy-faq details p { margin: var(--space-3) 0 0; font-size: var(--text-sm); }
+  @media (max-width: 900px) { .csy-tool-grid, .csy-math-panel { grid-template-columns: minmax(0, 1fr); } .csy-results { position: static; } }
+  @media (max-width: 540px) { .csy-card, .csy-panel { padding: var(--space-5); } .csy-fields { grid-template-columns: 1fr; } .csy-breakdown div { align-items: start; } .csy-math-panel img { min-width: 550px; } .csy-swipe-hint { display: inline; } }
 </style>

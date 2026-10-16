@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" role="img" aria-labelledby="title desc">
+  <title id="title">Crushed stone bag count by labeled volume</title>
+  <desc id="desc">A 10 by 10 foot area at 3 inches needs 25 cubic feet. That is 50 bags labeled 0.5 cubic foot, or 100 bags labeled 0.25 cubic foot, before extra.</desc>
+  <defs>
+    <linearGradient id="background" x2="1" y2="1">
+      <stop stop-color="#152238"/>
+      <stop offset="1" stop-color="#233750"/>
+    </linearGradient>
+    <pattern id="stone" width="48" height="34" patternUnits="userSpaceOnUse">
+      <path d="M4 8 17 3 25 10 21 24 8 26 2 17ZM28 5 41 1 47 13 40 28 29 24 24 15Z" fill="#77889d" stroke="#aeb9c7" stroke-width="2"/>
+    </pattern>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0 0 9 4.5 0 9Z" fill="#e8b35c"/>
+    </marker>
+  </defs>
+  <rect width="960" height="510" rx="24" fill="url(#background)"/>
+  <text x="42" y="59" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="30" font-weight="700">The same layer, two bag sizes</text>
+  <text x="42" y="89" fill="#c4d1df" font-family="Arial,sans-serif" font-size="18">Compare package volume before counting bags.</text>
+
+  <rect x="42" y="120" width="380" height="318" rx="17" fill="#20324a" stroke="#5c708a" stroke-width="2"/>
+  <text x="64" y="157" fill="#e8b35c" font-family="Arial,sans-serif" font-size="18" font-weight="700">MEASURED LAYER</text>
+  <rect x="92" y="188" width="272" height="138" rx="7" fill="url(#stone)" stroke="#afbed0" stroke-width="3"/>
+  <path d="M92 326 117 346H388L364 326" fill="#526579" stroke="#afbed0" stroke-width="3"/>
+  <path d="M388 346V208L364 188V326" fill="#42536a" stroke="#afbed0" stroke-width="3"/>
+  <text x="228" y="262" fill="#ffffff" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" paint-order="stroke" stroke="#20324a" stroke-width="5">10 ft × 10 ft</text>
+  <text x="228" y="375" fill="#d7e1eb" text-anchor="middle" font-family="Arial,sans-serif" font-size="20">3 in finished depth</text>
+  <text x="228" y="408" fill="#ffffff" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" font-weight="700">25 cu ft installed</text>
+
+  <path d="M431 280H490" stroke="#e8b35c" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="510" y="120" width="408" height="145" rx="17" fill="#2d4056" stroke="#e8b35c" stroke-width="2"/>
+  <rect x="535" y="148" width="92" height="85" rx="8" fill="#75879a" stroke="#cbd5df" stroke-width="3"/>
+  <path d="M548 180 562 168 577 182 590 165 611 188 598 217 555 216Z" fill="#4a5e72" stroke="#d2dbe4" stroke-width="2"/>
+  <text x="706" y="171" fill="#e8b35c" font-family="Arial,sans-serif" font-size="20" font-weight="700">0.5 CU FT / BAG</text>
+  <text x="706" y="215" fill="#ffffff" font-family="Arial,sans-serif" font-size="39" font-weight="700">50 bags</text>
+  <text x="706" y="242" fill="#c4d1df" font-family="Arial,sans-serif" font-size="16">25 ÷ 0.5 = 50</text>
+
+  <rect x="510" y="285" width="408" height="153" rx="17" fill="#2d4056" stroke="#7f9ab4" stroke-width="2"/>
+  <rect x="546" y="316" width="72" height="88" rx="8" fill="#75879a" stroke="#cbd5df" stroke-width="3"/>
+  <path d="M557 349 571 335 587 348 602 337 610 359 600 389 562 389Z" fill="#4a5e72" stroke="#d2dbe4" stroke-width="2"/>
+  <text x="706" y="334" fill="#b7cbe0" font-family="Arial,sans-serif" font-size="20" font-weight="700">0.25 CU FT / BAG</text>
+  <text x="706" y="379" fill="#ffffff" font-family="Arial,sans-serif" font-size="39" font-weight="700">100 bags</text>
+  <text x="706" y="406" fill="#c4d1df" font-family="Arial,sans-serif" font-size="16">25 ÷ 0.25 = 100</text>
+
+  <text x="480" y="478" fill="#c4d1df" text-anchor="middle" font-family="Arial,sans-serif" font-size="16">Volume comparison only · Add a site allowance separately · Round up to whole bags</text>
+</svg>

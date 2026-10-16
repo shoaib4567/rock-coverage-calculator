@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="510" viewBox="0 0 800 510" role="img" aria-labelledby="title desc">
+  <title id="title">Crushed stone yardage order steps</title>
+  <desc id="desc">A 600 square foot area at three inches deep needs 5.56 installed cubic yards, 6.11 cubic yards with ten percent extra, and 6.5 cubic yards after rounding to half yards.</desc>
+  <rect width="800" height="510" rx="24" fill="#141b24"/>
+  <text x="44" y="59" fill="#f1eee7" font-family="Arial,sans-serif" font-size="26" font-weight="700">From measured layer to yard order</text>
+  <text x="44" y="88" fill="#b8c3ca" font-family="Arial,sans-serif" font-size="16">Example: 40 × 15 ft at 3 in finished depth</text>
+  <rect x="42" y="126" width="716" height="82" rx="14" fill="#25313d"/>
+  <text x="66" y="159" fill="#d4a853" font-family="Arial,sans-serif" font-size="17" font-weight="700">1  Measure the installed layer</text>
+  <text x="66" y="188" fill="#f1eee7" font-family="Arial,sans-serif" font-size="20">600 sq ft × 3 in ÷ 324 = 5.56 yd³</text>
+  <path d="M400 212v21" stroke="#d4a853" stroke-width="3"/><path d="m391 226 9 9 9-9" fill="none" stroke="#d4a853" stroke-width="3"/>
+  <rect x="42" y="243" width="716" height="82" rx="14" fill="#25313d"/>
+  <text x="66" y="276" fill="#d4a853" font-family="Arial,sans-serif" font-size="17" font-weight="700">2  Add optional site allowance</text>
+  <text x="66" y="305" fill="#f1eee7" font-family="Arial,sans-serif" font-size="20">(600 × 3 ÷ 324) × 1.10 = 6.11 yd³ planned</text>
+  <path d="M400 329v21" stroke="#d4a853" stroke-width="3"/><path d="m391 343 9 9 9-9" fill="none" stroke="#d4a853" stroke-width="3"/>
+  <rect x="42" y="360" width="716" height="82" rx="14" fill="#31403e" stroke="#d4a853"/>
+  <text x="66" y="393" fill="#d4a853" font-family="Arial,sans-serif" font-size="17" font-weight="700">3  Round up to the seller's 0.5 yd³ step</text>
+  <text x="66" y="422" fill="#f1eee7" font-family="Arial,sans-serif" font-size="22" font-weight="700">Order 6.5 yd³</text>
+  <text x="44" y="477" fill="#b8c3ca" font-family="Arial,sans-serif" font-size="15">Stone weight and truck capacity require product and supplier figures.</text>
+</svg>

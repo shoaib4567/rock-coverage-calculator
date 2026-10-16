@@ -1,567 +1,183 @@
----
-// Rock Bag Calculator & Retail vs Bulk Savings Meter
----
 <section class="section" id="bag-calc">
   <div class="container">
     <div class="section-header">
-      <h2>Rock Bag & Pallet Calculator</h2>
+      <h2>Calculate bags from the volume on the label</h2>
       <div class="section-divider"></div>
-      <p>Calculate exact bag counts for 0.5 cu ft, 1.0 cu ft, and 50 lb retail bags, with full pallet breakdowns and a live Bulk Delivery vs Bagged Cost Comparison Meter.</p>
+      <p>Enter your coverage area, finished depth, and the cubic feet printed on your chosen bag. Add labeled weight, pallet quantity, and local prices when you have them.</p>
     </div>
-
-    <div class="calc-wrapper">
-      <!-- Input Panel -->
-      <div class="calc-panel animate-fade-in-up">
-        <div class="calc-panel-title">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <h3>Coverage Area & Depth</h3>
+    <div class="bag-grid">
+      <div class="bag-panel">
+        <h3>Measure the space</h3>
+        <fieldset class="bag-choice">
+          <legend>Area input</legend>
+          <label><input type="radio" name="bag-area-mode" value="rectangle" checked /> Length × width</label>
+          <label><input type="radio" name="bag-area-mode" value="known" /> Measured square feet</label>
+        </fieldset>
+        <div class="bag-fields" id="bag-rectangle-fields">
+          <label>Length (ft)<input id="bag-length" type="number" value="10" min="0.01" step="any" inputmode="decimal" /></label>
+          <label>Width (ft)<input id="bag-width" type="number" value="10" min="0.01" step="any" inputmode="decimal" /></label>
         </div>
-
-        <div class="dim-grid">
-          <div class="input-field">
-            <label for="bag-length">Area Length</label>
-            <input type="number" id="bag-length" value="20" min="1" step="0.5" />
-            <span class="unit-label">feet</span>
-          </div>
-          <div class="input-field">
-            <label for="bag-width">Area Width</label>
-            <input type="number" id="bag-width" value="10" min="1" step="0.5" />
-            <span class="unit-label">feet</span>
-          </div>
+        <label class="bag-single" id="bag-known-field" hidden>Measured area (sq ft)<input id="bag-area" type="number" min="0.01" step="any" inputmode="decimal" placeholder="Total area" /></label>
+        <div class="bag-fields">
+          <label>Finished layer depth (in)<input id="bag-depth" type="number" value="3" min="0.01" step="any" inputmode="decimal" /></label>
+          <label>Extra allowance (%)<input id="bag-extra" type="number" value="0" min="0" max="100" step="any" inputmode="decimal" /></label>
         </div>
+        <p class="bag-note">Zero extra suits an even surface. Add an allowance for known unevenness or handling loss; avoid counting a supplier's allowance twice.</p>
 
-        <div class="dim-grid">
-          <div class="input-field">
-            <label for="bag-depth">Layer Depth</label>
-            <input type="number" id="bag-depth" value="2.5" min="0.5" max="12" step="0.5" />
-            <span class="unit-label">inches</span>
-          </div>
-          <div class="input-field">
-            <label for="bag-waste">Overage Buffer</label>
-            <input type="number" id="bag-waste" value="10" min="0" max="25" step="1" />
-            <span class="unit-label">% extra</span>
-          </div>
+        <h3>Read the product label</h3>
+        <div class="bag-fields">
+          <label>Volume per bag (cu ft)<input id="bag-volume" type="number" value="0.5" min="0.01" step="any" inputmode="decimal" /></label>
+          <label>Weight per bag (lb, optional)<input id="bag-weight" type="number" min="0.01" step="any" inputmode="decimal" placeholder="As labeled" /></label>
         </div>
+        <label class="bag-single">Bags per pallet (optional)<input id="bag-pallet-size" type="number" min="1" step="1" inputmode="numeric" placeholder="Seller's pallet count" /></label>
+        <p class="bag-note">A 50 lb bag does not imply a fixed volume. Find the volume or coverage printed for that specific product before estimating bags.</p>
 
-        <!-- Bag Size Selector -->
-        <div class="calc-panel-title" style="margin-top: var(--space-4);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <h3>Retail Bag Size Specification</h3>
+        <h3>Compare local costs (optional)</h3>
+        <div class="bag-fields">
+          <label>Price per bag ($)<input id="bag-price" type="number" min="0" step="any" inputmode="decimal" placeholder="Store price" /></label>
+          <label>All-in bulk quote ($)<input id="bag-bulk-quote" type="number" min="0" step="any" inputmode="decimal" placeholder="Same rock and quantity" /></label>
         </div>
-
-        <div class="bag-select-grid" role="radiogroup">
-          <button type="button" class="bag-btn active" data-type="volume" data-vol="0.5" data-weight="48" data-pallet="60">
-            <div class="bag-btn-title">0.5 Cubic Foot Bag</div>
-            <div class="bag-btn-spec">Most common retail size | 54 bags / cu yd | ~48 lbs</div>
-          </button>
-          <button type="button" class="bag-btn" data-type="volume" data-vol="1.0" data-weight="95" data-pallet="30">
-            <div class="bag-btn-title">1.0 Cubic Foot Bag</div>
-            <div class="bag-btn-spec">Large nursery bag | 27 bags / cu yd | ~95 lbs</div>
-          </button>
-          <button type="button" class="bag-btn" data-type="weight" data-vol="0.52" data-weight="50" data-pallet="56">
-            <div class="bag-btn-title">50 lb Weight Bag</div>
-            <div class="bag-btn-spec">Heavy aggregate bag | 40 bags / ton | ~0.52 cu ft</div>
-          </button>
-        </div>
-
-        <!-- Pricing Comparison Inputs -->
-        <div class="calc-panel-title" style="margin-top: var(--space-4);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          <h3>Retail vs Bulk Price Comparison</h3>
-        </div>
-
-        <div class="dim-grid">
-          <div class="input-field">
-            <label for="price-per-bag">Price Per Bag</label>
-            <input type="number" id="price-per-bag" value="4.75" min="0" step="0.25" />
-            <span class="unit-label">$ / bag</span>
-          </div>
-          <div class="input-field">
-            <label for="price-bulk-yard">Bulk Yard Price</label>
-            <input type="number" id="price-bulk-yard" value="65.00" min="0" step="5" />
-            <span class="unit-label">$ / cu yd</span>
-          </div>
-        </div>
-
-        <div class="input-field" style="margin-top: var(--space-2);">
-          <label for="bulk-delivery-fee">Flat Bulk Delivery Drop Fee</label>
-          <input type="number" id="bulk-delivery-fee" value="75.00" min="0" step="5" />
-          <span class="unit-label">$ flat fee</span>
-        </div>
+        <p class="bag-note">Include the bulk minimum and delivery. Tax, your transport, and placement labor are outside this comparison unless included in both prices.</p>
+        <p class="bag-error" id="bag-error" role="alert" hidden></p>
       </div>
 
-      <!-- Output Panel -->
-      <div class="calc-results-panel animate-fade-in-up">
-        <div class="results-header">
-          <div class="results-title">Bagged Material Breakdown</div>
-          <div class="results-badge" id="bag-active-badge">0.5 Cu Ft Bags</div>
+      <div class="bag-panel bag-results" aria-live="polite" aria-atomic="true">
+        <h3>Your bag plan</h3>
+        <div class="bag-kpis">
+          <div class="bag-kpi bag-primary"><strong id="bag-count">50</strong><span>Whole bags to buy</span><small id="bag-purchased">25 cu ft in purchased bags</small></div>
+          <div class="bag-kpi"><strong id="bag-yards">0.93</strong><span>Planned cubic yards</span><small id="bag-planned">25 cu ft including 0% extra</small></div>
+          <div class="bag-kpi"><strong id="bag-total-weight">—</strong><span>Total packaged weight</span><small>Needs labeled bag weight</small></div>
+          <div class="bag-kpi"><strong id="bag-total-cost">—</strong><span>Bag material cost</span><small>Needs local bag price</small></div>
         </div>
-
-        <div class="kpi-grid">
-          <div class="kpi-card highlight">
-            <div class="kpi-value" id="kpi-bag-count">0</div>
-            <div class="kpi-label">Total Bags to Purchase</div>
-            <div class="kpi-subtext" id="kpi-bag-pallets">0 full pallets + 0 loose</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-value" id="kpi-bag-yards">0.00</div>
-            <div class="kpi-label">Total Volume (Cubic Yards)</div>
-            <div class="kpi-subtext" id="kpi-bag-cuft">0 cu ft net volume</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-value" id="kpi-bag-weight">0</div>
-            <div class="kpi-label">Total Weight (Lbs)</div>
-            <div class="kpi-subtext" id="kpi-bag-tons">0.00 tons total load</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-value" id="kpi-bag-cost">$0</div>
-            <div class="kpi-label">Retail Bag Cost</div>
-            <div class="kpi-subtext" id="kpi-bulk-cost">vs $0 bulk delivered</div>
-          </div>
-        </div>
-
-        <!-- Retail vs Bulk Savings Meter -->
-        <div class="savings-meter-card">
-          <div class="meter-header">
-            <span class="meter-title">Financial Decision Meter</span>
-            <span class="meter-verdict" id="savings-verdict">Evaluating...</span>
-          </div>
-          <div class="meter-bar-track">
-            <div class="meter-bar-fill" id="savings-bar-fill"></div>
-          </div>
-          <p class="meter-explanation" id="savings-explanation">
-            Comparing retail bagged convenience against bulk quarry delivery economics.
-          </p>
-        </div>
-
-        <!-- Breakdown List -->
-        <div class="breakdown-list">
-          <div class="breakdown-row">
-            <span>Coverage Area</span>
-            <span class="breakdown-val" id="row-bag-area">200 sq ft</span>
-          </div>
-          <div class="breakdown-row">
-            <span>Single Bag Coverage (at current depth)</span>
-            <span class="breakdown-val" id="row-bag-coverage">2.4 sq ft / bag</span>
-          </div>
-          <div class="breakdown-row">
-            <span>Standard Pallet Weight</span>
-            <span class="breakdown-val" id="row-pallet-weight">2,880 lbs / pallet (60 bags)</span>
-          </div>
-          <div class="breakdown-row">
-            <span>SUV / Pickup Trunk Trips (at 1,000 lbs/trip)</span>
-            <span class="breakdown-val" id="row-vehicle-trips">3 trips</span>
-          </div>
-        </div>
+        <div class="bag-detail"><h4>How the count works</h4><p id="bag-volume-line">100 sq ft × 3 in ÷ 12 = 25 cu ft installed.</p><p id="bag-count-line">25 cu ft ÷ 0.5 cu ft per bag = 50; buy 50 whole bags.</p><p id="bag-coverage-line">One 0.5 cu ft bag covers 2 sq ft at 3 in deep, by volume.</p></div>
+        <div class="bag-detail"><h4>Handling and ordering</h4><p id="bag-pallet-line">Enter bags per pallet to see the whole-pallet and loose-bag split.</p><p id="bag-haul-line">Enter labeled weight to check the total load against your vehicle's actual payload label, allowing for passengers and other cargo.</p></div>
+        <div class="bag-detail bag-quote"><h4>Bags versus a bulk quote</h4><p id="bag-compare-line">Enter a bag price and an all-in bulk quote for the same rock and volume to compare local material costs.</p></div>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-.calc-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-6);
-  margin-top: var(--space-6);
-}
-
-@media (max-width: 900px) {
-  .calc-wrapper {
-    grid-template-columns: 1fr;
-  }
-}
-
-.calc-panel, .calc-results-panel {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-6);
-}
-
-.calc-panel-title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-  color: var(--color-text);
-}
-
-.calc-panel-title svg {
-  color: var(--color-primary);
-}
-
-.calc-panel-title h3 {
-  font-size: var(--text-base);
-  font-weight: 600;
-  margin: 0;
-}
-
-.dim-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
-  margin-bottom: var(--space-3);
-}
-
-.input-field {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.input-field label {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-1);
-}
-
-.input-field input {
-  padding: 0.65rem 0.75rem;
-  padding-right: 3.5rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-  font-size: var(--text-base);
-  font-weight: 600;
-  outline: none;
-  transition: border-color var(--transition-fast);
-}
-
-.input-field input:focus {
-  border-color: var(--color-primary);
-}
-
-.input-field .unit-label {
-  position: absolute;
-  right: 0.75rem;
-  bottom: 0.65rem;
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  pointer-events: none;
-}
-
-.bag-select-grid {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  margin-bottom: var(--space-4);
-}
-
-.bag-btn {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 0.6rem 0.8rem;
-  text-align: left;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.bag-btn:hover {
-  border-color: var(--color-primary-light);
-}
-
-.bag-btn.active {
-  border-color: var(--color-primary);
-  background: rgba(202, 138, 4, 0.08);
-}
-
-.bag-btn-title {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.bag-btn-spec {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-}
-
-.results-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.results-title {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.results-badge {
-  font-size: var(--text-xs);
-  padding: 0.25rem 0.6rem;
-  background: rgba(202, 138, 4, 0.12);
-  color: var(--color-primary);
-  border-radius: 9999px;
-  font-weight: 600;
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-  margin-bottom: var(--space-5);
-}
-
-.kpi-card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-3) var(--space-4);
-}
-
-.kpi-card.highlight {
-  border-color: var(--color-primary);
-  background: rgba(202, 138, 4, 0.05);
-}
-
-.kpi-value {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  color: var(--color-primary);
-  line-height: 1.1;
-}
-
-.kpi-label {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  margin-top: var(--space-1);
-}
-
-.kpi-subtext {
-  font-size: 0.75rem;
-  color: var(--color-text);
-  opacity: 0.8;
-  margin-top: 0.15rem;
-}
-
-.savings-meter-card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  margin-bottom: var(--space-4);
-}
-
-.meter-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-2);
-}
-
-.meter-title {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-muted);
-}
-
-.meter-verdict {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
-.meter-bar-track {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 9999px;
-  overflow: hidden;
-  margin-bottom: var(--space-2);
-}
-
-.meter-bar-fill {
-  height: 100%;
-  width: 50%;
-  background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
-  transition: width var(--transition-normal);
-}
-
-.meter-explanation {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  line-height: 1.4;
-  margin: 0;
-}
-
-.breakdown-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.breakdown-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: var(--text-xs);
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid var(--color-border);
-  color: var(--color-text-muted);
-}
-
-.breakdown-row:last-child {
-  border-bottom: none;
-}
-
-.breakdown-val {
-  font-weight: 600;
-  color: var(--color-text);
-}
+  .bag-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--space-6); margin-top:var(--space-6); align-items:start; }
+  .bag-panel { min-width:0; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:var(--space-6); }
+  .bag-panel h3 { color:var(--text-primary); font-size:var(--text-lg); margin:0 0 var(--space-4); }
+  .bag-panel h3:not(:first-child) { margin-top:var(--space-7); }
+  .bag-choice { border:0; padding:0; margin:0 0 var(--space-4); display:flex; flex-wrap:wrap; gap:var(--space-3); }
+  .bag-choice legend { color:var(--text-muted); font-size:var(--text-xs); margin-bottom:var(--space-2); }
+  .bag-choice label { display:inline-flex; align-items:center; gap:6px; cursor:pointer; color:var(--text-secondary); font-size:var(--text-sm); }
+  .bag-choice input { accent-color:var(--accent-gold); }
+  .bag-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--space-3); margin-bottom:var(--space-3); }
+  .bag-fields label, .bag-single { display:flex; flex-direction:column; gap:var(--space-1); color:var(--text-secondary); font-size:var(--text-xs); font-weight:600; margin-bottom:var(--space-3); }
+  .bag-fields input, .bag-single input { width:100%; min-width:0; padding:.7rem .75rem; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); color:var(--text-primary); font-size:var(--text-base); }
+  .bag-fields input:focus, .bag-single input:focus { outline:2px solid var(--accent-gold); outline-offset:1px; }
+  .bag-fields input[aria-invalid="true"], .bag-single input[aria-invalid="true"] { border-color:#dc2626; }
+  .bag-note { color:var(--text-muted); font-size:var(--text-xs); line-height:1.55; margin:0 0 var(--space-4); }
+  .bag-error { color:#b91c1c; border:1px solid #dc2626; border-radius:var(--radius-md); padding:var(--space-3); font-size:var(--text-sm); }
+  [hidden] { display:none !important; }
+  .bag-kpis { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--space-3); }
+  .bag-kpi, .bag-detail { background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:var(--space-4); }
+  .bag-primary { border-color:var(--accent-gold); }
+  .bag-kpi strong { display:block; color:var(--accent-gold); font-size:var(--text-2xl); overflow-wrap:anywhere; }
+  .bag-kpi span, .bag-kpi small { display:block; font-size:var(--text-xs); color:var(--text-secondary); }
+  .bag-kpi small { margin-top:var(--space-1); color:var(--text-muted); }
+  .bag-detail { margin-top:var(--space-3); color:var(--text-secondary); line-height:1.55; }
+  .bag-detail h4 { color:var(--text-primary); font-size:var(--text-sm); margin:0 0 var(--space-2); }
+  .bag-detail p { font-size:var(--text-sm); margin:var(--space-2) 0 0; overflow-wrap:anywhere; }
+  .bag-quote { border-left:3px solid var(--accent-gold); }
+  @media(max-width:900px) { .bag-grid { grid-template-columns:1fr; } }
+  @media(max-width:520px) { .bag-fields, .bag-kpis { grid-template-columns:1fr; } }
 </style>
 
 <script>
-function initBagCalculator() {
-  const lengthInput = document.getElementById('bag-length') as HTMLInputElement | null;
-  const widthInput = document.getElementById('bag-width') as HTMLInputElement | null;
-  const depthInput = document.getElementById('bag-depth') as HTMLInputElement | null;
-  const wasteInput = document.getElementById('bag-waste') as HTMLInputElement | null;
-  const priceBagInput = document.getElementById('price-per-bag') as HTMLInputElement | null;
-  const priceBulkInput = document.getElementById('price-bulk-yard') as HTMLInputElement | null;
-  const feeDeliveryInput = document.getElementById('bulk-delivery-fee') as HTMLInputElement | null;
-
-  const bagBtns = document.querySelectorAll('.bag-btn');
-
-  let activeBagVolCuFt = 0.5;
-  let activeBagWeightLbs = 48;
-  let activeBagsPerPallet = 60;
-  let activeBagLabel = '0.5 Cu Ft Bags';
-
-  function calculate() {
-    if (!lengthInput || !widthInput || !depthInput || !wasteInput) return;
-
-    const length = Math.max(0.5, parseFloat(lengthInput.value) || 0);
-    const width = Math.max(0.5, parseFloat(widthInput.value) || 0);
-    const depthInches = Math.max(0.25, parseFloat(depthInput.value) || 0);
-    const wastePercent = parseFloat(wasteInput.value) || 0;
-
-    const pricePerBag = Math.max(0, parseFloat(priceBagInput?.value || '4.75') || 0);
-    const pricePerBulkYard = Math.max(0, parseFloat(priceBulkInput?.value || '65.00') || 0);
-    const deliveryFee = Math.max(0, parseFloat(feeDeliveryInput?.value || '75.00') || 0);
-
-    const area = length * width;
-    const depthFeet = depthInches / 12;
-    const grossCuFt = area * depthFeet;
-    const totalCuFt = grossCuFt * (1 + wastePercent / 100);
-    const totalYards = totalCuFt / 27;
-
-    // Bag math
-    const totalBags = Math.ceil(totalCuFt / activeBagVolCuFt);
-    const pallets = Math.floor(totalBags / activeBagsPerPallet);
-    const looseBags = totalBags % activeBagsPerPallet;
-
-    // Weight math
-    const totalLbs = totalBags * activeBagWeightLbs;
-    const totalTons = totalLbs / 2000;
-
-    // Pricing math
-    const retailBagTotal = totalBags * pricePerBag;
-    const bulkTotal = (totalYards * pricePerBulkYard) + deliveryFee;
-    const priceDifference = retailBagTotal - bulkTotal;
-
-    // Single Bag Coverage
-    const singleBagSqFt = activeBagVolCuFt / depthFeet;
-
-    // Vehicle trips (assuming average half-ton pickup / SUV payload = 1,000 lbs)
-    const vehicleTrips = Math.ceil(totalLbs / 1000);
-
-    // Update KPIs
-    const kpiCount = document.getElementById('kpi-bag-count');
-    const kpiPallets = document.getElementById('kpi-bag-pallets');
-    const kpiYards = document.getElementById('kpi-bag-yards');
-    const kpiCuFt = document.getElementById('kpi-bag-cuft');
-    const kpiWeight = document.getElementById('kpi-bag-weight');
-    const kpiTons = document.getElementById('kpi-bag-tons');
-    const kpiBagCost = document.getElementById('kpi-bag-cost');
-    const kpiBulkCost = document.getElementById('kpi-bulk-cost');
-    const badge = document.getElementById('bag-active-badge');
-
-    if (kpiCount) kpiCount.textContent = totalBags.toLocaleString();
-    if (kpiPallets) {
-      if (pallets > 0) {
-        kpiPallets.textContent = `${pallets} pallet${pallets === 1 ? '' : 's'} + ${looseBags} loose bag${looseBags === 1 ? '' : 's'}`;
-      } else {
-        kpiPallets.textContent = `${looseBags} loose bags (No full pallet)`;
+  function initBagCalculator() {
+    const input = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const output = (id: string, value: string) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+    const number = (value: number, digits = 2) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
+    const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+    const required = (element: HTMLInputElement, positive: boolean) => {
+      const value = Number(element.value);
+      const valid = element.value.trim() !== '' && element.validity.valid && Number.isFinite(value) && (positive ? value > 0 : value >= 0);
+      element.setAttribute('aria-invalid', String(!valid));
+      return valid ? value : NaN;
+    };
+    const optional = (element: HTMLInputElement, positive: boolean) => {
+      if (element.value.trim() === '') { element.setAttribute('aria-invalid', 'false'); return null; }
+      const value = Number(element.value);
+      const valid = element.validity.valid && Number.isFinite(value) && (positive ? value > 0 : value >= 0);
+      element.setAttribute('aria-invalid', String(!valid));
+      return valid ? value : NaN;
+    };
+    const error = document.getElementById('bag-error') as HTMLElement;
+    function calculate() {
+      const known = (document.querySelector('input[name="bag-area-mode"]:checked') as HTMLInputElement)?.value === 'known';
+      (document.getElementById('bag-rectangle-fields') as HTMLElement).hidden = known;
+      (document.getElementById('bag-known-field') as HTMLElement).hidden = !known;
+      const length = known ? NaN : required(input('bag-length'), true);
+      const width = known ? NaN : required(input('bag-width'), true);
+      const measured = known ? required(input('bag-area'), true) : NaN;
+      (known ? [input('bag-length'), input('bag-width')] : [input('bag-area')]).forEach(element => element.setAttribute('aria-invalid', 'false'));
+      const area = known ? measured : length * width;
+      const depth = required(input('bag-depth'), true);
+      const extra = required(input('bag-extra'), false);
+      const bagVolume = required(input('bag-volume'), true);
+      const bagWeight = optional(input('bag-weight'), true);
+      const palletSize = optional(input('bag-pallet-size'), true);
+      const bagPrice = optional(input('bag-price'), false);
+      const bulkQuote = optional(input('bag-bulk-quote'), false);
+      const messages: string[] = [];
+      const coreValid = Number.isFinite(area) && area > 0 && Number.isFinite(depth) && Number.isFinite(extra) && Number.isFinite(bagVolume);
+      if (!coreValid) messages.push('Enter a positive area, depth, and bag volume. Extra can be zero.');
+      if (Number.isNaN(bagWeight)) messages.push('Bag weight must be positive or blank.');
+      if (Number.isNaN(palletSize)) messages.push('Pallet quantity must be a whole positive number or blank.');
+      if (Number.isNaN(bagPrice)) messages.push('Bag price must be zero or more, or blank.');
+      if (Number.isNaN(bulkQuote)) messages.push('Bulk quote must be zero or more, or blank.');
+      error.hidden = messages.length === 0;
+      error.textContent = messages.join(' ');
+      if (!coreValid) {
+        ['bag-count','bag-purchased','bag-yards','bag-planned','bag-total-weight','bag-total-cost','bag-volume-line','bag-count-line','bag-coverage-line'].forEach(id => output(id, '—'));
+        output('bag-pallet-line', 'Correct the measurements to calculate a pallet split.');
+        output('bag-haul-line', 'Correct the measurements to calculate packaged weight.');
+        output('bag-compare-line', 'Correct the measurements to compare costs.');
+        return;
       }
+      const installed = area * depth / 12;
+      const planned = installed * (1 + extra / 100);
+      const bags = Math.max(1, Math.ceil(planned / bagVolume - 1e-9));
+      if (!Number.isSafeInteger(bags) || !Number.isFinite(planned)) {
+        error.hidden = false;
+        error.textContent = 'The entered quantity is too large to calculate a reliable bag count.';
+        ['bag-count','bag-purchased','bag-yards','bag-planned','bag-total-weight','bag-total-cost','bag-volume-line','bag-count-line','bag-coverage-line'].forEach(id => output(id, '—'));
+        output('bag-pallet-line', 'Reduce the input values to calculate a reliable pallet split.');
+        output('bag-haul-line', 'Reduce the input values to calculate a reliable packaged weight.');
+        output('bag-compare-line', 'Reduce the input values to compare costs.');
+        return;
+      }
+      output('bag-count', number(bags, 0));
+      output('bag-purchased', number(bags * bagVolume) + ' cu ft in purchased bags');
+      output('bag-yards', number(planned / 27));
+      output('bag-planned', number(planned) + ' cu ft including ' + number(extra) + '% extra');
+      output('bag-total-weight', bagWeight === null || Number.isNaN(bagWeight) ? '—' : number(bags * bagWeight, 0) + ' lb');
+      output('bag-total-cost', bagPrice === null || Number.isNaN(bagPrice) ? '—' : money.format(bags * bagPrice));
+      output('bag-volume-line', number(area) + ' sq ft × ' + number(depth) + ' in ÷ 12 = ' + number(installed) + ' cu ft installed; ' + number(planned) + ' cu ft planned.');
+      output('bag-count-line', number(planned) + ' cu ft ÷ ' + number(bagVolume) + ' cu ft per bag = ' + number(planned / bagVolume) + '; round up to ' + number(bags, 0) + ' bags.');
+      output('bag-coverage-line', 'One ' + number(bagVolume) + ' cu ft bag covers ' + number(bagVolume * 12 / depth) + ' sq ft at ' + number(depth) + ' in deep, by volume.');
+      if (palletSize !== null && !Number.isNaN(palletSize)) {
+        const full = Math.floor(bags / palletSize);
+        const loose = bags % palletSize;
+        output('bag-pallet-line', number(full, 0) + ' full pallet' + (full === 1 ? '' : 's') + ' of ' + number(palletSize, 0) + ' bags, plus ' + number(loose, 0) + ' loose bag' + (loose === 1 ? '' : 's') + '. Confirm the seller allows a split order.');
+      } else output('bag-pallet-line', 'Enter bags per pallet to see the whole-pallet and loose-bag split.');
+      if (bagWeight !== null && !Number.isNaN(bagWeight)) output('bag-haul-line', number(bags, 0) + ' bags × ' + number(bagWeight) + ' lb = ' + number(bags * bagWeight, 0) + ' lb of packaged rock. Compare each trip with your vehicle’s doorjamb payload label after allowing for passengers and other cargo.');
+      else output('bag-haul-line', 'Enter labeled weight to check the total load against your vehicle’s actual payload label, allowing for passengers and other cargo.');
+      if (bagPrice !== null && bulkQuote !== null && !Number.isNaN(bagPrice) && !Number.isNaN(bulkQuote)) {
+        const bagCost = bags * bagPrice;
+        const difference = Math.abs(bagCost - bulkQuote);
+        const result = difference < .005 ? 'The entered costs are equal.' : bagCost < bulkQuote ? 'Bags cost ' + money.format(difference) + ' less.' : 'The bulk quote costs ' + money.format(difference) + ' less.';
+        output('bag-compare-line', number(bags, 0) + ' bags: ' + money.format(bagCost) + '. Bulk quote: ' + money.format(bulkQuote) + '. ' + result + ' Confirm that material, quantity, delivery, and taxes are comparable.');
+      } else output('bag-compare-line', 'Enter a valid bag price and an all-in bulk quote for the same rock and volume to compare local material costs.');
     }
-    if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
-    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft total volume`;
-    if (kpiWeight) kpiWeight.textContent = `${Math.round(totalLbs).toLocaleString()}`;
-    if (kpiTons) kpiTons.textContent = `${totalTons.toFixed(2)} tons total load`;
-    if (kpiBagCost) kpiBagCost.textContent = `$${Math.round(retailBagTotal).toLocaleString()}`;
-    if (kpiBulkCost) kpiBulkCost.textContent = `vs $${Math.round(bulkTotal).toLocaleString()} bulk delivered`;
-    if (badge) badge.textContent = activeBagLabel;
-
-    // Savings Decision Meter
-    const verdictEl = document.getElementById('savings-verdict');
-    const explanationEl = document.getElementById('savings-explanation');
-    const fillEl = document.getElementById('savings-bar-fill');
-
-    if (totalBags <= 25) {
-      if (verdictEl) verdictEl.textContent = 'Buy Retail Bags (Smartest)';
-      if (explanationEl) {
-        explanationEl.textContent = `For small quantities (${totalBags} bags), buying bagged rock is more cost-effective because the $${deliveryFee.toFixed(0)} bulk dump truck drop fee exceeds any bulk material savings.`;
-      }
-      if (fillEl) fillEl.style.width = '25%';
-    } else if (retailBagTotal <= bulkTotal) {
-      if (verdictEl) verdictEl.textContent = 'Bags Competitive with Bulk';
-      if (explanationEl) {
-        explanationEl.textContent = `At ${totalBags} bags ($${Math.round(retailBagTotal)}), retail bags are roughly equal to bulk delivery ($${Math.round(bulkTotal)}). Bags offer cleaner site storage and zero driveway dump cleanup.`;
-      }
-      if (fillEl) fillEl.style.width = '50%';
-    } else {
-      const savings = retailBagTotal - bulkTotal;
-      if (verdictEl) verdictEl.textContent = `Bulk Delivery Saves $${Math.round(savings).toLocaleString()}`;
-      if (explanationEl) {
-        explanationEl.textContent = `Switching to bulk quarry delivery will save you approximately $${Math.round(savings).toLocaleString()}! You need ${totalYards.toFixed(1)} cubic yards (${totalBags} bags), which justifies the flat freight fee.`;
-      }
-      if (fillEl) fillEl.style.width = '90%';
-    }
-
-    // Breakdown Rows
-    const rowArea = document.getElementById('row-bag-area');
-    const rowCoverage = document.getElementById('row-bag-coverage');
-    const rowPallet = document.getElementById('row-pallet-weight');
-    const rowTrips = document.getElementById('row-vehicle-trips');
-
-    if (rowArea) rowArea.textContent = `${Math.round(area).toLocaleString()} sq ft (${length}' × ${width}')`;
-    if (rowCoverage) rowCoverage.textContent = `${singleBagSqFt.toFixed(1)} sq ft / bag at ${depthInches}" depth`;
-    if (rowPallet) rowPallet.textContent = `${(activeBagsPerPallet * activeBagWeightLbs).toLocaleString()} lbs / pallet (${activeBagsPerPallet} bags)`;
-    if (rowTrips) rowTrips.textContent = `${vehicleTrips} vehicle trip${vehicleTrips === 1 ? '' : 's'} (based on 1,000 lbs/trip limit)`;
+    document.querySelectorAll('#bag-calc input').forEach(element => { element.addEventListener('input', calculate); element.addEventListener('change', calculate); });
+    calculate();
   }
-
-  // Bag button selector
-  bagBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      bagBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeBagVolCuFt = parseFloat(btn.getAttribute('data-vol') || '0.5');
-      activeBagWeightLbs = parseFloat(btn.getAttribute('data-weight') || '48');
-      activeBagsPerPallet = parseInt(btn.getAttribute('data-pallet') || '60', 10);
-      const titleEl = btn.querySelector('.bag-btn-title');
-      if (titleEl) activeBagLabel = titleEl.textContent || 'Bags';
-      calculate();
-    });
-  });
-
-  // Input events
-  [lengthInput, widthInput, depthInput, wasteInput, priceBagInput, priceBulkInput, feeDeliveryInput].forEach(input => {
-    if (input) {
-      input.addEventListener('input', calculate);
-    }
-  });
-
-  calculate();
-}
-
-document.addEventListener('DOMContentLoaded', initBagCalculator);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initBagCalculator);
+  else initBagCalculator();
 </script>

@@ -5,247 +5,285 @@ import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Crushed Stone Bag Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Crushed Stone Calculator', url: '/crushed-stone-calculator' },
-  { name: 'Crushed Stone Bag Calculator', url: '/crushed-stone-bag-calculator' }
+  { name: pageTitle, url: '/crushed-stone-bag-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Bagged Crushed Stone' },
-  { label: 'Standard Sieve', value: 'ASTM D448 #57 (1" to No. 4 Sieve)' },
-  { label: 'Bag Volume', value: '0.5 Cubic Feet per Bag' },
-  { label: 'Bag Weight', value: '50 to 52 lbs per Bag' }
+  { label: 'Measure', value: 'Area and finished layer depth' },
+  { label: 'Read the bag', value: 'Cubic feet for quantity, pounds for loading' },
+  { label: 'Choose', value: 'Clean drainage stone or dense paver base' }
 ];
-
-const quickStats = [
-  { value: '54 Bags', label: 'Per Cubic Yard', desc: 'Exact bag multiplier based on 27 cubic feet per yard' },
-  { value: '2.0 sq ft', label: 'Yield at 3"', desc: 'Ground coverage per 0.5 cu ft bag at standard 3-inch depth' },
-  { value: '20 Bags', label: 'Tipping Point', desc: 'Threshold where bulk quarry delivery becomes cheaper than retail bags' }
-];
-
 const faqItems = [
   {
-    q: 'How many bags of crushed stone do I need for a 10x10 foot area?',
-    a: 'A 10x10 foot area equals 100 square feet. At a standard 3-inch depth for a stable crushed stone base, you need 25 cubic feet of stone, which equals exactly 50 bags of 0.5 cubic feet each (2,550 lbs total weight).'
+    q: 'How many bags cover 100 square feet at 3 inches deep?',
+    a: 'The installed volume is 100 × 3 ÷ 12 = 25 cubic feet. At 0.5 cubic foot per bag, divide 25 by 0.5 to get 50 whole bags before any extra allowance. At 0.25 cubic foot per bag, the same layer needs 100 bags. Use the volume printed on the product you will buy.'
   },
   {
-    q: 'How many bags of crushed stone make a cubic yard?',
-    a: 'There are exactly 54 bags of 0.5 cubic feet in one cubic yard (27 cubic feet / 0.5 cu ft = 54 bags). At 50 to 52 pounds per bag, one cubic yard of bagged crushed stone weighs approximately 2,750 to 2,800 pounds (1.40 tons).'
+    q: 'How many 0.5 cubic foot bags make a cubic yard?',
+    a: 'One cubic yard is 27 cubic feet. Divide 27 by 0.5 to get 54 bags by volume. That conversion does not say that every 54 bags have the same weight or gradation as a cubic yard from a quarry.'
   },
   {
-    q: 'How much does a 0.5 cu ft bag of #57 crushed stone cover?',
-    a: 'One standard 0.5 cubic foot bag covers 3.0 square feet at 2 inches depth, 2.0 square feet at 3 inches depth, and 1.5 square feet at 4 inches depth.'
+    q: 'Can I use a 50 lb bag weight to calculate coverage?',
+    a: 'Not reliably. Bag weight is for lifting and vehicle loading; the package volume or manufacturer coverage is the useful number for area. Stone type, particle size, fines, and moisture can change pounds per cubic foot.'
   },
   {
-    q: 'How many bags of crushed stone do I need to set a 4x4 fence post?',
-    a: 'A standard post hole (10 inches wide by 30 inches deep) requires approximately 1/2 to 1 full bag of crushed stone at the bottom for drainage before pouring concrete or tamping stone.'
+    q: 'Should I use bagged #57 stone or bagged paver base?',
+    a: 'Check the product description and gradation. Clean, low-fines stone is used where an open drainage layer is specified. Paver base commonly includes smaller particles and fines so it can compact. A bag called “gravel” is not automatically interchangeable with either one.'
+  },
+  {
+    q: 'When does bulk crushed stone cost less than bags?',
+    a: 'There is no dependable bag-count cutoff. Multiply your whole-bag count by your local bag price, then compare it with an all-in quote for a comparable bulk stone and quantity. Include the supplier minimum, delivery, bag transport, and where you can unload.'
   }
 ];
-
 const upLinks = [
-  { title: 'Crushed Stone Calculator (Material Parent)', slug: '/crushed-stone-calculator', badge: 'Material' },
-  { title: 'Rock Bag Calculator (Unit Parent)', slug: '/rock-bag-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Material' },
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'All Stone' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Reference' }
 ];
-
 const lateralLinks = [
   { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Tons' },
   { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Yards' },
-  { title: 'Gravel Bag Calculator', slug: '/gravel-bag-calculator', badge: 'Gravel Bags' }
+  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Pea Gravel' }
 ];
-
 const bridgeLinks = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' }
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'Gradation' },
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Dense Base' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Buying' }
 ];
-
 const supportGuides = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Bag Weight and Price Guide', slug: '/rock-bag-weight-and-price-guide', badge: 'Loading' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
+  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Drainage' }
 ];
 ---
 
 <BaseLayout
-  title="Crushed Stone Bag Calculator - 0.5 Cu Ft Sizing & Cost Analysis"
-  metaDescription="Calculate exact 0.5 cu ft bags of crushed stone and #57 gravel needed for drainage, pads, and post holes. Sizing formulas, coverage yields, and bulk costs."
+  title={pageTitle}
+  description="Count whole bags of crushed stone from area, finished depth, and the package's cubic-foot volume. Estimate carrying weight and cost from your label and local quotes."
   canonicalPath="/crushed-stone-bag-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Crushed Stone Bag Calculator",
-      "url": "https://rockcoveragecalculator.com/crushed-stone-bag-calculator",
-      "description": "Calculates 0.5 cu ft retail bags of crushed stone and #57 gravel needed based on dimensions.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Contractors, Fencing Installers, DIY Landscapers, Homeowners"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Bagged Crushed Stone Calculation"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/crushed-stone-bag-calculator',
+      description: 'Calculates whole bags of crushed stone from finished layer volume and the volume stated on a product label.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="Crushed Stone Bag Calculator"
-      highlightWord="Bags"
-      badge="Retail Bag Sizing Engine"
-      subtitle="Calculate exact 0.5 cu ft bags of #57 crushed limestone and granite for shed pads, post holes, and French drains."
+      title={pageTitle}
+      highlightWord="Bag"
+      badge="Plan a bagged stone purchase"
+      subtitle="A 10 × 10 ft area at 3 in deep needs 25 cubic feet of stone: 50 bags labeled 0.5 cubic foot, before any extra. Enter your bag's actual volume to get a whole-bag shopping count."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
-      quickStats={quickStats}
+      theme="civil"
     />
 
-    <!-- Interactive Crushed Stone Bag Calculator Tool -->
-    <section class="section">
+    <section class="answer-strip" aria-labelledby="bag-start-heading">
+      <div class="container answer-grid">
+        <div>
+          <p class="eyebrow">Start with volume</p>
+          <h2 id="bag-start-heading">The label determines the count</h2>
+          <p>Measure the stone-covered area and the <strong>finished layer depth</strong>. The calculator turns that layer into cubic feet, adds only the extra you choose, then rounds up to whole bags. Copy the bag's cubic-foot volume; a weight-only label cannot tell you coverage without more information.</p>
+        </div>
+        <div class="formula-card">
+          <span>Installed cubic feet</span>
+          <strong>Area (sq ft) × depth (in) ÷ 12</strong>
+          <span>Whole bags to buy</span>
+          <strong>Round up [planned cubic feet ÷ labeled cu ft per bag]</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="bag-tool-section" id="bag-tool" aria-labelledby="bag-tool-heading">
       <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Your shopping worksheet</p>
+          <h2 id="bag-tool-heading">Count bags, then check weight and price</h2>
+          <p>The half-cubic-foot value is an example. Leave optional weight and prices blank until you have a label or quote.</p>
+        </div>
         <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Crushed Stone Area Dimensions</h3>
+          <div class="calc-panel">
+            <h3>1. Measure the layer</h3>
+            <fieldset class="area-choice">
+              <legend>Enter the area as</legend>
+              <label><input type="radio" name="csb-area-mode" value="rectangle" checked /> Length × width</label>
+              <label><input type="radio" name="csb-area-mode" value="known" /> Measured square feet</label>
+            </fieldset>
+            <div class="dim-grid" id="csb-rectangle-fields">
+              <div class="input-field">
+                <label for="csb-length">Length (ft)</label>
+                <input type="number" id="csb-length" value="10" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="csb-width">Average width (ft)</label>
+                <input type="number" id="csb-width" value="10" min="0.01" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <div class="dim-grid" id="csb-known-fields" hidden>
+              <div class="input-field">
+                <label for="csb-area">Measured area (sq ft)</label>
+                <input type="number" id="csb-area" value="100" min="0.01" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <div class="dim-grid">
+              <div class="input-field">
+                <label for="csb-depth">Finished layer depth (in)</label>
+                <input type="number" id="csb-depth" value="3" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="csb-extra">Extra to order (%)</label>
+                <input type="number" id="csb-extra" value="0" min="0" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <p class="field-note">Use 0% if the measured depth and supplier guidance already cover uneven ground or base compaction. Extra is an ordering choice, not a universal factor.</p>
+
+            <h3>2. Read your bag and quote</h3>
+            <div class="dim-grid">
+              <div class="input-field">
+                <label for="csb-bag-volume">Volume per bag (cu ft)</label>
+                <input type="number" id="csb-bag-volume" value="0.5" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="csb-bag-weight">Weight per bag (lb, optional)</label>
+                <input type="number" id="csb-bag-weight" placeholder="From the label" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="csb-price">Price per bag ($, optional)</label>
+                <input type="number" id="csb-price" placeholder="Store price" min="0" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="csb-bulk-quote">Comparable bulk quote ($, optional)</label>
+                <input type="number" id="csb-bulk-quote" placeholder="All-in for this job" min="0" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <p class="field-note">A bulk quote should include the supplier's minimum and delivery for the same stone and at least the planned volume. The cost comparison excludes tax and your own transport.</p>
+            <p class="input-error" id="csb-error" role="alert" hidden></p>
           </div>
 
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="csb-length">Length (Feet)</label>
-              <input type="number" id="csb-length" value="16" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="csb-width">Width (Feet)</label>
-              <input type="number" id="csb-width" value="10" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="csb-depth">Depth (Inches)</label>
-              <input type="number" id="csb-depth" value="3.0" min="1" max="12" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="csb-price">Price per Bag ($)</label>
-              <input type="number" id="csb-price" value="4.85" min="1" step="0.25" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
+          <div class="calc-results-panel" aria-live="polite" aria-atomic="true">
+            <h3>Your bag list</h3>
             <div class="kpi-grid">
               <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-csb-bags">0</div>
-              <div class="kpi-label">0.5 Cu Ft Bags Needed</div>
-              <div class="kpi-subtext" id="kpi-csb-lbs">0 lbs total weight</div>
+                <div class="kpi-value" id="csb-bags">50</div>
+                <div class="kpi-label">Whole bags to buy</div>
+                <div class="kpi-subtext" id="csb-purchased">25 cu ft in purchased bags</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="csb-yards">0.93</div>
+                <div class="kpi-label">Planned cubic yards</div>
+                <div class="kpi-subtext" id="csb-plan-cuft">25 cu ft with 0% extra</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="csb-weight">—</div>
+                <div class="kpi-label">Bags to carry</div>
+                <div class="kpi-subtext">Enter the labeled bag weight</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="csb-cost">—</div>
+                <div class="kpi-label">Bag material cost</div>
+                <div class="kpi-subtext">Enter your store price</div>
+              </div>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-csb-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-csb-cuft">0 cu ft</div>
+            <div class="math-breakdown">
+              <strong>How this count was built</strong>
+              <p id="csb-volume-line">100 sq ft × 3 in ÷ 12 = 25 cu ft installed.</p>
+              <p id="csb-bag-line">25 cu ft ÷ 0.5 cu ft per bag = 50; buy 50 whole bags.</p>
+              <p id="csb-coverage-line">One bag covers 2 sq ft at this depth, by volume.</p>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-csb-cost">$0.00</div>
-              <div class="kpi-label">Estimated Material Cost</div>
-              <div class="kpi-subtext" id="kpi-csb-bulk-save">Bulk comparison</div>
+            <div class="quote-result">
+              <strong>Bag versus bulk quote</strong>
+              <p id="csb-compare">Enter a bag price and an all-in bulk quote to compare local material costs.</p>
             </div>
-            </div>
+            <p class="result-note">If you collect bags yourself, check the occupants-and-cargo limit on the vehicle's doorjamb label. This estimate does not set a safe vehicle load.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on Bagged Crushed Stone -->
-    <article class="content-guide-section">
+    <article class="bag-guide">
       <div class="container">
+        <nav class="guide-jumps" aria-label="On this page">
+          <strong>Buying guide</strong>
+          <a href="#bag-size">Bag size</a>
+          <a href="#bag-grade">Stone type</a>
+          <a href="#bag-purchase">Purchase checks</a>
+          <a href="#bag-faq">Questions</a>
+        </nav>
 
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Crushed Stone Bag Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Crushed Stone Bag Reference</span>
+        <section class="guide-panel size-panel" id="bag-size">
+          <div>
+            <p class="eyebrow">A volume label is the key</p>
+            <h2>One package size changes the whole order</h2>
+            <p>A bag marked 0.5 cu ft covers 2 sq ft at a 3-inch finished depth. A bag marked 0.25 cu ft covers only 1 sq ft at the same depth. Retail listings include both <a href="https://www.homedepot.com/p/202636296" target="_blank" rel="noopener noreferrer">half-cubic-foot crushed bluestone</a> and <a href="https://www.lowes.com/pd/Yard-Elements-0-25-cu-ft-20-lb-Gold-Crushed-Stone-Less-than-0-5-in-Rock-Size/5015583527" target="_blank" rel="noopener noreferrer">quarter-cubic-foot crushed stone</a>; verify the product label before making the trip.</p>
+            <p>The pounds printed on the bag answer a different question: how much must be carried. If the store lists only pounds, look for a package volume or manufacturer coverage figure before using a bag count. <a href="https://store.astm.org/c0029_c0029m-23.html" target="_blank" rel="noopener noreferrer">ASTM C29/C29M</a> describes how aggregate bulk density is tested, but it does not assign every bag one pounds-to-volume conversion.</p>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Bags = [Area (sq ft) × Depth (in) / 12] × 2</span>
-              <p class="aeo-quick-desc">Converts cubic feet into 0.5 cu ft commercial retail bags.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 3"</span>
-              <span class="aeo-quick-value">2.0 sq ft per Bag</span>
-              <p class="aeo-quick-desc">Standard depth for stable equipment pads and pathway sub-bases.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bags per Yard</span>
-              <span class="aeo-quick-value">54 Bags (27 cu ft)</span>
-              <p class="aeo-quick-desc">Exact cubic yard volume equivalent for standard 0.5 cu ft bags.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Tipping Point</span>
-              <span class="aeo-quick-value">20 Bags ($95 to $115)</span>
-              <p class="aeo-quick-desc">Threshold where bulk quarry delivery becomes more economical.</p>
-            </div>
-          </div>
+          <figure>
+            <span class="mobile-figure-hint">Swipe the diagram to compare bag sizes.</span>
+            <img src="/crushed-stone-bag-count-guide.svg" width="960" height="510" loading="lazy" alt="A 10 by 10 foot stone layer at 3 inches requires 25 cubic feet: 50 bags when each holds 0.5 cubic foot, or 100 bags when each holds 0.25 cubic foot." />
+            <figcaption>The same measured layer needs twice as many bags when the package volume is halved.</figcaption>
+          </figure>
         </section>
 
-        <div class="content-card">
-          <h2>Calculating Bags of Crushed Stone and #57 Gravel</h2>
-          <p>
-            Crushed stone consists of angular, fractured limestone or granite (conforming to <strong>ASTM D448 #57</strong>). Retail bags sold at big-box home improvement stores contain <strong>0.5 cubic feet</strong> and weigh between <strong>50 and 52 pounds</strong>:
-          </p>
-
-          <div class="formula-box">
-            <code>Total Cubic Feet = [Length (ft) × Width (ft) × Depth (in)] / 12</code>
-            <br />
-            <code>Number of 0.5 cu ft Bags = Total Cubic Feet × 2</code>
+        <section class="guide-panel" id="bag-grade">
+          <p class="eyebrow">Match the stone to the job</p>
+          <h2>“Crushed stone” on a shelf is not one grade</h2>
+          <div class="choice-grid">
+            <div>
+              <h3>Open drainage layer</h3>
+              <p>Look for clean, low-fines stone in the specified size range. <a href="/57-stone-size-guide">#57</a> is a gradation designation, not a promise that every bag has been washed or fits your drain design. Confirm the label and the required outlet and separator for the project.</p>
+            </div>
+            <div>
+              <h3>Compacted base</h3>
+              <p>A <a href="/crusher-run-calculator">crusher run or paver-base blend</a> contains a range of particles, often with fines, to make a denser base. It is a different material from clean drain rock. Ask for the project depth and compaction specification instead of treating the calculator's depth as installation advice.</p>
+            </div>
           </div>
+          <p class="small-note">For larger work, the <a href="/crushed-stone-calculator">crushed stone calculator</a> estimates yards and tons with an editable supplier density. This bag tool counts package volume; it does not infer a bulk tonnage from bag weight.</p>
+        </section>
 
-          <h3>Common Residential Uses for Bagged Crushed Stone</h3>
-          <ul>
-            <li><strong>Shed & AC Unit Pads:</strong> Install at 3.0 to 4.0 inches depth over compacted earth. A 0.5 cu ft bag covers 1.5 to 2.0 sq ft.</li>
-            <li><strong>Fence Post Footings:</strong> Add 6 inches of crushed stone to the bottom of the hole for water drainage (1 bag per 2 holes).</li>
-            <li><strong>French Drain Spot Repairs:</strong> 0.5 cu ft bags allow precise backfilling around 4-inch perforated pipes without buying an entire dump truck load.</li>
-          </ul>
-        </div>
+        <section class="guide-panel" id="bag-purchase">
+          <p class="eyebrow">Before leaving the store</p>
+          <h2>Make the count usable on site</h2>
+          <ol class="purchase-steps">
+            <li><strong>Measure only the area receiving stone.</strong> Split an irregular pad or path into rectangles and add their square feet. Measure the intended finished depth, including low spots you will fill.</li>
+            <li><strong>Confirm bagged volume and gradation.</strong> Keep the same product across the order; a similar color or a “gravel” label may hide a different mix of sizes and fines.</li>
+            <li><strong>Choose extra deliberately.</strong> Enter an allowance for known unevenness or handling loss. If your project specification already gives a loose-to-finished factor, avoid adding it again.</li>
+            <li><strong>Compare complete local quotes.</strong> Small repairs may be easier to carry in bags; larger quantities may favor bulk. Compare the whole-bag bill with a delivered quote for a comparable product, including the supplier's minimum and drop location. See the <a href="/bulk-vs-bagged-rock">bulk versus bagged guide</a>.</li>
+          </ol>
+          <p>For a pickup trip, multiply whole bags by their <em>labeled</em> weight and account for passengers and other cargo. <a href="https://www.nhtsa.gov/vehicle-safety/tires" target="_blank" rel="noopener noreferrer">NHTSA explains the vehicle tire and loading label</a>. A number of bags is not a safe load limit.</p>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Bagged Crushed Stone</h2>
+        <section class="guide-panel" id="bag-faq">
+          <h2>Crushed stone bag questions</h2>
           <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
+            {faqItems.map(item => (
+              <details>
+                <summary>{item.q}</summary>
                 <p>{item.a}</p>
-              </div>
+              </details>
             ))}
           </div>
-        </div>
-
+        </section>
       </div>
     </article>
 
@@ -258,102 +296,162 @@ const supportGuides = [
       supportGuides={supportGuides}
     />
   </main>
-
   <Footer />
 
   <script>
-    function updateCSB() {
-      const l = parseFloat((document.getElementById('csb-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('csb-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('csb-depth') as HTMLInputElement)?.value) || 0;
-      const price = parseFloat((document.getElementById('csb-price') as HTMLInputElement)?.value) || 0;
+    function initCrushedStoneBagCalculator() {
+      const input = (id: string) => document.getElementById(id) as HTMLInputElement;
+      const output = (id: string, value: string) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = value;
+      };
+      const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+      const number = (value: number, digits = 2) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
+      const required = (element: HTMLInputElement, positive: boolean) => {
+        const value = Number(element.value);
+        const valid = element.value.trim() !== '' && element.validity.valid && Number.isFinite(value) && (positive ? value > 0 : value >= 0);
+        element.setAttribute('aria-invalid', String(!valid));
+        return valid ? value : NaN;
+      };
+      const optional = (element: HTMLInputElement, positive: boolean) => {
+        if (element.value.trim() === '') {
+          element.setAttribute('aria-invalid', 'false');
+          return null;
+        }
+        const value = Number(element.value);
+        const valid = element.validity.valid && Number.isFinite(value) && (positive ? value > 0 : value >= 0);
+        element.setAttribute('aria-invalid', String(!valid));
+        return valid ? value : NaN;
+      };
+      const error = document.getElementById('csb-error') as HTMLElement;
 
-      const cuft = (l * w * (d / 12));
-      const bags = Math.ceil(cuft * 2);
-      const yards = cuft / 27;
-      const totalWeight = bags * 51;
-      const totalCost = bags * price;
+      function calculate() {
+        const known = (document.querySelector('input[name="csb-area-mode"]:checked') as HTMLInputElement)?.value === 'known';
+        const rectangle = document.getElementById('csb-rectangle-fields') as HTMLElement;
+        const knownFields = document.getElementById('csb-known-fields') as HTMLElement;
+        rectangle.hidden = known;
+        knownFields.hidden = !known;
 
-      const bEl = document.getElementById('kpi-csb-bags');
-      const yEl = document.getElementById('kpi-csb-yards');
-      const cEl = document.getElementById('kpi-csb-cost');
-      const lbsEl = document.getElementById('kpi-csb-lbs');
-      const cuftEl = document.getElementById('kpi-csb-cuft');
-      const saveEl = document.getElementById('kpi-csb-bulk-save');
+        const length = known ? NaN : required(input('csb-length'), true);
+        const width = known ? NaN : required(input('csb-width'), true);
+        const measured = known ? required(input('csb-area'), true) : NaN;
+        [known ? input('csb-length') : input('csb-area'), input('csb-width')].forEach(element => {
+          if (element && (known || element.id === 'csb-area')) element.setAttribute('aria-invalid', 'false');
+        });
+        const area = known ? measured : length * width;
+        const depth = required(input('csb-depth'), true);
+        const extra = required(input('csb-extra'), false);
+        const bagVolume = required(input('csb-bag-volume'), true);
+        const bagWeight = optional(input('csb-bag-weight'), true);
+        const bagPrice = optional(input('csb-price'), false);
+        const bulkQuote = optional(input('csb-bulk-quote'), false);
+        const coreValid = Number.isFinite(area) && area > 0 && Number.isFinite(depth) && Number.isFinite(extra) && Number.isFinite(bagVolume);
+        const messages: string[] = [];
+        if (!coreValid) messages.push('Enter a positive area, depth, and bag volume; extra can be zero.');
+        if (Number.isNaN(bagWeight)) messages.push('Bag weight must be greater than zero, or left blank.');
+        if (Number.isNaN(bagPrice)) messages.push('Bag price must be zero or more, or left blank.');
+        if (Number.isNaN(bulkQuote)) messages.push('Bulk quote must be zero or more, or left blank.');
+        error.hidden = messages.length === 0;
+        error.textContent = messages.join(' ');
 
-      if (bEl) bEl.innerText = bags.toLocaleString();
-      if (yEl) yEl.innerText = yards.toFixed(2);
-      if (cEl) cEl.innerText = '$' + totalCost.toFixed(2);
-      if (lbsEl) lbsEl.innerText = totalWeight.toLocaleString() + ' lbs (~' + (totalWeight / 2000).toFixed(2) + ' tons)';
-      if (cuftEl) cuftEl.innerText = cuft.toFixed(1) + ' cu ft net volume';
+        if (!coreValid) {
+          ['csb-bags', 'csb-purchased', 'csb-yards', 'csb-plan-cuft', 'csb-weight', 'csb-cost', 'csb-volume-line', 'csb-bag-line', 'csb-coverage-line'].forEach(id => output(id, '—'));
+          output('csb-compare', 'Correct the measurements and bag volume to compare costs.');
+          return;
+        }
 
-      if (saveEl) {
-        if (bags >= 20) {
-          const bulkCost = yards * 55 + 75; // $55/yd + $75 delivery
-          const savings = totalCost - bulkCost;
-          if (savings > 0) {
-            saveEl.innerText = 'Bulk saves approx $' + Math.round(savings) + ' vs bags';
-            saveEl.style.color = 'var(--accent-gold)';
-          } else {
-            saveEl.innerText = 'Bags are comparable in price';
-            saveEl.style.color = 'var(--text-muted)';
-          }
+        const installed = area * depth / 12;
+        const planned = installed * (1 + extra / 100);
+        // Ignore sub-nanobag floating-point noise at exact whole-bag boundaries.
+        const bags = Math.max(1, Math.ceil(planned / bagVolume - 1e-9));
+        if (!Number.isSafeInteger(bags)) {
+          error.hidden = false;
+          error.textContent = 'The entered quantity is too large to calculate a reliable bag count.';
+          ['csb-bags', 'csb-purchased', 'csb-yards', 'csb-plan-cuft', 'csb-weight', 'csb-cost', 'csb-volume-line', 'csb-bag-line', 'csb-coverage-line'].forEach(id => output(id, '—'));
+          output('csb-compare', 'Reduce the project size to compare costs.');
+          return;
+        }
+        output('csb-bags', number(bags, 0));
+        output('csb-purchased', number(bags * bagVolume) + ' cu ft in purchased bags');
+        output('csb-yards', number(planned / 27));
+        output('csb-plan-cuft', number(planned) + ' cu ft with ' + number(extra) + '% extra');
+        output('csb-weight', bagWeight === null || Number.isNaN(bagWeight) ? '—' : number(bags * bagWeight, 0) + ' lb');
+        output('csb-cost', bagPrice === null || Number.isNaN(bagPrice) ? '—' : money.format(bags * bagPrice));
+        output('csb-volume-line', number(area) + ' sq ft × ' + number(depth) + ' in ÷ 12 = ' + number(installed) + ' cu ft installed; ' + number(planned) + ' cu ft planned.');
+        output('csb-bag-line', number(planned) + ' cu ft ÷ ' + number(bagVolume) + ' cu ft per bag = ' + number(planned / bagVolume) + '; round up to ' + number(bags, 0) + ' bags.');
+        output('csb-coverage-line', 'One bag covers ' + number(bagVolume * 12 / depth) + ' sq ft at ' + number(depth) + ' in, by volume.');
+
+        if (bagPrice === null || bulkQuote === null || Number.isNaN(bagPrice) || Number.isNaN(bulkQuote)) {
+          output('csb-compare', 'Enter a valid bag price and an all-in bulk quote to compare local material costs.');
         } else {
-          saveEl.innerText = 'Bags are more economical for this size';
-          saveEl.style.color = 'var(--text-muted)';
+          const bagCost = bags * bagPrice;
+          const difference = Math.abs(bagCost - bulkQuote);
+          const verdict = difference < 0.005 ? 'The entered costs are equal.' : bagCost < bulkQuote ? 'Bags cost ' + money.format(difference) + ' less.' : 'The bulk quote costs ' + money.format(difference) + ' less.';
+          output('csb-compare', number(bags, 0) + ' bags: ' + money.format(bagCost) + '. Bulk quote: ' + money.format(bulkQuote) + '. ' + verdict + ' Check that the stone, quantity, and delivery terms match.');
         }
       }
-    }
 
-    ['csb-length', 'csb-width', 'csb-depth', 'csb-price'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateCSB);
-    });
-    updateCSB();
+      document.querySelectorAll('input[name="csb-area-mode"], #bag-tool input[type="number"]').forEach(element => {
+        element.addEventListener('input', calculate);
+        element.addEventListener('change', calculate);
+      });
+      calculate();
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initCrushedStoneBagCalculator);
+    else initCrushedStoneBagCalculator();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .answer-strip { padding: var(--space-8) 0; background: var(--bg-body); }
+  .answer-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-6); align-items: center; }
+  .answer-grid h2, .section-heading h2, .guide-panel h2 { color: var(--text-primary); font-size: var(--text-2xl); margin: 0 0 var(--space-3); }
+  .answer-grid p, .section-heading p, .guide-panel p { color: var(--text-secondary); line-height: 1.7; }
+  .eyebrow { color: var(--accent-gold) !important; font-size: var(--text-xs); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 var(--space-2); }
+  .formula-card { display: grid; gap: var(--space-2); padding: var(--space-5); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent-gold); border-radius: var(--radius-lg); background: var(--bg-card); }
+  .formula-card span { color: var(--text-muted); font-size: var(--text-xs); text-transform: uppercase; font-weight: 700; }
+  .formula-card strong { color: var(--text-primary); font-size: var(--text-sm); overflow-wrap: anywhere; }
+  .bag-tool-section { padding: var(--space-8) 0 var(--space-12); }
+  .section-heading { max-width: 760px; margin-bottom: var(--space-6); }
+  .section-heading p:last-child { margin: 0; }
+  .calc-panel h3, .calc-results-panel h3 { color: var(--text-primary); font-size: var(--text-lg); margin: 0 0 var(--space-4); }
+  .calc-panel h3:not(:first-child) { margin-top: var(--space-7); }
+  .area-choice { display: flex; flex-wrap: wrap; gap: var(--space-3); border: 0; padding: 0; margin: 0 0 var(--space-4); }
+  .area-choice legend { color: var(--text-secondary); font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-2); }
+  .area-choice label { display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: var(--text-sm); cursor: pointer; }
+  .area-choice input { accent-color: var(--accent-gold); }
+  [hidden] { display: none !important; }
+  .dim-grid { margin-bottom: var(--space-4); }
+  .input-field input[aria-invalid="true"] { border-color: #dc2626; box-shadow: 0 0 0 2px rgba(220,38,38,.18); }
+  .field-note, .result-note { color: var(--text-muted); font-size: var(--text-xs); line-height: 1.6; margin: 0 0 var(--space-4); }
+  .input-error { color: #b91c1c; border: 1px solid #dc2626; border-radius: var(--radius-md); background: rgba(220,38,38,.08); padding: var(--space-3); font-size: var(--text-sm); line-height: 1.5; }
+  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  .kpi-value { overflow-wrap: anywhere; }
+  .math-breakdown, .quote-result { margin-top: var(--space-5); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); padding: var(--space-4); color: var(--text-secondary); line-height: 1.55; }
+  .math-breakdown strong, .quote-result strong { color: var(--text-primary); }
+  .math-breakdown p, .quote-result p { margin: var(--space-2) 0 0; font-size: var(--text-sm); overflow-wrap: anywhere; }
+  .result-note { margin: var(--space-5) 0 0; }
+  .bag-guide { padding: var(--space-10) 0; background: var(--bg-body); }
+  .guide-jumps { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-bottom: var(--space-6); color: var(--text-primary); }
+  .guide-jumps a { padding: 6px 10px; border: 1px solid var(--border-subtle); border-radius: var(--radius-full); font-size: var(--text-sm); }
+  .guide-panel { padding: var(--space-8); margin-bottom: var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-card); }
+  .guide-panel a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 3px; }
+  .size-panel { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: center; }
+  .size-panel figure { margin: 0; min-width: 0; }
+  .size-panel img { display: block; width: 100%; height: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .size-panel figcaption, .small-note { color: var(--text-muted) !important; font-size: var(--text-xs); line-height: 1.55; margin-top: var(--space-2); }
+  .mobile-figure-hint { display: none; color: var(--text-muted); font-size: var(--text-xs); margin-bottom: var(--space-2); }
+  .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin: var(--space-5) 0; }
+  .choice-grid > div { padding: var(--space-4); border-top: 3px solid var(--accent-gold); border-radius: var(--radius-sm); background: var(--bg-surface); }
+  .choice-grid h3 { color: var(--text-primary); font-size: var(--text-base); margin: 0 0 var(--space-2); }
+  .choice-grid p { margin: 0; font-size: var(--text-sm); }
+  .purchase-steps { padding-left: 1.35rem; color: var(--text-secondary); line-height: 1.7; }
+  .purchase-steps li { margin-bottom: var(--space-3); }
+  .purchase-steps strong { color: var(--text-primary); }
+  .faq-list { display: grid; gap: var(--space-3); }
+  .faq-list details { border: 1px solid var(--border-subtle); background: var(--bg-surface); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-list summary { color: var(--text-primary); font-weight: 700; cursor: pointer; }
+  .faq-list p { margin: var(--space-3) 0 0; font-size: var(--text-sm); }
+  @media (max-width: 900px) { .size-panel, .answer-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 680px) { .choice-grid, .kpi-grid { grid-template-columns: 1fr; } .guide-panel { padding: var(--space-5); } .size-panel figure { overflow-x: auto; } .size-panel img { min-width: 640px; } .mobile-figure-hint { display: block; } }
 </style>

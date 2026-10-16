@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import BagCalculator from '../components/calculators/BagCalculator.astro';
-import BagVisualizer from '../components/visualizers/BagVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
@@ -14,41 +13,40 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Retail Rock Bags' },
-  { label: 'Bag Standard', value: '0.5 Cubic Foot (45-50 lbs)' },
-  { label: 'Yard Equivalency', value: '54 Bags (0.5 cu ft) = 1 Yard³' },
-  { label: 'Pallet Capacity', value: '50 to 60 Bags per Shrink-Wrapped Pallet' }
+  { label: 'Material', value: 'Bagged Landscape Rock' },
+  { label: 'Count From', value: 'Labeled Cubic Feet' },
+  { label: 'Compare', value: 'Local Bag and Bulk Quotes' }
 ];
 
 const quickStats = [
-  { value: '54 Bags', label: 'Bags in a Cubic Yard', desc: 'Standard 0.5 cubic foot bags sold at Home Depot and Lowe\'s' },
-  { value: '2.0 sq ft', label: 'Coverage per Bag', desc: 'At recommended 3.0 inch landscape bed depth' },
-  { value: '1.5 yd³ Cutoff', label: 'Bulk Break-Even', desc: 'Volume threshold where dump truck delivery becomes cheaper' }
+  { value: '54', label: 'Half-cubic-foot bags per cubic yard', desc: '27 cu ft ÷ 0.5 cu ft; a volume conversion, not a weight rule' },
+  { value: '2 sq ft', label: 'Coverage from a 0.5 cu ft bag', desc: 'At a 3-inch depth, before any extra allowance' },
+  { value: 'Label first', label: 'Weight and pallet count', desc: 'Both vary with product and seller' }
 ];
 
 const faqItems = [
   {
     q: 'How many 0.5 cubic foot bags of rock do I need for 100 square feet?',
-    a: 'For 100 square feet at a 3-inch depth, you require 25 cubic feet of rock (0.93 cubic yards). Dividing 25 cubic feet by 0.5 cubic feet per bag yields 50 bags. With a 5% handling allowance for torn bags and settling, purchase 53 bags.'
+    a: 'At a 3-inch finished depth, 100 square feet takes 25 cubic feet of rock. Divide by the bag’s 0.5-cubic-foot label to get 50 whole bags before any extra allowance. If you deliberately add 10% for site conditions, the plan becomes 27.5 cubic feet or 55 bags.'
   },
   {
-    q: 'How many 50 lb bags of rock equal one ton?',
-    a: 'One US short ton equals 2,000 pounds. Dividing 2,000 pounds by 50 pounds per bag yields exactly 40 bags. If purchasing 0.5 cubic foot bags weighing an average of 45 pounds, you need approximately 44 to 45 bags to equal one ton.'
+    q: 'How many 50 lb bags of rock make one ton?',
+    a: 'Forty 50 lb bags weigh one US short ton (2,000 lb). That weight conversion does not tell you their coverage: the volume inside a 50 lb bag depends on the particular rock. Read its cubic-foot volume or coverage label before counting bags for an area.'
   },
   {
-    q: 'When does buying bulk rock become cheaper than buying bags?',
-    a: 'Bulk aggregate becomes substantially cheaper once you need more than 1.5 cubic yards (approximately 80 bags). While 80 retail bags cost between $320 and $440, a local quarry will deliver 1.5 cubic yards in a dump truck for roughly $75 to $90 in material plus a $60 to $80 delivery fee (totaling around $150 to $170).'
+    q: 'Is there a bag count where bulk rock is always cheaper?',
+    a: 'No. Multiply your whole-bag count by the local bag price. Compare that with a bulk quote for the same type and sufficient volume, including minimum order, delivery and applicable fees. Access, handling and transport can change the practical choice.'
   },
   {
-    q: 'How many bags of rock can fit in an SUV or pickup truck?',
-    a: 'A standard mid-size SUV or crossover can safely carry 8 to 12 bags (400 to 600 lbs) without overloading the rear suspension. A half-ton pickup truck (F-150) can carry 30 to 35 bags (1,500 to 1,750 lbs). Exceeding vehicle payload ratings creates severe braking and tire blowout hazards.'
+    q: 'How many rock bags can I carry in my vehicle?',
+    a: 'Multiply the number of bags by their labeled weight, then use your vehicle’s tire and loading label to check the available occupants-and-cargo capacity. Passengers, tools and other cargo use that capacity too. A vehicle class name does not establish a safe bag count.'
   }
 ];
 ---
 
 <BaseLayout
-  title="Rock Bag Calculator - How Many 0.5 Cu Ft & 50 lb Bags Do I Need?"
-  description="Calculate how many bags of rock, river stone, and gravel you need for your landscaping. Includes 0.5 cu ft and 50 lb bag formulas plus retail vs bulk cost comparisons."
+  title="Rock Bag Calculator"
+  description="Find whole bags of landscape rock from area, depth, and the volume printed on the bag. Estimate pallet split and weight from product labels, then compare local bag and bulk quotes."
   canonicalPath="/rock-bag-calculator"
 >
   <Fragment slot="head">
@@ -57,7 +55,7 @@ const faqItems = [
       "@type": "WebApplication",
       "name": "Rock Bag Calculator",
       "url": "https://rockcoveragecalculator.com/rock-bag-calculator",
-      "description": "Calculates retail bag requirements in 0.5 cu ft and 50 lb sizes for landscape rocks, with pallet counts and bulk cost break-even analysis.",
+      "description": "Calculates whole rock bags from area, depth and labeled bag volume, with optional labeled weight, pallet count and local cost comparison.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "about": {
@@ -85,8 +83,8 @@ const faqItems = [
     <PageHero
       title="Rock Bag Calculator"
       highlightWord="Calculator"
-      badge="Retail Packaging & Break-Even Analysis"
-      subtitle="Calculate exact retail bag quantities in 0.5 cubic foot and 50 pound sizes for small garden beds, tree collars, and walkway projects."
+      badge="Bagged Rock • Coverage & Buying"
+      subtitle="A 100-square-foot bed at 3 inches needs 25 cubic feet of rock: 50 bags if each contains 0.5 cubic foot. Enter your product's labeled volume to get a whole-bag count, then check its weight and your local prices."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -94,67 +92,59 @@ const faqItems = [
 
     <BagCalculator />
 
-    <BagVisualizer />
 
     <!-- Technical Guide on Bag Calculations -->
     <article class="content-guide-section">
       <div class="container">
-        <div class="content-card">
-          <h2>Retail Packaging Standards: 0.5 Cu Ft vs 50 lb Bags</h2>
-          <p>
-            For small residential landscaping projects, retail bagged stone from home improvement centers (Home Depot, Lowe's, Menards) eliminates the need for dump truck delivery fees and massive gravel piles on driveways. However, bags are sold under two different labeling conventions: <strong>Volume Rated</strong> (0.5 cubic foot bags) and <strong>Weight Rated</strong> (50 pound bags).
-          </p>
-
+        <section class="content-card" id="bag-math">
+          <h2>How to turn a rock layer into a bag count</h2>
+          <p>First find the cubic feet needed to fill the space. Divide that volume by the <strong>cubic feet per bag</strong> on the product label, then round up to a whole bag. Enter any extra allowance before rounding. This works for decorative pebbles, pea gravel, lava rock, and crushed stone when the chosen package gives a usable volume.</p>
           <div class="formula-box">
-            <code>Total Cubic Feet = Area (Square Feet) × [Depth (Inches) / 12]</code>
-            <br />
-            <code>0.5 Cu Ft Bags Needed = Total Cubic Feet × 2.0 = Cubic Yards × 54</code>
-            <br />
-            <code>50 lb Bags Needed = [Total Weight (Pounds)] / 50 lbs</code>
+            <code>Installed cu ft = area (sq ft) × depth (in) ÷ 12</code><br />
+            <code>Planned cu ft = installed cu ft × (1 + extra % ÷ 100)</code><br />
+            <code>Whole bags = round up (planned cu ft ÷ labeled cu ft per bag)</code>
           </div>
+          <p>For a 10 × 10 ft bed at 3 inches, the installed volume is <strong>25 cu ft</strong> (about 0.93 yd³). With no extra allowance, that takes 100 quarter-cubic-foot bags, 50 half-cubic-foot bags, or 25 one-cubic-foot bags. A half-cubic-foot bag covers 2 sq ft at this depth.</p>
+          <figure class="bag-figure">
+            <svg viewBox="0 0 720 225" role="img" aria-labelledby="bag-figure-title bag-figure-desc" xmlns="http://www.w3.org/2000/svg">
+              <title id="bag-figure-title">One volume, three bag sizes</title>
+              <desc id="bag-figure-desc">A 100-square-foot area at 3 inches deep needs 25 cubic feet. It takes 100 bags holding 0.25 cubic foot, 50 bags holding 0.5 cubic foot, or 25 bags holding 1 cubic foot.</desc>
+              <rect x="2" y="2" width="716" height="221" rx="16" fill="#111c27" stroke="#42566b" />
+              <text x="360" y="37" text-anchor="middle" fill="#f8fafc" font-size="21" font-weight="700">100 sq ft × 3 in ÷ 12 = 25 cu ft</text>
+              <path d="M360 51v24M118 75h484" fill="none" stroke="#eab95c" stroke-width="2" />
+              <path d="M118 75v15M360 75v15M602 75v15" fill="none" stroke="#eab95c" stroke-width="2" />
+              <rect x="24" y="96" width="188" height="99" rx="12" fill="#24384a" />
+              <rect x="266" y="96" width="188" height="99" rx="12" fill="#24384a" />
+              <rect x="508" y="96" width="188" height="99" rx="12" fill="#24384a" />
+              <text x="118" y="132" text-anchor="middle" fill="#f8fafc" font-size="17">0.25 cu ft/bag</text>
+              <text x="360" y="132" text-anchor="middle" fill="#f8fafc" font-size="17">0.5 cu ft/bag</text>
+              <text x="602" y="132" text-anchor="middle" fill="#f8fafc" font-size="17">1 cu ft/bag</text>
+              <text x="118" y="174" text-anchor="middle" fill="#eab95c" font-size="30" font-weight="700">100 bags</text>
+              <text x="360" y="174" text-anchor="middle" fill="#eab95c" font-size="30" font-weight="700">50 bags</text>
+              <text x="602" y="174" text-anchor="middle" fill="#eab95c" font-size="30" font-weight="700">25 bags</text>
+            </svg>
+            <figcaption>Equal installed volume, different package counts. Check the volume of the actual bag you plan to buy.</figcaption>
+          </figure>
+          <h3>Why a cubic yard is 54 half-cubic-foot bags</h3>
+          <p>One cubic yard contains 27 cubic feet, so <strong>27 ÷ 0.5 = 54 bags</strong> by volume. For a one-cubic-foot bag, the same yard is 27 bags. This is a package-volume conversion; it does not say how much a cubic yard weighs or how many bags are on a pallet. Use the <a href="/rock-coverage-calculator-yard">cubic yard calculator</a> when a yardage estimate is your starting point.</p>
+        </section>
 
-          <h3>The 54-Bag Cubic Yard Rule</h3>
-          <p>
-            Because one cubic yard contains exactly 27 cubic feet, simple division reveals the fundamental retail conversion metric:
-          </p>
-          <div class="formula-box">
-            <code>27 Cubic Feet / 0.5 Cubic Feet per Bag = Exactly 54 Bags per Cubic Yard</code>
-          </div>
-          <p>
-            If your calculation calls for 2.0 cubic yards of pea gravel or river rock, you need 108 bags. If purchasing 1.0 cubic foot bags (commonly used for volcanic lava rock), you need exactly 27 bags per cubic yard.
-          </p>
+        <section class="content-card" id="bag-label">
+          <h2>What if the rock bag is labeled only in pounds?</h2>
+          <p>Pounds describe carrying weight, while cubic feet describe the volume available to cover the bed. They cannot be swapped without the product's loose density. Retail listings make the distinction clear: <a href="https://www.homedepot.com/p/302985371" target="_blank" rel="noopener noreferrer">Vigoro Creek Rock</a> lists 0.5 cu ft and 40 lb; <a href="https://www.homedepot.com/p/100558618" target="_blank" rel="noopener noreferrer">Vigoro River Pebble</a> lists 0.5 cu ft and 50 lb. The same package volume can have a different weight.</p>
+          <p>If the front of a bag says only “50 lb,” look for the manufacturer's cubic-foot yield or coverage at a stated depth. If neither appears, ask the seller before using the calculator. Forty 50 lb bags weigh one US short ton, but that fact alone does not establish their coverage. <a href="https://store.astm.org/c0029_c0029m-23.html" target="_blank" rel="noopener noreferrer">ASTM C29/C29M</a> describes how aggregate bulk density is measured; it does not provide one universal pounds-to-volume value.</p>
+        </section>
 
-          <div class="table-wrapper">
-            <table class="guide-table">
-              <thead>
-                <tr>
-                  <th>Landscape Area</th>
-                  <th>Depth in Inches</th>
-                  <th>Total Cubic Feet</th>
-                  <th>0.5 Cu Ft Bags</th>
-                  <th>Pallets Needed (56 Bags/Pallet)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>25 sq ft</td><td>2.0 inches</td><td>4.17 cu ft</td><td>9 bags</td><td>Small car trunk (420 lbs)</td></tr>
-                <tr><td>50 sq ft</td><td>3.0 inches</td><td>12.50 cu ft</td><td>25 bags</td><td>Half pallet (1,150 lbs)</td></tr>
-                <tr><td>100 sq ft</td><td>3.0 inches</td><td>25.00 cu ft</td><td>50 bags</td><td>1 Full pallet (2,300 lbs)</td></tr>
-                <tr><td>200 sq ft</td><td>3.0 inches</td><td>50.00 cu ft</td><td>100 bags</td><td>2 Full pallets (4,600 lbs)</td></tr>
-                <tr><td>500 sq ft</td><td>3.0 inches</td><td>125.00 cu ft</td><td>250 bags</td><td>5 Full pallets (11,500 lbs)</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Economic Break-Even: When to Switch from Bags to Bulk Delivery</h3>
-          <p>
-            Before driving to a garden center to load dozens of heavy bags, evaluate the economic break-even curve. Bagged aggregate carries a 300% to 500% retail packaging markup:
-          </p>
-          <ul>
-            <li><strong>Under 35 Bags (Less than 0.65 yd³):</strong> Buy retail bags. The convenience of hauling in personal vehicles without a $65-$90 commercial delivery fee makes bags economical.</li>
-            <li><strong>35 to 70 Bags (0.65 to 1.3 yd³):</strong> Break-even zone. Bags cost $175 to $350. A bulk yard costs roughly $50 plus $75 delivery ($125 total). Bulk is cheaper, but bags allow staged weekend work without driveway mess.</li>
-            <li><strong>Over 70 Bags (More than 1.3 yd³):</strong> Always order bulk delivery. Buying 120 bags costs upwards of $600 to $700, whereas ordering 2.25 cubic yards delivered via dump truck averages $220 total, saving over $400 in material costs.</li>
-          </ul>
-        </div>
+        <section class="content-card" id="bag-order">
+          <h2>Turn the count into a workable pickup or delivery plan</h2>
+          <ol class="bag-checklist">
+            <li><strong>Match the material.</strong> Check rock type, size range, and whether it contains fines. A similarly named bulk product may not match the bagged one.</li>
+            <li><strong>Check each pallet listing.</strong> Enter the seller's stated bags per pallet; pallet quantities vary. Ask whether a mixed order of full pallets and loose bags is available.</li>
+            <li><strong>Check your vehicle's actual limit.</strong> Multiply whole bags by labeled weight, then account for passengers, tools, and other cargo. <a href="https://www.nhtsa.gov/vehicle-safety/tires" target="_blank" rel="noopener noreferrer">NHTSA's tire guidance</a> explains the tire and loading label. A “half-ton pickup” name is not a payload rating.</li>
+            <li><strong>Compare complete prices.</strong> There is no dependable bag-count cutoff for bulk. Compare the bag bill with a delivered quote for enough of the same rock, including the supplier's minimum and fees. Allow for the difference in access and labor.</li>
+          </ol>
+          <p>Need a material-specific route? Use the <a href="/crushed-stone-bag-calculator">crushed stone bag calculator</a> for a base or repair, the <a href="/river-rock-bag-calculator">river rock bag calculator</a> for rounded stone, or the <a href="/pea-gravel-bag-calculator">pea gravel bag calculator</a> for smaller rounded gravel. The <a href="/bulk-vs-bagged-rock">bulk versus bagged rock guide</a> covers ordering tradeoffs.</p>
+        </section>
 
         <!-- FAQ Section -->
         <div class="content-card faq-card">
@@ -220,6 +210,39 @@ const faqItems = [
     font-family: var(--font-mono);
     color: var(--accent-gold);
     font-size: var(--text-sm);
+  }
+
+  .bag-figure {
+    margin: var(--space-6) 0;
+    overflow-x: auto;
+  }
+
+  .bag-figure svg {
+    display: block;
+    width: 100%;
+    min-width: 580px;
+    height: auto;
+    border-radius: var(--radius-md);
+  }
+
+  .bag-figure figcaption {
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+    margin-top: var(--space-2);
+  }
+
+  .bag-checklist {
+    padding-left: 1.4rem;
+  }
+
+  .bag-checklist li {
+    margin-bottom: var(--space-3);
+  }
+
+  .content-card a {
+    color: var(--accent-gold);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .table-wrapper {
