@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="550" viewBox="0 0 840 550" role="img" aria-labelledby="title desc">
+  <title id="title">From a measured gravel layer to an estimated tonnage order</title>
+  <desc id="desc">A 50 by 10 foot area at 3 inches is 500 square feet and 4.63 cubic yards. At 1.40 US short tons per cubic yard it is 6.48 tons before extra; with 10 percent extra it is 7.13 tons to order.</desc>
+  <defs>
+    <linearGradient id="back" x2="1" y2="1">
+      <stop stop-color="#182738"/>
+      <stop offset="1" stop-color="#101c2a"/>
+    </linearGradient>
+    <linearGradient id="fill" x2="1" y2="1">
+      <stop stop-color="#d9b064"/>
+      <stop offset="1" stop-color="#ac7832"/>
+    </linearGradient>
+    <pattern id="stone" width="32" height="28" patternUnits="userSpaceOnUse">
+      <ellipse cx="7" cy="10" rx="5" ry="3" fill="#b9a78e"/>
+      <ellipse cx="21" cy="8" rx="6" ry="4" fill="#c5b296"/>
+      <ellipse cx="15" cy="22" rx="7" ry="4" fill="#a7957d"/>
+      <ellipse cx="31" cy="21" rx="4" ry="3" fill="#d4bfa0"/>
+    </pattern>
+  </defs>
+  <rect width="840" height="550" rx="24" fill="url(#back)"/>
+  <text x="42" y="52" fill="#e8edf0" font-family="Arial,sans-serif" font-size="25" font-weight="700">FROM AREA TO ORDER WEIGHT</text>
+  <text x="42" y="82" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="16">Example: one gravel layer, using an editable bulk-weight assumption</text>
+
+  <rect x="42" y="118" width="756" height="150" rx="16" fill="#23384a" stroke="#476075"/>
+  <rect x="68" y="149" width="236" height="79" rx="10" fill="url(#stone)" stroke="#d7c19f" stroke-width="2"/>
+  <path d="M68 237v11m236-11v11m-236 5h236" fill="none" stroke="#d9b064" stroke-width="2"/>
+  <text x="172" y="259" fill="#f6deb1" font-family="Arial,sans-serif" font-size="14" font-weight="700">50 ft long</text>
+  <path d="M317 149h15m-15 79h15m8-79v79" fill="none" stroke="#d9b064" stroke-width="2"/>
+  <text x="346" y="192" fill="#f6deb1" font-family="Arial,sans-serif" font-size="14" font-weight="700">10 ft wide</text>
+  <text x="492" y="161" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="15">Area × planned depth</text>
+  <text x="492" y="199" fill="#f8faf9" font-family="Arial,sans-serif" font-size="29" font-weight="700">500 sq ft × 3 in</text>
+  <text x="492" y="232" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="14">Use one layer at a time</text>
+
+  <path d="M420 280v30" stroke="#d9b064" stroke-width="3"/>
+  <path d="m411 302 9 10 9-10" fill="none" stroke="#d9b064" stroke-width="3"/>
+
+  <rect x="42" y="330" width="225" height="155" rx="16" fill="#23384a" stroke="#476075"/>
+  <text x="65" y="362" fill="#d9b064" font-family="Arial,sans-serif" font-size="14" font-weight="700">01 / VOLUME</text>
+  <text x="65" y="408" fill="#f8faf9" font-family="Arial,sans-serif" font-size="34" font-weight="700">4.63 yd³</text>
+  <text x="65" y="445" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="15">500 × 3 ÷ 324</text>
+  <text x="65" y="466" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="13">before extra</text>
+
+  <path d="M274 405h30" stroke="#d9b064" stroke-width="3"/>
+  <path d="m298 396 10 9-10 9" fill="none" stroke="#d9b064" stroke-width="3"/>
+
+  <rect x="308" y="330" width="225" height="155" rx="16" fill="#23384a" stroke="#476075"/>
+  <text x="331" y="362" fill="#d9b064" font-family="Arial,sans-serif" font-size="14" font-weight="700">02 / WEIGHT</text>
+  <text x="331" y="408" fill="#f8faf9" font-family="Arial,sans-serif" font-size="34" font-weight="700">6.48 tons</text>
+  <text x="331" y="445" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="15">4.63 yd³ × 1.40</text>
+  <text x="331" y="466" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="13">US short tons</text>
+
+  <path d="M540 405h30" stroke="#d9b064" stroke-width="3"/>
+  <path d="m564 396 10 9-10 9" fill="none" stroke="#d9b064" stroke-width="3"/>
+
+  <rect x="574" y="330" width="224" height="155" rx="16" fill="url(#fill)"/>
+  <text x="597" y="362" fill="#1e2c36" font-family="Arial,sans-serif" font-size="14" font-weight="700">03 / ORDER</text>
+  <text x="597" y="408" fill="#172532" font-family="Arial,sans-serif" font-size="34" font-weight="700">7.13 tons</text>
+  <text x="597" y="445" fill="#263744" font-family="Arial,sans-serif" font-size="15">6.48 tons + 10%</text>
+  <text x="597" y="466" fill="#263744" font-family="Arial,sans-serif" font-size="13">change extra if needed</text>
+  <text x="42" y="520" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="14">The supplier's product weight, moisture, and actual scale ticket can change the final load.</text>
+</svg>

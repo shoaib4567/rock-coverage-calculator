@@ -1,337 +1,375 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Gravel Bag Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Gravel Calculator', url: '/gravel-calculator' },
-  { name: 'Gravel Bag Calculator', url: '/gravel-bag-calculator' }
+  { name: pageTitle, url: '/gravel-bag-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Bagged Gravel' },
-  { label: 'Standard Bag Volume', value: '0.5 Cubic Feet per Bag' },
-  { label: 'Yard Equivalent', value: '54 Bags = 1.0 Cubic Yard' },
-  { label: 'Average Bag Weight', value: '48 to 52 lbs per Bag' }
+  { label: 'Measure', value: 'Area × finished depth' },
+  { label: 'Read the bag', value: 'Cubic feet, weight, gravel type' },
+  { label: 'Buy', value: 'Whole bags at your local price' }
 ];
-
-const quickStats = [
-  { value: '54 Bags', label: 'Per Cubic Yard', desc: 'Exact bag multiplier based on 27 cubic feet per yard' },
-  { value: '20 Bags', label: 'Tipping Point', desc: 'Economic break-even point between retail bags and bulk delivery' },
-  { value: '~50 lbs', label: 'Bag Weight', desc: 'Standard dry weight for 0.5 cu ft crushed stone or gravel bag' }
-];
-
 const faqItems = [
   {
-    q: 'How many bags of gravel do I need for a 10x10 foot area?',
-    a: 'A 10x10 foot area equals 100 square feet. At a standard 2-inch depth, you need 16.7 cubic feet of gravel, which equals approximately 34 bags of 0.5 cubic feet. At a 3-inch depth, you need 25 cubic feet, which equals 50 bags.'
+    q: 'How many bags of gravel cover 100 square feet?',
+    a: 'At 2 inches deep, 100 square feet needs 16.67 cubic feet. That is 34 whole bags if each bag contains 0.5 cubic foot, before extra. At 3 inches deep, the same area needs 50 such bags. Read your product’s volume label and change the calculator if its bag size differs.'
   },
   {
-    q: 'How many bags of gravel make a cubic yard?',
-    a: 'Exactly 54 bags of 0.5 cubic feet make one cubic yard (27 cubic feet / 0.5 cu ft = 54 bags). If using 40-lb or 50-lb labeled bags, check the stated volume; standard retail aggregate bags hold 0.5 cubic feet.'
+    q: 'How much does one bag of gravel cover?',
+    a: 'A 0.5-cubic-foot bag covers 3 square feet at 2 inches deep, 2 square feet at 3 inches, or 1.5 square feet at 4 inches, by volume. Divide the cubic feet printed on another bag by your depth in feet to find its coverage.'
   },
   {
-    q: 'When should I buy bags of gravel instead of bulk delivery?',
-    a: 'If your project requires under 20 bags (under 10 cubic feet or 0.37 cubic yards), purchasing bags from a local home center is more economical. For projects requiring 20 bags or more, ordering bulk quarry delivery by dump truck saves between 40 and 60 percent on material costs.'
+    q: 'Are all 50 lb gravel bags 0.5 cubic foot?',
+    a: 'No. Weight alone does not establish volume. A Vigoro all-purpose decorative stone listing gives 0.5 cubic foot and 48 lb, while a Sakrete pea gravel data sheet gives approximately 0.6 cubic foot for a 50 lb bag. Use the cubic-foot yield or coverage stated for the specific product.'
   },
   {
-    q: 'How many bags of gravel can my car or pickup truck carry?',
-    a: 'A standard passenger car trunk safely carries 6 to 8 bags (300 to 400 lbs). A standard half-ton pickup truck (such as a Ford F-150) carries 20 to 25 bags (1,000 to 1,250 lbs) before reaching rear suspension limits.'
+    q: 'How many gravel bags are in a cubic yard?',
+    a: 'One cubic yard is 27 cubic feet. It equals 54 bags only when each bag contains 0.5 cubic foot. For 0.6-cubic-foot bags, the same volume is 45 bags. This is a volume conversion, not a fixed number of pounds or a pallet count.'
+  },
+  {
+    q: 'When should I switch from bagged gravel to bulk delivery?',
+    a: 'There is no reliable bag-count cutoff. Multiply the rounded-up bag count by the local price, then compare it with a delivered bulk quote for enough of a comparable gravel, including minimums and fees. Consider where the material can be unloaded and how you will move it.'
   }
 ];
-
 const upLinks = [
-  { title: 'Gravel Calculator (Material Parent)', slug: '/gravel-calculator', badge: 'Material' },
-  { title: 'Rock Bag Calculator (Unit Parent)', slug: '/rock-bag-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: 'Material' },
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'All bags' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Reference' }
 ];
-
 const lateralLinks = [
   { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Tons' },
   { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Yards' },
-  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Pea Gravel' }
+  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Rounded' }
 ];
-
 const bridgeLinks = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
-  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Sq Ft' }
+  { title: 'Crushed Stone Bag Calculator', slug: '/crushed-stone-bag-calculator', badge: 'Angular' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Buying' },
+  { title: 'Gravel Sizes', slug: '/gravel-sizes', badge: 'Choose grade' }
 ];
-
 const supportGuides = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
+  { title: 'Rock Bag Weight and Price Guide', slug: '/rock-bag-weight-and-price-guide', badge: 'Hauling' }
 ];
 ---
 
 <BaseLayout
-  title="Gravel Bag Calculator - How Many Bags of Gravel Do I Need?"
-  metaDescription="Calculate exact 0.5 cu ft bags of gravel needed for your project. Sizing formulas, cubic yard equivalents, and bulk vs bag cost break-even analysis."
+  title={pageTitle}
+  description="Find whole gravel bags from measured area, finished depth, and the cubic feet on your product label. Check coverage, hauling weight, local cost, and a bulk quote."
   canonicalPath="/gravel-bag-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Gravel Bag Calculator",
-      "url": "https://rockcoveragecalculator.com/gravel-bag-calculator",
-      "description": "Calculates 0.5 cu ft retail bags of gravel needed from square footage and depth.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Homeowners, DIY Landscapers, Estimators, Contractors"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Bagged Gravel Sizing"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/gravel-bag-calculator',
+      description: 'Counts whole gravel bags from project area, installed depth, and labeled bag volume; optional inputs estimate packaged weight and local cost.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="Gravel Bag Calculator"
-      highlightWord="Bags"
-      badge="Retail Bag Sizing Engine"
-      subtitle="Accurate 0.5 cu ft bag calculations for landscape gravel. Sizing formulas, vehicle payload limits, and bulk vs bag cost analysis."
+      title={pageTitle}
+      highlightWord="Bag Calculator"
+      badge="Bagged gravel buying planner"
+      subtitle="A 10 × 10 ft area at 2 in deep takes 34 bags when each holds 0.5 cu ft, before extra. The bag's printed volume sets the count; its weight and your store price help plan the trip. Enter your product details below."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
-      quickStats={quickStats}
     />
 
-    <!-- Interactive Gravel Bag Calculator Tool -->
-    <section class="section">
+    <section class="gb-tool" id="gravel-bag-tool" aria-labelledby="gb-tool-heading">
       <div class="container">
-        <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Gravel Area Dimensions</h3>
+        <div class="gb-section-heading">
+          <div>
+            <p class="gb-eyebrow">Take a count to the store</p>
+            <h2 id="gb-tool-heading">Size the layer, then read the bag</h2>
+          </div>
+          <p>Use the finished thickness you want on the ground. If the surface is uneven or the gravel must compact, set an extra allowance using the product or supplier's guidance.</p>
+        </div>
+
+        <div class="gb-workspace">
+          <div class="gb-input-panel">
+            <h3><span>01</span> Measure the gravel-covered area</h3>
+            <fieldset class="gb-area-choice">
+              <legend>How is your area measured?</legend>
+              <label><input type="radio" name="gb-area-mode" value="rectangle" checked /> Length × width</label>
+              <label><input type="radio" name="gb-area-mode" value="known" /> Total square feet</label>
+            </fieldset>
+            <div class="gb-fields" id="gb-rectangle-fields">
+              <div class="gb-field"><label for="gb-length">Length (ft)</label><input id="gb-length" type="number" value="10" min="0.01" step="any" inputmode="decimal" /></div>
+              <div class="gb-field"><label for="gb-width">Average width (ft)</label><input id="gb-width" type="number" value="10" min="0.01" step="any" inputmode="decimal" /></div>
+            </div>
+            <div class="gb-field" id="gb-known-field" hidden><label for="gb-area">Measured area (sq ft)</label><input id="gb-area" type="number" value="100" min="0.01" step="any" inputmode="decimal" /></div>
+            <div class="gb-fields">
+              <div class="gb-field"><label for="gb-depth">Finished gravel depth (in)</label><input id="gb-depth" type="number" value="2" min="0.01" max="24" step="any" inputmode="decimal" /></div>
+              <div class="gb-field"><label for="gb-extra">Extra to order (%)</label><input id="gb-extra" type="number" value="0" min="0" max="100" step="any" inputmode="decimal" /></div>
+            </div>
+            <p class="gb-hint">Zero extra is the measured layer only. Add an allowance for known low spots or handling loss; don't add the same allowance twice.</p>
+
+            <h3><span>02</span> Copy the package details</h3>
+            <div class="gb-fields">
+              <div class="gb-field"><label for="gb-volume">Volume per bag (cu ft)</label><input id="gb-volume" type="number" value="0.5" min="0.01" step="any" inputmode="decimal" /></div>
+              <div class="gb-field"><label for="gb-weight">Weight per bag (lb, optional)</label><input id="gb-weight" type="number" min="0.01" step="any" inputmode="decimal" placeholder="Read the label" /></div>
+              <div class="gb-field"><label for="gb-price">Price per bag ($, optional)</label><input id="gb-price" type="number" min="0" step="any" inputmode="decimal" placeholder="Your store price" /></div>
+              <div class="gb-field"><label for="gb-bag-fees">Bag trip and fees ($, optional)</label><input id="gb-bag-fees" type="number" min="0" step="any" inputmode="decimal" placeholder="Added once" /></div>
+              <div class="gb-field"><label for="gb-bulk">Delivered bulk quote ($, optional)</label><input id="gb-bulk" type="number" min="0" step="any" inputmode="decimal" placeholder="Same gravel and volume" /></div>
+            </div>
+            <p class="gb-hint">The starting 0.5 cu ft is an example, not a size for every 50 lb bag. Add bag trip costs once; the bulk quote should include its minimum, delivery, and fees. Compare taxes consistently.</p>
+            <p class="gb-error" id="gb-error" role="alert" hidden></p>
           </div>
 
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="gb-length">Length (Feet)</label>
-              <input type="number" id="gb-length" value="20" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="gb-width">Width (Feet)</label>
-              <input type="number" id="gb-width" value="10" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="gb-depth">Depth (Inches)</label>
-              <input type="number" id="gb-depth" value="3.0" min="1" max="12" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="gb-price">Price per Bag ($)</label>
-              <input type="number" id="gb-price" value="4.50" min="1" step="0.25" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-gb-bags">0</div>
-              <div class="kpi-label">0.5 cu ft Bags Required</div>
-              <div class="kpi-subtext" id="kpi-gb-weight">0 lbs total weight</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-gb-cost">$0.00</div>
-              <div class="kpi-label">Estimated Material Cost</div>
-              <div class="kpi-subtext">Before sales tax</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-gb-yards">0.00</div>
-              <div class="kpi-label">Cubic Yards Equivalent</div>
-              <div class="kpi-subtext">54 bags per yard</div>
-            </div>
-            </div>
+          <div class="gb-results" aria-live="polite" aria-atomic="false">
+            <div class="gb-result-header"><p class="gb-eyebrow">Your shopping list</p><h3><strong id="gb-bags">34</strong> whole bags</h3><p id="gb-coverage">Each 0.5 cu ft bag covers 3 sq ft at 2 in deep.</p></div>
+            <dl class="gb-metrics">
+              <div><dt>Installed layer</dt><dd id="gb-installed">16.67 cu ft</dd></div>
+              <div><dt>Volume to order</dt><dd id="gb-planned">16.67 cu ft (0.62 yd³)</dd></div>
+              <div><dt>Volume in whole bags</dt><dd id="gb-purchased">17 cu ft</dd></div>
+              <div><dt>Packaged weight</dt><dd id="gb-total-weight">Add bag weight</dd></div>
+              <div><dt>Bag cost</dt><dd id="gb-cost">Add local price</dd></div>
+            </dl>
+            <div class="gb-receipt"><h4>How this count is built</h4><p id="gb-volume-line">100 sq ft × 2 in ÷ 12 = 16.67 cu ft installed.</p><p id="gb-bag-line">16.67 cu ft ÷ 0.5 cu ft per bag = 33.33; round up to 34 bags.</p></div>
+            <div class="gb-compare"><h4>Bagged or loose?</h4><p id="gb-compare-line">Add a bag price and an all-in delivered quote to compare the same gravel and required volume.</p></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on Bagged Gravel -->
-    <article class="content-guide-section">
+    <article class="gb-guide">
       <div class="container">
+        <nav class="gb-jumps" aria-label="On this page">
+          <strong>Plan the purchase</strong>
+          <a href="#gb-label">Read the label</a>
+          <a href="#gb-math">Check the math</a>
+          <a href="#gb-material">Match the gravel</a>
+          <a href="#gb-order">Make the trip</a>
+          <a href="#gb-faq">Questions</a>
+        </nav>
 
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Bagged Gravel Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Bagged Gravel Reference</span>
+        <section class="gb-guide-panel gb-label-panel" id="gb-label" aria-labelledby="gb-label-heading">
+          <div>
+            <p class="gb-eyebrow">First check at the shelf</p>
+            <h2 id="gb-label-heading">Cubic feet set coverage; pounds set the load</h2>
+            <p>Find the bag's <strong>cubic-foot volume</strong> or a stated coverage area at a stated depth. That number tells you how many packages fill the space. The <strong>weight</strong> helps plan lifting and vehicle trips. A bag labeled only in pounds cannot give an exact square-foot yield without its volume or a product-specific bulk density.</p>
+            <p>Product listings show the difference. <a href="https://www.homedepot.com/p/202026926" target="_blank" rel="noopener noreferrer">Vigoro all-purpose decorative stone</a> lists 0.5 cu ft and 48 lb. A <a href="https://ezmixinc.com/assets/docs-technical/SAKPeaGravelTDS.pdf" target="_blank" rel="noopener noreferrer">Sakrete pea gravel data sheet</a> states that its 50 lb bag yields approximately 0.6 cu ft. Check the actual product rather than converting every 50 lb bag to 0.5 cu ft.</p>
+            <p class="gb-fineprint">The examples are different products, not interchangeable gravel choices. <a href="https://store.astm.org/c0029_c0029m-23.html" target="_blank" rel="noopener noreferrer">ASTM C29/C29M</a> is a method for measuring aggregate bulk density in loose or compacted condition; it does not supply one universal bag weight.</p>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bag Multiplier</span>
-              <span class="aeo-quick-value">Bags = Cubic Yards × 54</span>
-              <p class="aeo-quick-desc">27 cubic feet per yard / 0.5 cu ft per bag = 54 bags.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Coverage per Bag</span>
-              <span class="aeo-quick-value">3.0 sq ft at 2" Depth</span>
-              <p class="aeo-quick-desc">Yields 2.0 sq ft at 3" depth, 1.5 sq ft at 4" depth.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bag Weight</span>
-              <span class="aeo-quick-value">48 to 52 lbs per Bag</span>
-              <p class="aeo-quick-desc">Aggregate density per ASTM C29 loose unit weight.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Break-Even</span>
-              <span class="aeo-quick-value">20 Bags Tipping Point</span>
-              <p class="aeo-quick-desc">Over 20 bags, bulk delivery saves money despite the drop fee.</p>
-            </div>
-          </div>
+          <figure class="gb-figure"><img src="/gravel-bag-label-guide.svg" width="760" height="560" loading="lazy" alt="Illustrated gravel bag label showing volume for bag count, weight for hauling, and stone type and size for choosing the right product." /><figcaption>Check these three parts of the package before calculating or loading a vehicle.</figcaption></figure>
         </section>
 
-        <div class="content-card">
-          <h2>How to Calculate Bags of Gravel</h2>
-          <p>
-            Retail gravel sold at home improvement centers (such as Home Depot and Lowe's) is packaged in heavy-duty plastic bags holding <strong>0.5 cubic feet (0.0185 cubic yards)</strong>.
-          </p>
-          <p>
-            While homeowners often describe these as "50-pound bags," aggregate packaging is regulated by volume rather than weight. A 0.5 cubic foot bag of standard crushed gravel weighs approximately 50 pounds, but actual weight varies between 48 and 54 pounds depending on moisture content and quarry mineral density.
-          </p>
+        <section class="gb-guide-panel" id="gb-math" aria-labelledby="gb-math-heading">
+          <p class="gb-eyebrow">The calculation</p>
+          <h2 id="gb-math-heading">Convert the finished layer to whole bags</h2>
+          <p>Multiply the area by the finished depth in feet to get installed cubic feet. Apply any chosen extra <em>before</em> dividing by the labeled bag volume, then round up once. The rounded purchase may contain a little more gravel than the calculated layer.</p>
+          <div class="gb-formula"><code>installed cu ft = area (sq ft) × depth (in) ÷ 12</code><code>whole bags = ⌈installed cu ft × (1 + extra % ÷ 100) ÷ cu ft per bag⌉</code></div>
+          <p>For a 10 × 10 ft patch, the depth changes the purchase more than many shoppers expect. The table uses 0.5-cubic-foot bags and no added allowance. Actual packages may have another yield.</p>
+          <div class="gb-table-wrap"><table><caption>Whole 0.5 cu ft bags for 100 sq ft, before extra</caption><thead><tr><th scope="col">Finished depth</th><th scope="col">Installed volume</th><th scope="col">Coverage per bag</th><th scope="col">Whole bags</th></tr></thead><tbody><tr><th scope="row">2 in</th><td>16.67 cu ft</td><td>3 sq ft</td><td>34</td></tr><tr><th scope="row">3 in</th><td>25 cu ft</td><td>2 sq ft</td><td>50</td></tr><tr><th scope="row">4 in</th><td>33.33 cu ft</td><td>1.5 sq ft</td><td>67</td></tr></tbody></table></div>
+          <p>One cubic yard is 27 cubic feet, so it equals <strong>54 half-cubic-foot bags</strong> or <strong>45 bags of 0.6 cubic foot</strong> by volume. Neither number specifies a pallet count. For an irregular area, split it into rectangles, subtract large uncovered spaces, and enter the sum using “Total square feet.”</p>
+        </section>
 
-          <div class="formula-box">
-            <code>Total Cubic Feet = Area (sq ft) × [Depth (in) / 12]</code>
-            <br />
-            <code>Total 0.5 cu ft Bags = Total Cubic Feet / 0.5 (or Total Cubic Feet × 2)</code>
-            <br />
-            <code>Yards to Bags = Cubic Yards × 54</code>
+        <section class="gb-guide-panel" id="gb-material" aria-labelledby="gb-material-heading">
+          <p class="gb-eyebrow">Buy the right bag</p>
+          <h2 id="gb-material-heading">“Gravel” on the shelf can mean different jobs</h2>
+          <p>The bag count measures space, but the stone inside still has to suit the project. Check the size range, whether the pieces are rounded or angular, and whether the mix contains fines. A coverage estimate cannot turn a decorative bag into a compactable base or a washed drainage aggregate.</p>
+          <div class="gb-material-grid">
+            <div><h3>Clean angular stone</h3><p>Check the grade and whether it is washed when you need open spaces for drainage. See the <a href="/drain-rock-calculator">drain rock calculator</a> for a drainage layer and <a href="/crushed-stone-bag-calculator">crushed stone bags</a> for small repairs.</p></div>
+            <div><h3>Graded gravel with fines</h3><p>A base mix includes small particles that fill voids when compacted. Choose the specified base material and account for its compacted yield; the <a href="/crusher-run-calculator">crusher run calculator</a> handles that planning.</p></div>
+            <div><h3>Rounded pea gravel</h3><p>Small smooth pieces give a different walking and edging feel from angular stone. Use the <a href="/pea-gravel-bag-calculator">pea gravel bag calculator</a> when that is the product you will buy.</p></div>
           </div>
-        </div>
+          <p class="gb-fineprint">The <a href="/gravel-sizes">gravel size guide</a> helps name the material before you ask a store or landscape yard for a matching quote. Follow the project specification and the chosen product's installation guidance for layer depth.</p>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Bagged Gravel</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <section class="gb-guide-panel gb-order-panel" id="gb-order" aria-labelledby="gb-order-heading">
+          <p class="gb-eyebrow">Before checkout</p>
+          <h2 id="gb-order-heading">Turn the bag number into an order you can move</h2>
+          <ol class="gb-steps">
+            <li><span>1</span><div><h3>Compare equivalent material and volume</h3><p>Multiply the rounded bag count by your local bag price. Ask the bulk yard for an all-in delivered quote that covers at least your planned cubic feet, with its minimum and unloading location. There is no universal “20 bag” price crossover; access and local charges decide. See <a href="/bulk-vs-bagged-rock">bulk versus bagged rock</a> for the wider tradeoff.</p></div></li>
+            <li><span>2</span><div><h3>Check the vehicle's actual capacity</h3><p>Use the product's labeled pounds per bag to calculate the total packaged load. Then read the occupants-and-cargo limit on your own vehicle's tire and loading placard, allowing for passengers and other cargo. <a href="https://www.nhtsa.gov/interpretations/gf004408" target="_blank" rel="noopener noreferrer">NHTSA explains that placard</a>; a car or pickup class name does not tell you how many gravel bags it can carry.</p></div></li>
+            <li><span>3</span><div><h3>Keep layers and spaces separate</h3><p>For a path or patio, calculate each material layer with its own specified finished depth and product yield. Don't count a crushed base and decorative surface as one bag type. Keep edging, fabric, and any delivery or placement labor outside the stone volume.</p></div></li>
+          </ol>
+        </section>
 
+        <section class="gb-guide-panel" id="gb-faq" aria-labelledby="gb-faq-heading">
+          <p class="gb-eyebrow">Common questions</p>
+          <h2 id="gb-faq-heading">Gravel bags, coverage, and buying</h2>
+          <div class="gb-faq-list">{faqItems.map(item => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}</div>
+        </section>
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/gravel-bag-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav currentPage="/gravel-bag-calculator" category="quantity" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
   </main>
-
   <Footer />
 
   <script>
-    function updateGB() {
-      const l = parseFloat((document.getElementById('gb-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('gb-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('gb-depth') as HTMLInputElement)?.value) || 0;
-      const price = parseFloat((document.getElementById('gb-price') as HTMLInputElement)?.value) || 0;
+    function initGravelBagCalculator() {
+      const input = (id: string) => document.getElementById(id) as HTMLInputElement;
+      const put = (id: string, value: string) => { const element = document.getElementById(id); if (element) element.textContent = value; };
+      const fmt = (value: number, digits = 2) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
+      const usd = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
+      const read = (element: HTMLInputElement, positive: boolean): number => {
+        const value = Number(element.value);
+        const valid = element.value.trim() !== '' && element.validity.valid && Number.isFinite(value) && (positive ? value > 0 : value >= 0);
+        element.setAttribute('aria-invalid', String(!valid));
+        return valid ? value : NaN;
+      };
+      const readOptional = (element: HTMLInputElement, positive: boolean): number | null => {
+        if (element.value.trim() === '') { element.setAttribute('aria-invalid', 'false'); return null; }
+        return read(element, positive);
+      };
+      const error = document.getElementById('gb-error') as HTMLElement;
 
-      const cuft = (l * w * (d / 12));
-      const bags = Math.ceil(cuft / 0.5);
-      const yards = cuft / 27;
-      const weightLbs = bags * 50;
-      const cost = bags * price;
+      function update() {
+        const known = (document.querySelector('input[name="gb-area-mode"]:checked') as HTMLInputElement)?.value === 'known';
+        (document.getElementById('gb-rectangle-fields') as HTMLElement).hidden = known;
+        (document.getElementById('gb-known-field') as HTMLElement).hidden = !known;
+        const length = known ? NaN : read(input('gb-length'), true);
+        const width = known ? NaN : read(input('gb-width'), true);
+        const measured = known ? read(input('gb-area'), true) : NaN;
+        (known ? [input('gb-length'), input('gb-width')] : [input('gb-area')]).forEach(element => element.setAttribute('aria-invalid', 'false'));
+        const area = known ? measured : length * width;
+        const depth = read(input('gb-depth'), true);
+        const extra = read(input('gb-extra'), false);
+        const volume = read(input('gb-volume'), true);
+        const weight = readOptional(input('gb-weight'), true);
+        const price = readOptional(input('gb-price'), false);
+        const bagFees = readOptional(input('gb-bag-fees'), false);
+        const bulk = readOptional(input('gb-bulk'), false);
+        const messages: string[] = [];
+        const coreValid = Number.isFinite(area) && area > 0 && Number.isFinite(depth) && Number.isFinite(extra) && Number.isFinite(volume);
+        if (!coreValid) messages.push('Enter a positive area, finished depth, and bag volume. Extra may be zero.');
+        if (weight !== null && Number.isNaN(weight)) messages.push('Bag weight must be positive or blank.');
+        if (price !== null && Number.isNaN(price)) messages.push('Bag price must be zero or more, or blank.');
+        if (bagFees !== null && Number.isNaN(bagFees)) messages.push('Bag trip and fees must be zero or more, or blank.');
+        if (bulk !== null && Number.isNaN(bulk)) messages.push('Bulk quote must be zero or more, or blank.');
+        error.hidden = messages.length === 0;
+        error.textContent = messages.join(' ');
+        if (!coreValid) {
+          ['gb-bags', 'gb-coverage', 'gb-installed', 'gb-planned', 'gb-purchased', 'gb-total-weight', 'gb-cost', 'gb-volume-line', 'gb-bag-line', 'gb-compare-line'].forEach(id => put(id, '—'));
+          return;
+        }
+        const installed = area * depth / 12;
+        const planned = installed * (1 + extra / 100);
+        const quotient = planned / volume;
+        const bags = Math.max(1, Math.ceil(quotient - 1e-9));
+        if (!Number.isFinite(installed) || !Number.isFinite(planned) || !Number.isSafeInteger(bags)) {
+          error.hidden = false;
+          error.textContent = 'These measurements are too large to calculate a reliable whole-bag order.';
+          ['gb-bags', 'gb-coverage', 'gb-installed', 'gb-planned', 'gb-purchased', 'gb-total-weight', 'gb-cost', 'gb-volume-line', 'gb-bag-line', 'gb-compare-line'].forEach(id => put(id, '—'));
+          return;
+        }
+        put('gb-bags', fmt(bags, 0));
+        put('gb-coverage', 'Each ' + fmt(volume) + ' cu ft bag covers ' + fmt(volume * 12 / depth) + ' sq ft at ' + fmt(depth) + ' in deep, by volume.');
+        put('gb-installed', fmt(installed) + ' cu ft');
+        put('gb-planned', fmt(planned) + ' cu ft (' + fmt(planned / 27) + ' yd³)');
+        put('gb-purchased', fmt(bags * volume) + ' cu ft');
+        put('gb-total-weight', weight === null || Number.isNaN(weight) ? 'Add bag weight' : fmt(bags * weight, 0) + ' lb');
+        put('gb-cost', price === null || Number.isNaN(price) || Number.isNaN(bagFees) ? 'Add local price' : usd(bags * price + (bagFees ?? 0)));
+        put('gb-volume-line', fmt(area) + ' sq ft × ' + fmt(depth) + ' in ÷ 12 = ' + fmt(installed) + ' cu ft installed; ' + fmt(planned) + ' cu ft with ' + fmt(extra) + '% extra.');
+        put('gb-bag-line', fmt(planned) + ' cu ft ÷ ' + fmt(volume) + ' cu ft per bag = ' + fmt(quotient) + '; round up to ' + fmt(bags, 0) + ' whole bags.');
+        if (price !== null && bulk !== null && !Number.isNaN(price) && !Number.isNaN(bagFees) && !Number.isNaN(bulk)) {
+          const bagCost = bags * price + (bagFees ?? 0);
+          const difference = Math.abs(bagCost - bulk);
+          const outcome = difference < .005 ? 'The entered costs are equal.' : bagCost < bulk ? 'Bags cost ' + usd(difference) + ' less.' : 'The bulk quote costs ' + usd(difference) + ' less.';
+          put('gb-compare-line', fmt(bags, 0) + ' bags with entered trip and fees: ' + usd(bagCost) + '. Delivered bulk quote: ' + usd(bulk) + '. ' + outcome + ' Confirm that the quote covers the same material and at least ' + fmt(planned) + ' cu ft.');
+        } else put('gb-compare-line', 'Add a valid bag price and an all-in delivered quote to compare the same gravel and required volume.');
+      }
 
-      const bEl = document.getElementById('kpi-gb-bags');
-      const cEl = document.getElementById('kpi-gb-cost');
-      const yEl = document.getElementById('kpi-gb-yards');
-      const wEl = document.getElementById('kpi-gb-weight');
-
-      if (bEl) bEl.innerText = bags.toLocaleString();
-      if (cEl) cEl.innerText = '$' + cost.toFixed(2);
-      if (yEl) yEl.innerText = yards.toFixed(2);
-      if (wEl) wEl.innerText = Math.round(weightLbs).toLocaleString() + ' lbs total weight';
+      document.querySelectorAll('#gravel-bag-tool input').forEach(element => { element.addEventListener('input', update); element.addEventListener('change', update); });
+      update();
     }
-
-    ['gb-length', 'gb-width', 'gb-depth', 'gb-price'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateGB);
-    });
-    updateGB();
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initGravelBagCalculator);
+    else initGravelBagCalculator();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .gb-tool, .gb-guide { padding: var(--space-10) 0; background: var(--bg-body); }
+  .gb-eyebrow { color: var(--accent-gold); text-transform: uppercase; letter-spacing: .09em; font-weight: 800; font-size: var(--text-xs); margin: 0 0 var(--space-2); }
+  .gb-section-heading { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: end; margin-bottom: var(--space-6); }
+  .gb-section-heading h2, .gb-guide-panel h2 { color: var(--text-primary); margin: 0; font-size: var(--text-2xl); line-height: 1.18; }
+  .gb-section-heading > p { color: var(--text-secondary); margin: 0; line-height: 1.6; }
+  .gb-workspace { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: start; }
+  .gb-input-panel, .gb-results, .gb-guide-panel { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-6); min-width: 0; }
+  .gb-input-panel h3 { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-lg); color: var(--text-primary); margin: 0 0 var(--space-4); }
+  .gb-input-panel h3:not(:first-child) { margin-top: var(--space-7); }
+  .gb-input-panel h3 span { color: var(--accent-gold); font-size: var(--text-sm); font-weight: 800; }
+  .gb-area-choice { border: 0; padding: 0; margin: 0 0 var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .gb-area-choice legend { color: var(--text-muted); font-size: var(--text-xs); margin-bottom: var(--space-2); }
+  .gb-area-choice label { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: var(--text-sm); cursor: pointer; }
+  .gb-area-choice input { accent-color: var(--accent-gold); }
+  .gb-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .gb-field { margin-bottom: var(--space-3); }
+  .gb-field label { display: block; color: var(--text-secondary); font-size: var(--text-xs); font-weight: 700; margin-bottom: var(--space-2); }
+  .gb-field input { display: block; width: 100%; min-width: 0; padding: .72rem .8rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); color: var(--text-primary); font-size: var(--text-base); }
+  .gb-field input:focus { outline: 2px solid var(--accent-gold); outline-offset: 1px; }
+  .gb-field input[aria-invalid="true"] { border-color: #dc2626; }
+  .gb-hint, .gb-fineprint { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin: 0; }
+  .gb-error { color: #b91c1c; border: 1px solid #dc2626; border-radius: var(--radius-md); padding: var(--space-3); margin-top: var(--space-4); }
+  [hidden] { display: none !important; }
+  .gb-results { border-color: var(--accent-gold); }
+  .gb-result-header { background: var(--bg-surface); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); }
+  .gb-result-header h3 { font-size: var(--text-xl); color: var(--text-primary); margin: 0; }
+  .gb-result-header h3 strong { display: block; font-size: clamp(3rem, 6vw, 5rem); line-height: 1; color: var(--accent-gold); }
+  .gb-result-header > p:last-child { color: var(--text-secondary); margin: var(--space-2) 0 0; font-size: var(--text-sm); }
+  .gb-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin: 0; }
+  .gb-metrics div { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-3); }
+  .gb-metrics dt { color: var(--text-muted); font-size: var(--text-xs); }
+  .gb-metrics dd { color: var(--text-primary); font-weight: 700; font-size: var(--text-base); margin: var(--space-1) 0 0; overflow-wrap: anywhere; }
+  .gb-receipt, .gb-compare { border-top: 1px solid var(--border-subtle); margin-top: var(--space-5); padding-top: var(--space-4); color: var(--text-secondary); line-height: 1.55; }
+  .gb-receipt h4, .gb-compare h4 { color: var(--text-primary); margin: 0 0 var(--space-2); }
+  .gb-receipt p, .gb-compare p { margin: var(--space-2) 0 0; font-size: var(--text-sm); overflow-wrap: anywhere; }
+  .gb-guide { padding-top: 0; }
+  .gb-jumps { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin-bottom: var(--space-6); background: var(--bg-card); font-size: var(--text-sm); }
+  .gb-jumps strong { color: var(--text-primary); }
+  .gb-jumps a, .gb-guide-panel a { color: var(--accent-gold); }
+  .gb-guide-panel { margin-bottom: var(--space-6); padding: var(--space-7); color: var(--text-secondary); line-height: 1.65; }
+  .gb-guide-panel h2 { max-width: 25ch; }
+  .gb-guide-panel p { margin: var(--space-4) 0 0; }
+  .gb-label-panel { display: grid; grid-template-columns: 1.08fr .92fr; gap: var(--space-7); align-items: center; }
+  .gb-figure { margin: 0; }
+  .gb-figure img { display: block; width: 100%; height: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .gb-figure figcaption { color: var(--text-muted); font-size: var(--text-xs); margin-top: var(--space-2); }
+  .gb-formula { display: grid; gap: var(--space-2); margin: var(--space-5) 0; padding: var(--space-4); border-left: 3px solid var(--accent-gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; background: var(--bg-surface); }
+  .gb-formula code { color: var(--text-primary); white-space: normal; overflow-wrap: anywhere; }
+  .gb-table-wrap { overflow-x: auto; margin-top: var(--space-5); }
+  .gb-table-wrap table { width: 100%; min-width: 500px; border-collapse: collapse; text-align: left; font-size: var(--text-sm); }
+  .gb-table-wrap caption { text-align: left; color: var(--text-primary); font-weight: 700; margin-bottom: var(--space-2); }
+  .gb-table-wrap th, .gb-table-wrap td { padding: var(--space-3); border-bottom: 1px solid var(--border-subtle); }
+  .gb-table-wrap thead th { color: var(--text-primary); background: var(--bg-surface); }
+  .gb-table-wrap tbody th { color: var(--text-primary); }
+  .gb-material-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); margin-top: var(--space-5); }
+  .gb-material-grid > div { padding: var(--space-4); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+  .gb-material-grid h3, .gb-steps h3 { color: var(--text-primary); font-size: var(--text-base); margin: 0; }
+  .gb-material-grid p { font-size: var(--text-sm); margin-top: var(--space-2); }
+  .gb-order-panel { border-top: 3px solid var(--accent-gold); }
+  .gb-steps { list-style: none; padding: 0; margin: var(--space-5) 0 0; display: grid; gap: var(--space-3); }
+  .gb-steps li { display: flex; gap: var(--space-4); padding: var(--space-4); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+  .gb-steps li > span { color: var(--accent-gold); font-weight: 800; font-size: var(--text-xl); line-height: 1; }
+  .gb-steps p { font-size: var(--text-sm); margin-top: var(--space-2); }
+  .gb-faq-list { display: grid; gap: var(--space-3); margin-top: var(--space-5); }
+  .gb-faq-list details { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); background: var(--bg-surface); }
+  .gb-faq-list summary { color: var(--text-primary); font-weight: 700; cursor: pointer; }
+  .gb-faq-list p { margin-top: var(--space-3); font-size: var(--text-sm); }
+  @media (max-width: 900px) { .gb-workspace, .gb-label-panel, .gb-section-heading { grid-template-columns: 1fr; } .gb-material-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .gb-input-panel, .gb-results, .gb-guide-panel { padding: var(--space-5); } .gb-fields, .gb-metrics { grid-template-columns: 1fr; } }
 </style>

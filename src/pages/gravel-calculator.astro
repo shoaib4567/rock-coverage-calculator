@@ -174,7 +174,8 @@ const faqItems = [
       currentPage="/gravel-calculator"
       bridgeLinks={[
         { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', desc: 'Focus on weight-based ordering.' },
-        { title: 'Gravel Cubic Yard Calculator', slug: '/gravel-cubic-yard-calculator', desc: 'Focus on bulk volume.' }
+        { title: 'Gravel Cubic Yard Calculator', slug: '/gravel-cubic-yard-calculator', desc: 'Focus on bulk volume and supplier yard increments.' },
+        { title: 'Gravel Bag Calculator', slug: '/gravel-bag-calculator', desc: 'Count bags by their label volume and compare local quotes.' }
       ]}
       lateralLinks={[
         { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', desc: 'Estimate a dense graded driveway base.' },
@@ -196,7 +197,7 @@ const faqItems = [
   .answer-grid strong { color: var(--color-text); }
   .content-guide-section { padding: var(--space-12) 0; background: var(--color-bg); }
   .guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); align-items: start; }
-  .content-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-8); }
+  .content-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-8); min-width: 0; }
   .math-card, .material-card, .faq-card { grid-column: 1 / -1; }
   .content-card h2 { font-size: var(--text-2xl); color: var(--color-text); margin: 0 0 var(--space-4); }
   .content-card h3 { font-size: var(--text-lg); color: var(--color-text); margin: 0 0 var(--space-2); }
@@ -221,5 +222,5 @@ const faqItems = [
   .faq-item { padding: var(--space-5); background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
   .faq-item h3 { font-size: var(--text-base); }
   .faq-item p { font-size: var(--text-sm); margin: 0; }
-  @media (max-width: 750px) { .answer-grid, .guide-grid, .faq-list { grid-template-columns: 1fr; } .math-card, .material-card, .faq-card { grid-column: auto; } .content-card { padding: var(--space-5); } }
+  @media (max-width: 750px) { .answer-grid, .guide-grid, .faq-list { grid-template-columns: minmax(0, 1fr); } .math-card, .material-card, .faq-card { grid-column: auto; } .content-card { padding: var(--space-5); } }
 </style>

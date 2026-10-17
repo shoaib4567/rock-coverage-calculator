@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" role="img" aria-labelledby="title desc">
+  <title id="title">Three things to check on a gravel bag</title>
+  <desc id="desc">A generic bag illustration points to its volume in cubic feet for the bag count, weight in pounds for hauling, and stone type and size for choosing the right product.</desc>
+  <defs>
+    <linearGradient id="ground" x2="0" y2="1"><stop stop-color="#f4f1e8"/><stop offset="1" stop-color="#e5ede8"/></linearGradient>
+    <linearGradient id="bag" x2="0" y2="1"><stop stop-color="#e6ded0"/><stop offset="1" stop-color="#cbbda7"/></linearGradient>
+    <pattern id="stones" width="45" height="31" patternUnits="userSpaceOnUse"><rect width="45" height="31" fill="#aeb8ad"/><ellipse cx="10" cy="10" rx="10" ry="6" fill="#778b82"/><ellipse cx="32" cy="9" rx="11" ry="7" fill="#ded4bf"/><ellipse cx="21" cy="27" rx="13" ry="7" fill="#8f9e98"/></pattern>
+  </defs>
+  <rect width="760" height="560" rx="22" fill="url(#ground)"/>
+  <rect x="22" y="22" width="716" height="516" rx="16" fill="#fffdfa" stroke="#cbd8cf"/>
+  <text x="44" y="60" fill="#25483c" font-family="Arial,sans-serif" font-size="25" font-weight="700">Read the bag before you count it</text>
+  <text x="44" y="86" fill="#52675c" font-family="Arial,sans-serif" font-size="15">The three label details answer different questions.</text>
+  <g font-family="Arial,sans-serif">
+    <path d="M247 123h266l-19 379H266z" fill="url(#bag)" stroke="#7c8175" stroke-width="3"/>
+    <path d="M247 123h266l-20 45H267z" fill="#687f70"/>
+    <text x="380" y="153" text-anchor="middle" fill="#fffdfa" font-size="21" font-weight="700">GRAVEL</text>
+    <rect x="282" y="184" width="196" height="126" rx="10" fill="url(#stones)" stroke="#688176"/>
+    <rect x="282" y="325" width="196" height="54" rx="8" fill="#fffdfa" stroke="#abaaa0"/>
+    <text x="380" y="348" text-anchor="middle" fill="#23483c" font-size="14" font-weight="700">NET VOLUME</text>
+    <text x="380" y="368" text-anchor="middle" fill="#23483c" font-size="18">0.5 cu ft (example)</text>
+    <rect x="282" y="390" width="196" height="43" rx="8" fill="#fffdfa" stroke="#abaaa0"/>
+    <text x="380" y="417" text-anchor="middle" fill="#23483c" font-size="17">48 lb (example)</text>
+    <rect x="282" y="444" width="196" height="42" rx="8" fill="#fffdfa" stroke="#abaaa0"/>
+    <text x="380" y="470" text-anchor="middle" fill="#23483c" font-size="16">type + size range</text>
+    <rect x="42" y="189" width="177" height="93" rx="12" fill="#eaf3ed" stroke="#b9d0bf"/>
+    <text x="59" y="218" fill="#25483c" font-size="18" font-weight="700">1. Volume</text>
+    <text x="59" y="245" fill="#52675c" font-size="14">Sets whole-bag count</text>
+    <text x="59" y="265" fill="#52675c" font-size="14">and ground coverage</text>
+    <path d="M219 235h35l28 111" fill="none" stroke="#557966" stroke-width="2.5"/>
+    <circle cx="282" cy="346" r="5" fill="#557966"/>
+    <rect x="541" y="302" width="177" height="93" rx="12" fill="#eaf3ed" stroke="#b9d0bf"/>
+    <text x="558" y="331" fill="#25483c" font-size="18" font-weight="700">2. Weight</text>
+    <text x="558" y="358" fill="#52675c" font-size="14">Plans lifting and</text>
+    <text x="558" y="378" fill="#52675c" font-size="14">vehicle loading</text>
+    <path d="M541 348h-30l-33 63" fill="none" stroke="#557966" stroke-width="2.5"/>
+    <circle cx="478" cy="411" r="5" fill="#557966"/>
+    <rect x="42" y="395" width="177" height="93" rx="12" fill="#eaf3ed" stroke="#b9d0bf"/>
+    <text x="59" y="424" fill="#25483c" font-size="18" font-weight="700">3. Material</text>
+    <text x="59" y="451" fill="#52675c" font-size="14">Check type, size,</text>
+    <text x="59" y="471" fill="#52675c" font-size="14">and presence of fines</text>
+    <path d="M219 441h35l28 24" fill="none" stroke="#557966" stroke-width="2.5"/>
+    <circle cx="282" cy="465" r="5" fill="#557966"/>
+  </g>
+  <text x="44" y="523" fill="#52675c" font-family="Arial,sans-serif" font-size="12">Illustrative label only. Copy the values from the product you plan to purchase.</text>
+</svg>

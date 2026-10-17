@@ -1,335 +1,376 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Gravel Tons Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Gravel Calculator', url: '/gravel-calculator' },
-  { name: 'Gravel Tons Calculator', url: '/gravel-tons-calculator' }
+  { name: pageTitle, url: '/gravel-tons-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Gravel Tonnage' },
-  { label: 'Conversion Math', value: 'Volume to Certified Scale Tons' },
-  { label: 'Bulk Density', value: '1.40 t/yd³ (2,800 lbs/yd³)' },
-  { label: 'Quarry Unit', value: 'US Short Ton (2,000 lbs)' }
+  { label: 'Order unit', value: 'US short ton (2,000 lb)' },
+  { label: 'Volume', value: 'Cubic yards' },
+  { label: 'Weight', value: 'Editable loose bulk density' }
 ];
-
-const quickStats = [
-  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'Standard bulk density for driveway gravel per ASTM C29' },
-  { value: '77 sq ft', label: 'Yield at 3"', desc: 'Square feet of gravel coverage per ton at 3-inch depth' },
-  { value: '10% Overage', label: 'Safety Buffer', desc: 'Industry standard allowance for subgrade settling' }
-];
-
 const faqItems = [
   {
-    q: 'How many tons of gravel do I need for a 10x50 foot driveway?',
-    a: 'A 10x50 foot driveway has an area of 500 square feet. For a standard 3-inch topcoat, you need 4.63 cubic yards of gravel. Multiplying by 1.40 tons per cubic yard and adding a 10 percent buffer yields approximately 7.13 tons of gravel.'
+    q: 'How many tons of gravel do I need for a 10 × 50 foot area?',
+    a: 'At 3 inches deep, 500 square feet needs 4.63 cubic yards before extra. At the calculator’s 1.40 short tons per cubic yard planning value, that is 6.48 short tons. With 10% extra, the order estimate is 7.13 short tons. Use your supplier’s bulk weight and the depth for your actual layer.'
   },
   {
-    q: 'How do you convert cubic yards of gravel to tons?',
-    a: 'Multiply total cubic yards by your gravel bulk density in tons per cubic yard (typically 1.40 for driveway gravel and crushed stone). For example: 5 cubic yards × 1.40 = 7.0 short tons (14,000 pounds).'
+    q: 'How do I convert cubic yards of gravel to tons?',
+    a: 'Multiply cubic yards by the loose bulk weight of your gravel in US short tons per cubic yard. For example, 5 cubic yards at 1.40 short tons per cubic yard is about 7 short tons. The conversion changes with the product and its condition.'
   },
   {
     q: 'How many square feet does one ton of gravel cover?',
-    a: 'One ton of gravel covers approximately 116 square feet at a 2-inch depth, 77 square feet at a 3-inch depth, and 58 square feet at a 4-inch depth.'
+    a: 'At an assumed 1.40 short tons per cubic yard, one short ton covers about 116 square feet at 2 inches, 77 square feet at 3 inches, or 58 square feet at 4 inches. These are level-layer estimates before an extra allowance.'
   },
   {
-    q: 'How many tons of gravel can a standard dump truck haul?',
-    a: 'A single-axle dump truck hauls 5 to 7 tons (4 to 5 cubic yards). A tandem-axle truck carries 12 to 15 tons (9 to 11 yards), and a commercial tri-axle dump truck hauls 18 to 22 tons (14 to 17 yards).'
+    q: 'Does the 10% extra automatically cover compaction?',
+    a: 'No. The extra field is a chosen ordering allowance, not a measured compaction factor. If your plan specifies a compacted finished depth, ask the supplier or installer how much loose material that product needs to reach it. Calculate base and surface layers separately.'
+  },
+  {
+    q: 'How many tons fit in a gravel delivery truck?',
+    a: 'There is no reliable capacity for every truck. Legal payload, truck configuration, route, and access differ. Give the supplier your estimated tons and ask how many deliveries it will take, the minimum order, and where the load can be tipped.'
   }
-];
-
-const upLinks = [
-  { title: 'Gravel Calculator (Material Parent)', slug: '/gravel-calculator', badge: 'Material' },
-  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Yards' },
-  { title: 'Gravel Bag Calculator', slug: '/gravel-bag-calculator', badge: 'Bags' },
-  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Stone Tons' }
-];
-
-const bridgeLinks = [
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Crushed Stone' },
-  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: 'Base Stone' },
-  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Truckloads' }
-];
-
-const supportGuides = [
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
-  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43' },
-  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' }
 ];
 ---
 
 <BaseLayout
-  title="Gravel Tons Calculator - How Many Tons of Gravel Do I Need?"
-  metaDescription="Calculate exact tons of gravel needed for driveways, parking pads, and pathways. Converts square feet and cubic yards to quarry scale tons at 1.40 t/yd3."
+  title={pageTitle}
+  metaDescription="Estimate US short tons of gravel from dimensions, measured square feet, or known cubic yards. Adjust supplier bulk weight and extra allowance; see yards and coverage."
   canonicalPath="/gravel-tons-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Gravel Tons Calculator",
-      "url": "https://rockcoveragecalculator.com/gravel-tons-calculator",
-      "description": "Calculates quarry scale tonnage of gravel from dimensions or cubic yards.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Driveway Contractors, Homeowners, Paving Installers, Estimators"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Gravel Tonnage Calculation"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/gravel-tons-calculator',
+      description: 'Estimates US short tons of gravel from dimensions, area, or cubic yards using editable loose bulk weight and an ordering allowance.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
-
   <Header />
-
   <main>
     <PageHero
-      title="Gravel Tons Calculator"
+      title={pageTitle}
       highlightWord="Tons"
-      badge="Quarry Weight Engine"
-      subtitle="Convert driveway dimensions or cubic yards into exact certified quarry scale tons at 1.40 tons per cubic yard."
+      badge="Bulk gravel order estimator"
+      subtitle="A 10 × 50 ft area at 3 in deep needs about 6.48 US short tons at the 1.40 tons-per-yard planning weight, or 7.13 tons with 10% extra. Enter your measurements and the bulk weight of the gravel you will actually buy."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
-      quickStats={quickStats}
+      theme="civil"
     />
 
-    <!-- Interactive Gravel Tons Calculator Tool -->
-    <section class="section">
+    <section class="gt-tool" id="gt-calculator" aria-labelledby="gt-tool-heading">
       <div class="container">
-        <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Gravel Area Dimensions</h3>
+        <div class="gt-tool-intro">
+          <p class="gt-eyebrow">Your order, in weight</p>
+          <h2 id="gt-tool-heading">How many tons of gravel do you need?</h2>
+          <p>Start with the area you measured or the cubic yards already on your plan. The result is an estimate until you confirm the product's loose bulk weight and the seller's ordering unit.</p>
+        </div>
+        <div class="gt-tool-grid">
+          <div class="gt-card gt-input-card">
+            <fieldset class="gt-mode">
+              <legend>What do you know?</legend>
+              <label><input type="radio" name="gt-mode" value="rectangle" checked /> Length × width</label>
+              <label><input type="radio" name="gt-mode" value="area" /> Square feet</label>
+              <label><input type="radio" name="gt-mode" value="yards" /> Cubic yards</label>
+            </fieldset>
+            <div class="gt-measure-fields" id="gt-rectangle-fields">
+              <div class="gt-field"><label for="gt-length">Length <span>(feet)</span></label><input id="gt-length" type="number" value="50" min="0.1" step="any" inputmode="decimal" /></div>
+              <div class="gt-field"><label for="gt-width">Width <span>(feet)</span></label><input id="gt-width" type="number" value="10" min="0.1" step="any" inputmode="decimal" /></div>
+            </div>
+            <div class="gt-measure-fields" id="gt-area-fields" hidden>
+              <div class="gt-field"><label for="gt-area">Measured area <span>(square feet)</span></label><input id="gt-area" type="number" value="500" min="0.1" step="any" inputmode="decimal" /></div>
+            </div>
+            <div class="gt-measure-fields" id="gt-yards-fields" hidden>
+              <div class="gt-field"><label for="gt-yards">Known volume <span>(cubic yards)</span></label><input id="gt-yards" type="number" value="4.63" min="0.01" step="any" inputmode="decimal" /></div>
+            </div>
+            <div class="gt-measure-fields" id="gt-depth-fields">
+              <div class="gt-field"><label for="gt-depth">Planned layer depth <span>(inches)</span></label><input id="gt-depth" type="number" value="3" min="0.1" max="36" step="any" inputmode="decimal" aria-describedby="gt-depth-help" /></div>
+            </div>
+            <div class="gt-measure-fields">
+              <div class="gt-field"><label for="gt-density">Loose bulk weight <span>(short tons/yd³)</span></label><input id="gt-density" type="number" value="1.40" min="0.1" max="3.5" step="any" inputmode="decimal" aria-describedby="gt-density-help" /></div>
+              <div class="gt-field"><label for="gt-extra">Extra to order <span>(%)</span></label><input id="gt-extra" type="number" value="10" min="0" max="100" step="any" inputmode="decimal" aria-describedby="gt-extra-help" /></div>
+            </div>
+            <div class="gt-help">
+              <p id="gt-depth-help"><strong>Depth:</strong> enter the depth of this layer only. For a base and a surface made of different gravel, run each layer separately.</p>
+              <p id="gt-density-help"><strong>Weight:</strong> 1.40 is an approximate planning conversion, equal to 2,800 lb/yd³. Replace it with your supplier's figure when available.</p>
+              <p id="gt-extra-help"><strong>Extra:</strong> use this for your chosen allowance for low spots, grade changes, or handling. It is not an automatic compaction factor.</p>
+            </div>
+            <p id="gt-error" class="gt-error" role="alert" hidden></p>
           </div>
 
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="gt-length">Length (Feet)</label>
-              <input type="number" id="gt-length" value="40" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="gt-width">Width (Feet)</label>
-              <input type="number" id="gt-width" value="12" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="gt-depth">Depth (Inches)</label>
-              <input type="number" id="gt-depth" value="3.0" min="1" max="18" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="gt-waste">Safety Buffer (%)</label>
-              <input type="number" id="gt-waste" value="10" min="0" max="25" step="1" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-gt-tons">0.00</div>
-              <div class="kpi-label">Quarry Weight (Tons)</div>
-              <div class="kpi-subtext" id="kpi-gt-lbs">0 lbs total weight</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-gt-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext">Includes 10% buffer</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-gt-loads">0.0</div>
-              <div class="kpi-label">Tri-Axle Truckloads</div>
-              <div class="kpi-subtext">15 tons per load</div>
-            </div>
-            </div>
+          <div class="gt-card gt-result-card" aria-live="polite">
+            <p class="gt-eyebrow">Estimated amount to order</p>
+            <div class="gt-primary-result"><strong id="gt-order-tons">7.13</strong><span>US short tons</span></div>
+            <p id="gt-result-caption" class="gt-caption">500 sq ft at 3 in, with 10% extra</p>
+            <dl class="gt-breakdown">
+              <div><dt>Gravel at planned depth</dt><dd id="gt-net-tons">6.48 tons</dd></div>
+              <div><dt>Volume before extra</dt><dd id="gt-net-yards">4.63 yd³</dd></div>
+              <div><dt>Volume with extra</dt><dd id="gt-order-yards">5.09 yd³</dd></div>
+              <div><dt>Estimated order weight</dt><dd id="gt-order-pounds">14,259 lb</dd></div>
+              <div><dt>One ton covers at 3 in</dt><dd id="gt-one-ton-area">77 sq ft</dd></div>
+            </dl>
+            <p id="gt-math" class="gt-math">500 sq ft × 3 in ÷ 324 = 4.63 yd³; × 1.40 = 6.48 tons; + 10% = 7.13 tons.</p>
+            <p class="gt-result-note">The scale ticket reports the delivered weight. Ask the yard about its minimum order, order increments, and delivery capacity.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on Gravel Tonnage -->
-    <article class="content-guide-section">
+    <article class="gt-guide">
       <div class="container">
+        <nav class="gt-jumps" aria-label="On this page">
+          <strong>Plan the load</strong>
+          <a href="#gt-method">Follow the math</a>
+          <a href="#gt-coverage">Check coverage</a>
+          <a href="#gt-layers">Separate layers</a>
+          <a href="#gt-quote">Prepare a quote</a>
+          <a href="#gt-questions">Questions</a>
+        </nav>
 
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Gravel Tonnage Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Gravel Tonnage Reference</span>
+        <section class="gt-panel gt-method" id="gt-method" aria-labelledby="gt-method-heading">
+          <div>
+            <p class="gt-eyebrow">Three measurements, one conversion</p>
+            <h2 id="gt-method-heading">Turn a gravel layer into an order weight</h2>
+            <p>Area and depth describe <em>volume</em>; a quarry sells a <em>weight</em>. First convert the planned layer to cubic yards. Then multiply by the gravel's loose bulk weight in short tons per cubic yard. Add your extra allowance once, after calculating the layer itself.</p>
+            <div class="gt-formula"><code>cubic yards = area (sq ft) × depth (in) ÷ 324</code><code>short tons = cubic yards × loose short tons per yd³</code><code>order tons = short tons × (1 + extra % ÷ 100)</code></div>
+            <p>For a <strong>10 × 50 ft area at 3 in</strong>, 500 × 3 ÷ 324 = <strong>4.63 yd³</strong>. At 1.40 short tons/yd³, that is <strong>6.48 tons</strong> at the planned depth. Choosing 10% extra raises the order estimate to <strong>7.13 tons</strong>. One US short ton is 2,000 lb.</p>
+            <p class="gt-fine">The divisor 324 combines 12 inches per foot with 27 cubic feet per cubic yard. If you already have cubic yards, enter them directly and the calculator skips the area and depth conversion.</p>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Tons = [(Area × Depth) / 324] × 1.40</span>
-              <p class="aeo-quick-desc">Converts dimensions directly to short tons (2,000 lbs).</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Density</span>
-              <span class="aeo-quick-value">1.40 t/yd³ (2,800 lbs/yd³)</span>
-              <p class="aeo-quick-desc">Standard quarry weight per ASTM C29 loose stockpile testing.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Coverage at 3"</span>
-              <span class="aeo-quick-value">77 sq ft per Ton</span>
-              <p class="aeo-quick-desc">Standard square foot yield per short ton on driveways.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Truckload Size</span>
-              <span class="aeo-quick-value">12 to 15 Tons (Tandem)</span>
-              <p class="aeo-quick-desc">Standard residential delivery vehicle for driveway stone.</p>
-            </div>
-          </div>
+          <figure>
+            <img src="/gravel-tons-order-path.svg" width="840" height="550" loading="lazy" alt="Gravel tonnage diagram: 500 square feet at 3 inches is 4.63 cubic yards, or 6.48 US short tons at 1.40 tons per cubic yard; 10 percent extra gives 7.13 tons." />
+            <figcaption><span class="gt-mobile-figure-hint">Swipe to read the diagram. </span>Check each step against the units on your supplier's quote.</figcaption>
+          </figure>
         </section>
 
-        <div class="content-card">
-          <h2>How to Accurately Estimate Gravel Tonnage</h2>
-          <p>
-            When ordering gravel for driveways, parking pads, or road sub-bases, suppliers bill almost exclusively in <strong>Short Tons (2,000 pounds)</strong>. While project drawings are measured in feet and inches, scale tickets reflect vehicle scale weight.
-          </p>
-          <p>
-            Standard driveway gravel (including #57 crushed limestone, 3/4-inch fractured gravel, and road base aggregate) has an accepted bulk density of <strong>1.40 short tons per cubic yard (2,800 lbs/yd³ / 104 lbs/cu ft)</strong> under ASTM C29 testing.
-          </p>
+        <section class="gt-panel" id="gt-coverage" aria-labelledby="gt-coverage-heading">
+          <p class="gt-eyebrow">A check against the measured area</p>
+          <h2 id="gt-coverage-heading">How far does one ton of gravel spread?</h2>
+          <p>These figures use the same <strong>1.40 short tons/yd³</strong> planning weight and an even layer. They exclude extra. If the actual gravel weighs more per yard, a ton covers less ground. For your selected density, the calculator above updates the 3-inch yield.</p>
+          <div class="gt-table-wrap"><table>
+            <caption>Estimated gravel coverage before ordering extra</caption>
+            <thead><tr><th scope="col">Layer depth</th><th scope="col">One cubic yard covers</th><th scope="col">One short ton covers</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">2 in</th><td>162 sq ft</td><td>116 sq ft</td></tr>
+              <tr><th scope="row">3 in</th><td>108 sq ft</td><td>77 sq ft</td></tr>
+              <tr><th scope="row">4 in</th><td>81 sq ft</td><td>58 sq ft</td></tr>
+              <tr><th scope="row">6 in</th><td>54 sq ft</td><td>39 sq ft</td></tr>
+            </tbody>
+          </table></div>
+          <p class="gt-fine">This table estimates material quantity, not the depth a new driveway requires. Site conditions, traffic, subgrade, and the aggregate's role determine the section. See the <a href="/rock-depth-guide">depth guide</a> and <a href="/gravel-sizes">gravel size guide</a> before treating a single number as a design.</p>
+        </section>
 
-          <div class="formula-box">
-            <code>Cubic Yards = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
-            <br />
-            <code>Total Scale Tons = Cubic Yards × 1.40 Tons/yd³ × 1.10 (10% Safety Buffer)</code>
+        <section class="gt-panel" id="gt-layers" aria-labelledby="gt-layers-heading">
+          <p class="gt-eyebrow">For driveways and compacted bases</p>
+          <h2 id="gt-layers-heading">Count the base and surface as separate orders</h2>
+          <p>A base with fines and a clean surface gravel are different products. Their depths and bulk weights may differ, and a compacted finished layer may need more loose material than its geometric volume suggests. Measure each layer, calculate its tons, and add the orders only after checking the supplier's values.</p>
+          <div class="gt-layer-grid">
+            <div><span>01 / Base</span><h3>Measure the compacted target</h3><p>Confirm the base aggregate and finished thickness with your plan or installer. Ask the supplier what loose quantity achieves that thickness after placement and compaction. Enter any additional order amount deliberately in the extra field.</p></div>
+            <div><span>02 / Surface</span><h3>Calculate the top layer</h3><p>Run the calculator again with its own depth and bulk weight. A decorative rounded gravel or clean drainage stone should not inherit the base's density or allowance.</p></div>
           </div>
-        </div>
+          <p>For example, on the same 500 sq ft area, a <em>hypothetical</em> 4-inch base at 1.50 tons/yd³ is 9.26 tons before extra; a separate 2-inch layer at 1.40 tons/yd³ is 4.32 tons. That is 13.58 tons before any product-specific allowances. These example depths are arithmetic inputs, not a driveway specification. For a fuller project estimate, use the <a href="/driveway-rock-calculator">driveway rock calculator</a>; for a particular fractured stone, use the <a href="/crushed-stone-tons-calculator">crushed stone tons calculator</a>.</p>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Gravel Tonnage</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
+        <section class="gt-panel gt-quote" id="gt-quote" aria-labelledby="gt-quote-heading">
+          <p class="gt-eyebrow">Before the truck is booked</p>
+          <h2 id="gt-quote-heading">Make the estimate match the yard's quote</h2>
+          <p>The <a href="https://www.ndltap.org/resources/downloads/gravel-spread.pdf" target="_blank" rel="noopener noreferrer">North Dakota Local Technical Assistance Program gravel spread chart</a> uses 1.4 tons per cubic yard as an <em>approximate</em> conversion. Its separate spread chart assumes a 25% compaction factor; this calculator does not apply that factor. <a href="https://store.astm.org/c0029_c0029m-23.html" target="_blank" rel="noopener noreferrer">ASTM C29/C29M</a> describes how to measure aggregate bulk density; it does not set a standard weight for all gravel. The standard also notes that moisture and packing in stockpiles or haul units can differ from a dry test.</p>
+          <div class="gt-sensitivity" aria-label="How supplier weight changes an example gravel order">
+            <div><span>1.30 tons/yd³</span><strong>6.62 tons</strong></div>
+            <div><span>1.40 tons/yd³</span><strong>7.13 tons</strong></div>
+            <div><span>1.50 tons/yd³</span><strong>7.64 tons</strong></div>
           </div>
-        </div>
+          <p class="gt-fine">All three figures use 500 sq ft, a 3-inch layer, and 10% extra. Only the bulk weight changes. The surrounding values illustrate sensitivity; they are not prescribed densities for specific gravel grades.</p>
+          <ol class="gt-checklist">
+            <li><strong>Name the exact material.</strong> Ask whether the quote is for clean stone, natural gravel, or a graded base with fines. <a href="https://www.fhwa.dot.gov/publications/research/infrastructure/structures/97148/app3.cfm" target="_blank" rel="noopener noreferrer">FHWA's granular-base guidance</a> explains why grading and particle shape matter to a base layer.</li>
+            <li><strong>Get the conversion used on the quote.</strong> Ask for that product's approximate pounds or short tons per loose cubic yard. If the seller quotes cubic yards, compare those with your order volume.</li>
+            <li><strong>Clarify the finished depth.</strong> Confirm whether your planned number is loose spread depth or compacted depth. Ask what allowance is appropriate for that product and site.</li>
+            <li><strong>Plan delivery from the actual payload.</strong> Ask about the truck's legal load for your route, minimum order, delivery charge, and safe tipping spot. A single generic truckload figure cannot determine your number of trips.</li>
+          </ol>
+          <p>Need a volume order instead? Use the <a href="/gravel-cubic-yard-calculator">gravel cubic yard calculator</a>. For small retail quantities, use the <a href="/gravel-bag-calculator">gravel bag calculator</a>. The <a href="/rock-density-chart">rock density reference</a> helps compare other aggregates.</p>
+        </section>
 
+        <section class="gt-panel" id="gt-questions" aria-labelledby="gt-questions-heading">
+          <h2 id="gt-questions-heading">Gravel tonnage questions</h2>
+          <div class="gt-faq">{faqItems.map(item => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}</div>
+        </section>
       </div>
     </article>
-
-    <TopicClusterNav
-      currentPage="/gravel-tons-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav currentPage="/gravel-tons-calculator" category="quantity" />
   </main>
-
   <Footer />
-
   <script>
-    function updateGT() {
-      const l = parseFloat((document.getElementById('gt-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('gt-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('gt-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('gt-waste') as HTMLInputElement)?.value) || 0;
-
-      const netYards = (l * w * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const tons = totalYards * 1.40;
-      const lbs = tons * 2000;
-      const loads = tons / 15;
-
-      const tEl = document.getElementById('kpi-gt-tons');
-      const yEl = document.getElementById('kpi-gt-yards');
-      const lEl = document.getElementById('kpi-gt-loads');
-      const lbsEl = document.getElementById('kpi-gt-lbs');
-
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (lEl) lEl.innerText = loads.toFixed(1);
-      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+    const gtInput = (id: string) => document.getElementById(id) as HTMLInputElement | null;
+    const gtNumber = (id: string) => {
+      const raw = gtInput(id)?.value.trim();
+      return raw ? Number(raw) : NaN;
+    };
+    const gtOutput = (id: string, value: string) => {
+      const target = document.getElementById(id);
+      if (target) target.textContent = value;
+    };
+    const gtResultIds = ['gt-order-tons', 'gt-net-tons', 'gt-net-yards', 'gt-order-yards', 'gt-order-pounds', 'gt-one-ton-area'];
+    function updateGravelTons() {
+      const mode = (document.querySelector('input[name="gt-mode"]:checked') as HTMLInputElement | null)?.value || 'rectangle';
+      for (const name of ['rectangle', 'area', 'yards']) {
+        const fields = document.getElementById('gt-' + name + '-fields');
+        if (fields) fields.hidden = mode !== name;
+      }
+      const depthFields = document.getElementById('gt-depth-fields');
+      if (depthFields) depthFields.hidden = mode === 'yards';
+      const length = gtNumber('gt-length');
+      const width = gtNumber('gt-width');
+      const enteredArea = gtNumber('gt-area');
+      const enteredYards = gtNumber('gt-yards');
+      const depth = gtNumber('gt-depth');
+      const density = gtNumber('gt-density');
+      const extra = gtNumber('gt-extra');
+      const area = mode === 'area' ? enteredArea : length * width;
+      const netYards = mode === 'yards' ? enteredYards : area * depth / 324;
+      const validMeasure = mode === 'yards'
+        ? Number.isFinite(enteredYards) && enteredYards > 0
+        : mode === 'area'
+          ? Number.isFinite(enteredArea) && enteredArea > 0
+          : [length, width].every(value => Number.isFinite(value) && value > 0);
+      const validDepth = mode === 'yards' || (Number.isFinite(depth) && depth > 0 && depth <= 36);
+      const orderYards = netYards * (1 + extra / 100);
+      const netTons = netYards * density;
+      const orderTons = orderYards * density;
+      const valid = validMeasure && validDepth && Number.isFinite(netYards) && netYards > 0
+        && Number.isFinite(density) && density > 0 && density <= 3.5
+        && Number.isFinite(extra) && extra >= 0 && extra <= 100
+        && Number.isFinite(orderTons) && orderTons > 0;
+      const error = document.getElementById('gt-error');
+      if (!valid) {
+        gtResultIds.forEach(id => gtOutput(id, '—'));
+        gtOutput('gt-result-caption', 'Enter valid measurements, bulk weight, and extra.');
+        gtOutput('gt-math', 'Check the highlighted inputs to calculate an order.');
+        if (error) {
+          error.textContent = 'Use a positive area or volume, a depth up to 36 in, bulk weight up to 3.5 tons/yd³, and extra from 0% to 100%.';
+          error.hidden = false;
+        }
+        return;
+      }
+      if (error) error.hidden = true;
+      gtOutput('gt-order-tons', orderTons.toFixed(2));
+      gtOutput('gt-net-tons', netTons.toFixed(2) + ' tons');
+      gtOutput('gt-net-yards', netYards.toFixed(2) + ' yd³');
+      gtOutput('gt-order-yards', orderYards.toFixed(2) + ' yd³');
+      gtOutput('gt-order-pounds', Math.round(orderTons * 2000).toLocaleString('en-US') + ' lb');
+      gtOutput('gt-one-ton-area', Math.round(108 / density).toLocaleString('en-US') + ' sq ft');
+      gtOutput('gt-result-caption', mode === 'yards'
+        ? netYards.toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' yd³ entered, with ' + extra + '% extra'
+        : area.toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' sq ft at ' + depth + ' in, with ' + extra + '% extra');
+      gtOutput('gt-math', mode === 'yards'
+        ? netYards.toFixed(2) + ' yd³ × ' + density + ' tons/yd³ = ' + netTons.toFixed(2) + ' tons; + ' + extra + '% = ' + orderTons.toFixed(2) + ' tons.'
+        : area.toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' sq ft × ' + depth + ' in ÷ 324 = ' + netYards.toFixed(2) + ' yd³; × ' + density + ' = ' + netTons.toFixed(2) + ' tons; + ' + extra + '% = ' + orderTons.toFixed(2) + ' tons.');
     }
-
-    ['gt-length', 'gt-width', 'gt-depth', 'gt-waste'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateGT);
-    });
-    updateGT();
+    ['gt-length', 'gt-width', 'gt-area', 'gt-yards', 'gt-depth', 'gt-density', 'gt-extra']
+      .forEach(id => gtInput(id)?.addEventListener('input', updateGravelTons));
+    document.querySelectorAll<HTMLInputElement>('input[name="gt-mode"]')
+      .forEach(item => item.addEventListener('change', updateGravelTons));
+    updateGravelTons();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  .gt-tool { padding: var(--space-8) 0; }
+  .gt-tool-intro { max-width: 730px; margin-bottom: var(--space-6); }
+  .gt-tool-intro h2, .gt-panel h2 { color: var(--text-primary); font-size: var(--text-2xl); line-height: 1.25; margin: 0 0 var(--space-3); }
+  .gt-tool-intro p, .gt-panel p { color: var(--text-secondary); line-height: 1.7; }
+  .gt-eyebrow { color: var(--accent-gold) !important; text-transform: uppercase; letter-spacing: .08em; font-size: var(--text-xs); font-weight: 700; margin: 0 0 var(--space-2); }
+  .gt-tool-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--space-5); align-items: start; }
+  .gt-card, .gt-panel { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: var(--space-8); }
+  .gt-mode { border: 0; margin: 0 0 var(--space-6); padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .gt-mode legend { width: 100%; color: var(--text-primary); font-weight: 700; margin-bottom: var(--space-3); }
+  .gt-mode label { display: inline-flex; align-items: center; gap: .45rem; color: var(--text-primary); border: 1px solid var(--border-subtle); border-radius: 999px; padding: .5rem .75rem; cursor: pointer; }
+  .gt-mode input { accent-color: var(--accent-gold); }
+  .gt-measure-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-4); }
+  .gt-measure-fields[hidden] { display: none; }
+  .gt-field label { display: block; color: var(--text-primary); font-weight: 700; margin-bottom: .5rem; }
+  .gt-field label span { font-weight: 400; color: var(--text-secondary); }
+  .gt-field input { width: 100%; min-height: 48px; padding: .75rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-body); color: var(--text-primary); font: inherit; }
+  .gt-field input:focus-visible, .gt-mode input:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 2px; }
+  .gt-help { border-top: 1px solid var(--border-subtle); padding-top: var(--space-4); }
+  .gt-help p, .gt-result-note { font-size: var(--text-sm); line-height: 1.65; color: var(--text-secondary); margin: 0 0 var(--space-3); }
+  .gt-error { color: #ffd0c6; background: rgba(180, 60, 40, .14); border: 1px solid rgba(220, 85, 64, .4); padding: .8rem 1rem; border-radius: var(--radius-md); margin: var(--space-4) 0 0; }
+  .gt-error[hidden] { display: none; }
+  .gt-result-card { background: linear-gradient(145deg, rgba(212, 168, 83, .13), var(--bg-card) 48%); }
+  .gt-primary-result { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem; color: var(--text-primary); }
+  .gt-primary-result strong { font-size: clamp(3rem, 6vw, 5rem); line-height: 1; letter-spacing: -.05em; }
+  .gt-primary-result span { font-size: var(--text-lg); font-weight: 700; }
+  .gt-caption { color: var(--text-secondary); margin: var(--space-3) 0 var(--space-6); }
+  .gt-breakdown { margin: 0; border-top: 1px solid var(--border-subtle); }
+  .gt-breakdown div { display: flex; justify-content: space-between; gap: var(--space-4); border-bottom: 1px solid var(--border-subtle); padding: .9rem 0; }
+  .gt-breakdown dt { color: var(--text-secondary); }
+  .gt-breakdown dd { margin: 0; color: var(--text-primary); font-weight: 700; text-align: right; white-space: nowrap; }
+  .gt-math { border-left: 3px solid var(--accent-gold); padding: .7rem 1rem; margin: var(--space-6) 0; background: rgba(212, 168, 83, .08); color: var(--text-primary); line-height: 1.6; }
+  .gt-result-note { margin-bottom: 0; }
+  .gt-guide { padding: var(--space-6) 0 var(--space-12); }
+  .gt-guide .container { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+  .gt-jumps { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.1rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5); }
+  .gt-jumps strong { color: var(--text-primary); margin-right: .3rem; }
+  .gt-jumps a, .gt-panel a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 3px; }
+  .gt-panel p:last-child { margin-bottom: 0; }
+  .gt-method { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: var(--space-8); }
+  .gt-formula { display: grid; gap: .55rem; background: var(--bg-body); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-5); margin: var(--space-5) 0; overflow-x: auto; }
+  .gt-formula code { color: var(--text-primary); white-space: nowrap; }
+  .gt-method figure { margin: 0; min-width: 0; }
+  .gt-method img { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); }
+  .gt-method figcaption, .gt-fine { color: var(--text-secondary); font-size: var(--text-sm); line-height: 1.6; }
+  .gt-method figcaption { margin-top: .7rem; }
+  .gt-mobile-figure-hint { display: none; }
+  .gt-table-wrap { overflow-x: auto; margin: var(--space-5) 0; }
+  .gt-table-wrap table { border-collapse: collapse; width: 100%; min-width: 530px; }
+  .gt-table-wrap caption { text-align: left; color: var(--text-secondary); margin-bottom: .6rem; }
+  .gt-table-wrap th, .gt-table-wrap td { text-align: left; color: var(--text-primary); border-bottom: 1px solid var(--border-subtle); padding: .8rem; }
+  .gt-table-wrap thead th { background: rgba(212, 168, 83, .1); }
+  .gt-layer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin: var(--space-5) 0; }
+  .gt-layer-grid > div { background: var(--bg-body); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); }
+  .gt-layer-grid span { color: var(--accent-gold); font-weight: 700; font-size: var(--text-xs); letter-spacing: .08em; text-transform: uppercase; }
+  .gt-layer-grid h3 { color: var(--text-primary); margin: .6rem 0; }
+  .gt-layer-grid p { margin: 0; }
+  .gt-sensitivity { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); margin: var(--space-5) 0 var(--space-3); }
+  .gt-sensitivity div { background: var(--bg-body); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-4); display: grid; gap: .45rem; }
+  .gt-sensitivity span { color: var(--text-secondary); font-size: var(--text-sm); }
+  .gt-sensitivity strong { color: var(--text-primary); font-size: var(--text-xl); }
+  .gt-checklist { display: grid; gap: var(--space-3); padding-left: 1.4rem; margin: var(--space-5) 0; }
+  .gt-checklist li { color: var(--text-secondary); line-height: 1.65; padding-left: .3rem; }
+  .gt-faq { display: grid; gap: .65rem; margin-top: var(--space-5); }
+  .gt-faq details { background: var(--bg-body); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem 1.2rem; }
+  .gt-faq summary { color: var(--text-primary); font-weight: 700; cursor: pointer; }
+  .gt-faq p { margin: .75rem 0 0; }
+  @media (max-width: 800px) {
+    .gt-tool-grid, .gt-method { grid-template-columns: minmax(0, 1fr); }
+    .gt-layer-grid { grid-template-columns: 1fr; }
   }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
+  @media (max-width: 560px) {
+    .gt-card, .gt-panel { padding: var(--space-5); }
+    .gt-measure-fields { grid-template-columns: 1fr; }
+    .gt-sensitivity { grid-template-columns: 1fr; }
+    .gt-breakdown div { flex-wrap: wrap; }
+    .gt-breakdown dd { white-space: normal; }
+    .gt-method figure { overflow-x: auto; }
+    .gt-method img { min-width: 700px; }
+    .gt-mobile-figure-hint { display: inline; }
   }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
 </style>
