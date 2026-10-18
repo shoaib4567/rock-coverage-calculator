@@ -92,15 +92,15 @@ export const ROCK_MATERIALS = [
     category: 'decorative',
     typicalSize: '3/4-2"',
     minDepthInches: 2,
-    densityLbsPerCuYd: 1450,
-    tonsPerCuYd: 0.725,
-    densityLbsPerCuFt: 54,
-    densityKgPerCuM: 860,
-    typicalRange: [1350, 1550],
+    densityLbsPerCuYd: 1500,
+    tonsPerCuYd: 0.75,
+    densityLbsPerCuFt: 56,
+    densityKgPerCuM: 890,
+    typicalRange: [1250, 1500],
     isCompactable: false,
     swatchColor: '#8b3a3a',
-    description: 'Lightweight volcanic rock for mulch replacement and fire pits.',
-    notes: 'Very lightweight, high void ratio, excellent insulation properties'
+    description: 'Lightweight volcanic scoria for decorative landscape beds; confirm the supplier bulk weight.',
+    notes: 'Planning preset only; landscape bags are not automatically suitable for gas fire features'
   },
   {
     id: 'marble-chips',

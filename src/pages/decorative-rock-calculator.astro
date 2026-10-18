@@ -20,15 +20,15 @@ const entityTags = [
 ];
 
 const quickStats = [
-  { value: '0.75 t/yd³', label: 'Lava Rock Density', desc: 'Ultra-lightweight volcanic stone with maximum spread per ton' },
+  { value: '0.75 t/yd³', label: 'Lava Rock Example', desc: 'Loose bulk weight varies with the product and supplier' },
   { value: '1.35 t/yd³', label: 'White Marble Chips', desc: 'High-reflectance sparkling crystalline aggregate' },
-  { value: '2.0"-3.0"', label: 'Recommended Layer', desc: 'Sufficient depth for complete weed suppression and vivid color' }
+  { value: '2.0"-3.0"', label: 'Example Layer', desc: 'Choose finished depth for the stone size and site; maintain the bed for weeds' }
 ];
 
 const faqItems = [
   {
     q: 'Why does lava rock cover so much more area per ton than other decorative rocks?',
-    a: 'Lava rock is formed from vesicular volcanic basalt filled with microscopic air cavities. Consequently, its bulk density is only 0.75 to 0.85 tons per cubic yard (1,500 to 1,700 lbs), compared to standard granite or marble at 1.35 tons (2,700 lbs). One ton of lava rock covers approximately 144 square feet at 3 inches, almost double traditional stone.'
+    a: 'Vesicles make many landscape lava products lighter in bulk than dense stone, but the supplier weight varies. At this site’s 0.75-US-short-ton-per-cubic-yard planning example, one short ton covers 144 square feet at 3 inches before extra. Enter your supplier’s figure in the lava rock coverage calculator for a product-specific estimate.'
   },
   {
     q: 'Will white marble chips stain or turn yellow in garden beds?',
@@ -46,7 +46,7 @@ const faqItems = [
 ---
 
 <BaseLayout
-  title="Decorative Rock Calculator - Yards, Tons & Bags for Garden Accents"
+  title="Decorative Rock Calculator"
   description="Calculate exact coverage, cubic yards, and tonnage for decorative rocks including lava rock, white marble chips, and beach pebbles. Compare bulk densities and yields."
   canonicalPath="/decorative-rock-calculator"
 >
@@ -101,14 +101,14 @@ const faqItems = [
         <div class="content-card">
           <h2>Density Divergence in Decorative Landscaping Aggregates</h2>
           <p>
-            When estimating decorative landscape stone, standard gravel density assumptions frequently lead to substantial budget and tonnage miscalculations. Decorative aggregates span an enormous density spectrum, from ultra-porous volcanic scoria (lava rock) at 1,400 pounds per cubic yard to dense crystalline calcite (white marble chips) and basalt pebbles reaching 2,800 pounds per cubic yard.
+            Decorative aggregates span a wide range of loose bulk weights. This site's lava-rock planning example is 1,500 pounds per cubic yard, while a dense stone example is 2,800 pounds per cubic yard. Confirm the actual product weight before converting measured volume into tons.
           </p>
 
           <div class="comparison-grid">
             <div class="comp-box">
               <h3>Red & Black Lava Rock</h3>
               <div class="comp-metric">Density: 0.75 t/yd³ (1,500 lbs)</div>
-              <p>Naturally porous volcanic rock with high porosity. Retains ambient moisture without decomposing. Lightweight nature makes it effortless to shovel and wheelbarrow, but caution is required on windy ridges where gusts can blow smaller chips.</p>
+              <p>Vesicular volcanic stone commonly used as decorative landscape cover. Piece size, color, and loose bulk weight vary by supplier. It does not decompose like bark, but leaves and soil can collect between pieces and support weeds.</p>
               <div class="comp-yield">Yield: 144 sq ft / ton at 3"</div>
             </div>
             <div class="comp-box">
@@ -138,7 +138,7 @@ const faqItems = [
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Volcanic Lava Rock</td><td>0.75 t/yd³ (1,500 lbs)</td><td>108 sq ft</td><td>144 sq ft</td><td>Moderate ($65-$95/yd)</td></tr>
+                <tr><td><a href="/lava-rock-calculator">Volcanic Lava Rock</a></td><td>0.75 t/yd³ example (1,500 lbs)</td><td>108 sq ft</td><td>144 sq ft</td><td>Check local quote</td></tr>
                 <tr><td>White Marble Chips</td><td>1.35 t/yd³ (2,700 lbs)</td><td>108 sq ft</td><td>80 sq ft</td><td>Mid-High ($85-$120/yd)</td></tr>
                 <tr><td>Honey Creek River Pebble</td><td>1.35 t/yd³ (2,700 lbs)</td><td>108 sq ft</td><td>80 sq ft</td><td>Economy ($55-$75/yd)</td></tr>
                 <tr><td>Black Star Basalt</td><td>1.42 t/yd³ (2,840 lbs)</td><td>108 sq ft</td><td>76 sq ft</td><td>Premium ($110-$160/yd)</td></tr>

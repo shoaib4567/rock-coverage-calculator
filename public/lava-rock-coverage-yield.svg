@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="380" viewBox="0 0 960 380" role="img" aria-labelledby="title description">
+  <title id="title">Lava rock coverage at two inches deep</title>
+  <desc id="description">One cubic yard covers 162 square feet. At an example loose density of 1,500 pounds per cubic yard, one 2,000-pound short ton equals 1.33 cubic yards and covers 216 square feet.</desc>
+  <rect width="960" height="380" rx="20" fill="#f7f4ef"/>
+  <text x="40" y="46" fill="#17263a" font-family="Arial, sans-serif" font-size="26" font-weight="700">Same finished depth. Different starting quantities.</text>
+  <text x="40" y="75" fill="#506176" font-family="Arial, sans-serif" font-size="16">At 2 in deep, the spread area depends on loose volume.</text>
+
+  <rect x="40" y="102" width="420" height="224" rx="15" fill="#ffffff" stroke="#d8dce2" stroke-width="2"/>
+  <rect x="500" y="102" width="420" height="224" rx="15" fill="#ffffff" stroke="#d8dce2" stroke-width="2"/>
+
+  <rect x="64" y="124" width="123" height="31" rx="15.5" fill="#ecddd2"/>
+  <text x="79" y="145" fill="#683b32" font-family="Arial, sans-serif" font-size="16" font-weight="700">1 cubic yard</text>
+  <text x="64" y="184" fill="#17263a" font-family="Arial, sans-serif" font-size="18">27 cubic feet of rock</text>
+  <rect x="64" y="205" width="263" height="53" rx="8" fill="#a65e4e"/>
+  <path d="M80 219h12m18 8h15m23-7h12m31 12h19m27-15h14m25 15h12M93 245h16m32-4h14m24 3h21m30-7h18m25 8h22" stroke="#d69779" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+  <text x="64" y="296" fill="#17263a" font-family="Arial, sans-serif" font-size="30" font-weight="700">162 sq ft</text>
+
+  <rect x="524" y="124" width="116" height="31" rx="15.5" fill="#ecddd2"/>
+  <text x="539" y="145" fill="#683b32" font-family="Arial, sans-serif" font-size="16" font-weight="700">1 short ton</text>
+  <text x="524" y="184" fill="#17263a" font-family="Arial, sans-serif" font-size="18">About 1.33 cubic yards*</text>
+  <rect x="524" y="205" width="351" height="53" rx="8" fill="#a65e4e"/>
+  <path d="M540 219h12m18 8h15m23-7h12m31 12h19m27-15h14m25 15h12m25-12h16m28 11h18m21-12h20M553 245h16m32-4h14m24 3h21m30-7h18m25 8h22m23-9h14m26 8h16m28-6h19" stroke="#d69779" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+  <text x="524" y="296" fill="#17263a" font-family="Arial, sans-serif" font-size="30" font-weight="700">216 sq ft*</text>
+
+  <text x="40" y="356" fill="#506176" font-family="Arial, sans-serif" font-size="15">* Ton example assumes loose bulk density of 1,500 lb/yd³ (0.75 US short ton/yd³). Check your supplier's figure.</text>
+</svg>

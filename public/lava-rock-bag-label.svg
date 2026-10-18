@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" role="img" aria-labelledby="title desc">
+  <title id="title">Which lava rock bag label details to use</title>
+  <desc id="desc">An illustrated lava rock bag shows 0.5 cubic foot as the value for calculating area coverage. A separate product weight, which varies by bag, is used to plan a carrying load.</desc>
+  <defs>
+    <linearGradient id="panel" x2="0" y2="1">
+      <stop offset="0" stop-color="#15262d"/>
+      <stop offset="1" stop-color="#20343b"/>
+    </linearGradient>
+    <linearGradient id="sack" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0dfbf"/>
+      <stop offset="1" stop-color="#cfb899"/>
+    </linearGradient>
+    <pattern id="rock" width="55" height="45" patternUnits="userSpaceOnUse">
+      <rect width="55" height="45" fill="#67352d"/>
+      <path d="M5 10l12-6 10 8-4 11-14 1z" fill="#ab5a44" stroke="#c17a5a"/>
+      <path d="M29 8l13-5 10 10-5 13-17-2z" fill="#382b30" stroke="#71504b"/>
+      <path d="M12 30l11-6 12 10-7 9-15-1z" fill="#9b4939" stroke="#ca7657"/>
+      <path d="M40 31l9-5 6 11-11 7-10-5z" fill="#753d34" stroke="#b6634d"/>
+      <circle cx="13" cy="13" r="2" fill="#633128"/>
+      <circle cx="38" cy="15" r="2" fill="#211e22"/>
+      <circle cx="24" cy="34" r="2" fill="#522922"/>
+    </pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M1 1l6 3-6 3" fill="none" stroke="#e7b85a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="798" height="478" rx="22" fill="url(#panel)" stroke="#52666b" stroke-width="2"/>
+  <text x="400" y="43" fill="#f3eee5" font-family="Arial, sans-serif" font-size="23" font-weight="700" text-anchor="middle">Read two different numbers on the bag</text>
+  <text x="400" y="67" fill="#c9d2cf" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Volume determines coverage; weight determines the load</text>
+
+  <rect x="36" y="122" width="208" height="194" rx="15" fill="#253b40" stroke="#63807c"/>
+  <text x="56" y="158" fill="#f6c46f" font-family="Arial, sans-serif" font-size="16" font-weight="700">NET VOLUME</text>
+  <text x="56" y="205" fill="#f5f1e9" font-family="Arial, sans-serif" font-size="33" font-weight="700">0.5 ft³</text>
+  <text x="56" y="235" fill="#d4dfdc" font-family="Arial, sans-serif" font-size="16">Use for bag count</text>
+  <text x="56" y="263" fill="#b9cbc6" font-family="Arial, sans-serif" font-size="14">One bag covers 3 sq ft</text>
+  <text x="56" y="285" fill="#b9cbc6" font-family="Arial, sans-serif" font-size="14">at a 2-inch depth.</text>
+
+  <path d="M326 108h148l32 281H294z" fill="url(#sack)" stroke="#f4dba9" stroke-width="4"/>
+  <path d="M326 108h148l-15 24H341z" fill="#a98465" stroke="#f4dba9" stroke-width="2"/>
+  <text x="400" y="165" fill="#403329" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">LANDSCAPE</text>
+  <text x="400" y="191" fill="#403329" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle">LAVA ROCK</text>
+  <rect x="334" y="209" width="132" height="95" rx="7" fill="url(#rock)" stroke="#7d5747" stroke-width="2"/>
+  <rect x="325" y="322" width="150" height="45" rx="5" fill="#efe3cd" stroke="#745745"/>
+  <text x="400" y="351" fill="#513c30" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="middle">0.5 cu ft</text>
+
+  <path d="M244 225h75" fill="none" stroke="#e7b85a" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M555 225h-75" fill="none" stroke="#e7b85a" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <rect x="555" y="122" width="209" height="194" rx="15" fill="#253b40" stroke="#63807c"/>
+  <text x="575" y="158" fill="#f6c46f" font-family="Arial, sans-serif" font-size="16" font-weight="700">PRODUCT WEIGHT</text>
+  <text x="575" y="205" fill="#f5f1e9" font-family="Arial, sans-serif" font-size="24" font-weight="700">Check the label</text>
+  <text x="575" y="235" fill="#d4dfdc" font-family="Arial, sans-serif" font-size="16">Use for carrying load</text>
+  <text x="575" y="263" fill="#b9cbc6" font-family="Arial, sans-serif" font-size="14">Pounds vary with the</text>
+  <text x="575" y="285" fill="#b9cbc6" font-family="Arial, sans-serif" font-size="14">specific rock product.</text>
+
+  <path d="M77 422h646" stroke="#69807e" stroke-width="1"/>
+  <text x="400" y="448" fill="#d3dfd8" font-family="Arial, sans-serif" font-size="15" text-anchor="middle">For 100 sq ft at 2 in: 16.67 ft³ ÷ 0.5 ft³ = 34 whole bags</text>
+</svg>

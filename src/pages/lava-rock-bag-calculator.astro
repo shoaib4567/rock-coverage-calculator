@@ -1,45 +1,49 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Lava Rock Bag Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Lava Rock Calculator', url: '/lava-rock-calculator' },
-  { name: 'Lava Rock Bag Calculator', url: '/lava-rock-bag-calculator' }
+  { name: pageTitle, url: '/lava-rock-bag-calculator' }
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Bagged Lava Rock' },
-  { label: 'Standard Bag Volume', value: '0.5 Cubic Feet per Bag' },
-  { label: 'Bag Weight', value: '~28 lbs per Bag (Lightweight)' },
-  { label: 'Yard Multiplier', value: '54 Bags = 1.0 Cubic Yard' }
+  { label: 'Material', value: 'Bagged landscape lava rock' },
+  { label: 'Count from', value: 'Cubic feet printed on the bag' },
+  { label: 'Starting size', value: '0.5 ft³ per bag; editable' }
 ];
 
 const quickStats = [
-  { value: '~28 lbs', label: 'Bag Weight', desc: 'Ultra-lightweight volcanic scoria (approx half the weight of gravel)' },
-  { value: '3.0 sq ft', label: 'Yield at 2"', desc: 'Ground coverage per 0.5 cu ft bag at standard 2-inch bed depth' },
-  { value: '54 Bags', label: 'Per Cubic Yard', desc: 'Exact bag multiplier based on 27 cubic feet per yard' }
+  { value: '34 bags', label: '10 × 10 ft at 2 in', desc: 'With 0.5 ft³ bags and no extra allowance' },
+  { value: '3 sq ft', label: 'Coverage per bag', desc: 'One 0.5 ft³ bag spread 2 inches deep' },
+  { value: '54 bags', label: 'Volume in a yard', desc: '27 ft³ ÷ 0.5 ft³; this does not determine weight' }
 ];
 
 const faqItems = [
   {
-    q: 'How many bags of lava rock do I need for a 10x10 foot area?',
-    a: 'A 10x10 foot area equals 100 square feet. At a recommended 2-inch depth for lightweight lava rock mulch, you need 16.7 cubic feet of material, which equals approximately 34 bags of 0.5 cubic feet each (weighing only about 950 lbs total).'
+    q: 'How many bags of lava rock cover 100 square feet?',
+    a: 'At a 2-inch finished depth, 100 square feet needs 16.67 cubic feet. Divide by 0.5 cubic foot per bag and round 33.33 up to 34 bags. A deliberate 10% extra allowance raises the order to 37 bags. At 3 inches with no extra, it takes 50 bags.'
   },
   {
-    q: 'Why is a bag of lava rock so much lighter than a bag of gravel?',
-    a: 'Lava rock (volcanic scoria) is riddled with microscopic gas vesicles formed during volcanic cooling. It has a bulk density of only 56 pounds per cubic foot (1,500 lbs/yd³), meaning a 0.5 cubic foot bag weighs approximately 28 pounds compared to 50 pounds for granite or river rock.'
+    q: 'How many half-cubic-foot lava rock bags equal a cubic yard?',
+    a: 'A cubic yard contains 27 cubic feet, so 27 ÷ 0.5 = 54 half-cubic-foot bags by labeled volume. This is not a weight conversion or a claim that all bags contain the same rock.'
   },
   {
-    q: 'How many bags of lava rock make a cubic yard?',
-    a: 'Exactly 54 bags of 0.5 cubic feet make one cubic yard (27 cubic feet / 0.5 cu ft = 54 bags). In terms of weight, 54 bags of lava rock weigh approximately 1,500 pounds (0.75 tons).'
+    q: 'Can I calculate the bag count from pounds alone?',
+    a: 'Not reliably. Pounds tell you what you will lift and carry. The cubic feet or stated coverage on your specific product tells you how much bed area it can fill. Ask the supplier for its volume yield if only a weight is shown.'
   },
   {
-    q: 'Can I use bagged lava rock in outdoor gas fire pits?',
-    a: 'Yes. Dry, cured lava rock is the industry standard substrate for gas fire pits because its porous structure allows gas diffusion and withstands high temperatures without popping or fracturing (unlike river rock, which can explode when heated).'
+    q: 'How much will the bag order weigh?',
+    a: 'Multiply the whole-bag count by the labeled pounds per bag. For example, 34 bags of a product labeled 18 pounds weigh 612 pounds before passengers, tools or other cargo. Leave the optional weight field empty until you know your product.'
+  },
+  {
+    q: 'Can landscape lava rock bags go in a gas fire pit?',
+    a: 'Do not assume a landscape bag is approved fire media. Use the media and fill depth specified by the fire pit manufacturer, keep ignition and vent areas clear, and follow its instructions for wet media.'
   }
 ];
 
@@ -56,196 +60,209 @@ const lateralLinks = [
 ];
 
 const bridgeLinks = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Bag Weight and Price Guide', slug: '/rock-bag-weight-and-price-guide', badge: 'Hauling' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'Bulk weight' }
 ];
 
 const supportGuides = [
   { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' }
 ];
 ---
 
 <BaseLayout
-  title="Lava Rock Bag Calculator - 0.5 Cu Ft Retail Sizing & Weight"
-  metaDescription="Calculate exact 0.5 cu ft bags of red or black volcanic lava rock for flower beds, mulch replacement, and fire pits. Lightweight bag formulas and costs."
+  title={pageTitle}
+  metaDescription="Count lava rock bags from bed area, finished depth and the cubic feet printed on your bag. Add optional extra, price and labeled weight for a practical purchase plan."
   canonicalPath="/lava-rock-bag-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Lava Rock Bag Calculator",
-      "url": "https://rockcoveragecalculator.com/lava-rock-bag-calculator",
-      "description": "Calculates 0.5 cu ft retail bags of red and black volcanic lava rock needed based on dimensions.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Homeowners, Gardeners, Fire Pit Installers"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Bagged Lava Rock Calculation"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/lava-rock-bag-calculator',
+      description: 'Estimates whole bags of landscape lava rock from area, finished depth, labeled bag volume and optional allowance.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="Lava Rock Bag Calculator"
-      highlightWord="Bags"
-      badge="Retail Bag Sizing Engine"
-      subtitle="Calculate exact 0.5 cu ft bags of red or black volcanic lava rock for landscaping beds, xeriscaping, and gas fire pits."
+      title={pageTitle}
+      highlightWord="Bag"
+      badge="Retail lava rock order"
+      subtitle="A 10 × 10 ft bed at 2 inches needs 16.67 cubic feet of lava rock: 34 bags labeled 0.5 cubic foot before any extra. Enter the volume on your chosen bag to get your own whole-bag count."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="utility"
     />
 
-    <!-- Interactive Lava Rock Bag Calculator Tool -->
-    <section class="section">
+    <section class="section" aria-labelledby="bag-tool-heading">
       <div class="container">
+        <div class="section-intro">
+          <h2 id="bag-tool-heading">Plan the bags you will buy</h2>
+          <p>Measure the lava rock surface and choose its finished depth. The bag's cubic-foot volume determines coverage; its weight and price help with pickup and budget.</p>
+        </div>
         <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
+          <div class="calc-panel">
             <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Lava Rock Area Dimensions</h3>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 9v12"/></svg>
+              <h3>Bed and bag label</h3>
+            </div>
+
+            <div class="mode-tabs" role="group" aria-label="Area entry method">
+              <button type="button" class="mode-btn active" id="lrb-mode-dims" aria-pressed="true">Length × width</button>
+              <button type="button" class="mode-btn" id="lrb-mode-area" aria-pressed="false">Known square feet</button>
+            </div>
+            <div class="dim-grid" id="lrb-dim-fields">
+              <div class="input-field">
+                <label for="lrb-length">Length (ft)</label>
+                <input type="number" id="lrb-length" value="10" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="lrb-width">Width (ft)</label>
+                <input type="number" id="lrb-width" value="10" min="0.01" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <div class="dim-grid" id="lrb-area-fields" hidden>
+              <div class="input-field">
+                <label for="lrb-area">Measured area (sq ft)</label>
+                <input type="number" id="lrb-area" value="100" min="0.01" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <div class="dim-grid">
+              <div class="input-field">
+                <label for="lrb-depth">Finished lava rock depth (in)</label>
+                <input type="number" id="lrb-depth" value="2" min="0.25" max="12" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="lrb-capacity">Volume per bag (ft³)</label>
+                <input type="number" id="lrb-capacity" value="0.5" min="0.01" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="lrb-extra">Extra allowance (%)</label>
+                <input type="number" id="lrb-extra" value="0" min="0" max="50" step="any" inputmode="decimal" />
+              </div>
+            </div>
+            <p class="field-note">The default 0% shows the measured volume. Add extra only for known unevenness, edges or handling loss.</p>
+
+            <h4 class="optional-heading">Optional purchase details</h4>
+            <div class="dim-grid optional-grid">
+              <div class="input-field">
+                <label for="lrb-price">Price per bag ($)</label>
+                <input type="number" id="lrb-price" min="0" step="any" inputmode="decimal" placeholder="Your store's price" />
+              </div>
+              <div class="input-field">
+                <label for="lrb-weight">Labeled weight per bag (lb)</label>
+                <input type="number" id="lrb-weight" min="0.01" step="any" inputmode="decimal" placeholder="From your bag" />
+              </div>
+            </div>
+            <p class="field-note">These fields can stay blank. An invalid price or weight only affects its own estimate, not your bag count.</p>
+            <p id="lrb-error" class="dimension-error" role="alert" hidden></p>
           </div>
 
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="lrb-length">Length (Feet)</label>
-              <input type="number" id="lrb-length" value="16" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="lrb-width">Width (Feet)</label>
-              <input type="number" id="lrb-width" value="10" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="lrb-depth">Depth (Inches)</label>
-              <input type="number" id="lrb-depth" value="2.0" min="1" max="12" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="lrb-price">Price per Bag ($)</label>
-              <input type="number" id="lrb-price" value="5.75" min="1" step="0.25" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
+          <div class="calc-results-panel">
             <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+              <h3>Your bag order</h3>
             </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-lrb-bags">0</div>
-              <div class="kpi-label">0.5 Cu Ft Bags Needed</div>
-              <div class="kpi-subtext" id="kpi-lrb-lbs">0 lbs total weight</div>
+            <div id="lrb-results">
+              <div class="bag-count">
+                <span class="bag-count-label">Whole bags to buy</span>
+                <strong id="lrb-bags">34</strong>
+                <span id="lrb-bag-size">at 0.5 ft³ per bag</span>
+              </div>
+              <div class="result-grid">
+                <div class="result-item"><span>Measured area</span><strong id="lrb-area-result">100 sq ft</strong></div>
+                <div class="result-item"><span>Net bed volume</span><strong id="lrb-net">16.67 ft³</strong></div>
+                <div class="result-item"><span>Planned volume with extra</span><strong id="lrb-planned">16.67 ft³</strong></div>
+                <div class="result-item"><span>Volume in whole bags</span><strong id="lrb-purchased">17 ft³</strong></div>
+                <div class="result-item"><span>Planned cubic yards</span><strong id="lrb-yards">0.62 yd³</strong></div>
+                <div class="result-item"><span>One bag covers</span><strong id="lrb-coverage">3 sq ft</strong></div>
+                <div class="result-item"><span>Bag material cost</span><strong id="lrb-cost">Add price</strong></div>
+                <div class="result-item"><span>Bagged product weight</span><strong id="lrb-total-weight">Add label weight</strong></div>
+              </div>
+              <p id="lrb-optional-note" class="result-note" hidden></p>
+              <p id="lrb-summary" class="sr-only" aria-live="polite"></p>
+              <p class="rounding-note">The count rounds up to a whole bag after any allowance. Cost excludes tax and delivery; weight excludes passengers and other cargo.</p>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-lrb-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-lrb-cuft">0 cu ft</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-lrb-cost">$0.00</div>
-              <div class="kpi-label">Estimated Material Cost</div>
-              <div class="kpi-subtext">Retail total</div>
-            </div>
-            </div>
+            <p id="lrb-invalid-results" class="result-note" hidden>Enter valid bed dimensions, depth, bag volume and extra allowance to see the order.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on Bagged Lava Rock -->
     <article class="content-guide-section">
-      <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Lava Rock Bag Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Lava Rock Bag Reference</span>
+      <div class="container guide-container">
+        <section class="content-card visual-card" aria-labelledby="label-heading">
+          <div>
+            <p class="eyebrow">Read the bag</p>
+            <h2 id="label-heading">Volume buys coverage. Pounds plan the carry.</h2>
+            <p>A lava rock bag can be labeled in cubic feet, pounds, or both. Use the <strong>net volume</strong> for the coverage calculation. Use the product's <strong>actual labeled weight</strong> to plan pickup or delivery. The two figures serve different jobs.</p>
+            <p>For example, <a href="https://www.quikrete.com/dealers/products/products-hardscapes.asp" target="_blank" rel="noopener noreferrer">QUIKRETE lists a 0.5 ft³ red lava rock bag</a>, while one <a href="https://www.lowes.com/pd/EARTHESSENTIALS-BY-QUIKRETE-0-5-cu-ft/50437588" target="_blank" rel="noopener noreferrer">retail listing for a 0.5 ft³ bag states 18 lb</a>. Weight depends on the specific stone, grading and product, even when bag volume is the same.</p>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Bags = [Area (sq ft) × Depth (in) / 12] × 2</span>
-              <p class="aeo-quick-desc">Converts cubic feet into 0.5 cu ft commercial retail bags.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 2"</span>
-              <span class="aeo-quick-value">3.0 sq ft per Bag</span>
-              <p class="aeo-quick-desc">Standard depth for flower bed mulch replacement.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bag Weight</span>
-              <span class="aeo-quick-value">~28 lbs per 0.5 cu ft Bag</span>
-              <p class="aeo-quick-desc">Lightweight volcanic basalt scoria (56 lbs/cu ft).</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Vehicle Capacity</span>
-              <span class="aeo-quick-value">30 to 40 Bags in a Half-Ton Truck</span>
-              <p class="aeo-quick-desc">Carries double the bags of normal gravel due to light weight.</p>
-            </div>
-          </div>
+          <figure>
+            <img src="/lava-rock-bag-label.svg" alt="Illustrated lava rock bag: use the 0.5 cubic foot volume for coverage and the separate product weight for loading." width="800" height="480" loading="lazy" />
+            <figcaption>Illustration of label fields to check; not a product package.</figcaption>
+          </figure>
         </section>
 
-        <div class="content-card">
-          <h2>Sizing Retail Bags of Volcanic Lava Rock</h2>
-          <p>
-            Volcanic lava rock (scoria) is naturally porous and lightweight. While regular crushed stone weighs approximately 100 to 104 pounds per cubic foot, lava rock weighs only <strong>56 pounds per cubic foot</strong> (1,500 lbs/yd³). Because of this, bags are exceptionally easy to transport:
-          </p>
-
+        <section class="content-card" aria-labelledby="method-heading">
+          <p class="eyebrow">Worked order</p>
+          <h2 id="method-heading">A 10 × 10 ft bed, two inches deep</h2>
           <div class="formula-box">
-            <code>Total Cubic Feet = [Length (ft) × Width (ft) × Depth (in)] / 12</code>
-            <br />
-            <code>Number of 0.5 cu ft Bags = Total Cubic Feet × 2</code>
+            <code>Net ft³ = area (sq ft) × depth (in) ÷ 12</code>
+            <code>Planned ft³ = net ft³ × (1 + extra % ÷ 100)</code>
+            <code>Whole bags = round up (planned ft³ ÷ labeled ft³ per bag)</code>
           </div>
+          <p>For 100 square feet, 100 × 2 ÷ 12 = <strong>16.67 ft³</strong>. Divide by a bag labeled 0.5 ft³: 16.67 ÷ 0.5 = 33.33, so buy <strong>34 whole bags</strong>. You receive 17 ft³ in those bags. If the site calls for 10% extra, plan 18.33 ft³ and buy <strong>37 bags</strong>. Apply the allowance before rounding.</p>
+          <p>One 0.5 ft³ bag covers <strong>3 sq ft at 2 inches</strong> or <strong>2 sq ft at 3 inches</strong> by volume; the <a href="https://www.flowerocklava.com/" target="_blank" rel="noopener noreferrer">FloweRock manufacturer chart</a> gives the same 2-inch yield. For other depths or bag sizes, let the calculator divide the volume.</p>
+        </section>
 
-          <h3>Coverage per 0.5 Cu Ft Bag by Depth</h3>
-          <ul>
-            <li><strong>2.0 Inches Depth:</strong> Covers 3.0 sq ft per bag (ideal for landscape shrub beds and garden paths).</li>
-            <li><strong>3.0 Inches Depth:</strong> Covers 2.0 sq ft per bag (maximum weed suppression and soil insulation).</li>
-            <li><strong>4.0 Inches Depth:</strong> Covers 1.5 sq ft per bag (deep gas fire pit burners).</li>
-          </ul>
-        </div>
+        <section class="content-card" aria-labelledby="store-heading">
+          <p class="eyebrow">Before checkout</p>
+          <h2 id="store-heading">Make the bag count usable at the store</h2>
+          <ol class="buying-list">
+            <li><strong>Match the actual package.</strong> Read the cubic feet on the bag, then check stone size and color against the material you want. If only pounds are listed, ask for cubic-foot yield or coverage at a stated depth before estimating area.</li>
+            <li><strong>Measure the finished layer.</strong> Split curved beds into smaller measured shapes and subtract pavement or other openings. Larger pieces can leave visible gaps in a thin layer; choose a depth that fits the material and site instead of treating two inches as a guarantee.</li>
+            <li><strong>Check weight and price separately.</strong> Multiply whole bags by the product's labeled pounds and local per-bag price. As a product-specific illustration, 34 bags labeled 18 lb equal 612 lb of bagged product. Check your vehicle's own cargo limit with passengers and tools included.</li>
+            <li><strong>Compare a delivered bulk quote for larger jobs.</strong> Fifty-four 0.5 ft³ bags equal one cubic yard by volume. Compare your bag total and transport with a local quote for the same rock and enough loose volume, including delivery and any minimum. The <a href="/bulk-vs-bagged-rock">bulk versus bagged guide</a> helps with that decision.</li>
+          </ol>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Bagged Lava Rock</h2>
+        <section class="content-card" aria-labelledby="placement-heading">
+          <p class="eyebrow">Where the rock goes</p>
+          <h2 id="placement-heading">Choose the layer for the place, then calculate it</h2>
+          <p>Bagged lava rock is useful for small decorative beds, dry landscape accents and narrow areas where loose delivery is awkward. A <a href="/lava-rock-calculator">lava rock project estimate</a> covers broader yardage and weight planning; the <a href="/lava-rock-coverage-calculator">lava rock coverage calculator</a> answers how far a quantity on hand will spread.</p>
+          <p>Rock mulch does not decompose to improve soil. It can also warm soil in summer, and dust and leaves eventually support weeds between stones, even over landscape fabric. <a href="https://yardandgarden.extension.iastate.edu/how-to/using-mulch-garden" target="_blank" rel="noopener noreferrer">Iowa State Extension</a> describes these limits; <a href="https://ipm.ucanr.edu/home-and-landscape/weed-management-in-landscapes/" target="_blank" rel="noopener noreferrer">UC IPM</a> notes that fabric under rock can separate stone from soil but dark rock may stress plants. Keep leaves out of the bed and watch plants near sun-heated stone.</p>
+          <p class="safety-note"><strong>Gas fire pit?</strong> Landscape package coverage does not set a burner fill depth, and <a href="https://www.homedepot.com/p/100427379" target="_blank" rel="noopener noreferrer">a common 0.5 ft³ landscape bag is expressly marked unsuitable for fire pits</a>. Choose only media approved for your appliance. <a href="https://hpcfire.com/wp-content/product-documents/Indoor-Outdoor-Product-Instructions/Fire%20Pit%20Inserts/Outdoor%20-%20Push%20Button/Fire%20Pit%20Insert%20-%20Push%20Button%20%28820%29.pdf" target="_blank" rel="noopener noreferrer">HPC's burner instructions</a> say to cover the ring only as directed and leave ignition vents open; <a href="https://cms.firegearoutdoors.com/documents/All-instructions/90214A-FPB-BS-Outdoor-Square-Pan-Flat-Disc-Fire-Pits-with-All-Weather-System-AWS-Installation-and-Operating-Instructions.pdf" target="_blank" rel="noopener noreferrer">Firegear's manual</a> warns that wet media can crack or pop.</p>
+        </section>
+
+        <section class="content-card faq-card" aria-labelledby="faq-heading">
+          <h2 id="faq-heading">Lava rock bag questions</h2>
           <div class="faq-list">
-            {faqItems.map((item) => (
+            {faqItems.map(item => (
               <div class="faq-item">
                 <h3>{item.q}</h3>
                 <p>{item.a}</p>
               </div>
             ))}
           </div>
-        </div>
-
+        </section>
       </div>
     </article>
 
@@ -258,84 +275,155 @@ const supportGuides = [
       supportGuides={supportGuides}
     />
   </main>
-
   <Footer />
 
   <script>
+    type InputId = 'lrb-length' | 'lrb-width' | 'lrb-area' | 'lrb-depth' | 'lrb-capacity' | 'lrb-extra' | 'lrb-price' | 'lrb-weight';
+    const input = (id: InputId) => document.getElementById(id) as HTMLInputElement;
+    const output = (id: string, value: string) => { const element = document.getElementById(id); if (element) element.textContent = value; };
+    const value = (id: InputId) => {
+      const raw = input(id).value.trim();
+      return raw === '' ? NaN : Number(raw);
+    };
+    const valid = (id: InputId) => {
+      const field = input(id);
+      const number = value(id);
+      const minimum = Number(field.min);
+      const maximum = field.max === '' ? Infinity : Number(field.max);
+      return Number.isFinite(number) && number >= minimum && number <= maximum;
+    };
+    const fmt = (number: number, digits = 2) => number.toLocaleString('en-US', { maximumFractionDigits: digits });
+    const money = (number: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(number);
+    let areaMode: 'dimensions' | 'square-feet' = 'dimensions';
+
     function updateLRB() {
-      const l = parseFloat((document.getElementById('lrb-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('lrb-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('lrb-depth') as HTMLInputElement)?.value) || 0;
-      const price = parseFloat((document.getElementById('lrb-price') as HTMLInputElement)?.value) || 0;
+      const required: InputId[] = areaMode === 'dimensions'
+        ? ['lrb-length', 'lrb-width', 'lrb-depth', 'lrb-capacity', 'lrb-extra']
+        : ['lrb-area', 'lrb-depth', 'lrb-capacity', 'lrb-extra'];
+      const optional: InputId[] = ['lrb-price', 'lrb-weight'];
+      const invalidRequired = required.find(id => !valid(id));
+      [...required, ...optional].forEach(id => {
+        const field = input(id);
+        const isOptionalEmpty = optional.includes(id) && field.value.trim() === '';
+        if (!valid(id) && !isOptionalEmpty) field.setAttribute('aria-invalid', 'true');
+        else field.removeAttribute('aria-invalid');
+      });
 
-      const cuft = (l * w * (d / 12));
-      const bags = Math.ceil(cuft * 2);
-      const yards = cuft / 27;
-      const totalWeight = bags * 28;
-      const totalCost = bags * price;
+      const error = document.getElementById('lrb-error') as HTMLElement;
+      const results = document.getElementById('lrb-results') as HTMLElement;
+      const invalidResults = document.getElementById('lrb-invalid-results') as HTMLElement;
+      if (invalidRequired) {
+        const label = document.querySelector('label[for="' + invalidRequired + '"]')?.textContent?.trim() || 'the highlighted field';
+        error.textContent = 'Enter a valid value for ' + label + '.';
+        error.hidden = false;
+        results.hidden = true;
+        invalidResults.hidden = false;
+        return;
+      }
 
-      const bEl = document.getElementById('kpi-lrb-bags');
-      const yEl = document.getElementById('kpi-lrb-yards');
-      const cEl = document.getElementById('kpi-lrb-cost');
-      const lbsEl = document.getElementById('kpi-lrb-lbs');
-      const cuftEl = document.getElementById('kpi-lrb-cuft');
-
-      if (bEl) bEl.innerText = bags.toLocaleString();
-      if (yEl) yEl.innerText = yards.toFixed(2);
-      if (cEl) cEl.innerText = '$' + totalCost.toFixed(2);
-      if (lbsEl) lbsEl.innerText = totalWeight.toLocaleString() + ' lbs (~' + (totalWeight / 2000).toFixed(2) + ' tons)';
-      if (cuftEl) cuftEl.innerText = cuft.toFixed(1) + ' cu ft net volume';
+      const area = areaMode === 'dimensions' ? value('lrb-length') * value('lrb-width') : value('lrb-area');
+      const depth = value('lrb-depth');
+      const capacity = value('lrb-capacity');
+      const net = area * depth / 12;
+      const planned = net * (1 + value('lrb-extra') / 100);
+      const bags = Math.ceil(planned / capacity - 1e-10);
+      const purchased = bags * capacity;
+      if (![area, net, planned, bags, purchased].every(Number.isFinite) || !Number.isSafeInteger(bags) || bags < 1) {
+        error.textContent = 'Use smaller project values to calculate a reliable whole-bag order.';
+        error.hidden = false;
+        results.hidden = true;
+        invalidResults.hidden = false;
+        return;
+      }
+      error.hidden = true;
+      results.hidden = false;
+      invalidResults.hidden = true;
+      output('lrb-bags', fmt(bags, 0));
+      output('lrb-bag-size', 'at ' + fmt(capacity, 3) + ' ft³ per bag');
+      output('lrb-area-result', fmt(area) + ' sq ft');
+      output('lrb-net', fmt(net) + ' ft³');
+      output('lrb-planned', fmt(planned) + ' ft³');
+      output('lrb-purchased', fmt(purchased) + ' ft³');
+      output('lrb-yards', fmt(planned / 27) + ' yd³');
+      output('lrb-coverage', fmt(capacity * 12 / depth) + ' sq ft');
+      output('lrb-cost', input('lrb-price').value.trim() === '' ? 'Add price' : valid('lrb-price') ? money(bags * value('lrb-price')) : 'Check price');
+      output('lrb-total-weight', input('lrb-weight').value.trim() === '' ? 'Add label weight' : valid('lrb-weight') ? fmt(bags * value('lrb-weight'), 1) + ' lb' : 'Check weight');
+      output('lrb-summary', fmt(bags, 0) + ' whole lava rock bags for ' + fmt(area) + ' square feet at ' + fmt(depth) + ' inches.');
+      const optionalNote = document.getElementById('lrb-optional-note') as HTMLElement;
+      const invalidOptional = optional.filter(id => input(id).value.trim() !== '' && !valid(id));
+      optionalNote.hidden = invalidOptional.length === 0;
+      optionalNote.textContent = invalidOptional.length ? 'Check the highlighted optional ' + (invalidOptional.length === 1 ? 'field' : 'fields') + '. Your whole-bag count remains valid.' : '';
     }
 
-    ['lrb-length', 'lrb-width', 'lrb-depth', 'lrb-price'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateLRB);
+    function setMode(next: 'dimensions' | 'square-feet') {
+      areaMode = next;
+      const dimensions = next === 'dimensions';
+      (document.getElementById('lrb-dim-fields') as HTMLElement).hidden = !dimensions;
+      (document.getElementById('lrb-area-fields') as HTMLElement).hidden = dimensions;
+      const dimsButton = document.getElementById('lrb-mode-dims') as HTMLButtonElement;
+      const areaButton = document.getElementById('lrb-mode-area') as HTMLButtonElement;
+      dimsButton.classList.toggle('active', dimensions);
+      areaButton.classList.toggle('active', !dimensions);
+      dimsButton.setAttribute('aria-pressed', String(dimensions));
+      areaButton.setAttribute('aria-pressed', String(!dimensions));
+      updateLRB();
+    }
+
+    document.getElementById('lrb-mode-dims')?.addEventListener('click', () => setMode('dimensions'));
+    document.getElementById('lrb-mode-area')?.addEventListener('click', () => setMode('square-feet'));
+    (['lrb-length', 'lrb-width', 'lrb-area', 'lrb-depth', 'lrb-capacity', 'lrb-extra', 'lrb-price', 'lrb-weight'] as InputId[]).forEach(id => {
+      input(id).addEventListener('input', updateLRB);
     });
     updateLRB();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
+  .section { padding: var(--space-8) 0 var(--space-12); }
+  .section-intro { max-width: 760px; margin: 0 0 var(--space-6); }
+  .section-intro h2 { color: var(--text-primary); font-size: clamp(1.45rem, 3vw, 2rem); margin-bottom: var(--space-2); }
+  .section-intro p { color: var(--text-secondary); line-height: 1.6; margin: 0; }
+  .mode-tabs { display: flex; gap: var(--space-2); margin-bottom: var(--space-5); flex-wrap: wrap; }
+  .mode-btn { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); color: var(--text-secondary); padding: .6rem .85rem; font: inherit; font-size: .84rem; font-weight: 700; cursor: pointer; }
+  .mode-btn.active { background: rgba(212, 168, 83, .14); color: var(--accent-gold); border-color: var(--accent-gold); }
+  .mode-btn:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 2px; }
+  #lrb-area-fields[hidden], #lrb-dim-fields[hidden], #lrb-results[hidden], #lrb-invalid-results[hidden], #lrb-error[hidden], #lrb-optional-note[hidden] { display: none; }
+  .field-note { margin: calc(var(--space-4) * -1) 0 var(--space-5); color: var(--text-muted); font-size: .82rem; line-height: 1.5; }
+  .optional-heading { color: var(--text-primary); font-size: .88rem; margin: var(--space-5) 0 var(--space-3); }
+  .optional-grid { margin-bottom: var(--space-6); }
+  .input-field input[aria-invalid="true"] { border-color: #dc2626; }
+  .bag-count { display: flex; flex-direction: column; align-items: center; text-align: center; padding: var(--space-5); margin-bottom: var(--space-4); border: 1px solid rgba(212, 168, 83, .4); border-radius: var(--radius-lg); background: rgba(212, 168, 83, .08); }
+  .bag-count-label { color: var(--text-muted); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .bag-count strong { color: var(--accent-gold); font: 800 clamp(2.6rem, 6vw, 4.5rem)/1.1 var(--font-mono); margin: var(--space-2) 0; }
+  .bag-count span:last-child { color: var(--text-secondary); font-size: .82rem; }
+  .result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .result-item { min-width: 0; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-3); background: var(--bg-surface); }
+  .result-item span { display: block; color: var(--text-muted); font-size: .7rem; letter-spacing: .04em; text-transform: uppercase; }
+  .result-item strong { display: block; color: var(--text-primary); font: 700 .95rem/1.45 var(--font-mono); overflow-wrap: anywhere; }
+  .result-note, .rounding-note { font-size: .81rem; line-height: 1.5; color: var(--text-secondary); margin: var(--space-4) 0 0; }
+  .rounding-note { color: var(--text-muted); font-size: .75rem; }
   .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .guide-container { max-width: 1080px; }
+  .content-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); margin-bottom: var(--space-8); line-height: 1.7; color: var(--text-secondary); }
+  .content-card h2 { color: var(--text-primary); font-size: clamp(1.35rem, 3vw, 1.9rem); line-height: 1.25; margin: 0 0 var(--space-4); }
+  .content-card p { margin: 0 0 var(--space-4); }
+  .content-card p:last-child { margin-bottom: 0; }
+  .content-card a { color: var(--accent-gold); text-underline-offset: 3px; }
+  .eyebrow { color: var(--accent-gold); font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: var(--space-2) !important; }
+  .visual-card { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-6); align-items: center; }
+  .visual-card figure { margin: 0; min-width: 0; }
+  .visual-card img { display: block; width: 100%; height: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .visual-card figcaption { font-size: .75rem; color: var(--text-muted); margin-top: var(--space-2); }
+  .formula-box { display: grid; gap: var(--space-2); background: var(--bg-surface); border-left: 3px solid var(--accent-gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: var(--space-4); margin: var(--space-4) 0; }
+  .formula-box code { color: var(--accent-gold); font-size: .84rem; white-space: normal; overflow-wrap: anywhere; }
+  .buying-list { padding-left: 1.4rem; margin: var(--space-4) 0 0; }
+  .buying-list li { padding-left: .3rem; margin-bottom: var(--space-4); }
+  .buying-list li:last-child { margin-bottom: 0; }
+  .safety-note { padding: var(--space-4); border-left: 3px solid var(--accent-gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; background: var(--bg-surface); }
+  .faq-list { display: grid; gap: var(--space-3); }
+  .faq-item { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); background: var(--bg-surface); }
+  .faq-item h3 { color: var(--text-primary); font-size: 1rem; margin: 0 0 var(--space-2); }
+  .faq-item p { color: var(--text-secondary); font-size: .88rem; margin: 0; }
+  @media (max-width: 800px) { .visual-card { grid-template-columns: 1fr; } }
+  @media (max-width: 540px) { .content-card { padding: var(--space-5); } .result-grid { grid-template-columns: 1fr; } }
 </style>

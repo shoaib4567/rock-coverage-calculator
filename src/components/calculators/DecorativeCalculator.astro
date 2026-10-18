@@ -22,9 +22,9 @@
             <div class="rock-title">Mexican Beach Pebble (Black)</div>
             <div class="rock-spec">Premium volcanic unglazed | 1.40 T/yd³ | Min 2.5" depth</div>
           </button>
-          <button type="button" class="rock-btn" data-density="0.85" data-min="2.0" data-name="Volcanic Red Lava Rock">
+          <button type="button" class="rock-btn" data-density="0.75" data-min="2.0" data-name="Volcanic Red Lava Rock">
             <div class="rock-title">Volcanic Red Lava Rock</div>
-            <div class="rock-spec">Ultra lightweight porous | 0.85 T/yd³ | High coverage yield</div>
+            <div class="rock-spec">Porous scoria | 0.75 T/yd³ example | Check supplier</div>
           </button>
           <button type="button" class="rock-btn" data-density="1.35" data-name="Royal White Marble Chips">
             <div class="rock-title">White Marble Chips</div>
@@ -102,7 +102,7 @@
         <div class="comparison-yield-card">
           <div class="yield-title">Density & Yield Comparison Insight</div>
           <p class="yield-desc" id="yield-comparison-text">
-            Mexican Beach Pebble weighs 1.40 tons/yd³. Switching to lightweight Volcanic Lava Rock (0.85 tons/yd³) would reduce your total delivery freight weight by ~39% while covering the exact same 250 sq ft area.
+            At equal volume, a 0.75-ton/yd³ lava-rock example weighs less than this 1.40-ton/yd³ pebble example. Confirm each supplier's actual loose bulk weight before estimating delivery.
           </p>
         </div>
 
@@ -419,11 +419,11 @@ function initDecorativeCalculator() {
     if (rowArea) rowArea.textContent = `${Math.round(area).toLocaleString()} sq ft (${length}' × ${width}')`;
 
     if (yieldText) {
-      if (activeDensity === 0.85) {
-        yieldText.textContent = `Volcanic Lava Rock is ultra-lightweight (0.85 tons/yd³). You require only ${totalTons.toFixed(2)} tons. A traditional gravel would weigh ${((totalTons / 0.85) * 1.35).toFixed(2)} tons, saving significant hauling energy.`;
+      if (activeDensity === 0.75) {
+        yieldText.textContent = `At the 0.75 short-ton/yd³ lava-rock example, this measured layer is about ${totalTons.toFixed(2)} tons. Replace the planning weight with your supplier's figure before ordering.`;
       } else {
-        const lavaTons = ((totalTons / activeDensity) * 0.85).toFixed(2);
-        yieldText.textContent = `${activeMatName} has a density of ${activeDensity.toFixed(2)} T/yd³. For this ${Math.round(area)} sq ft area, it requires ${totalTons.toFixed(2)} tons. Switching to Volcanic Lava Rock would only require ${lavaTons} tons.`;
+        const lavaTons = ((totalTons / activeDensity) * 0.75).toFixed(2);
+        yieldText.textContent = `This ${activeMatName} example is about ${totalTons.toFixed(2)} tons for ${Math.round(area)} sq ft. The same volume at the 0.75-ton/yd³ lava-rock example would be ${lavaTons} tons; actual bulk weights vary by supplier.`;
       }
     }
   }

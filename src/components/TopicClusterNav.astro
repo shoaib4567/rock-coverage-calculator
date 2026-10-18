@@ -47,7 +47,7 @@ const EXPANSION_MATERIALS: LinkItem[] = [
   { title: 'Trap Rock Calculator', slug: '/trap-rock-calculator', badge: '1.52 t/yd³', desc: 'Dense igneous basalt and diabase aggregate for driveways, track ballast, and borders.' },
   { title: 'Garden Rock Calculator', slug: '/garden-rock-calculator', badge: 'Horticultural', desc: 'Decorative rock mulch estimator for flower beds, perennials, and garden borders.' },
   { title: 'Decomposed Granite Calculator', slug: '/decomposed-granite-calculator', badge: 'Compactable fines', desc: 'Estimate DG paths and patios with an editable loose density and order allowance.' },
-  { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: 'Lightweight', desc: 'Volcanic scoria for garden beds and decorative cover.' },
+  { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: 'Landscape bed', desc: 'Measure a lava-rock layer, then estimate bulk yards, supplier-weight tons, and bags.' },
   { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'Decorative chips', desc: 'White marble aggregate for borders and garden accents.' },
   { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: '1.40 t/yd³', desc: '3/4 inch fractured angular granite for heavy driveways and parking pads.' },
   { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: 'Erosion stone', desc: 'Large stone for culverts, slopes, and shorelines where specified.' },
@@ -84,8 +84,8 @@ const MATERIAL_CONVERSIONS: LinkItem[] = [
   { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Coverage Solver', desc: 'Convert pea gravel tons, yards, or bags to area, or estimate an order from area and depth.' },
   { title: 'Decomposed Granite Tons Calculator', slug: '/decomposed-granite-tons-calculator', badge: 'Tons Solver', desc: 'Convert finished DG layer volume to loose order yards and short tons with editable assumptions.' },
   { title: 'Decomposed Granite Coverage Calculator', slug: '/decomposed-granite-coverage-calculator', badge: 'Coverage Solver', desc: 'Estimate finished DG area per loose cubic yard or short ton at a chosen depth.' },
-  { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Bag Solver', desc: 'Calculate lightweight 0.5 cu ft bags of red or black volcanic scoria.' },
-  { title: 'Lava Rock Coverage Calculator', slug: '/lava-rock-coverage-calculator', badge: 'Coverage Solver', desc: 'Calculate high-yield square footage for lightweight volcanic lava rock.' },
+  { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Bag Solver', desc: 'Count whole landscape-lava bags from the label volume and estimate carrying weight.' },
+  { title: 'Lava Rock Coverage Calculator', slug: '/lava-rock-coverage-calculator', badge: 'Coverage Solver', desc: 'Convert known lava-rock yards, tons, or bags to area at a chosen depth.' },
   { title: 'Marble Chips Bag Calculator', slug: '/marble-chips-bag-calculator', badge: 'Bag Solver', desc: 'Calculate 0.5 cu ft bags of sparkling white dolomite marble chips.' }
 ];
 
@@ -138,7 +138,7 @@ const hasContextLinks = upLinks.length > 0 || lateralLinks.length > 0 || bridgeL
             <div class="context-card">
               <div class="context-card-title">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                <h3>Alternative Materials (Lateral)</h3>
+                <h3>Related materials and calculators</h3>
               </div>
               <ul class="context-list">
                 {lateralLinks.map((link) => (
@@ -157,7 +157,7 @@ const hasContextLinks = upLinks.length > 0 || lateralLinks.length > 0 || bridgeL
             <div class="context-card">
               <div class="context-card-title">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
-                <h3>Units and Conversions (Bridge)</h3>
+                <h3>Conversions and buying guides</h3>
               </div>
               <ul class="context-list">
                 {bridgeLinks.map((link) => (
