@@ -108,15 +108,15 @@ export const ROCK_MATERIALS = [
     category: 'decorative',
     typicalSize: '1/2-1"',
     minDepthInches: 2,
-    densityLbsPerCuYd: 2600,
-    tonsPerCuYd: 1.30,
-    densityLbsPerCuFt: 96,
-    densityKgPerCuM: 1542,
-    typicalRange: [2500, 2700],
+    densityLbsPerCuYd: 2700,
+    tonsPerCuYd: 1.35,
+    densityLbsPerCuFt: 100,
+    densityKgPerCuM: 1602,
+    typicalRange: [2400, 2700],
     isCompactable: false,
     swatchColor: '#e8e0d8',
     description: 'Bright white ornamental chips for garden borders and accents.',
-    notes: 'High reflectivity, smooth profile, may affect soil pH'
+    notes: 'Planning density only; confirm loose bulk weight with your supplier. Angular carbonate chips may affect soil pH.'
   },
   {
     id: 'river-rock-3-5',

@@ -4,293 +4,231 @@ import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
-import DecorativeIntentBlock from '../components/intent/DecorativeIntentBlock.astro';
 
+const pageTitle = 'Marble Chips Calculator: Yards, Tons & Bags';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Marble Chips Calculator', url: '/marble-chips-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'White Marble Chips' },
-  { label: 'Mineral Source', value: 'Crushed Crystalline Calcite / Dolomite' },
-  { label: 'Bulk Density', value: '1.25 t/yd³ (93 lbs/cu ft)' },
-  { label: 'Coverage Yield', value: '130 sq ft per Ton at 2" Depth' }
+  { label: 'Material', value: 'White marble chips' },
+  { label: 'Stone', value: 'Crushed calcite or dolomite marble' },
+  { label: 'Default bulk weight', value: '2,700 lb per cubic yard; editable' }
 ];
-
 const quickStats = [
-  { value: '1/2" to 1"', label: 'Particle Caliper', desc: 'Angular crushed white marble with sparkling crystalline facets' },
-  { value: '1.25 t/yd³', label: 'Quarry Density', desc: 'ASTM C29 loose stockpile weight (2,500 lbs per cubic yard)' },
-  { value: 'Solar Reflective', label: 'Albedo Rating', desc: 'Reflects radiant heat away from foundation walls and stems' }
+  { value: '162 sq ft', label: 'Per cubic yard at 2 in', desc: 'Geometric coverage before ordering extra.' },
+  { value: '1.35 tons', label: 'Example weight per yard', desc: 'US short tons; replace with your supplier’s loose bulk weight.' },
+  { value: '3 sq ft', label: 'Per 0.5 cu ft bag at 2 in', desc: 'Theoretical yield; check the product label.' }
 ];
-
 const faqItems = [
   {
-    q: 'How many bags of white marble chips do I need for a 150 square foot border?',
-    a: 'At a standard decorative depth of 2.0 inches, 150 square feet requires 25 cubic feet (0.93 cubic yards) of marble chips. Since standard retail bags hold 0.5 cubic feet, you need 50 bags. At approximately 46 pounds per bag, total weight is 2,300 pounds (1.15 short tons).'
+    q: 'How much marble do I need for 150 square feet at 2 inches deep?',
+    a: 'The finished layer is 25 cubic feet, or 0.93 cubic yard. With 10% extra, plan 27.5 cubic feet or 1.02 cubic yards. At the editable example weight of 2,700 pounds per cubic yard, that is about 1.38 US short tons. It also equals 55 half-cubic-foot bags.'
   },
   {
-    q: 'Do white marble chips change the soil pH around plants?',
-    a: 'Yes. Marble is metamorphosed limestone composed of calcium carbonate (calcite) and dolomite. Over time, rainwater leaches minerals that slightly raise soil alkalinity (higher pH). Avoid using marble chips directly against acid-loving plants such as azaleas, rhododendrons, hydrangeas, and blueberries.'
+    q: 'How many square feet does one cubic yard of marble chips cover?',
+    a: 'One cubic yard covers 216 square feet at 1.5 inches, 162 square feet at 2 inches, or 108 square feet at 3 inches, before allowance. This is volume math; chip size and the surface below can change the finished appearance.'
   },
   {
-    q: 'How do you keep white marble chips clean and bright over time?',
-    a: 'Always install a commercial 4 to 6 oz non-woven geotextile fabric beneath the marble chips to prevent soil mud from splashing upward during rain. Keep trees pruned back to reduce falling leaf debris, and periodically rinse the stone with a garden hose or pressure washer to remove airborne dust.'
+    q: 'Will marble chips change soil pH?',
+    a: 'Marble contains carbonate minerals. Leaching can increase soil alkalinity, so marble chips are a poor choice next to acid-loving plants. Consider the existing soil and planting plan before using them in a bed.'
   },
   {
-    q: 'What is the recommended depth for white marble chips?',
-    a: 'Install white marble chips at a depth of 2.0 to 2.5 inches. Because the stone is stark white, a 2-inch layer over dark black weed fabric provides 100 percent visual opacity without over-ordering weight.'
+    q: 'Do marble chips need landscape fabric?',
+    a: 'A permeable separator can help keep stone and soil apart in a stable bed, but it is optional and does not permanently stop weeds. Leaf litter and windblown soil can collect above fabric, so the surface still needs maintenance.'
   }
 ];
-
 const upLinks = [
-  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
-  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+  { title: 'Rock Coverage Calculator', slug: '/', badge: 'Main tool' },
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Material family' }
 ];
-
 const lateralLinks = [
-  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: '0.75-1.40 t/yd³' },
-  { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: '0.75 t/yd³' },
-  { title: 'Beach Pebble Calculator', slug: '/beach-pebble-calculator', badge: '1.35 t/yd³' }
+  { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: 'Lightweight stone' },
+  { title: 'Beach Pebble Calculator', slug: '/beach-pebble-calculator', badge: 'Rounded stone' }
 ];
-
 const bridgeLinks = [
-  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags' },
-  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Sq Ft' },
-  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' }
+  { title: 'Marble Chips Bag Calculator', slug: '/marble-chips-bag-calculator', badge: 'Bag sizes and cost' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Weight' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Buying guide' }
 ];
-
 const supportGuides = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Protocol' },
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Layer planning' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'Bulk weight' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' }
 ];
 ---
 
 <BaseLayout
-  title="Marble Chips Calculator - White Stone Volume, Tons & Bags"
-  metaDescription="Calculate cubic yards, tons, and bags of white marble chips. Sizing formulas for garden borders, tree wells, and reflective landscape beds."
+  title={pageTitle}
+  metaDescription="Measure a white marble chip bed in cubic yards, US short tons, and bags. Adjust supplier bulk weight and order allowance; see depth examples and planting cautions."
   canonicalPath="/marble-chips-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Marble Chips Calculator",
-      "url": "https://rockcoveragecalculator.com/marble-chips-calculator",
-      "description": "Calculates white marble chips volume, bags, and scale tonnage for decorative borders and tree wells.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Landscape Designers, Homeowners, Commercial Masons, Estimators"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "White Marble Chips"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/marble-chips-calculator',
+      description: 'Estimates white marble chip layer volume, loose bulk weight, and half-cubic-foot bag equivalents from measured area and depth.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question', name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="Marble Chips Calculator"
+      title={pageTitle}
       highlightWord="Calculator"
-      badge="Reflective White Stone Engine"
-      subtitle="Accurate cubic yards, quarry scale tonnage, and retail 0.5 cu ft bag calculations for sparkling white crystalline marble chips."
+      badge="White marble landscape stone"
+      subtitle="For a 150 sq ft bed at 2 inches, the finished layer is 0.93 cubic yard. Add 10% to plan 1.02 cubic yards, or about 1.38 US short tons at the editable 2,700 lb/yd³ example weight."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
       theme="decorative"
     />
 
-    <!-- Interactive Marble Chips Calculator Tool -->
-    <section class="section">
+    <section class="section marble-tool" aria-labelledby="marble-tool-title">
       <div class="container">
+        <div class="section-intro">
+          <h2 id="marble-tool-title">Estimate a finished layer and an order</h2>
+          <p>Measure the area inside your edging. Enter the depth you want after spreading, then use your supplier’s loose bulk weight if you have it. Bag equivalents here use 0.5 cu ft; the <a href="/marble-chips-bag-calculator">marble chips bag calculator</a> accepts the actual volume printed on a retail bag.</p>
+        </div>
         <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Marble Chips Bed Dimensions</h3>
+          <div class="calc-panel">
+            <div class="calc-panel-title"><h3>Bed measurements</h3></div>
+            <div class="dim-grid">
+              <div class="input-field"><label for="marble-length">Length (ft)</label><input id="marble-length" type="number" value="30" min="0.1" step="0.1" inputmode="decimal" /></div>
+              <div class="input-field"><label for="marble-width">Width (ft)</label><input id="marble-width" type="number" value="5" min="0.1" step="0.1" inputmode="decimal" /></div>
+              <div class="input-field"><label for="marble-depth">Finished depth (in)</label><input id="marble-depth" type="number" value="2" min="0.5" max="12" step="0.5" inputmode="decimal" /></div>
+              <div class="input-field"><label for="marble-allowance">Order allowance (%)</label><input id="marble-allowance" type="number" value="10" min="0" max="25" step="1" inputmode="decimal" /></div>
+              <div class="input-field"><label for="marble-density">Supplier bulk weight (lb/yd³)</label><input id="marble-density" type="number" value="2700" min="1" max="10000" step="50" inputmode="decimal" /><small>2,700 is one supplier example, not a universal marble density.</small></div>
+            </div>
+            <p class="input-error" id="marble-error" role="status" aria-live="polite"></p>
           </div>
-
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="marble-length">Length (Feet)</label>
-              <input type="number" id="marble-length" value="30" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="marble-width">Width (Feet)</label>
-              <input type="number" id="marble-width" value="5" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="marble-depth">Target Depth (Inches)</label>
-              <input type="number" id="marble-depth" value="2.0" min="1" max="8" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="marble-waste">Safety Buffer (%)</label>
-              <input type="number" id="marble-waste" value="10" min="0" max="25" step="1" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
+          <div class="calc-results-panel" aria-live="polite">
+            <div class="calc-panel-title"><h3>Marble chip quantities</h3></div>
             <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-marble-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-marble-cuft">Includes 10% buffer</div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-marble-net">0.00</div><div class="kpi-label">Finished cubic yards</div><div class="kpi-subtext" id="kpi-marble-net-cuft">Before allowance</div></div>
+              <div class="kpi-card highlight"><div class="kpi-value" id="kpi-marble-order">0.00</div><div class="kpi-label">Order cubic yards</div><div class="kpi-subtext" id="kpi-marble-order-cuft">With 10% allowance</div></div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-marble-tons">0.00</div><div class="kpi-label">Estimated US short tons</div><div class="kpi-subtext" id="kpi-marble-lbs">At supplier bulk weight</div></div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-marble-bags">0</div><div class="kpi-label">0.5 cu ft bag equivalents</div><div class="kpi-subtext">Round up whole bags; confirm your bag label.</div></div>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-marble-tons">0.00</div>
-              <div class="kpi-label">Scale Weight (Tons)</div>
-              <div class="kpi-subtext">At 1.25 t/yd³ (2,500 lbs/yd³)</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-marble-bags">0</div>
-              <div class="kpi-label">0.5 cu ft Bags</div>
-              <div class="kpi-subtext">~46 lbs per bag</div>
-            </div>
-            </div>
+            <p class="result-note">Order volume includes the chosen allowance. The scale weight is a planning estimate; a supplier’s actual material and moisture determine the billed weight.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Decorative Sourcing & Weed Barrier Block -->
-    <DecorativeIntentBlock stoneName="White Marble Chips" />
-
-    <!-- Technical Guide on Marble Chips -->
-    <article class="content-guide-section">
+    <article class="marble-guide">
       <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="White Marble Chips Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Marble Chips Sizing Reference</span>
+        <section class="content-card" aria-labelledby="marble-math-title">
+          <h2 id="marble-math-title">What the result means</h2>
+          <p>A 30 × 5 ft border is 150 sq ft. A 2 in finished layer takes <strong>25 cu ft</strong> (150 × 2 ÷ 12), or <strong>0.93 cu yd</strong> (25 ÷ 27). A 10% ordering allowance brings that to <strong>27.5 cu ft = 1.02 cu yd</strong>. At 2,700 lb per loose cubic yard, the order weighs about <strong>2,750 lb = 1.38 US short tons</strong>. If you instead buy 0.5 cu ft bags, 27.5 ÷ 0.5 = <strong>55 bags</strong>.</p>
+          <div class="formula-box" aria-label="Marble chips calculation formulas">
+            <span>Finished cu ft = area (sq ft) × finished depth (in) ÷ 12</span>
+            <span>Order cu yd = finished cu ft × (1 + allowance ÷ 100) ÷ 27</span>
+            <span>US short tons = order cu yd × supplier lb/yd³ ÷ 2,000</span>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Density</span>
-              <span class="aeo-quick-value">1.25 t/yd³ (93 lbs/cu ft)</span>
-              <p class="aeo-quick-desc">Tested per ASTM C29 loose stockpile unit weight methodology.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Coverage at 2"</span>
-              <span class="aeo-quick-value">130 sq ft per Ton</span>
-              <p class="aeo-quick-desc">High contrast white color achieves complete visual opacity at 2 inches.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bag Count</span>
-              <span class="aeo-quick-value">54 Bags per Cubic Yard</span>
-              <p class="aeo-quick-desc">Standard 0.5 cu ft bag weighs approximately 46 pounds.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Soil Impact</span>
-              <span class="aeo-quick-value">Alkaline pH Buffer</span>
-              <p class="aeo-guide-desc">Avoid placing directly over acid-loving plants like azaleas.</p>
-            </div>
-          </div>
+          <p>Use the <a href="/marble-chips-bag-calculator">bag calculator</a> when a store sells 0.4 cu ft bags or quotes bag weight and price. Bag count depends on <em>labeled volume</em>; bulk density is used only for the loose stone tonnage estimate.</p>
         </section>
 
-        <div class="content-card">
-          <h2>Geology & Architectural Applications of White Marble</h2>
-          <p>
-            <strong>White Marble Chips</strong> are produced by crushing high-purity metamorphic limestone composed of recrystallized carbonate minerals, primarily calcite (CaCO3) and dolomite. The crystalline structure gives the stone its brilliant white coloration and glistening reflective sparkle under direct sunlight.
-          </p>
-          <p>
-            With a loose bulk density of approximately <strong>93 pounds per cubic foot (1.25 tons per cubic yard)</strong>, white marble chips are slightly lighter than standard crushed limestone or river gravel, yielding approximately 130 square feet of coverage per ton at a 2-inch depth.
-          </p>
+        <section class="content-card" aria-labelledby="marble-depth-title">
+          <h2 id="marble-depth-title">Choose depth before you buy</h2>
+          <p>Coverage changes directly with finished depth. Choose a depth suited to the chip size, ground beneath, and the look you want; a top-up over existing rock is different from a new bed. The table shows pure volume math. The <a href="https://cumminlandscapesupply.com/marblechips-gravel">supplier used for the default weight</a> advertises about 100 sq ft per cubic yard at 2 inches, versus 162 sq ft by geometry. Ask your seller to explain its product-specific yield and use the verified figure when placing the order.</p>
+          <div class="table-scroll"><table><caption>Geometric coverage from one cubic yard, before allowance</caption><thead><tr><th scope="col">Finished depth</th><th scope="col">Coverage per cu yd</th><th scope="col">Coverage per US short ton at 2,700 lb/yd³</th></tr></thead><tbody><tr><th scope="row">1.5 in</th><td>216 sq ft</td><td>160 sq ft</td></tr><tr><th scope="row">2 in</th><td>162 sq ft</td><td>120 sq ft</td></tr><tr><th scope="row">3 in</th><td>108 sq ft</td><td>80 sq ft</td></tr></tbody></table></div>
+          <figure class="marble-figure"><div class="figure-scroll" tabindex="0" aria-label="Scroll marble layer diagram"><img src="/marble-chips-layer.svg" width="1000" height="480" loading="lazy" alt="Cross section showing a measured two inch white marble chip layer inside edging, with an optional permeable separator above prepared soil." /></div><figcaption>Measure the chip layer itself. A permeable separator can keep soil and stone apart, but it is not a permanent weed solution. <span class="figure-scroll-tip">Swipe the diagram to see its full width.</span></figcaption></figure>
+        </section>
 
-          <div class="formula-box">
-            <code>Volume (Cubic Yards) = [Area (sq ft) × Depth (in)] / 324</code>
-            <br />
-            <code>Total Scale Weight (Tons) = Volume (yd³) × 1.25 t/yd³</code>
-            <br />
-            <code>Total Retail Bags (0.5 cu ft) = Volume (yd³) × 54</code>
+        <section class="content-card" aria-labelledby="marble-weight-title">
+          <h2 id="marble-weight-title">Why bulk weight is editable</h2>
+          <p>White marble products differ by source and chip grading. <a href="https://cumminlandscapesupply.com/marblechips-gravel">Cummin Landscape Supply lists about 2,700 lb per cubic yard</a> for its marble chips, while <a href="https://www.gravelshop.com/shop/calculate-cubic-yard-feet-ton.asp?groupid=86&amp;productid=529">Gravelshop lists 2,410 lb per cubic yard</a> for its 1 in white chips. Both are supplier examples. Ask the seller for the loose bulk weight of the stone being delivered and replace the default when estimating tons.</p>
+          <p>Marble is a recrystallized carbonate rock that can contain calcite, dolomite, or both, as described by the <a href="https://apps.usgs.gov/thesaurus/term-simple.php?code=5.2.5&amp;thcode=4">US Geological Survey</a>. Its <em>particle density</em> is different from the loose bulk weight used here because a stockpile contains gaps between chips. <a href="https://store.astm.org/c0029_c0029m-23.html">ASTM C29/C29M</a> describes a method for measuring aggregate bulk density; this calculator uses supplier figures and does not claim a laboratory test of this particular stone.</p>
+        </section>
+
+        <section class="content-card" aria-labelledby="marble-fit-title">
+          <h2 id="marble-fit-title">Where white marble works, and where to pause</h2>
+          <div class="advice-grid">
+            <div><h3>Good uses</h3><p>Use it as a bright contrast in contained borders, around pavers, or in low-traffic accent beds. Install an edge so loose chips stay out of turf and off paving. Keep a small sample beside your exterior finish before committing to a large area; white chips can show leaves, dust, and stains readily.</p></div>
+            <div><h3>Plant and maintenance checks</h3><p>Carbonate stone can increase soil alkalinity through leaching. <a href="https://extension.msstate.edu/sites/default/files/publications/P2301.pdf">Mississippi State Extension advises against gravel or stone mulch near acid-loving plants</a> and notes heat and reflected light. Keep chips away from stems and trunks, remove leaf litter, and plan for occasional hand weeding even if you use permeable fabric.</p></div>
           </div>
+          <p class="source-note">Fabric can separate stone from soil, but <a href="https://extension.oregonstate.edu/sites/extd8/files/documents/ec1629.pdf">Oregon State Extension notes that weeds can grow in material above fabric</a>. For planted tree rings, consider whether stone is appropriate for the plant before following a decorative layout.</p>
+        </section>
 
-          <h3>Design & Environmental Considerations</h3>
-          <ul>
-            <li><strong>High Solar Albedo:</strong> The bright white surface reflects solar thermal radiation rather than absorbing it. This helps keep soil temperature cooler in hot climates, though reflected glare should be considered near south-facing bedroom windows.</li>
-            <li><strong>pH Sensitivity:</strong> Over years of rain exposure, calcium carbonate slowly leaches into the soil, raising soil pH. Use marble chips with alkaline-tolerant shrubs, boxwoods, and Mediterranean ornamentals.</li>
-            <li><strong>Weed Barrier Requirement:</strong> White marble requires a heavy needle-punched non-woven geotextile membrane. Without fabric, soil particles will migrate up through the stone during rainstorms, discoloring the white rock with muddy brown stains.</li>
-          </ul>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Marble Chips</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
+        <section class="content-card faq-card" aria-labelledby="marble-faq-title">
+          <h2 id="marble-faq-title">Marble chips questions</h2>
+          <div class="faq-list">{faqItems.map(item => <div class="faq-item"><h3>{item.q}</h3><p>{item.a}</p></div>)}</div>
+        </section>
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/marble-chips-calculator"
-      category="material"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav currentPage="/marble-chips-calculator" category="material" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
   </main>
-
   <Footer />
 
   <script>
     function updateMarble() {
-      const l = parseFloat((document.getElementById('marble-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('marble-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('marble-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('marble-waste') as HTMLInputElement)?.value) || 0;
-
-      const netYards = (l * w * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const tons = totalYards * 1.25;
-      const bags = Math.ceil(totalYards * 54);
-
-      const yEl = document.getElementById('kpi-marble-yards');
-      const tEl = document.getElementById('kpi-marble-tons');
-      const bEl = document.getElementById('kpi-marble-bags');
-
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (bEl) bEl.innerText = bags.toLocaleString();
+      const value = (id: string) => parseFloat((document.getElementById(id) as HTMLInputElement).value);
+      const length = value('marble-length');
+      const width = value('marble-width');
+      const depth = value('marble-depth');
+      const allowance = value('marble-allowance');
+      const density = value('marble-density');
+      const fieldValidity: Record<string, boolean> = {
+        'marble-length': Number.isFinite(length) && length > 0,
+        'marble-width': Number.isFinite(width) && width > 0,
+        'marble-depth': Number.isFinite(depth) && depth >= 0.5 && depth <= 12,
+        'marble-allowance': Number.isFinite(allowance) && allowance >= 0 && allowance <= 25,
+        'marble-density': Number.isFinite(density) && density > 0 && density <= 10000
+      };
+      Object.entries(fieldValidity).forEach(([id, valid]) => {
+        document.getElementById(id)?.setAttribute('aria-invalid', String(!valid));
+      });
+      const volumeValid = ['marble-length', 'marble-width', 'marble-depth', 'marble-allowance']
+        .every(id => fieldValidity[id]);
+      const error = document.getElementById('marble-error');
+      if (!volumeValid) {
+        ['kpi-marble-net', 'kpi-marble-order', 'kpi-marble-tons', 'kpi-marble-bags']
+          .forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '—'; });
+        ['kpi-marble-net-cuft', 'kpi-marble-order-cuft', 'kpi-marble-lbs'].forEach(id => {
+          const el = document.getElementById(id); if (el) el.textContent = 'Enter valid values to calculate.';
+        });
+        if (error) error.textContent = 'Enter positive bed dimensions, a 0.5–12 in depth, and a 0–25% allowance.';
+        return;
+      }
+      if (error) error.textContent = '';
+      const finishedFeet = length * width * depth / 12;
+      const orderFeet = finishedFeet * (1 + allowance / 100);
+      const orderYards = orderFeet / 27;
+      const values: Record<string, string> = {
+        'kpi-marble-net': (finishedFeet / 27).toFixed(2),
+        'kpi-marble-order': orderYards.toFixed(2),
+        'kpi-marble-bags': Math.max(1, Math.ceil(orderFeet / 0.5 - 1e-10)).toLocaleString(),
+        'kpi-marble-net-cuft': finishedFeet.toFixed(1) + ' cu ft before allowance',
+        'kpi-marble-order-cuft': orderFeet.toFixed(1) + ' cu ft with ' + allowance + '% allowance'
+      };
+      Object.entries(values).forEach(([id, text]) => { const el = document.getElementById(id); if (el) el.textContent = text; });
+      const tons = document.getElementById('kpi-marble-tons');
+      const poundsLabel = document.getElementById('kpi-marble-lbs');
+      if (fieldValidity['marble-density']) {
+        const pounds = orderYards * density;
+        if (tons) tons.textContent = (pounds / 2000).toFixed(2);
+        if (poundsLabel) poundsLabel.textContent = Math.round(pounds).toLocaleString() + ' lb at ' + density.toLocaleString() + ' lb/yd³';
+      } else {
+        if (tons) tons.textContent = '—';
+        if (poundsLabel) poundsLabel.textContent = 'Enter a positive supplier bulk weight.';
+      }
     }
-
-    ['marble-length', 'marble-width', 'marble-depth', 'marble-waste'].forEach(id => {
+    ['marble-length', 'marble-width', 'marble-depth', 'marble-allowance', 'marble-density'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', updateMarble);
     });
     updateMarble();
@@ -299,47 +237,37 @@ const supportGuides = [
 
 <style>
   .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  .section-intro { max-width: 860px; margin: 0 0 var(--space-6); }
+  .section-intro h2, .content-card h2 { color: var(--text-primary); font-size: var(--text-2xl); margin-bottom: var(--space-3); }
+  .section-intro p, .content-card p { color: var(--text-secondary); line-height: 1.7; }
+  .section-intro a, .content-card a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 2px; }
+  .input-field small { display: block; color: var(--text-muted); font-size: var(--text-xs); line-height: 1.4; margin-top: 4px; }
+  .input-error { color: #fbbf7b; min-height: 1.5em; font-size: var(--text-sm); margin-top: var(--space-3); }
+  .result-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin-top: var(--space-4); }
+  .marble-guide { background: var(--bg-body); padding: var(--space-8) 0 var(--space-12); }
+  .content-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); margin-bottom: var(--space-8); }
+  .content-card h3 { color: var(--text-primary); font-size: var(--text-lg); margin: 0 0 var(--space-2); }
+  .formula-box { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); border-radius: var(--radius-md); color: var(--text-primary); font-family: var(--font-mono); font-size: var(--text-sm); line-height: 1.7; margin: var(--space-5) 0; }
+  .formula-box span { display: block; }
+  .table-scroll { overflow-x: auto; margin: var(--space-5) 0; }
+  table { width: 100%; border-collapse: collapse; color: var(--text-secondary); min-width: 520px; }
+  caption { text-align: left; color: var(--text-muted); margin-bottom: var(--space-2); }
+  th, td { text-align: left; border-bottom: 1px solid var(--border-subtle); padding: var(--space-3); }
+  thead th { color: var(--text-primary); background: var(--bg-surface); }
+  .marble-figure { max-width: 900px; margin: var(--space-6) auto 0; }
+  .marble-figure img { width: 100%; height: auto; border-radius: var(--radius-lg); }
+  .figure-scroll-tip { display: none; }
+  figcaption, .source-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.5; }
+  figcaption { margin-top: var(--space-2); }
+  @media (max-width: 600px) {
+    .figure-scroll { overflow-x: auto; }
+    .figure-scroll img { min-width: 720px; display: block; }
+    .figure-scroll-tip { display: inline; }
   }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .advice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
+  .advice-grid > div { background: var(--bg-surface); border-radius: var(--radius-md); padding: var(--space-5); }
+  .faq-list { display: grid; gap: var(--space-4); }
   .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .faq-item p { margin-bottom: 0; }
+  @media (max-width: 720px) { .content-card { padding: var(--space-5); } .advice-grid { grid-template-columns: 1fr; } }
 </style>

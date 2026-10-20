@@ -35,7 +35,7 @@ const CORE_MATERIALS: LinkItem[] = [
   { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'By stone grade', desc: 'Compare clean stone and dense graded base for drainage or compacted layers.' },
   { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³', desc: 'Driveway gravel, road gravel, and parking pad aggregate estimation.' },
   { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: '1.35 t/yd³', desc: 'Washed #57 clean stone for French drains, weeping tile, and dry wells.' },
-  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: '0.75-1.40 t/yd³', desc: 'Lava rock, marble chips, and architectural rock for xeriscaping.' },
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Compare materials', desc: 'Compare measured bed volume and supplier-weight estimates for lava rock, marble chips, and beach pebbles.' },
   { title: 'Cobblestone Calculator', slug: '/cobblestone-calculator', badge: '1.45 t/yd³', desc: 'Belgian block cobbles, driveway aprons, and granite border curbing.' },
   { title: 'Landscape Rock Calculator', slug: '/landscape-rock-calculator', badge: 'By rock type', desc: 'Decorative bed quantities in yards, short tons, and bags with editable bulk density.' },
   { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: 'Editable density', desc: 'Estimate loose crushed stone for paths and bases from finished depth, bulk weight, and placement loss.' }
@@ -48,7 +48,7 @@ const EXPANSION_MATERIALS: LinkItem[] = [
   { title: 'Garden Rock Calculator', slug: '/garden-rock-calculator', badge: 'Horticultural', desc: 'Decorative rock mulch estimator for flower beds, perennials, and garden borders.' },
   { title: 'Decomposed Granite Calculator', slug: '/decomposed-granite-calculator', badge: 'Compactable fines', desc: 'Estimate DG paths and patios with an editable loose density and order allowance.' },
   { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: 'Landscape bed', desc: 'Measure a lava-rock layer, then estimate bulk yards, supplier-weight tons, and bags.' },
-  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'Decorative chips', desc: 'White marble aggregate for borders and garden accents.' },
+  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'Bulk and bags', desc: 'Plan white marble chip volume and weight for borders, beds, and garden accents.' },
   { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: '1.40 t/yd³', desc: '3/4 inch fractured angular granite for heavy driveways and parking pads.' },
   { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: 'Erosion stone', desc: 'Large stone for culverts, slopes, and shorelines where specified.' },
   { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: '1.45 t/yd³', desc: 'Dense graded aggregate (AASHTO M147) blending crushed stone and rock dust.' },
@@ -86,7 +86,7 @@ const MATERIAL_CONVERSIONS: LinkItem[] = [
   { title: 'Decomposed Granite Coverage Calculator', slug: '/decomposed-granite-coverage-calculator', badge: 'Coverage Solver', desc: 'Estimate finished DG area per loose cubic yard or short ton at a chosen depth.' },
   { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Bag Solver', desc: 'Count whole landscape-lava bags from the label volume and estimate carrying weight.' },
   { title: 'Lava Rock Coverage Calculator', slug: '/lava-rock-coverage-calculator', badge: 'Coverage Solver', desc: 'Convert known lava-rock yards, tons, or bags to area at a chosen depth.' },
-  { title: 'Marble Chips Bag Calculator', slug: '/marble-chips-bag-calculator', badge: 'Bag Solver', desc: 'Calculate 0.5 cu ft bags of sparkling white dolomite marble chips.' }
+  { title: 'Marble Chips Bag Calculator', slug: '/marble-chips-bag-calculator', badge: 'Bag Solver', desc: 'Count whole white marble chip bags from the volume printed on the chosen product.' }
 ];
 
 const SUPPORTING_GUIDES: LinkItem[] = [
@@ -100,7 +100,29 @@ const SUPPORTING_GUIDES: LinkItem[] = [
   { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'Planning factors', desc: 'Compare loose bulk density estimates and adjust them for your supplier.' }
 ];
 
-const hasContextLinks = upLinks.length > 0 || lateralLinks.length > 0 || bridgeLinks.length > 0 || supportGuides.length > 0;
+// The decorative overview also needs a short path into its material-specific tools.
+// Explicit page links take precedence when a page supplies them.
+const decorativeOverview = currentPage === '/decorative-rock-calculator';
+const contextUpLinks = upLinks.length > 0 ? upLinks : decorativeOverview
+  ? [{ title: 'Rock Coverage Calculator', slug: '/', badge: 'Main tool' }]
+  : [];
+const contextLateralLinks = lateralLinks.length > 0 ? lateralLinks : decorativeOverview
+  ? [
+      { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'White stone' },
+      { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: 'Volcanic stone' },
+      { title: 'Beach Pebble Calculator', slug: '/beach-pebble-calculator', badge: 'Rounded stone' }
+    ]
+  : [];
+const contextBridgeLinks = bridgeLinks.length > 0 ? bridgeLinks : decorativeOverview
+  ? [
+      { title: 'Marble Chips Bag Calculator', slug: '/marble-chips-bag-calculator', badge: 'Retail bags' },
+      { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bag volume' }
+    ]
+  : [];
+const contextSupportGuides = supportGuides.length > 0 ? supportGuides : decorativeOverview
+  ? [{ title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Layer depth' }]
+  : [];
+const hasContextLinks = contextUpLinks.length > 0 || contextLateralLinks.length > 0 || contextBridgeLinks.length > 0 || contextSupportGuides.length > 0;
 ---
 
 <section class="topic-cluster-section" aria-label="Topic Cluster and Knowledge Network">
@@ -115,14 +137,14 @@ const hasContextLinks = upLinks.length > 0 || lateralLinks.length > 0 || bridgeL
         </div>
 
         <div class="context-grid">
-          {upLinks.length > 0 && (
+          {contextUpLinks.length > 0 && (
             <div class="context-card">
               <div class="context-card-title">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
                 <h3>Parent Calculators (Up)</h3>
               </div>
               <ul class="context-list">
-                {upLinks.map((link) => (
+                {contextUpLinks.map((link) => (
                   <li>
                     <a href={link.slug} class="context-link">
                       <span class="link-name">{link.title}</span>
@@ -134,14 +156,14 @@ const hasContextLinks = upLinks.length > 0 || lateralLinks.length > 0 || bridgeL
             </div>
           )}
 
-          {lateralLinks.length > 0 && (
+          {contextLateralLinks.length > 0 && (
             <div class="context-card">
               <div class="context-card-title">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 <h3>Related materials and calculators</h3>
               </div>
               <ul class="context-list">
-                {lateralLinks.map((link) => (
+                {contextLateralLinks.map((link) => (
                   <li>
                     <a href={link.slug} class="context-link">
                       <span class="link-name">{link.title}</span>
@@ -153,14 +175,14 @@ const hasContextLinks = upLinks.length > 0 || lateralLinks.length > 0 || bridgeL
             </div>
           )}
 
-          {bridgeLinks.length > 0 && (
+          {contextBridgeLinks.length > 0 && (
             <div class="context-card">
               <div class="context-card-title">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
                 <h3>Conversions and buying guides</h3>
               </div>
               <ul class="context-list">
-                {bridgeLinks.map((link) => (
+                {contextBridgeLinks.map((link) => (
                   <li>
                     <a href={link.slug} class="context-link">
                       <span class="link-name">{link.title}</span>
@@ -172,14 +194,14 @@ const hasContextLinks = upLinks.length > 0 || lateralLinks.length > 0 || bridgeL
             </div>
           )}
 
-          {supportGuides.length > 0 && (
+          {contextSupportGuides.length > 0 && (
             <div class="context-card highlight">
               <div class="context-card-title">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                 <h3>Engineering Guides (Support)</h3>
               </div>
               <ul class="context-list">
-                {supportGuides.map((link) => (
+                {contextSupportGuides.map((link) => (
                   <li>
                     <a href={link.slug} class="context-link">
                       <span class="link-name">{link.title}</span>

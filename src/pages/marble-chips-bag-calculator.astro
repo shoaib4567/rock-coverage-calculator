@@ -1,293 +1,239 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Marble Chips Bag Calculator: Bags, Coverage & Cost';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Marble Chips Calculator', url: '/marble-chips-calculator' },
   { name: 'Marble Chips Bag Calculator', url: '/marble-chips-bag-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Bagged Marble Chips' },
-  { label: 'Standard Bag Volume', value: '0.5 Cubic Feet per Bag' },
-  { label: 'Bag Weight', value: '46 to 48 lbs per Bag' },
-  { label: 'Yard Multiplier', value: '54 Bags = 1.0 Cubic Yard' }
+  { label: 'Material', value: 'Bagged white marble chips' },
+  { label: 'Bag volume', value: 'Read the product label; 0.5 cu ft example' },
+  { label: 'Bag weight', value: 'Optional label input for carrying load' }
 ];
-
 const quickStats = [
-  { value: '54 Bags', label: 'Per Cubic Yard', desc: 'Exact bag multiplier based on 27 cubic feet per yard' },
-  { value: '3.0 sq ft', label: 'Yield at 2"', desc: 'Ground coverage per 0.5 cu ft bag at standard 2-inch border depth' },
-  { value: '46-48 lbs', label: 'Bag Weight', desc: 'Average dry weight for 0.5 cu ft white crystalline dolomite bag' }
+  { value: '34 bags', label: '100 sq ft at 2 in', desc: '0.5 cu ft bags, before any extra.' },
+  { value: '37 bags', label: 'Same bed with 10% extra', desc: 'Round the purchase up to whole bags.' },
+  { value: '0.4 or 0.5', label: 'Common labeled cu ft', desc: 'Enter the volume printed on the product you chose.' }
 ];
-
 const faqItems = [
   {
-    q: 'How many bags of white marble chips do I need for a 10x10 foot area?',
-    a: 'A 10x10 foot area equals 100 square feet. At a recommended 2-inch depth for decorative white borders, you need 16.7 cubic feet of marble chips, which equals approximately 34 bags of 0.5 cubic feet each (approximately 1,580 lbs total weight).'
+    q: 'How many marble chip bags cover a 10 × 10 ft area at 2 inches?',
+    a: 'A 100-square-foot bed needs 16.7 cubic feet in the finished layer. That is 34 whole 0.5-cubic-foot bags with no extra, or 37 bags with a 10% order allowance. If the label says 0.4 cubic foot, the 10% order is 46 bags.'
   },
   {
-    q: 'How much does a 0.5 cu ft bag of marble chips cover?',
-    a: 'One standard 0.5 cubic foot bag covers 3.0 square feet at 2 inches depth, 2.0 square feet at 3 inches depth, and 1.5 square feet at 4 inches depth.'
+    q: 'How much ground does one 0.5 cu ft bag cover?',
+    a: 'By volume, one 0.5-cubic-foot bag covers 4 square feet at 1.5 inches, 3 square feet at 2 inches, or 2 square feet at 3 inches. Actual appearance depends on chip size and the surface below. If a printed coverage claim disagrees with the bag’s stated volume, ask the seller to clarify before ordering.'
   },
   {
-    q: 'How many bags of marble chips are in a cubic yard?',
-    a: 'There are exactly 54 bags of 0.5 cubic feet in one cubic yard (27 cubic feet / 0.5 cu ft = 54 bags). One cubic yard of bagged marble chips weighs approximately 2,500 pounds (1.25 short tons).'
+    q: 'How many 0.5 cu ft bags equal one cubic yard?',
+    a: 'One cubic yard is 27 cubic feet, so it contains the same nominal volume as 54 bags of 0.5 cubic foot. Weight is product-specific and cannot be determined from bag volume alone.'
   },
   {
-    q: 'Can I use bagged marble chips around all garden plants?',
-    a: 'No. White marble chips are made of crystalline calcium carbonate and dolomite. Rainwater dissolves trace carbonates over time, raising soil pH (making it alkaline). Avoid using marble chips around acid-loving plants such as azaleas, rhododendrons, hydrangeas, and blueberries.'
+    q: 'Can I calculate bags from a 50-pound label alone?',
+    a: 'Use the bag’s stated volume for coverage. Pounds tell you the estimated carrying load once the bag count is known. They do not by themselves state how much area the product covers.'
   }
 ];
-
 const upLinks = [
-  { title: 'Marble Chips Calculator (Material Parent)', slug: '/marble-chips-calculator', badge: 'Material' },
-  { title: 'Rock Bag Calculator (Unit Parent)', slug: '/rock-bag-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'Material parent' },
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'All rock bags' }
 ];
-
 const lateralLinks = [
-  { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Lava Rock' },
-  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Decorative' },
-  { title: 'Beach Pebble Calculator', slug: '/beach-pebble-calculator', badge: 'Beach Pebble' }
+  { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Lava bags' },
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Material family' }
 ];
-
 const bridgeLinks = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Compare quotes' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Depth conversions' }
 ];
-
 const supportGuides = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Finished layer' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Site preparation' }
 ];
 ---
 
 <BaseLayout
-  title="Marble Chips Bag Calculator - 0.5 Cu Ft Retail Sizing & Yields"
-  metaDescription="Calculate exact 0.5 cu ft bags of white marble chips needed for formal garden borders, tree wells, and planters. Sizing formulas, coverage yields, and costs."
+  title={pageTitle}
+  metaDescription="Count white marble chip bags from bed size, finished depth, and the volume printed on the bag. Add an allowance and optional label weight and local price."
   canonicalPath="/marble-chips-bag-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Marble Chips Bag Calculator",
-      "url": "https://rockcoveragecalculator.com/marble-chips-bag-calculator",
-      "description": "Calculates 0.5 cu ft retail bags of white dolomite marble chips needed based on dimensions.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Homeowners, Gardeners, Landscape Designers"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Bagged Marble Chips Calculation"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/marble-chips-bag-calculator',
+      description: 'Counts whole marble chip bags from their labeled volume and estimates optional carrying weight and material cost.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question', name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="Marble Chips Bag Calculator"
-      highlightWord="Bags"
-      badge="Retail Bag Sizing Engine"
-      subtitle="Calculate exact 0.5 cu ft bags of white dolomite marble chips for formal garden borders, tree wells, and walkways."
+      title={pageTitle}
+      highlightWord="Calculator"
+      badge="Retail marble chip planning"
+      subtitle="A 10 × 10 ft bed at 2 inches needs 34 half-cubic-foot bags for the finished layer, or 37 with 10% extra. Enter your bag’s actual labeled volume to get the right whole-bag count."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="decorative"
     />
 
-    <!-- Interactive Marble Chips Bag Calculator Tool -->
-    <section class="section">
+    <section class="section bag-tool" aria-labelledby="bag-tool-title">
       <div class="container">
+        <div class="section-intro">
+          <h2 id="bag-tool-title">Count the bags on your shopping list</h2>
+          <p>Measure the bed within its edge, choose a finished depth, and copy the volume printed on the exact bag you plan to buy. Bag weight and store price are optional: they estimate lifting load and material cost without changing coverage.</p>
+        </div>
         <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Marble Chips Area Dimensions</h3>
+          <div class="calc-panel">
+            <div class="calc-panel-title"><h3>Area and bag label</h3></div>
+            <div class="dim-grid">
+              <div class="input-field"><label for="mcb-length">Length (ft)</label><input id="mcb-length" type="number" value="10" min="0.1" step="0.1" inputmode="decimal" /></div>
+              <div class="input-field"><label for="mcb-width">Width (ft)</label><input id="mcb-width" type="number" value="10" min="0.1" step="0.1" inputmode="decimal" /></div>
+              <div class="input-field"><label for="mcb-depth">Finished depth (in)</label><input id="mcb-depth" type="number" value="2" min="0.5" max="12" step="0.5" inputmode="decimal" /></div>
+              <div class="input-field"><label for="mcb-allowance">Order allowance (%)</label><input id="mcb-allowance" type="number" value="10" min="0" max="25" step="1" inputmode="decimal" /></div>
+              <div class="input-field"><label for="mcb-volume">Labeled volume per bag (cu ft)</label><input id="mcb-volume" type="number" value="0.5" min="0.01" max="5" step="0.1" inputmode="decimal" /><small>Some marble products are 0.4 cu ft. Check your bag.</small></div>
+              <div class="input-field"><label for="mcb-weight">Labeled weight per bag (lb), optional</label><input id="mcb-weight" type="number" min="0.1" max="1000" step="0.5" inputmode="decimal" placeholder="e.g. 50" /></div>
+              <div class="input-field"><label for="mcb-price">Your price per bag ($), optional</label><input id="mcb-price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter local price" /></div>
+            </div>
+            <p class="input-error" id="mcb-error" role="status" aria-live="polite"></p>
           </div>
-
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="mcb-length">Length (Feet)</label>
-              <input type="number" id="mcb-length" value="15" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="mcb-width">Width (Feet)</label>
-              <input type="number" id="mcb-width" value="8" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="mcb-depth">Depth (Inches)</label>
-              <input type="number" id="mcb-depth" value="2.0" min="1" max="12" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="mcb-price">Price per Bag ($)</label>
-              <input type="number" id="mcb-price" value="5.50" min="1" step="0.25" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
+          <div class="calc-results-panel" aria-live="polite">
+            <div class="calc-panel-title"><h3>Whole-bag purchase</h3></div>
             <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-mcb-bags">0</div>
-              <div class="kpi-label">0.5 Cu Ft Bags Needed</div>
-              <div class="kpi-subtext" id="kpi-mcb-lbs">0 lbs total weight</div>
+              <div class="kpi-card highlight"><div class="kpi-value" id="kpi-mcb-bags">0</div><div class="kpi-label">Bags to buy</div><div class="kpi-subtext" id="kpi-mcb-purchased">Rounded up to whole bags</div></div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-mcb-net">0.0</div><div class="kpi-label">Finished cu ft</div><div class="kpi-subtext" id="kpi-mcb-net-yards">Before allowance</div></div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-mcb-order">0.0</div><div class="kpi-label">Order cu ft</div><div class="kpi-subtext" id="kpi-mcb-order-yards">After allowance</div></div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-mcb-cost">—</div><div class="kpi-label">Estimated bag cost</div><div class="kpi-subtext" id="kpi-mcb-cost-note">Add local price to estimate cost.</div></div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-mcb-weight">—</div><div class="kpi-label">Estimated carrying load</div><div class="kpi-subtext" id="kpi-mcb-weight-result">Add label weight to estimate load.</div></div>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-mcb-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-mcb-cuft">0 cu ft</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-mcb-cost">$0.00</div>
-              <div class="kpi-label">Estimated Material Cost</div>
-              <div class="kpi-subtext">Retail total</div>
-            </div>
-            </div>
+            <p class="result-note">Cost excludes tax and delivery. Bag weight is based on the label you enter; the count itself uses labeled cubic feet. Check vehicle payload before transporting a large order.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on Bagged Marble Chips -->
-    <article class="content-guide-section">
+    <article class="bag-guide">
       <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Marble Chips Bag Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Marble Chips Bag Reference</span>
-          </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Master Formula</span>
-              <span class="aeo-quick-value">Bags = [Area (sq ft) × Depth (in) / 12] × 2</span>
-              <p class="aeo-quick-desc">Converts cubic feet into 0.5 cu ft commercial retail bags.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Yield at 2"</span>
-              <span class="aeo-quick-value">3.0 sq ft per Bag</span>
-              <p class="aeo-quick-desc">Standard depth for sparkling white borders and tree rings.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bag Weight</span>
-              <span class="aeo-quick-value">46 to 48 lbs per Bag</span>
-              <p class="aeo-quick-desc">Crystalline dolomite density of 1.25 tons per cubic yard.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Soil Impact</span>
-              <span class="aeo-quick-value">Raises Soil pH (Alkaline)</span>
-              <p class="aeo-quick-desc">Avoid using around acid-loving shrubs (azaleas, hydrangeas).</p>
-            </div>
+        <section class="content-card" aria-labelledby="bag-example-title">
+          <h2 id="bag-example-title">A 10 × 10 ft bed, two ways</h2>
+          <p>At 2 inches deep, 100 sq ft takes <strong>16.7 cu ft</strong> in the finished layer. Add 10% for edges and uneven spots to plan <strong>18.3 cu ft</strong>. Dividing by a 0.5 cu ft label gives 36.7, so buy <strong>37 whole bags</strong>. A 0.4 cu ft product needs <strong>46 bags</strong> for the same planned volume. The bag’s printed volume, not its pound rating, decides coverage.</p>
+          <figure class="bag-figure"><div class="figure-scroll" tabindex="0" aria-label="Scroll marble bag calculation diagram"><img src="/marble-chips-bag-math.svg" width="1000" height="300" loading="lazy" alt="Calculation flow: 100 square feet at two inches needs 16.7 cubic feet, 18.3 with ten percent extra, and 37 whole bags labeled 0.5 cubic feet." /></div><figcaption>Order allowance is applied before dividing by the bag’s labeled volume. Always round the purchase up. <span class="figure-scroll-tip">Swipe the diagram to see its full width.</span></figcaption></figure>
+          <div class="formula-box" aria-label="Marble bag formulas">
+            <span>Finished cu ft = length (ft) × width (ft) × depth (in) ÷ 12</span>
+            <span>Bags = round up [finished cu ft × (1 + allowance ÷ 100) ÷ bag cu ft]</span>
+            <span>Material cost = whole bags × local price per bag</span>
           </div>
         </section>
 
-        <div class="content-card">
-          <h2>Calculating Retail Bags of White Marble Chips</h2>
-          <p>
-            White marble chips consist of crushed crystalline dolomite marble. Packaged in <strong>0.5 cubic foot</strong> bags weighing <strong>46 to 48 pounds</strong>, they are ideal for highlighting architectural features and formal pathways:
-          </p>
+        <section class="content-card" aria-labelledby="bag-yield-title">
+          <h2 id="bag-yield-title">Coverage by bag volume and depth</h2>
+          <p>These are geometric volumes before extra for edges or uneven ground. Compare both the stated volume and coverage on the exact bag. If they disagree, ask the seller to clarify and plan with the more cautious yield until you know which figure applies.</p>
+          <div class="table-scroll"><table><caption>Square feet covered by one bag before allowance</caption><thead><tr><th scope="col">Finished depth</th><th scope="col">0.5 cu ft bag</th><th scope="col">0.4 cu ft bag</th></tr></thead><tbody><tr><th scope="row">1.5 in</th><td>4.0 sq ft</td><td>3.2 sq ft</td></tr><tr><th scope="row">2 in</th><td>3.0 sq ft</td><td>2.4 sq ft</td></tr><tr><th scope="row">3 in</th><td>2.0 sq ft</td><td>1.6 sq ft</td></tr></tbody></table></div>
+          <p><strong>What labels actually say:</strong> <a href="https://www.homedepot.com/p/Vigoro-0-5-cu-ft-Bagged-Marble-Chip-Landscape-Rock-54141/100583677">Vigoro at Home Depot lists 0.5 cu ft and 50 lb</a>, consistent with its 2 sq ft coverage at 3 inches. <a href="https://www.lowes.com/pd/0-4-cu-ft-Off-white-Marble-Chips/5014294109">A Lowe’s off-white marble listing says 0.4 cu ft and 45 lb</a>, but also claims 3 sq ft at 2 inches; 0.4 cu ft geometrically covers only 2.4 sq ft at that depth. Confirm a conflicting yield with the seller before buying. Use the selected bag’s actual volume and weight rather than assuming every marble product is alike.</p>
+        </section>
 
-          <div class="formula-box">
-            <code>Total Cubic Feet = [Length (ft) × Width (ft) × Depth (in)] / 12</code>
-            <br />
-            <code>Number of 0.5 cu ft Bags = Total Cubic Feet × 2</code>
+        <section class="content-card" aria-labelledby="bag-buy-title">
+          <h2 id="bag-buy-title">Decide between bags and a bulk delivery</h2>
+          <div class="advice-grid">
+            <div><h3>Bags for access and small areas</h3><p>Whole bags are convenient for a narrow side yard, a planter refresh, or a bed far from a truck drop. Multiply the rounded bag count by the current local price, then add taxes or delivery. If the label says 50 lb, 37 bags are about 1,850 lb of bags to move; confirm the vehicle’s actual payload and plan more than one trip when needed.</p></div>
+            <div><h3>Bulk for a large, open bed</h3><p>For a large project, compare the full delivered bulk quote with the bag total, including minimum quantity and unload location. Use the <a href="/marble-chips-calculator">marble chips calculator</a> to estimate cubic yards and supplier-specific loose short tons. A nominal 54 half-cubic-foot bags occupy one cubic yard, but their combined labeled weight is not a universal bulk-density measurement.</p></div>
           </div>
+          <p class="source-note">White marble is a carbonate stone. <a href="https://extension.msstate.edu/sites/default/files/publications/P2301.pdf">Mississippi State Extension cautions against stone mulch near acid-loving plants</a> and notes heat and reflected light. A <a href="https://extension.oregonstate.edu/sites/extd8/files/documents/ec1629.pdf">fabric layer will not permanently stop weeds</a> that grow in debris above it. Keep chips away from stems and clean leaf litter from the surface.</p>
+        </section>
 
-          <h3>Coverage per 0.5 Cu Ft Bag by Depth</h3>
-          <ul>
-            <li><strong>1.5 Inches Depth:</strong> Covers 4.0 sq ft per bag (light top-dressing refresh over existing marble).</li>
-            <li><strong>2.0 Inches Depth:</strong> Covers 3.0 sq ft per bag (standard border and tree well depth).</li>
-            <li><strong>3.0 Inches Depth:</strong> Covers 2.0 sq ft per bag (heavy weed barrier and walkway surfacing).</li>
-          </ul>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Bagged Marble Chips</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
+        <section class="content-card faq-card" aria-labelledby="bag-faq-title">
+          <h2 id="bag-faq-title">Bagged marble chips questions</h2>
+          <div class="faq-list">{faqItems.map(item => <div class="faq-item"><h3>{item.q}</h3><p>{item.a}</p></div>)}</div>
+        </section>
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/marble-chips-bag-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav currentPage="/marble-chips-bag-calculator" category="quantity" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
   </main>
-
   <Footer />
 
   <script>
     function updateMCB() {
-      const l = parseFloat((document.getElementById('mcb-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('mcb-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('mcb-depth') as HTMLInputElement)?.value) || 0;
-      const price = parseFloat((document.getElementById('mcb-price') as HTMLInputElement)?.value) || 0;
-
-      const cuft = (l * w * (d / 12));
-      const bags = Math.ceil(cuft * 2);
-      const yards = cuft / 27;
-      const totalWeight = bags * 47;
-      const totalCost = bags * price;
-
-      const bEl = document.getElementById('kpi-mcb-bags');
-      const yEl = document.getElementById('kpi-mcb-yards');
-      const cEl = document.getElementById('kpi-mcb-cost');
-      const lbsEl = document.getElementById('kpi-mcb-lbs');
-      const cuftEl = document.getElementById('kpi-mcb-cuft');
-
-      if (bEl) bEl.innerText = bags.toLocaleString();
-      if (yEl) yEl.innerText = yards.toFixed(2);
-      if (cEl) cEl.innerText = '$' + totalCost.toFixed(2);
-      if (lbsEl) lbsEl.innerText = totalWeight.toLocaleString() + ' lbs (~' + (totalWeight / 2000).toFixed(2) + ' tons)';
-      if (cuftEl) cuftEl.innerText = cuft.toFixed(1) + ' cu ft net volume';
+      const raw = (id: string) => (document.getElementById(id) as HTMLInputElement).value.trim();
+      const required = (id: string) => parseFloat(raw(id));
+      const length = required('mcb-length');
+      const width = required('mcb-width');
+      const depth = required('mcb-depth');
+      const allowance = required('mcb-allowance');
+      const volume = required('mcb-volume');
+      const weight = raw('mcb-weight') === '' ? null : required('mcb-weight');
+      const price = raw('mcb-price') === '' ? null : required('mcb-price');
+      const fieldValidity: Record<string, boolean> = {
+        'mcb-length': Number.isFinite(length) && length > 0,
+        'mcb-width': Number.isFinite(width) && width > 0,
+        'mcb-depth': Number.isFinite(depth) && depth >= 0.5 && depth <= 12,
+        'mcb-allowance': Number.isFinite(allowance) && allowance >= 0 && allowance <= 25,
+        'mcb-volume': Number.isFinite(volume) && volume > 0 && volume <= 5,
+        'mcb-weight': weight === null || (Number.isFinite(weight) && weight > 0 && weight <= 1000),
+        'mcb-price': price === null || (Number.isFinite(price) && price >= 0)
+      };
+      Object.entries(fieldValidity).forEach(([id, valid]) => {
+        document.getElementById(id)?.setAttribute('aria-invalid', String(!valid));
+      });
+      const volumeValid = ['mcb-length', 'mcb-width', 'mcb-depth', 'mcb-allowance', 'mcb-volume']
+        .every(id => fieldValidity[id]);
+      const error = document.getElementById('mcb-error');
+      if (!volumeValid) {
+        ['kpi-mcb-bags', 'kpi-mcb-net', 'kpi-mcb-order', 'kpi-mcb-cost'].forEach(id => {
+          const el = document.getElementById(id); if (el) el.textContent = '—';
+        });
+        const weightEl = document.getElementById('kpi-mcb-weight');
+        if (weightEl) weightEl.textContent = '—';
+        ['kpi-mcb-purchased', 'kpi-mcb-net-yards', 'kpi-mcb-order-yards', 'kpi-mcb-weight-result', 'kpi-mcb-cost-note'].forEach(id => {
+          const el = document.getElementById(id); if (el) el.textContent = 'Enter valid values to calculate.';
+        });
+        if (error) error.textContent = 'Enter positive dimensions and bag volume, a 0.5–12 in depth, and a 0–25% allowance.';
+        return;
+      }
+      if (error) error.textContent = '';
+      const finishedFeet = length * width * depth / 12;
+      const orderFeet = finishedFeet * (1 + allowance / 100);
+      const bags = Math.max(1, Math.ceil(orderFeet / volume - 1e-10));
+      const values: Record<string, string> = {
+        'kpi-mcb-bags': bags.toLocaleString(),
+        'kpi-mcb-net': finishedFeet.toFixed(1),
+        'kpi-mcb-order': orderFeet.toFixed(1),
+        'kpi-mcb-purchased': (bags * volume).toFixed(1) + ' cu ft purchased in whole bags',
+        'kpi-mcb-net-yards': (finishedFeet / 27).toFixed(2) + ' cu yd before allowance',
+        'kpi-mcb-order-yards': (orderFeet / 27).toFixed(2) + ' cu yd with ' + allowance + '% extra'
+      };
+      Object.entries(values).forEach(([id, text]) => { const el = document.getElementById(id); if (el) el.textContent = text; });
+      const cost = document.getElementById('kpi-mcb-cost');
+      const costNote = document.getElementById('kpi-mcb-cost-note');
+      if (cost) cost.textContent = price !== null && fieldValidity['mcb-price'] ? '$' + (bags * price).toFixed(2) : '—';
+      if (costNote) costNote.textContent = !fieldValidity['mcb-price'] ? 'Enter a nonnegative price per bag.' :
+        price === null ? 'Add local price to estimate cost.' : 'Whole bags × your local price; before tax and delivery.';
+      const load = document.getElementById('kpi-mcb-weight');
+      const loadNote = document.getElementById('kpi-mcb-weight-result');
+      if (load) load.textContent = weight !== null && fieldValidity['mcb-weight'] ? Math.round(bags * weight).toLocaleString() + ' lb' : '—';
+      if (loadNote) loadNote.textContent = !fieldValidity['mcb-weight'] ? 'Enter a positive labeled bag weight.' :
+        weight === null ? 'Add label weight to estimate load.' : bags + ' bags × ' + weight + ' lb per bag.';
     }
-
-    ['mcb-length', 'mcb-width', 'mcb-depth', 'mcb-price'].forEach(id => {
+    ['mcb-length', 'mcb-width', 'mcb-depth', 'mcb-allowance', 'mcb-volume', 'mcb-weight', 'mcb-price'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', updateMCB);
     });
     updateMCB();
@@ -296,46 +242,37 @@ const supportGuides = [
 
 <style>
   .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  .section-intro { max-width: 860px; margin: 0 0 var(--space-6); }
+  .section-intro h2, .content-card h2 { color: var(--text-primary); font-size: var(--text-2xl); margin-bottom: var(--space-3); }
+  .section-intro p, .content-card p { color: var(--text-secondary); line-height: 1.7; }
+  .section-intro a, .content-card a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 2px; }
+  .input-field small { display: block; color: var(--text-muted); font-size: var(--text-xs); line-height: 1.4; margin-top: 4px; }
+  .input-error { color: #fbbf7b; min-height: 1.5em; font-size: var(--text-sm); margin-top: var(--space-3); }
+  .result-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin-top: var(--space-4); }
+  .bag-guide { background: var(--bg-body); padding: var(--space-8) 0 var(--space-12); }
+  .content-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); margin-bottom: var(--space-8); }
+  .content-card h3 { color: var(--text-primary); font-size: var(--text-lg); margin: 0 0 var(--space-2); }
+  .formula-box { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); border-radius: var(--radius-md); color: var(--text-primary); font-family: var(--font-mono); font-size: var(--text-sm); line-height: 1.7; margin: var(--space-5) 0; }
+  .formula-box span { display: block; }
+  .table-scroll { overflow-x: auto; margin: var(--space-5) 0; }
+  table { width: 100%; border-collapse: collapse; color: var(--text-secondary); min-width: 470px; }
+  caption { text-align: left; color: var(--text-muted); margin-bottom: var(--space-2); }
+  th, td { text-align: left; border-bottom: 1px solid var(--border-subtle); padding: var(--space-3); }
+  thead th { color: var(--text-primary); background: var(--bg-surface); }
+  .bag-figure { max-width: 900px; margin: var(--space-6) auto; }
+  .bag-figure img { width: 100%; height: auto; border-radius: var(--radius-lg); }
+  .figure-scroll-tip { display: none; }
+  figcaption, .source-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.5; }
+  figcaption { margin-top: var(--space-2); }
+  @media (max-width: 600px) {
+    .figure-scroll { overflow-x: auto; }
+    .figure-scroll img { min-width: 720px; display: block; }
+    .figure-scroll-tip { display: inline; }
   }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .advice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); margin: var(--space-4) 0; }
+  .advice-grid > div { background: var(--bg-surface); border-radius: var(--radius-md); padding: var(--space-5); }
+  .faq-list { display: grid; gap: var(--space-4); }
   .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .faq-item p { margin-bottom: 0; }
+  @media (max-width: 720px) { .content-card { padding: var(--space-5); } .advice-grid { grid-template-columns: 1fr; } }
 </style>
