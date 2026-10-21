@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="490" viewBox="0 0 760 490" role="img" aria-labelledby="title desc">
+<title id="title">Egg rock bed: measure, then convert</title>
+<desc id="desc">A 20 by 5 foot bed is 100 square feet. At 3 inches deep the layer occupies 25 cubic feet or 0.93 cubic yard. Product-specific weight and bag volume turn that amount into an order.</desc>
+<defs><linearGradient id="paper" x2="0" y2="1"><stop stop-color="#fffaf0"/><stop offset="1" stop-color="#f3ead8"/></linearGradient><pattern id="soil" width="18" height="12" patternUnits="userSpaceOnUse"><rect width="18" height="12" fill="#705c4c"/><circle cx="3" cy="5" r="1" fill="#a68b70"/><circle cx="13" cy="9" r="1" fill="#aa957b"/></pattern></defs>
+<rect width="760" height="490" rx="24" fill="url(#paper)"/>
+<text x="36" y="51" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#2a3b40">Measure a finished egg rock layer</text>
+<text x="36" y="79" font-family="Arial,sans-serif" font-size="16" fill="#596b6c">Example: 20 ft × 5 ft bed, 3 in deep, no order extra</text>
+<rect x="38" y="111" width="330" height="181" rx="14" fill="#e1d3bb" stroke="#9c856a" stroke-width="3"/>
+<g fill="#9f9b87" stroke="#747565" stroke-width="2"><ellipse cx="75" cy="147" rx="22" ry="15" transform="rotate(-20 75 147)"/><ellipse cx="129" cy="148" rx="24" ry="17" transform="rotate(13 129 148)"/><ellipse cx="187" cy="145" rx="20" ry="16"/><ellipse cx="244" cy="150" rx="24" ry="15" transform="rotate(-12 244 150)"/><ellipse cx="310" cy="146" rx="23" ry="16"/><ellipse cx="81" cy="202" rx="24" ry="16"/><ellipse cx="139" cy="205" rx="19" ry="15"/><ellipse cx="198" cy="203" rx="24" ry="16" transform="rotate(-15 198 203)"/><ellipse cx="260" cy="204" rx="21" ry="16"/><ellipse cx="320" cy="208" rx="21" ry="15"/><ellipse cx="75" cy="258" rx="22" ry="15"/><ellipse cx="132" cy="255" rx="23" ry="17"/><ellipse cx="191" cy="257" rx="20" ry="16"/><ellipse cx="254" cy="256" rx="22" ry="16"/><ellipse cx="317" cy="258" rx="24" ry="16"/></g>
+<path d="M41 309h324" stroke="#2a3b40" stroke-width="2"/><path d="M41 302v14M365 302v14" stroke="#2a3b40" stroke-width="2"/><text x="171" y="333" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#2a3b40">20 ft</text>
+<path d="M19 114v175" stroke="#2a3b40" stroke-width="2"/><path d="M12 114h14M12 289h14" stroke="#2a3b40" stroke-width="2"/><text x="6" y="208" transform="rotate(-90 6 208)" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#2a3b40">5 ft</text>
+<rect x="397" y="111" width="325" height="181" rx="14" fill="#eaf0e9" stroke="#8fa598" stroke-width="2"/>
+<text x="421" y="148" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#2a3b40">Area × depth = volume</text>
+<text x="421" y="185" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#305b59">100 sq ft × 3 in ÷ 12</text>
+<text x="421" y="225" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#305b59">= 25 cu ft</text>
+<text x="421" y="258" font-family="Arial,sans-serif" font-size="19" fill="#305b59">= 0.93 cu yd</text>
+<rect x="39" y="359" width="681" height="95" rx="15" fill="#2d4345"/>
+<path d="M365 367v78" stroke="#6e8584" stroke-width="2"/>
+<text x="60" y="393" font-family="Arial,sans-serif" font-size="15" fill="#f4d79a">BY LABELED BAG VOLUME</text>
+<text x="60" y="430" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#fffaf0">50 × 0.5-cu-ft bags</text>
+<text x="388" y="393" font-family="Arial,sans-serif" font-size="15" fill="#f4d79a">BY SUPPLIER BULK WEIGHT</text>
+<text x="388" y="430" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#fffaf0">1.30 US short tons*</text>
+<text x="41" y="478" font-family="Arial,sans-serif" font-size="13" fill="#596b6c">*Using the editable 2,800 lb/cu yd product example. Diagram is illustrative, not to scale.</text>
+</svg>
