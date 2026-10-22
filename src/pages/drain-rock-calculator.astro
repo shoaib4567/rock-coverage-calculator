@@ -3,90 +3,91 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import DrainCalculator from '../components/calculators/DrainCalculator.astro';
-import DrainVisualizer from '../components/visualizers/DrainVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
-import DrainageTrenchBlock from '../components/intent/DrainageTrenchBlock.astro';
 
+const pageTitle = 'Drain Rock Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Drain Rock Calculator', url: '/drain-rock-calculator' }
+  { name: 'Crushed Stone Calculator', url: '/crushed-stone-calculator' },
+  { name: pageTitle, url: '/drain-rock-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Drain Rock' },
-  { label: 'ASTM Grade', value: '#57 Washed Angular Stone (3/4")' },
-  { label: 'Void Space Ratio', value: '35% to 40% Open Void' },
-  { label: 'Application', value: 'French Drains & Retaining Wall Backfill' }
+  { label: 'Material', value: 'Clean, graded drain rock' },
+  { label: 'Use', value: 'French drain stone takeoff' },
+  { label: 'Supplier weight example', value: '2,500 lb/cu yd; editable' }
 ];
-
 const quickStats = [
-  { value: '35-40%', label: 'Hydraulic Void Space', desc: 'Allows rapid subsurface stormwater flow without clogging' },
-  { value: 'Zero Fines', label: 'Washed Spec', desc: 'Silt and quarry dust washed away to preserve pipe perforations' },
-  { value: '4" Pipe Deduct', label: 'Trench Displacement', desc: 'Deducts 0.087 cu ft per linear foot of pipe installed' }
+  { value: '2.00 cu yd', label: '50 ft example', desc: '12 in wide × 18 in deep, with 4 in top cover and 4 in pipe.' },
+  { value: '4.36 cu ft', label: 'Pipe space', desc: 'Approximate outside volume of a 4 in pipe over 50 ft.' },
+  { value: '2.75 tons', label: 'Example order', desc: 'With 10% extra at 2,500 lb per cubic yard.' }
 ];
-
 const faqItems = [
   {
-    q: 'How much drain rock do I need for a 50 foot French drain?',
-    a: 'A standard residential French drain is 12 inches wide and 18 inches deep. For a 50-foot run, total trench volume is 75 cubic feet (2.78 cubic yards). Deducting 4.4 cubic feet for a 4-inch perforated drainage pipe yields approximately 2.62 cubic yards of #57 washed drain rock, or roughly 3.54 tons (approx. 7,070 lbs at 1.35 t/yd³ loose bulk density).'
+    q: 'How much drain rock do I need for a 50-foot French drain?',
+    a: 'A 50-foot trench that is 12 inches wide and 18 inches deep needs about 2.00 cubic yards of installed stone if 4 inches at the top are reserved for cover and a 4-inch outside-diameter pipe runs the full length. A 10% optional allowance brings the example order to 2.20 cubic yards. Change the dimensions to match the part of your trench actually filled with rock.'
   },
   {
-    q: 'Why must drain rock be washed with zero fines?',
-    a: 'Unwashed aggregate (such as crusher run or road base) contains stone dust and sand fines. When stormwater enters the trench, these fine particles wash into the perforated pipe slots and geotextile pores, silting up the system and causing catastrophic drain failure within two years.'
+    q: 'Should I subtract the pipe and the voids between the rocks?',
+    a: 'Subtract the outside volume of a pipe that lies within the rock-filled zone. Do not subtract the air spaces between stones: a supplier cubic yard of loose drain rock already includes those spaces. Void space matters to drainage storage and flow design, which this quantity estimator does not calculate.'
   },
   {
-    q: 'Is round river pebble or angular crushed stone better for French drains?',
-    a: 'Crushed angular stone (#57 limestone or granite) is superior for structural French drains because the angular facets interlock to maintain open vertical drainage channels under soil compaction. Smooth round pea gravel can be used for light surface trenches but shifts excessively beneath surface loads.'
+    q: 'What is the best rock for a French drain?',
+    a: 'Look for a clean, appropriately graded, free-draining product specified for your trench and pipe. Washed angular stone and washed rounded drain gravel are both sold for this use. Confirm size, fines content, and any project specification with the supplier; crusher run with fines is a different product.'
   },
   {
-    q: 'Should I wrap the perforated pipe or wrap the entire gravel trench?',
-    a: 'Civil engineering standards dictate wrapping the entire gravel trench (the "burrito wrap" method) using 4 oz non-woven needle-punched geotextile fabric. Wrapping only the pipe allows surrounding native silt to clog the gravel bed, neutralizing water storage capacity.'
+    q: 'How much does a cubic yard of drain rock weigh?',
+    a: 'There is no single weight for every drain-rock product. For example, South Bay Materials lists 2,500 pounds per cubic yard for its 3/4-inch drain rock, while Three Z lists about 1.4 US short tons, or 2,800 pounds, per cubic yard for its #57 washed gravel. Use the weight quoted for the stone you will buy.'
   }
+];
+const upLinks = [
+  { title: 'Rock Coverage Calculator', slug: '/', badge: 'Main tool' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Aggregate hub' }
+];
+const lateralLinks = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'Gradation' },
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'Rounded option' },
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: 'Broader material' }
+];
+const bridgeLinks = [
+  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Supplier weights' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'General method' }
 ];
 ---
 
 <BaseLayout
-  title="Drain Rock Calculator - French Drain & Perforated Pipe Trench Volume"
-  description="Calculate exact cubic yards and tons of washed drain rock for French drains, retaining walls, and footing trenches. Accounts for pipe displacement and void space."
+  title={pageTitle}
+  metaDescription="Estimate clean drain rock for a French drain by trench fill, top cover and pipe outside diameter. See installed cubic yards, optional order amount, tons and fabric cut size."
   canonicalPath="/drain-rock-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Drain Rock Calculator",
-      "url": "https://rockcoveragecalculator.com/drain-rock-calculator",
-      "description": "Engineered calculator for French drain backfill, perforated pipe trench gravel volume, and subsurface stormwater drainage.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "about": {
-        "@type": "Thing",
-        "name": "Drain Rock"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/drain-rock-calculator',
+      description: 'Estimates drain-rock fill, order volume and weight from trench dimensions, top cover and pipe outside diameter.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question', name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="Drain Rock Calculator"
-      highlightWord="Calculator"
-      badge="Civil Drainage & French Drain Sizing"
-      subtitle="Engineered cubic yard and scale tonnage calculations for #57 washed stone, French drain trenches, foundation weeping tile backfill, and retaining wall relief zones."
+      title={pageTitle}
+      highlightWord="Drain Rock"
+      badge="French drain material takeoff"
+      subtitle="A 50-foot trench, 12 inches wide and 18 inches deep, uses about 2.00 cubic yards of installed drain rock when 4 inches are left for top cover and a 4-inch pipe is inside the stone. Add 10% for an example order of 2.20 cubic yards; enter your own trench and supplier weight below."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -95,213 +96,116 @@ const faqItems = [
 
     <DrainCalculator />
 
-    <DrainVisualizer />
-
-    <!-- French Drain Trench Anatomy & Pipe Displacement Block -->
-    <DrainageTrenchBlock />
-
-    <!-- Engineering Guide on Drainage Stone -->
-    <article class="content-guide-section">
+    <article class="drain-guide">
       <div class="container">
-        <div class="content-card">
-          <h2>Hydraulic Principles of Drain Rock Backfill</h2>
-          <p>
-            Subsurface drainage systems rely entirely on the high permeability and interconnected void ratios of uniform, clean aggregate. In civil engineering specifications, <strong>Drain Rock</strong> is formally designated as ASTM C33 / ASTM D448 size number 57 (1 inch down to No. 4 sieve / 25 to 4.75 mm) or #67 washed stone (3/4 inch down to No. 4 sieve / 19 to 4.75 mm), washed clean of dust and fines.
-          </p>
-
-          <div class="formula-box">
-            <code>Trench Volume (Cubic Feet) = Length (ft) × Width (ft) × Depth (ft)</code>
-            <br />
-            <code>Net Rock Needed (Cubic Yards) = [Trench Vol - Pipe Displacement (cu ft)] / 27</code>
+        <section class="guide-block lead-block" aria-labelledby="where-rock-goes">
+          <div>
+            <p class="eyebrow">Read the trench before ordering</p>
+            <h2 id="where-rock-goes">Measure the rock envelope, not just the excavation</h2>
+            <p>If soil or sod will cover the drain, that top layer is not drain rock. Enter the full excavated depth and the planned cover separately. The calculator takes the pipe's outside volume out of the remaining stone zone. A trench with no pipe can use a zero pipe diameter.</p>
+            <p>The sketch shows the default inputs. The gravel-colored zone includes the gaps between stones. You buy the whole loose rock volume; the gaps are not a second deduction.</p>
           </div>
+          <figure>
+            <img src="/images/drain-rock-trench-section.svg" width="720" height="410" loading="lazy" alt="Cross-section of a 12-inch-wide French drain trench with 4 inches of top cover, 14 inches of rock fill, a 4-inch pipe, and fabric around the stone" />
+            <figcaption>Example section for the calculator defaults. Swipe across the sketch on a narrow screen. The slope and outlet are separate design decisions.</figcaption>
+          </figure>
+        </section>
 
-          <h3>4-Inch and 6-Inch Perforated Pipe Displacement Values</h3>
-          <p>
-            When installing French drains or curtain drains, the interior volume of the perforated corrugated or SDR-35 PVC pipe displaces rock. Use these standard engineering deductions per 100 linear feet of trench:
-          </p>
-          <ul>
-            <li><strong>4-Inch Outside Diameter Pipe:</strong> Deducts 8.7 cubic feet (0.32 cubic yards) per 100 linear feet.</li>
-            <li><strong>6-Inch Outside Diameter Pipe:</strong> Deducts 19.6 cubic feet (0.73 cubic yards) per 100 linear feet.</li>
-          </ul>
+        <section class="guide-block" aria-labelledby="drain-math">
+          <p class="eyebrow">The takeoff method</p>
+          <h2 id="drain-math">From trench dimensions to a supplier order</h2>
+          <ol class="method-grid">
+            <li><strong>Find the stone height.</strong><span>Excavated depth − non-rock top cover. For the example, 18 − 4 = 14 inches.</span></li>
+            <li><strong>Calculate the envelope.</strong><span>Length × width × stone height after converting inches to feet. Here: 50 × 1 × 14/12 = 58.33 cubic feet.</span></li>
+            <li><strong>Remove the pipe.</strong><span>For a 4-inch outside diameter, length × π × (4/24)² = 4.36 cubic feet. The finished stone fill is 53.97 cubic feet, or 2.00 cubic yards.</span></li>
+            <li><strong>Plan the purchase.</strong><span>Apply any chosen site allowance to the stone volume. At 10% extra and 2,500 lb per cubic yard, the example is 2.20 cubic yards or 2.75 US short tons.</span></li>
+          </ol>
+          <p class="note">A 4-inch nominal pipe can have a different outside diameter by product. Replace the default with the manufacturer's actual dimension when it matters. The estimate assumes the entire pipe cross-section is within the rock zone.</p>
+        </section>
 
-          <div class="table-wrapper">
-            <table class="guide-table">
-              <thead>
-                <tr>
-                  <th>Trench Dimensions</th>
-                  <th>Total Trench Volume</th>
-                  <th>Rock Needed (4" Pipe)</th>
-                  <th>Weight in Tons (@ 1.35 t/yd³)</th>
-                  <th>Target Drainage Capacity</th>
-                </tr>
-              </thead>
+        <section class="guide-block" aria-labelledby="choose-drain-stone">
+          <p class="eyebrow">Choose the actual product</p>
+          <h2 id="choose-drain-stone">Clean stone, gradation, and supplier weight</h2>
+          <p>“Drain rock” describes a job, not one universal rock type. A yard may sell washed, rounded gravel or clean, angular crushed stone under the same name. <a href="/57-stone-size-guide">#57 stone</a> is one common graded option, but check the product's stated size and whether it includes fines. A dense <a href="/crusher-run-calculator">crusher run</a> base includes fines and serves a different purpose.</p>
+          <div class="source-table-wrap">
+            <table>
+              <caption>Published product examples; weights are for those products, not every drain rock.</caption>
+              <thead><tr><th scope="col">Supplier product</th><th scope="col">Published loose weight</th><th scope="col">Why it matters</th></tr></thead>
               <tbody>
-                <tr><td>25 ft × 12" W × 18" D</td><td>37.5 cu ft</td><td>1.31 yd³</td><td>1.77 tons</td><td>Downspout runoff (moderate)</td></tr>
-                <tr><td>50 ft × 12" W × 18" D</td><td>75.0 cu ft</td><td>2.62 yd³</td><td>3.54 tons</td><td>Foundation groundwater intercept</td></tr>
-                <tr><td>100 ft × 12" W × 18" D</td><td>150.0 cu ft</td><td>5.23 yd³</td><td>7.06 tons</td><td>Full curtain drain system</td></tr>
-                <tr><td>50 ft × 18" W × 24" D</td><td>150.0 cu ft</td><td>5.39 yd³</td><td>7.28 tons</td><td>Heavy hillside groundwater cut</td></tr>
-                <tr><td>100 ft × 18" W × 24" D</td><td>300.0 cu ft</td><td>10.78 yd³</td><td>14.55 tons</td><td>Commercial civil detention trench</td></tr>
+                <tr><td>South Bay 3/4-inch washed round drain rock</td><td>2,500 lb/cu yd</td><td>The calculator's editable starting value.</td></tr>
+                <tr><td>Three Z #57 washed rounded gravel</td><td>About 2,800 lb/cu yd</td><td>The same volume produces a higher ton estimate.</td></tr>
               </tbody>
             </table>
           </div>
+          <p>Ask whether your yard sells by cubic yard or by scale ton, and use its weight for that specific product. If you are comparing with <a href="/rock-density-chart">other rock weights</a>, keep pounds per cubic yard and US short tons separate from metric tonnes.</p>
+        </section>
 
-          <h3>The "Burrito Wrap" Geotextile Trench Method</h3>
-          <p>
-            A French drain fails when native silt or clay penetrates the drain rock void network. To ensure a 30-year operational lifespan, adhere strictly to the full trench encapsulation protocol:
-          </p>
-          <ol class="steps-list">
-            <li>
-              <strong>Excavate with 1% Minimum Invert Slope:</strong> Dig the trench floor with a continuous 1/8-inch drop per linear foot (1% grade) toward your daylight discharge or dry well.
-            </li>
-            <li>
-              <strong>Line Trench with Non-Woven Geotextile:</strong> Drape 4 oz or 6 oz needle-punched non-woven fabric into the trench, leaving at least 12 inches of fabric overhang on each side. Never use cheap woven weed barrier, as its woven slits plug rapidly under muddy water.
-            </li>
-            <li>
-              <strong>Bedding Layer:</strong> Pour 2 to 3 inches of washed #57 stone on the trench floor before placing the pipe.
-            </li>
-            <li>
-              <strong>Pipe Placement:</strong> Lay perforated pipe holes-down (between 4 o'clock and 8 o'clock positions). This forces rising groundwater to flood the pipe from below, maintaining maximum hydraulic gradient.
-            </li>
-            <li>
-              <strong>Aggregate Infill & Overlap:</strong> Fill with washed stone to within 4 inches of the surface. Fold the fabric flaps over the top with a complete 12-inch overlap, and cap with coarse sand or decorative stone.
-            </li>
-          </ol>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Drain Rock</h2>
-          <div class="faq-accordion">
-            {faqItems.map((item, index) => (
-              <details class="faq-detail" open={index === 0}>
-                <summary class="faq-summary">
-                  <span>{item.q}</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                </summary>
-                <div class="faq-answer">
-                  <p>{item.a}</p>
-                </div>
-              </details>
-            ))}
+        <section class="guide-block" aria-labelledby="before-digging">
+          <p class="eyebrow">Beyond the material count</p>
+          <h2 id="before-digging">Check the outlet, soil, and fabric plan</h2>
+          <div class="practice-grid">
+            <div><h3>Follow the water</h3><p>A subsurface drain needs a route to an appropriate outlet. Check the site grade and where water can discharge before fixing the trench size. The stone calculator cannot establish drainage capacity or an allowable discharge location.</p></div>
+            <div><h3>Keep soil out of the stone</h3><p>A filter fabric or specified drain envelope can separate soil from the aggregate. The tool estimates one full-wrap cut width: twice the trench width, twice the stone height, plus your selected top overlap. It does not select a fabric or count rolls; soil and project specifications control that choice.</p></div>
+            <div><h3>Match the installation</h3><p>Foundation, retaining-wall, and engineered stormwater drains may call for a particular stone gradation, pipe, filter, and outlet. Follow the project detail. For a simple garden drain, still check nearby utilities before digging and avoid directing water onto another property.</p></div>
           </div>
-        </div>
+        </section>
+
+        <section class="guide-block faq-block" aria-labelledby="drain-faq">
+          <h2 id="drain-faq">Drain rock questions</h2>
+          {faqItems.map(item => (
+            <details><summary>{item.q}</summary><p>{item.a}</p></details>
+          ))}
+        </section>
+
+        <section class="source-block" aria-labelledby="drain-sources">
+          <h2 id="drain-sources">Sources and product checks</h2>
+          <ul>
+            <li><a href="https://www.ndspro.com/us/en/resources/articles/what-is-a-french-drain">NDS: French drain components and outlet planning</a></li>
+            <li><a href="https://www.ndspro.com/media/wysiwyg/files/principles-of-exterior-drainage.pdf">NDS: Principles of Exterior Drainage</a> (trench rock quantity and soil separation)</li>
+            <li><a href="https://extension.umn.edu/natural-resources/conservation/shoreland-watersheds-and-wetlands/stabilizing-shoreland-property-to-prevent-erosion">University of Minnesota Extension: French drain and outlet context</a></li>
+            <li><a href="https://southbaymaterials.com/drain-rock-3-4">South Bay Materials: 3/4-inch drain rock product weight</a></li>
+            <li><a href="https://shop.three-z.com/index.php?product_id=58&amp;route=product%2Fproduct">Three Z: #57 washed gravel product weight</a></li>
+          </ul>
+        </section>
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/drain-rock-calculator" />
+    <TopicClusterNav currentPage="/drain-rock-calculator" category="material" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} />
   </main>
-
   <Footer />
-  <script src="../scripts/app.js"></script>
 </BaseLayout>
 
 <style>
-  .content-guide-section {
-    padding: var(--space-12) 0;
-    background: var(--bg-body);
-  }
-
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-
-  .content-card h2 {
-    font-size: var(--text-2xl);
-    color: var(--text-primary);
-    margin-bottom: var(--space-4);
-  }
-
-  .content-card h3 {
-    font-size: var(--text-xl);
-    color: var(--text-primary);
-    margin: var(--space-6) 0 var(--space-3) 0;
-  }
-
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-  }
-
-  .table-wrapper {
-    overflow-x: auto;
-    margin: var(--space-6) 0;
-  }
-
-  .guide-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-    text-align: left;
-  }
-
-  .guide-table th, .guide-table td {
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .guide-table th {
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    font-weight: 700;
-  }
-
-  .guide-table tr:hover td {
-    background: rgba(212, 168, 83, 0.04);
-  }
-
-  .steps-list {
-    padding-left: var(--space-6);
-    margin: var(--space-4) 0;
-  }
-
-  .steps-list li {
-    margin-bottom: var(--space-3);
-  }
-
-  .faq-detail {
-    border-bottom: 1px solid var(--border-subtle);
-    padding: var(--space-4) 0;
-  }
-
-  .faq-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--text-primary);
-    font-size: var(--text-base);
-    list-style: none;
-  }
-
-  .faq-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq-summary svg {
-    transition: transform var(--transition-fast);
-  }
-
-  .faq-detail[open] .faq-summary svg {
-    transform: rotate(180deg);
-  }
-
-  .faq-answer {
-    padding-top: var(--space-3);
-    color: var(--text-muted);
-    font-size: var(--text-sm);
-    line-height: 1.6;
-  }
+  .drain-guide { background: var(--bg-body); padding: var(--space-10) 0; }
+  .guide-block, .source-block { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: clamp(1.2rem, 3vw, 2.3rem); margin-bottom: var(--space-6); color: var(--text-secondary); line-height: 1.7; }
+  .guide-block h2, .source-block h2 { color: var(--text-primary); font-size: clamp(1.4rem, 2.5vw, 2rem); line-height: 1.25; margin: 0 0 var(--space-4); }
+  .guide-block h3 { color: var(--text-primary); font-size: var(--text-lg); margin-bottom: var(--space-2); }
+  .guide-block p, .source-block p { margin: 0 0 var(--space-4); }
+  .eyebrow { color: var(--gold-400); text-transform: uppercase; letter-spacing: .09em; font-size: var(--text-xs); font-weight: 700; }
+  .lead-block { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--space-8); align-items: center; }
+  figure { min-width: 0; margin: 0; overflow-x: auto; }
+  figure img { display: block; width: 100%; min-width: 600px; height: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  figcaption { font-size: var(--text-xs); color: var(--text-muted); margin-top: var(--space-2); }
+  .method-grid { list-style: none; padding: 0; margin: var(--space-5) 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); counter-reset: steps; }
+  .method-grid li { min-width: 0; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); counter-increment: steps; }
+  .method-grid li::before { content: counter(steps, decimal-leading-zero); display: block; color: var(--gold-400); font-weight: 700; margin-bottom: var(--space-2); }
+  .method-grid strong, .method-grid span { display: block; }
+  .method-grid strong { color: var(--text-primary); }
+  .note { border-left: 3px solid var(--gold-400); padding-left: var(--space-4); }
+  .source-table-wrap { overflow-x: auto; margin: var(--space-5) 0; }
+  table { width: 100%; border-collapse: collapse; min-width: 580px; }
+  caption { text-align: left; color: var(--text-muted); font-size: var(--text-sm); margin-bottom: var(--space-2); }
+  th, td { text-align: left; border-bottom: 1px solid var(--border-subtle); padding: var(--space-3); vertical-align: top; }
+  th { color: var(--text-primary); }
+  .practice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+  .practice-grid > div { min-width: 0; border-top: 2px solid var(--gold-400); background: var(--bg-surface); padding: var(--space-4); border-radius: var(--radius-sm); }
+  .practice-grid p { margin-bottom: 0; }
+  .faq-block details { border-top: 1px solid var(--border-subtle); padding: var(--space-3) 0; }
+  .faq-block summary { color: var(--text-primary); font-weight: 600; cursor: pointer; }
+  .faq-block details p { padding: var(--space-3) 0 0; margin: 0; }
+  .source-block { font-size: var(--text-sm); }
+  .source-block ul { padding-left: 1.25rem; margin: 0; }
+  .source-block li { margin-bottom: var(--space-2); }
+  .drain-guide a { color: var(--gold-400); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 760px) { .lead-block, .method-grid, .practice-grid { grid-template-columns: 1fr; } }
 </style>

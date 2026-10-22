@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">Three granite grades shown in cross-section</title>
+  <desc id="desc">Clean crushed granite has open voids around large angular pieces. A graded mix has smaller fragments and fines filling more voids. Decomposed granite is mostly small particles.</desc>
+  <rect width="960" height="420" rx="22" fill="#111a24"/>
+  <text x="30" y="42" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#f5ead2">What is in the granite load?</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="24" y="68" width="292" height="312" rx="16" fill="#1b2a36" stroke="#466070"/>
+    <rect x="334" y="68" width="292" height="312" rx="16" fill="#1b2a36" stroke="#466070"/>
+    <rect x="644" y="68" width="292" height="312" rx="16" fill="#1b2a36" stroke="#466070"/>
+    <text x="44" y="101" font-size="19" font-weight="700" fill="#f1d49a">Clean crushed stone</text>
+    <text x="354" y="101" font-size="19" font-weight="700" fill="#f1d49a">Graded mix with fines</text>
+    <text x="664" y="101" font-size="19" font-weight="700" fill="#f1d49a">Decomposed granite</text>
+    <text x="44" y="123" font-size="14" fill="#bdcad1">Screened coarse pieces</text>
+    <text x="354" y="123" font-size="14" fill="#bdcad1">Coarse and small particles</text>
+    <text x="664" y="123" font-size="14" fill="#bdcad1">Predominantly fine particles</text>
+    <rect x="42" y="145" width="256" height="159" rx="9" fill="#17232f" stroke="#344957"/>
+    <rect x="352" y="145" width="256" height="159" rx="9" fill="#17232f" stroke="#344957"/>
+    <rect x="662" y="145" width="256" height="159" rx="9" fill="#17232f" stroke="#344957"/>
+    <g fill="#bca984" stroke="#e4d1aa" stroke-width="2">
+      <path d="M56 248l22-25 35 5 11 26-19 26-35-2z"/><path d="M131 181l29-20 26 13 12 32-25 18-32-8z"/><path d="M207 240l35-20 30 14 12 30-24 22-40-7z"/><path d="M64 170l20-13 28 13-5 33-25 7-21-16z"/><path d="M128 263l26-27 34 9 11 31-24 16-35-5z"/><path d="M218 171l27-14 31 18-5 32-34 7-21-20z"/>
+      <path d="M364 248l22-25 35 5 11 26-19 26-35-2z"/><path d="M439 181l29-20 26 13 12 32-25 18-32-8z"/><path d="M515 240l35-20 30 14 12 30-24 22-40-7z"/><path d="M372 170l20-13 28 13-5 33-25 7-21-16z"/><path d="M436 263l26-27 34 9 11 31-24 16-35-5z"/><path d="M526 171l27-14 31 18-5 32-34 7-21-20z"/>
+    </g>
+    <g fill="#cfb98e" stroke="#e3cda7" stroke-width="1">
+      <path d="M418 205l10-9 11 7-2 15-14 2z"/><path d="M494 232l12-11 13 9-3 15-13 1z"/><path d="M566 208l14 3 3 13-15 7-10-9z"/><path d="M375 212l10-3 10 10-6 13-13-1z"/>
+      <path d="M679 160l10-7 11 8-2 12-14 2z"/><path d="M706 179l12-8 10 9-3 13-12 1z"/><path d="M738 158l9-6 13 7-1 12-13 3z"/><path d="M766 185l12-8 11 8-2 13-13 1z"/><path d="M799 161l11-7 11 8-2 14-14 1z"/><path d="M829 183l11-8 13 8-2 13-14 2z"/><path d="M864 158l10-6 13 8-3 12-12 3z"/><path d="M894 184l11-7 11 9-3 13-13 1z"/>
+      <path d="M672 214l11-7 12 8-3 14-13 1z"/><path d="M701 237l11-8 12 8-4 14-13 2z"/><path d="M733 207l11-7 13 8-3 13-13 2z"/><path d="M764 235l12-8 12 9-3 14-14 2z"/><path d="M797 210l12-8 11 8-3 14-14 1z"/><path d="M829 238l10-8 12 9-2 14-13 1z"/><path d="M862 211l11-8 12 9-3 13-13 2z"/><path d="M895 237l10-7 11 7-3 15-12 2z"/><path d="M676 266l12-8 12 9-3 14-14 1z"/><path d="M710 274l12-7 12 9-4 13-13 1z"/><path d="M746 261l10-8 13 9-3 14-13 2z"/><path d="M779 274l10-8 14 9-4 14-13 1z"/><path d="M816 264l11-8 12 9-3 14-13 2z"/><path d="M850 275l11-8 12 8-3 14-13 2z"/><path d="M884 265l11-7 12 8-2 14-14 2z"/>
+    </g>
+    <g fill="#ead6ae">
+      <circle cx="402" cy="161" r="3"/><circle cx="430" cy="173" r="3"/><circle cx="522" cy="183" r="3"/><circle cx="548" cy="250" r="3"/><circle cx="409" cy="281" r="3"/><circle cx="476" cy="284" r="3"/><circle cx="579" cy="289" r="3"/>
+      <circle cx="693" cy="200" r="3"/><circle cx="727" cy="188" r="3"/><circle cx="752" cy="235" r="3"/><circle cx="815" cy="184" r="3"/><circle cx="848" cy="214" r="3"/><circle cx="890" cy="219" r="3"/><circle cx="699" cy="288" r="3"/><circle cx="834" cy="288" r="3"/>
+    </g>
+    <path d="M98 216v-20m0 0l-6 7m6-7l6 7" stroke="#78c8c4" stroke-width="3" fill="none"/>
+    <text x="44" y="336" font-size="15" fill="#dce6e8">Open voids favor drainage</text>
+    <text x="354" y="336" font-size="15" fill="#dce6e8">Fines fill gaps for a tighter surface</text>
+    <text x="664" y="336" font-size="15" fill="#dce6e8">A different path material</text>
+    <text x="44" y="360" font-size="13" fill="#a9bac3">Ask for size and gradation</text>
+    <text x="354" y="360" font-size="13" fill="#a9bac3">Ask for the road or base specification</text>
+    <text x="664" y="360" font-size="13" fill="#a9bac3">Check its own installation guidance</text>
+  </g>
+</svg>
