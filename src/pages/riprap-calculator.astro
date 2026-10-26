@@ -4,360 +4,314 @@ import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
-import CivilStructuralBlock from '../components/intent/CivilStructuralBlock.astro';
 
+const pageTitle = 'Riprap Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Riprap Calculator', url: '/riprap-calculator' }
+  { name: pageTitle, url: '/riprap-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Riprap Rock Coverage' },
-  { label: 'Gradation Class', value: 'Class 1 (6" to 12" Heavy Angular)' },
-  { label: 'Bulk Density', value: '1.40 t/yd³ (104 lbs/cu ft)' },
-  { label: 'Layer Depth Rule', value: 'Minimum Depth = Maximum Stone Size (12")' }
+  { label: 'Use', value: 'Erosion-control rock takeoff' },
+  { label: 'Measure', value: 'Actual slope face or apron area' },
+  { label: 'Weight example', value: '2,800 lb/cu yd; editable' }
 ];
-
 const quickStats = [
-  { value: '6" to 12"', label: 'Particle Caliper', desc: 'Heavy quarry-blasted armor stone for high-velocity erosion control' },
-  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'Supplier-reported loose bulk density (2,800 lbs per cubic yard)' },
-  { value: 'DOT Spec', label: 'Erosion Armor', desc: 'Standard specification for culvert aprons, shorelines, and detention ponds' }
+  { value: '11.11 cu yd', label: '300 sq ft at 12 in', desc: 'Finished armor-layer volume before order extra.' },
+  { value: '15.56 tons', label: 'Planning weight', desc: 'Using LandCare Stone’s 2,800 lb/cu yd loose-weight example.' },
+  { value: '19.3 sq ft', label: 'Per short ton', desc: 'At the same example weight and 12 in layer depth.' }
 ];
-
 const faqItems = [
   {
-    q: 'How many tons of riprap do I need for a 15x20 foot culvert outfall apron?',
-    a: 'A 15x20 foot apron equals 300 square feet. Per civil drainage standards, Class 1 riprap (6-12 inch) must be installed at a minimum depth equal to the largest stone caliper (12 inches). At 12 inches depth, you need 11.11 cubic yards. At 1.40 tons per cubic yard plus a 10 percent buffer, order approximately 17.1 tons of riprap.'
+    q: 'How much riprap do I need for a 15 by 20 foot apron?',
+    a: 'At a specified 12-inch layer thickness, the 300-square-foot apron takes 300 cubic feet, or 11.11 cubic yards of finished rock layer. Multiplying by an example loose bulk weight of 2,800 pounds per cubic yard gives about 15.56 US short tons as a planning estimate before an optional order allowance. Confirm the stone size, layer thickness, filter and placed yield for your project.'
   },
   {
-    q: 'What is the minimum thickness for riprap installation?',
-    a: 'Civil engineering standards specify that the minimum thickness of a riprap layer must be at least 1.5 times the average stone diameter (D50) or 1.0 times the maximum stone diameter. For Class 1 riprap (6 to 12 inches), the absolute minimum installed layer thickness is 12 inches.'
+    q: 'Do I measure a sloped bank on the ground or on a map?',
+    a: 'Measure the distance along the sloping face, not only its horizontal projection. A bank with a 12-foot horizontal run and 9-foot rise has a 15-foot face. At 20 feet along the bank, that is 300 square feet before adding any toe or end treatment.'
   },
   {
-    q: 'Does riprap require geotextile fabric underneath?',
-    a: 'Yes. A heavy non-woven 6 to 8 oz needle-punched geotextile fabric is mandatory under riprap. Without fabric, high-velocity storm runoff will erode the fine soil particles between the stones (piping), causing the heavy riprap to sink into the mud and destabilize the bank.'
+    q: 'What thickness should a riprap layer be?',
+    a: 'Use the thickness shown in the applicable plan or agency detail. It depends on rock gradation, hydraulic conditions, placement and filter design. For example, the NRCS lined-waterway standard specifies rock riprap lining thickness as maximum stone size plus filter or bedding thickness. A 12-inch entry in this calculator is an example, not a universal minimum.'
   },
   {
-    q: 'What is the difference between Class 1 and Class 2 riprap?',
-    a: 'Class 1 riprap consists of stones ranging from 6 to 12 inches (weighing 25 to 150 lbs each) used for residential culverts and ditch linings. Class 2 riprap consists of 12 to 18 inch stones (weighing 150 to 500 lbs each) designed for high-energy riverbanks, highway bridge abutments, and lake shorelines.'
+    q: 'Is geotextile always required under riprap?',
+    a: 'A properly designed filter is important where underlying soil can migrate through rock voids, but it may be graded aggregate or an appropriate geotextile. NRCS construction specifications say to place filter, bedding or geotextile when the contract calls for it. Do not substitute ordinary landscape weed fabric for a specified filter.'
+  },
+  {
+    q: 'Is Class 1 riprap always 6 to 12 inches?',
+    a: 'No. Class numbers are specification-specific. Caltrans describes Class I rock slope protection by a nominal 6-inch median diameter and a 12-inch maximum, while Minnesota uses different class numbers for its median sizes. Give the supplier the issuing agency and exact gradation or project drawing rather than only a class label.'
   }
 ];
-
 const upLinks = [
-  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
-  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+  { title: 'Rock Coverage Calculator', slug: '/', badge: 'Main tool' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Measuring hub' }
 ];
-
 const lateralLinks = [
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³' },
-  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: '1.35 t/yd³' },
-  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³' }
+  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Pipe trench' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Smaller aggregate' },
+  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Landscape channel' }
 ];
-
 const bridgeLinks = [
-  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
-  { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: 'Volume' },
-  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Truckloads' }
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Weight conversion' },
+  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Bulk weights' },
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Layer depth' }
 ];
-
 const supportGuides = [
-  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Drainage Design' },
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'How to Stop Gravel Washing Out on a Slope', slug: '/how-to-stop-gravel-washing-out-on-slope', badge: 'Runoff context' },
+  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Stone shape' },
+  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Volume units' }
 ];
 ---
 
 <BaseLayout
-  title="Riprap & Armor Rock Coverage Calculator - Class 1 & 2 Tonnage & Yards"
-  metaDescription="Calculate cubic yards, scale tons, and coverage of rip rap rock and armor stone for erosion control. Sizing for culvert aprons, steep bank stabilization, and ponds."
+  title={pageTitle}
+  metaDescription="Estimate riprap cubic yards and US short tons for a measured bank, ditch, or apron. Use actual slope-face area, specified thickness, and an editable supplier bulk weight."
   canonicalPath="/riprap-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Riprap & Armor Rock Coverage Calculator",
-      "url": "https://rockcoveragecalculator.com/riprap-calculator",
-      "description": "Calculates Class 1 and Class 2 riprap and armor rock coverage, cubic yards, and quarry tonnage for erosion control and civil drainage.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Civil Engineers, Drainage Contractors, Excavators, Estimators"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Riprap Rock Coverage"
-      }
+      '@context': 'https://schema.org', '@type': 'WebApplication', name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/riprap-calculator',
+      description: 'Estimates the volume and supplier-specific ordering weight of a specified riprap layer.',
+      applicationCategory: 'UtilityApplication', operatingSystem: 'Web', inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
-      }))
+      '@context': 'https://schema.org', '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a } }))
     })} />
   </Fragment>
 
   <Header />
-
   <main>
     <PageHero
-      title="Riprap & Armor Rock Coverage Calculator"
-      highlightWord="Rock Coverage"
-      badge="Heavy Civil Erosion Control Engine"
-      subtitle="Accurate volumetric and tonnage calculations for Class 1 and Class 2 heavy quarry armor stone, culvert outfalls, and steep embankment stabilization."
+      title={pageTitle}
+      highlightWord="Calculator"
+      badge="Bank and apron material takeoff"
+      subtitle="A 15 × 20 ft riprap apron at a specified 12 in depth takes 11.11 cu yd of finished layer. At one supplier’s example 2,800 lb/cu yd loose weight, that converts to about 15.56 US short tons for planning before any order extra. Enter your own stone specification and supplier weight below."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
       theme="civil"
     />
 
-    <!-- Interactive Riprap Calculator Tool -->
-    <section class="section">
+    <section class="rip-tool" id="calculator" aria-labelledby="rip-tool-title">
       <div class="container">
-        <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Riprap Embankment Dimensions</h3>
+        <div class="rip-heading">
+          <div><p class="rip-kicker">Measure the actual armor footprint</p><h2 id="rip-tool-title">Estimate rock layer, tons, and deliveries</h2></div>
+          <p>Enter the finished rock thickness measured <em>normal to the surface</em> from your plan. For a bank, measure width <em>up the sloping face</em>; a map’s horizontal width understates its surface area.</p>
+        </div>
+        <div class="rip-tool-grid">
+          <div class="rip-panel">
+            <fieldset class="rip-modes"><legend>How do you know the area?</legend>
+              <label><input type="radio" name="rip-mode" value="dimensions" checked /> Length × slope-face width</label>
+              <label><input type="radio" name="rip-mode" value="area" /> Measured square feet</label>
+            </fieldset>
+            <div class="rip-fields" id="rip-dimensions">
+              <div class="rip-field"><label for="rip-length">Length along bank or apron <span>(ft)</span></label><input id="rip-length" type="number" min="0.01" max="100000" step="any" inputmode="decimal" value="20" /></div>
+              <div class="rip-field"><label for="rip-width">Width along slope face <span>(ft)</span></label><input id="rip-width" type="number" min="0.01" max="100000" step="any" inputmode="decimal" value="15" /></div>
+            </div>
+            <div class="rip-fields" id="rip-area-field" hidden>
+              <div class="rip-field"><label for="rip-area">Measured armor area <span>(sq ft)</span></label><input id="rip-area" type="number" min="0.01" max="10000000" step="any" inputmode="decimal" value="300" /></div>
+            </div>
+            <div class="rip-fields">
+              <div class="rip-field"><label for="rip-depth">Specified rock thickness normal to face <span>(in)</span></label><input id="rip-depth" type="number" min="0.25" max="120" step="any" inputmode="decimal" value="12" aria-describedby="rip-depth-help" /></div>
+              <div class="rip-field"><label for="rip-extra">Optional order extra <span>(%)</span></label><input id="rip-extra" type="number" min="0" max="100" step="any" inputmode="decimal" value="0" aria-describedby="rip-extra-help" /></div>
+            </div>
+            <p class="rip-help" id="rip-depth-help">On a slope, measure perpendicular to its face, not vertically. This is rock thickness only; estimate a specified filter or bedding layer separately.</p>
+            <p class="rip-help" id="rip-extra-help">Add extra for measured low spots, irregular edges, placement loss, or a supplier increment. Zero is valid.</p>
+            <div class="rip-separator"></div>
+            <div class="rip-field"><label for="rip-weight">Supplier loose bulk weight <span>(lb/cu yd)</span></label><input id="rip-weight" type="number" min="100" max="10000" step="any" inputmode="decimal" value="2800" aria-describedby="rip-weight-help" /></div>
+            <p class="rip-help" id="rip-weight-help"><a href="https://landcarestone.com/sand-gravel/3-5-rip-rap-2/" rel="noopener noreferrer">LandCare’s 3–5 in riprap lists 2,800 lb/cu yd</a>; <a href="https://boss.supply/products/rip-rap-class-b" rel="noopener noreferrer">BOSS lists about 2,400 lb/cu yd</a> for a different Class B product. Use your quarry’s number.</p>
+            <div class="rip-field"><label for="rip-payload">Quoted payload per delivery <span>(US short tons, optional)</span></label><input id="rip-payload" type="number" min="0.01" max="1000" step="any" inputmode="decimal" placeholder="Enter a hauler quote" aria-describedby="rip-payload-help" /></div>
+            <p class="rip-help" id="rip-payload-help">Payload depends on truck, route and legal limits. Leave blank until the hauler confirms it.</p>
+            <p class="rip-error" id="rip-error" role="alert"></p>
           </div>
-
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="riprap-length">Length (Feet)</label>
-              <input type="number" id="riprap-length" value="40" min="1" step="0.5" />
+          <div class="rip-panel rip-results">
+            <p class="rip-kicker">Finished armor layer</p>
+            <div class="rip-primary"><output id="rip-finished-yards">11.11</output><span>cu yd</span></div>
+            <p class="rip-note"><output id="rip-finished-feet">300.00</output> cu ft before optional order extra</p>
+            <div class="rip-result-grid">
+              <div><span>Measured face or apron</span><strong><output id="rip-measured-area">300</output> sq ft</strong></div>
+              <div><span>Planned bulk order</span><strong><output id="rip-order-yards">11.11</output> cu yd</strong></div>
+              <div><span>Planning US short tons</span><strong><output id="rip-order-tons">15.56</output> tons</strong></div>
+              <div><span>Deliveries at quoted payload</span><strong><output id="rip-deliveries">—</output></strong></div>
             </div>
-            <div class="input-field">
-              <label for="riprap-width">Slope Width (Feet)</label>
-              <input type="number" id="riprap-width" value="15" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="riprap-depth">Layer Thickness (Inches)</label>
-              <input type="number" id="riprap-depth" value="12.0" min="6" max="36" step="1" />
-            </div>
-            <div class="input-field">
-              <label for="riprap-waste">Safety Buffer (%)</label>
-              <input type="number" id="riprap-waste" value="10" min="0" max="25" step="1" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-                <div class="kpi-value" id="kpi-riprap-yards">24.44</div>
-                <div class="kpi-label">Volume (Cubic Yards)</div>
-                <div class="kpi-subtext" id="kpi-riprap-cuft">660.0 cu ft (with 10% buffer)</div>
-              </div>
-              <div class="kpi-card">
-                <div class="kpi-value" id="kpi-riprap-tons">34.22</div>
-                <div class="kpi-label">Scale Weight (Tons)</div>
-                <div class="kpi-subtext">At 1.40 t/yd³ (2,800 lbs/yd³)</div>
-              </div>
-              <div class="kpi-card">
-                <div class="kpi-value" id="kpi-riprap-loads">2.3</div>
-                <div class="kpi-label">Tri-Axle Truckloads</div>
-                <div class="kpi-subtext">15 tons per load</div>
-              </div>
-            </div>
+            <p class="rip-note">This tonnage applies a loose supplier weight to geometric finished volume for planning. Loose truck volume and placed volume can differ as stones settle and voids change. Ask the quarry or designer for a placed-yield estimate when ordering by weight; the supplier’s sales unit and scale ticket govern the purchase.</p>
+            <p class="rip-sr-only" id="rip-live-result" aria-live="polite"></p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Civil Truckload Logistics & Subgrade Stabilization Block -->
-    <CivilStructuralBlock />
-
-    <!-- Technical Guide on Riprap -->
-    <article class="content-guide-section">
+    <article class="rip-guide">
       <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Riprap Sizing Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Riprap Armor Sizing Reference</span>
+        <section class="rip-feature" aria-labelledby="rip-measure-title">
+          <div>
+            <p class="rip-kicker">Bank geometry</p>
+            <h2 id="rip-measure-title">Measure the slope face, then add the toe</h2>
+            <p>A bank with a <strong>12 ft horizontal run</strong> and a <strong>9 ft rise</strong> has a <strong>15 ft slope face</strong> (√(12² + 9²)). Over a 20 ft reach, the face is 300 sq ft. At the example 12 in rock thickness, that is 300 cu ft or 11.11 cu yd. Using only the 12 ft map width would miss 60 sq ft of armor surface.</p>
+            <p>Measure any bottom <strong>toe trench</strong>, upper return, apron extension and end treatment as separate shapes. Their dimensions come from the project detail; the rectangle in this calculator does not silently include them. Break a changing bank into shorter measured reaches and add the quantities.</p>
+            <div class="rip-formula" aria-label="Riprap quantity formulas">
+              <p><strong>Finished cu ft</strong> = measured surface area (sq ft) × specified rock thickness normal to face (in) ÷ 12</p>
+              <p><strong>Order cu yd</strong> = finished cu ft ÷ 27 × (1 + optional extra ÷ 100)</p>
+              <p><strong>Estimated short tons</strong> = order cu yd × supplier lb/cu yd ÷ 2,000</p>
+            </div>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Class 1 Caliper</span>
-              <span class="aeo-quick-value">6" to 12" Stone Size</span>
-              <p class="aeo-quick-desc">Weighs 25 to 150 lbs per rock; standard for drainage aprons.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Layer Thickness</span>
-              <span class="aeo-quick-value">12" Minimum Depth</span>
-              <p class="aeo-quick-desc">Depth must equal or exceed maximum stone caliper to prevent scour.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Density</span>
-              <span class="aeo-quick-value">1.40 t/yd³ (104 lbs/cu ft)</span>
-              <p class="aeo-quick-desc">Supplier-reported loose bulk density (2,800 lbs/yd³). Note: ASTM C29 standard applies to aggregates up to 5 inches.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Underlayment</span>
-              <span class="aeo-quick-value">6-8 oz Non-Woven Poly</span>
-              <p class="aeo-quick-desc">Mandatory geotextile prevents soil migration through rock voids.</p>
-            </div>
+          <figure class="rip-figure">
+            <div class="rip-figure-scroll" tabindex="0" aria-label="Scroll riprap bank measurement diagram"><img src="/riprap-slope-measurement.svg" width="760" height="520" loading="lazy" alt="A bank with a 12 foot horizontal run and 9 foot rise has a 15 foot sloping face; a 20 foot bank length makes 300 square feet before a separate toe trench or end treatment." /></div>
+            <figcaption>Measure across the face that receives stone. The toe and filter are separate parts of the specified construction detail. <span>Swipe for the full diagram on a narrow screen.</span></figcaption>
+          </figure>
+        </section>
+
+        <section class="rip-card" aria-labelledby="rip-spec-title">
+          <p class="rip-kicker">Material specification</p>
+          <h2 id="rip-spec-title">A “Class 1” label does not tell the whole story</h2>
+          <p>Riprap is an armor gradation, not one rock weight or one universal size. <a href="https://dot.ca.gov/-/media/dot-media/programs/design/documents/f0002770-2016-07-15-implementation-of-rsp-design-a11y.pdf" rel="noopener noreferrer">Caltrans defines its Class I rock slope protection</a> around a nominal 6 in median particle diameter, with a 12 in maximum diameter in its gradation table. <a href="https://www.dot.state.mn.us/environment/erosion/pdf/maintenanceforstormwaterguide.pdf" rel="noopener noreferrer">Minnesota’s maintenance guide</a> instead identifies its Class II by a 6 in average stone size. Class names therefore need the issuing specification.</p>
+          <div class="rip-three">
+            <div><span>01 / STONE</span><h3>Ask for gradation</h3><p>Give the supplier the specified size range or D<sub>50</sub> and maximum size, source quality, and agency reference. Durable angular rock can interlock; a decorative <a href="/river-rock-calculator">river rock</a> bed is a different use.</p></div>
+            <div><span>02 / THICKNESS</span><h3>Follow the drawing</h3><p>Stone size, flow, slope and placement drive layer thickness. <a href="https://www.nrcs.usda.gov/sites/default/files/2022-09/Lined_Waterway_or_Outlet_468_CPS_9_2020.pdf" rel="noopener noreferrer">NRCS’s lined-waterway standard</a> uses maximum stone size plus filter or bedding thickness for minimum lining thickness in that practice.</p></div>
+            <div><span>03 / FILTER</span><h3>Protect the subgrade</h3><p>Loss of fine soil through the armor can undermine the layer. The specified filter may be graded aggregate or geotextile; select it for the actual soil and rock. <a href="https://www.nrcs.usda.gov/sites/default/files/2022-12/Construction%20Specification%20461%20Rock%20Riprap.pdf" rel="noopener noreferrer">NRCS construction guidance</a> places the designated filter when the contract calls for one.</p></div>
           </div>
         </section>
 
-        <div class="highlight-callout" style="background: rgba(212, 168, 83, 0.08); border-left: 4px solid var(--accent-gold); padding: var(--space-4) var(--space-6); border-radius: var(--radius-md); margin-bottom: var(--space-8);">
-          <h4 style="margin: 0 0 var(--space-2); color: var(--accent-gold); font-size: 1rem;">Engineering &amp; Permitting Notice</h4>
-          <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
-            Culvert outfalls, stream-bank armoring, and shoreline revetment work frequently alter natural hydrology and are governed by local conservation districts, state Departments of Transportation (DOT), and the U.S. Army Corps of Engineers. Always verify local riprap gradation classifications and obtain required environmental permits before commencing heavy equipment placement.
-          </p>
-        </div>
-
-        <div class="content-card">
-          <h2>Hydraulic Principles of Riprap Slope Protection</h2>
-          <p>
-            <strong>Riprap (Rock Armor)</strong> is composed of heavy, angular quarry-blasted stones placed along shorelines, drainage channels, culvert outfalls, and steep highway slopes to protect soil against hydraulic scour and wave erosion.
-          </p>
-          <p>
-            Unlike smooth decorative rock, riprap relies on individual stone mass (typically 25 to 150 pounds per piece for Class 1, and 150 to 500 pounds for Class 2) and angular particle interlock to resist hydraulic shear stresses generated by fast-flowing stormwater.
-          </p>
-
-          <div class="formula-box">
-            <code>Volume (Cubic Yards) = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
-            <br />
-            <code>Scale Tonnage = Volume (yd³) × 1.40 Tons/yd³</code>
-            <br />
-            <code>Critical Rule: Thickness must be at least 1.0× the maximum stone size (12 inches for Class 1).</code>
-          </div>
-
-          <h3>Installation Protocol for Riprap Swales and Aprons</h3>
-          <ol class="steps-list">
-            <li>
-              <strong>Excavation:</strong> Over-excavate the channel by 14 inches to accommodate 2 inches of bedding aggregate and 12 inches of armor stone without restricting channel capacity.
-            </li>
-            <li>
-              <strong>High-Strength Geotextile:</strong> Lay a heavy-duty 6 to 8 oz non-woven needle-punched polypropylene drainage fabric. Pin with 12-inch steel spikes and washers.
-            </li>
-            <li>
-              <strong>Bedding Layer (Optional but Recommended):</strong> Spread a 2-inch cushion of #57 crushed stone over the fabric. This prevents heavy riprap stones from puncturing the geotextile when dropped into place.
-            </li>
-            <li>
-              <strong>Stone Placement:</strong> Place riprap starting from the bottom of the slope and work upward to create an interlocking mass. Never dump stones from heights exceeding 3 feet onto bare fabric.
-            </li>
+        <section class="rip-card" aria-labelledby="rip-order-title">
+          <p class="rip-kicker">Before ordering</p>
+          <h2 id="rip-order-title">Turn the takeoff into a quarry conversation</h2>
+          <ol class="rip-steps">
+            <li><strong>Confirm the design.</strong> Bring the approved apron, channel or bank detail: stone gradation, thickness, lateral extent, toe and filter. This quantity tool cannot determine whether the stone will resist the site's flow or waves.</li>
+            <li><strong>Confirm the selling unit.</strong> A quarry may quote US short tons or cubic yards. <a href="https://landcarestone.com/sand-gravel/3-5-rip-rap-2/" rel="noopener noreferrer">LandCare lists 2,800 lb/cu yd</a> for one riprap product while <a href="https://boss.supply/products/rip-rap-class-b" rel="noopener noreferrer">BOSS lists about 2,400 lb/cu yd</a> for another. Get the exact product's loose bulk weight, placed-yield guidance and delivery minimum.</li>
+            <li><strong>Confirm delivery access.</strong> Ask the hauler for the legal payload on the proposed route, dump location, and whether placement equipment can reach the bank. Enter the quoted payload above to round up the delivery count.</li>
+            <li><strong>Keep other layers separate.</strong> A specified granular bedding or geotextile is not riprap volume. Plan excavation, filter, toe trench and rock as separate takeoffs so a hidden 2 in “bedding allowance” is not mixed into an armor quote.</li>
           </ol>
-        </div>
+          <p class="rip-notice">For work in a stream, wetland or regulated water, <a href="https://rrs.usace.army.mil/rrs/home/permitting" rel="noopener noreferrer">check the US Army Corps of Engineers permit process</a> and local requirements before placing fill. A public-road culvert or an eroding structure also warrants a qualified local design review.</p>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Riprap</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <section class="rip-card" aria-labelledby="rip-sources-title">
+          <h2 id="rip-sources-title">Source notes and estimate limits</h2>
+          <p>The calculation is geometry, followed by an editable planning-weight conversion. <a href="https://www.fhwa.dot.gov/engineering/hydraulics/pubs/hec/hec15si.pdf" rel="noopener noreferrer">FHWA HEC-15</a> measures thickness normal to a steep treated slope. <a href="https://www.nrcs.usda.gov/sites/default/files/2022-12/Construction%20Specification%20461%20Rock%20Riprap.pdf" rel="noopener noreferrer">NRCS Construction Specification 461</a> describes placement and contract-specified filters; its <a href="https://www.nrcs.usda.gov/sites/default/files/2022-09/Lined_Waterway_or_Outlet_468_CPS_9_2020.pdf" rel="noopener noreferrer">Lined Waterway or Outlet standard</a> supplies one practice-specific thickness rule. <a href="https://www.fhwa.dot.gov/engineering/hydraulics/pubs/hec/hec11sI.pdf" rel="noopener noreferrer">FHWA HEC-11</a> discusses riprap sizing and filter details. The <a href="https://dot.ca.gov/-/media/dot-media/programs/design/documents/f0002770-2016-07-15-implementation-of-rsp-design-a11y.pdf" rel="noopener noreferrer">Caltrans gradation table</a>, <a href="https://www.dot.state.mn.us/environment/erosion/pdf/maintenanceforstormwaterguide.pdf" rel="noopener noreferrer">MnDOT guide</a>, and the two linked seller listings show why class names and bulk weights must be checked against the actual project. The diagram is an original measurement illustration, not a construction drawing.</p>
+        </section>
 
+        <section class="rip-card rip-faq" aria-labelledby="rip-faq-title">
+          <h2 id="rip-faq-title">Riprap questions from the field</h2>
+          <div class="rip-faq-list">{faqItems.map(item => <div><h3>{item.q}</h3><p>{item.a}</p></div>)}</div>
+        </section>
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/riprap-calculator"
-      category="material"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav currentPage="/riprap-calculator" category="material" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
   </main>
-
   <Footer />
 
   <script>
+    const ids = ['rip-length', 'rip-width', 'rip-area', 'rip-depth', 'rip-extra', 'rip-weight', 'rip-payload'];
+    const getInput = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const setOutput = (id: string, value: string) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+    const read = (id: string, min: number, max: number) => {
+      const input = getInput(id);
+      const value = input.value.trim() === '' ? NaN : Number(input.value);
+      const valid = Number.isFinite(value) && value >= min && value <= max;
+      input.setAttribute('aria-invalid', String(!valid));
+      return valid ? value : NaN;
+    };
     function updateRiprap() {
-      const l = parseFloat((document.getElementById('riprap-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('riprap-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('riprap-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('riprap-waste') as HTMLInputElement)?.value) || 0;
-
-      const netYards = (l * w * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const tons = totalYards * 1.40;
-      const loads = tons / 15;
-
-      const yEl = document.getElementById('kpi-riprap-yards');
-      const tEl = document.getElementById('kpi-riprap-tons');
-      const lEl = document.getElementById('kpi-riprap-loads');
-
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (lEl) lEl.innerText = loads.toFixed(1);
+      const mode = (document.querySelector('input[name="rip-mode"]:checked') as HTMLInputElement)?.value ?? 'dimensions';
+      const dimensions = document.getElementById('rip-dimensions') as HTMLElement;
+      const areaField = document.getElementById('rip-area-field') as HTMLElement;
+      dimensions.hidden = mode !== 'dimensions';
+      areaField.hidden = mode !== 'area';
+      ['rip-length', 'rip-width', 'rip-area'].forEach(id => getInput(id).removeAttribute('aria-invalid'));
+      const area = mode === 'area' ? read('rip-area', 0.01, 10000000) : read('rip-length', 0.01, 100000) * read('rip-width', 0.01, 100000);
+      const depth = read('rip-depth', 0.25, 120);
+      const extra = read('rip-extra', 0, 100);
+      const error = document.getElementById('rip-error') as HTMLElement;
+      const live = document.getElementById('rip-live-result') as HTMLElement;
+      if (![area, depth, extra].every(Number.isFinite) || area <= 0 || area > 10000000) {
+        ['rip-finished-yards', 'rip-finished-feet', 'rip-measured-area', 'rip-order-yards', 'rip-order-tons', 'rip-deliveries'].forEach(id => setOutput(id, '—'));
+        error.textContent = 'Enter a positive measured area and layer thickness, and an order extra from 0 to 100%.';
+        live.textContent = error.textContent;
+        return;
+      }
+      const finishedFeet = area * depth / 12;
+      const finishedYards = finishedFeet / 27;
+      const orderYards = finishedYards * (1 + extra / 100);
+      setOutput('rip-measured-area', area.toLocaleString('en-US', { maximumFractionDigits: 1 }));
+      setOutput('rip-finished-feet', finishedFeet.toFixed(2));
+      setOutput('rip-finished-yards', finishedYards.toFixed(2));
+      setOutput('rip-order-yards', orderYards.toFixed(2));
+      const weight = read('rip-weight', 100, 10000);
+      const payloadInput = getInput('rip-payload');
+      const payload = payloadInput.value.trim() ? read('rip-payload', 0.01, 1000) : NaN;
+      if (!payloadInput.value.trim()) payloadInput.removeAttribute('aria-invalid');
+      const tons = Number.isFinite(weight) ? orderYards * weight / 2000 : NaN;
+      setOutput('rip-order-tons', Number.isFinite(tons) ? tons.toFixed(2) : '—');
+      setOutput('rip-deliveries', Number.isFinite(tons) && Number.isFinite(payload) ? String(Math.ceil(tons / payload)) : '—');
+      error.textContent = !Number.isFinite(weight) ? 'Enter your supplier’s loose bulk weight between 100 and 10,000 lb/cu yd to estimate tons.' :
+        payloadInput.value.trim() && !Number.isFinite(payload) ? 'Enter a positive quoted payload up to 1,000 tons, or leave that field blank.' : '';
+      live.textContent = error.textContent || `${finishedYards.toFixed(2)} cubic yards finished; ${orderYards.toFixed(2)} cubic yards planned; ${Number.isFinite(tons) ? `${tons.toFixed(2)} US short tons estimated` : 'tonnage unavailable until a supplier weight is entered'}.`;
     }
-
-    ['riprap-length', 'riprap-width', 'riprap-depth', 'riprap-waste'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateRiprap);
-    });
+    ids.forEach(id => getInput(id)?.addEventListener('input', updateRiprap));
+    document.querySelectorAll('input[name="rip-mode"]').forEach(input => input.addEventListener('change', updateRiprap));
     updateRiprap();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .steps-list { padding-left: var(--space-6); margin: var(--space-4) 0; }
-  .steps-list li { margin-bottom: var(--space-3); }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .rip-tool { padding: var(--space-10) 0; }
+  .rip-heading { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: end; margin-bottom: var(--space-6); }
+  .rip-heading h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: .25rem 0 0; color: var(--text-primary); }
+  .rip-heading > p { margin: 0; color: var(--text-secondary); line-height: 1.6; }
+  .rip-kicker { color: var(--accent-gold); font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin: 0; }
+  .rip-tool-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--space-5); }
+  .rip-panel, .rip-card, .rip-feature { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); min-width: 0; }
+  .rip-modes { border: 0; padding: 0; margin: 0 0 var(--space-5); display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
+  .rip-modes legend { font-weight: 700; color: var(--text-primary); margin-bottom: .5rem; }
+  .rip-modes label { display: inline-flex; align-items: center; gap: .4rem; color: var(--text-secondary); }
+  .rip-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-4); }
+  .rip-fields[hidden] { display: none; }
+  .rip-field { min-width: 0; margin-bottom: var(--space-4); }
+  .rip-fields .rip-field { margin-bottom: 0; }
+  .rip-field label { display: block; color: var(--text-primary); font-weight: 700; font-size: .9rem; margin-bottom: .45rem; }
+  .rip-field label span { color: var(--text-muted); font-weight: 500; }
+  .rip-field input { display: block; width: 100%; min-width: 0; padding: .8rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); color: var(--text-primary); background: var(--bg-surface); font: inherit; }
+  .rip-field input[aria-invalid="true"] { border-color: #ee7979; }
+  .rip-help { color: var(--text-muted); font-size: .84rem; line-height: 1.5; margin: -.4rem 0 var(--space-4); }
+  .rip-help a, .rip-guide a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 2px; }
+  .rip-separator { border-top: 1px solid var(--border-subtle); margin: var(--space-6) 0; }
+  .rip-error { color: #f7a1a1; min-height: 1.4em; margin: 0; font-size: .85rem; }
+  .rip-results { border-color: rgba(212, 168, 83, .38); align-self: start; }
+  .rip-primary { display: flex; align-items: baseline; gap: .6rem; color: var(--text-primary); margin-top: var(--space-3); }
+  .rip-primary output { font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 800; line-height: 1.1; }
+  .rip-primary span { font-size: 1.2rem; }
+  .rip-note { color: var(--text-muted); line-height: 1.55; font-size: .9rem; }
+  .rip-result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin: var(--space-8) 0; }
+  .rip-result-grid > div { padding: var(--space-4); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); min-width: 0; }
+  .rip-result-grid span { display: block; color: var(--text-muted); font-size: .8rem; margin-bottom: .3rem; }
+  .rip-result-grid strong { color: var(--text-primary); font-size: 1.12rem; overflow-wrap: anywhere; }
+  .rip-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+  .rip-guide { padding: var(--space-10) 0; background: var(--bg-body); }
+  .rip-feature { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); margin-bottom: var(--space-6); align-items: center; }
+  .rip-guide h2 { color: var(--text-primary); font-size: clamp(1.4rem, 2.5vw, 2rem); margin: .3rem 0 var(--space-4); }
+  .rip-guide h3 { color: var(--text-primary); margin: 0 0 .45rem; font-size: 1.05rem; }
+  .rip-guide p, .rip-guide li { color: var(--text-secondary); line-height: 1.7; }
+  .rip-formula { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); border-radius: var(--radius-md); padding: var(--space-4); margin-top: var(--space-5); }
+  .rip-formula p { margin: .3rem 0; font-size: .87rem; overflow-wrap: anywhere; }
+  .rip-figure { min-width: 0; margin: 0; }
+  .rip-figure-scroll { overflow-x: auto; border-radius: var(--radius-md); background: #0e1b29; }
+  .rip-figure img { display: block; width: 100%; min-width: 500px; height: auto; }
+  .rip-figure figcaption { color: var(--text-muted); font-size: .82rem; line-height: 1.5; margin-top: .5rem; }
+  .rip-figure figcaption span { display: none; }
+  .rip-card { margin-bottom: var(--space-6); }
+  .rip-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+  .rip-three > div { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .rip-three span { display: block; color: var(--accent-gold); font-size: .72rem; letter-spacing: .1em; font-weight: 800; margin-bottom: .6rem; }
+  .rip-three p { font-size: .9rem; margin: 0; }
+  .rip-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); padding-left: var(--space-6); }
+  .rip-steps li { padding-right: var(--space-3); }
+  .rip-notice { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); border-radius: var(--radius-md); }
+  .rip-faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+  .rip-faq-list > div { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .rip-faq-list p { margin: 0; font-size: .9rem; }
+  @media (max-width: 850px) { .rip-heading, .rip-tool-grid, .rip-feature { grid-template-columns: 1fr; } .rip-three { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .rip-panel, .rip-card, .rip-feature { padding: var(--space-5); } .rip-fields, .rip-result-grid, .rip-steps, .rip-faq-list { grid-template-columns: 1fr; } .rip-figure img { width: 500px; } .rip-figure figcaption span { display: inline; } }
 </style>

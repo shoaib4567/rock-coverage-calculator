@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 320" role="img" aria-labelledby="title desc">
+  <title id="title">Belgian block paving face and edging orientation</title>
+  <desc id="desc">Left: 9 by 5 inch visible stone faces separated by half-inch joints, making a 9.5 by 5.5 inch counting module. Right: blocks laid with the 9 inch side along one edging run, separated by half-inch joints.</desc>
+  <defs>
+    <pattern id="grain" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="4" r="1" fill="#7a7a75" opacity=".35"/>
+      <circle cx="9" cy="9" r=".7" fill="#f4eee0" opacity=".35"/>
+    </pattern>
+    <style>
+      .bg{fill:#152131}.panel{fill:#1c2b3d;stroke:#405467;stroke-width:2}.stone{fill:#9da5a1;stroke:#e5e2d8;stroke-width:2}.joint{fill:#bb9855}.label{fill:#f4f1e9;font:700 20px system-ui,sans-serif}.copy{fill:#c9d4d8;font:15px system-ui,sans-serif}.dim{fill:#ffe0a0;font:700 15px system-ui,sans-serif}.arrow{stroke:#ffe0a0;stroke-width:2;marker-start:url(#arrow);marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L7 4L1 7Z" fill="#ffe0a0"/></marker>
+  </defs>
+  <rect class="bg" width="920" height="320" rx="20"/>
+  <rect class="panel" x="18" y="18" width="430" height="284" rx="16"/>
+  <rect class="panel" x="468" y="18" width="434" height="284" rx="16"/>
+  <text class="label" x="38" y="52">Paving: count by visible face</text>
+  <text class="copy" x="38" y="76">9 × 5 in stone + ½ in joint</text>
+  <rect class="joint" x="48" y="97" width="312" height="176" rx="4"/>
+  <g class="stone">
+    <rect x="52" y="101" width="144" height="80" rx="4"/>
+    <rect x="204" y="101" width="144" height="80" rx="4"/>
+    <rect x="52" y="189" width="144" height="80" rx="4"/>
+    <rect x="204" y="189" width="144" height="80" rx="4"/>
+  </g>
+  <g fill="url(#grain)">
+    <rect x="52" y="101" width="144" height="80" rx="4"/>
+    <rect x="204" y="101" width="144" height="80" rx="4"/>
+    <rect x="52" y="189" width="144" height="80" rx="4"/>
+    <rect x="204" y="189" width="144" height="80" rx="4"/>
+  </g>
+  <text x="76" y="146" fill="#122032" font-size="16" font-weight="700" font-family="system-ui,sans-serif">9 × 5 in</text>
+  <text class="dim" x="52" y="292">9.5 × 5.5 in counting module</text>
+  <text class="label" x="488" y="52">Edging: count along the run</text>
+  <text class="copy" x="488" y="76">Long side parallel to driveway</text>
+  <rect class="joint" x="490" y="130" width="379" height="74" rx="4"/>
+  <g class="stone">
+    <rect x="494" y="134" width="118" height="66" rx="4"/>
+    <rect x="619" y="134" width="118" height="66" rx="4"/>
+    <rect x="744" y="134" width="118" height="66" rx="4"/>
+  </g>
+  <g fill="url(#grain)">
+    <rect x="494" y="134" width="118" height="66" rx="4"/>
+    <rect x="619" y="134" width="118" height="66" rx="4"/>
+    <rect x="744" y="134" width="118" height="66" rx="4"/>
+  </g>
+  <line class="arrow" x1="496" y1="222" x2="616" y2="222"/>
+  <text class="dim" x="513" y="247">9 in along run</text>
+  <text class="copy" x="490" y="285">½ in joint between neighboring blocks</text>
+</svg>

@@ -3,9 +3,9 @@ import GuideLayout from '../layouts/GuideLayout.astro';
 
 const calculatorsSupported = [
   { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³', desc: 'Calculate 1-3 inch and 3-5 inch river stone for your dry creek channel bed.' },
-  { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: '1.40 t/yd³', desc: 'Estimate 6-12 inch Class 1 armor stone for high-velocity bends and outfalls.' },
-  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: '1.35 t/yd³', desc: 'Calculate clean #57 stone for under-bed French drain pipe percolation.' },
-  { title: 'Cobblestone Calculator', slug: '/cobblestone-calculator', badge: '1.45 t/yd³', desc: 'Size heavy border cobbles to anchor channel edges against water erosion.' }
+  { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: 'Specified stone', desc: 'Estimate a designed armor layer from its measured area, thickness, and quoted stone weight.' },
+  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Pipe trench', desc: 'Estimate the stone-filled trench volume after subtracting top cover and pipe space.' },
+  { title: 'Cobblestone Calculator', slug: '/cobblestone-calculator', badge: 'Piece count', desc: 'Count individual blocks for a designed border or paving area.' }
 ];
 
 const upLinks = [
@@ -27,14 +27,14 @@ const bridgeLinks = [
 ---
 
 <GuideLayout
-  title="Dry Creek Bed Construction Guide - Channel Sizing & Stone Placement"
-  metaDescription="Civil and landscape guide to dry creek bed construction. Channel parabolic sizing, multi-tier river rock and riprap layering, and stormwater dissipation."
+  title="Dry Creek Bed Guide: Channel Planning and Stone Takeoff"
+  metaDescription="Plan a dry creek bed with measured channel length and lined area. Learn when river rock is decorative, when riprap needs hydraulic design, and how to estimate stone quantities."
   canonicalPath="/dry-creek-bed"
-  guideTitle="Dry Creek Bed Guide: Channel Sizing & Stone Placement"
-  guideSubtitle="A stormwater engineering and landscape design manual. Control heavy surface runoff, prevent bank erosion, and create a naturalized dry stream bed."
-  standardBadge="Stormwater Drainage Engineering"
+  guideTitle="Dry Creek Bed Guide: Channel Planning and Stone Takeoff"
+  guideSubtitle="Measure the lined path, separate decorative stone from engineered erosion protection, and plan a safe outlet."
+  standardBadge="Site-specific drainage design"
   readingTime="8 min read"
-  lastUpdated="September 2026"
+  lastUpdated="October 2026"
   calculatorsSupported={calculatorsSupported}
   upLinks={upLinks}
   lateralLinks={lateralLinks}
@@ -44,124 +44,97 @@ const bridgeLinks = [
   <section class="aeo-guide-box" aria-label="Summary of Dry Creek Bed Design">
     <div class="aeo-guide-header">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      <span class="aeo-guide-title">Dry Creek Bed Sizing Rules</span>
+      <span class="aeo-guide-title">Before you order stone</span>
     </div>
     <div class="aeo-guide-grid">
       <div class="aeo-guide-item">
-        <span class="aeo-guide-label">Channel Cross Section</span>
-        <span class="aeo-guide-value">Parabolic Curve (2:1 Ratio)</span>
-        <p class="aeo-guide-desc">Width should be at least twice the depth (e.g. 4 ft wide by 1.5 ft deep).</p>
+        <span class="aeo-guide-label">Where water goes</span>
+        <span class="aeo-guide-value">Confirm the outlet</span>
+        <p class="aeo-guide-desc">Trace the flow path and check that discharge will not damage a building, road, or neighboring property.</p>
       </div>
       <div class="aeo-guide-item">
-        <span class="aeo-guide-label">Stone Blend</span>
-        <span class="aeo-guide-value">3-Tier Caliper Graduation</span>
-        <p class="aeo-guide-desc">1-3" bed stone (60%), 4-8" edge cobbles (30%), 12-24" anchor boulders (10%).</p>
+        <span class="aeo-guide-label">Lined area</span>
+        <span class="aeo-guide-value">Measure bed and banks</span>
+        <p class="aeo-guide-desc">Use the surface actually covered by stone, including the sloped sides, rather than top width alone.</p>
       </div>
       <div class="aeo-guide-item">
-        <span class="aeo-guide-label">Channel Slope</span>
-        <span class="aeo-guide-value">1% to 3% Continuous Fall</span>
-        <p class="aeo-guide-desc">1/8" to 3/8" per linear foot ensures positive water exit without erosion.</p>
+        <span class="aeo-guide-label">Stone size</span>
+        <span class="aeo-guide-value">Match expected flow</span>
+        <p class="aeo-guide-desc">Fast, concentrated water may require an engineered riprap design; a decorative pebble mix is not a substitute.</p>
       </div>
       <div class="aeo-guide-item">
-        <span class="aeo-guide-label">Underlayment</span>
-        <span class="aeo-guide-value">Non-Woven 4-6 oz Poly</span>
-        <p class="aeo-guide-desc">Mandatory geotextile pinned every 2 feet to prevent subgrade soil scour.</p>
+        <span class="aeo-guide-label">Filter layer</span>
+        <span class="aeo-guide-value">Specify for the soil</span>
+        <p class="aeo-guide-desc">An aggregate filter or geotextile may be needed to stop soil moving through the stone; use the project detail.</p>
       </div>
     </div>
   </section>
 
   <div class="guide-text-block">
-    <h2>The Dual Role of a Dry Creek Bed</h2>
-    <p>
-      A dry creek bed (also called an arroyo, bioswale, or rock drainage swale) serves two distinct functions: it is an aesthetic landscape focal point during dry weather and a functional civil drainage conduit during heavy torrential downpours.
-    </p>
-    <p>
-      When storm runoff collects from roof downspouts, sump pump outfalls, or uphill neighbors, an unlined dirt ditch quickly erodes into an ugly, muddy gully. An engineered dry creek bed lines this flow path with graduated stone, dissipating hydraulic energy and safely routing water to a municipal catch basin, rain garden, or daylight exit.
-    </p>
+    <h2>First decide whether it is decorative or a drainage channel</h2>
+    <p>A dry creek bed can mark a landscape line that rarely carries water, or it can be a lined swale that conveys runoff. Those jobs need different stone and site planning. If water comes from a culvert, a large upslope area, or a road, establish the expected flow and a safe outlet before choosing stone. The <a href="https://stormwater.pca.state.mn.us/erosion_prevention_practices_riprap" rel="noopener noreferrer">Minnesota Stormwater Manual</a> describes riprap for concentrated flow and scour protection; it does not prescribe one decorative stone blend for every channel.</p>
+    <p>A planted bioswale is a different system: it may be designed to slow and infiltrate water through vegetation and soil. Calling a stone-lined channel a bioswale can hide its drainage and maintenance requirements.</p>
 
-    <h2>Hydraulic Channel Geometry: The Parabolic Shape</h2>
-    <p>
-      Never dig a dry creek bed with vertical sides or a flat, rectangular box bottom. In fluid mechanics, flat-bottom ditches concentrate water velocity in shallow sheets that scour the banks.
-    </p>
-    <p>
-      Civil drainage engineers specify a <strong>parabolic cross-section (saucer curve)</strong> where the center is the deepest point and the side banks slope gently outward at a <strong>2:1 or 3:1 horizontal-to-vertical ratio</strong>:
-    </p>
-
+    <h2>Measure the surface that will receive stone</h2>
+    <p>Walk the route and measure it in short sections. For each section, record the channel length and the developed width across the bottom and both banks. A flexible tape laid over the shaped surface is more useful for a stone takeoff than the channel's top opening. Multiply length by developed width to estimate lined square feet, then multiply by the <em>specified finished stone thickness</em>.</p>
     <div class="formula-callout">
-      <code>Recommended Channel Width = 3 to 6 Feet Across Top</code>
-      <br />
-      <code>Recommended Channel Center Depth = 12 to 18 Inches</code>
-      <br />
-      <code>Bed Stone Thickness = 4 to 6 Inches Minimum</code>
+      <code>Lined area (ft²) = section length (ft) × developed lined width (ft)</code><br />
+      <code>Stone volume (yd³) = lined area (ft²) × specified thickness (in) ÷ 324</code>
     </div>
+    <p>For example, a 40-foot section with a 5-foot measured lined width covers 200 square feet. A planned 4-inch stone layer is 2.47 cubic yards before any site-specific extra. This is a quantity example, not a channel or erosion-control design. <a href="https://www.fhwa.dot.gov/engineering/hydraulics/pubs/hec/hec15si.pdf" rel="noopener noreferrer">FHWA HEC-15</a> considers discharge, cross-section, slope, bends, shear stress, stone grading, and filters when designing a stable lining.</p>
 
-    <h2>The Three-Tier Rock Sizing Strategy</h2>
-    <p>
-      A dry creek bed constructed entirely of uniform 2-inch river stone looks artificial and will wash away during a 50-year storm event. Natural mountain streambeds exhibit a graduated blend of three distinct stone sizes:
-    </p>
+    <h2>Choose stone by the channel's job</h2>
+    <p>Keep the quantity estimate separate from stone selection. A decorative mix can combine sizes and colors for appearance. A channel expected to carry concentrated flow needs a stable lining, graded stone and an appropriate filter selected for that site's hydraulics and soil.</p>
 
     <div class="table-container">
       <table class="guide-data-table">
         <thead>
           <tr>
-            <th scope="col">Stone Component</th>
-            <th scope="col">Nominal Size</th>
-            <th scope="col">Volume Percentage</th>
-            <th scope="col">Placement and Hydraulic Function</th>
+            <th scope="col">Project condition</th>
+            <th scope="col">What to decide</th>
+            <th scope="col">Takeoff unit</th>
+            <th scope="col">Related tool</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Channel Bed Stone</strong></td>
-            <td>1" to 3" River Rock</td>
-            <td><strong>60% of Total Volume</strong></td>
-            <td>Lines the center channel bottom where water flows during minor rains</td>
+            <td><strong>Decorative bed</strong></td>
+            <td>Choose appearance, available size, and how the stones will be contained.</td>
+            <td>Measured area × planned layer depth</td>
+            <td><a href="/river-rock-calculator">River rock calculator</a></td>
           </tr>
           <tr>
-            <td><strong>Bank Stabilizing Cobbles</strong></td>
-            <td>4" to 8" Cobblestone</td>
-            <td><strong>30% of Total Volume</strong></td>
-            <td>Anchors the side slopes, outer meander curves, and grade transitions</td>
+            <td><strong>Individual border blocks</strong></td>
+            <td>Choose the block's actual laid face and joint spacing.</td>
+            <td>Count pieces by length or paved area</td>
+            <td><a href="/cobblestone-calculator">Cobblestone calculator</a></td>
           </tr>
           <tr>
-            <td><strong>Anchor Boulders & Riprap</strong></td>
-            <td>12" to 24" Heavy Stone</td>
-            <td><strong>10% of Total Volume</strong></td>
-            <td>Embedded 1/3 into bank soil to break storm velocity and create natural pooling</td>
+            <td><strong>Concentrated flow or outfall</strong></td>
+            <td>Have the armor size, thickness, extent, and filter specified for expected flow.</td>
+            <td>Designed lined area × specified thickness</td>
+            <td><a href="/riprap-calculator">Riprap calculator</a></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h2>Step-by-Step Construction Protocol</h2>
+    <h2>Plan the route and build from the selected detail</h2>
 
-    <h3>1. Route Mapping and Grade Verification</h3>
-    <p>
-      Lay out the creek path using natural meandering curves rather than a straight line. Water naturally meanders; gentle S-curves look authentic and slow down runoff velocity. Verify a continuous downward slope of at least <strong>1 to 2 percent (1/8 to 1/4 inch per foot)</strong> along the entire length so water never ponds and stagnates.
-    </p>
+    <h3>1. Map the inlet, route, and outlet</h3>
+    <p>Locate utilities and mark where water enters, where it crosses the property, and where it can discharge safely. Check elevations along the whole route. Curves can look natural, but they do not automatically reduce erosion; concentrated flow on bends may need more protection. Seek local drainage advice for a culvert outlet, steep grade, public right-of-way, or neighboring-property discharge.</p>
 
-    <h3>2. Excavation and Soil Compaction</h3>
-    <p>
-      Excavate the parabolic channel 6 inches deeper than your target finished stone grade to accommodate stone thickness. Tamp the soil firmly using a hand tamper to create a dense, scour-resistant subgrade.
-    </p>
+    <h3>2. Shape and measure the lined section</h3>
+    <p>Excavate to the planned channel profile and stone thickness, then measure the developed bottom-and-bank width in each section. Avoid claiming a single cross-section or depth works everywhere. Keep finished grades and the outlet clear of nearby structures.</p>
 
-    <h3>3. Geotextile Membrane Installation</h3>
-    <p>
-      Line the entire excavation with heavy-duty <strong>4 to 6 oz non-woven polypropylene geotextile fabric</strong>. Extend the fabric 6 inches beyond the outer top edges of the creek bed. Pin securely using 6-inch steel sod staples placed every 2 feet along the center line and perimeter.
-    </p>
-    <p>
-      <strong>Scour Warning:</strong> Never use plastic sheeting. Water flowing over plastic causes stones to slide downhill like sleds on ice, washing out the entire channel in the first severe thunderstorm.
-    </p>
+    <h3>3. Install the specified filter</h3>
+    <p>A filter helps keep underlying soil from washing through an armor layer. The project may call for graded aggregate, geotextile, or both, depending on soil and hydraulic conditions. Follow the specified overlap, anchoring, and placement detail; fabric weight and staple spacing are not universal. The <a href="https://directives.nrcs.usda.gov/sites/default/files2/1712931137/7360.pdf" rel="noopener noreferrer">NRCS stone-sizing guidance</a> also addresses foundation stability and filter grading.</p>
 
-    <h3>4. Strategic Boulder Placement</h3>
-    <p>
-      Place your largest 12-inch to 24-inch boulders first. Bury the bottom one-third of each boulder into the dirt bank to anchor it firmly against water force and give it the appearance of an ancient, naturally exposed rock outcrop. Position boulders along the <strong>outside curves of meanders</strong> where water force is greatest.
-    </p>
+    <h3>4. Place stone without damaging the filter</h3>
+    <p>Use the gradation, thickness, key-in, and equipment method called for in the plan. Handle large stone so it does not tear the filter or disturb the shaped bank. An outfall apron needs its designed length, width, and toe treatment; a decorative boulder arrangement cannot establish those dimensions.</p>
 
-    <h3>5. Infilling with Cobbles and River Stone</h3>
-    <p>
-      Place 4-inch to 8-inch cobbles along the banks and around the base of the anchor boulders. Finally, fill the central invert of the channel with a 4-inch layer of 1-inch to 3-inch smooth river stone. Spray thoroughly with a hose to clear dust and verify smooth water conveyance.
-    </p>
+    <h3>5. Inspect after runoff</h3>
+    <p>Look for displaced stone, exposed soil or filter, sediment buildup, blocked outlets, and erosion at the downstream end. Correct the cause before topping up stone. For a simple decorative bed, the <a href="/how-much-rock-do-i-need">general rock quantity guide</a> covers area and depth; for designed protection, use the <a href="/riprap-calculator">riprap takeoff</a> after stone and thickness have been specified.</p>
   </div>
 </GuideLayout>
 
