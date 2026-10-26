@@ -26,7 +26,7 @@
   <path d="M70 335 Q480 277 890 335 L890 387 H70Z" fill="url(#soil)"/>
   <path d="M455 119 Q335 135 182 176" fill="none" stroke="#2681a6" stroke-width="4" marker-end="url(#arrow)"/>
   <path d="M505 119 Q625 135 778 176" fill="none" stroke="#2681a6" stroke-width="4" marker-end="url(#arrow)"/>
-  <text x="480" y="112" text-anchor="middle" fill="#2681a6" font-family="Arial, sans-serif" font-size="16" font-weight="700">crown or cross slope directs runoff</text>
+  <text x="480" y="112" text-anchor="middle" fill="#2681a6" font-family="Arial, sans-serif" font-size="16" font-weight="700">crown directs runoff to both sides</text>
   <rect x="94" y="218" width="206" height="30" rx="6" fill="#243c47" opacity=".96"/>
   <text x="106" y="239" fill="#ffffff" font-family="Arial, sans-serif" font-size="15" font-weight="700">SURFACE COURSE</text>
   <rect x="344" y="273" width="182" height="30" rx="6" fill="#59452e" opacity=".96"/>
