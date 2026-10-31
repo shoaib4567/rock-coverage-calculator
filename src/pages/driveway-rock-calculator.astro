@@ -26,22 +26,6 @@ const quickStats = [
 
 const faqItems = [
   {
-<<<<<<< HEAD
-    "q": "How much rock does a 12 × 50 ft driveway need?",
-    "a": "For one 3-inch layer, the measured volume is 5.56 cubic yards. A selected 15% allowance gives 6.39 yards and about 8.94 US short tons at the example 1.40 tons per yard. Base and surface layers must be estimated separately."
-  },
-  {
-    "q": "Does every driveway need the same depth?",
-    "a": "No. Use the layer thicknesses selected for the ground, drainage, traffic and material. A surface top-up and a new driveway base are different jobs."
-  },
-  {
-    "q": "Does the calculator specify fabric or a base?",
-    "a": "No. Choose subgrade treatment, separator and base from the installation plan. The tool estimates quantities from dimensions; it does not assess bearing capacity."
-  },
-  {
-    "q": "Is 15 tons a standard truck capacity?",
-    "a": "No. It is an illustrative load used in this estimate. Confirm actual payload, volume and access with the supplier."
-=======
     q: 'How much rock covers a 12-by-50-foot driveway?',
     a: 'The area is 600 square feet. A 2-inch finished top-up is 600 × 2 ÷ 324 = 3.70 cubic yards. At an illustrative 1.40 short tons per loose cubic yard, that is about 5.19 tons before any loose-volume or order allowance. A new driveway needs a separate base-course estimate.'
   },
@@ -60,7 +44,6 @@ const faqItems = [
   {
     q: 'What does the loose-material allowance mean?',
     a: 'The entered depth is the finished course thickness. The calculator converts that geometry to cubic yards, then adds the percentage you enter to estimate loose material for placement and densification. It is an assumption, not a measured compaction rate. Leave it at zero if a supplier has already given you a yield for the finished thickness.'
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
   }
 ];
 
@@ -86,13 +69,8 @@ const supportGuides = [
 ---
 
 <BaseLayout
-<<<<<<< HEAD
-  title="Driveway Rock Calculator - Rock Coverage Calculator for Driveways"
-  metaDescription="Calculate estimated tons and cubic yards of driveway rock, #57 stone, and crusher run. Calibrated for vehicle compaction, sub-base depths, and truckloads."
-=======
   title={pageTitle}
   metaDescription="Estimate driveway gravel and crushed rock in cubic yards and short tons. Plan a top-up or separate base and surface courses with editable depths, bulk weights, and order allowances."
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
   canonicalPath="/driveway-rock-calculator"
 >
   <Fragment slot="head">
@@ -118,22 +96,12 @@ const supportGuides = [
   </Fragment>
 
   <Header />
-<<<<<<< HEAD
-
   <main id="main-content">
-=======
-  <main>
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
     <PageHero
       title={pageTitle}
       highlightWord="Driveway"
-<<<<<<< HEAD
-      badge="Heavy Vehicular Sizing Engine"
-      subtitle="Estimate one driveway layer from area, finished depth and an optional order allowance. Confirm the material and delivery with your supplier."
-=======
       badge="Driveway material planning"
       subtitle="A 12 × 50 ft driveway needs 3.70 cubic yards for a 2 in finished top-up. That is about 5.19 short tons at an example 1.40 tons per loose cubic yard, before any allowance. Use the tool to match your actual layers and supplier weights."
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -151,57 +119,6 @@ const supportGuides = [
       <div class="container">
         <h2 id="driveway-tool-heading" class="section-heading">Estimate base and surface rock</h2>
         <div class="calc-wrapper">
-<<<<<<< HEAD
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h2>Driveway Dimensions and Specifications</h2>
-          </div>
-
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="dwr-length">Driveway Length (Feet)</label>
-              <input type="number" id="dwr-length" value="50" min="1" step="1" />
-            </div>
-            <div class="input-field">
-              <label for="dwr-width">Driveway Width (Feet)</label>
-              <input type="number" id="dwr-width" value="12" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="dwr-depth">Installed Depth (Inches)</label>
-              <input type="number" id="dwr-depth" value="3.0" min="1" max="18" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="dwr-compaction">Compaction Allowance (%)</label>
-              <input type="number" id="dwr-compaction" value="15" min="0" max="30" step="1" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h2>Required Material Totals</h2>
-            </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-dwr-tons">0.00</div>
-              <div class="kpi-label">Quarry Weight (Tons)</div>
-              <div class="kpi-subtext" id="kpi-dwr-lbs">0 lbs total weight</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-dwr-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext">Includes 15% compaction</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-dwr-loads">0.0</div>
-              <div class="kpi-label">Example Truckloads</div>
-              <div class="kpi-subtext">15-ton example; confirm payload</div>
-=======
           <div class="calc-panel">
             <div class="calc-panel-title"><h3>Project measurements</h3></div>
             <div class="input-field">
@@ -285,7 +202,6 @@ const supportGuides = [
                 <div class="kpi-label">Driveway square feet</div>
                 <div class="kpi-subtext">Length × average width</div>
               </div>
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
             </div>
             <div class="course-results">
               <h4>Course breakdown</h4>
@@ -301,13 +217,6 @@ const supportGuides = [
       </div>
     </section>
 
-<<<<<<< HEAD
-    <!-- Civil Truckload Logistics & Subgrade Stabilization Block -->
-    <CivilStructuralBlock />
-
-    <!-- Technical Guide on Driveway Rock Coverage -->
-    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Estimate one driveway layer at a time</h2><p>Enter the footprint and finished depth for the selected layer. This tool uses an example 1.40 US short tons per loose cubic yard. Its extra-material input increases the order volume; the starting percentage is not a universal compaction requirement.</p><p>Use the <a href="/layered-project-calculator">layered planner</a> for separate base and surface orders. A driveway’s required aggregate, grading, thickness and compaction depend on the soil, drainage, traffic and applicable design. The quantity calculation does not establish load capacity.</p><h2>Work through an example</h2><p>A 12 × 50 ft footprint has 600 sq ft. A 3-inch layer occupies 600 × 3 ÷ 324 = 5.56 yd³ before extra. With a chosen 15% allowance, the order estimate is 6.39 yd³, or 8.94 US short tons at 1.40 tons per yard. Calculate another layer separately if the plan includes a base.</p><h2>Choose the actual material</h2><p>Clean angular stone and dense-graded base are different products. A size designation such as #57 does not establish mineral type, fines content or structural suitability. Ask for the specified grading and local loose bulk weight. A rounded decorative surface may shift under turning tires; do not select a wearing layer solely by color.</p><h2>Check the order and delivery</h2><p>Tell the supplier the material, separate layer quantities, selling unit, order increment and delivery location. The displayed 15-ton load is an example used for dividing the estimated tons, not a standard tri-axle rating. Actual payload, clearances, access and surface suitability must come from the supplier.</p><p>For editable supplier bulk weight use the <a href="/gravel-calculator">gravel calculator</a>. The <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/">Penn State materials calculator</a> also distinguishes compacted finished dimensions from loose shipped quantities.</p><h2>Questions before ordering</h2>{faqItems.map(item=><section><h2>{item.q}</h2><p>{item.a}</p></section>)}</div></div></article>
-=======
     <article class="content-guide-section">
       <div class="container">
         <section class="content-card" aria-labelledby="choose-project-heading">
@@ -378,7 +287,6 @@ const supportGuides = [
         </section>
       </div>
     </article>
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
 
     <TopicClusterNav currentPage="/driveway-rock-calculator" category="quantity" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
   </main>

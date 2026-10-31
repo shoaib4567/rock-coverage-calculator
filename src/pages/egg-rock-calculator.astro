@@ -91,11 +91,7 @@ const supportGuides = [
   </Fragment>
 
   <Header />
-<<<<<<< HEAD
   <main id="main-content">
-=======
-  <main>
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
     <PageHero
       title={pageTitle}
       highlightWord="Calculator"
@@ -228,24 +224,16 @@ const supportGuides = [
   <Footer />
 
   <script>
-<<<<<<< HEAD
     const eggInput = (id: string) => document.getElementById(id);
     const eggSet = (id: string, value: string) => { const node = eggInput(id); if (node) node.textContent = value; };
     const eggRead = (id: string, min: number, max: number, active = true) => {
       const field = eggInput(id);
       if (!(field instanceof HTMLInputElement)) return NaN;
-=======
-    const eggInput = (id) => document.getElementById(id);
-    const eggSet = (id, value) => { const node = document.getElementById(id); if (node) node.textContent = value; };
-    const eggRead = (id, min, max, active = true) => {
-      const field = eggInput(id);
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
       const number = Number(field.value);
       const valid = !active || (field.value.trim() !== '' && Number.isFinite(number) && number >= min && number <= max);
       field.setAttribute('aria-invalid', String(!valid));
       return valid && active ? number : NaN;
     };
-<<<<<<< HEAD
     const eggClear = (ids: string[]) => ids.forEach(id => eggSet(id, '—'));
     function updateEggRock() {
       const mode = document.querySelector<HTMLInputElement>('input[name="egg-mode"]:checked')?.value ?? 'dimensions';
@@ -254,14 +242,6 @@ const supportGuides = [
       const areaFields = eggInput('egg-area-fields');
       if (dimensionFields) dimensionFields.hidden = !dimensions;
       if (areaFields) areaFields.hidden = dimensions;
-=======
-    const eggClear = (ids) => ids.forEach(id => eggSet(id, '—'));
-    function updateEggRock() {
-      const mode = document.querySelector('input[name="egg-mode"]:checked').value;
-      const dimensions = mode === 'dimensions';
-      eggInput('egg-dimensions-fields').hidden = !dimensions;
-      eggInput('egg-area-fields').hidden = dimensions;
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
       const length = eggRead('egg-length', 0.01, 100000, dimensions);
       const width = eggRead('egg-width', 0.01, 100000, dimensions);
       const enteredArea = eggRead('egg-area', 0.01, 100000000, !dimensions);
@@ -270,18 +250,10 @@ const supportGuides = [
       const extra = eggRead('egg-extra', 0, 100);
       const density = eggRead('egg-density', 100, 10000);
       const bag = eggRead('egg-bag', 0.01, 100);
-<<<<<<< HEAD
       const resultIds = ['egg-finished-yards', 'egg-finished-feet', 'egg-order-yards', 'egg-order-tons', 'egg-order-bags', 'egg-ton-coverage'];
       if (!Number.isFinite(area) || area <= 0 || !Number.isFinite(depth) || !Number.isFinite(extra)) {
         eggClear(resultIds);
         eggSet('egg-error', 'Enter a positive area, a 0.25–12 in finished depth, and 0–100% optional extra.');
-=======
-      const error = eggInput('egg-error');
-      const resultIds = ['egg-finished-yards', 'egg-finished-feet', 'egg-order-yards', 'egg-order-tons', 'egg-order-bags', 'egg-ton-coverage'];
-      if (!Number.isFinite(area) || area <= 0 || !Number.isFinite(depth) || !Number.isFinite(extra)) {
-        eggClear(resultIds);
-        error.textContent = 'Enter a positive area, a 0.25–12 in finished depth, and 0–100% optional extra.';
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
         eggSet('egg-result-context', 'Correct the highlighted measurement fields to calculate.');
         eggSet('egg-result-summary', 'Egg rock calculation needs valid measurements.');
         return;
@@ -298,11 +270,7 @@ const supportGuides = [
       eggSet('egg-order-tons', Number.isFinite(tons) ? tons.toFixed(2) : '—');
       eggSet('egg-ton-coverage', Number.isFinite(coverage) ? Math.round(coverage).toLocaleString() : '—');
       eggSet('egg-order-bags', Number.isFinite(bags) ? bags.toLocaleString() : '—');
-<<<<<<< HEAD
       eggSet('egg-error', !Number.isFinite(density) || !Number.isFinite(bag) ? 'Volume is ready. Correct the highlighted supplier weight or bag volume to calculate its separate result.' : '');
-=======
-      error.textContent = !Number.isFinite(density) || !Number.isFinite(bag) ? 'Volume is ready. Correct the highlighted supplier weight or bag volume to calculate its separate result.' : '';
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
       eggSet('egg-result-context', 'Based on ' + area.toLocaleString(undefined, { maximumFractionDigits: 1 }) + ' sq ft, ' + depth + ' in, ' + extra + '% extra, ' + (Number.isFinite(density) ? density.toLocaleString() + ' lb/cu yd' : 'supplier weight needed') + ', and ' + (Number.isFinite(bag) ? bag + ' cu ft per bag.' : 'bag volume needed.'));
       eggSet('egg-result-summary', 'Order ' + orderYards.toFixed(2) + ' cubic yards' + (Number.isFinite(tons) ? ', approximately ' + tons.toFixed(2) + ' US short tons' : '') + (Number.isFinite(bags) ? ', or ' + bags + ' whole bags.' : '.'));
     }

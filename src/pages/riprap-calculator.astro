@@ -10,29 +10,6 @@ const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: pageTitle, url: '/riprap-calculator' }
 ];
-<<<<<<< HEAD
-
-const entityTags = [{"label":"Thickness","value":"Use the project detail"},{"label":"Product","value":"Confirm the actual gradation"},{"label":"Weight","value":"Example 1.40 US tons/yd³"}];
-
-const quickStats = [{"value":"Measured surface","label":"Area","desc":"Include the slope surface"},{"value":"Specified layer","label":"Thickness","desc":"Not selected by this tool"},{"value":"Supplier input","label":"Order check","desc":"Confirm weight and delivery"}];
-
-const faqItems = [
-  {
-    "q": "How many tons cover a 15 × 20 ft apron?",
-    "a": "If the selected detail requires 12 inches, the measured volume is 11.11 yd³. With 10% extra and an example 1.40 tons per yard, the order estimate is 17.11 US short tons. Confirm thickness and product weight independently."
-  },
-  {
-    "q": "What thickness should riprap be?",
-    "a": "Use the applicable design and stone grading. This quantity tool cannot select armor thickness or size for a particular flow, slope or shoreline."
-  },
-  {
-    "q": "Is fabric always required?",
-    "a": "Use the specified filter and bedding detail. Granular filters, geotextiles and combinations serve different situations; there is no one fabric specification for every site."
-  },
-  {
-    "q": "What do Class 1 and Class 2 mean?",
-    "a": "They are agency or supplier designations whose gradation limits vary. Obtain the actual specification rather than assuming the class name sets a universal stone size."
-=======
 const entityTags = [
   { label: 'Use', value: 'Erosion-control rock takeoff' },
   { label: 'Measure', value: 'Actual slope face or apron area' },
@@ -63,7 +40,6 @@ const faqItems = [
   {
     q: 'Is Class 1 riprap always 6 to 12 inches?',
     a: 'No. Class numbers are specification-specific. Caltrans describes Class I rock slope protection by a nominal 6-inch median diameter and a 12-inch maximum, while Minnesota uses different class numbers for its median sizes. Give the supplier the issuing agency and exact gradation or project drawing rather than only a class label.'
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
   }
 ];
 const upLinks = [
@@ -107,22 +83,12 @@ const supportGuides = [
   </Fragment>
 
   <Header />
-<<<<<<< HEAD
-
   <main id="main-content">
-    <PageHero
-      title="Riprap & Armor Rock Coverage Calculator"
-      highlightWord="Rock Coverage"
-      badge="Heavy Civil Erosion Control Engine"
-      subtitle="Estimate riprap volume and example tonnage from the surface and thickness specified for your project."
-=======
-  <main>
     <PageHero
       title={pageTitle}
       highlightWord="Calculator"
       badge="Bank and apron material takeoff"
       subtitle="A 15 × 20 ft riprap apron at a specified 12 in depth takes 11.11 cu yd of finished layer. At one supplier’s example 2,800 lb/cu yd loose weight, that converts to about 15.56 US short tons for planning before any order extra. Enter your own stone specification and supplier weight below."
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -131,59 +97,6 @@ const supportGuides = [
 
     <section class="rip-tool" id="calculator" aria-labelledby="rip-tool-title">
       <div class="container">
-<<<<<<< HEAD
-        <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h2>Riprap Embankment Dimensions</h2>
-          </div>
-
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="riprap-length">Length (Feet)</label>
-              <input type="number" id="riprap-length" value="40" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="riprap-width">Slope Width (Feet)</label>
-              <input type="number" id="riprap-width" value="15" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="riprap-depth">Layer Thickness (Inches)</label>
-              <input type="number" id="riprap-depth" value="12.0" min="6" max="36" step="1" />
-            </div>
-            <div class="input-field">
-              <label for="riprap-waste">Safety Buffer (%)</label>
-              <input type="number" id="riprap-waste" value="10" min="0" max="25" step="1" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h2>Required Material Totals</h2>
-            </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-                <div class="kpi-value" id="kpi-riprap-yards">24.44</div>
-                <div class="kpi-label">Volume (Cubic Yards)</div>
-                <div class="kpi-subtext" id="kpi-riprap-cuft">660.0 cu ft (with 10% buffer)</div>
-              </div>
-              <div class="kpi-card">
-                <div class="kpi-value" id="kpi-riprap-tons">34.22</div>
-                <div class="kpi-label">Scale Weight (Tons)</div>
-                <div class="kpi-subtext">At 1.40 t/yd³ (2,800 lbs/yd³)</div>
-              </div>
-              <div class="kpi-card">
-                <div class="kpi-value" id="kpi-riprap-loads">2.3</div>
-                <div class="kpi-label">Example Truckloads</div>
-                <div class="kpi-subtext">15-ton example; confirm payload</div>
-              </div>
-=======
         <div class="rip-heading">
           <div><p class="rip-kicker">Measure the actual armor footprint</p><h2 id="rip-tool-title">Estimate rock layer, tons, and deliveries</h2></div>
           <p>Enter the finished rock thickness measured <em>normal to the surface</em> from your plan. For a bank, measure width <em>up the sloping face</em>; a map’s horizontal width understates its surface area.</p>
@@ -223,7 +136,6 @@ const supportGuides = [
               <div><span>Planned bulk order</span><strong><output id="rip-order-yards">11.11</output> cu yd</strong></div>
               <div><span>Planning US short tons</span><strong><output id="rip-order-tons">15.56</output> tons</strong></div>
               <div><span>Deliveries at quoted payload</span><strong><output id="rip-deliveries">—</output></strong></div>
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
             </div>
             <p class="rip-note">This tonnage applies a loose supplier weight to geometric finished volume for planning. Loose truck volume and placed volume can differ as stones settle and voids change. Ask the quarry or designer for a placed-yield estimate when ordering by weight; the supplier’s sales unit and scale ticket govern the purchase.</p>
             <p class="rip-sr-only" id="rip-live-result" aria-live="polite"></p>
@@ -232,13 +144,6 @@ const supportGuides = [
       </div>
     </section>
 
-<<<<<<< HEAD
-    <!-- Civil Truckload Logistics & Subgrade Stabilization Block -->
-    <CivilStructuralBlock />
-
-    <!-- Technical Guide on Riprap -->
-    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Calculate quantity after selecting the armor detail</h2><p>Use the specified stone size, grading, filter or bedding and finished thickness for your project. Riprap class names and dimensions vary between agencies and products. This tool does not select a stone size for flow, waves, erosion or slope stability.</p><h2>Measure the surface receiving stone</h2><p>For a sloped bank, measure along the actual surface rather than using its horizontal plan width. Divide irregular areas into sections and add their volumes. For each section, cubic yards = length in feet × surface width in feet × thickness in inches ÷ 324. Estimate filter or bedding layers separately.</p><h2>A quantity example</h2><p>If the project detail calls for a 12-inch layer over a measured 15 × 20 ft surface, the installed volume is 11.11 yd³. Adding a selected 10% allowance gives 12.22 yd³. At an example loose bulk weight of 1.40 US short tons per yard, the order is about 17.11 tons. The 12-inch thickness is an example input, not a universal armor specification.</p><h2>Confirm the actual product</h2><p>Ask the supplier for the required gradation and a suitable loose weight conversion for that large-stone product. Do not use a fine-gravel weight or a broad riprap class name as certification. Individual stone weights, placement voids and handling can affect the delivered amount.</p><h2>Plan filter, placement and access</h2><p>A project may require a specified granular filter, geotextile, bedding or a combination. Use its detail rather than assuming one fabric weight or layer rule applies everywhere. Confirm required environmental or watercourse approvals before work that affects a channel, bank or shoreline.</p><p>The truckload result divides by an example 15-ton example; confirm payload. Supplier payload and volume, ground conditions and placement access determine the actual deliveries. Use the <a href="/dry-creek-bed">dry creek measurement guide</a> for a decorative lining and the <a href="/drain-rock-calculator">drain calculator</a> for a pipe trench.</p><h2>Questions before ordering</h2>{faqItems.map(item=><section><h2>{item.q}</h2><p>{item.a}</p></section>)}</div></div></article>
-=======
     <article class="rip-guide">
       <div class="container">
         <section class="rip-feature" aria-labelledby="rip-measure-title">
@@ -293,7 +198,6 @@ const supportGuides = [
         </section>
       </div>
     </article>
->>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
 
     <TopicClusterNav currentPage="/riprap-calculator" category="material" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
   </main>
