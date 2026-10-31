@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 import { relatedTools, type ToolLink } from '../lib/site-navigation';
 interface Props { currentPage?: string; activePage?: string; category?: string; upLinks?: ToolLink[]; lateralLinks?: ToolLink[]; bridgeLinks?: ToolLink[]; supportGuides?: ToolLink[]; }
 const route=Astro.props.currentPage || Astro.url.pathname.replace(/\/$/,'') || '/';
@@ -14,6 +15,349 @@ const links=candidates.filter(l=>l.slug!==route&&!seen.has(l.slug)&&seen.add(l.s
   <p><a href="/calculators">Browse all calculators and guides →</a></p>
  </div>
 </nav>
+=======
+/**
+ * TopicClusterNav Component - DWG 01 REV B
+ * Implements the 4 link types: Up, Lateral, Bridge, Support.
+ * Strict US Civil Engineering & Aggregate Standards. Zero en/em dashes.
+ */
+interface LinkItem {
+  title: string;
+  slug: string;
+  desc?: string;
+  badge?: string;
+}
+
+interface Props {
+  currentPage: string;
+  category?: 'material' | 'quantity' | 'guide';
+  upLinks?: LinkItem[];
+  lateralLinks?: LinkItem[];
+  bridgeLinks?: LinkItem[];
+  supportGuides?: LinkItem[];
+}
+
+const { 
+  currentPage, 
+  category = 'material',
+  upLinks = [],
+  lateralLinks = [],
+  bridgeLinks = [],
+  supportGuides = []
+} = Astro.props;
+
+const CORE_MATERIALS: LinkItem[] = [
+  { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: '1.35 t/yd³', desc: '3/8 inch rounded pea gravel for walkways, dog runs, and patio surfaces.' },
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'Rounded stone', desc: '1-3 inch and 3-5 inch smooth river rock for dry creek beds and borders.' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'By stone grade', desc: 'Compare clean stone and dense graded base for drainage or compacted layers.' },
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³', desc: 'Driveway gravel, road gravel, and parking pad aggregate estimation.' },
+  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Pipe & cover', desc: 'Estimate the stone-filled part of a drain trench after cover and pipe space.' },
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Compare materials', desc: 'Compare measured bed volume and supplier-weight estimates for lava rock, marble chips, and beach pebbles.' },
+  { title: 'Cobblestone Calculator', slug: '/cobblestone-calculator', badge: 'Paving & edging', desc: 'Count individual Belgian blocks for a paved area or a measured border.' },
+  { title: 'Landscape Rock Calculator', slug: '/landscape-rock-calculator', badge: 'By rock type', desc: 'Decorative bed quantities in yards, short tons, and bags with editable bulk density.' },
+  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: 'Editable density', desc: 'Estimate loose crushed stone for paths and bases from finished depth, bulk weight, and placement loss.' }
+];
+
+const EXPANSION_MATERIALS: LinkItem[] = [
+  { title: 'Driveway Rock Calculator', slug: '/driveway-rock-calculator', badge: 'Two layers', desc: 'Estimate separate base and surface orders from finished depths and supplier weights.' },
+  { title: 'Egg Rock Calculator', slug: '/egg-rock-calculator', badge: 'Stone size', desc: 'Estimate rounded egg rock by measured layer, supplier bulk weight, and the volume on your bag.' },
+  { title: 'Trap Rock Calculator', slug: '/trap-rock-calculator', badge: 'Basalt / diabase', desc: 'Estimate trap-rock volume and supplier-weight tons by product grade.' },
+  { title: 'Garden Rock Calculator', slug: '/garden-rock-calculator', badge: 'Planting beds', desc: 'Plan a measured rock mulch layer and compare stone with organic mulch for planting beds.' },
+  { title: 'Decomposed Granite Calculator', slug: '/decomposed-granite-calculator', badge: 'Compactable fines', desc: 'Estimate DG paths and patios with an editable loose density and order allowance.' },
+  { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: 'Landscape bed', desc: 'Measure a lava-rock layer, then estimate bulk yards, supplier-weight tons, and bags.' },
+  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'Bulk and bags', desc: 'Plan white marble chip volume and weight for borders, beds, and garden accents.' },
+  { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: 'Grade choice', desc: 'Compare clean and graded crushed granite for measured paths and driveway layers.' },
+  { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: 'Erosion stone', desc: 'Large stone for culverts, slopes, and shorelines where specified.' },
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: '1.45 t/yd³', desc: 'Dense graded aggregate (AASHTO M147) blending crushed stone and rock dust.' },
+  { title: 'Beach Pebble Calculator', slug: '/beach-pebble-calculator', badge: 'Bulk or bags', desc: 'Estimate Mexican beach pebble yards, supplier-weight tons, and bags by labeled volume.' }
+];
+
+const GENERIC_CONVERSIONS: LinkItem[] = [
+  { title: 'Rock Calculator', slug: '/rock-calculator', badge: 'Simple estimate', desc: 'Estimate a measured bed in cubic yards, short tons, and bags with editable density.' },
+  { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: '27 cu ft / yd³', desc: 'Convert length, width, and depth into cubic yards for bulk ordering.' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: '2,000 lbs / ton', desc: 'Convert cubic volume into commercial scale weight using bulk density.' },
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bag volume', desc: 'Count bags from their labeled volume and compare local bag and bulk quotes.' },
+  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'sq ft coverage', desc: 'Calculate aggregate tons and cubic yards needed from known square footage.' },
+  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Truckload Sizing', desc: 'Estimate dump truck delivery payloads, axle weight limits, and settling margins.' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Worked guide', desc: 'Measure area and depth, check a worked example, then estimate yards, tons, and bags.' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Conversion Hub', desc: 'Interactive depth matrix showing square feet per yard and square feet per ton.' }
+];
+
+const MATERIAL_CONVERSIONS: LinkItem[] = [
+  { title: 'River Rock Coverage Calculator', slug: '/river-rock-coverage-calculator', badge: 'Coverage Solver', desc: 'Convert river rock tons, yards, or bags to area at your depth and supplier bulk weight.' },
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Tons Solver', desc: 'Estimate US short tons with a supplier-specific loose bulk density.' },
+  { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Yards Solver', desc: 'Measure finished gravel volume and plan a rounded bulk-yard order.' },
+  { title: 'Gravel Bag Calculator', slug: '/gravel-bag-calculator', badge: 'Bag Solver', desc: 'Count bags by labeled volume and compare current bag and bulk quotes.' },
+  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Tons', desc: 'Estimate short tons from depth and editable supplier bulk weight.' },
+  { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Yards', desc: 'Round cubic yards to a supplier increment and plan delivery capacity.' },
+  { title: 'Crushed Stone Bag Calculator', slug: '/crushed-stone-bag-calculator', badge: 'Bags', desc: 'Count whole bags using the product label and compare local quotes.' },
+  { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'Tons Solver', desc: 'Estimate US short tons from measured area, depth, and editable supplier bulk weight.' },
+  { title: 'River Rock Cubic Yard Calculator', slug: '/river-rock-cubic-yard-calculator', badge: 'Yards Solver', desc: 'Separate installed yards from extra and round a bulk order to the supplier increment.' },
+  { title: 'River Rock Bag Calculator', slug: '/river-rock-bag-calculator', badge: 'Bag Solver', desc: 'Count bags from their labeled volume and compare current bag and bulk quotes.' },
+  { title: 'Pea Gravel Patio Calculator', slug: '/pea-gravel-patio-calculator', badge: 'Patio Solver', desc: 'Estimate separate pea gravel and base layers with editable depths and planning assumptions.' },
+  { title: 'Pea Gravel Tons Calculator', slug: '/pea-gravel-tons-calculator', badge: 'Tons Solver', desc: 'Estimate US short tons for a measured pea gravel layer with editable loose bulk density.' },
+  { title: 'Pea Gravel Cubic Yard Calculator', slug: '/pea-gravel-cubic-yard-calculator', badge: 'Yards Solver', desc: 'Separate measured layer volume from optional extra cubic yards for a bulk order.' },
+  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Bag Solver', desc: 'Count retail pea gravel bags using the volume printed on your chosen bag.' },
+  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Coverage Solver', desc: 'Convert pea gravel tons, yards, or bags to area, or estimate an order from area and depth.' },
+  { title: 'Decomposed Granite Tons Calculator', slug: '/decomposed-granite-tons-calculator', badge: 'Tons Solver', desc: 'Convert finished DG layer volume to loose order yards and short tons with editable assumptions.' },
+  { title: 'Decomposed Granite Coverage Calculator', slug: '/decomposed-granite-coverage-calculator', badge: 'Coverage Solver', desc: 'Estimate finished DG area per loose cubic yard or short ton at a chosen depth.' },
+  { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Bag Solver', desc: 'Count whole landscape-lava bags from the label volume and estimate carrying weight.' },
+  { title: 'Lava Rock Coverage Calculator', slug: '/lava-rock-coverage-calculator', badge: 'Coverage Solver', desc: 'Convert known lava-rock yards, tons, or bags to area at a chosen depth.' },
+  { title: 'Marble Chips Bag Calculator', slug: '/marble-chips-bag-calculator', badge: 'Bag Solver', desc: 'Count whole white marble chip bags from the volume printed on the chosen product.' }
+];
+
+const SUPPORTING_GUIDES: LinkItem[] = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448', desc: 'Complete gradation envelope, sieve specs, and applications for #57 aggregate.' },
+  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43', desc: 'Standard aggregate size numbers from #1 down to #10 with sieve dimensions.' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech Guide', desc: 'Particle interlock, friction angles (40-45 deg), and structural load behavior.' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth planning', desc: 'Choose a finished layer depth for the material and project before calculating volume.' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Contractor Protocol', desc: 'Step by step site preparation, geotextile fabric, edging, and screeding.' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Analysis', desc: 'Compare a rounded bag order with the full delivered bulk quote and site access.' },
+  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Channel planning', desc: 'Measure the lined bed and banks, choose stone for the flow, and check the outlet.' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'Planning factors', desc: 'Compare loose bulk density estimates and adjust them for your supplier.' }
+];
+
+// The decorative overview also needs a short path into its material-specific tools.
+// Explicit page links take precedence when a page supplies them.
+const decorativeOverview = currentPage === '/decorative-rock-calculator';
+const contextUpLinks = upLinks.length > 0 ? upLinks : decorativeOverview
+  ? [{ title: 'Rock Coverage Calculator', slug: '/', badge: 'Main tool' }]
+  : [];
+const contextLateralLinks = lateralLinks.length > 0 ? lateralLinks : decorativeOverview
+  ? [
+      { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'White stone' },
+      { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: 'Volcanic stone' },
+      { title: 'Beach Pebble Calculator', slug: '/beach-pebble-calculator', badge: 'Rounded stone' }
+    ]
+  : [];
+const contextBridgeLinks = bridgeLinks.length > 0 ? bridgeLinks : decorativeOverview
+  ? [
+      { title: 'Marble Chips Bag Calculator', slug: '/marble-chips-bag-calculator', badge: 'Retail bags' },
+      { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bag volume' }
+    ]
+  : [];
+const contextSupportGuides = supportGuides.length > 0 ? supportGuides : decorativeOverview
+  ? [{ title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Layer depth' }]
+  : [];
+const hasContextLinks = contextUpLinks.length > 0 || contextLateralLinks.length > 0 || contextBridgeLinks.length > 0 || contextSupportGuides.length > 0;
+---
+
+<section class="topic-cluster-section" aria-label="Topic Cluster and Knowledge Network">
+  <div class="container">
+    
+    {hasContextLinks && (
+      <div class="context-links-wrapper">
+        <div class="context-header">
+          <span class="badge-cluster">Project Navigation</span>
+          <h2>Related Calculation Tools and Field Guides</h2>
+          <p>Navigate directly to companion calculators, complementary units, and technical engineering guides for this project.</p>
+        </div>
+
+        <div class="context-grid">
+          {contextUpLinks.length > 0 && (
+            <div class="context-card">
+              <div class="context-card-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                <h3>Parent Calculators (Up)</h3>
+              </div>
+              <ul class="context-list">
+                {contextUpLinks.map((link) => (
+                  <li>
+                    <a href={link.slug} class="context-link">
+                      <span class="link-name">{link.title}</span>
+                      {link.badge && <span class="link-badge">{link.badge}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {contextLateralLinks.length > 0 && (
+            <div class="context-card">
+              <div class="context-card-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <h3>Related materials and calculators</h3>
+              </div>
+              <ul class="context-list">
+                {contextLateralLinks.map((link) => (
+                  <li>
+                    <a href={link.slug} class="context-link">
+                      <span class="link-name">{link.title}</span>
+                      {link.badge && <span class="link-badge">{link.badge}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {contextBridgeLinks.length > 0 && (
+            <div class="context-card">
+              <div class="context-card-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+                <h3>Conversions and buying guides</h3>
+              </div>
+              <ul class="context-list">
+                {contextBridgeLinks.map((link) => (
+                  <li>
+                    <a href={link.slug} class="context-link">
+                      <span class="link-name">{link.title}</span>
+                      {link.badge && <span class="link-badge">{link.badge}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {contextSupportGuides.length > 0 && (
+            <div class="context-card highlight">
+              <div class="context-card-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <h3>Engineering Guides (Support)</h3>
+              </div>
+              <ul class="context-list">
+                {contextSupportGuides.map((link) => (
+                  <li>
+                    <a href={link.slug} class="context-link">
+                      <span class="link-name">{link.title}</span>
+                      {link.badge && <span class="link-badge guide">{link.badge}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+    )}
+
+    <!-- Complete Directory Section -->
+    <div class="directory-wrapper">
+      <div class="cluster-header">
+        <span class="badge-cluster">Quarry Knowledge Network</span>
+        <h2>Complete Landscape Aggregate Calculator Library</h2>
+        <p>Explore material calculators, unit conversions, and practical field guides by project.</p>
+      </div>
+
+      <div class="cluster-columns-three">
+        <!-- Column 1: Material Calculators -->
+        <div class="cluster-col">
+          <div class="cluster-col-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/><path d="M3 12h18"/></svg>
+            <h3>Material Calculators ({CORE_MATERIALS.length + EXPANSION_MATERIALS.length})</h3>
+          </div>
+          <div class="cluster-subhead">Core Landscape Rocks</div>
+          <div class="cluster-grid">
+            {CORE_MATERIALS.map((item) => (
+              <a 
+                href={item.slug} 
+                class={`cluster-card ${currentPage === item.slug ? 'active-spoke' : ''}`}
+              >
+                <div class="cluster-card-content">
+                  <div class="cluster-card-title-row">
+                    <h4>{item.title}</h4>
+                    <span class="cluster-tag">{item.badge}</span>
+                  </div>
+                  <p>{item.desc}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div class="cluster-subhead mt-4">Specialty and Base Aggregates</div>
+          <div class="cluster-grid">
+            {EXPANSION_MATERIALS.map((item) => (
+              <a 
+                href={item.slug} 
+                class={`cluster-card ${currentPage === item.slug ? 'active-spoke' : ''}`}
+              >
+                <div class="cluster-card-content">
+                  <div class="cluster-card-title-row">
+                    <h4>{item.title}</h4>
+                    <span class="cluster-tag alt">{item.badge}</span>
+                  </div>
+                  <p>{item.desc}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Column 2: Conversion Calculators -->
+        <div class="cluster-col">
+          <div class="cluster-col-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h10v10H7z"/></svg>
+            <h3>Conversion Calculators ({GENERIC_CONVERSIONS.length + MATERIAL_CONVERSIONS.length})</h3>
+          </div>
+          <div class="cluster-subhead">Generic Volume and Weight</div>
+          <div class="cluster-grid">
+            {GENERIC_CONVERSIONS.map((item) => (
+              <a 
+                href={item.slug} 
+                class={`cluster-card ${currentPage === item.slug ? 'active-spoke' : ''}`}
+              >
+                <div class="cluster-card-content">
+                  <div class="cluster-card-title-row">
+                    <h4>{item.title}</h4>
+                    <span class="cluster-tag alt">{item.badge}</span>
+                  </div>
+                  <p>{item.desc}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div class="cluster-subhead mt-4">Material Specific Conversions</div>
+          <div class="cluster-grid">
+            {MATERIAL_CONVERSIONS.map((item) => (
+              <a 
+                href={item.slug} 
+                class={`cluster-card ${currentPage === item.slug ? 'active-spoke' : ''}`}
+              >
+                <div class="cluster-card-content">
+                  <div class="cluster-card-title-row">
+                    <h4>{item.title}</h4>
+                    <span class="cluster-tag">{item.badge}</span>
+                  </div>
+                  <p>{item.desc}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Column 3: Supporting Engineering Guides -->
+        <div class="cluster-col">
+          <div class="cluster-col-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <h3>Engineering Guides ({SUPPORTING_GUIDES.length})</h3>
+          </div>
+          <div class="cluster-subhead">Standards and Best Practices</div>
+          <div class="cluster-grid">
+            {SUPPORTING_GUIDES.map((item) => (
+              <a 
+                href={item.slug} 
+                class={`cluster-card ${currentPage === item.slug ? 'active-spoke' : ''}`}
+              >
+                <div class="cluster-card-content">
+                  <div class="cluster-card-title-row">
+                    <h4>{item.title}</h4>
+                    <span class="cluster-tag guide">{item.badge}</span>
+                  </div>
+                  <p>{item.desc}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+>>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
 <style>
  .topic-cluster-section{padding:var(--space-8) 0;border-top:1px solid var(--border-subtle);margin-top:var(--space-8)}
  .related-tools h2{font-size:var(--text-xl);margin:0 0 var(--space-4);color:var(--text-primary)}

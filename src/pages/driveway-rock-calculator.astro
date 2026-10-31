@@ -4,29 +4,29 @@ import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
-import CivilStructuralBlock from '../components/intent/CivilStructuralBlock.astro';
 
+const pageTitle = 'Driveway Rock Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Gravel Calculator', url: '/gravel-calculator' },
-  { name: 'Driveway Rock Calculator', url: '/driveway-rock-calculator' }
+  { name: pageTitle, url: '/driveway-rock-calculator' }
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Driveway Rock Coverage' },
-  { label: 'Standard Sieve', value: 'ASTM D448 #57 Surface & #4 Base' },
-  { label: 'Bulk Density', value: '1.40 t/yd³ (2,800 lbs/yd³)' },
-  { label: 'Compaction Factor', value: '15% to 20% Vehicular Settling' }
+  { label: 'Project', value: 'Gravel driveway refresh or new build' },
+  { label: 'Courses', value: 'Surface and optional base' },
+  { label: 'Output', value: 'Cubic yards and short tons by course' }
 ];
 
 const quickStats = [
-  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'Standard bulk density for fractured angular driveway stone' },
-  { value: '15% Factor', label: 'Compaction', desc: 'Volume allowance for vehicle rolling and wheel rut displacement' },
-  { value: '15 Tons', label: 'Tri-Axle Load', desc: 'Standard commercial payload for residential driveway delivery' }
+  { value: '600 sq ft', label: '12 × 50 ft example', desc: 'Measure each section separately if the width changes.' },
+  { value: '3.70 yd³', label: '2 in finished layer', desc: 'Geometric volume before any loose-material allowance.' },
+  { value: '5.19 tons', label: 'Illustrative weight', desc: 'Uses 1.40 short tons per loose cubic yard; ask your supplier.' }
 ];
 
 const faqItems = [
   {
+<<<<<<< HEAD
     "q": "How much rock does a 12 × 50 ft driveway need?",
     "a": "For one 3-inch layer, the measured volume is 5.56 cubic yards. A selected 15% allowance gives 6.39 yards and about 8.94 US short tons at the example 1.40 tons per yard. Base and surface layers must be estimated separately."
   },
@@ -41,90 +41,117 @@ const faqItems = [
   {
     "q": "Is 15 tons a standard truck capacity?",
     "a": "No. It is an illustrative load used in this estimate. Confirm actual payload, volume and access with the supplier."
+=======
+    q: 'How much rock covers a 12-by-50-foot driveway?',
+    a: 'The area is 600 square feet. A 2-inch finished top-up is 600 × 2 ÷ 324 = 3.70 cubic yards. At an illustrative 1.40 short tons per loose cubic yard, that is about 5.19 tons before any loose-volume or order allowance. A new driveway needs a separate base-course estimate.'
+  },
+  {
+    q: 'Should I use #57 stone or crusher run on a driveway?',
+    a: 'It depends on drainage, traffic, slope and the existing base. Clean #57 is a graded coarse stone that can drain but has little fines to bind the surface. A locally specified dense-graded or “minus” aggregate contains fines and can compact into a firmer driving course. Ask the quarry what it supplies for a driveway surface and base; #57 and crusher run are not interchangeable names.'
+  },
+  {
+    q: 'Can I cover ruts with another layer of gravel?',
+    a: 'First find why the ruts formed. A low, wet, or weak section often needs grading, drainage or subgrade repair before more stone. Otherwise a fresh top layer follows the same rut. Measure the material needed after the repair profile is set.'
+  },
+  {
+    q: 'Is geotextile required beneath every gravel driveway?',
+    a: 'No. Separation or stabilization fabric can help where weak, wet soil mixes into the aggregate, but the product and installation depend on the subgrade and loading. A sound existing base may only need reshaping and a surface course. Keep fabric covered and follow the manufacturer or project design.'
+  },
+  {
+    q: 'What does the loose-material allowance mean?',
+    a: 'The entered depth is the finished course thickness. The calculator converts that geometry to cubic yards, then adds the percentage you enter to estimate loose material for placement and densification. It is an assumption, not a measured compaction rate. Leave it at zero if a supplier has already given you a yield for the finished thickness.'
+>>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
   }
 ];
 
 const upLinks = [
-  { title: 'Gravel Calculator (Material Parent)', slug: '/gravel-calculator', badge: 'Material' },
-  { title: 'Rock Tons Calculator (Unit Parent)', slug: '/rock-tons-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: 'Material' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Planning' }
 ];
-
 const lateralLinks = [
-  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Tons' },
-  { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: 'Granite' },
-  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Road Base' }
+  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Dense Base' },
+  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Stone' },
+  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Weight' }
 ];
-
 const bridgeLinks = [
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
-  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' }
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'Gradation' },
+  { title: 'Gravel Sizes Guide', slug: '/gravel-sizes', badge: 'Local Names' },
+  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Bulk Weight' }
 ];
-
 const supportGuides = [
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
-  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Stop Gravel Washing Out on a Slope', slug: '/how-to-stop-gravel-washing-out-on-slope', badge: 'Drainage' },
+  { title: 'Fix Rock Sinking into Soil', slug: '/how-to-fix-rock-sinking-into-soil', badge: 'Subgrade' },
+  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Selection' }
 ];
 ---
 
 <BaseLayout
+<<<<<<< HEAD
   title="Driveway Rock Calculator - Rock Coverage Calculator for Driveways"
   metaDescription="Calculate estimated tons and cubic yards of driveway rock, #57 stone, and crusher run. Calibrated for vehicle compaction, sub-base depths, and truckloads."
+=======
+  title={pageTitle}
+  metaDescription="Estimate driveway gravel and crushed rock in cubic yards and short tons. Plan a top-up or separate base and surface courses with editable depths, bulk weights, and order allowances."
+>>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
   canonicalPath="/driveway-rock-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Driveway Rock Calculator",
-      "url": "https://rockcoveragecalculator.com/driveway-rock-calculator",
-      "description": "Calculates tons and cubic yards of driveway stone, gravel, and base aggregate with vehicle compaction allowances.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Paving Contractors, Homeowners, Civil Estimators"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Driveway Rock Coverage Calculation"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/driveway-rock-calculator',
+      description: 'Estimates separate driveway base and surface aggregate quantities from area, finished depth, loose-material allowances and supplier bulk weights.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
+<<<<<<< HEAD
 
   <main id="main-content">
+=======
+  <main>
+>>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
     <PageHero
-      title="Driveway Rock Calculator"
+      title={pageTitle}
       highlightWord="Driveway"
+<<<<<<< HEAD
       badge="Heavy Vehicular Sizing Engine"
       subtitle="Estimate one driveway layer from area, finished depth and an optional order allowance. Confirm the material and delivery with your supplier."
+=======
+      badge="Driveway material planning"
+      subtitle="A 12 × 50 ft driveway needs 3.70 cubic yards for a 2 in finished top-up. That is about 5.19 short tons at an example 1.40 tons per loose cubic yard, before any allowance. Use the tool to match your actual layers and supplier weights."
+>>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
       theme="civil"
     />
 
-    <!-- Interactive Driveway Rock Calculator Tool -->
-    <section class="section">
+    <section class="intro-section" aria-label="How to use this estimate">
+      <div class="container intro-layout">
+        <p>Choose <strong>Refresh</strong> for a sound driveway that only needs a new surface. Choose <strong>New build</strong> to estimate base and surface as separate orders. Enter finished depths, then adjust loose-material allowances and tons per cubic yard to match your quarry quote. The result is a planning estimate; the delivered scale ticket gives the actual weight.</p>
+        <a href="#driveway-estimator" class="intro-action">Estimate my driveway ↓</a>
+      </div>
+    </section>
+
+    <section class="section" id="driveway-estimator" aria-labelledby="driveway-tool-heading">
       <div class="container">
+        <h2 id="driveway-tool-heading" class="section-heading">Estimate base and surface rock</h2>
         <div class="calc-wrapper">
+<<<<<<< HEAD
           <!-- LEFT: Input Panel -->
           <div class="calc-panel animate-fade-in-up">
             <div class="calc-panel-title">
@@ -174,104 +201,307 @@ const supportGuides = [
               <div class="kpi-value" id="kpi-dwr-loads">0.0</div>
               <div class="kpi-label">Example Truckloads</div>
               <div class="kpi-subtext">15-ton example; confirm payload</div>
+=======
+          <div class="calc-panel">
+            <div class="calc-panel-title"><h3>Project measurements</h3></div>
+            <div class="input-field">
+              <label for="dwr-project">What are you doing?</label>
+              <select id="dwr-project">
+                <option value="refresh">Refreshing an existing driveway</option>
+                <option value="new">Building a new driveway section</option>
+              </select>
             </div>
+            <div class="dim-grid">
+              <div class="input-field">
+                <label for="dwr-length">Length (ft)</label>
+                <input type="number" id="dwr-length" value="50" min="0.1" max="100000" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="dwr-width">Average width (ft)</label>
+                <input type="number" id="dwr-width" value="12" min="0.1" max="100000" step="any" inputmode="decimal" />
+              </div>
             </div>
+            <p class="field-note">Split a tapered or irregular drive into rectangles and add the separate estimates.</p>
+
+            <fieldset class="course-fields">
+              <legend>Surface course</legend>
+              <div class="dim-grid">
+                <div class="input-field">
+                  <label for="dwr-surface-depth">Finished depth (in)</label>
+                  <input type="number" id="dwr-surface-depth" value="2" min="0.1" max="24" step="any" inputmode="decimal" />
+                </div>
+                <div class="input-field">
+                  <label for="dwr-surface-loose">Loose-material allowance (%)</label>
+                  <input type="number" id="dwr-surface-loose" value="0" min="0" max="50" step="any" inputmode="decimal" />
+                </div>
+                <div class="input-field">
+                  <label for="dwr-surface-density">Supplier weight (short tons/yd³)</label>
+                  <input type="number" id="dwr-surface-density" value="1.4" min="0.1" max="4" step="any" inputmode="decimal" />
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="course-fields" id="dwr-base-group">
+              <legend>Base course <span id="dwr-base-status">(not included in a refresh)</span></legend>
+              <div class="dim-grid">
+                <div class="input-field">
+                  <label for="dwr-base-depth">Finished depth (in)</label>
+                  <input type="number" id="dwr-base-depth" value="0" min="0.1" max="36" step="any" inputmode="decimal" disabled />
+                </div>
+                <div class="input-field">
+                  <label for="dwr-base-loose">Loose-material allowance (%)</label>
+                  <input type="number" id="dwr-base-loose" value="0" min="0" max="50" step="any" inputmode="decimal" disabled />
+                </div>
+                <div class="input-field">
+                  <label for="dwr-base-density">Supplier weight (short tons/yd³)</label>
+                  <input type="number" id="dwr-base-density" value="1.4" min="0.1" max="4" step="any" inputmode="decimal" disabled />
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="input-field">
+              <label for="dwr-extra">Additional order contingency (%)</label>
+              <input type="number" id="dwr-extra" value="0" min="0" max="30" step="any" inputmode="decimal" />
+            </div>
+            <p class="field-note">Loose-material allowance estimates volume above the finished geometry. Contingency is applied afterward for grade variation or handling. Both are optional and editable; avoid counting the same extra material twice.</p>
+          </div>
+
+          <div class="calc-results-panel" aria-live="polite">
+            <div class="calc-panel-title"><h3>Estimated material to order</h3></div>
+            <p id="dwr-error" class="calc-error" role="alert" hidden></p>
+            <div class="kpi-grid">
+              <div class="kpi-card highlight">
+                <div class="kpi-value" id="dwr-total-tons">5.19</div>
+                <div class="kpi-label">Total short tons</div>
+                <div class="kpi-subtext">Estimated from your bulk weights</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="dwr-total-yards">3.70</div>
+                <div class="kpi-label">Loose cubic yards to order</div>
+                <div class="kpi-subtext">Base plus surface, with allowances</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-value" id="dwr-area">600</div>
+                <div class="kpi-label">Driveway square feet</div>
+                <div class="kpi-subtext">Length × average width</div>
+              </div>
+>>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
+            </div>
+            <div class="course-results">
+              <h4>Course breakdown</h4>
+              <div><span>Surface, finished volume</span><strong id="dwr-surface-finished">3.70 yd³</strong></div>
+              <div><span>Surface, estimated order</span><strong id="dwr-surface-order">3.70 yd³ · 5.19 tons</strong></div>
+              <div id="dwr-base-result" hidden><span>Base, finished volume</span><strong id="dwr-base-finished">0.00 yd³</strong></div>
+              <div id="dwr-base-order-row" hidden><span>Base, estimated order</span><strong id="dwr-base-order">0.00 yd³ · 0.00 tons</strong></div>
+            </div>
+            <p class="result-note" id="dwr-mode-note">Refresh estimate. Inspect ruts and drainage before adding a top layer.</p>
+            <p class="result-note">Order base and surface as separate products. Ask the supplier for its loose bulk weight, minimum delivery and legal payload for your address; the calculator does not assume a truck size.</p>
           </div>
         </div>
       </div>
     </section>
 
+<<<<<<< HEAD
     <!-- Civil Truckload Logistics & Subgrade Stabilization Block -->
     <CivilStructuralBlock />
 
     <!-- Technical Guide on Driveway Rock Coverage -->
     <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Estimate one driveway layer at a time</h2><p>Enter the footprint and finished depth for the selected layer. This tool uses an example 1.40 US short tons per loose cubic yard. Its extra-material input increases the order volume; the starting percentage is not a universal compaction requirement.</p><p>Use the <a href="/layered-project-calculator">layered planner</a> for separate base and surface orders. A driveway’s required aggregate, grading, thickness and compaction depend on the soil, drainage, traffic and applicable design. The quantity calculation does not establish load capacity.</p><h2>Work through an example</h2><p>A 12 × 50 ft footprint has 600 sq ft. A 3-inch layer occupies 600 × 3 ÷ 324 = 5.56 yd³ before extra. With a chosen 15% allowance, the order estimate is 6.39 yd³, or 8.94 US short tons at 1.40 tons per yard. Calculate another layer separately if the plan includes a base.</p><h2>Choose the actual material</h2><p>Clean angular stone and dense-graded base are different products. A size designation such as #57 does not establish mineral type, fines content or structural suitability. Ask for the specified grading and local loose bulk weight. A rounded decorative surface may shift under turning tires; do not select a wearing layer solely by color.</p><h2>Check the order and delivery</h2><p>Tell the supplier the material, separate layer quantities, selling unit, order increment and delivery location. The displayed 15-ton load is an example used for dividing the estimated tons, not a standard tri-axle rating. Actual payload, clearances, access and surface suitability must come from the supplier.</p><p>For editable supplier bulk weight use the <a href="/gravel-calculator">gravel calculator</a>. The <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/">Penn State materials calculator</a> also distinguishes compacted finished dimensions from loose shipped quantities.</p><h2>Questions before ordering</h2>{faqItems.map(item=><section><h2>{item.q}</h2><p>{item.a}</p></section>)}</div></div></article>
+=======
+    <article class="content-guide-section">
+      <div class="container">
+        <section class="content-card" aria-labelledby="choose-project-heading">
+          <h2 id="choose-project-heading">Decide whether the driveway needs a top-up or a rebuild</h2>
+          <div class="decision-grid">
+            <div>
+              <h3>Sound base, thin or worn surface</h3>
+              <p>Reshape the existing course and restore its drainage, then measure only the finished surface you will add. The tool starts in this mode with a 2 in example, which you can change.</p>
+            </div>
+            <div>
+              <h3>New drive or weak underlying course</h3>
+              <p>Plan a prepared subgrade, a load-bearing base, and a separate wearing course. The new-build mode starts with an illustrative 4 in base and 2 in surface; actual thickness depends on soil, traffic, frost and local design.</p>
+            </div>
+          </div>
+          <p>Where gravel keeps disappearing into mud or ruts return after each delivery, find the cause first. <a href="/how-to-fix-rock-sinking-into-soil">Subgrade separation or repair</a>, drainage and grading can matter more than another load of stone. <a href="https://www.fhwa.dot.gov/engineering/geotech/pubs/05037/07d.cfm" rel="noopener noreferrer">FHWA guidance on geosynthetics</a> treats separation and stabilization as responses to soil conditions, not a universal fabric requirement. On a slope, plan where runoff leaves the drive before selecting the surface material; see the <a href="/how-to-stop-gravel-washing-out-on-slope">washout guide</a>.</p>
+        </section>
 
-    <TopicClusterNav
-      currentPage="/driveway-rock-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+        <figure class="course-figure">
+          <div class="course-figure-scroll" tabindex="0" aria-label="Scroll driveway layer diagram horizontally">
+            <img src="/driveway-rock-courses.svg" alt="Driveway cross section showing a crowned surface course over a separate aggregate base and prepared subgrade, with water draining toward the sides" width="960" height="430" loading="lazy" />
+          </div>
+          <figcaption>The two-course sketch explains what the calculator counts. It is a planning example, not a thickness or drainage specification for every site. Swipe sideways to inspect the courses on a narrow screen.</figcaption>
+        </figure>
+
+        <section class="content-card" aria-labelledby="calculation-heading">
+          <h2 id="calculation-heading">How the driveway rock estimate is calculated</h2>
+          <p>Measure the average width of each section, including turnouts you intend to cover. Use the <em>finished</em> thickness of each course. Keep base and surface quantities separate because they can have different gradations, weights and delivery tickets.</p>
+          <div class="formula-box">
+            <code>Finished yd³ = length (ft) × width (ft) × finished depth (in) ÷ 324</code><br />
+            <code>Order yd³ = finished yd³ × (1 + loose allowance ÷ 100) × (1 + contingency ÷ 100)</code><br />
+            <code>Short tons = order yd³ × quoted short tons per loose yd³</code>
+          </div>
+          <p>For a 12 × 50 ft refresh at 2 in, the finished volume is <strong>3.70 yd³</strong>. With both allowances at zero and a 1.40 tons/yd³ example weight, the estimate is <strong>5.19 short tons</strong>. If a contractor expects 10% extra loose material for that product, the order becomes 4.07 yd³ and about 5.70 tons before any contingency. A 4 in base beneath the same area is a separate 7.41 yd³ finished volume.</p>
+          <p>Washington Rock uses 1.4 tons/yd³ in a <a href="https://www.wa-rock.com/how-many-cubic-yards-do-i-need/" rel="noopener noreferrer">specific product and season example</a>. Bulk weight varies with gradation, source and moisture, so replace both default weights with the quarry’s figures. The estimate is not a scale-certified delivered weight.</p>
+        </section>
+
+        <section class="content-card" aria-labelledby="stone-heading">
+          <h2 id="stone-heading">Choose aggregate by course and site conditions</h2>
+          <div class="comparison-table-wrap">
+            <table class="comparison-table">
+              <thead><tr><th scope="col">Course</th><th scope="col">Ask the supplier for</th><th scope="col">Why it matters</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Base</th><td>A local dense-graded base or larger graded crushed rock matched to vehicle loads</td><td>Its particle-size blend, drainage and compaction must suit the subgrade and expected traffic.</td></tr>
+                <tr><th scope="row">Surface</th><td>A local crushed-surfacing or driveway aggregate; compare clean #57 with a graded “minus” product</td><td>Clean coarse stone drains differently from a mix with fines that binds under compaction. Product names vary by region.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Washington Rock’s <a href="https://www.wa-rock.com/product/top-course/" rel="noopener noreferrer">5/8 in minus top course</a> is one example of a compacting driveway surface over a separate base. The <a href="/57-stone-size-guide">#57 size guide</a> explains a coarse-stone grading; it does not make every #57 product an ideal surface. For a base material with fines, use the <a href="/crusher-run-calculator">crusher run guide</a>. Match the local product specification rather than relying on a name alone.</p>
+          <h3>Drainage and installation come before the final load</h3>
+          <p>Remove organics and correct soft spots, establish a crown or cross slope with a safe outlet, and compact suitable aggregate in manageable lifts. The <a href="https://www.fhwa.dot.gov/construction/pubs/ots15002.pdf" rel="noopener noreferrer">FHWA Gravel Roads Construction & Maintenance Guide</a> discusses lift thickness, moisture and compaction for unpaved roads. <a href="https://extension.psu.edu/access-road-improvements-for-practical-and-water-quality-benefits" rel="noopener noreferrer">Penn State Extension</a> emphasizes repairing ruts and drainage before placing a new surface. A residential drive’s section should still be chosen for its soil and loading, rather than copied from a public-road detail.</p>
+        </section>
+
+        <section class="content-card" aria-labelledby="order-heading">
+          <h2 id="order-heading">Before ordering a load</h2>
+          <ol class="order-list">
+            <li>Give the quarry the base and surface quantities separately, with the local product name or specification.</li>
+            <li>Ask whether its ton-per-yard figure describes <em>loose delivered material</em> and whether it can estimate yield at your finished depth.</li>
+            <li>Confirm minimum quantity, delivery access, unloading point and legal truck payload with the hauler. Do not assume a fixed number of tons per truck.</li>
+            <li>Check the final grade at doors, culverts, road connections and garage thresholds before raising the surface.</li>
+          </ol>
+        </section>
+
+        <section class="content-card faq-card" aria-labelledby="faq-heading">
+          <h2 id="faq-heading">Driveway rock questions</h2>
+          <div class="faq-list">
+            {faqItems.map(item => <div class="faq-item"><h3>{item.q}</h3><p>{item.a}</p></div>)}
+          </div>
+        </section>
+      </div>
+    </article>
+>>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3
+
+    <TopicClusterNav currentPage="/driveway-rock-calculator" category="quantity" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
   </main>
-
   <Footer />
 
   <script>
-    function updateDWR() {
-      const l = parseFloat((document.getElementById('dwr-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('dwr-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('dwr-depth') as HTMLInputElement)?.value) || 0;
-      const comp = parseFloat((document.getElementById('dwr-compaction') as HTMLInputElement)?.value) || 0;
+    const numberIds = ['dwr-length', 'dwr-width', 'dwr-surface-depth', 'dwr-surface-loose', 'dwr-surface-density', 'dwr-base-depth', 'dwr-base-loose', 'dwr-base-density', 'dwr-extra'] as const;
+    const mode = document.getElementById('dwr-project') as HTMLSelectElement;
+    const baseDepth = document.getElementById('dwr-base-depth') as HTMLInputElement;
+    const baseLoose = document.getElementById('dwr-base-loose') as HTMLInputElement;
+    const baseDensity = document.getElementById('dwr-base-density') as HTMLInputElement;
+    let savedBaseDepth = 4;
 
-      const netYards = (l * w * d) / 324;
-      const totalYards = netYards * (1 + comp / 100);
-      const tons = totalYards * 1.40;
-      const lbs = tons * 2000;
-      const loads = tons / 15;
-
-      const tEl = document.getElementById('kpi-dwr-tons');
-      const yEl = document.getElementById('kpi-dwr-yards');
-      const lEl = document.getElementById('kpi-dwr-loads');
-      const lbsEl = document.getElementById('kpi-dwr-lbs');
-
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (lEl) lEl.innerText = loads.toFixed(1);
-      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs total weight';
+    function put(id: string, value: string) {
+      const element = document.getElementById(id);
+      if (element) element.textContent = value;
     }
 
-    ['dwr-length', 'dwr-width', 'dwr-depth', 'dwr-compaction'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateDWR);
+    function updateDriveway() {
+      const isNew = mode.value === 'new';
+      const fields = numberIds.map(id => document.getElementById(id) as HTMLInputElement);
+      const invalid = fields.filter(input => !input.disabled && (input.value.trim() === '' || !input.checkValidity() || !Number.isFinite(Number(input.value))));
+      fields.forEach(input => {
+        const bad = invalid.includes(input);
+        input.setAttribute('aria-invalid', String(bad));
+        input.closest('.input-field')?.classList.toggle('input-field-invalid', bad);
+      });
+      const error = document.getElementById('dwr-error') as HTMLParagraphElement;
+      error.hidden = invalid.length === 0;
+      error.textContent = invalid.length ? 'Enter a value within the stated range for each active field.' : '';
+      document.getElementById('dwr-base-result')!.hidden = !isNew;
+      document.getElementById('dwr-base-order-row')!.hidden = !isNew;
+      if (invalid.length) {
+        ['dwr-total-tons', 'dwr-total-yards', 'dwr-area', 'dwr-surface-finished', 'dwr-surface-order', 'dwr-base-finished', 'dwr-base-order'].forEach(id => put(id, '—'));
+        return;
+      }
+
+      const read = (id: string) => Number((document.getElementById(id) as HTMLInputElement).value);
+      const area = read('dwr-length') * read('dwr-width');
+      const contingency = 1 + read('dwr-extra') / 100;
+      const surfaceFinished = area * read('dwr-surface-depth') / 324;
+      const surfaceOrder = surfaceFinished * (1 + read('dwr-surface-loose') / 100) * contingency;
+      const surfaceTons = surfaceOrder * read('dwr-surface-density');
+      const baseFinished = isNew ? area * read('dwr-base-depth') / 324 : 0;
+      const baseOrder = isNew ? baseFinished * (1 + read('dwr-base-loose') / 100) * contingency : 0;
+      const baseTons = isNew ? baseOrder * read('dwr-base-density') : 0;
+      put('dwr-area', new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 }).format(area));
+      put('dwr-total-yards', (surfaceOrder + baseOrder).toFixed(2));
+      put('dwr-total-tons', (surfaceTons + baseTons).toFixed(2));
+      put('dwr-surface-finished', surfaceFinished.toFixed(2) + ' yd³');
+      put('dwr-surface-order', surfaceOrder.toFixed(2) + ' yd³ · ' + surfaceTons.toFixed(2) + ' tons');
+      put('dwr-base-finished', baseFinished.toFixed(2) + ' yd³');
+      put('dwr-base-order', baseOrder.toFixed(2) + ' yd³ · ' + baseTons.toFixed(2) + ' tons');
+    }
+
+    mode.addEventListener('change', () => {
+      const isNew = mode.value === 'new';
+      if (!isNew && !baseDepth.disabled && baseDepth.value.trim() !== '') savedBaseDepth = Number(baseDepth.value);
+      baseDepth.disabled = baseLoose.disabled = baseDensity.disabled = !isNew;
+      baseDepth.value = isNew ? String(savedBaseDepth) : '0';
+      put('dwr-base-status', isNew ? '(set for your site)' : '(not included in a refresh)');
+      put('dwr-mode-note', isNew
+        ? 'New-build estimate. Confirm course depths, subgrade and drainage for your soil and vehicle loads.'
+        : 'Refresh estimate. Inspect ruts and drainage before adding a top layer.');
+      updateDriveway();
     });
-    updateDWR();
+    numberIds.forEach(id => document.getElementById(id)?.addEventListener('input', updateDriveway));
+    updateDriveway();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .intro-section { background: var(--bg-body); padding: var(--space-6) 0 0; }
+  .intro-layout { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); }
+  .intro-layout p { max-width: 850px; margin: 0; color: var(--text-secondary); line-height: 1.7; }
+  .intro-action { flex: none; color: var(--accent-gold); font-weight: 700; }
+  .section { padding: var(--space-8) 0 var(--space-12); }
+  .section-heading { color: var(--text-primary); margin: 0 0 var(--space-5); font-size: var(--text-2xl); }
+  .course-fields { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); margin: var(--space-5) 0; min-width: 0; }
+  .course-fields legend { color: var(--text-primary); font-weight: 700; padding: 0 var(--space-2); }
+  .course-fields legend span { color: var(--text-muted); font-size: var(--text-sm); font-weight: 400; }
+  .course-fields input:disabled { opacity: .55; cursor: not-allowed; }
+  .field-note, .result-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin: var(--space-3) 0 0; }
+  .calc-error { color: #fca5a5; border: 1px solid #ef4444; background: rgba(239,68,68,.12); padding: var(--space-3); border-radius: var(--radius-md); margin: var(--space-4) 0; }
+  .calc-error[hidden] { display: none; }
+  .input-field input[aria-invalid="true"] { border-color: #ef4444; box-shadow: 0 0 0 2px rgba(239,68,68,.2); }
+  [data-theme="light"] .calc-error { color: #991b1b; background: #fef2f2; }
+  .course-results { margin-top: var(--space-6); border-top: 1px solid var(--border-subtle); padding-top: var(--space-4); }
+  .course-results h4 { margin: 0 0 var(--space-3); color: var(--text-primary); }
+  .course-results > div { display: flex; justify-content: space-between; gap: var(--space-3); border-bottom: 1px solid var(--border-subtle); padding: var(--space-2) 0; color: var(--text-secondary); }
+  .course-results > div[hidden] { display: none; }
+  .course-results strong { color: var(--text-primary); text-align: right; white-space: nowrap; }
+  .content-guide-section { padding: var(--space-10) 0; background: var(--bg-body); }
+  .content-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); margin-bottom: var(--space-8); line-height: 1.7; color: var(--text-secondary); }
+  .content-card h2 { color: var(--text-primary); margin: 0 0 var(--space-4); font-size: var(--text-2xl); }
+  .content-card h3 { color: var(--text-primary); margin-bottom: var(--space-2); font-size: var(--text-lg); }
+  .content-card p:last-child { margin-bottom: 0; }
+  .decision-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--space-5); margin-bottom: var(--space-5); }
+  .decision-grid > div { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  .decision-grid h3 { margin-top: 0; }
+  .decision-grid p { margin-bottom: 0; }
+  .course-figure { margin: 0 0 var(--space-8); padding: var(--space-5); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+  .course-figure-scroll { overflow-x: auto; }
+  .course-figure img { display: block; width: 100%; min-width: 640px; height: auto; border-radius: var(--radius-md); }
+  .course-figure figcaption { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.5; margin-top: var(--space-3); }
+  .formula-box { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: var(--space-4) 0; font-family: var(--font-mono); color: var(--accent-gold); font-size: var(--text-sm); line-height: 1.9; overflow-wrap: anywhere; }
+  .comparison-table-wrap { overflow-x: auto; margin: var(--space-5) 0; }
+  .comparison-table { width: 100%; border-collapse: collapse; min-width: 540px; }
+  .comparison-table th, .comparison-table td { padding: var(--space-3); text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-subtle); }
+  .comparison-table thead { color: var(--text-primary); background: var(--bg-surface); }
+  .comparison-table tbody th { color: var(--text-primary); }
+  .order-list { padding-left: var(--space-6); }
+  .order-list li { padding-left: var(--space-2); margin-bottom: var(--space-3); }
+  .faq-list { display: grid; gap: var(--space-4); }
   .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item h3 { font-size: var(--text-base); margin: 0 0 var(--space-2); }
   .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  @media (max-width: 700px) {
+    .intro-layout { display: block; }
+    .intro-action { display: inline-block; margin-top: var(--space-3); }
+    .decision-grid { grid-template-columns: 1fr; }
+    .content-card { padding: var(--space-5); }
+    .course-results > div { display: block; }
+    .course-results strong { display: block; text-align: left; white-space: normal; }
+  }
 </style>

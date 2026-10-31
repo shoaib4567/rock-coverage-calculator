@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
@@ -14,3 +15,265 @@ import TopicClusterNav from '../components/TopicClusterNav.astro';
 <h2>Allow for inspection and maintenance</h2><p>After installation and storms, look for displaced stone, sediment, blocked outlets, exposed fabric and erosion at transitions. A hose check does not demonstrate capacity for a major storm. Keep debris out of the flow path and revisit the design if erosion or overtopping continues.</p><p>For ordering, confirm the actual loose weight and quote unit with the supplier. The <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/">Penn State materials calculator</a> explains the distinction between loose shipped quantity and finished dimensions. The <a href="/river-rock-calculator">river rock calculator</a> can convert your measured lining volume into an example order.</p><TopicClusterNav/></main><Footer/>
 </BaseLayout>
 <style>.practical-guide{max-width:900px;padding-block:var(--space-10)}h1{font-size:var(--text-3xl);margin-block:var(--space-5)}h2{font-size:var(--text-xl);margin-block:var(--space-7) var(--space-3)}h3{font-size:var(--text-lg);margin-block:var(--space-5) var(--space-2)}p,li{line-height:1.75;color:var(--text-secondary)}p,ul,ol{margin-bottom:var(--space-4)}a{color:var(--text-primary);text-decoration:underline;text-underline-offset:3px}ul,ol{padding-left:1.4rem}</style>
+=======
+﻿---
+import GuideLayout from '../layouts/GuideLayout.astro';
+
+const calculatorsSupported = [
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³', desc: 'Calculate 1-3 inch and 3-5 inch river stone for your dry creek channel bed.' },
+  { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: 'Specified stone', desc: 'Estimate a designed armor layer from its measured area, thickness, and quoted stone weight.' },
+  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Pipe trench', desc: 'Estimate the stone-filled trench volume after subtracting top cover and pipe space.' },
+  { title: 'Cobblestone Calculator', slug: '/cobblestone-calculator', badge: 'Piece count', desc: 'Count individual blocks for a designed border or paving area.' }
+];
+
+const upLinks = [
+  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
+  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+];
+
+const lateralLinks = [
+  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
+  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
+  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
+];
+
+const bridgeLinks = [
+  { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'Tons' },
+  { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: 'Volume' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Quarry Tons' }
+];
+---
+
+<GuideLayout
+  title="Dry Creek Bed Guide: Channel Planning and Stone Takeoff"
+  metaDescription="Plan a dry creek bed with measured channel length and lined area. Learn when river rock is decorative, when riprap needs hydraulic design, and how to estimate stone quantities."
+  canonicalPath="/dry-creek-bed"
+  guideTitle="Dry Creek Bed Guide: Channel Planning and Stone Takeoff"
+  guideSubtitle="Measure the lined path, separate decorative stone from engineered erosion protection, and plan a safe outlet."
+  standardBadge="Site-specific drainage design"
+  readingTime="8 min read"
+  lastUpdated="October 2026"
+  calculatorsSupported={calculatorsSupported}
+  upLinks={upLinks}
+  lateralLinks={lateralLinks}
+  bridgeLinks={bridgeLinks}
+>
+  <!-- Project Reference Summary -->
+  <section class="aeo-guide-box" aria-label="Summary of Dry Creek Bed Design">
+    <div class="aeo-guide-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span class="aeo-guide-title">Before you order stone</span>
+    </div>
+    <div class="aeo-guide-grid">
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Where water goes</span>
+        <span class="aeo-guide-value">Confirm the outlet</span>
+        <p class="aeo-guide-desc">Trace the flow path and check that discharge will not damage a building, road, or neighboring property.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Lined area</span>
+        <span class="aeo-guide-value">Measure bed and banks</span>
+        <p class="aeo-guide-desc">Use the surface actually covered by stone, including the sloped sides, rather than top width alone.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Stone size</span>
+        <span class="aeo-guide-value">Match expected flow</span>
+        <p class="aeo-guide-desc">Fast, concentrated water may require an engineered riprap design; a decorative pebble mix is not a substitute.</p>
+      </div>
+      <div class="aeo-guide-item">
+        <span class="aeo-guide-label">Filter layer</span>
+        <span class="aeo-guide-value">Specify for the soil</span>
+        <p class="aeo-guide-desc">An aggregate filter or geotextile may be needed to stop soil moving through the stone; use the project detail.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="guide-text-block">
+    <h2>First decide whether it is decorative or a drainage channel</h2>
+    <p>A dry creek bed can mark a landscape line that rarely carries water, or it can be a lined swale that conveys runoff. Those jobs need different stone and site planning. If water comes from a culvert, a large upslope area, or a road, establish the expected flow and a safe outlet before choosing stone. The <a href="https://stormwater.pca.state.mn.us/erosion_prevention_practices_riprap" rel="noopener noreferrer">Minnesota Stormwater Manual</a> describes riprap for concentrated flow and scour protection; it does not prescribe one decorative stone blend for every channel.</p>
+    <p>A planted bioswale is a different system: it may be designed to slow and infiltrate water through vegetation and soil. Calling a stone-lined channel a bioswale can hide its drainage and maintenance requirements.</p>
+
+    <h2>Measure the surface that will receive stone</h2>
+    <p>Walk the route and measure it in short sections. For each section, record the channel length and the developed width across the bottom and both banks. A flexible tape laid over the shaped surface is more useful for a stone takeoff than the channel's top opening. Multiply length by developed width to estimate lined square feet, then multiply by the <em>specified finished stone thickness</em>.</p>
+    <div class="formula-callout">
+      <code>Lined area (ft²) = section length (ft) × developed lined width (ft)</code><br />
+      <code>Stone volume (yd³) = lined area (ft²) × specified thickness (in) ÷ 324</code>
+    </div>
+    <p>For example, a 40-foot section with a 5-foot measured lined width covers 200 square feet. A planned 4-inch stone layer is 2.47 cubic yards before any site-specific extra. This is a quantity example, not a channel or erosion-control design. <a href="https://www.fhwa.dot.gov/engineering/hydraulics/pubs/hec/hec15si.pdf" rel="noopener noreferrer">FHWA HEC-15</a> considers discharge, cross-section, slope, bends, shear stress, stone grading, and filters when designing a stable lining.</p>
+
+    <h2>Choose stone by the channel's job</h2>
+    <p>Keep the quantity estimate separate from stone selection. A decorative mix can combine sizes and colors for appearance. A channel expected to carry concentrated flow needs a stable lining, graded stone and an appropriate filter selected for that site's hydraulics and soil.</p>
+
+    <div class="table-container">
+      <table class="guide-data-table">
+        <thead>
+          <tr>
+            <th scope="col">Project condition</th>
+            <th scope="col">What to decide</th>
+            <th scope="col">Takeoff unit</th>
+            <th scope="col">Related tool</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Decorative bed</strong></td>
+            <td>Choose appearance, available size, and how the stones will be contained.</td>
+            <td>Measured area × planned layer depth</td>
+            <td><a href="/river-rock-calculator">River rock calculator</a></td>
+          </tr>
+          <tr>
+            <td><strong>Individual border blocks</strong></td>
+            <td>Choose the block's actual laid face and joint spacing.</td>
+            <td>Count pieces by length or paved area</td>
+            <td><a href="/cobblestone-calculator">Cobblestone calculator</a></td>
+          </tr>
+          <tr>
+            <td><strong>Concentrated flow or outfall</strong></td>
+            <td>Have the armor size, thickness, extent, and filter specified for expected flow.</td>
+            <td>Designed lined area × specified thickness</td>
+            <td><a href="/riprap-calculator">Riprap calculator</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Plan the route and build from the selected detail</h2>
+
+    <h3>1. Map the inlet, route, and outlet</h3>
+    <p>Locate utilities and mark where water enters, where it crosses the property, and where it can discharge safely. Check elevations along the whole route. Curves can look natural, but they do not automatically reduce erosion; concentrated flow on bends may need more protection. Seek local drainage advice for a culvert outlet, steep grade, public right-of-way, or neighboring-property discharge.</p>
+
+    <h3>2. Shape and measure the lined section</h3>
+    <p>Excavate to the planned channel profile and stone thickness, then measure the developed bottom-and-bank width in each section. Avoid claiming a single cross-section or depth works everywhere. Keep finished grades and the outlet clear of nearby structures.</p>
+
+    <h3>3. Install the specified filter</h3>
+    <p>A filter helps keep underlying soil from washing through an armor layer. The project may call for graded aggregate, geotextile, or both, depending on soil and hydraulic conditions. Follow the specified overlap, anchoring, and placement detail; fabric weight and staple spacing are not universal. The <a href="https://directives.nrcs.usda.gov/sites/default/files2/1712931137/7360.pdf" rel="noopener noreferrer">NRCS stone-sizing guidance</a> also addresses foundation stability and filter grading.</p>
+
+    <h3>4. Place stone without damaging the filter</h3>
+    <p>Use the gradation, thickness, key-in, and equipment method called for in the plan. Handle large stone so it does not tear the filter or disturb the shaped bank. An outfall apron needs its designed length, width, and toe treatment; a decorative boulder arrangement cannot establish those dimensions.</p>
+
+    <h3>5. Inspect after runoff</h3>
+    <p>Look for displaced stone, exposed soil or filter, sediment buildup, blocked outlets, and erosion at the downstream end. Correct the cause before topping up stone. For a simple decorative bed, the <a href="/how-much-rock-do-i-need">general rock quantity guide</a> covers area and depth; for designed protection, use the <a href="/riprap-calculator">riprap takeoff</a> after stone and thickness have been specified.</p>
+  </div>
+</GuideLayout>
+
+<style>
+  .aeo-guide-box {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  }
+
+  .aeo-guide-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--accent-gold);
+  }
+
+  .aeo-guide-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aeo-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aeo-guide-item {
+    background: var(--bg-surface);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .aeo-guide-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-value {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .aeo-guide-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .guide-text-block h2 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin: var(--space-8) 0 var(--space-4) 0;
+  }
+
+  .guide-text-block h3 {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin: var(--space-6) 0 var(--space-2) 0;
+  }
+
+  .guide-text-block p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    margin: var(--space-6) 0;
+  }
+
+  .guide-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  .guide-data-table th, .guide-data-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .guide-data-table th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .guide-data-table tr:hover td {
+    background: rgba(212, 168, 83, 0.04);
+  }
+
+  .formula-callout {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--accent-gold);
+    padding: var(--space-4);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--space-4) 0;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+</style>
+>>>>>>> 57e3bdaba9288075f4f22a663c6c2a65fa9f9ee3

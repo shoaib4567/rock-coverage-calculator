@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" role="img" aria-labelledby="title desc">
+  <title id="title">Measure riprap across the sloping bank face</title>
+  <desc id="desc">A cross-section with a 12-foot horizontal run and 9-foot rise has a 15-foot slope face. Over 20 feet of bank length that is 300 square feet, before separate toe and end treatment.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0e2536"/><stop offset="1" stop-color="#123b43"/></linearGradient>
+    <pattern id="stones" width="40" height="34" patternUnits="userSpaceOnUse" patternTransform="rotate(-36)"><path d="M0 18 9 5 23 8 31 20 20 31 5 29Z" fill="#d8a85c" stroke="#facd80" stroke-width="2"/><path d="M28 0 40 2 40 16 34 21 25 15Z" fill="#9f7442"/></pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M1 1 7 4 1 7" fill="none" stroke="#83d4db" stroke-width="1.7"/></marker>
+  </defs>
+  <rect width="760" height="520" rx="24" fill="url(#bg)"/>
+  <text x="42" y="48" fill="#f8e5c7" font-family="Arial,sans-serif" font-size="22" font-weight="700">Bank takeoff: face, not map width</text>
+  <text x="42" y="74" fill="#b6ced2" font-family="Arial,sans-serif" font-size="14">Illustrative section; follow the actual project detail for rock, filter and toe.</text>
+  <path d="M160 370 520 100 520 370Z" fill="#42534b" stroke="#60756b" stroke-width="2"/>
+  <path d="M142 346 502 76 520 100 160 370Z" fill="url(#stones)" stroke="#e4b36b" stroke-width="2"/>
+  <path d="M160 370 520 100" stroke="#8ee2d9" stroke-width="5" stroke-dasharray="8 6"/>
+  <text x="361" y="245" fill="#e6f5ee" font-family="Arial,sans-serif" font-size="13" font-weight="700" transform="rotate(-36 361 245)">filter on prepared subgrade, if specified</text>
+  <path d="M119 315 479 45" stroke="#83d4db" stroke-width="2.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <rect x="230" y="92" width="148" height="30" rx="15" fill="#0e2536" stroke="#83d4db"/>
+  <text x="304" y="112" text-anchor="middle" fill="#d6f8f4" font-family="Arial,sans-serif" font-size="15" font-weight="700">15 ft slope face</text>
+  <path d="M160 406 520 406" stroke="#83d4db" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="340" y="429" text-anchor="middle" fill="#d6f8f4" font-family="Arial,sans-serif" font-size="15" font-weight="700">12 ft horizontal run</text>
+  <path d="M551 100 551 370" stroke="#83d4db" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="566" y="240" fill="#d6f8f4" font-family="Arial,sans-serif" font-size="15" font-weight="700">9 ft rise</text>
+  <path d="M145 350 102 379" stroke="#efbe77" stroke-width="2"/>
+  <text x="42" y="396" fill="#f8e5c7" font-family="Arial,sans-serif" font-size="14" font-weight="700">Armor thickness</text>
+  <text x="42" y="416" fill="#d6e0df" font-family="Arial,sans-serif" font-size="13">use specified depth</text>
+  <rect x="42" y="453" width="676" height="47" rx="10" fill="#193c45" stroke="#386672"/>
+  <text x="60" y="483" fill="#f8e5c7" font-family="Arial,sans-serif" font-size="16" font-weight="700">20 ft bank length × 15 ft face = 300 sq ft</text>
+  <text x="515" y="483" fill="#a8e5e2" font-family="Arial,sans-serif" font-size="13">Toe and ends: add separately</text>
+</svg>
