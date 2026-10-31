@@ -1,278 +1,256 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const pageTitle = 'Lava Rock Coverage Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Lava Rock Calculator', url: '/lava-rock-calculator' },
-  { name: 'Lava Rock Coverage Calculator', url: '/lava-rock-coverage-calculator' }
+  { name: pageTitle, url: '/lava-rock-coverage-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Lava Rock Coverage' },
-  { label: 'Yield at 2"', value: '216 sq ft per Ton (162 sq ft / Yd³)' },
-  { label: 'Yield at 3"', value: '144 sq ft per Ton (108 sq ft / Yd³)' },
-  { label: 'Bulk Density', value: '0.75 t/yd³ (1,500 lbs/yd³)' }
+  { label: 'Material', value: 'Loose landscape lava rock' },
+  { label: 'Coverage depends on', value: 'Volume and finished depth' },
+  { label: 'Weight conversion', value: 'Editable supplier bulk density' }
 ];
-
 const quickStats = [
-  { value: '216 sq ft', label: 'Per Ton at 2"', desc: 'Massive square foot spread per short ton due to porous lightweight scoria' },
-  { value: '162 sq ft', label: 'Per Yard at 2"', desc: 'Standard square foot coverage per cubic yard at 2-inch bed depth' },
-  { value: '0.75 t/yd³', label: 'Density', desc: 'Nearly half the weight of conventional gravel and river stone' }
+  { value: '162 sq ft', label: 'Per cubic yard', desc: 'Geometric coverage at a finished depth of 2 inches' },
+  { value: '216 sq ft', label: 'Per short ton', desc: 'At 2 inches with an example density of 0.75 ton per cubic yard' },
+  { value: '3 sq ft', label: 'Per 0.5 ft³ bag', desc: 'At 2 inches when the label states half a cubic foot' }
 ];
-
 const faqItems = [
   {
-    q: 'How many square feet does 1 ton of lava rock cover?',
-    a: 'Because volcanic lava rock is ultra-lightweight (0.75 tons per cubic yard), 1 short ton equals 1.33 cubic yards of physical material. It covers approximately 216 square feet at 2 inches depth, 144 square feet at 3 inches depth, and 108 square feet at 4 inches depth (nearly double the coverage of granite or river rock).'
+    q: 'How much area does one cubic yard of lava rock cover?',
+    a: 'One cubic yard contains 27 cubic feet. Spread evenly, it covers 162 square feet at 2 inches, 108 square feet at 3 inches, or 81 square feet at 4 inches. These are volume-based figures, so the rock’s weight does not change them.'
   },
   {
-    q: 'How much lava rock do I need for 300 square feet?',
-    a: 'For 300 square feet at a standard 2-inch depth for flower bed mulch replacement, you need 1.85 cubic yards of lava rock. Multiplying by 0.75 tons per yard and adding a 10 percent buffer yields only 1.53 tons (approximately 108 bags of 0.5 cu ft).'
+    q: 'How much area does one short ton of lava rock cover?',
+    a: 'At the example loose bulk density of 1,500 pounds per cubic yard, one 2,000-pound short ton is about 1.33 cubic yards and covers 216 square feet at 2 inches. Enter your supplier’s density for a product-specific estimate.'
   },
   {
-    q: 'Why does lava rock cover so much more area per ton than gravel?',
-    a: 'Conventional gravel and crushed stone weigh approximately 2,700 to 2,800 pounds per cubic yard (1.35 to 1.40 tons). Volcanic lava rock weighs only 1,500 pounds per cubic yard (0.75 tons). When ordering by the ton, you receive 33 percent more physical volume of rock.'
+    q: 'How much area does a 0.5 cubic foot bag cover?',
+    a: 'A bag labeled 0.5 cubic foot covers 3 square feet at 2 inches or 2 square feet at 3 inches, before any allowance. Check the actual bag volume on the product label; bag weight is not a substitute for labeled volume.'
   },
   {
-    q: 'What is the recommended depth for lava rock ground cover?',
-    a: 'Spread lava rock at a depth of 2.0 inches for flower beds and shrub borders. For weed suppression without landscape fabric, install at 3.0 inches depth.'
+    q: 'Does the extra allowance change the coverage chart?',
+    a: 'No. The chart shows geometric area at a finished depth. An optional allowance increases the quantity to buy for an area you enter; it does not make a cubic yard spread farther.'
   }
 ];
-
 const upLinks = [
-  { title: 'Lava Rock Calculator (Material Parent)', slug: '/lava-rock-calculator', badge: 'Material' },
-  { title: 'Rock Square Foot Calculator (Unit Parent)', slug: '/rock-square-foot-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
+  { title: 'Lava Rock Calculator', slug: '/lava-rock-calculator', badge: 'Material guide' },
+  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Area tool' }
 ];
-
 const lateralLinks = [
-  { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Bags' },
-  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Decorative' },
-  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'Marble' }
+  { title: 'River Rock Coverage Calculator', slug: '/river-rock-coverage-calculator', badge: 'River rock' },
+  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Pea gravel' }
 ];
-
 const bridgeLinks = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
+  { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Bag orders' },
+  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Depth table' }
 ];
-
 const supportGuides = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' },
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Choose a depth' },
+  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Weight factors' }
 ];
 ---
 
 <BaseLayout
-  title="Lava Rock Coverage Calculator - Sq Ft Yields per Ton & Yard"
-  metaDescription="Calculate exact square foot coverage per ton and cubic yard for red and black volcanic lava rock. High-yield lightweight scoria tables and formulas."
+  title={pageTitle}
+  metaDescription="Find how many square feet your lava rock will cover from yards, short tons, or bags at a chosen depth. Reverse the calculation for an area and adjust density, bag size, and allowance."
   canonicalPath="/lava-rock-coverage-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Lava Rock Coverage Calculator",
-      "url": "https://rockcoveragecalculator.com/lava-rock-coverage-calculator",
-      "description": "Calculates square foot coverage yields per ton and cubic yard for lightweight volcanic lava rock.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Landscape Designers, Gardeners, Homeowners"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Lava Rock Coverage Calculation"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/lava-rock-coverage-calculator',
+      description: 'Converts a known quantity of landscape lava rock into square-foot coverage at a selected depth, or an area into an order quantity.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
-  <main>
+  <main id="main-content">
     <PageHero
-      title="Lava Rock Coverage Calculator"
+      title={pageTitle}
       highlightWord="Coverage"
-      badge="High-Yield Coverage Engine"
-      subtitle="Calculate square foot yields per ton and cubic yard for lightweight volcanic scoria across custom depths."
+      badge="Area from yards, tons, or bags"
+      subtitle="At 2 inches deep, one cubic yard covers 162 square feet. One short ton covers about 216 square feet if your lava rock weighs 1,500 pounds per cubic yard. Enter the amount you have to find its area, or enter an area to plan an order."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
+      theme="decorative"
     />
 
-    <!-- Interactive Lava Rock Coverage Calculator Tool -->
-    <section class="section">
+    <section class="coverage-section" id="lava-coverage-tool" aria-labelledby="coverage-tool-title">
       <div class="container">
-        <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Lava Rock Coverage Specifications</h3>
-          </div>
+        <div class="section-intro">
+          <h2 id="coverage-tool-title">How much ground will your lava rock cover?</h2>
+          <p>Choose a known quantity in cubic yards, short tons, or bags. The calculator converts it to loose volume, then divides by your finished layer depth. If you are still shopping, switch to area-to-order mode.</p>
+        </div>
 
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="lrc-area">Project Area (Square Feet)</label>
-              <input type="number" id="lrc-area" value="300" min="1" step="10" />
-            </div>
-            <div class="input-field">
-              <label for="lrc-depth">Layer Depth (Inches)</label>
-              <input type="number" id="lrc-depth" value="2.0" min="1" max="8" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="lrc-waste">Safety Buffer (%)</label>
-              <input type="number" id="lrc-waste" value="10" min="0" max="25" step="1" />
-            </div>
-          </div>
-          </div>
+        <div class="tool-grid">
+          <form class="tool-panel" id="lrc-form" novalidate>
+            <fieldset class="mode-picker">
+              <legend>Start with</legend>
+              <label class="mode-option"><input type="radio" name="lrc-mode" value="quantity" checked /> A quantity I have</label>
+              <label class="mode-option"><input type="radio" name="lrc-mode" value="area" /> An area I need to cover</label>
+            </fieldset>
 
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
+            <div class="input-grid" id="lrc-quantity-fields">
+              <div class="input-field">
+                <label for="lrc-quantity">Known quantity</label>
+                <input id="lrc-quantity" type="number" value="1" min="0.01" max="1000000" step="any" inputmode="decimal" aria-describedby="lrc-quantity-help" />
+                <small id="lrc-quantity-help">Use the amount you already have or plan to buy.</small>
+              </div>
+              <div class="input-field">
+                <label for="lrc-unit">Quantity unit</label>
+                <select id="lrc-unit">
+                  <option value="yard">Cubic yards</option>
+                  <option value="ton">US short tons (2,000 lb)</option>
+                  <option value="bag">Bags</option>
+                </select>
+              </div>
             </div>
 
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-lrc-tons">0.00</div>
-              <div class="kpi-label">Quarry Weight (Tons)</div>
-              <div class="kpi-subtext" id="kpi-lrc-lbs">0 lbs</div>
+            <div class="input-grid" id="lrc-area-fields" hidden>
+              <div class="input-field">
+                <label for="lrc-area">Area to cover (sq ft)</label>
+                <input id="lrc-area" type="number" value="300" min="0.01" max="10000000" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="lrc-allowance">Extra purchase allowance (%)</label>
+                <input id="lrc-allowance" type="number" value="0" min="0" max="50" step="any" inputmode="decimal" aria-describedby="lrc-allowance-help" />
+                <small id="lrc-allowance-help">Optional. Added to the order quantity, not to geometric coverage.</small>
+              </div>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-lrc-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-lrc-yield">0 sq ft / ton</div>
+
+            <div class="input-grid">
+              <div class="input-field">
+                <label for="lrc-depth">Finished layer depth (inches)</label>
+                <input id="lrc-depth" type="number" value="2" min="0.25" max="12" step="any" inputmode="decimal" />
+              </div>
+              <div class="input-field">
+                <label for="lrc-density">Loose bulk density (lb per cubic yard)</label>
+                <input id="lrc-density" type="number" value="1500" min="300" max="4000" step="any" inputmode="decimal" aria-describedby="lrc-density-help" />
+                <small id="lrc-density-help">1,500 lb/yd³ (0.75 short ton/yd³) is an example. Ask your supplier.</small>
+              </div>
+              <div class="input-field">
+                <label for="lrc-bag-volume">Volume per bag (cubic feet)</label>
+                <input id="lrc-bag-volume" type="number" value="0.5" min="0.1" max="5" step="any" inputmode="decimal" aria-describedby="lrc-bag-help" />
+                <small id="lrc-bag-help">Read the labeled volume; brands and packages vary.</small>
+              </div>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-lrc-bags">0</div>
-              <div class="kpi-label">0.5 Cu Ft Bags</div>
-              <div class="kpi-subtext">~28 lbs each</div>
+            <p class="input-error" id="lrc-error" role="alert" hidden></p>
+          </form>
+
+          <div class="result-panel" aria-labelledby="lrc-result-title">
+            <h3 id="lrc-result-title">Coverage from your quantity</h3>
+            <div class="result-grid">
+              <div class="result-card result-primary">
+                <span class="result-label" id="lrc-area-label">Area covered</span>
+                <strong class="result-number" id="lrc-result-area">162</strong>
+                <span class="result-unit">square feet</span>
+              </div>
+              <div class="result-card">
+                <span class="result-label" id="lrc-volume-label">Loose volume</span>
+                <strong class="result-number" id="lrc-result-yards">1.00</strong>
+                <span class="result-unit">cubic yards</span>
+              </div>
+              <div class="result-card">
+                <span class="result-label" id="lrc-weight-label">Estimated loose weight</span>
+                <strong class="result-number" id="lrc-result-tons">0.75</strong>
+                <span class="result-unit">US short tons</span>
+              </div>
+              <div class="result-card">
+                <span class="result-label" id="lrc-bag-label">Volume-equivalent bags</span>
+                <strong class="result-number" id="lrc-result-bags">54</strong>
+                <span class="result-unit">whole bags</span>
+              </div>
             </div>
-            </div>
+            <p class="result-explanation" id="lrc-result-summary" aria-live="polite">One cubic yard covers 162 square feet at 2 inches. The weight and bag count use the editable assumptions.</p>
+            <p class="result-caution">Coverage is geometric. Uneven ground, the actual spread depth, and handling losses can change what you need on site. The ton estimate depends on your supplier's loose bulk density.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technical Guide on Lava Rock Coverage -->
-    <article class="content-guide-section">
-      <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Lava Rock Coverage Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Lava Rock Coverage Reference</span>
-          </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Coverage at 2"</span>
-              <span class="aeo-quick-value">216 sq ft / Ton (162 sq ft / Yd)</span>
-              <p class="aeo-quick-desc">Standard depth for shrub borders and mulch replacement.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Coverage at 3"</span>
-              <span class="aeo-quick-value">144 sq ft / Ton (108 sq ft / Yd)</span>
-              <p class="aeo-quick-desc">Deep coverage for maximum moisture retention and weed control.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Density Comparison</span>
-              <span class="aeo-quick-value">0.75 t/yd³ vs 1.35 t/yd³</span>
-              <p class="aeo-quick-desc">Yields 80% more square footage per ton than granite or river rock.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Volume per Ton</span>
-              <span class="aeo-quick-value">1.33 Cubic Yards per Ton</span>
-              <p class="aeo-quick-desc">2,000 lbs divided by 1,500 lbs/yd³ bulk density.</p>
-            </div>
+    <article class="coverage-guide">
+      <div class="container guide-layout">
+        <section class="guide-card" aria-labelledby="yard-ton-heading">
+          <h2 id="yard-ton-heading">A yard and a ton cover different areas</h2>
+          <p>A cubic yard is a <strong>volume</strong>: 27 cubic feet regardless of the rock's weight. A short ton is a <strong>weight</strong>: 2,000 pounds. Converting a ton into coverage requires the loose bulk density for the specific lava rock.</p>
+          <figure class="yield-figure">
+            <img src="/lava-rock-coverage-yield.svg" width="960" height="380" loading="lazy" decoding="async" alt="At 2 inches deep, one cubic yard covers 162 square feet. At an example density of 1,500 pounds per cubic yard, one short ton covers 216 square feet." />
+            <figcaption>Equal finished depth, different starting quantities. The 216-square-foot ton result uses an example density of 1,500 lb/yd³.</figcaption>
+          </figure>
+          <div class="formula-box" aria-label="Coverage formulas">
+            <p><strong>From cubic yards:</strong> square feet = cubic yards × 324 ÷ depth in inches.</p>
+            <p><strong>From short tons:</strong> cubic yards = short tons × 2,000 ÷ bulk density in lb/yd³.</p>
+            <p><strong>From bags:</strong> square feet = bags × labeled ft³ per bag × 12 ÷ depth in inches.</p>
           </div>
         </section>
 
-        <div class="content-card">
-          <h2>Lava Rock Square Footage Coverage Chart</h2>
-          <p>
-            Because volcanic scoria has a low bulk density of approximately <strong>0.75 tons per cubic yard (1,500 lbs/yd³)</strong>, one ton equals 1.33 cubic yards of physical material. Below is the reference coverage matrix:
-          </p>
-
-          <div style="overflow-x: auto; margin: var(--space-6) 0;">
-            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: var(--text-sm);">
-              <thead>
-                <tr style="border-bottom: 2px solid var(--border-subtle); color: var(--accent-gold);">
-                  <th style="padding: 10px;">Depth (Inches)</th>
-                  <th style="padding: 10px;">Sq Ft per Cubic Yard</th>
-                  <th style="padding: 10px;">Sq Ft per Short Ton</th>
-                  <th style="padding: 10px;">Sq Ft per 0.5 cu ft Bag</th>
-                  <th style="padding: 10px;">Recommended Application</th>
-                </tr>
-              </thead>
+        <section class="guide-card" aria-labelledby="depth-table-heading">
+          <h2 id="depth-table-heading">Lava rock coverage by finished depth</h2>
+          <p>These are geometric yields for an even layer. The short-ton column assumes <strong>1,500 lb/yd³</strong>; change that factor in the calculator if your supplier provides a different number. The bag column assumes a label of <strong>0.5 ft³</strong>.</p>
+          <div class="table-scroll" role="region" aria-label="Coverage table by depth" tabindex="0">
+            <table>
+              <caption>Square feet covered by one cubic yard, one short ton, or one 0.5 ft³ bag</caption>
+              <thead><tr><th scope="col">Depth</th><th scope="col">1 cubic yard</th><th scope="col">1 short ton*</th><th scope="col">1 bag†</th></tr></thead>
               <tbody>
-                <tr style="border-bottom: 1px solid var(--border-subtle);">
-                  <td style="padding: 10px; font-weight: 600;">1.5"</td>
-                  <td style="padding: 10px;">216 sq ft</td>
-                  <td style="padding: 10px;">288 sq ft</td>
-                  <td style="padding: 10px;">4.0 sq ft</td>
-                  <td style="padding: 10px;">Light decorative top-dressing refresh</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(212, 168, 83, 0.05);">
-                  <td style="padding: 10px; font-weight: 600;">2.0"</td>
-                  <td style="padding: 10px;">162 sq ft</td>
-                  <td style="padding: 10px;">216 sq ft</td>
-                  <td style="padding: 10px;">3.0 sq ft</td>
-                  <td style="padding: 10px;">Flower bed mulch replacement (Standard)</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--border-subtle); background: rgba(212, 168, 83, 0.1);">
-                  <td style="padding: 10px; font-weight: 600;">3.0"</td>
-                  <td style="padding: 10px;">108 sq ft</td>
-                  <td style="padding: 10px;">144 sq ft</td>
-                  <td style="padding: 10px;">2.0 sq ft</td>
-                  <td style="padding: 10px;">Deep weed suppression and xeriscape accents</td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px; font-weight: 600;">4.0"</td>
-                  <td style="padding: 10px;">81 sq ft</td>
-                  <td style="padding: 10px;">108 sq ft</td>
-                  <td style="padding: 10px;">1.5 sq ft</td>
-                  <td style="padding: 10px;">Gas fire pit burner substrate</td>
-                </tr>
+                <tr><th scope="row">1.5 in</th><td>216 sq ft</td><td>288 sq ft</td><td>4 sq ft</td></tr>
+                <tr><th scope="row">2 in</th><td>162 sq ft</td><td>216 sq ft</td><td>3 sq ft</td></tr>
+                <tr><th scope="row">3 in</th><td>108 sq ft</td><td>144 sq ft</td><td>2 sq ft</td></tr>
+                <tr><th scope="row">4 in</th><td>81 sq ft</td><td>108 sq ft</td><td>1.5 sq ft</td></tr>
               </tbody>
             </table>
           </div>
-        </div>
+          <p class="table-note">* At 1,500 lb/yd³. † At 0.5 ft³ per bag. These yields exclude purchase allowance.</p>
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Lava Rock Coverage</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <section class="guide-card" aria-labelledby="worked-example-heading">
+          <h2 id="worked-example-heading">Worked example: a 300-square-foot bed</h2>
+          <p>At a finished depth of 2 inches, the bed needs <strong>50 cubic feet</strong> of lava rock. That is <strong>1.85 cubic yards</strong>, about <strong>1.39 short tons</strong> at the example density, or <strong>100 half-cubic-foot bags</strong> before any allowance.</p>
+          <p>Choose an optional 10% extra purchase allowance and the order becomes <strong>55 cubic feet</strong>, <strong>2.04 cubic yards</strong>, about <strong>1.53 short tons</strong>, or <strong>110 half-cubic-foot bags</strong>. The bed is still 300 square feet; the allowance changes the quantity you buy.</p>
+          <p>For package-specific bag counts and cost, use the <a href="/lava-rock-bag-calculator">lava rock bag calculator</a>. For a bed measured in length and width, use the <a href="/lava-rock-calculator">lava rock calculator</a>.</p>
+        </section>
 
+        <section class="guide-card" aria-labelledby="assumptions-heading">
+          <h2 id="assumptions-heading">Check the product before you order</h2>
+          <ul class="check-list">
+            <li><strong>Bulk weight varies.</strong> Palmer lists about 1,300–1,500 lb per cubic yard across its lava rock sizes; Sutherland lists 1,420 lb per cubic yard for one black lava product. Ask your yard for the figure used on your order.</li>
+            <li><strong>Bag volume matters more than bag weight for area.</strong> One retail red lava product is labeled 0.5 ft³ and 3 sq ft at 2 inches. Other products may use a different package size or weight.</li>
+            <li><strong>Choose a depth for the actual stone size and bed.</strong> A thinner layer spreads farther, but the intended appearance and weed management may call for a different depth. Keep rock away from trunks and follow local planting guidance.</li>
+            <li><strong>Read the intended-use label.</strong> Landscape lava rock is not automatically approved for a fire feature; the cited retail bag explicitly says it is not for fire pits.</li>
+          </ul>
+          <p class="source-note">Sources: <a href="https://www.palmercokingcoal.com/products/lava-rock" rel="noopener noreferrer" target="_blank">Palmer lava rock specifications</a>, <a href="https://www.sutherlandscape.com/products/lava-rock-black/" rel="noopener noreferrer" target="_blank">Sutherland black lava product</a>, <a href="https://www.homedepot.com/p/100427379" rel="noopener noreferrer" target="_blank">Vigoro 0.5 ft³ red lava bag</a>, and <a href="https://extension.usu.edu/yardandgarden/research/using-mulches-in-utah-landscapes-and-gardens" rel="noopener noreferrer" target="_blank">Utah State University Extension mulch guidance</a>. Supplier figures describe those products, not all lava rock.</p>
+        </section>
+
+        <section class="guide-card faq-card" aria-labelledby="coverage-faq-heading">
+          <h2 id="coverage-faq-heading">Lava rock coverage questions</h2>
+          {faqItems.map((item) => (
+            <div class="faq-item">
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </div>
+          ))}
+        </section>
       </div>
     </article>
 
@@ -285,84 +263,145 @@ const supportGuides = [
       supportGuides={supportGuides}
     />
   </main>
-
   <Footer />
 
   <script>
-    function updateLRC() {
-      const a = parseFloat((document.getElementById('lrc-area') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('lrc-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('lrc-waste') as HTMLInputElement)?.value) || 0;
+    const form = document.getElementById('lrc-form');
+    const quantityFields = document.getElementById('lrc-quantity-fields');
+    const areaFields = document.getElementById('lrc-area-fields');
+    const error = document.getElementById('lrc-error');
+    const numberFormat = new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 });
+    const twoDecimals = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-      const netYards = (a * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const tons = totalYards * 0.75;
-      const lbs = tons * 2000;
-      const bags = Math.ceil(totalYards * 54);
-      const yieldPerTon = d > 0 ? ((324 / d) / 0.75) : 0;
-
-      const tEl = document.getElementById('kpi-lrc-tons');
-      const yEl = document.getElementById('kpi-lrc-yards');
-      const bEl = document.getElementById('kpi-lrc-bags');
-      const lbsEl = document.getElementById('kpi-lrc-lbs');
-      const yieldEl = document.getElementById('kpi-lrc-yield');
-
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (bEl) bEl.innerText = bags.toLocaleString();
-      if (lbsEl) lbsEl.innerText = Math.round(lbs).toLocaleString() + ' lbs';
-      if (yieldEl) yieldEl.innerText = Math.round(yieldPerTon) + ' sq ft / ton yield';
+    function input(id: string): HTMLInputElement {
+      return document.getElementById(id) as HTMLInputElement;
     }
 
-    ['lrc-area', 'lrc-depth', 'lrc-waste'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateLRC);
-    });
-    updateLRC();
+    function showValue(id: string, value: string) {
+      const element = document.getElementById(id);
+      if (element) element.textContent = value;
+    }
+
+    function readNumber(id: string, label: string, min: number, max: number, errors: string[]) {
+      const field = input(id);
+      const value = field.valueAsNumber;
+      const valid = field.value.trim() !== '' && Number.isFinite(value) && value >= min && value <= max;
+      field.setAttribute('aria-invalid', String(!valid));
+      if (!valid) errors.push(`${label} must be between ${min} and ${max}.`);
+      return value;
+    }
+
+    function calculateCoverage() {
+      const mode = (form?.querySelector<HTMLInputElement>('input[name="lrc-mode"]:checked'))?.value ?? 'quantity';
+      const unit = (document.getElementById('lrc-unit') as HTMLSelectElement).value;
+      const reverse = mode === 'quantity';
+      if (quantityFields) quantityFields.hidden = !reverse;
+      if (areaFields) areaFields.hidden = reverse;
+
+      const errors: string[] = [];
+      input('lrc-quantity').removeAttribute('aria-invalid');
+      input('lrc-area').removeAttribute('aria-invalid');
+      input('lrc-allowance').removeAttribute('aria-invalid');
+      const depth = readNumber('lrc-depth', 'Finished depth', 0.25, 12, errors);
+      const density = readNumber('lrc-density', 'Loose bulk density', 300, 4000, errors);
+      const bagVolume = readNumber('lrc-bag-volume', 'Bag volume', 0.1, 5, errors);
+      const quantity = reverse ? readNumber('lrc-quantity', 'Known quantity', 0.01, 1000000, errors) : 0;
+      const area = reverse ? 0 : readNumber('lrc-area', 'Area', 0.01, 10000000, errors);
+      const allowance = reverse ? 0 : readNumber('lrc-allowance', 'Extra allowance', 0, 50, errors);
+      if (reverse && unit === 'bag' && !Number.isInteger(quantity)) {
+        errors.push('Enter a whole number of bags.');
+        input('lrc-quantity').setAttribute('aria-invalid', 'true');
+      }
+
+      if (error) {
+        error.hidden = errors.length === 0;
+        error.textContent = errors[0] ?? '';
+      }
+      if (errors.length) {
+        ['lrc-result-area', 'lrc-result-yards', 'lrc-result-tons', 'lrc-result-bags'].forEach((id) => showValue(id, '—'));
+        showValue('lrc-result-summary', 'Enter valid measurements to see the coverage.');
+        return;
+      }
+
+      const netCubicFeet = reverse
+        ? unit === 'yard' ? quantity * 27 : unit === 'ton' ? quantity * 2000 / density * 27 : quantity * bagVolume
+        : area * depth / 12;
+      const orderCubicFeet = reverse ? netCubicFeet : netCubicFeet * (1 + allowance / 100);
+      const yards = orderCubicFeet / 27;
+      const tons = yards * density / 2000;
+      const wholeBags = Math.ceil(orderCubicFeet / bagVolume - 1e-10);
+      const coveredArea = reverse ? orderCubicFeet * 12 / depth : area;
+
+      showValue('lrc-result-title', reverse ? 'Coverage from your quantity' : 'Quantity for your area');
+      showValue('lrc-area-label', reverse ? 'Area covered' : 'Area to cover');
+      showValue('lrc-volume-label', reverse ? 'Loose volume' : 'Volume to order');
+      showValue('lrc-weight-label', reverse ? 'Estimated loose weight' : 'Estimated order weight');
+      showValue('lrc-bag-label', reverse ? 'Volume-equivalent bags' : 'Whole bags to buy');
+      showValue('lrc-result-area', numberFormat.format(coveredArea));
+      showValue('lrc-result-yards', twoDecimals.format(yards));
+      showValue('lrc-result-tons', twoDecimals.format(tons));
+      showValue('lrc-result-bags', wholeBags.toLocaleString('en-US'));
+      showValue('lrc-result-summary', reverse
+        ? `${numberFormat.format(orderCubicFeet)} cubic feet of loose rock covers ${numberFormat.format(coveredArea)} square feet at ${numberFormat.format(depth)} inches. The ton and bag equivalents use your editable inputs.`
+        : `${numberFormat.format(area)} square feet at ${numberFormat.format(depth)} inches needs ${numberFormat.format(netCubicFeet)} cubic feet in the bed. The order figures include ${numberFormat.format(allowance)}% extra allowance.`);
+    }
+
+    form?.addEventListener('submit', (event) => event.preventDefault());
+    form?.addEventListener('input', calculateCoverage);
+    form?.addEventListener('change', calculateCoverage);
+    calculateCoverage();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .coverage-section { padding: var(--space-12) 0; }
+  .section-intro { max-width: 760px; margin-bottom: var(--space-6); }
+  .section-intro h2, .guide-card h2 { color: var(--text-primary); font-size: var(--text-2xl); margin-bottom: var(--space-3); }
+  .section-intro p, .guide-card p, .guide-card li { color: var(--text-secondary); line-height: 1.7; }
+  .tool-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+  .tool-panel, .result-panel, .guide-card { min-width: 0; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-6); }
+  .mode-picker { border: 0; padding: 0; margin: 0 0 var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .mode-picker legend { color: var(--text-primary); font-weight: 700; margin-bottom: var(--space-3); }
+  .mode-option { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--text-primary); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-2) var(--space-3); cursor: pointer; }
+  .mode-option:has(input:checked) { border-color: var(--accent-gold); background: rgba(212, 168, 83, .09); }
+  .mode-option input { accent-color: var(--accent-gold); }
+  .input-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-4); }
+  .input-grid[hidden] { display: none; }
+  .input-field { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+  .input-field label { color: var(--text-primary); font-size: var(--text-sm); font-weight: 700; }
+  .input-field input, .input-field select { width: 100%; min-height: 44px; padding: var(--space-2) var(--space-3); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: var(--text-primary); background: var(--bg-surface); font: inherit; }
+  .input-field input[aria-invalid="true"] { border-color: #d64b4b; }
+  .input-field small { color: var(--text-muted); line-height: 1.45; }
+  .input-error { color: #e87272; font-weight: 700; margin: var(--space-3) 0 0; }
+  .result-panel h3 { color: var(--text-primary); font-size: var(--text-xl); margin: 0 0 var(--space-5); }
+  .result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .result-card { display: flex; flex-direction: column; gap: 3px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .result-primary { border-color: var(--accent-gold); background: rgba(212, 168, 83, .08); }
+  .result-label { color: var(--text-muted); font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .result-number { color: var(--text-primary); font: 800 clamp(1.5rem, 3vw, 2.3rem)/1.15 var(--font-mono); overflow-wrap: anywhere; }
+  .result-unit { color: var(--text-secondary); font-size: var(--text-sm); }
+  .result-explanation { color: var(--text-primary); line-height: 1.6; margin: var(--space-5) 0 var(--space-3); }
+  .result-caution { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin: 0; }
+  .coverage-guide { background: var(--bg-body); padding: var(--space-10) 0 var(--space-12); }
+  .guide-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+  .guide-card { max-width: 1000px; width: 100%; }
+  .guide-card a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 3px; }
+  .yield-figure { margin: var(--space-6) 0; }
+  .yield-figure img { width: 100%; height: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .yield-figure figcaption, .table-note, .source-note { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.55; }
+  .formula-box { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); border-radius: var(--radius-sm); padding: var(--space-4); }
+  .formula-box p { margin: 0 0 var(--space-2); }
+  .formula-box p:last-child { margin-bottom: 0; }
+  .table-scroll { width: 100%; max-width: 100%; overflow-x: auto; }
+  table { width: 100%; min-width: 550px; border-collapse: collapse; text-align: left; }
+  caption { color: var(--text-secondary); text-align: left; margin-bottom: var(--space-3); }
+  th, td { padding: var(--space-3); border-bottom: 1px solid var(--border-subtle); color: var(--text-primary); }
+  thead th { background: var(--bg-surface); }
+  .check-list { padding-left: 1.4em; }
+  .check-list li { margin-bottom: var(--space-3); }
+  .faq-item { border-top: 1px solid var(--border-subtle); padding-top: var(--space-4); margin-top: var(--space-4); }
+  .faq-item h3 { color: var(--text-primary); font-size: var(--text-base); margin-bottom: var(--space-2); }
+  .faq-item p { margin: 0; }
+  @media (max-width: 860px) { .tool-grid { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 540px) { .input-grid, .result-grid { grid-template-columns: 1fr; } .tool-panel, .result-panel, .guide-card { padding: var(--space-4); } }
 </style>

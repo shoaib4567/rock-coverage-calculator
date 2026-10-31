@@ -46,7 +46,7 @@ const faqItems = [
     <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) })} />
   </Fragment>
   <Header />
-  <main>
+  <main id="main-content">
     <PageHero title={pageTitle} highlightWord="Tons" badge="River rock bulk order estimator" subtitle="A 30 × 10 ft bed at 3 in deep takes 3.75 US short tons at the 1.35 tons-per-yard planning weight. Add 10% extra and the order estimate becomes 4.13 tons. Enter your own depth and supplier weight below." breadcrumbs={breadcrumbs} entityTags={entityTags} theme="decorative" />
 
     <section class="rrt-tool" id="rrt-calculator" aria-labelledby="rrt-tool-heading">

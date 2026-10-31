@@ -85,7 +85,7 @@ const bridgeLinks = [
   </Fragment>
 
   <Header />
-  <main>
+  <main id="main-content">
     <PageHero
       title={pageTitle}
       highlightWord="Coverage"
@@ -289,11 +289,12 @@ const bridgeLinks = [
       projectError.hidden = area !== null && allowance !== null;
 
       const unit = (document.getElementById('pgc-unit') as HTMLSelectElement).value;
-      const stockReady = depth !== null && stock !== null && (
-        unit === 'yards' || (unit === 'tons' && density !== null) || (unit === 'bags' && bagSize !== null)
-      );
-      if (stockReady) {
-        const stockFeet = unit === 'tons' ? stock * 27 / density : unit === 'yards' ? stock * 27 : stock * bagSize;
+      const stockFeet = stock === null ? null
+        : unit === 'yards' ? stock * 27
+        : unit === 'tons' && density !== null ? stock * 27 / density
+        : unit === 'bags' && bagSize !== null ? stock * bagSize
+        : null;
+      if (depth !== null && stockFeet !== null) {
         setText('pgc-coverage', fmt(stockFeet * 12 / depth, 1));
         setText('pgc-stock-detail', `${fmtVolume(stockFeet / 27)} cubic yards of material at ${fmt(depth)} inches. This is even coverage before losses.`);
       } else {

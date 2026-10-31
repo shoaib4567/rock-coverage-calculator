@@ -4,256 +4,210 @@ import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
-import DecorativeIntentBlock from '../components/intent/DecorativeIntentBlock.astro';
 
+const pageTitle = 'Lava Rock Calculator';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Lava Rock Calculator', url: '/lava-rock-calculator' }
+  { name: pageTitle, url: '/lava-rock-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Volcanic Lava Rock (Scoria)' },
-  { label: 'Particle Caliper', value: '3/4" to 1.5" Vesicular Porous' },
-  { label: 'Bulk Density', value: '0.75 t/yd³ (56 lbs/cu ft)' },
-  { label: 'Coverage Yield', value: '144 sq ft per Ton at 3" Depth' }
+  { label: 'Material', value: 'Landscape lava rock (scoria)' },
+  { label: 'Order units', value: 'Cubic yards, US short tons, whole bags' },
+  { label: 'Key detail', value: 'Check the supplier weight and bag volume' }
 ];
-
-const quickStats = [
-  { value: '0.75 t/yd³', label: 'Ultra Lightweight', desc: 'Nearly half the weight of river rock and crushed limestone' },
-  { value: 'Fire Safe', label: 'Thermal Stability', desc: 'Safe for gas fire pits and dry xeriscape mulch beds' },
-  { value: '28 lbs/bag', label: '0.5 cu ft Bag', desc: 'Standard 0.5 cu ft bag weighs only 28 lbs due to air vesicles' }
-];
-
 const faqItems = [
   {
-    q: 'How many bags of lava rock do I need for a 100 square foot garden bed?',
-    a: 'At the recommended 3-inch depth, 100 square feet requires 25 cubic feet of lava rock. Since standard retail bags hold 0.5 cubic feet, you need exactly 50 bags. At approximately 28 pounds per bag, total weight is 1,400 pounds (0.70 short tons).'
+    q: 'How much lava rock do I need for a 10 × 10 foot bed?',
+    a: 'At 2 inches deep, a 100-square-foot bed needs 16.67 cubic feet, or 0.62 cubic yard, before extra. That is 34 whole bags if each bag holds 0.5 cubic foot. At the example loose bulk weight of 1,500 pounds per cubic yard, the net volume weighs about 0.46 US short ton.'
   },
   {
-    q: 'Why is lava rock so much lighter than standard river rock or gravel?',
-    a: 'Lava rock (geologically termed scoria) forms from gas-rich basaltic lava that cools rapidly after volcanic eruptions. Trapped escaping gases create millions of microscopic air pockets (vesicles) throughout the rock, reducing bulk density to approximately 56 pounds per cubic foot compared to 100 pounds for solid granite.'
+    q: 'How many cubic yards are in one ton of lava rock?',
+    a: 'It depends on the actual loose bulk weight. At an example 1,500 pounds per cubic yard, one US short ton is about 1.33 cubic yards. At 1,250 pounds per yard it is 1.60 yards. Ask the supplier for the weight of the product and size you will receive.'
   },
   {
-    q: 'Is red lava rock safe to use around fire pits and gas burners?',
-    a: 'Yes. Volcanic lava rock is an igneous material that has already undergone volcanic heating. Unlike wet sedimentary river stones or flint that can steam and explode under extreme heat, dry lava rock dissipates heat safely, making it the industry standard decorative cover for propane and natural gas fire pits.'
+    q: 'What depth should I enter for a lava rock bed?',
+    a: 'Enter the finished depth you want on the ground. A 2-inch example is useful for a decorative layer, but the right depth depends on stone size, site, and planting. Measure the surface after grading; if the bed is uneven, add an allowance based on your site rather than assuming a universal percentage.'
   },
   {
-    q: 'How deep should lava rock be installed as a mulch replacement?',
-    a: 'Install lava rock at a depth of 2.5 to 3.0 inches over heavy-duty non-woven geotextile fabric. This thickness shades the soil to conserve subgrade moisture, insulates plant roots against summer heat, and blocks sunlight from germinating weed seeds.'
+    q: 'Does lava rock stop weeds or cool plant roots?',
+    a: 'A maintained rock layer can reduce light at the soil, but windblown soil and leaves can collect between stones and support new weeds. Dark rock can warm soil in strong sun. Keep rock away from plant crowns, remove debris, and decide whether fabric is useful for your planting plan.'
+  },
+  {
+    q: 'Can I put landscaping lava rock in a gas fire pit?',
+    a: 'Do not assume a landscaping bag is approved for a burner. Some retail landscape-lava products explicitly exclude fire-pit use. Choose media approved by the appliance maker and follow its fill-depth, vent, moisture, and lighting instructions. Wet fire media can pop.'
   }
 ];
-
 const upLinks = [
-  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
-  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+  { title: 'Rock Coverage Calculator', slug: '/', badge: 'All materials' },
+  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Measuring' }
 ];
-
 const lateralLinks = [
-  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: '0.75-1.40 t/yd³' },
-  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: '1.25 t/yd³' },
-  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³' }
+  { title: 'Lava Rock Coverage Calculator', slug: '/lava-rock-coverage-calculator', badge: 'Area from supply' },
+  { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Whole bags' }
 ];
-
 const bridgeLinks = [
-  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags' },
-  { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: 'Volume' },
-  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' }
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Compare materials' },
+  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Bulk weight' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Buying' }
 ];
-
 const supportGuides = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Layer depth' },
+  { title: 'How to Stop Weeds in Landscape Rock', slug: '/how-to-stop-weeds-in-landscape-rock', badge: 'Maintenance' }
 ];
 ---
 
 <BaseLayout
-  title="Lava Rock Calculator - Volume, Weight & Bag Sizing"
-  metaDescription="Calculate cubic yards, tons, and bags of red and black lava rock (scoria). Calibrated for 0.75 t/yd3 lightweight density in garden beds and fire pits."
+  title={pageTitle}
+  metaDescription="Measure a lava rock bed and estimate cubic yards, US short tons, and whole bags. Adjust the supplier's loose bulk weight, bag volume, and site allowance."
   canonicalPath="/lava-rock-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Lava Rock Calculator",
-      "url": "https://rockcoveragecalculator.com/lava-rock-calculator",
-      "description": "Calculates volcanic lava rock volume, bags, and quarry tonnage for xeriscaping and fire pits.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Landscape Designers, Homeowners, Fire Pit Builders, Estimators"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Volcanic Lava Rock"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/lava-rock-calculator',
+      description: 'Estimates landscape lava rock volume, weight, and whole-bag count with editable product assumptions.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
-
   <Header />
-
-  <main>
+  <main id="main-content">
     <PageHero
-      title="Lava Rock Calculator"
+      title={pageTitle}
       highlightWord="Calculator"
-      badge="Lightweight Volcanic Rock Engine"
-      subtitle="Accurate cubic yards, scale tonnage, and retail 0.5 cu ft bag calculations for red and black volcanic lava rock (scoria)."
+      badge="Landscape lava rock planner"
+      subtitle="A 10 × 10 ft bed at 2 in deep takes 16.67 cu ft, or 0.62 cu yd, before extra. That is 34 whole 0.5-cu-ft bags. Enter your own area and product details to estimate a bulk or bagged order."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
-      quickStats={quickStats}
       theme="decorative"
     />
 
-    <!-- Interactive Lava Rock Calculator Tool -->
-    <section class="section">
+    <section class="lava-section" id="lava-tool" aria-labelledby="lava-tool-title">
       <div class="container">
-        <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Lava Rock Bed Dimensions</h3>
+        <div class="lava-heading">
+          <div>
+            <p class="lava-eyebrow">From bed to order</p>
+            <h2 id="lava-tool-title">Measure the layer you plan to install</h2>
           </div>
-
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="lava-length">Length (Feet)</label>
-              <input type="number" id="lava-length" value="25" min="1" step="0.5" />
+          <p>Volume comes from the space the stone will occupy. Weight and bags depend on the specific product. The starting weight is an example, so replace it with your supplier's loose bulk weight when available.</p>
+        </div>
+        <div class="lava-tool-grid">
+          <div class="lava-card lava-inputs">
+            <fieldset class="lava-mode">
+              <legend>How did you measure the bed?</legend>
+              <label><input type="radio" name="lava-mode" value="rectangle" checked /> Length × width</label>
+              <label><input type="radio" name="lava-mode" value="area" /> Square feet</label>
+            </fieldset>
+            <div class="lava-fields" id="lava-rectangle-fields">
+              <div class="lava-field"><label for="lava-length">Length <span>(ft)</span></label><input id="lava-length" type="number" value="10" min="0.01" step="any" inputmode="decimal" /></div>
+              <div class="lava-field"><label for="lava-width">Width <span>(ft)</span></label><input id="lava-width" type="number" value="10" min="0.01" step="any" inputmode="decimal" /></div>
             </div>
-            <div class="input-field">
-              <label for="lava-width">Width (Feet)</label>
-              <input type="number" id="lava-width" value="8" min="1" step="0.5" />
+            <div class="lava-fields" id="lava-area-fields" hidden>
+              <div class="lava-field"><label for="lava-area">Measured area <span>(sq ft)</span></label><input id="lava-area" type="number" value="100" min="0.01" step="any" inputmode="decimal" /></div>
             </div>
-            <div class="input-field">
-              <label for="lava-depth">Target Depth (Inches)</label>
-              <input type="number" id="lava-depth" value="3.0" min="1" max="12" step="0.5" />
+            <div class="lava-fields">
+              <div class="lava-field"><label for="lava-depth">Finished layer depth <span>(in)</span></label><input id="lava-depth" type="number" value="2" min="0.25" max="12" step="any" inputmode="decimal" /></div>
+              <div class="lava-field"><label for="lava-extra">Optional extra <span>(%)</span></label><input id="lava-extra" type="number" value="0" min="0" max="100" step="any" inputmode="decimal" aria-describedby="lava-extra-help" /></div>
             </div>
-            <div class="input-field">
-              <label for="lava-waste">Safety Buffer (%)</label>
-              <input type="number" id="lava-waste" value="10" min="0" max="25" step="1" />
+            <p class="lava-help" id="lava-extra-help">Use extra only for uneven ground, spillage, or another site-specific reason. It is not a fixed compaction factor.</p>
+            <div class="lava-divider"></div>
+            <div class="lava-fields">
+              <div class="lava-field"><label for="lava-density">Supplier loose bulk weight <span>(lb/cu yd)</span></label><input id="lava-density" type="number" value="1500" min="100" max="10000" step="any" inputmode="decimal" aria-describedby="lava-density-help" /></div>
+              <div class="lava-field"><label for="lava-bag">Volume on bag label <span>(cu ft)</span></label><input id="lava-bag" type="number" value="0.5" min="0.01" max="100" step="any" inputmode="decimal" /></div>
             </div>
+            <p class="lava-help" id="lava-density-help">1,500 lb/cu yd is a transparent planning example, not a universal property of red or black scoria.</p>
+            <p class="lava-error" id="lava-error" role="status" aria-live="polite"></p>
           </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
+          <div class="lava-card lava-results">
+            <p class="lava-eyebrow">Your measured layer</p>
+            <div class="lava-primary"><output id="lava-installed-yards">0.62</output><span>cu yd installed</span></div>
+            <p class="lava-result-note"><output id="lava-installed-feet">16.67</output> cu ft before optional extra</p>
+            <div class="lava-result-grid">
+              <div><span>Planned bulk volume</span><strong><output id="lava-order-yards">0.62</output> cu yd</strong></div>
+              <div><span>Estimated US short tons</span><strong><output id="lava-order-tons">0.46</output> tons</strong></div>
+              <div><span>Whole bags</span><strong><output id="lava-order-bags">34</output> bags</strong></div>
+              <div><span>Measured area</span><strong><output id="lava-result-area">100</output> sq ft</strong></div>
             </div>
-
-            <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-lava-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-lava-cuft">Includes 10% buffer</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-lava-tons">0.00</div>
-              <div class="kpi-label">Scale Weight (Tons)</div>
-              <div class="kpi-subtext">At 0.75 t/yd³ (1,500 lbs/yd³)</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-lava-bags">0</div>
-              <div class="kpi-label">0.5 cu ft Bags</div>
-              <div class="kpi-subtext">~28 lbs per bag</div>
-            </div>
-            </div>
+            <p class="lava-result-note" id="lava-assumptions">At 1,500 lb/cu yd and 0.5 cu ft per bag. Bulk sellers may round to a minimum or delivery increment.</p>
+            <p class="lava-screen-reader" id="lava-result-summary" aria-live="polite"></p>
+            <a href="/lava-rock-bag-calculator">Plan bag cost and carrying weight →</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Decorative Sourcing & Weed Barrier Block -->
-    <DecorativeIntentBlock stoneName="Lava Rock" />
-
-    <!-- Technical Guide on Lava Rock -->
-    <article class="content-guide-section">
+    <article class="lava-guide">
       <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Lava Rock Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Lava Rock Sizing Reference</span>
+        <section class="lava-guide-grid" aria-labelledby="lava-example-title">
+          <div class="lava-prose">
+            <p class="lava-eyebrow">Work through the order</p>
+            <h2 id="lava-example-title">What the 10 × 10 foot example means</h2>
+            <p>First measure the <em>clear stone area</em>. Subtract large planters, paths, and other spaces that will stay uncovered. Multiply 100 square feet by a 2-inch layer (2 ÷ 12 foot) to get 16.67 cubic feet. Divide by 27 to get 0.62 cubic yard. That volume stays the same whether the stone is red or black, but the bulk weight can change with particle size, moisture, and the supplier's stock.</p>
+            <p>At the example 1,500 lb/cu yd, 0.62 cubic yard weighs about 926 lb, or 0.46 US short ton. Half-cubic-foot bags need whole-number rounding: 16.67 ÷ 0.5 = 33.33, so buy 34 before any chosen extra. The 34 bags contain 17 cubic feet in total. A supplier may sell bulk in half-yard or whole-yard steps, so ask about the smallest available order and delivery charge.</p>
+            <div class="lava-formula" aria-label="Lava rock volume formulas">
+              <p><strong>Cubic feet</strong> = area (sq ft) × depth (in) ÷ 12</p>
+              <p><strong>Cubic yards</strong> = cubic feet ÷ 27</p>
+              <p><strong>US short tons</strong> = order yards × supplier lb/yd³ ÷ 2,000</p>
+            </div>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Density</span>
-              <span class="aeo-quick-value">0.75 t/yd³ (56 lbs/cu ft)</span>
-              <p class="aeo-quick-desc">Approximately 45% lighter than standard limestone or river rock.</p>
+          <figure class="lava-figure">
+            <img src="/lava-rock-bed-depth.svg" width="880" height="390" loading="lazy" alt="Diagram of a 10 by 10 foot lava-rock bed with a 2 inch layer, equal to 16.67 cubic feet." />
+            <figcaption>Measure the finished stone layer after preparing the bed. Size the layer by volume before converting it to weight or bags.</figcaption>
+          </figure>
+        </section>
+
+        <section class="lava-info" aria-labelledby="lava-material-title">
+          <h2 id="lava-material-title">Choose landscape lava rock for the job</h2>
+          <div class="lava-info-grid">
+            <div>
+              <h3>Scoria and product size</h3>
+              <p>Landscape “lava rock” is usually vesicular volcanic stone, often sold as scoria. Its many voids make it lighter than dense river stone by volume. Check the actual red or black product's particle size: a coarse decorative bed has a different look and handling from fine cinders. The space between pieces is part of loose bulk volume, so a mineral's solid density cannot stand in for supplier bulk weight.</p>
             </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Coverage per Ton</span>
-              <span class="aeo-quick-value">144 sq ft at 3" Depth</span>
-              <p class="aeo-quick-desc">Yields almost double the area per ton of dense gravels.</p>
+            <div>
+              <h3>Depth and uneven beds</h3>
+              <p>Set the depth for the appearance and function you want, then check the largest pieces against it. A thin layer can reveal fabric or soil; a deeper one takes proportionally more material. For curves, divide the bed into smaller rectangles or measure its area directly. If the ground slopes or has low spots, estimate those separately and use the optional extra field only after inspecting the site.</p>
             </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bag Weight</span>
-              <span class="aeo-quick-value">~28 lbs per 0.5 cu ft Bag</span>
-              <p class="aeo-quick-desc">Easy to carry and stage in backyard areas without wheelbarrows.</p>
+            <div>
+              <h3>Plants and upkeep</h3>
+              <p>Rock does not decompose like bark, but leaves, dust, and soil can collect in its gaps and support weeds. Remove debris periodically. Dark rock can warm soil in sun, and stone supplies no organic matter; match it to the plants and climate. A fabric layer can separate rock from soil in some beds, yet it is not a permanent weed cure and can complicate future planting.</p>
             </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Fire Features</span>
-              <span class="aeo-quick-value">Gas &amp; Propane Compatible</span>
-              <p class="aeo-quick-desc">Commonly used in gas fire pits. Ensure rock is thoroughly dry before firing; follow manufacturer guidelines.</p>
+            <div>
+              <h3>Fire features need approved media</h3>
+              <p>This calculator sizes a <strong>landscape bed</strong>. It does not specify media for a gas burner. A landscape bag may be marked unsuitable for fire pits. If you are filling an appliance, use the maker's approved media, fill depth, and vent clearance. Wet media can pop; follow the appliance manual's drying and lighting directions and keep clear until it is safe. Never transfer the bed-depth recommendation into a burner pan.</p>
             </div>
           </div>
         </section>
 
-        <div class="content-card">
-          <h2>The Unique Physics of Volcanic Scoria</h2>
-          <p>
-            In the decorative aggregate market, <strong>Lava Rock (Volcanic Scoria)</strong> is distinct from all other landscape stones. Formed during explosive volcanic eruptions, rapid degassing creates an intricate network of interconnected vesicles (air chambers) inside the basaltic stone.
-          </p>
-          <p>
-            This high porosity reduces bulk density to approximately <strong>56 pounds per cubic foot (0.75 tons per cubic yard)</strong>, making it the lightest inorganic ground cover available. While standard gravel weighs 2,700 pounds per cubic yard, a cubic yard of lava rock weighs only 1,500 pounds.
-          </p>
-
-          <div class="formula-box">
-            <code>Volume (Cubic Yards) = [Area (sq ft) × Depth (in)] / 324</code>
-            <br />
-            <code>Total Tons = Volume (yd³) × 0.75 Tons/yd³</code>
-            <br />
-            <code>Number of 0.5 cu ft Bags = Volume (yd³) × 54</code>
+        <section class="lava-paths" aria-labelledby="lava-next-title">
+          <h2 id="lava-next-title">Use the right next calculation</h2>
+          <div class="lava-path-grid">
+            <a href="/lava-rock-coverage-calculator"><strong>Already have a yard or a ton?</strong><span>Convert a known supply to square feet at your planned depth.</span></a>
+            <a href="/lava-rock-bag-calculator"><strong>Buying retail bags?</strong><span>Use the label's volume and weight to count bags, estimate cost, and plan transport.</span></a>
+            <a href="/rock-density-chart"><strong>Buying by weight?</strong><span>See why supplier bulk weight changes the ton estimate.</span></a>
           </div>
+        </section>
 
-          <h3>Advantages of Lava Rock over Wood Mulch</h3>
-          <ul>
-            <li><strong>Permanent Ground Cover:</strong> Unlike bark or hardwood mulch that decomposes and requires annual top-offs, lava rock does not decay, rot, or wash away in heavy rain.</li>
-            <li><strong>Fire Resistance:</strong> Lava rock is non-combustible. It provides a protective fire-break barrier around home perimeters and wildfire-prone zones where organic wood mulch is prohibited.</li>
-            <li><strong>Thermal Soil Regulation:</strong> The porous vesicles trap air, providing an insulating blanket that keeps plant root zones cooler in blistering summer heat and warmer during winter freezes.</li>
-          </ul>
-        </div>
+        <section class="lava-faq" aria-labelledby="lava-faq-title">
+          <h2 id="lava-faq-title">Lava rock planning questions</h2>
+          {faqItems.map(item => <div><h3>{item.q}</h3><p>{item.a}</p></div>)}
+        </section>
 
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Lava Rock</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
+        <section class="lava-sources" aria-labelledby="lava-sources-title">
+          <h2 id="lava-sources-title">Product and field references</h2>
+          <p>Bulk weights are examples from <a href="https://www.landscapecentre.com/products/bulk-materials/lava-rock">Landscape Centre (1,250 lb/yd³)</a>, <a href="https://www.palmercokingcoal.com/products/lava-rock">Palmer Coking Coal (1,300–1,500 lb/yd³)</a>, and <a href="https://www.sutherlandscape.com/products/lava-rock-black/">Sutherland's black lava (1,420 lb/yd³)</a>. <a href="https://www.homedepot.com/p/100427379">Vigoro's red landscape lava listing</a> gives 0.5 cu ft and 3 sq ft at 2 in, and excludes fire-pit use. <a href="https://yardandgarden.extension.iastate.edu/how-to/using-mulch-garden">Iowa State Extension</a> discusses rock mulch, soil warmth, and maintenance. For gas fire features, consult the <a href="https://cms.firegearoutdoors.com/documents/All-instructions/90214A-FPB-BS-Outdoor-Square-Pan-Flat-Disc-Fire-Pits-with-All-Weather-System-AWS-Installation-and-Operating-Instructions.pdf">specific appliance manufacturer's media and moisture instructions</a>.</p>
+        </section>
       </div>
     </article>
 
@@ -266,80 +220,129 @@ const supportGuides = [
       supportGuides={supportGuides}
     />
   </main>
-
   <Footer />
 
   <script>
-    function updateLava() {
-      const l = parseFloat((document.getElementById('lava-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('lava-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('lava-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('lava-waste') as HTMLInputElement)?.value) || 0;
-
-      const netYards = (l * w * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const tons = totalYards * 0.75;
-      const bags = Math.ceil(totalYards * 54);
-
-      const yEl = document.getElementById('kpi-lava-yards');
-      const tEl = document.getElementById('kpi-lava-tons');
-      const bEl = document.getElementById('kpi-lava-bags');
-
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (bEl) bEl.innerText = bags.toLocaleString();
+    const lavaIds = ['lava-length', 'lava-width', 'lava-area', 'lava-depth', 'lava-extra', 'lava-density', 'lava-bag'];
+    const lavaInput = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const lavaOut = (id: string, value: string) => {
+      const element = document.getElementById(id);
+      if (element) element.textContent = value;
+    };
+    const lavaNumber = (id: string, min: number, max: number) => {
+      const field = lavaInput(id);
+      const value = Number(field.value);
+      const valid = field.value.trim() !== '' && Number.isFinite(value) && value >= min && value <= max;
+      field.setAttribute('aria-invalid', String(!valid));
+      return valid ? value : NaN;
+    };
+    function updateLavaRock() {
+      const mode = (document.querySelector('input[name="lava-mode"]:checked') as HTMLInputElement)?.value || 'rectangle';
+      const rectangle = document.getElementById('lava-rectangle-fields') as HTMLElement;
+      const areaFields = document.getElementById('lava-area-fields') as HTMLElement;
+      rectangle.hidden = mode !== 'rectangle';
+      areaFields.hidden = mode !== 'area';
+      for (const id of mode === 'rectangle' ? ['lava-area'] : ['lava-length', 'lava-width']) {
+        lavaInput(id).removeAttribute('aria-invalid');
+      }
+      const area = mode === 'rectangle' ? lavaNumber('lava-length', 0.01, 100000) * lavaNumber('lava-width', 0.01, 100000) : lavaNumber('lava-area', 0.01, 100000000);
+      const depth = lavaNumber('lava-depth', 0.25, 12);
+      const extra = lavaNumber('lava-extra', 0, 100);
+      const density = lavaNumber('lava-density', 100, 10000);
+      const bag = lavaNumber('lava-bag', 0.01, 100);
+      const valid = [area, depth, extra, density, bag].every(Number.isFinite) && area <= 100000000;
+      const error = document.getElementById('lava-error') as HTMLElement;
+      error.textContent = valid ? '' : 'Enter positive measurements and product values within the shown ranges.';
+      if (!valid) {
+        for (const id of ['lava-installed-yards', 'lava-installed-feet', 'lava-order-yards', 'lava-order-tons', 'lava-order-bags', 'lava-result-area']) lavaOut(id, '—');
+        lavaOut('lava-result-summary', '');
+        return;
+      }
+      const installedFeet = area * depth / 12;
+      const installedYards = installedFeet / 27;
+      const orderFeet = installedFeet * (1 + extra / 100);
+      const orderYards = orderFeet / 27;
+      const tons = orderYards * density / 2000;
+      const bags = Math.max(1, Math.ceil(orderFeet / bag - 1e-10));
+      lavaOut('lava-installed-yards', installedYards.toFixed(2));
+      lavaOut('lava-installed-feet', installedFeet.toFixed(2));
+      lavaOut('lava-order-yards', orderYards.toFixed(2));
+      lavaOut('lava-order-tons', tons < 0.01 ? tons.toFixed(3) : tons.toFixed(2));
+      lavaOut('lava-order-bags', bags.toLocaleString());
+      lavaOut('lava-result-area', area.toLocaleString(undefined, { maximumFractionDigits: 2 }));
+      lavaOut('lava-assumptions', 'At ' + density.toLocaleString() + ' lb/cu yd and ' + bag.toLocaleString() + ' cu ft per bag. Bulk sellers may round to a minimum or delivery increment.');
+      lavaOut('lava-result-summary', 'Estimate: ' + orderYards.toFixed(2) + ' cubic yards to order, about ' + tons.toFixed(2) + ' US short tons or ' + bags.toLocaleString() + ' whole bags.');
     }
-
-    ['lava-length', 'lava-width', 'lava-depth', 'lava-waste'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateLava);
-    });
-    updateLava();
+    lavaIds.forEach(id => lavaInput(id)?.addEventListener('input', updateLavaRock));
+    document.querySelectorAll('input[name="lava-mode"]').forEach(input => input.addEventListener('change', updateLavaRock));
+    updateLavaRock();
   </script>
 </BaseLayout>
 
 <style>
-  .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  .lava-section, .lava-guide { padding: clamp(2.5rem, 5vw, 5rem) 0; }
+  .lava-section { background: linear-gradient(180deg, #15232a, #1d2b32); }
+  .lava-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: end; margin-bottom: 1.5rem; }
+  .lava-heading h2 { color: #fff; font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.16; }
+  .lava-heading > p { color: #d4e0e1; line-height: 1.7; }
+  .lava-eyebrow { color: #f2a97a; font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; margin: 0 0 .6rem; }
+  .lava-tool-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 1.25rem; }
+  .lava-card { border: 1px solid #405961; border-radius: 20px; padding: clamp(1.2rem, 3vw, 2rem); background: #21333a; color: #f5f8f6; min-width: 0; }
+  .lava-mode { border: 0; margin: 0 0 1.35rem; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .lava-mode legend { font-weight: 750; padding-bottom: .6rem; }
+  .lava-mode label { display: inline-flex; align-items: center; gap: .4rem; padding: .45rem .7rem; border: 1px solid #60777c; border-radius: 999px; cursor: pointer; }
+  .lava-mode input { accent-color: #f2a97a; }
+  .lava-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; margin-bottom: .85rem; }
+  .lava-fields[hidden] { display: none; }
+  .lava-field { min-width: 0; }
+  .lava-field label { display: block; font-size: .89rem; font-weight: 700; margin-bottom: .35rem; }
+  .lava-field label span { font-weight: 400; color: #b9cbcc; }
+  .lava-field input { box-sizing: border-box; width: 100%; min-height: 2.9rem; padding: .6rem .75rem; border-radius: 9px; border: 1px solid #8ca0a0; background: #f9fbfa; color: #16282b; font: inherit; }
+  .lava-field input[aria-invalid="true"] { outline: 2px solid #ff9b82; border-color: #ff9b82; }
+  .lava-help { color: #c1d1d2; font-size: .82rem; line-height: 1.5; margin: -.2rem 0 1.05rem; }
+  .lava-divider { border-top: 1px solid #577077; margin: 1.2rem 0; }
+  .lava-error { min-height: 1.2rem; color: #ffd1c4; font-weight: 700; margin: 0; }
+  .lava-results { background: #fff8ed; color: #263438; border-color: #ddbda3; display: flex; flex-direction: column; }
+  .lava-primary { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; margin: .4rem 0; }
+  .lava-primary output { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 850; line-height: 1; color: #983f2e; }
+  .lava-primary span { font-weight: 800; }
+  .lava-result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1.2rem 0; }
+  .lava-result-grid > div { border: 1px solid #e6d8c7; background: #fff; border-radius: 12px; padding: .9rem; min-width: 0; }
+  .lava-result-grid span { display: block; color: #5b6669; font-size: .8rem; }
+  .lava-result-grid strong { display: block; margin-top: .25rem; color: #263438; font-size: 1.1rem; }
+  .lava-result-note { color: #566367; line-height: 1.5; font-size: .88rem; }
+  .lava-results > a { margin-top: auto; color: #8d3b28; font-weight: 800; text-decoration: underline; }
+  .lava-screen-reader { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  .lava-guide { background: var(--bg-body); }
+  .lava-guide h2 { color: var(--text-primary); font-size: clamp(1.55rem, 3vw, 2.2rem); line-height: 1.2; margin: 0 0 1rem; }
+  .lava-guide h3 { color: var(--text-primary); font-size: 1.15rem; margin: 0 0 .5rem; }
+  .lava-guide p { line-height: 1.75; }
+  .lava-guide-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 2rem; align-items: start; }
+  .lava-prose p { color: var(--text-secondary); }
+  .lava-formula { background: #1d3138; color: #f3f9f7; border-left: 5px solid #df895f; border-radius: 12px; padding: 1rem 1.25rem; }
+  .lava-formula p { color: inherit; margin: .4rem 0; }
+  .lava-figure { margin: 0; background: #1d3138; border-radius: 18px; overflow: hidden; }
+  .lava-figure img { width: 100%; height: auto; display: block; }
+  .lava-figure figcaption { color: #e4efec; line-height: 1.55; padding: 1rem 1.25rem; font-size: .9rem; }
+  .lava-info, .lava-paths, .lava-faq, .lava-sources { margin-top: clamp(3rem, 6vw, 5rem); }
+  .lava-info-grid, .lava-path-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .lava-info-grid > div, .lava-path-grid > a, .lava-faq > div { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 15px; padding: 1.3rem; }
+  .lava-info-grid p, .lava-faq p { margin-bottom: 0; color: var(--text-secondary); }
+  .lava-path-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lava-path-grid a { text-decoration: none; display: block; }
+  .lava-path-grid strong, .lava-path-grid span { display: block; }
+  .lava-path-grid strong { color: var(--text-primary); margin-bottom: .45rem; }
+  .lava-path-grid span { color: var(--text-secondary); line-height: 1.5; }
+  .lava-faq > div + div { margin-top: .75rem; }
+  .lava-sources { border-top: 1px solid var(--border-subtle); padding-top: 1.5rem; }
+  .lava-sources p { color: var(--text-secondary); }
+  .lava-sources a { text-decoration: underline; }
+  @media (max-width: 850px) {
+    .lava-heading, .lava-tool-grid, .lava-guide-grid { grid-template-columns: 1fr; }
+    .lava-path-grid { grid-template-columns: 1fr; }
   }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
+  @media (max-width: 540px) {
+    .lava-fields, .lava-result-grid, .lava-info-grid { grid-template-columns: 1fr; }
+    .lava-card { padding: 1.1rem; }
   }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
-  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
 </style>

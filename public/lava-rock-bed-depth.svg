@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" role="img" aria-labelledby="title desc">
+  <title id="title">Lava rock bed measurement diagram</title>
+  <desc id="desc">A 10 by 10 foot bed with a 2 inch lava rock layer. Multiply area by depth to get 16.67 cubic feet, or 0.62 cubic yard.</desc>
+  <rect width="880" height="390" rx="24" fill="#101a23"/>
+  <rect x="30" y="30" width="820" height="330" rx="18" fill="#172633" stroke="#365363"/>
+  <path d="M100 250 L345 135 L640 235 L393 350 Z" fill="#704035" stroke="#ec966f" stroke-width="4"/>
+  <path d="M100 250 L100 280 L393 380 L393 350 Z" fill="#49362d" stroke="#ec966f" stroke-width="3"/>
+  <path d="M393 350 L640 235 L640 264 L393 380 Z" fill="#594338" stroke="#ec966f" stroke-width="3"/>
+  <path d="M126 246 l21 -13 m45 37 l22 -15 m38 55 l20 -14 m40 -83 l20 -10 m47 76 l24 -12 m34 -72 l19 -11 m45 54 l20 -12 m52 -3 l16 -9" stroke="#f5b286" stroke-width="9" stroke-linecap="round" opacity=".75"/>
+  <path d="M92 189 L342 70 M76 192 l32 -7 M326 69 l34 6 M345 91 L656 196 M337 79 l19 24 M643 184 l26 22" stroke="#b8d5df" stroke-width="3" fill="none"/>
+  <text x="175" y="104" fill="#e7f1f4" font-family="Arial,sans-serif" font-size="22" font-weight="700">10 ft</text>
+  <text x="474" y="112" fill="#e7f1f4" font-family="Arial,sans-serif" font-size="22" font-weight="700">10 ft</text>
+  <path d="M670 237 v30 m-8 -30 h16 m-16 30 h16" stroke="#b8d5df" stroke-width="3"/>
+  <text x="688" y="261" fill="#e7f1f4" font-family="Arial,sans-serif" font-size="20" font-weight="700">2 in depth</text>
+  <rect x="566" y="304" width="260" height="42" rx="10" fill="#203b46"/>
+  <text x="578" y="332" fill="#fff" font-family="Arial,sans-serif" font-size="19" font-weight="700">100 ft² × 2/12 = 16.67 ft³</text>
+</svg>

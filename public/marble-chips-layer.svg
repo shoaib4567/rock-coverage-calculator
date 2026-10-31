@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" role="img" aria-labelledby="title description">
+  <title id="title">White marble chip bed cross section</title>
+  <desc id="description">A measured two inch layer of marble chips sits inside an edging strip. Optional permeable landscape fabric separates the chips from prepared soil.</desc>
+  <rect width="1000" height="480" rx="24" fill="#f4f6f5"/>
+  <text x="50" y="57" fill="#203c3c" font-family="Arial,sans-serif" font-size="26" font-weight="700">Measure the finished marble layer</text>
+  <text x="50" y="88" fill="#526b69" font-family="Arial,sans-serif" font-size="16">Cross section for a decorative bed; illustration is not to scale.</text>
+  <rect x="80" y="318" width="840" height="105" rx="10" fill="#8c6956"/>
+  <path d="M80 318h840" stroke="#644a3c" stroke-width="4"/>
+  <text x="460" y="387" fill="white" font-family="Arial,sans-serif" font-size="22" font-weight="700">Prepared soil</text>
+  <path d="M93 300h814" stroke="#315c63" stroke-width="7" stroke-dasharray="15 9"/>
+  <rect x="80" y="171" width="840" height="121" rx="8" fill="#d5d8d5"/>
+  <g stroke="#9aa8a5" stroke-width="2.5" stroke-linejoin="miter">
+    <g fill="#f8f8f4">
+      <polygon points="88,198 99,181 118,178 140,188 145,204 130,219 103,216"/>
+      <polygon points="153,225 163,209 185,207 205,216 210,232 191,243 167,239"/>
+      <polygon points="219,194 233,178 250,176 273,188 278,202 258,216 231,214"/>
+      <polygon points="296,229 306,213 326,209 347,220 352,233 335,246 307,243"/>
+      <polygon points="359,194 371,177 392,178 412,189 418,206 399,217 374,213"/>
+      <polygon points="431,228 445,210 463,208 485,222 489,235 470,246 445,241"/>
+      <polygon points="495,197 509,180 530,177 553,190 557,204 537,219 511,214"/>
+      <polygon points="572,226 584,210 606,208 626,220 633,235 613,246 587,242"/>
+      <polygon points="648,194 659,178 679,177 701,189 706,203 688,217 661,213"/>
+      <polygon points="720,226 734,210 754,209 776,220 780,237 762,247 735,242"/>
+      <polygon points="792,195 804,179 824,177 847,190 851,204 832,218 806,213"/>
+      <polygon points="857,226 870,210 890,207 907,219 909,238 890,246 870,240"/>
+    </g>
+    <g fill="#e9ece8">
+      <polygon points="96,262 107,244 130,243 153,254 159,271 141,283 113,280"/>
+      <polygon points="181,270 195,254 217,252 237,263 242,278 224,287 196,284"/>
+      <polygon points="254,258 269,240 289,240 312,252 317,270 300,282 270,278"/>
+      <polygon points="328,270 341,253 363,251 383,264 388,280 370,288 344,285"/>
+      <polygon points="397,258 411,241 432,239 454,252 458,269 441,281 413,278"/>
+      <polygon points="475,268 490,252 509,250 531,263 535,279 515,287 490,284"/>
+      <polygon points="545,256 560,239 581,238 604,253 607,269 589,281 561,277"/>
+      <polygon points="620,268 634,251 655,250 676,264 682,279 661,288 635,284"/>
+      <polygon points="696,259 708,242 730,239 754,252 758,270 740,282 712,279"/>
+      <polygon points="768,269 783,252 803,250 824,263 828,279 811,288 784,284"/>
+      <polygon points="842,258 854,241 876,239 899,252 905,270 886,282 857,278"/>
+    </g>
+  </g>
+  <g fill="none" stroke="#c5ceca" stroke-width="2" stroke-linecap="round" opacity=".85">
+    <path d="M103 190l14 7 13-3M232 191l14 5 14-7M373 189l15 8 14-4M507 192l15 7 17-5M662 190l14 7 16-5M804 192l15 6 18-4"/>
+    <path d="M112 258l15 8 15-3M269 254l17 6 17-5M414 255l15 7 15-4M563 252l15 8 17-5M712 254l16 8 16-5M856 252l17 8 18-5"/>
+  </g>
+  <rect x="75" y="168" width="16" height="150" rx="3" fill="#456e6c"/>
+  <rect x="908" y="168" width="16" height="150" rx="3" fill="#456e6c"/>
+  <path d="M939 174h24m-12 0v118m-12 0h24" stroke="#23454d" stroke-width="3"/>
+  <text x="958" y="236" fill="#23454d" font-family="Arial,sans-serif" font-size="16" font-weight="700" transform="rotate(90 958 236)" text-anchor="middle">2 in finished depth</text>
+  <path d="M625 125v37" stroke="#436b6c" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="530" y="118" fill="#23454d" font-family="Arial,sans-serif" font-size="18" font-weight="700">White marble chips</text>
+  <path d="M240 337v-27" stroke="#315c63" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="55" y="360" fill="#315c63" font-family="Arial,sans-serif" font-size="16" font-weight="700">Optional permeable separator</text>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#436b6c"/></marker></defs>
+</svg>

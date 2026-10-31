@@ -7,8 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npm run check && astro build && npm test",
+    "check": "astro check --minimumSeverity error",
     "preview": "astro preview",
+    "test": "node --test tests/*.test.mjs",
     "astro": "astro"
   },
   "dependencies": {
@@ -17,5 +19,9 @@
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3"
   }
 }

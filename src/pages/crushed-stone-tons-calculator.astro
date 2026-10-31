@@ -37,7 +37,7 @@ const faqItems = [
     <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) })} />
   </Fragment>
   <Header />
-  <main>
+  <main id="main-content">
     <PageHero title={pageTitle} highlightWord="Tons" badge="Plan an order by quarry weight" subtitle={`A 30 × 12 ft area at 3 in deep needs ${exampleTons.toFixed(2)} US short tons of #57 stone at the sample ${density57.toFixed(2)} tons-per-yard weight. Add 10% extra and the order estimate is ${exampleOrderTons.toFixed(2)} tons. Enter your actual measurements and supplier weight below.`} breadcrumbs={breadcrumbs} entityTags={entityTags} theme="civil" />
 
     <section class="cst-tool" id="cst-calculator" aria-labelledby="cst-tool-heading">

@@ -31,7 +31,7 @@ const faqItems = [
     <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) })} />
   </Fragment>
   <Header />
-  <main>
+  <main id="main-content">
     <PageHero title={pageTitle} highlightWord="Yardage" badge="Plan a crushed stone delivery" subtitle="A 40 × 15 ft area at 3 inches deep takes 5.56 cubic yards in place. Add 10% for site conditions and the estimate is 6.11 yards; a supplier selling half yards would round that order to 6.5 yards." breadcrumbs={breadcrumbs} entityTags={entityTags} theme="civil" />
 
     <section class="csy-tool" id="csy-calculator" aria-labelledby="csy-tool-heading"><div class="container">

@@ -96,7 +96,7 @@ const articleSchema = {
 
   <Header />
 
-  <main class="guide-main">
+  <main id="main-content" class="guide-main">
     <!-- Guide Header -->
     <header class="guide-hero">
       <div class="container">
@@ -151,7 +151,7 @@ const articleSchema = {
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h10v10H7z"/></svg>
                 <h3>Companion Calculators for This Project</h3>
               </div>
-              <p>Apply the principles and formulas from this guide directly into our calibrated volumetric estimators:</p>
+              <p>Use these tools to estimate the material quantity, then check the inputs against your supplier and project plan.</p>
               <div class="calc-callout-grid">
                 {calculatorsSupported.map((calc) => (
                   <a href={calc.slug} class="calc-callout-card">

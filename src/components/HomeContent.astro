@@ -1,7 +1,7 @@
 ---
 import { ROCK_MATERIALS } from '../scripts/materials-data.js';
 
-const materialPages = {
+const materialPages: Record<string, string> = {
   'pea-gravel': '/pea-gravel-calculator',
   'river-rock-1': '/river-rock-calculator',
   'crushed-limestone': '/crushed-stone-calculator',
@@ -18,7 +18,7 @@ const materialPages = {
   'base-gravel-21a': '/driveway-rock-calculator'
 };
 
-const coverageAt = (material, depth) => material.minDepthInches > depth
+const coverageAt = (material: (typeof ROCK_MATERIALS)[number], depth: number) => material.minDepthInches > depth
   ? '—'
   : Math.round(324 / (depth * material.tonsPerCuYd)).toLocaleString('en-US');
 ---
@@ -28,7 +28,7 @@ const coverageAt = (material, depth) => material.minDepthInches > depth
     <header class="guide-heading">
       <p class="eyebrow">From measurements to an order</p>
       <h2>How much rock will cover your space?</h2>
-      <p>Start with volume. Area and finished depth tell you the cubic yards; the selected rock's loose bulk density converts that volume to an estimated weight. One cubic yard covers <strong>108 square feet at 3 inches</strong> before extra material.</p>
+      <p>Not sure which material fits? Use the <a href="/which-rock-should-i-use">rock selection helper</a>. Start with volume. Area and finished depth tell you the cubic yards; the selected rock's loose bulk density converts that volume to an estimated weight. One cubic yard covers <strong>108 square feet at 3 inches</strong> before extra material.</p>
       <p>Need a worked measurement example? Read <a href="/how-much-rock-do-i-need">how much rock to order</a>. For a simpler single-bed tool, use the <a href="/rock-calculator">rock calculator</a>; compare project-specific layer depths in the <a href="/rock-depth-guide">depth guide</a>.</p>
     </header>
 
@@ -71,7 +71,7 @@ const coverageAt = (material, depth) => material.minDepthInches > depth
           <tbody>
             {ROCK_MATERIALS.map((material) => (
               <tr>
-                <th scope="row"><a href={materialPages[material.id]}>{material.name}</a></th>
+                <th scope="row"><a href={materialPages[material.id] ?? '/calculators'}>{material.name}</a></th>
                 <td>{material.typicalSize}</td>
                 <td>{material.tonsPerCuYd.toFixed(3).replace(/0+$/, '').replace(/\.$/, '')}</td>
                 <td>{coverageAt(material, 2)}</td>

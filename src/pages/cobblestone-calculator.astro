@@ -28,7 +28,7 @@ const quickStats = [
 const faqItems = [
   {
     q: 'How many 4x4 inch cobblestones do I need for 100 square feet?',
-    a: 'For 100 square feet paved with standard 4" × 4" × 4" granite cobblestone cubes (with a 3/8-inch joint allowance), you need approximately 900 individual blocks. Factoring in a 7% cutting and sorting allowance for fractured pieces, order 965 blocks, which weigh approximately 4.3 tons.'
+    a: 'For 100 square feet paved with standard 4" × 4" × 4" granite cobblestone cubes (with a 3/8-inch joint allowance), the repeating pitch is 4.375 inches. The area estimate is 100 × 144 ÷ (4.375 × 4.375) = 752.33 blocks before allowance. Applying 7% and rounding up gives 805 blocks, about 3.62 US short tons at the example 9 lb per block. Check the actual bond, edge cuts, dimensions and supplier weight.'
   },
   {
     q: 'What is the difference between Belgian block and cobblestone?',
@@ -80,7 +80,7 @@ const faqItems = [
 
   <Header />
 
-  <main>
+  <main id="main-content">
     <PageHero
       title="Cobblestone Calculator"
       highlightWord="Calculator"
@@ -99,7 +99,7 @@ const faqItems = [
     <article class="content-guide-section">
       <div class="container">
         <div class="content-card">
-          <h2>Standard Belgian Block Dimensional Specifications</h2>
+          <h2>Example Belgian Block Sizes: Confirm the Product</h2>
           <p>
             Unlike loose aggregate materials that are poured and raked to depth, cobblestones and Belgian blocks are discrete, hand-split natural granite units. Estimating cobblestone requires two distinct mathematical approaches: <strong>Piece Count Geometry</strong> for paved coursing or linear borders, and <strong>Volumetric Tonnage</strong> for quarry freight shipping.
           </p>
@@ -107,7 +107,7 @@ const faqItems = [
           <div class="block-types-grid">
             <div class="block-card">
               <div class="block-badge">Cubes</div>
-              <h3>Standard Cube</h3>
+              <h3>Example Cube</h3>
               <div class="block-dim">Dimensions: 4" × 4" × 4"</div>
               <p>Ideal for fan pattern coursing, decorative courtyard rings, and pedestrian garden walkways. Extremely versatile for tight radii curves.</p>
               <div class="block-spec">9.0 pieces / sq ft | 9 lbs / piece</div>
@@ -145,8 +145,8 @@ const faqItems = [
                 <tr>
                   <th>Block Designation</th>
                   <th>Nominal Dimensions</th>
-                  <th>Average Weight</th>
-                  <th>Pieces per Pallet</th>
+                  <th>Example Weight</th>
+                  <th>Example Pieces per Pallet</th>
                   <th>Pallet Weight</th>
                 </tr>
               </thead>
@@ -159,22 +159,7 @@ const faqItems = [
             </table>
           </div>
 
-          <h3>Sub-Base Installation Standards for Driveway Cobblestone</h3>
-          <ol class="steps-list">
-            <li>
-              <strong>Excavation Depth:</strong> Excavate 14 inches below finished driveway grade. Compact the subgrade soil with a heavy plate vibratory compactor until reaching 95% standard Proctor density.
-            </li>
-            <li>
-              <strong>Structural Aggregate Base:</strong> Spread 8 inches of dense graded aggregate (#411 limestone or crushed road base) in two 4-inch lifts, compacting each lift thoroughly with water misting.
-            </li>
-            <li>
-              <strong>Setting Bed:</strong> Place a 2-inch bed of moist setting mortar (1 part Type M Portland cement to 3 parts coarse masonry sand) or a 1-inch screeded bed of sharp bedding sand.
-            </li>
-            <li>
-              <strong>Setting and Jointing:</strong> Tap each granite block into the setting bed with a dead-blow rubber mallet to establish a level surface. Infill joints with high-strength polymeric paver sand or an engineered cementitious grout.
-            </li>
-          </ol>
-        </div>
+          <h3>Check the installation detail</h3><p>Choose excavation, base, bedding, joints and compaction from the product installation instructions and project design. A driveway apron and pedestrian path can require different systems. The piece-count estimate does not establish their structural layers.</p></div>
 
         <!-- FAQ Section -->
         <div class="content-card faq-card">

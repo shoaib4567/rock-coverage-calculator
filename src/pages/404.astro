@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<BaseLayout title="Page Not Found | Rock Coverage Calculator" description="Find a rock calculator or project guide from our calculator library." canonicalPath="/404" noindex>
+  <Header />
+  <main id="main-content" class="container missing-page">
+    <p>404</p>
+    <h1>We couldn’t find that page</h1>
+    <p>Check the address, or choose a calculator for your project.</p>
+    <a href="/" class="btn btn-primary">Rock coverage calculator</a>
+    <a href="/calculators" class="btn">Browse calculators and guides</a>
+  </main>
+  <Footer />
+</BaseLayout>
+<style>
+  .missing-page { padding-block: var(--space-16); min-height: 55vh; }
+  .missing-page h1 { margin-bottom: var(--space-5); }
+  .missing-page p { margin-bottom: var(--space-6); }
+  .missing-page a { margin: 0 var(--space-3) var(--space-3) 0; }
+</style>

@@ -41,7 +41,7 @@ const faqItems = [
   },
   {
     q: 'Can I install rock directly on top of old gravel or dirt?',
-    a: 'No. Loose dirt will mix with new decorative stone through pedestrian traffic and rainfall, destroying your clean stone color within months. Always excavate organic debris, rake the subgrade smooth, and install a commercial woven geotextile fabric before spreading new stone.'
+    a: 'Prepare the surface for its use and ground conditions. A suitable separator can reduce soil mixing where needed, but fabric is not a universal requirement or permanent weed solution. Follow the material and project detail.'
   }
 ];
 ---
@@ -81,7 +81,7 @@ const faqItems = [
 
   <Header />
 
-  <main>
+  <main id="main-content">
     <PageHero
       title="Rock Coverage Calculator Square Feet"
       highlightWord="Square Feet"
@@ -129,19 +129,11 @@ const faqItems = [
                   <th>Installed Depth</th>
                   <th>Coverage per 1 yd³</th>
                   <th>Coverage per 1 Ton (Standard Stone)</th>
-                  <th>Coverage per 1 Ton (Lava Rock)</th>
+                  <th>Coverage per 1 Ton (Lava Rock, 0.75 t/yd³)</th>
                   <th>Cubic Yards per 1,000 Sq Ft</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr><td>1.0 inch</td><td>324 sq ft</td><td>240 sq ft</td><td>462 sq ft</td><td>3.09 yd³</td></tr>
-                <tr><td>1.5 inches</td><td>216 sq ft</td><td>160 sq ft</td><td>308 sq ft</td><td>4.63 yd³</td></tr>
-                <tr><td>2.0 inches</td><td>162 sq ft</td><td>120 sq ft</td><td>231 sq ft</td><td>6.17 yd³</td></tr>
-                <tr><td>2.5 inches</td><td>130 sq ft</td><td>96 sq ft</td><td>185 sq ft</td><td>7.72 yd³</td></tr>
-                <tr><td>3.0 inches</td><td>108 sq ft</td><td>80 sq ft</td><td>154 sq ft</td><td>9.26 yd³</td></tr>
-                <tr><td>4.0 inches</td><td>81 sq ft</td><td>60 sq ft</td><td>115 sq ft</td><td>12.35 yd³</td></tr>
-                <tr><td>6.0 inches</td><td>54 sq ft</td><td>40 sq ft</td><td>77 sq ft</td><td>18.52 yd³</td></tr>
-              </tbody>
+              <tbody>{[1,1.5,2,2.5,3,4,6].map(depth=><tr><th scope="row">{depth} inches</th><td>{Math.round(324/depth)} sq ft</td><td>{Math.round(324/depth/1.35)} sq ft</td><td>{Math.round(324/depth/0.75)} sq ft</td><td>{(1000*depth/324).toFixed(2)} yd³</td></tr>)}</tbody>
             </table>
           </div>
 
@@ -160,7 +152,7 @@ const faqItems = [
               <strong>Compute Average Width:</strong> Add all perpendicular width measurements together and divide by the total number of measurements taken to establish Average Width (W_avg).
             </li>
             <li>
-              <strong>Calculate Net Square Footage:</strong> Multiply baseline length by average width: <code>Area = L × W_avg</code>. This technique provides within 3% accuracy of computerized CAD surveys.
+              <strong>Calculate Net Square Footage:</strong> Multiply baseline length by average width: <code>Area = L × W_avg</code>. This is a field approximation. Use more sections around curves and compare with an actual plan or survey when precision matters.
             </li>
           </ol>
         </div>

@@ -48,17 +48,18 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
             </button>
             <button type="button" class="btn-preset" data-preset="garden-bed">
               <span>Decorative Garden Bed</span>
-              <small>Weed Barrier + 3" River Rock + Steel Edging</small>
+              <small>Optional Separator + 3" River Rock + Edging</small>
             </button>
           </div>
         </div>
 
+        <p id="layer-input-error" role="alert"></p>
         <div class="layered-calc-grid">
           <!-- Inputs Column -->
           <div class="layered-inputs-panel">
             <div class="calc-panel-title">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-              <h3>Project Dimensions</h3>
+              <h2>Project Dimensions</h2>
             </div>
 
             <div class="dim-inputs-row">
@@ -80,7 +81,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
 
             <div class="calc-panel-title" style="margin-top: var(--space-6);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              <h3>Layer Thicknesses</h3>
+              <h2>Layer Thicknesses</h2>
             </div>
 
             <!-- Layer 1: Subbase -->
@@ -99,7 +100,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
                     <select id="base-material-select" class="layer-select">
                       <option value="crusher-run" selected>Crusher Run / 21-A Base (1.45 t/yd³)</option>
                       <option value="crushed-stone">#57 Clean Crushed Stone (1.35 t/yd³)</option>
-                      <option value="decomposed-granite">Road Base / Caliche (1.45 t/yd³)</option>
+                      <option value="decomposed-granite">Decomposed Granite (1.25 t/yd³ example)</option>
                     </select>
                   </div>
                   <div class="input-field-group">
@@ -110,7 +111,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
                     </div>
                   </div>
                 </div>
-                <span class="layer-hint">Auto-applies ×1.25 loose compaction multiplier for mechanical rolling.</span>
+                <span class="layer-hint">See the editable loose-volume increase and extra order allowance below.</span>
               </div>
             </div>
 
@@ -131,8 +132,8 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
                       <option value="crushed-stone" selected>#57 Clean Crushed Granite (1.35 t/yd³)</option>
                       <option value="pea-gravel">3/8" Pea Gravel (1.35 t/yd³)</option>
                       <option value="river-rock">1"-3" River Rock (1.35 t/yd³)</option>
-                      <option value="decomposed-granite">Decomposed Granite (1.485 t/yd³)</option>
-                      <option value="lava-rock">Red Lava Rock (0.65 t/yd³)</option>
+                      <option value="decomposed-granite">Decomposed Granite (1.25 t/yd³ example)</option>
+                      <option value="lava-rock">Red Lava Rock (0.75 t/yd³ example)</option>
                     </select>
                   </div>
                   <div class="input-field-group">
@@ -143,11 +144,12 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
                     </div>
                   </div>
                 </div>
-                <span class="layer-hint">Includes 10% jobsite waste buffer for spreading and edge nesting.</span>
+                <span class="layer-hint">Finished volume and the editable order assumptions are calculated separately.</span>
               </div>
             </div>
 
-            <!-- Supplies: Geotextile & Edging -->
+            <div class="layer-control-card"><h2>Order assumptions</h2><p>Starting factors are examples. Enter the supplier’s values; a 25% loose-order increase is different from a 25% loss during placement.</p><div class="layer-fields-grid"><div class="input-field-group"><label for="layer-base-factor">Base loose volume increase (%)</label><input id="layer-base-factor" type="number" min="0" value="25" step="any" /></div><div class="input-field-group"><label for="layer-base-extra">Additional base order extra (%)</label><input id="layer-base-extra" type="number" min="0" value="5" step="any" /></div><div class="input-field-group"><label for="layer-base-density">Base loose weight (US tons/yd³)</label><input id="layer-base-density" type="number" min="0.01" value="1.45" step="any" /></div><div class="input-field-group"><label for="layer-top-factor">Top loose volume increase (%)</label><input id="layer-top-factor" type="number" min="0" value="0" step="any" /></div><div class="input-field-group"><label for="layer-top-extra">Additional top order extra (%)</label><input id="layer-top-extra" type="number" min="0" value="10" step="any" /></div><div class="input-field-group"><label for="layer-top-density">Top loose weight (US tons/yd³)</label><input id="layer-top-density" type="number" min="0.01" value="1.35" step="any" /></div><div class="input-field-group"><label for="layer-spoil-extra">Excavated spoil swell (%)</label><input id="layer-spoil-extra" type="number" min="0" value="25" step="any" /></div></div></div>
+<!-- Supplies: Geotextile & Edging -->
             <div class="layer-control-card">
               <div class="layer-title-row">
                 <div class="layer-badge supplies">Project Supplies &amp; Restraints</div>
@@ -157,8 +159,8 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
                   <input type="checkbox" id="toggle-fabric" checked />
                   <span class="checkbox-custom"></span>
                   <span class="checkbox-text">
-                    <strong>Geotextile Underlayment Fabric</strong>
-                    <span class="field-hint">Auto-calculates sq ft + 12" overlaps (15% waste).</span>
+                    <strong>Optional separation fabric</strong>
+                    <span class="field-hint">Area plus 15% example overlap; confirm the actual roll layout.</span>
                   </span>
                 </label>
                 <label class="checkbox-label" for="toggle-edging">
@@ -179,7 +181,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
               <div class="bom-header">
                 <div class="bom-title-row">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-                  <h3>Master Project Shopping List (BOM)</h3>
+                  <h2>Master Project Shopping List (BOM)</h2>
                 </div>
                 <div class="bom-scope-badge" id="bom-scope">480 sq ft Footprint</div>
               </div>
@@ -221,7 +223,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
               <div class="bom-contractor-notes">
                 <strong>Field Contractor Rule of Thumb:</strong>
                 <p>
-                  Always excavate to the bottom of the base course layer. Never lay your base stone on top of virgin grass or unexcavated organic topsoil. If excavating 8 inches total depth, expect the loose spoil pile to swell by 20% to 30% in volume when loading into a dump trailer.
+                  Set excavation from the actual layer detail and ground levels. The spoil figure uses an editable swell factor; confirm disposal quantities and handling with the contractor.
                 </p>
               </div>
             </div>
@@ -229,6 +231,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
         </div>
       </div>
     </section>
+<section class="container section"><h2>Worked two-layer example</h2><p>For a 12 × 16 ft patio, a 4-inch finished base occupies 2.37 yd³. At a chosen 25% loose-volume increase and 5% additional extra, order 3.11 yd³ of base. A separate 2-inch top occupies 1.19 yd³; with 10% extra and no loose-volume increase, order 1.30 yd³. Weight depends on the actual loose densities you enter.</p><h2>What this shopping list includes</h2><p>The estimator adds the selected layers, optional fabric and a full rectangular perimeter. Fabric assumes 15% overlap and 300 sq ft rolls; edging assumes a spike every 18 inches. Confirm product roll sizes, overlaps and fixing instructions. Subtract sides that do not need edging. The excavation figure covers the selected layer thicknesses only; it does not allow for every ground preparation or disposal condition.</p><p>Presets illustrate quantities rather than construction specifications. Check the <a href="/rock-depth-guide">depth planning guide</a> and <a href="/about">formulas and assumptions</a>. Use the <a href="/which-rock-should-i-use">material selection helper</a> when comparing products, then confirm the actual installation plan.</p></section>
   </main>
 
   <Footer />
@@ -254,8 +257,8 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
     'crushed-stone': { name: '#57 Clean Crushed Stone', density: 1.35, compaction: 1.0 },
     'pea-gravel': { name: '3/8" Pea Gravel', density: 1.35, compaction: 1.0 },
     'river-rock': { name: '1"-3" River Rock', density: 1.35, compaction: 1.0 },
-    'decomposed-granite': { name: 'Decomposed Granite', density: 1.485, compaction: 1.25 },
-    'lava-rock': { name: 'Red Lava Rock', density: 0.65, compaction: 1.0 }
+    'decomposed-granite': { name: 'Decomposed Granite', density: 1.25, compaction: 1.25 },
+    'lava-rock': { name: 'Red Lava Rock', density: 0.75, compaction: 1.0 }
   };
 
   // Presets
@@ -309,11 +312,22 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
         toggleEdging.checked = true;
       }
 
+      syncMaterialAssumptions();
       calculateBOM();
     });
   });
 
   function calculateBOM() {
+    const checkedInputs=[lengthInput,widthInput,...(toggleBase.checked?[baseDepthInput]:[]),...(toggleTop.checked?[topDepthInput]:[]),...document.querySelectorAll('input[id^="layer-base-"],input[id^="layer-top-"],#layer-spoil-extra')];
+    const invalid=checkedInputs.some(input=>!input.value.trim()||!Number.isFinite(Number(input.value))||!input.validity.valid);
+    const error=document.getElementById('layer-input-error');
+    if(invalid){if(error)error.textContent='Enter positive dimensions and bulk weights, and nonnegative allowances.';for(const id of ['bom-total-weight','bom-total-volume','bom-total-excavation'])document.getElementById(id).textContent='—';const list=document.querySelector('.bom-items-list');if(list)list.textContent='';return;}
+    if(error)error.textContent='';
+    const n=(id,fallback)=>{const raw=document.getElementById(id)?.value;const value=raw===''?NaN:Number(raw);return Number.isFinite(value)&&value>=0?value:fallback;};
+    const baseFactor=1+n('layer-base-factor',25)/100,baseExtra=1+n('layer-base-extra',5)/100;
+    const topFactor=1+n('layer-top-factor',0)/100,topExtra=1+n('layer-top-extra',10)/100;
+    const baseDensity=n('layer-base-density',1.45),topDensity=n('layer-top-density',1.35);
+    const spoilFactor=1+n('layer-spoil-extra',25)/100;
     const len = parseFloat(lengthInput?.value) || 0;
     const wid = parseFloat(widthInput?.value) || 0;
     const areaSqFt = len * wid;
@@ -332,7 +346,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
     // Excavation Volume (with 25% soil swell)
     const baseExcavationCuFt = areaSqFt * (totalDepthInches / 12);
     const excavationCuYdInSitu = baseExcavationCuFt / 27;
-    const excavationSpoilCuYd = excavationCuYdInSitu * 1.25;
+    const excavationSpoilCuYd = excavationCuYdInSitu * spoilFactor;
 
     // Base Layer
     let baseTons = 0;
@@ -340,9 +354,9 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
     const baseMat = materialDensities[baseMatKey];
     if (hasBase && baseDepth > 0) {
       const compactedCuFt = areaSqFt * (baseDepth / 12);
-      const looseCuFt = compactedCuFt * baseMat.compaction * 1.05; // 5% edge allowance
+      const looseCuFt = compactedCuFt * baseFactor * baseExtra; // 5% edge allowance
       baseLooseYards = looseCuFt / 27;
-      baseTons = baseLooseYards * baseMat.density;
+      baseTons = baseLooseYards * baseDensity;
     }
 
     // Top Layer
@@ -351,9 +365,9 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
     let topBags = 0;
     const topMat = materialDensities[topMatKey];
     if (hasTop && topDepth > 0) {
-      const targetCuFt = areaSqFt * (topDepth / 12) * 1.10; // 10% waste buffer
+      const targetCuFt = areaSqFt * (topDepth / 12) * topFactor * topExtra; // 10% waste buffer
       topLooseYards = targetCuFt / 27;
-      topTons = topLooseYards * topMat.density;
+      topTons = topLooseYards * topDensity;
       topBags = Math.ceil(targetCuFt / 0.5);
     }
 
@@ -407,7 +421,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
           </div>
           <div class="bom-item-details">
             <div class="bom-item-title">Geotextile Subgrade Underlayment</div>
-            <div class="bom-item-spec">${fabricSqFt} sq ft total required (includes 12" roll overlaps). ~<strong>${standardRolls} standard rolls</strong> (3' × 100').</div>
+            <div class="bom-item-spec">${fabricSqFt} sq ft total required (includes a 15% area allowance). ~<strong>${standardRolls} standard rolls</strong> (3' × 100').</div>
           </div>
           <div class="bom-item-qty">
             <span class="qty-num">${fabricSqFt}</span>
@@ -426,7 +440,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
           </div>
           <div class="bom-item-details">
             <div class="bom-item-title">${baseMat.name} (Base Layer)</div>
-            <div class="bom-item-spec">${baseDepth}" compacted depth. Order <strong>${baseLooseYards.toFixed(2)} cu yds</strong> to account for 20% roller compaction.</div>
+            <div class="bom-item-spec">${baseDepth}" compacted depth. Order <strong>${baseLooseYards.toFixed(2)} cu yds</strong> using your loose-volume and extra-order factors.</div>
           </div>
           <div class="bom-item-qty">
             <span class="qty-num">${baseTons.toFixed(2)}</span>
@@ -445,7 +459,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
           </div>
           <div class="bom-item-details">
             <div class="bom-item-title">${topMat.name} (Top Dressing)</div>
-            <div class="bom-item-spec">${topDepth}" finished depth (includes 10% buffer). ~<strong>${topLooseYards.toFixed(2)} cu yds</strong> or <strong>${topBags} retail bags</strong> (0.5 cu ft).</div>
+            <div class="bom-item-spec">${topDepth}" finished depth; ${Math.round((topFactor-1)*100)}% loose-volume increase and ${Math.round((topExtra-1)*100)}% extra. ~<strong>${topLooseYards.toFixed(2)} cu yds</strong> or <strong>${topBags} retail bags</strong> (0.5 cu ft).</div>
           </div>
           <div class="bom-item-qty">
             <span class="qty-num">${topTons.toFixed(2)}</span>
@@ -484,6 +498,10 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
     document.getElementById('bom-total-volume').textContent = `${totalCuYds.toFixed(2)} Cu Yds`;
     document.getElementById('bom-total-excavation').textContent = `${excavationSpoilCuYd.toFixed(1)} Yds Spoil`;
   }
+
+function syncMaterialAssumptions(only){for(const [prefix,select] of [['base',baseMaterialSelect],['top',topMaterialSelect]]){if(only&&prefix!==only)continue;const material=materialDensities[select.value];document.getElementById('layer-'+prefix+'-density').value=material.density;document.getElementById('layer-'+prefix+'-factor').value=Math.round((material.compaction-1)*100);}}
+  baseMaterialSelect.addEventListener('change',()=>{syncMaterialAssumptions('base');calculateBOM();});topMaterialSelect.addEventListener('change',()=>{syncMaterialAssumptions('top');calculateBOM();});
+  for(const id of ['layer-base-factor','layer-base-extra','layer-base-density','layer-top-factor','layer-top-extra','layer-top-density','layer-spoil-extra'])document.getElementById(id).addEventListener('input',calculateBOM);
 
   // Bind inputs
   [lengthInput, widthInput, toggleBase, baseMaterialSelect, baseDepthInput, toggleTop, topMaterialSelect, topDepthInput, toggleFabric, toggleEdging].forEach(el => {
@@ -737,7 +755,7 @@ Calculated on rockcoveragecalculator.com/layered-project-calculator`;
     color: #10b981;
   }
 
-  .bom-title-row h3 {
+  .bom-title-row h2 {
     font-size: 1.15rem;
     font-weight: 700;
     color: var(--text-primary);

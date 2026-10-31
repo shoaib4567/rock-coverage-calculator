@@ -9,12 +9,14 @@ interface Props {
   description?: string;
   metaDescription?: string;
   canonicalPath?: string;
+  noindex?: boolean;
 }
 
-const { title, description, metaDescription, canonicalPath = '' } = Astro.props;
+const { title, description, metaDescription, canonicalPath, noindex = false } = Astro.props;
 const pageDescription = description || metaDescription || 'Free rock coverage and aggregate calculator for landscaping and civil construction projects.';
 const siteUrl = 'https://rockcoveragecalculator.com';
-const canonicalURL = `${siteUrl}${canonicalPath}`;
+const pagePath = canonicalPath ?? Astro.url.pathname;
+const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, ''), siteUrl).href;
 ---
 <!doctype html>
 <html lang="en-US">
@@ -22,7 +24,7 @@ const canonicalURL = `${siteUrl}${canonicalPath}`;
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={pageDescription} />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
   <meta name="google-site-verification" content="HCyFYA4BAPRS0wlYok2AsFsajHg5rBZyENsSi1pIcNI" />
   <link rel="canonical" href={canonicalURL} />
 
@@ -104,7 +106,8 @@ const canonicalURL = `${siteUrl}${canonicalPath}`;
     (function() {
       try {
         const savedTheme = localStorage.getItem('theme');
-        const theme = savedTheme || 'light';
+        const requestedTheme = location.pathname.replace(/\/$/, '') === '/embed' ? new URLSearchParams(location.search).get('theme') : null;
+        const theme = requestedTheme === 'dark' || requestedTheme === 'light' ? requestedTheme : savedTheme || 'light';
         document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {}
     })();
@@ -115,11 +118,5 @@ const canonicalURL = `${siteUrl}${canonicalPath}`;
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <slot />
-  <script is:inline>
-    (function() {
-      const main = document.querySelector('main');
-      if (main && !main.id) main.id = 'main-content';
-    })();
-  </script>
 </body>
 </html>

@@ -40,7 +40,7 @@ const faqItems = [
   },
   {
     q: 'How many cubic yards of rock can a standard pickup truck carry?',
-    a: 'A standard half-ton pickup truck (F-150, Silverado 1500) can carry approximately 0.5 to 0.75 cubic yards of rock before exceeding its payload capacity (typically 1,500 to 2,000 lbs). A full cubic yard of rock weighs 2,600 to 2,900 lbs, requiring a heavy three-quarter-ton or one-ton pickup.'
+    a: 'Check the actual vehicle’s remaining rated payload after occupants and other cargo, along with the supplier’s loading policy. Multiply the order volume by the product’s loose weight. A vehicle class name does not establish how much rock it may carry.'
   }
 ];
 ---
@@ -80,7 +80,7 @@ const faqItems = [
 
   <Header />
 
-  <main>
+  <main id="main-content">
     <PageHero
       title="Rock Coverage Calculator Yard"
       highlightWord="Yard"
@@ -140,21 +140,7 @@ const faqItems = [
             </table>
           </div>
 
-          <h3>Commercial Hauling Capacities by Dump Truck Class</h3>
-          <p>
-            When ordering bulk rock from aggregate quarries, transport cost is governed by the payload and volume capacity of the delivery vehicle. Coordinate with your supplier based on these standard truck classifications:
-          </p>
-          <ol class="steps-list">
-            <li>
-              <strong>Single-Axle Dump Truck (Class 6):</strong> Carries 5 to 7 cubic yards (maximum 7 to 9 tons payload). Ideal for tight residential suburban driveways where heavier trucks would crack asphalt or concrete curbs.
-            </li>
-            <li>
-              <strong>Tandem-Axle Dump Truck (Class 7):</strong> Carries 10 to 12 cubic yards (maximum 14 to 16 tons payload). The commercial standard for major landscape installations and long driveway resurfacing.
-            </li>
-            <li>
-              <strong>Tri-Axle Dump Truck (Class 8):</strong> Carries 14 to 18 cubic yards (maximum 20 to 22 tons payload). Used for civil projects, subdivisions, and commercial drainage installations. Requires broad street access with zero overhead utility wire obstructions.
-            </li>
-          </ol>
+          <h3>Check payload and usable volume</h3><p>Confirm the actual truck’s allowable payload, volume and access with the supplier. Cubic yards multiplied by the product’s loose tons per yard estimates load weight; axle count alone cannot set a safe load. Use the <a href="/rock-yardage-calculator">order and delivery planner</a> for seller increments and handling estimates.</p>
         </div>
 
         <!-- FAQ Section -->

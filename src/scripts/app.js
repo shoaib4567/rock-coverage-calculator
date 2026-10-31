@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const subtext = card?.querySelector('.kpi-subtext');
       if (subtext) subtext.textContent = 'Enter valid inputs';
     });
-    if (breakdownBody) breakdownBody.innerHTML = `<tr><td colspan="2" class="invalid-results-message">${message}</td></tr>`;
+    if (breakdownBody) breakdownBody.innerHTML = `<tr><th scope="row" colspan="2" class="invalid-results-message">${message}</th></tr>`;
     if (purchaseGrid) purchaseGrid.innerHTML = '<p class="invalid-results-message">Purchasing recommendations will appear when the dimensions are valid.</p>';
     [costSummaryMaterial, costSummaryDelivery, costSummaryLabor, costSummaryFabric, costSummaryTax, costTotal].forEach(element => {
       if (element) element.textContent = '—';
@@ -1221,11 +1221,11 @@ Thank you!`;
     if (breakdownBody) {
       const densityBadges = `${result.isCustomDensity ? ' <span style="color:#d97706;font-weight:600;font-size:0.75rem;">(Entered density)</span>' : ''}${result.isCompacted ? ' <span style="color:#10b981;font-weight:600;font-size:0.75rem;">(Base compaction allowance)</span>' : ''}`;
       breakdownBody.innerHTML = `
-        <tr><td>Volume (cubic yards / m³)</td><td><strong>${RockEngine.formatNumber(result.volumeCuYd)} yd³</strong> &bull; ${RockEngine.formatNumber(result.volumeCuM)} m³</td></tr>
-        <tr><td>Volume (cubic feet)</td><td>${RockEngine.formatNumber(result.volumeCuFt)} cu ft</td></tr>
-        <tr><td>Weight (short tons / metric tonnes)</td><td><strong>${RockEngine.formatNumber(result.weightTons)} short tons</strong> &bull; ${RockEngine.formatNumber(result.weightTonnes)} tonnes</td></tr>
-        <tr><td>Weight (lbs / kg)</td><td>${RockEngine.formatNumber(result.weightLbs)} lbs &bull; ${RockEngine.formatNumber(result.weightKg)} kg</td></tr>
-        <tr><td>Bulk Density</td><td>${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ (${result.densityLbsPerCuFt} lb/ft³ &bull; ${result.densityKgPerCuM} kg/m³)${densityBadges}</td></tr>
+        <tr><th scope="row">Volume (cubic yards / m³)</th><td><strong>${RockEngine.formatNumber(result.volumeCuYd)} yd³</strong> &bull; ${RockEngine.formatNumber(result.volumeCuM)} m³</td></tr>
+        <tr><th scope="row">Volume (cubic feet)</th><td>${RockEngine.formatNumber(result.volumeCuFt)} cu ft</td></tr>
+        <tr><th scope="row">Weight (short tons / metric tonnes)</th><td><strong>${RockEngine.formatNumber(result.weightTons)} short tons</strong> &bull; ${RockEngine.formatNumber(result.weightTonnes)} tonnes</td></tr>
+        <tr><th scope="row">Weight (lbs / kg)</th><td>${RockEngine.formatNumber(result.weightLbs)} lbs &bull; ${RockEngine.formatNumber(result.weightKg)} kg</td></tr>
+        <tr><th scope="row">Bulk Density</th><td>${RockEngine.formatNumber(result.densityLbsPerCuYd)} lbs/yd³ (${result.densityLbsPerCuFt} lb/ft³ &bull; ${result.densityKgPerCuM} kg/m³)${densityBadges}</td></tr>
       `;
     }
 

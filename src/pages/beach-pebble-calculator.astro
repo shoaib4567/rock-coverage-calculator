@@ -4,294 +4,258 @@ import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
-import DecorativeIntentBlock from '../components/intent/DecorativeIntentBlock.astro';
 
+const pageTitle = 'Beach Pebble Calculator: Yards, Tons & Bags';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Beach Pebble Calculator', url: '/beach-pebble-calculator' }
 ];
-
 const entityTags = [
-  { label: 'Material', value: 'Mexican Beach Pebble / Egg Rock' },
-  { label: 'Particle Caliper', value: '1" to 2" & 2" to 3" Smooth Tumbled' },
-  { label: 'Bulk Density', value: '1.35 t/yd³ (100 lbs/cu ft)' },
-  { label: 'Coverage Yield', value: '80 sq ft per Ton at 3" Depth' }
+  { label: 'Material', value: 'Mexican beach pebbles' },
+  { label: 'Typical grades', value: '½–1, 1–2, and 2–3 in; check your supplier' },
+  { label: 'Bulk weight example', value: '2,600 lb per cubic yard; editable' }
 ];
-
 const quickStats = [
-  { value: '1"-2" & 2"-3"', label: 'Sizing Grades', desc: 'Naturally ocean-tumbled smooth basaltic and andesitic pebbles' },
-  { value: '1.35 t/yd³', label: 'Quarry Density', desc: 'ASTM C29 loose bulk density (2,700 lbs per cubic yard)' },
-  { value: 'Matte Finish', label: 'Natural Color', desc: 'Deep charcoal black, grey, and buff tones when dry; glossy when wet' }
+  { value: '162 sq ft', label: 'One cubic yard at 2 in', desc: 'Geometric coverage before any order allowance.' },
+  { value: '2,600 lb', label: 'Example bulk weight per yard', desc: 'One supplier figure; replace it with your own quote.' },
+  { value: '0.25 or 0.5 cu ft', label: 'Examples of bag volume', desc: 'The calculator accepts the volume on your bag label.' }
 ];
-
 const faqItems = [
   {
-    q: 'How many bags of Mexican beach pebbles do I need for a 50 square foot planter bed?',
-    a: 'For 1-2 inch beach pebbles, a 2.5-inch layer is recommended. A 50 square foot area at 2.5 inches depth requires 10.4 cubic feet (0.39 cubic yards) of pebbles. Since standard retail bags contain 0.5 cubic feet (weighing approximately 50 lbs), you need 21 bags (or approximately 1,050 pounds of stone).'
+    q: 'How many beach pebble bags cover an 80 square foot bed?',
+    a: 'At a 3-inch finished depth, 80 square feet takes 20 cubic feet. With a 10% ordering allowance, plan 22 cubic feet: 88 bags labeled 0.25 cubic foot or 44 bags labeled 0.5 cubic foot. Round up only after dividing by the volume on your actual bag.'
   },
   {
-    q: 'What is the difference between Mexican beach pebble and standard river rock?',
-    a: 'Mexican beach pebbles are formed by high-energy ocean wave action along Pacific beaches in Baja California, producing an exceptionally smooth, uniform, flattened ellipsoidal contour with no jagged edges. Standard river rock is formed by freshwater river currents, featuring more varied mineral shapes, rougher textures, and mixed earth-tone coloration.'
+    q: 'How much does a cubic yard of Mexican beach pebbles weigh?',
+    a: 'The loose bulk weight depends on the product and how it is measured. West Seattle Stone lists 2,600 pounds per cubic yard for its 1–2-inch black pebbles; another supplier gives roughly 1.3–1.4 US short tons per yard. Use the figure for the stone you are buying instead of treating one weight as universal.'
   },
   {
-    q: 'How deep should Mexican beach pebbles be installed?',
-    a: 'For 1 to 2 inch pebbles, install at a depth of 2.5 to 3.0 inches. For larger 2 to 3 inch pebbles, install at a minimum depth of 3.5 to 4.0 inches (applying the 1.5x to 2x stone diameter rule) to ensure complete opacity over black geotextile fabric.'
+    q: 'Is egg rock the same as Mexican beach pebble?',
+    a: 'The labels can overlap: some sellers group beach pebbles with egg rock, while others sell them as separate products. Match the actual grade, color, finish, package volume, and supplier weight before reusing a coverage or weight estimate.'
   },
   {
-    q: 'Can beach pebbles be used around swimming pools and splash basins?',
-    a: 'Yes. The ultra-smooth, tumbled contours of Mexican beach pebbles make them completely barefoot-safe. They are the premium choice for pool coping borders, fountain splash aprons, and outdoor shower bases.'
+    q: 'Will landscape fabric stop weeds in a beach pebble bed?',
+    a: 'Permeable fabric can separate the pebbles from soil, but it will not keep the surface weed-free. Windblown soil and seeds can collect among the stones. Remove weeds early and keep leaves and debris off the bed.'
   }
 ];
-
 const upLinks = [
-  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
-  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
+  { title: 'Rock Coverage Calculator', slug: '/', badge: 'Main tool' },
+  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Material family' }
 ];
-
 const lateralLinks = [
-  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: '1.35 t/yd³' },
-  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: '0.75-1.40 t/yd³' },
-  { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', badge: '1.35 t/yd³' }
+  { title: 'Egg Rock Calculator', slug: '/egg-rock-calculator', badge: 'Compare product labels' },
+  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'River stone' },
+  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'Angular accent' }
 ];
-
 const bridgeLinks = [
-  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags' },
-  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Sq Ft' },
-  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' }
+  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bag planning' },
+  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Buying guide' },
+  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Weight conversion' }
 ];
-
 const supportGuides = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
+  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Choose a layer' },
+  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'Supplier weight' },
+  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Bed preparation' }
 ];
 ---
 
 <BaseLayout
-  title="Mexican Beach Pebble Calculator - Egg Rock Bags & Tons"
-  metaDescription="Calculate cubic yards, tons, and bags of Mexican beach pebbles and egg rock. Sizing formulas for modern borders, planter tops, and pool surrounds."
+  title={pageTitle}
+  metaDescription="Calculate Mexican beach pebbles by measured area and finished depth. See cubic yards, estimated US short tons, and bags using editable supplier weight and labeled bag volume."
   canonicalPath="/beach-pebble-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Beach Pebble Calculator",
-      "url": "https://rockcoveragecalculator.com/beach-pebble-calculator",
-      "description": "Calculates Mexican beach pebbles and egg rock cubic yards, bags, and quarry scale tonnage for modern landscape borders.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "en-US",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Landscape Architects, High-End Masons, Homeowners, Estimators"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Mexican Beach Pebble"
-      }
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/beach-pebble-calculator',
+      description: 'Estimates a Mexican beach pebble bed by installed volume, order volume, supplier bulk weight, and labeled bag volume.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en-US'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question', name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
       }))
     })} />
   </Fragment>
 
   <Header />
-
-  <main>
+  <main id="main-content">
     <PageHero
-      title="Beach Pebble Calculator"
+      title={pageTitle}
       highlightWord="Calculator"
-      badge="Architectural Pebble & Egg Rock Engine"
-      subtitle="Accurate cubic yards, scale tonnage, and retail 0.5 cu ft bag calculations for smooth Mexican beach pebbles and polished egg rock."
+      badge="Mexican beach pebble planning"
+      subtitle="An 80 sq ft border at 3 in takes 20 cu ft (0.74 cu yd) in the finished layer. Add 10% and plan 22 cu ft: 88 quarter-cubic-foot bags or about 1.06 US short tons at the editable 2,600 lb/yd³ example weight."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
       theme="decorative"
     />
 
-    <!-- Interactive Beach Pebble Calculator Tool -->
-    <section class="section">
+    <section class="section pebble-tool" aria-labelledby="pebble-tool-title">
       <div class="container">
+        <div class="section-intro">
+          <h2 id="pebble-tool-title">Size the layer you will spread, then the order</h2>
+          <p>Use length and width for a rectangular bed, or enter a measured area for curved borders and spaces between pavers. Choose the <em>finished</em> depth for your pebble grade. Replace the example supplier weight and bag volume with the figures on your quote or product label.</p>
+        </div>
         <div class="calc-wrapper">
-          <!-- LEFT: Input Panel -->
-          <div class="calc-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Beach Pebble Bed Dimensions</h3>
+          <div class="calc-panel">
+            <div class="calc-panel-title"><h3>Beach pebble project</h3></div>
+            <div class="input-field measure-mode"><label for="pebble-mode">How did you measure?</label><select id="pebble-mode"><option value="rectangle">Length and width</option><option value="area">Total square feet</option></select></div>
+            <div class="dim-grid" id="pebble-rectangle-fields">
+              <div class="input-field"><label for="pebble-length">Length (ft)</label><input id="pebble-length" type="number" value="20" min="0.1" step="any" inputmode="decimal" /></div>
+              <div class="input-field"><label for="pebble-width">Width (ft)</label><input id="pebble-width" type="number" value="4" min="0.1" step="any" inputmode="decimal" /></div>
+            </div>
+            <div class="dim-grid" id="pebble-area-fields" hidden>
+              <div class="input-field"><label for="pebble-area">Measured area (sq ft)</label><input id="pebble-area" type="number" value="80" min="0.1" step="any" inputmode="decimal" disabled /><small>Add the areas of irregular sections before entering the total.</small></div>
+            </div>
+            <div class="dim-grid project-fields">
+              <div class="input-field"><label for="pebble-depth">Finished pebble depth (in)</label><input id="pebble-depth" type="number" value="3" min="0.5" max="12" step="any" inputmode="decimal" /><small>Check a sample against the largest stones in your chosen grade.</small></div>
+              <div class="input-field"><label for="pebble-allowance">Order allowance (%)</label><input id="pebble-allowance" type="number" value="10" min="0" max="50" step="any" inputmode="decimal" /><small>Optional extra for uneven ground, edges, and small top-ups.</small></div>
+              <div class="input-field"><label for="pebble-density">Supplier bulk weight (lb/yd³)</label><input id="pebble-density" type="number" value="2600" min="1" max="10000" step="any" inputmode="decimal" /><small>2,600 is an example for one 1–2 in product.</small></div>
+              <div class="input-field"><label for="pebble-bag-volume">Labeled bag volume (cu ft)</label><input id="pebble-bag-volume" type="number" value="0.25" min="0.01" max="10" step="any" inputmode="decimal" /><small>Example: 0.25 cu ft / 20 lb; other bags differ.</small></div>
+            </div>
+            <p class="input-error" id="pebble-error" role="status" aria-live="polite"></p>
           </div>
-
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="pebble-length">Length (Feet)</label>
-              <input type="number" id="pebble-length" value="20" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="pebble-width">Width (Feet)</label>
-              <input type="number" id="pebble-width" value="4" min="1" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="pebble-depth">Target Depth (Inches)</label>
-              <input type="number" id="pebble-depth" value="3.0" min="1.5" max="8" step="0.5" />
-            </div>
-            <div class="input-field">
-              <label for="pebble-waste">Safety Buffer (%)</label>
-              <input type="number" id="pebble-waste" value="10" min="0" max="25" step="1" />
-            </div>
-          </div>
-          </div>
-
-          <!-- RIGHT: Results Panel -->
-          <div class="calc-results-panel animate-fade-in-up">
-            <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
-            </div>
-
+          <div class="calc-results-panel" aria-live="polite">
+            <div class="calc-panel-title"><h3>Volume and buying quantities</h3></div>
             <div class="kpi-grid">
-              <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-pebble-yards">0.00</div>
-              <div class="kpi-label">Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-pebble-cuft">Includes 10% buffer</div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-pebble-net">0.00</div><div class="kpi-label">Finished cubic yards</div><div class="kpi-subtext" id="kpi-pebble-net-cuft">Before allowance</div></div>
+              <div class="kpi-card highlight"><div class="kpi-value" id="kpi-pebble-order">0.00</div><div class="kpi-label">Plan to order, cubic yards</div><div class="kpi-subtext" id="kpi-pebble-order-cuft">With allowance</div></div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-pebble-tons">0.00</div><div class="kpi-label">Estimated US short tons</div><div class="kpi-subtext" id="kpi-pebble-lbs">At supplier bulk weight</div></div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-pebble-bags">0</div><div class="kpi-label">Whole retail bags</div><div class="kpi-subtext" id="kpi-pebble-bag-note">At labeled bag volume</div></div>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-pebble-tons">0.00</div>
-              <div class="kpi-label">Scale Weight (Tons)</div>
-              <div class="kpi-subtext">At 1.35 t/yd³ (2,700 lbs/yd³)</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-pebble-bags">0</div>
-              <div class="kpi-label">0.5 cu ft Bags</div>
-              <div class="kpi-subtext">~50 lbs per bag</div>
-            </div>
-            </div>
+            <p class="result-note">Bag count uses volume, not an assumed bag weight. Tonnage is a planning estimate; the delivered stone and moisture determine billed weight. Ask about yard increments or pallet sizes before ordering.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Decorative Sourcing & Weed Barrier Block -->
-    <DecorativeIntentBlock stoneName="Mexican Beach Pebbles" />
-
-    <!-- Technical Guide on Beach Pebble -->
-    <article class="content-guide-section">
+    <article class="pebble-guide">
       <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Mexican Beach Pebble Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Beach Pebble Sizing Reference</span>
+        <section class="content-card" aria-labelledby="pebble-example-title">
+          <h2 id="pebble-example-title">From a measured border to a bag or bulk order</h2>
+          <p>Imagine a 20 × 4 ft border filled to a finished depth of 3 in. Its 80 sq ft surface takes <strong>20 cu ft, or 0.74 cu yd</strong>, before extra material. A 10% allowance makes the order <strong>22 cu ft, or 0.81 cu yd</strong>. At 2,600 lb per loose cubic yard, that is about <strong>2,119 lb (1.06 US short tons)</strong>. A 0.25 cu ft bag takes <strong>88 whole bags</strong>; a 0.5 cu ft bag takes <strong>44</strong>. The stone is the same volume in either case, but package sizes change the bag count.</p>
+          <div class="formula-box" aria-label="Beach pebble calculation formulas">
+            <span>Finished cu ft = area (sq ft) × finished depth (in) ÷ 12</span>
+            <span>Order cu yd = finished cu ft × (1 + allowance ÷ 100) ÷ 27</span>
+            <span>US short tons = order cu yd × supplier lb/yd³ ÷ 2,000</span>
+            <span>Whole bags = round up (order cu ft ÷ labeled bag cu ft)</span>
           </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Density</span>
-              <span class="aeo-quick-value">1.35 t/yd³ (100 lbs/cu ft)</span>
-              <p class="aeo-quick-desc">Tested per ASTM C29 loose stockpile unit weight standards.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">1-2" Pebble Depth</span>
-              <span class="aeo-quick-value">2.5 to 3.0 Inches Depth</span>
-              <p class="aeo-quick-desc">Provides complete opacity over black geotextile fabric.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">2-3" Pebble Depth</span>
-              <span class="aeo-quick-value">3.5 to 4.0 Inches Depth</span>
-              <p class="aeo-quick-desc">Applies 1.5x-2x stone caliper rule for larger pebbles.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bag Weight</span>
-              <span class="aeo-quick-value">~50 lbs per 0.5 cu ft Bag</span>
-              <p class="aeo-quick-desc">54 retail bags equal one full cubic yard (27 cu ft).</p>
-            </div>
-          </div>
+          <figure class="pebble-figure"><div class="figure-scroll" tabindex="0" aria-label="Scroll the beach pebble layer and bag example diagram"><img src="/beach-pebble-order-example.svg" width="960" height="420" loading="lazy" alt="Illustrated 20 by 4 foot beach pebble border with a 3 inch stone layer: 20 cubic feet installed, 22 cubic feet with 10 percent extra, equal to 88 quarter-cubic-foot or 44 half-cubic-foot bags." /></div><figcaption>The example compares two real retail bag volumes. Use the labeled dry volume on the product you buy. <span class="figure-scroll-tip">Swipe to see the full diagram.</span></figcaption></figure>
         </section>
 
-        <div class="content-card">
-          <h2>Architectural Elegance of Mexican Beach Pebbles</h2>
-          <p>
-            <strong>Mexican Beach Pebbles</strong> (often marketed as beach stone or polished egg rock) represent the pinnacle of architectural landscape stone. Mined from coastal beaches where heavy ocean wave surf tumbles basaltic and volcanic andesite rocks against one another for thousands of years, they feature an ultra-smooth, rounded, flattened ellipsoidal shape.
-          </p>
-          <p>
-            With a bulk density of approximately <strong>100 pounds per cubic foot (1.35 tons per cubic yard)</strong>, beach pebbles provide a dense, substantial ground cover that does not shift or blow away during heavy storm winds.
-          </p>
+        <section class="content-card" aria-labelledby="pebble-depth-title">
+          <h2 id="pebble-depth-title">Choose depth by the pebble you can actually see</h2>
+          <p><a href="https://beachpebblesdirect.com/pages/beach-pebbles-coverage-chart">Beach Pebbles Direct uses about 2 in as its landscape planning depth</a>. That is a useful starting point, not a rule for every stone size or uneven site. A shallow layer of large 2–3 in pebbles may expose the surface below; a small ½–1 in grade may need less volume for a similar visual finish. Spread a sample over a square foot at the intended depth, then adjust the input to the appearance you want. A top-up over existing stone needs only the added depth.</p>
+          <div class="table-scroll"><table><caption>Volume-only coverage before any allowance</caption><thead><tr><th scope="col">Finished depth</th><th scope="col">One cubic yard</th><th scope="col">0.25 cu ft bag</th><th scope="col">0.5 cu ft bag</th></tr></thead><tbody><tr><th scope="row">2 in</th><td>162 sq ft</td><td>1.5 sq ft</td><td>3 sq ft</td></tr><tr><th scope="row">3 in</th><td>108 sq ft</td><td>1 sq ft</td><td>2 sq ft</td></tr><tr><th scope="row">4 in</th><td>81 sq ft</td><td>0.75 sq ft</td><td>1.5 sq ft</td></tr></tbody></table></div>
+          <p>These figures are geometric layer volumes. A seller may quote a lower field yield based on site variation, placement, or the visual finish expected for its grade. Confirm the basis of its coverage claim before substituting it for a measured depth.</p>
+        </section>
 
-          <div class="formula-box">
-            <code>Volume (Cubic Yards) = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
-            <br />
-            <code>Total Scale Weight (Tons) = Volume (yd³) × 1.35 Tons/yd³</code>
-            <br />
-            <code>Total Bags (0.5 cu ft) = Volume (yd³) × 54</code>
+        <section class="content-card" aria-labelledby="pebble-package-title">
+          <h2 id="pebble-package-title">Read the bag, yard, and pallet labels separately</h2>
+          <div class="buying-grid">
+            <div><h3>Retail bags</h3><p><a href="https://www.homedepot.com/p/312289978">Home Depot lists a Rain Forest beach pebble bag at 0.25 cu ft and 20 lb</a>. Another <a href="https://www.homedepot.com/p/342597379">Butler Arts product is labeled 0.5 cu ft and 40 lb</a>. Those are examples of different products, not a universal weight-to-volume conversion. If only pounds are stated, ask the seller for the bag’s volume or measured coverage before using this bag count.</p></div>
+            <div><h3>Loose bulk and pallets</h3><p><a href="https://www.westseattlestone.com/product/mexican-beach-pebbles-1-2-black">West Seattle Stone lists 2,600 lb/yd³</a> for its 1–2 in black pebble, and sells in half-yard increments. <a href="https://rosevillerocksupply.com/products/mixed-mexican-beach-pebbles-1-2/">Roseville Landscape Supply gives roughly 1.3–1.4 US short tons per yard</a> for a mixed product. Some imported stone comes by the pallet or basket, so request a delivered quote that states its net weight, expected coverage, and freight.</p></div>
           </div>
+          <p><a href="https://store.astm.org/c0029_c0029m-23.html">ASTM C29/C29M</a> is a method for measuring loose or compacted aggregate bulk density; it does not assign one beach pebble weight. The calculator’s editable weight is a supplier example and does not represent a laboratory result for every product. Compare actual quotes with the <a href="/bulk-vs-bagged-rock">bulk versus bagged rock guide</a>.</p>
+        </section>
 
-          <h3>Design Applications for Modern Landscapes</h3>
-          <ul>
-            <li><strong>Minimalist Garden Borders:</strong> Creates crisp, high-contrast borders along concrete walkways, architectural retaining walls, and dark steel edging.</li>
-            <li><strong>Water Features & Splash Basins:</strong> The smooth surface produces a glossy, deep charcoal black or jade green appearance when wet, making it the ideal top dressing under fountain nozzles and rain chains.</li>
-            <li><strong>Planter Box Top Dressing:</strong> Retains moisture in large container plantings while preventing soil splash during irrigation.</li>
-          </ul>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Beach Pebbles</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
+        <section class="content-card" aria-labelledby="pebble-fit-title">
+          <h2 id="pebble-fit-title">Plan the finish as carefully as the quantity</h2>
+          <div class="buying-grid">
+            <div><h3>Color, size, and edging</h3><p>Look at dry and wet samples from the same lot. Natural mixed pebbles and sorted black products can look very different, and a nominal 1–2 in grade contains a range of shapes. Mark the inside of the edging when you measure; the contained area is the area you will fill. Keep loose stones off walking surfaces and pool coping, and assess slip and heat where bare feet may reach them.</p></div>
+            <div><h3>Soil separation and upkeep</h3><p><a href="https://ipm.ucanr.edu/home-and-landscape/weed-management-in-landscapes/">UC Integrated Pest Management explains</a> that permeable fabric beneath rock can slow soil mixing, but stone beds still collect windblown soil and weed seeds. Decide whether fabric suits the planting and drainage, leave room around stems, and plan to remove leaves and young weeds. A neat pebble bed still needs maintenance.</p></div>
           </div>
-        </div>
+          <p><a href="https://www.cypresscreeklandscapesupply.com/rock-stone/">Some suppliers group beach pebbles under egg rock</a>; others list <a href="/egg-rock-calculator">egg rock</a> as a separate rounded stone. Check the actual product grade and label before carrying a bag volume or bulk weight from one listing to another. For ordinary rounded river stone, compare the <a href="/river-rock-calculator">river rock calculator</a>.</p>
+        </section>
 
+        <section class="content-card faq-card" aria-labelledby="pebble-faq-title">
+          <h2 id="pebble-faq-title">Beach pebble questions</h2>
+          <div class="faq-list">{faqItems.map(item => <div class="faq-item"><h3>{item.q}</h3><p>{item.a}</p></div>)}</div>
+        </section>
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/beach-pebble-calculator"
-      category="material"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav currentPage="/beach-pebble-calculator" category="material" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
   </main>
-
   <Footer />
 
   <script>
     function updatePebble() {
-      const l = parseFloat((document.getElementById('pebble-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('pebble-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('pebble-depth') as HTMLInputElement)?.value) || 0;
-      const waste = parseFloat((document.getElementById('pebble-waste') as HTMLInputElement)?.value) || 0;
+      const input = (id: string) => document.getElementById(id) as HTMLInputElement;
+      const number = (id: string) => parseFloat(input(id).value);
+      const mode = (document.getElementById('pebble-mode') as HTMLSelectElement).value;
+      const useArea = mode === 'area';
+      const rectangleFields = document.getElementById('pebble-rectangle-fields') as HTMLElement;
+      const areaFields = document.getElementById('pebble-area-fields') as HTMLElement;
+      rectangleFields.hidden = useArea;
+      areaFields.hidden = !useArea;
+      ['pebble-length', 'pebble-width'].forEach(id => { input(id).disabled = useArea; });
+      input('pebble-area').disabled = !useArea;
 
-      const netYards = (l * w * d) / 324;
-      const totalYards = netYards * (1 + waste / 100);
-      const tons = totalYards * 1.35;
-      const bags = Math.ceil(totalYards * 54);
-
-      const yEl = document.getElementById('kpi-pebble-yards');
-      const tEl = document.getElementById('kpi-pebble-tons');
-      const bEl = document.getElementById('kpi-pebble-bags');
-
-      if (yEl) yEl.innerText = totalYards.toFixed(2);
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (bEl) bEl.innerText = bags.toLocaleString();
+      const length = number('pebble-length');
+      const width = number('pebble-width');
+      const areaInput = number('pebble-area');
+      const depth = number('pebble-depth');
+      const allowance = number('pebble-allowance');
+      const density = number('pebble-density');
+      const bagVolume = number('pebble-bag-volume');
+      const valid: Record<string, boolean> = {
+        'pebble-length': useArea || (Number.isFinite(length) && length >= 0.1),
+        'pebble-width': useArea || (Number.isFinite(width) && width >= 0.1),
+        'pebble-area': !useArea || (Number.isFinite(areaInput) && areaInput >= 0.1),
+        'pebble-depth': Number.isFinite(depth) && depth >= 0.5 && depth <= 12,
+        'pebble-allowance': Number.isFinite(allowance) && allowance >= 0 && allowance <= 50,
+        'pebble-density': Number.isFinite(density) && density > 0 && density <= 10000,
+        'pebble-bag-volume': Number.isFinite(bagVolume) && bagVolume >= 0.01 && bagVolume <= 10
+      };
+      Object.entries(valid).forEach(([id, isValid]) => input(id).setAttribute('aria-invalid', String(!isValid)));
+      const coreIds = (useArea ? ['pebble-area'] : ['pebble-length', 'pebble-width']).concat(['pebble-depth', 'pebble-allowance']);
+      const coreValid = coreIds.every(id => valid[id]);
+      const error = document.getElementById('pebble-error');
+      const set = (id: string, value: string) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+      if (!coreValid) {
+        ['kpi-pebble-net', 'kpi-pebble-order', 'kpi-pebble-tons', 'kpi-pebble-bags'].forEach(id => set(id, '—'));
+        ['kpi-pebble-net-cuft', 'kpi-pebble-order-cuft', 'kpi-pebble-lbs', 'kpi-pebble-bag-note'].forEach(id => set(id, 'Enter valid area, depth, and allowance values.'));
+        if (error) error.textContent = 'Enter a positive area or dimensions, a 0.5–12 in depth, and a 0–50% allowance.';
+        return;
+      }
+      if (error) error.textContent = '';
+      const area = useArea ? areaInput : length * width;
+      const finishedFeet = area * depth / 12;
+      const orderFeet = finishedFeet * (1 + allowance / 100);
+      const orderYards = orderFeet / 27;
+      set('kpi-pebble-net', (finishedFeet / 27).toFixed(2));
+      set('kpi-pebble-order', orderYards.toFixed(2));
+      set('kpi-pebble-net-cuft', finishedFeet.toFixed(1) + ' cu ft across ' + area.toFixed(1) + ' sq ft');
+      set('kpi-pebble-order-cuft', orderFeet.toFixed(1) + ' cu ft with ' + allowance + '% allowance');
+      if (valid['pebble-density']) {
+        const pounds = orderYards * density;
+        set('kpi-pebble-tons', (pounds / 2000).toFixed(2));
+        set('kpi-pebble-lbs', Math.round(pounds).toLocaleString() + ' lb at ' + density.toLocaleString() + ' lb/yd³');
+      } else {
+        set('kpi-pebble-tons', '—');
+        set('kpi-pebble-lbs', 'Enter a positive supplier bulk weight.');
+      }
+      if (valid['pebble-bag-volume']) {
+        const bags = Math.max(1, Math.ceil(orderFeet / bagVolume - 1e-10));
+        set('kpi-pebble-bags', bags.toLocaleString());
+        set('kpi-pebble-bag-note', 'At ' + bagVolume.toLocaleString() + ' cu ft per bag');
+      } else {
+        set('kpi-pebble-bags', '—');
+        set('kpi-pebble-bag-note', 'Enter the labeled dry volume per bag.');
+      }
     }
-
-    ['pebble-length', 'pebble-width', 'pebble-depth', 'pebble-waste'].forEach(id => {
+    ['pebble-mode', 'pebble-length', 'pebble-width', 'pebble-area', 'pebble-depth', 'pebble-allowance', 'pebble-density', 'pebble-bag-volume'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', updatePebble);
+      document.getElementById(id)?.addEventListener('change', updatePebble);
     });
     updatePebble();
   </script>
@@ -299,47 +263,34 @@ const supportGuides = [
 
 <style>
   .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .section-intro { max-width: 860px; margin-bottom: var(--space-6); }
+  .section-intro h2, .content-card h2 { color: var(--text-primary); font-size: var(--text-2xl); margin-bottom: var(--space-3); }
+  .section-intro p, .content-card p { color: var(--text-secondary); line-height: 1.7; }
+  .section-intro a, .content-card a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 2px; }
+  .measure-mode { max-width: 330px; margin-bottom: var(--space-4); }
+  .dim-grid[hidden] { display: none !important; }
+  .input-field small { display: block; color: var(--text-muted); font-size: var(--text-xs); line-height: 1.4; margin-top: 4px; }
+  .input-error { color: #fbbf7b; min-height: 1.5em; font-size: var(--text-sm); margin-top: var(--space-3); }
+  .result-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin-top: var(--space-4); }
+  .pebble-guide { background: var(--bg-body); padding: var(--space-8) 0 var(--space-12); }
+  .content-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); margin-bottom: var(--space-8); }
+  .content-card h3 { color: var(--text-primary); font-size: var(--text-lg); margin: 0 0 var(--space-2); }
+  .formula-box { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); border-radius: var(--radius-md); color: var(--text-primary); font-family: var(--font-mono); font-size: var(--text-sm); line-height: 1.7; margin: var(--space-5) 0; }
+  .formula-box span { display: block; }
+  .table-scroll { overflow-x: auto; margin: var(--space-5) 0; }
+  table { width: 100%; border-collapse: collapse; color: var(--text-secondary); min-width: 590px; }
+  caption { text-align: left; color: var(--text-muted); margin-bottom: var(--space-2); }
+  th, td { text-align: left; border-bottom: 1px solid var(--border-subtle); padding: var(--space-3); }
+  thead th { color: var(--text-primary); background: var(--bg-surface); }
+  .pebble-figure { max-width: 960px; margin: var(--space-6) auto 0; }
+  .pebble-figure img { width: 100%; height: auto; border-radius: var(--radius-lg); }
+  .figure-scroll-tip { display: none; }
+  figcaption { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.5; margin-top: var(--space-2); }
+  .buying-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); margin: var(--space-5) 0; }
+  .buying-grid > div { background: var(--bg-surface); border-radius: var(--radius-md); padding: var(--space-5); }
+  .faq-list { display: grid; gap: var(--space-4); }
   .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
-  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
-  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  .faq-item p { margin-bottom: 0; }
+  @media (max-width: 720px) { .content-card { padding: var(--space-5); } .buying-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .figure-scroll { overflow-x: auto; } .figure-scroll img { min-width: 760px; display: block; } .figure-scroll-tip { display: inline; } }
 </style>

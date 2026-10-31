@@ -26,20 +26,20 @@ const quickStats = [
 
 const faqItems = [
   {
-    q: 'How many tons of crusher run do I need for a 12x24 foot paver patio base?',
-    a: 'A 12x24 foot patio equals 288 square feet. A standard pedestrian paver installation requires a 4-inch compacted base of crusher run. At 4 inches, net loose volume is 3.56 cubic yards. Factoring in a 20 percent mechanical compaction allowance under a plate tamper, order 4.27 cubic yards (approximately 6.2 tons of stone).'
+    "q": "How much base is needed for a 12 × 24 ft area?",
+    "a": "At a 4-inch finished depth the volume is 3.56 yd³. A selected 20% loose-order increase gives 4.27 yd³, about 6.19 US short tons at the example 1.45 tons per yard. Confirm both allowance and weight with the supplier."
   },
   {
-    q: 'What is the difference between crusher run, quarry process (QP), and 21-A?',
-    a: 'They are regional commercial trade names for the exact same family of dense-graded aggregates governed by AASHTO M147. Crusher run is common in the Midwest and South, Quarry Process (QP or DGA) is standard in the Mid-Atlantic and Northeast, and 21-A is the Virginia and Southeastern DOT designation. All blend 3/4-inch or 1-inch fractured stone with fine rock dust.'
+    "q": "Are crusher run, QP and 21-A interchangeable?",
+    "a": "They are regional product names that may refer to dense-graded blends, but do not guarantee the same grading, mineral source or approval. Ask for the actual product specification."
   },
   {
-    q: 'Why does crusher run need to be watered during compaction?',
-    a: 'Adding a light mist of water lubricates the fine stone dust particles, allowing them to slide into the voids between the larger angular rocks. Water activates the binding properties of the mineral fines, allowing the plate compactor to achieve maximum Proctor density and creating a rock-hard, cement-like pavement foundation.'
+    "q": "Is one compaction percentage suitable everywhere?",
+    "a": "No. The extra percentage in this tool is an order allowance above the finished volume. A measured loose-to-finished loss requires a different calculation; follow the product and project requirements."
   },
   {
-    q: 'Can crusher run be used as the final visible surface on a driveway?',
-    a: 'Yes, crusher run creates a solid, non-rutting driving surface. However, because it contains fine stone dust, vehicles will track white dust when dry, and heavy rains can create light surface slurry. Many homeowners top 4 inches of compacted crusher run with a 1.5-inch wearing surface of clean #57 crushed limestone.'
+    "q": "Can crusher run be used as a surface?",
+    "a": "Some products are used for driveway surfaces as well as bases. Choose the grading and layer thickness for the planned use, drainage and ground conditions rather than the name alone."
   }
 ];
 
@@ -107,7 +107,7 @@ const supportGuides = [
 
   <Header />
 
-  <main>
+  <main id="main-content">
     <PageHero
       title="Crusher Run & Base Rock Coverage Calculator"
       highlightWord="Base Rock"
@@ -127,7 +127,7 @@ const supportGuides = [
           <div class="calc-panel animate-fade-in-up">
             <div class="calc-panel-title">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Crusher Run Base Dimensions</h3>
+            <h2>Crusher Run Base Dimensions</h2>
           </div>
 
           <div class="dim-grid">
@@ -154,7 +154,7 @@ const supportGuides = [
           <div class="calc-results-panel animate-fade-in-up">
             <div class="calc-panel-title">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
+              <h2>Required Material Totals</h2>
             </div>
 
             <div class="kpi-grid">
@@ -183,94 +183,7 @@ const supportGuides = [
     <CivilStructuralBlock />
 
     <!-- Technical Guide on Crusher Run -->
-    <article class="content-guide-section">
-      <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Crusher Run Sizing Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Crusher Run Base Reference</span>
-          </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">AASHTO M147 Spec</span>
-              <span class="aeo-quick-value">3/4" Minus with Fines</span>
-              <p class="aeo-quick-desc">Consolidates Crusher Run, QP, DGA, and 21-A road base.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Compaction Factor</span>
-              <span class="aeo-quick-value">20% Volume Loss</span>
-              <p class="aeo-quick-desc">Order loose volume × 1.25 (Compacted ÷ 0.80) to achieve specified target depth.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Quarry Density</span>
-              <span class="aeo-quick-value">1.45 t/yd³ (2,900 lbs/yd³)</span>
-              <p class="aeo-quick-desc">Standard loose stockpile weight; compacts to a dense structural matrix.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Lift Rule</span>
-              <span class="aeo-quick-value">Max 2 to 3 Inches per Lift</span>
-              <p class="aeo-quick-desc">Mist with water and compact in thin lifts for maximum rigidity.</p>
-            </div>
-          </div>
-        </section>
-
-        <div class="content-card">
-          <h2>The Geotechnical Role of Dense-Graded Aggregate (AASHTO M147)</h2>
-          <p>
-            <strong>Crusher Run</strong> (also marketed regionally as Quarry Process, QP, Dense Graded Aggregate / DGA, or 21-A) is the backbone of civil road construction and professional hardscaping. While regional names differ based on local state Department of Transportation (DOT) gradation specs, all belong to the dense-graded aggregate family.
-          </p>
-          <p>
-            Unlike clean #57 stone where all fines have been screened away, crusher run is governed by <strong>AASHTO M147</strong> (<em>Standard Specification for Materials for Aggregate and Soil-Aggregate Subbase, Base, and Surface Courses</em>). It contains a complete continuum of particle sizes ranging from 3/4-inch angular rock down to microscopic stone flour.
-          </p>
-          <p>
-            When rolled with a heavy vibratory plate compactor or roller, the smaller stone particles and rock dust are driven into the void spaces between the larger stones. This interlocking matrix produces high California Bearing Ratio (CBR) values, distributing vehicular wheel loads evenly across the subgrade.
-          </p>
-
-          <div class="formula-box">
-            <code>Finished Compacted Volume (yd³) = [Length (ft) × Width (ft) × Compacted Depth (in)] / 324</code>
-            <br />
-            <code>Quarry Loose Order (yd³) = Finished Compacted Volume ÷ 0.80 (equals Finished Volume × 1.25)</code>
-            <br />
-            <code>Certified Scale Weight (Tons) = Quarry Loose Order × 1.45 Tons/yd³</code>
-          </div>
-
-          <h3>Contractor Compaction Protocol for Paver Patios & Driveways</h3>
-          <ol class="steps-list">
-            <li>
-              <strong>Excavation:</strong> Dig out native soil to target finished grade plus base depth. Crown the subgrade slightly to shed water away from foundation footings.
-            </li>
-            <li>
-              <strong>Subgrade Stabilization:</strong> Lay a heavy-duty woven geotextile stabilization fabric (such as AASHTO M288 Class 1/2 woven). Woven fabric provides high tensile modulus and prevents soft subgrade soil from pumping up into the stone base under vehicular loads.
-            </li>
-            <li>
-              <strong>First Lift (2 to 3 Inches):</strong> Spread crusher run in an initial 2.5-inch loose layer. Mist lightly with a garden hose until damp throughout.
-            </li>
-            <li>
-              <strong>Plate Compaction:</strong> Make three overlapping passes with a commercial plate compactor (minimum 3,000 lbs centrifugal force).
-            </li>
-            <li>
-              <strong>Second Lift:</strong> Repeat the process for subsequent lifts. Never attempt to compact a single lift greater than 3 inches thick, as plate vibratory energy cannot penetrate deep into loose stone.
-            </li>
-          </ol>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Crusher Run</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </article>
+    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Estimate the specified base layer</h2><p>Crusher run and other dense-graded base products contain a mix of particle sizes and fines. Actual grading and placement requirements vary. Use the material and finished thickness selected for the project; this calculator does not establish structural support or drainage performance.</p><h2>Keep finished volume and loose order separate</h2><p>Finished cubic yards = length × width × depth in inches ÷ 324. The order allowance then increases that quantity. A 20% extra order multiplies by 1.20. If a supplier instead specifies a 20% reduction from loose to finished volume, divide by 0.80, giving a 1.25 multiplier. These are different assumptions.</p><p>For a 12 × 24 ft area at 4 inches, the finished volume is 3.56 yd³. With a chosen 20% order increase and the example 1.45 US tons per loose yard, the estimate is 4.27 yd³ or 6.19 tons. Ask for your actual product’s loose bulk weight and allowance.</p><h2>Plan base and surface independently</h2><p>Do not include a separate decorative surface in the base depth. Use the <a href="/layered-project-calculator">multi-layer planner</a> for a base, top stone and optional supplies. Material names and numbered gradings do not automatically specify the soil separation, moisture conditioning, lift thickness or compaction procedure needed on site.</p><p><a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/">Penn State’s materials calculator</a> distinguishes loose shipped quantities from finished dimensions. Confirm the actual supplier product before using a generic factor.</p><h2>Crusher run questions</h2>{faqItems.map(item=><section><h3>{item.q}</h3><p>{item.a}</p></section>)}</div></div></article>
 
     <TopicClusterNav
       currentPage="/crusher-run-calculator"

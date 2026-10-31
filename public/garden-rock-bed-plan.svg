@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="380" viewBox="0 0 900 380" role="img" aria-labelledby="title desc">
+<title id="title">Measure the rock-covered area of a planted garden bed</title>
+<desc id="desc">A 20-foot by 6-foot bed has 120 square feet. A 2-foot by 2-foot uncovered planting island takes away 4 square feet, leaving 116 square feet for rock.</desc>
+<defs>
+  <pattern id="pebbles" width="34" height="31" patternUnits="userSpaceOnUse">
+    <rect width="34" height="31" fill="#314746"/>
+    <ellipse cx="9" cy="8" rx="5" ry="3" fill="#91a8a1"/>
+    <ellipse cx="27" cy="9" rx="6" ry="4" fill="#b4b5a6"/>
+    <ellipse cx="17" cy="23" rx="7" ry="4" fill="#738f8b"/>
+  </pattern>
+</defs>
+<rect width="900" height="380" rx="22" fill="#10272b"/>
+<text x="42" y="42" fill="#f4efe5" font-family="Arial, sans-serif" font-size="24" font-weight="700">Measure where the rock will go</text>
+<path d="M76 72h600" stroke="#d7b774" stroke-width="2"/>
+<path d="M76 65v14M676 65v14" stroke="#d7b774" stroke-width="2"/>
+<text x="376" y="66" fill="#f4dc9e" font-family="Arial, sans-serif" font-size="18" text-anchor="middle">20 ft</text>
+<path d="M55 100v180" stroke="#d7b774" stroke-width="2"/>
+<path d="M48 100h14M48 280h14" stroke="#d7b774" stroke-width="2"/>
+<text x="36" y="198" fill="#f4dc9e" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" transform="rotate(-90 36 198)">6 ft</text>
+<rect x="76" y="100" width="600" height="180" rx="12" fill="url(#pebbles)" stroke="#e4c78b" stroke-width="3"/>
+<rect x="333" y="146" width="60" height="60" rx="8" fill="#6b865d" stroke="#f3e9c9" stroke-width="3"/>
+<path d="M363 161v30M350 176h26M352 168l22 17M374 168l-22 17" stroke="#dcebc4" stroke-width="3" stroke-linecap="round"/>
+<text x="363" y="229" fill="#fff8e6" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">2 × 2 ft bare</text>
+<text x="376" y="314" fill="#e2ebe4" font-family="Arial, sans-serif" font-size="18" text-anchor="middle">Rock surface = bed area − uncovered island</text>
+<rect x="710" y="95" width="162" height="186" rx="15" fill="#223d3d" stroke="#d7b774" stroke-width="2"/>
+<text x="730" y="132" fill="#f4efe5" font-family="Arial, sans-serif" font-size="17" font-weight="700">Bed</text>
+<text x="730" y="156" fill="#b9cdc5" font-family="Arial, sans-serif" font-size="17">20 × 6 = 120 ft²</text>
+<text x="730" y="193" fill="#f4efe5" font-family="Arial, sans-serif" font-size="17" font-weight="700">Leave bare</text>
+<text x="730" y="217" fill="#b9cdc5" font-family="Arial, sans-serif" font-size="17">2 × 2 = 4 ft²</text>
+<path d="M730 231h122" stroke="#657d78"/>
+<text x="730" y="260" fill="#f4dc9e" font-family="Arial, sans-serif" font-size="22" font-weight="700">116 ft² rock</text>
+</svg>

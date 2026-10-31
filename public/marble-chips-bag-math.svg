@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" role="img" aria-labelledby="title description">
+  <title id="title">Marble chip bag count from area and bag volume</title>
+  <desc id="description">For a 100 square foot bed at a finished depth of two inches, the layer requires 16.7 cubic feet. With ten percent extra the order is 18.3 cubic feet. Dividing by a labeled half-cubic-foot bag and rounding up gives 37 bags.</desc>
+  <rect width="1000" height="300" rx="24" fill="#f4f6f5"/>
+  <text x="40" y="48" fill="#203c3c" font-family="Arial,sans-serif" font-size="25" font-weight="700">Follow the volume on the bag label</text>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <rect x="40" y="90" width="200" height="135" rx="14" fill="#e8efec" stroke="#aac1b9" stroke-width="2"/>
+    <text x="140" y="138" fill="#275047" font-size="24" font-weight="700">100 sq ft</text><text x="140" y="172" fill="#47605b" font-size="18">at 2 in deep</text>
+    <rect x="280" y="90" width="200" height="135" rx="14" fill="#e8efec" stroke="#aac1b9" stroke-width="2"/>
+    <text x="380" y="138" fill="#275047" font-size="24" font-weight="700">16.7 cu ft</text><text x="380" y="172" fill="#47605b" font-size="18">finished layer</text>
+    <rect x="520" y="90" width="200" height="135" rx="14" fill="#e8efec" stroke="#aac1b9" stroke-width="2"/>
+    <text x="620" y="138" fill="#275047" font-size="24" font-weight="700">18.3 cu ft</text><text x="620" y="172" fill="#47605b" font-size="18">with 10% extra</text>
+    <rect x="760" y="90" width="200" height="135" rx="14" fill="#dceee5" stroke="#68a888" stroke-width="2"/>
+    <text x="860" y="138" fill="#17563d" font-size="27" font-weight="700">37 bags</text><text x="860" y="172" fill="#47605b" font-size="18">0.5 cu ft each</text>
+  </g>
+  <g fill="none" stroke="#567f73" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M248 157h22m-8-8 8 8-8 8"/><path d="M488 157h22m-8-8 8 8-8 8"/><path d="M728 157h22m-8-8 8 8-8 8"/></g>
+  <text x="40" y="271" fill="#526b69" font-family="Arial,sans-serif" font-size="16">16.7 × 1.10 ÷ 0.5 = 36.7; buy 37 whole bags. Values shown are rounded for display.</text>
+</svg>

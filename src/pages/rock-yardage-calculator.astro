@@ -20,28 +20,24 @@ const entityTags = [
   { label: 'Delivery Vehicles', value: 'Single-Axle, Tandem, and Tri-Axle Haulers' }
 ];
 
-const quickStats = [
-  { value: '10% Overage', label: 'Recommended Buffer', desc: 'Prevents running short and paying an extra delivery drop fee' },
-  { value: '9-14 Loads', label: 'Wheelbarrows per Yard', desc: 'Based on standard 2 to 3 cubic foot contractor trays' },
-  { value: '14 Ft Clearance', label: 'Dump Bed Height', desc: 'Minimum overhead vertical clearance required for dumping' }
-];
+const quickStats = [{"value":"Editable extra","label":"Order allowance","desc":"Use the needs of the actual project"},{"value":"Seller increment","label":"Order rounding","desc":"Ask how the supplier sells loose yards"},{"value":"Actual vehicle","label":"Delivery access","desc":"Confirm payload and clearance with the operator"}];
 
 const faqItems = [
   {
-    q: 'How does this rock yardage calculator differ from a cubic yard calculator?',
-    a: 'While a cubic yard calculator computes pure theoretical three-dimensional volume, the rock yardage calculator translates volume into practical procurement terms: full and half-yard ordering thresholds, dump truck payload limits (single-axle, tandem, tri-axle), legal road weight constraints, and jobsite delivery buffers.'
+    "q": "Is yardage the same as cubic yards?",
+    "a": "Yes. The volume unit is the same. This tool adds optional order rounding and handling estimates; the cubic-yard tool focuses on converting area, depth and volume."
   },
   {
-    q: 'How many yards of rock do I need for a standard two-car driveway?',
-    a: 'A typical two-car driveway measures 20 feet wide by 40 feet long (800 square feet). To top dress with a 2-inch stone refresh, you need approximately 5.0 cubic yards (around 7 tons). For a new driveway installation requiring a 4-inch base layer, you need 10.0 cubic yards (14 tons).'
+    "q": "Should I always add 10%?",
+    "a": "No. It is an editable example allowance. Use actual measurements and product-specific placement guidance, and avoid counting the same allowance twice."
   },
   {
-    q: 'Can a quarry deliver half a cubic yard of rock?',
-    a: 'Most retail landscape supply yards sell stone in half-yard increments for customer pickup. However, for commercial delivery trucks, suppliers typically impose a 1.0 to 3.0 cubic yard minimum order size to justify the driver labor and vehicle fuel expense.'
+    "q": "How many yards can a truck carry?",
+    "a": "Ask the supplier for both allowable payload and usable volume for the actual truck. Multiply loose cubic yards by the product’s tons per yard to check weight; do not infer capacity solely from axle count."
   },
   {
-    q: 'Will a heavy dump truck crack my concrete driveway when delivering rock?',
-    a: 'Yes. Loaded tandem and tri-axle dump trucks weigh between 25,000 and 55,000 pounds. Residential 4-inch concrete driveways are only engineered for passenger vehicles (4,000 to 6,000 lbs). Have the driver dump on a curb edge, plywood sheets, or a designated turf zone to prevent driveway cracking.'
+    "q": "Can plywood protect a driveway from any delivery truck?",
+    "a": "No. Plywood is not a structural assessment. Agree on a suitable delivery location with the operator before the truck arrives."
   }
 ];
 
@@ -109,12 +105,12 @@ const supportGuides = [
 
   <Header />
 
-  <main>
+  <main id="main-content">
     <PageHero
       title="Rock Yardage Calculator"
       highlightWord="Calculator"
       badge="Quarry Procurement & Site Logistics"
-      subtitle="Determine exact bulk yardage requirements, commercial ordering buffers, and dump truck site delivery staging logistics."
+      subtitle="Plan a bulk-yard order with optional extra, seller increments and handling estimates."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -125,118 +121,7 @@ const supportGuides = [
     <YardageVisualizer />
 
     <!-- Technical Guide on Yardage Procurement -->
-    <article class="content-guide-section">
-      <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Rock Yardage Logistics Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Dump Truck Yardage Sizing Reference</span>
-          </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Theoretical Yardage</span>
-              <span class="aeo-quick-value">Yards = (Area [sq ft] × Depth [in]) / 324</span>
-              <p class="aeo-quick-desc">Standard mathematical volume calculation before safety buffers.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Quarry Order Buffer</span>
-              <span class="aeo-quick-value">Order = Theoretical Yards × 1.10</span>
-              <p class="aeo-quick-desc">Adds 10 percent to cover ground depression and edge trenching.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Single-Axle Truck</span>
-              <span class="aeo-quick-value">Capacity: 4 to 5 Yards (5-7 Tons)</span>
-              <p class="aeo-quick-desc">Standard residential vehicle; avoids cracking driveway concrete.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Tandem / Tri-Axle Rig</span>
-              <span class="aeo-quick-value">Capacity: 10 to 16 Yards (14-22 Tons)</span>
-              <p class="aeo-quick-desc">Commercial capacity; requires 10 ft width and 14 ft overhead clearance.</p>
-            </div>
-          </div>
-        </section>
-
-        <div class="content-card">
-          <h2>Quarry Procurement: Field Rules for Ordering Yardage</h2>
-          <p>
-            Estimating yardage on paper is a clean mathematical exercise, but ordering rock in the physical world introduces variable real-world factors. Subgrade undulations, tire rutting, edge spilling, and aggregate compaction alter actual required yardage by 8 to 15 percent.
-          </p>
-
-          <div class="formula-box">
-            <code>Theoretical Yardage = [Area (Square Feet) × Depth (Inches)] / 324</code>
-            <br />
-            <code>Quarry Order Yardage = Theoretical Yardage × 1.10 (10% Industry Safety Buffer)</code>
-          </div>
-
-          <h3>Why Landscape Contractors Always Round Up</h3>
-          <p>
-            Experienced contractors never order the exact theoretical volume calculated. If your project math yields 4.1 cubic yards, ordering exactly 4.0 yards guarantees you will run short on the final border. The economic penalty of running short is severe:
-          </p>
-          <ul>
-            <li><strong>Second Delivery Surcharge:</strong> Paying another $65 to $100 delivery drop fee for 0.5 yards inflates your unit cost by 200 percent.</li>
-            <li><strong>Batch Color Shift:</strong> Aggregates extracted from different bench blasts in a quarry often exhibit subtle color and mineral variations. Ordering all stone in a single delivery ensures visual consistency.</li>
-            <li><strong>Stockpile Spreading Efficiency:</strong> Having slightly extra rock allows dressing up thin corners and filling low drainage depressions across the property.</li>
-          </ul>
-
-          <div class="table-wrapper">
-            <table class="guide-table">
-              <thead>
-                <tr>
-                  <th>Calculated Net Yardage</th>
-                  <th>Recommended Quarry Order</th>
-                  <th>Total Weight (Tons)</th>
-                  <th>Standard Wheelbarrow Runs</th>
-                  <th>Recommended Delivery Vehicle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>1.0 to 1.8 yd³</td><td>2.0 cubic yards</td><td>2.7 tons</td><td>18 to 24 loads</td><td>Single-axle dump or trailer</td></tr>
-                <tr><td>2.5 to 3.6 yd³</td><td>4.0 cubic yards</td><td>5.4 tons</td><td>36 to 48 loads</td><td>Single-axle dump truck</td></tr>
-                <tr><td>4.5 to 5.5 yd³</td><td>6.0 cubic yards</td><td>8.1 tons</td><td>54 to 72 loads</td><td>Single-axle or tandem truck</td></tr>
-                <tr><td>7.0 to 9.0 yd³</td><td>10.0 cubic yards</td><td>13.5 tons</td><td>90 to 120 loads</td><td>Tandem-axle dump truck</td></tr>
-                <tr><td>12.0 to 14.5 yd³</td><td>16.0 cubic yards</td><td>21.6 tons</td><td>140 to 180 loads</td><td>Tri-axle commercial dump truck</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Site Inspection Checklist Before Quarry Dump Truck Arrival</h3>
-          <ol class="steps-list">
-            <li>
-              <strong>Check Overhead Obstructions:</strong> When a dump truck bed elevates to release stone, it extends 14 to 18 feet into the air. Verify zero tree branches, telephone lines, or overhead power cables cross your designated dump zone.
-            </li>
-            <li>
-              <strong>Protect Concrete Driveways:</strong> Heavy dual-rear-axle trucks can crack 4-inch residential driveway aprons. Lay two rows of 3/4-inch exterior plywood across curbs and sidewalks where truck tires will roll.
-            </li>
-            <li>
-              <strong>Tarp the Dump Surface:</strong> Lay a heavy-duty poly tarp on the driveway or lawn before the truck dumps. This prevents fine stone dust from grinding into asphalt pores and makes final shovel clean-up three times faster.
-            </li>
-            <li>
-              <strong>Direct Driver Hand Signals:</strong> Stand visible to the driver-side mirror. Direct the driver to spread-dump slowly while pulling forward if driveway length allows, reducing manual wheelbarrow runs by half.
-            </li>
-          </ol>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Rock Yardage</h2>
-          <div class="faq-accordion">
-            {faqItems.map((item, index) => (
-              <details class="faq-detail" open={index === 0}>
-                <summary class="faq-summary">
-                  <span>{item.q}</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                </summary>
-                <div class="faq-answer">
-                  <p>{item.a}</p>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </div>
-    </article>
+    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Turn measured volume into a supplier order</h2><p>This tool focuses on optional extra material, seller yard increments and moving a bulk load. For a direct forward or reverse volume conversion, use the <a href="/rock-coverage-calculator-yard">cubic-yard calculator</a>. A cubic yard is 27 cubic feet; it is not a fixed weight or a guaranteed truckload.</p><h2>Keep three quantities separate</h2><ol><li>Finished layer: area × depth in inches ÷ 324.</li><li>Loose order: apply only the allowance appropriate to the material and job.</li><li>Supplier order: round to the increment the actual seller uses.</li></ol><p>For 200 sq ft at 3 inches, the measured volume is 1.85 yd³. Selecting 10% extra gives 2.04 yd³. A seller using half-yard increments would round that to 2.5 yd³. Another seller may accept a different amount; confirm before buying.</p><h2>Ask about delivery rather than assuming a truck size</h2><p>Payload depends on the particular vehicle, loading policy and route limits. Bed capacity also matters. A truck can reach its allowable weight before its bed is full. Truck classes and example loads in this tool are planning illustrations; request the supplier’s actual tons-per-load figure and access requirements.</p><p>Agree on the unloading location, turning space, ground conditions and overhead obstructions with the supplier. A blanket clearance number or plywood sheet cannot establish whether a loaded truck can safely enter or tip on your property. Follow the delivery operator’s site assessment.</p><h2>Plan hand movement separately</h2><p>Wheelbarrow runs depend on usable tray volume and how much weight the person and route can manage. Divide the order’s cubic feet by the practical volume per trip, rounding up. Do not assume every tray is carried full. Include any difficult gates, stairs, slopes and carry distances in the delivery plan.</p><p>The <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/">Penn State materials calculator</a> distinguishes loose shipped quantity from finished depth. Check <a href="/bulk-vs-bagged-rock">bulk versus bagged cost</a> if multiple small orders or difficult access affect the decision.</p><h2>Questions before ordering</h2>{faqItems.map(item=><section><h3>{item.q}</h3><p>{item.a}</p></section>)}</div></div></article>
 
     <TopicClusterNav 
       currentPage="/rock-yardage-calculator" 

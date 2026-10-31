@@ -45,7 +45,7 @@ const quickStats = [
 
   <Header />
 
-  <main>
+  <main id="main-content">
     <PageHero
       title="Terms of Service"
       highlightWord="Service"
@@ -61,9 +61,9 @@ const quickStats = [
 
         <div class="aeo-quick-card">
           <div class="aeo-badge">Important Geotechnical Notice</div>
-          <h3>Material Calculations are Planning Estimates</h3>
+          <h2>Material Calculations are Planning Estimates</h2>
           <p>
-            Aggregates are natural mined geological products. Bulk densities vary between regional quarries, individual rock veins, moisture contents (3% to 12%), and mechanical compaction levels (15% to 20% volume reduction for dense-graded subbases). Always confirm certified weight-to-volume conversion factors with your local aggregate supplier before ordering.
+            Aggregates are natural mined geological products. Bulk densities vary between regional quarries, individual rock veins, moisture conditions, grading and placement. Always confirm product-specific loose weight-to-volume conversion factors with your local aggregate supplier before ordering.
           </p>
         </div>
 
@@ -82,7 +82,7 @@ const quickStats = [
 
         <h2>3. Geotechnical Estimation Disclaimer (Quarry & Scale Variance)</h2>
         <p>
-          Every mathematical formula on this website is calibrated against recognized industry standards, including ASTM C29/C29M (Bulk Density of Aggregate) and AASHTO M43 / ASTM D448. However, actual jobsite yields will inevitably fluctuate based on real-world field conditions:
+          The calculators use geometric formulas and example material assumptions. References to standards describe terminology or test methods; they do not certify our defaults. Actual yields vary with:
         </p>
         <ul>
           <li><strong>Regional Geologic Density:</strong> Basalt and trap rock naturally weigh more (up to 2,900+ lbs/cu yd) than limestone (2,700 lbs/cu yd) or volcanic scoria/lava rock (1,450 lbs/cu yd).</li>
@@ -160,7 +160,7 @@ const quickStats = [
     margin-bottom: var(--space-2);
   }
 
-  .aeo-quick-card h3 {
+  .aeo-quick-card h2 {
     margin: 0 0 var(--space-2);
     font-size: 1.15rem;
     color: var(--text-bright);

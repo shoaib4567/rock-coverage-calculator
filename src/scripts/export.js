@@ -97,41 +97,41 @@ export const RockExporter = {
   <div class="section">
     <div class="section-title">Material Specification</div>
     <table>
-      <tr><td>Material</td><td>${result.materialName}</td></tr>
-      <tr><td>Loose Bulk Density</td><td>${result.densityLbsPerCuYd.toLocaleString()} lbs/cu yd (${result.isCustomDensity ? 'entered value' : 'planning factor'})</td></tr>
-      <tr><td>Tons per Cubic Yard</td><td>${result.tonsPerCuYd}</td></tr>
-      <tr><td>Suggested Starting Layer</td><td>${result.minDepthInches}"</td></tr>
+      <tr><th scope="row">Material</th><td>${result.materialName}</td></tr>
+      <tr><th scope="row">Loose Bulk Density</th><td>${result.densityLbsPerCuYd.toLocaleString()} lbs/cu yd (${result.isCustomDensity ? 'entered value' : 'planning factor'})</td></tr>
+      <tr><th scope="row">Tons per Cubic Yard</th><td>${result.tonsPerCuYd}</td></tr>
+      <tr><th scope="row">Suggested Starting Layer</th><td>${result.minDepthInches}"</td></tr>
     </table>
   </div>
 
   <div class="section">
     <div class="section-title">Project Dimensions</div>
     <table>
-      <tr><td>Shape</td><td>${result.shape.charAt(0).toUpperCase() + result.shape.slice(1)}</td></tr>
-      <tr><td>Total Coverage Area</td><td>${result.areaSqFt} sq ft</td></tr>
-      <tr><td>Applied Depth</td><td>${result.depthInches}"</td></tr>
-      <tr><td>Order Allowance</td><td>${result.wastePercent}%</td></tr>
-      <tr><td>Compactable Base Allowance</td><td>${result.isCompacted ? `${result.compactionMultiplier}x` : 'None'}</td></tr>
+      <tr><th scope="row">Shape</th><td>${result.shape.charAt(0).toUpperCase() + result.shape.slice(1)}</td></tr>
+      <tr><th scope="row">Total Coverage Area</th><td>${result.areaSqFt} sq ft</td></tr>
+      <tr><th scope="row">Applied Depth</th><td>${result.depthInches}"</td></tr>
+      <tr><th scope="row">Order Allowance</th><td>${result.wastePercent}%</td></tr>
+      <tr><th scope="row">Compactable Base Allowance</th><td>${result.isCompacted ? `${result.compactionMultiplier}x` : 'None'}</td></tr>
     </table>
   </div>
 
   <div class="section">
     <div class="section-title">Calculated Quantities</div>
     <table>
-      <tr><td>Volume (cubic feet)</td><td>${result.volumeCuFt}</td></tr>
-      <tr><td>Volume (cubic yards)</td><td>${result.volumeCuYd}</td></tr>
-      <tr><td>Weight (lbs)</td><td>${result.weightLbs.toLocaleString()}</td></tr>
-      <tr><td>Weight (tons)</td><td>${result.weightTons}</td></tr>
+      <tr><th scope="row">Volume (cubic feet)</th><td>${result.volumeCuFt}</td></tr>
+      <tr><th scope="row">Volume (cubic yards)</th><td>${result.volumeCuYd}</td></tr>
+      <tr><th scope="row">Weight (lbs)</th><td>${result.weightLbs.toLocaleString()}</td></tr>
+      <tr><th scope="row">Weight (tons)</th><td>${result.weightTons}</td></tr>
     </table>
   </div>
 
   <div class="section">
     <div class="section-title">Purchasing Guide</div>
     <table>
-      <tr><td>0.5 cu ft Bags</td><td>${result.bags}</td></tr>
-      <tr><td>35 cu ft Reference Sacks</td><td>${result.superSacks}</td></tr>
-      <tr><td>Wheelbarrow Loads (6 cu ft)</td><td>${result.wheelbarrowLoads}</td></tr>
-      <tr><td>10 cu yd Reference Truck Loads</td><td>${result.dumpTruckLoads}</td></tr>
+      <tr><th scope="row">0.5 cu ft Bags</th><td>${result.bags}</td></tr>
+      <tr><th scope="row">35 cu ft Reference Sacks</th><td>${result.superSacks}</td></tr>
+      <tr><th scope="row">Wheelbarrow Loads (6 cu ft)</th><td>${result.wheelbarrowLoads}</td></tr>
+      <tr><th scope="row">10 cu yd Reference Truck Loads</th><td>${result.dumpTruckLoads}</td></tr>
     </table>
   </div>
 

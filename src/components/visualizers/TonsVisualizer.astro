@@ -6,7 +6,7 @@
     <div class="section-header">
       <h2>Interactive Quarry Weigh Scale & Axle Weight Visualizer</h2>
       <div class="section-divider"></div>
-      <p>Simulate certified quarry scale tickets, moisture saturation surcharges, and dump truck axle weight driveway cracking risks.</p>
+      <p>Explore an illustrative weight breakdown. These scenarios do not measure a shipment or certify a vehicle’s payload.</p>
     </div>
 
     <div class="tons-viz-grid">
@@ -62,23 +62,13 @@
             </svg>
           </div>
 
-          <div class="axle-risk-meter-box">
-            <div class="risk-header">
-              <span>Driveway Cracking Risk Meter</span>
-              <span class="risk-val" id="viz-crack-risk">Low Risk (Street Drop Recommended)</span>
-            </div>
-            <div class="risk-track">
-              <div class="risk-fill" id="viz-risk-fill" style="width: 45%; background: #f59e0b;"></div>
-            </div>
-          </div>
-
           <div class="field-tips-box">
             <div class="tip-title">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              Driveway Protection: The 3/4" Plywood Runway
+              Agree on a suitable delivery location
             </div>
             <p>
-              A fully loaded tandem or tri-axle dump truck weighs between 36,000 and 54,000 lbs gross. Standard 4-inch unreinforced residential concrete driveways are rated for passenger vehicles under 8,000 lbs. If the driver must back onto your driveway, lay 3/4" CDX plywood sheets beneath the wheels to distribute axle point loads.
+              Ask the delivery operator to assess access, ground and overhead conditions. This load illustration does not establish driveway strength, legal payload or required clearances. Plywood is not a structural capacity check.
             </p>
           </div>
         </div>
@@ -89,33 +79,33 @@
         <div class="card-header">
           <div class="header-title">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-            <h3>Live Certified Weigh-Scale Ticket</h3>
+            <h3>Illustrative weight breakdown</h3>
           </div>
-          <span class="status-badge green">Legal For Trade</span>
+          <span class="status-badge green">Example only</span>
         </div>
 
         <div class="ticket-body">
           <div class="scale-slip-card">
             <div class="slip-header">
-              <div class="slip-company">CERTIFIED QUARRY WEIGHT TICKET</div>
-              <div class="slip-date">SCALE ID: #04-SCALE-EAST</div>
+              <div class="slip-company">ILLUSTRATIVE WEIGHT BREAKDOWN</div>
+              <div class="slip-date">Not a measured scale ticket</div>
             </div>
 
             <table class="slip-table">
               <tr>
-                <td>GROSS WEIGHT (Truck + Rock):</td>
+                <th scope="row">GROSS WEIGHT (Truck + Rock):</th>
                 <td class="slip-val" id="viz-ticket-gross">54,200 lbs</td>
               </tr>
               <tr>
-                <td>TARE WEIGHT (Empty Truck):</td>
+                <th scope="row">TARE WEIGHT (Empty Truck):</th>
                 <td class="slip-val" id="viz-ticket-tare">26,000 lbs</td>
               </tr>
               <tr class="slip-net-row">
-                <td>NET CERTIFIED PAYLOAD:</td>
+                <th scope="row">ESTIMATED MATERIAL WEIGHT:</th>
                 <td class="slip-val-net" id="viz-ticket-net">28,200 lbs (14.10 T)</td>
               </tr>
               <tr>
-                <td>Moisture Weight Surcharge (4%):</td>
+                <th scope="row">Additional weight scenario:</th>
                 <td class="slip-val-moist" id="viz-ticket-moist">+1,128 lbs water</td>
               </tr>
             </table>
@@ -126,10 +116,10 @@
           <div class="field-tips-box">
             <div class="tip-title">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-              The "Rainstorm Water Weight" Trap
+              Check the bulk-weight basis
             </div>
             <p>
-              Quarry stockpiles sit outdoors exposed to weather. Following heavy rainfall, porous gravel and limestone absorb 4% to 8% water by weight. Since quarries sell strictly by weigh-scale gross weight, an order of 15 tons can contain over 1,500 lbs of billed water! Always request dry stockpile loading when possible.
+              Moisture can change a product’s bulk weight. Ask which condition your supplier’s density describes and avoid applying another moisture factor when it is already included.
             </p>
           </div>
         </div>
@@ -149,7 +139,7 @@
     const netLbs = lbsEl ? parseInt(lbsEl.textContent.replace(/[^0-9]/g, '')) || 0 : 0;
     const moistLbs = moistLbsEl ? parseInt(moistLbsEl.textContent.replace(/[^0-9]/g, '')) || 0 : 0;
 
-    const tareLbs = 26000; // standard tandem empty tare
+    const tareLbs = 26000; // Example empty vehicle weight, not a payload rating
     const grossLbs = tareLbs + netLbs;
 
     // Update ticket
@@ -161,7 +151,7 @@
     if (ticketGross) ticketGross.textContent = grossLbs.toLocaleString() + ' lbs';
     if (ticketTare) ticketTare.textContent = tareLbs.toLocaleString() + ' lbs';
     if (ticketNet) ticketNet.textContent = netLbs.toLocaleString() + ' lbs (' + netTons.toFixed(2) + ' T)';
-    if (ticketMoist) ticketMoist.textContent = '+' + moistLbs.toLocaleString() + ' lbs water';
+    if (ticketMoist) ticketMoist.textContent = '+' + moistLbs.toLocaleString() + ' lbs additional weight';
 
     // Update truck load text & risk
     const loadTxt = document.getElementById('viz-axle-load-txt');
@@ -171,19 +161,7 @@
 
     if (loadTxt) loadTxt.textContent = netTons.toFixed(1) + ' Tons';
 
-    if (netTons <= 7) {
-      if (badge) badge.textContent = 'Single Axle';
-      if (riskFill) { riskFill.style.width = '25%'; riskFill.style.background = '#10b981'; }
-      if (riskVal) riskVal.textContent = 'Low Risk (Single Axle under 18,000 lbs)';
-    } else if (netTons <= 16) {
-      if (badge) badge.textContent = 'Tandem Axle';
-      if (riskFill) { riskFill.style.width = '60%'; riskFill.style.background = '#f59e0b'; }
-      if (riskVal) riskVal.textContent = 'Moderate Risk (Use Plywood on Driveway)';
-    } else {
-      if (badge) badge.textContent = 'Tri-Axle / Semi';
-      if (riskFill) { riskFill.style.width = '95%'; riskFill.style.background = '#ef4444'; }
-      if (riskVal) riskVal.textContent = 'High Cracking Hazard (Street Drop Required!)';
-    }
+    if (badge) badge.textContent = 'Illustration only';
   }
 
   const inputs = ['tons-length', 'tons-width', 'tons-depth', 'tons-waste', 'tons-direct-yards', 'tons-moisture', 'cost-per-ton'];

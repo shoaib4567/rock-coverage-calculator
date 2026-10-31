@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import {groups} from '../lib/site-navigation';
+---
+<BaseLayout title="Rock Calculators and Project Guides" description="Find rock, gravel, and stone calculators by material, ordering unit, or project. Compare quantities, plan layers, and check depth and supplier assumptions." canonicalPath="/calculators">
+ <Header/><main id="main-content" class="container tool-library">
+ <h1>Rock calculators and project guides</h1>
+ <p>Choose a material, the unit your supplier sells, or the project you are planning. Start with the <a href="/">main rock coverage calculator</a> for several shapes and materials, or use the <a href="/which-rock-should-i-use">material selection helper</a> to compare options.</p>
+ {groups.map(group=><section><h2>{group.title}</h2><ul>{group.tools.map(tool=><li><a href={tool.slug}>{tool.title}</a></li>)}</ul></section>)}
+ </main><Footer/>
+</BaseLayout>
+<style>.tool-library{padding-block:var(--space-12);max-width:1100px}.tool-library h1{font-size:var(--text-3xl);margin-bottom:var(--space-4)}section{margin-top:var(--space-8)}h2{font-size:var(--text-xl);margin-bottom:var(--space-4)}ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:var(--space-3);padding-left:1.25rem}a{color:var(--text-primary);text-decoration:underline;text-underline-offset:3px}p{line-height:1.7;max-width:800px}</style>

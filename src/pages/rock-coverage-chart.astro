@@ -108,12 +108,12 @@ const supportGuides = [
 
   <Header />
 
-  <main>
+  <main id="main-content">
     <PageHero
       title="Rock Coverage Chart"
       highlightWord="Chart"
       badge="Civil Reference & Yield Matrix"
-      subtitle="Complete field-tested reference tables for square feet per cubic yard and square feet per ton across all landscape depths and stone varieties."
+      subtitle="Compare geometric coverage at different depths using example loose bulk weights. Choose the actual depth and supplier weight for your product."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -175,67 +175,10 @@ const supportGuides = [
                   <th>Sq Ft / Yard³</th>
                   <th>Sq Ft / Ton (River Rock)</th>
                   <th>Sq Ft / Ton (Crushed Stone)</th>
-                  <th>Sq Ft / Ton (Lava Rock)</th>
+                  <th>Sq Ft / Ton (Lava Rock, 0.75 t/yd³)</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td><strong>1.0 Inch</strong></td>
-                  <td>324 sq ft</td>
-                  <td>240 sq ft</td>
-                  <td>231 sq ft</td>
-                  <td>381 sq ft</td>
-                </tr>
-                <tr>
-                  <td><strong>1.5 Inches</strong></td>
-                  <td>216 sq ft</td>
-                  <td>160 sq ft</td>
-                  <td>154 sq ft</td>
-                  <td>254 sq ft</td>
-                </tr>
-                <tr>
-                  <td><strong>2.0 Inches</strong></td>
-                  <td>162 sq ft</td>
-                  <td>120 sq ft</td>
-                  <td>116 sq ft</td>
-                  <td>191 sq ft</td>
-                </tr>
-                <tr>
-                  <td><strong>2.5 Inches</strong></td>
-                  <td>130 sq ft</td>
-                  <td>96 sq ft</td>
-                  <td>93 sq ft</td>
-                  <td>153 sq ft</td>
-                </tr>
-                <tr>
-                  <td><strong>3.0 Inches</strong></td>
-                  <td>108 sq ft</td>
-                  <td>80 sq ft</td>
-                  <td>77 sq ft</td>
-                  <td>127 sq ft</td>
-                </tr>
-                <tr>
-                  <td><strong>3.5 Inches</strong></td>
-                  <td>93 sq ft</td>
-                  <td>69 sq ft</td>
-                  <td>66 sq ft</td>
-                  <td>109 sq ft</td>
-                </tr>
-                <tr>
-                  <td><strong>4.0 Inches</strong></td>
-                  <td>81 sq ft</td>
-                  <td>60 sq ft</td>
-                  <td>58 sq ft</td>
-                  <td>95 sq ft</td>
-                </tr>
-                <tr>
-                  <td><strong>6.0 Inches</strong></td>
-                  <td>54 sq ft</td>
-                  <td>40 sq ft</td>
-                  <td>39 sq ft</td>
-                  <td>64 sq ft</td>
-                </tr>
-              </tbody>
+              <tbody>{[1,1.5,2,2.5,3,4,6].map(depth=><tr><th scope="row">{depth} inches</th><td>{Math.round(324/depth)} sq ft</td><td>{Math.round(324/depth/1.35)} sq ft</td><td>{Math.round(324/depth/1.4)} sq ft</td><td>{Math.round(324/depth/0.75)} sq ft</td></tr>)}</tbody>
             </table>
           </div>
 

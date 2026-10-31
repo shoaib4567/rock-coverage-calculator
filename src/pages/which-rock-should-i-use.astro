@@ -10,7 +10,7 @@ const breadcrumbs = [
 ];
 
 const title = "Which Rock Should I Use? - Interactive Material Recommender Wizard";
-const metaDescription = "Find the best landscape rock, gravel, or crushed stone for your project. 4-question decision helper matching traffic, slope, drainage, and budget with exact depth recommendations.";
+const metaDescription = "Find the best landscape rock, gravel, or crushed stone for your project. 4-question decision helper matching traffic, slope, drainage, and budget with example depth and ordering guidance.";
 ---
 
 <BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/which-rock-should-i-use">
@@ -19,7 +19,7 @@ const metaDescription = "Find the best landscape rock, gravel, or crushed stone 
   <main id="main-content">
     <PageHero
       title="Which Rock Should I Use?"
-      subtitle="Answer 4 quick questions to find the perfect aggregate, recommended install depth, subgrade base, and geotextile fabric for your job."
+      subtitle="Compare material options for your use, traffic, slope and preferred appearance. Recommendations are starting points to confirm with the supplier and installation plan."
       badge="Project Decision Helper"
       breadcrumbs={breadcrumbs}
       theme="decorative"
@@ -159,7 +159,7 @@ const metaDescription = "Find the best landscape rock, gravel, or crushed stone 
                   <div class="option-icon-box"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"/></svg></div>
                   <div class="option-text">
                     <strong>Flat Ground (&lt; 2% Grade)</strong>
-                    <span>No wash-away risk; virtually all stone materials work</span>
+                    <span>Lower slope does not eliminate runoff or drainage concerns</span>
                   </div>
                 </button>
 
@@ -238,32 +238,32 @@ const metaDescription = "Find the best landscape rock, gravel, or crushed stone 
                   <button type="button" class="btn btn-ghost btn-sm" id="btn-restart-wizard">Start Over</button>
                 </div>
                 <h2 id="rec-material-title" class="rec-title">Crushed Stone #57</h2>
-                <p id="rec-material-summary" class="rec-summary">The ultimate interlocking structural aggregate for driveways and load-bearing surfaces.</p>
+                <p id="rec-material-summary" class="rec-summary">A commonly used aggregate; confirm grading and suitability for the planned layer.</p>
               </div>
 
               <div class="rec-specs-grid">
                 <div class="spec-card">
-                  <div class="spec-label">Recommended Depth</div>
+                  <div class="spec-label">Example Depth</div>
                   <div class="spec-val" id="rec-depth">3 to 4 Inches</div>
                   <div class="spec-note" id="rec-depth-note">Provides full fabric concealment and tire interlock.</div>
                 </div>
 
                 <div class="spec-card">
-                  <div class="spec-label">Subgrade Base Requirement</div>
+                  <div class="spec-label">Example Base to Review</div>
                   <div class="spec-val" id="rec-base">4" Crusher Run (21-A)</div>
                   <div class="spec-note" id="rec-base-note">Vibratory plate compacted in 2-inch lifts.</div>
                 </div>
 
                 <div class="spec-card">
-                  <div class="spec-label">Geotextile Fabric Class</div>
-                  <div class="spec-val" id="rec-fabric">Class 1 Woven Stabilization</div>
+                  <div class="spec-label">Separation / Stabilization Detail</div>
+                  <div class="spec-val" id="rec-fabric">Confirm the project detail</div>
                   <div class="spec-note" id="rec-fabric-note">Prevents subgrade rutting under vehicle wheel loads.</div>
                 </div>
 
                 <div class="spec-card">
                   <div class="spec-label">Bulk Density Benchmark</div>
                   <div class="spec-val" id="rec-density">2,700 lbs / yd³ (1.35 Tons)</div>
-                  <div class="spec-note" id="rec-density-note">ASTM C29 loose stockpile benchmark.</div>
+                  <div class="spec-note" id="rec-density-note">Example loose bulk weight; confirm the actual product.</div>
                 </div>
               </div>
 
@@ -290,7 +290,7 @@ const metaDescription = "Find the best landscape rock, gravel, or crushed stone 
 
         <!-- Master Aggregate Selection Matrix Table -->
         <div class="section-header" style="margin-top: var(--space-12);">
-          <h2>Master Landscape Aggregate Selection Matrix</h2>
+          <h2>Compare material characteristics</h2>
           <div class="section-divider"></div>
           <p>Compare the engineering properties, barefoot comfort, shear stability, and best uses across all primary landscape rocks.</p>
         </div>
@@ -397,6 +397,7 @@ const metaDescription = "Find the best landscape rock, gravel, or crushed stone 
         </div>
       </div>
     </section>
+<section class="container section"><h2>Use the recommendation as a starting point</h2><p>The four answers cannot establish structural bearing capacity, accessibility, drainage performance or a fabric specification. Compare an actual product sample and confirm the material, layer depths and preparation appropriate to your site. Use the <a href="/layered-project-calculator">layered planner</a> for separate quantities and <a href="/rock-depth-guide">depth guide</a> for planning questions.</p></section>
   </main>
 
   <Footer />

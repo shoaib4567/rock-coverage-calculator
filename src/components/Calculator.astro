@@ -1,4 +1,5 @@
 ---
+const { showVisualizerLink = true } = Astro.props;
 import { ROCK_MATERIALS } from '../scripts/materials-data.js';
 import IconRuler from './icons/IconRuler.astro';
 import IconScale from './icons/IconScale.astro';
@@ -6,6 +7,7 @@ import IconDepth from './icons/IconDepth.astro';
 import IconRock from './icons/IconRock.astro';
 
 interface Props {
+  showVisualizerLink?: boolean;
   initialMaterial?: string;
   initialDepth?: number;
   initialUnit?: string;
@@ -225,11 +227,11 @@ const {
               <IconScale size={22} class="panel-icon" />
               <h3>Your Results</h3>
             </div>
-            <a href="#visualizer" class="viz-live-badge" title="Jump to interactive 3D rock bed simulation">
+            {showVisualizerLink && (<a href="#visualizer" class="viz-live-badge" title="Jump to interactive 3D rock bed simulation">
               <span class="live-dot"></span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
               <span>3D Bed Live</span>
-            </a>
+            </a>)}
           </div>
 
           <div class="kpi-grid" id="calculator-results" aria-live="polite" aria-atomic="true">
@@ -278,11 +280,11 @@ const {
           </div>
           <table class="breakdown-table">
             <tbody id="breakdown-body">
-              <tr><td>Volume (cubic feet)</td><td>27.50</td></tr>
-              <tr><td>Volume (cubic yards)</td><td>1.02</td></tr>
-              <tr><td>Weight (lbs)</td><td>2,750</td></tr>
-              <tr><td>Weight (tons)</td><td>1.38</td></tr>
-              <tr><td>Density</td><td>2,700 lbs/cu yd</td></tr>
+              <tr><th scope="row">Volume (cubic feet)</th><td>27.50</td></tr>
+              <tr><th scope="row">Volume (cubic yards)</th><td>1.02</td></tr>
+              <tr><th scope="row">Weight (lbs)</th><td>2,750</td></tr>
+              <tr><th scope="row">Weight (tons)</th><td>1.38</td></tr>
+              <tr><th scope="row">Density</th><td>2,700 lbs/cu yd</td></tr>
             </tbody>
           </table>
         </div>
@@ -434,8 +436,8 @@ const {
           </div>
           <div class="outcome-feedback-form" id="outcome-form" style="display: none;">
             <div class="outcome-form-row">
-              <input type="number" id="outcome-ticket-tons" placeholder="Actual Scale Ticket (Tons, optional)" step="0.01" min="0" class="outcome-input" />
-              <input type="text" id="outcome-notes" placeholder="Notes (e.g. 4in crusher run base, vibratory rolled)" class="outcome-input notes" />
+              <input type="number" id="outcome-ticket-tons" aria-label="Actual material weight in US short tons" placeholder="Actual Scale Ticket (Tons, optional)" step="0.01" min="0" class="outcome-input" />
+              <input type="text" id="outcome-notes" aria-label="Project outcome notes" placeholder="Notes (e.g. 4in crusher run base, vibratory rolled)" class="outcome-input notes" />
               <button type="button" id="btn-submit-outcome" class="btn btn-sm btn-primary">Log Field Result</button>
             </div>
           </div>

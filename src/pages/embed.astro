@@ -6,8 +6,9 @@ const title = "Rock Coverage Calculator - Embeddable Jobsite Tool";
 const metaDescription = "Embeddable landscape rock, gravel, and stone coverage calculator for contractor and supplier websites.";
 ---
 
-<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/embed">
-  <div class="embed-wrapper">
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/embed" noindex>
+  <main id="main-content" class="embed-wrapper">
+    <h1 class="sr-only">Rock coverage calculator</h1>
     <div class="embed-header-bar">
       <div class="embed-logo-row">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="embed-icon"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
@@ -19,11 +20,11 @@ const metaDescription = "Embeddable landscape rock, gravel, and stone coverage c
       </a>
     </div>
 
-    <Calculator 
+    <Calculator showVisualizerLink={false}
       headline="Instant Rock Coverage & Weight Calculator"
       subtitle="Select your project shape, stone material, and depth to calculate cubic yards, certified quarry tons, and 0.5 cu ft bags."
     />
-  </div>
+  </main>
 </BaseLayout>
 
 <style>

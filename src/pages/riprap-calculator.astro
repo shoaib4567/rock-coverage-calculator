@@ -11,35 +11,26 @@ const breadcrumbs = [
   { name: 'Riprap Calculator', url: '/riprap-calculator' }
 ];
 
-const entityTags = [
-  { label: 'Material', value: 'Riprap Rock Coverage' },
-  { label: 'Gradation Class', value: 'Class 1 (6" to 12" Heavy Angular)' },
-  { label: 'Bulk Density', value: '1.40 t/yd³ (104 lbs/cu ft)' },
-  { label: 'Layer Depth Rule', value: 'Minimum Depth = Maximum Stone Size (12")' }
-];
+const entityTags = [{"label":"Thickness","value":"Use the project detail"},{"label":"Product","value":"Confirm the actual gradation"},{"label":"Weight","value":"Example 1.40 US tons/yd³"}];
 
-const quickStats = [
-  { value: '6" to 12"', label: 'Particle Caliper', desc: 'Heavy quarry-blasted armor stone for high-velocity erosion control' },
-  { value: '1.40 t/yd³', label: 'Quarry Density', desc: 'Supplier-reported loose bulk density (2,800 lbs per cubic yard)' },
-  { value: 'DOT Spec', label: 'Erosion Armor', desc: 'Standard specification for culvert aprons, shorelines, and detention ponds' }
-];
+const quickStats = [{"value":"Measured surface","label":"Area","desc":"Include the slope surface"},{"value":"Specified layer","label":"Thickness","desc":"Not selected by this tool"},{"value":"Supplier input","label":"Order check","desc":"Confirm weight and delivery"}];
 
 const faqItems = [
   {
-    q: 'How many tons of riprap do I need for a 15x20 foot culvert outfall apron?',
-    a: 'A 15x20 foot apron equals 300 square feet. Per civil drainage standards, Class 1 riprap (6-12 inch) must be installed at a minimum depth equal to the largest stone caliper (12 inches). At 12 inches depth, you need 11.11 cubic yards. At 1.40 tons per cubic yard plus a 10 percent buffer, order approximately 17.1 tons of riprap.'
+    "q": "How many tons cover a 15 × 20 ft apron?",
+    "a": "If the selected detail requires 12 inches, the measured volume is 11.11 yd³. With 10% extra and an example 1.40 tons per yard, the order estimate is 17.11 US short tons. Confirm thickness and product weight independently."
   },
   {
-    q: 'What is the minimum thickness for riprap installation?',
-    a: 'Civil engineering standards specify that the minimum thickness of a riprap layer must be at least 1.5 times the average stone diameter (D50) or 1.0 times the maximum stone diameter. For Class 1 riprap (6 to 12 inches), the absolute minimum installed layer thickness is 12 inches.'
+    "q": "What thickness should riprap be?",
+    "a": "Use the applicable design and stone grading. This quantity tool cannot select armor thickness or size for a particular flow, slope or shoreline."
   },
   {
-    q: 'Does riprap require geotextile fabric underneath?',
-    a: 'Yes. A heavy non-woven 6 to 8 oz needle-punched geotextile fabric is mandatory under riprap. Without fabric, high-velocity storm runoff will erode the fine soil particles between the stones (piping), causing the heavy riprap to sink into the mud and destabilize the bank.'
+    "q": "Is fabric always required?",
+    "a": "Use the specified filter and bedding detail. Granular filters, geotextiles and combinations serve different situations; there is no one fabric specification for every site."
   },
   {
-    q: 'What is the difference between Class 1 and Class 2 riprap?',
-    a: 'Class 1 riprap consists of stones ranging from 6 to 12 inches (weighing 25 to 150 lbs each) used for residential culverts and ditch linings. Class 2 riprap consists of 12 to 18 inch stones (weighing 150 to 500 lbs each) designed for high-energy riverbanks, highway bridge abutments, and lake shorelines.'
+    "q": "What do Class 1 and Class 2 mean?",
+    "a": "They are agency or supplier designations whose gradation limits vary. Obtain the actual specification rather than assuming the class name sets a universal stone size."
   }
 ];
 
@@ -107,12 +98,12 @@ const supportGuides = [
 
   <Header />
 
-  <main>
+  <main id="main-content">
     <PageHero
       title="Riprap & Armor Rock Coverage Calculator"
       highlightWord="Rock Coverage"
       badge="Heavy Civil Erosion Control Engine"
-      subtitle="Accurate volumetric and tonnage calculations for Class 1 and Class 2 heavy quarry armor stone, culvert outfalls, and steep embankment stabilization."
+      subtitle="Estimate riprap volume and example tonnage from the surface and thickness specified for your project."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -127,7 +118,7 @@ const supportGuides = [
           <div class="calc-panel animate-fade-in-up">
             <div class="calc-panel-title">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h3>Riprap Embankment Dimensions</h3>
+            <h2>Riprap Embankment Dimensions</h2>
           </div>
 
           <div class="dim-grid">
@@ -154,7 +145,7 @@ const supportGuides = [
           <div class="calc-results-panel animate-fade-in-up">
             <div class="calc-panel-title">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h3>Required Material Totals</h3>
+              <h2>Required Material Totals</h2>
             </div>
 
             <div class="kpi-grid">
@@ -170,8 +161,8 @@ const supportGuides = [
               </div>
               <div class="kpi-card">
                 <div class="kpi-value" id="kpi-riprap-loads">2.3</div>
-                <div class="kpi-label">Tri-Axle Truckloads</div>
-                <div class="kpi-subtext">15 tons per load</div>
+                <div class="kpi-label">Example Truckloads</div>
+                <div class="kpi-subtext">15-ton example; confirm payload</div>
               </div>
             </div>
           </div>
@@ -183,95 +174,7 @@ const supportGuides = [
     <CivilStructuralBlock />
 
     <!-- Technical Guide on Riprap -->
-    <article class="content-guide-section">
-      <div class="container">
-
-        <!-- Project Reference Summary -->
-        <section class="aeo-quick-card" aria-label="Riprap Sizing Reference">
-          <div class="aeo-quick-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span class="aeo-quick-title">Riprap Armor Sizing Reference</span>
-          </div>
-          <div class="aeo-quick-grid">
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Class 1 Caliper</span>
-              <span class="aeo-quick-value">6" to 12" Stone Size</span>
-              <p class="aeo-quick-desc">Weighs 25 to 150 lbs per rock; standard for drainage aprons.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Layer Thickness</span>
-              <span class="aeo-quick-value">12" Minimum Depth</span>
-              <p class="aeo-quick-desc">Depth must equal or exceed maximum stone caliper to prevent scour.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Density</span>
-              <span class="aeo-quick-value">1.40 t/yd³ (104 lbs/cu ft)</span>
-              <p class="aeo-quick-desc">Supplier-reported loose bulk density (2,800 lbs/yd³). Note: ASTM C29 standard applies to aggregates up to 5 inches.</p>
-            </div>
-            <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Underlayment</span>
-              <span class="aeo-quick-value">6-8 oz Non-Woven Poly</span>
-              <p class="aeo-quick-desc">Mandatory geotextile prevents soil migration through rock voids.</p>
-            </div>
-          </div>
-        </section>
-
-        <div class="highlight-callout" style="background: rgba(212, 168, 83, 0.08); border-left: 4px solid var(--accent-gold); padding: var(--space-4) var(--space-6); border-radius: var(--radius-md); margin-bottom: var(--space-8);">
-          <h4 style="margin: 0 0 var(--space-2); color: var(--accent-gold); font-size: 1rem;">Engineering &amp; Permitting Notice</h4>
-          <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
-            Culvert outfalls, stream-bank armoring, and shoreline revetment work frequently alter natural hydrology and are governed by local conservation districts, state Departments of Transportation (DOT), and the U.S. Army Corps of Engineers. Always verify local riprap gradation classifications and obtain required environmental permits before commencing heavy equipment placement.
-          </p>
-        </div>
-
-        <div class="content-card">
-          <h2>Hydraulic Principles of Riprap Slope Protection</h2>
-          <p>
-            <strong>Riprap (Rock Armor)</strong> is composed of heavy, angular quarry-blasted stones placed along shorelines, drainage channels, culvert outfalls, and steep highway slopes to protect soil against hydraulic scour and wave erosion.
-          </p>
-          <p>
-            Unlike smooth decorative rock, riprap relies on individual stone mass (typically 25 to 150 pounds per piece for Class 1, and 150 to 500 pounds for Class 2) and angular particle interlock to resist hydraulic shear stresses generated by fast-flowing stormwater.
-          </p>
-
-          <div class="formula-box">
-            <code>Volume (Cubic Yards) = [Length (ft) × Width (ft) × Depth (in)] / 324</code>
-            <br />
-            <code>Scale Tonnage = Volume (yd³) × 1.40 Tons/yd³</code>
-            <br />
-            <code>Critical Rule: Thickness must be at least 1.0× the maximum stone size (12 inches for Class 1).</code>
-          </div>
-
-          <h3>Installation Protocol for Riprap Swales and Aprons</h3>
-          <ol class="steps-list">
-            <li>
-              <strong>Excavation:</strong> Over-excavate the channel by 14 inches to accommodate 2 inches of bedding aggregate and 12 inches of armor stone without restricting channel capacity.
-            </li>
-            <li>
-              <strong>High-Strength Geotextile:</strong> Lay a heavy-duty 6 to 8 oz non-woven needle-punched polypropylene drainage fabric. Pin with 12-inch steel spikes and washers.
-            </li>
-            <li>
-              <strong>Bedding Layer (Optional but Recommended):</strong> Spread a 2-inch cushion of #57 crushed stone over the fabric. This prevents heavy riprap stones from puncturing the geotextile when dropped into place.
-            </li>
-            <li>
-              <strong>Stone Placement:</strong> Place riprap starting from the bottom of the slope and work upward to create an interlocking mass. Never dump stones from heights exceeding 3 feet onto bare fabric.
-            </li>
-          </ol>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Riprap</h2>
-          <div class="faq-list">
-            {faqItems.map((item) => (
-              <div class="faq-item">
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </article>
+    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Calculate quantity after selecting the armor detail</h2><p>Use the specified stone size, grading, filter or bedding and finished thickness for your project. Riprap class names and dimensions vary between agencies and products. This tool does not select a stone size for flow, waves, erosion or slope stability.</p><h2>Measure the surface receiving stone</h2><p>For a sloped bank, measure along the actual surface rather than using its horizontal plan width. Divide irregular areas into sections and add their volumes. For each section, cubic yards = length in feet × surface width in feet × thickness in inches ÷ 324. Estimate filter or bedding layers separately.</p><h2>A quantity example</h2><p>If the project detail calls for a 12-inch layer over a measured 15 × 20 ft surface, the installed volume is 11.11 yd³. Adding a selected 10% allowance gives 12.22 yd³. At an example loose bulk weight of 1.40 US short tons per yard, the order is about 17.11 tons. The 12-inch thickness is an example input, not a universal armor specification.</p><h2>Confirm the actual product</h2><p>Ask the supplier for the required gradation and a suitable loose weight conversion for that large-stone product. Do not use a fine-gravel weight or a broad riprap class name as certification. Individual stone weights, placement voids and handling can affect the delivered amount.</p><h2>Plan filter, placement and access</h2><p>A project may require a specified granular filter, geotextile, bedding or a combination. Use its detail rather than assuming one fabric weight or layer rule applies everywhere. Confirm required environmental or watercourse approvals before work that affects a channel, bank or shoreline.</p><p>The truckload result divides by an example 15-ton example; confirm payload. Supplier payload and volume, ground conditions and placement access determine the actual deliveries. Use the <a href="/dry-creek-bed">dry creek measurement guide</a> for a decorative lining and the <a href="/drain-rock-calculator">drain calculator</a> for a pipe trench.</p><h2>Questions before ordering</h2>{faqItems.map(item=><section><h2>{item.q}</h2><p>{item.a}</p></section>)}</div></div></article>
 
     <TopicClusterNav
       currentPage="/riprap-calculator"
