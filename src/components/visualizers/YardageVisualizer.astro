@@ -4,9 +4,9 @@
 <section class="section no-print" id="yardage-visualizer">
   <div class="container">
     <div class="section-header">
-      <h2>Interactive Driveway Drop Footprint & Site Clearance Visualizer</h2>
+      <h2>Illustrative Bulk Pile and Delivery Questions</h2>
       <div class="section-divider"></div>
-      <p>Simulate the physical conical rock pile footprint on a 2-car residential driveway and verify overhead hydraulic dump bed clearances.</p>
+      <p>View an illustrative conical pile, then discuss the actual drop location with the delivery operator. The sketch assumes height equals 0.7 times the radius; it cannot measure access, ground strength or the real shape of a dumped load.</p>
     </div>
 
     <div class="yard-viz-grid">
@@ -15,7 +15,7 @@
         <div class="card-header">
           <div class="header-title">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            <h3>Driveway Drop Footprint (2-Car Driveway)</h3>
+            <h3>Illustrative pile footprint</h3>
           </div>
           <span class="status-badge gold" id="viz-pile-badge">Conical Pile</span>
         </div>
@@ -70,8 +70,8 @@
               <span class="dm-lbl">Cone Peak Height</span>
             </div>
             <div class="dm-node">
-              <span class="dm-val">1 Stall</span>
-              <span class="dm-lbl">Driveway Space</span>
+              <span class="dm-val">Site specific</span>
+              <span class="dm-lbl">Actual drop space</span>
             </div>
           </div>
         </div>
@@ -91,16 +91,16 @@
           <div class="check-item">
             <div class="ci-icon">⚡</div>
             <div class="ci-text">
-              <strong>Overhead Wire Clearance (16 ft Minimum)</strong>
-              <span>When the dump bed raises, it reaches 15 to 18 feet in the air. Never dump beneath power or cable lines.</span>
+              <strong>Overhead obstructions</strong>
+              <span>Identify overhead lines and other obstructions before arranging delivery. The operator must determine the required separation and whether unloading at the location is possible.</span>
             </div>
           </div>
 
           <div class="check-item">
             <div class="ci-icon">🌳</div>
             <div class="ci-text">
-              <strong>Low-Hanging Tree Branches (14 ft Clearance)</strong>
-              <span>Dump trucks require 10 feet of width and 14 feet of vertical clearance to back into residential driveways.</span>
+              <strong>Vehicle dimensions and turning space</strong>
+              <span>Ask for the actual vehicle’s width, height, raised-bed envelope and turning requirements. A class name does not provide one universal clearance.</span>
             </div>
           </div>
 
@@ -108,7 +108,7 @@
             <div class="ci-icon">⚠️</div>
             <div class="ci-text">
               <strong>Septic Tank & Drain Field Avoidance</strong>
-              <span>Never allow a dump truck to drive over septic tanks or leach fields. The weight will crush PVC pipes and tanks.</span>
+              <span>Identify septic systems, buried utilities and unsupported ground. Have the operator assess the route and unloading area; a pile illustration does not establish ground capacity.</span>
             </div>
           </div>
 
@@ -131,7 +131,7 @@
 (function() {
   function syncYardageVisualizer() {
     const orderYardsEl = document.getElementById('kpi-order-yards');
-    const yards = orderYardsEl ? parseFloat(orderYardsEl.textContent) || 5.0 : 5.0;
+    const yards = orderYardsEl ? parseFloat(orderYardsEl.textContent) : 0;
 
     // Conical pile geometry: Volume V = (1/3) * pi * r^2 * h
     // Angle of repose for aggregate is ~35 degrees -> h = r * tan(35°) = 0.7 * r
@@ -167,6 +167,8 @@
     });
   });
 
+  const source=document.getElementById('kpi-order-yards');
+  if(source)new MutationObserver(syncYardageVisualizer).observe(source,{childList:true,subtree:true,characterData:true});
   document.addEventListener('DOMContentLoaded', syncYardageVisualizer);
   syncYardageVisualizer();
 })();

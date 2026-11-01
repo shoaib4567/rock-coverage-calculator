@@ -1,4 +1,6 @@
 ---
+import Breadcrumbs from './Breadcrumbs.astro';
+import { getContentPage } from '../lib/content-map.mjs';
 interface BreadcrumbItem {
   name: string;
   url: string;
@@ -36,49 +38,35 @@ const {
   quickStats = [],
   theme = 'default'
 } = Astro.props;
+const page = getContentPage(Astro.url.pathname);
+const heading = page?.title ?? title;
+const roleLabels: Record<string, string> = { calculator:'Quantity calculator', 'reference calculator':'Coverage reference', 'buying calculator':'Buying and handling', 'comparison calculator':'Compare your options', 'measurement guide':'Measure before ordering', 'selection helper':'Compare material options', 'reference guide':'Product and unit reference', guide:'Planning guide', 'project guide':'Project planning', 'installation guide':'Prepare and place', 'troubleshooting guide':'Find the cause', 'maintenance guide':'Maintain the surface', methodology:'Formulas and assumptions', contact:'Questions and corrections', policy:'Site information', 'widget instructions':'Use the calculator on your site' };
 ---
 
 <section class={`page-hero theme-${theme}`}>
   <div class="container">
-    <!-- Breadcrumb Navigation with Semantic Microdata -->
-    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-      <ol itemscope itemtype="https://schema.org/BreadcrumbList">
-        {breadcrumbs.map((crumb, idx) => (
-          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            {idx > 0 && <span class="crumb-separator">/</span>}
-            {idx === breadcrumbs.length - 1 ? (
-              <span itemprop="name" class="crumb-current" aria-current="page">{crumb.name}</span>
-            ) : (
-              <a href={crumb.url} itemprop="item" class="crumb-link">
-                <span itemprop="name">{crumb.name}</span>
-              </a>
-            )}
-            <meta itemprop="position" content={String(idx + 1)} />
-          </li>
-        ))}
-      </ol>
-    </nav>
+    <Breadcrumbs compact />
 
     <!-- Main Header -->
     <div class="hero-content">
       <div class="hero-badge">
         <span class="badge-dot"></span>
-        <span>{badge}</span>
+        <span>{page ? roleLabels[page.kind] ?? badge : badge}</span>
       </div>
 
       <h1>
-        {highlightWord && title.includes(highlightWord) ? (
+        {highlightWord && heading.includes(highlightWord) ? (
           <>
-            {title.substring(0, title.indexOf(highlightWord))}
+            {heading.substring(0, heading.indexOf(highlightWord))}
             <span class="hero-highlight">{highlightWord}</span>
-            {title.substring(title.indexOf(highlightWord) + highlightWord.length)}
+            {heading.substring(heading.indexOf(highlightWord) + highlightWord.length)}
           </>
         ) : (
-          title
+          heading
         )}
       </h1>
 
-      <p class="hero-lead">{subtitle}</p>
+      <p class="hero-lead">{page?.summary ?? subtitle}</p>
 
       <!-- Material Specifications & Physical Properties Tags -->
       {entityTags.length > 0 && (

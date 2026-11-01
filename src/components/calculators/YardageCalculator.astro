@@ -6,7 +6,7 @@
     <div class="section-header">
       <h2>Rock Yardage & Bulk Procurement Calculator</h2>
       <div class="section-divider"></div>
-      <p>Calculate bulk yardage requirements with commercial quarry half-yard and full-yard rounding, delivery site clearances, and wheelbarrow hauling labor math.</p>
+      <p>Calculate measured yards, compare half-yard and full-yard order increments, and estimate handling with the selected container size. Confirm actual loading and delivery access with the supplier.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -37,7 +37,7 @@
             <span class="unit-label">inches</span>
           </div>
           <div class="input-field">
-            <label for="yardage-waste">Quarry Safety Buffer</label>
+            <label for="yardage-waste">Extra order allowance</label>
             <input type="number" id="yardage-waste" value="10" min="0" max="25" step="1" />
             <span class="unit-label">% extra</span>
           </div>
@@ -59,7 +59,7 @@
             <div class="round-spec">Commercial quarry dispatch minimum standard</div>
           </button>
           <button type="button" class="round-btn" data-round="0.0">
-            <div class="round-title">Exact Theoretical Volume</div>
+            <div class="round-title">Measured Layer Volume</div>
             <div class="round-spec">Raw unrounded volume for precision estimating</div>
           </button>
         </div>
@@ -122,7 +122,7 @@
 
         <!-- Site Delivery Safety Checklist -->
         <div class="checklist-card">
-          <div class="checklist-title">Quarry Dump Truck Site Safety Clearance</div>
+          <div class="checklist-title">Questions for the delivery operator</div>
           <div class="checklist-items">
             <div class="check-item">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -134,7 +134,7 @@
             </div>
             <div class="check-item">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Ground Tarp Protection:</strong> Lay heavy 20×30 ft poly tarps before dumping to ensure 100% clean aggregate shoveling.</span>
+              <span><strong>Surface Protection:</strong> Agree on any tarp or other protection with the operator. Keep the tipping area and later material handling practical.</span>
             </div>
           </div>
         </div>

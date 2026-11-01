@@ -1,4 +1,5 @@
 ---
+import TopicClusterNav from '../components/TopicClusterNav.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -12,13 +13,13 @@ const breadcrumbs = [
 const entityTags = [
   { label: 'Agreement Type', value: 'Terms of Use & Estimation Disclaimer' },
   { label: 'Effective Date', value: 'January 2026' },
-  { label: 'Last Updated', value: 'September 2026' },
-  { label: 'Governing Standards', value: 'ASTM C29 / AASHTO T 19' }
+  { label: 'Last Updated', value: 'November 2026' },
+  { label: 'Quantity Basis', value: 'Geometry and stated product assumptions' }
 ];
 
 const quickStats = [
   { value: 'Planning Tool', label: 'Calculation Purpose', desc: 'Outputs are theoretical planning estimates, not guaranteed bid commitments' },
-  { value: 'Quarry Scales', label: 'Final Billing', desc: 'Material billing is strictly governed by certified quarry weigh-scale tickets' },
+  { value: 'Supplier Quote', label: 'Final Billing', desc: 'Confirm whether the product is sold by weight, volume, piece or package' },
   { value: 'Field Verification', label: 'Contractor Duty', desc: 'Contractors must verify subgrade depth, moisture, and compaction loss' }
 ];
 ---
@@ -28,20 +29,6 @@ const quickStats = [
   metaDescription="Read our Terms of Service and aggregate calculation disclaimer. Understand the geotechnical variance factors and contractor obligations."
   canonicalPath="/terms"
 >
-  <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Terms of Service - Rock Coverage Calculator",
-      "url": "https://rockcoveragecalculator.com/terms",
-      "description": "Terms of Service and geotechnical material estimation disclaimer for Rock Coverage Calculator.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Rock Coverage Calculator",
-        "url": "https://rockcoveragecalculator.com"
-      }
-    })} />
-  </Fragment>
 
   <Header />
 
@@ -88,7 +75,7 @@ const quickStats = [
           <li><strong>Regional Geologic Density:</strong> Basalt and trap rock naturally weigh more (up to 2,900+ lbs/cu yd) than limestone (2,700 lbs/cu yd) or volcanic scoria/lava rock (1,450 lbs/cu yd).</li>
           <li><strong>Moisture Content:</strong> Uncovered quarry stockpiles absorb rain and groundwater. Damp gravel may register 5% to 10% heavier on commercial weigh-scale tickets without occupying any additional volume.</li>
           <li><strong>Compaction & Consolidation:</strong> Crusher run, quarry process (QP), and 21-A base gravel contain mineral fines that nest into void spaces when compacted with vibratory plates or heavy rollers. A 4-inch loose lift typically compacts down to approximately 3.2 inches (requiring approximately 25% additional loose quarry volume to reach the target finished grade).</li>
-          <li><strong>Subgrade Unevenness & Bed Prep:</strong> Natural soil subgrades are never laser-flat. Minor undulations of 0.5 inches across a large area can increase required aggregate volume by 10% or more.</li>
+          <li><strong>Subgrade Unevenness & Bed Prep:</strong> Uneven grade and depth measurement affect the estimate. A half-inch error on a planned 2-inch layer changes its geometric volume by 25%; measure variable sections separately.</li>
         </ul>
 
         <h2>4. Contractor & Estimator Responsibility</h2>
@@ -126,6 +113,7 @@ const quickStats = [
 
       </div>
     </article>
+  <TopicClusterNav />
   </main>
 
   <Footer />

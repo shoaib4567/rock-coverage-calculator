@@ -112,59 +112,13 @@
         </div>
       </div>
 
-      <!-- Dump Truck Class Capacities -->
       <div class="cuyd-viz-card">
-        <div class="card-header">
-          <div class="header-title">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 17h14v-5l-3-4H8L5 12v5z"/></svg>
-            <h3>Dump Truck Class Delivery Capacities</h3>
-          </div>
-          <span class="status-badge green">Commercial Sizer</span>
-        </div>
-
+        <div class="card-header"><div class="header-title"><h3>Confirm the delivery limits</h3></div></div>
         <div class="truck-class-body">
-          <div class="truck-tier-card active" id="tier-single">
-            <div class="tier-head">
-              <div class="tier-title">Single Axle Dump Truck</div>
-              <span class="tier-cap">5 to 7 Cubic Yards</span>
-            </div>
-            <div class="tier-bar-track">
-              <div class="tier-bar-fill" style="width: 35%; background: #38bdf8;"></div>
-            </div>
-            <p class="tier-desc">Standard residential delivery truck. Fits on narrow driveways and under lower overhead tree branches.</p>
-          </div>
-
-          <div class="truck-tier-card" id="tier-tandem">
-            <div class="tier-head">
-              <div class="tier-title">Tandem Axle Dump Truck</div>
-              <span class="tier-cap">10 to 12 Cubic Yards</span>
-            </div>
-            <div class="tier-bar-track">
-              <div class="tier-bar-fill" style="width: 70%; background: #f59e0b;"></div>
-            </div>
-            <p class="tier-desc">Most popular commercial quarry truck. Heavy payload (14 to 16 tons) requires firm, wide driveways.</p>
-          </div>
-
-          <div class="truck-tier-card" id="tier-tri">
-            <div class="tier-head">
-              <div class="tier-title">Tri-Axle / Quad Dump Truck</div>
-              <span class="tier-cap">14 to 16+ Cubic Yards</span>
-            </div>
-            <div class="tier-bar-track">
-              <div class="tier-bar-fill" style="width: 100%; background: #ef4444;"></div>
-            </div>
-            <p class="tier-desc">Large civil construction hauler. Unloads massive bulk orders; often requires street drop to prevent driveway damage.</p>
-          </div>
-
-          <div class="field-tips-box">
-            <div class="tip-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              The "Split Load" Delivery Fee Warning
-            </div>
-            <p>
-              Most landscape supply yards charge a flat delivery fee ($75 to $120) per truck trip. If your project requires 13 cubic yards and the supplier only runs single-axle trucks (max 7 yards), you will be charged for two separate delivery trips. Always verify truck capacity before ordering!
-            </p>
-          </div>
+          <div class="truck-tier-card"><h4>Usable vehicle volume</h4><p class="tier-desc">A truck can reach its bed-volume limit before its weight limit. Ask the supplier how many loose yards its selected vehicle can carry.</p></div>
+          <div class="truck-tier-card"><h4>Available payload</h4><p class="tier-desc">Use the actual material payload permitted for that vehicle and route. Dense stone may reach this limit before the bed is full.</p></div>
+          <div class="truck-tier-card"><h4>Access and price</h4><p class="tier-desc">Confirm ground support, turning space, overhead obstructions, unloading method and the fee for the actual number of trips. The volume illustration cannot assess the site.</p></div>
+          <p class="tier-desc">Example: 13 loose yards with an entered 7-yard capacity needs at least two trips by volume. Weight may require more. A supplier can quote a different vehicle, loading rule or delivery arrangement.</p>
         </div>
       </div>
     </div>
@@ -177,33 +131,19 @@
     const yardsEl = document.getElementById('kpi-total-yards');
     const barrowsEl = document.getElementById('kpi-wheelbarrows');
 
-    const totalYards = yardsEl ? parseFloat(yardsEl.textContent) || 0 : 0;
-    const barrowTrips = barrowsEl ? parseInt(barrowsEl.textContent) || 0 : 0;
+    const totalYards = parseFloat(yardsEl?.textContent ?? '');
+    const barrowTrips = parseInt(barrowsEl?.textContent ?? '');
 
     const totalYdsTxt = document.getElementById('viz-cuyd-total');
     const barrowTxt = document.getElementById('viz-cuyd-barrow');
 
-    if (totalYdsTxt) totalYdsTxt.textContent = totalYards.toFixed(2) + ' yd³';
-    if (barrowTxt) barrowTxt.textContent = barrowTrips + ' trips';
+    if (totalYdsTxt) totalYdsTxt.textContent = Number.isFinite(totalYards) ? totalYards.toFixed(2) + ' yd³' : '—';
+    if (barrowTxt) barrowTxt.textContent = Number.isFinite(barrowTrips) ? barrowTrips + ' trips' : '—';
 
-    // Highlight active truck tier
-    const tSingle = document.getElementById('tier-single');
-    const tTandem = document.getElementById('tier-tandem');
-    const tTri = document.getElementById('tier-tri');
-
-    if (tSingle) tSingle.className = 'truck-tier-card';
-    if (tTandem) tTandem.className = 'truck-tier-card';
-    if (tTri) tTri.className = 'truck-tier-card';
-
-    if (totalYards <= 7) {
-      if (tSingle) tSingle.className = 'truck-tier-card active';
-    } else if (totalYards <= 12) {
-      if (tTandem) tTandem.className = 'truck-tier-card active';
-    } else {
-      if (tTri) tTri.className = 'truck-tier-card active';
-    }
   }
 
+  const observer = new MutationObserver(syncCubicYardVisualizer);
+  ['kpi-total-yards','kpi-wheelbarrows'].forEach(id=>{const source=document.getElementById(id);if(source)observer.observe(source,{childList:true,subtree:true,characterData:true});});
   const inputs = ['yd-length', 'yd-width', 'yd-depth', 'yd-waste', 'rev-yards', 'rev-depth'];
   inputs.forEach(id => {
     const el = document.getElementById(id);

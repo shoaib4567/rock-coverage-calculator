@@ -7,6 +7,12 @@ import YardageVisualizer from '../components/visualizers/YardageVisualizer.astro
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const faqItems = [
+  { q: 'How is an order rounded to a supplier increment?', a: 'Calculate the layer volume, apply a chosen extra allowance once, then round up to the seller’s order increment. Confirm minimum orders and whether the quote is in yards or tons.' },
+  { q: 'Is a 10% order increase the same as 10% compaction loss?', a: 'No. An order increase multiplies the finished volume by 1.10. A measured 10% loss of loose volume would require dividing finished volume by 0.90. Use the actual product and project assumptions.' },
+  { q: 'Can the planner approve a delivery vehicle?', a: 'No. Volume and weight estimates cannot establish access, ground capacity or a vehicle’s available payload. Ask the supplier for the actual delivery limits and unloading requirements.' }
+];
+
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Quantity & Conversion', url: '/rock-coverage-calculator-yard' },
@@ -14,30 +20,39 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Quarry Yardage Logistics' },
-  { label: 'Order Increments', value: 'Half-Yard and Full-Yard Units' },
-  { label: 'Safety Margin', value: '10% Compaction and Raking Allowance' },
-  { label: 'Delivery Vehicles', value: 'Single-Axle, Tandem, and Tri-Axle Haulers' }
+  {
+    "label": "Order unit",
+    "value": "Cubic yards"
+  },
+  {
+    "label": "Extra material",
+    "value": "Editable allowance above net volume"
+  },
+  {
+    "label": "Purchase step",
+    "value": "Supplier order increment"
+  },
+  {
+    "label": "Handling",
+    "value": "Entered delivery and barrow assumptions"
+  }
 ];
 
-const quickStats = [{"value":"Editable extra","label":"Order allowance","desc":"Use the needs of the actual project"},{"value":"Seller increment","label":"Order rounding","desc":"Ask how the supplier sells loose yards"},{"value":"Actual vehicle","label":"Delivery access","desc":"Confirm payload and clearance with the operator"}];
-
-const faqItems = [
+const quickStats = [
   {
-    "q": "Is yardage the same as cubic yards?",
-    "a": "Yes. The volume unit is the same. This tool adds optional order rounding and handling estimates; the cubic-yard tool focuses on converting area, depth and volume."
+    "value": "27 cu ft",
+    "label": "One cubic yard",
+    "desc": "Volume conversion"
   },
   {
-    "q": "Should I always add 10%?",
-    "a": "No. It is an editable example allowance. Use actual measurements and product-specific placement guidance, and avoid counting the same allowance twice."
+    "value": "Editable",
+    "label": "Order increment",
+    "desc": "Use the seller’s actual minimum and rounding step"
   },
   {
-    "q": "How many yards can a truck carry?",
-    "a": "Ask the supplier for both allowable payload and usable volume for the actual truck. Multiply loose cubic yards by the product’s tons per yard to check weight; do not infer capacity solely from axle count."
-  },
-  {
-    "q": "Can plywood protect a driveway from any delivery truck?",
-    "a": "No. Plywood is not a structural assessment. Agree on a suitable delivery location with the operator before the truck arrives."
+    "value": "Separate",
+    "label": "Access check",
+    "desc": "Handling estimates do not establish vehicle access"
   }
 ];
 

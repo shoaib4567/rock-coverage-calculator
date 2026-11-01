@@ -1,0 +1,27 @@
+---
+import { getBreadcrumbs } from '../lib/content-map.mjs';
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+const trail = getBreadcrumbs(Astro.url.pathname);
+---
+{trail.length > 1 && (
+  <nav class:list={['page-breadcrumbs', { container: !compact }]} aria-label="Breadcrumb">
+    <ol>
+      {trail.map((crumb, index) => <li>
+        {index > 0 && <span class="separator" aria-hidden="true">/</span>}
+        {index === trail.length - 1
+          ? <span aria-current="page">{crumb.name}</span>
+          : <a href={crumb.url}>{crumb.name}</a>}
+      </li>)}
+    </ol>
+  </nav>
+)}
+<style>
+  .page-breadcrumbs { padding-block: var(--space-5); color: var(--text-secondary); font-size: var(--text-sm); }
+  ol { display: flex; flex-wrap: wrap; gap: .4rem .6rem; list-style: none; margin: 0; padding: 0; }
+  li { display: inline-flex; align-items: baseline; gap: .6rem; min-width: 0; }
+  a { color: var(--text-secondary); text-decoration: underline; text-underline-offset: .18em; }
+  a:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 4px; }
+  [aria-current=page] { color: var(--text-primary); }
+  .separator { color: var(--text-muted); }
+</style>

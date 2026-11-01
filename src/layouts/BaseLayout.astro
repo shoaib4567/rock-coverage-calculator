@@ -3,6 +3,7 @@ import '../styles/global.css';
 import '../styles/calculator.css';
 import '../styles/visualizer.css';
 import '../styles/animations.css';
+import { getContentPage, getBreadcrumbs } from '../lib/content-map.mjs';
 
 interface Props {
   title: string;
@@ -13,9 +14,13 @@ interface Props {
 }
 
 const { title, description, metaDescription, canonicalPath, noindex = false } = Astro.props;
-const pageDescription = description || metaDescription || 'Free rock coverage and aggregate calculator for landscaping and civil construction projects.';
 const siteUrl = 'https://rockcoveragecalculator.com';
 const pagePath = canonicalPath ?? Astro.url.pathname;
+const page = getContentPage(pagePath);
+const pageTitle = page?.title ?? title;
+const pageDescription = page?.summary || description || metaDescription || 'Estimate rock volume and weight from your measurements and supplier assumptions.';
+const breadcrumbItems = getBreadcrumbs(pagePath);
+const hasBreadcrumb = breadcrumbItems.length > 1 && !['/embed', '/404'].includes(pagePath);
 const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, ''), siteUrl).href;
 ---
 <!doctype html>
@@ -35,7 +40,7 @@ const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, '
   <!-- Open Graph -->
   <meta property="og:locale" content="en_US" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content={title} />
+  <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={pageDescription} />
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:site_name" content="Rock Coverage Calculator" />
@@ -46,12 +51,12 @@ const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, '
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
+  <meta name="twitter:title" content={pageTitle} />
   <meta name="twitter:description" content={pageDescription} />
   <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
   <meta name="twitter:image:alt" content="Rock Coverage Calculator website preview" />
 
-  <title>{title}</title>
+  <title>{pageTitle}</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -64,14 +69,16 @@ const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, '
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "WebPage",
+        "@type": page?.kind === 'directory' ? 'CollectionPage' : page?.kind === 'contact' ? 'ContactPage' : page?.kind === 'methodology' ? 'AboutPage' : 'WebPage',
         "@id": `${canonicalURL}#webpage`,
-        "name": title,
+        "name": pageTitle,
         "url": canonicalURL,
         "description": pageDescription,
         "inLanguage": "en-US",
         "isPartOf": { "@id": `${siteUrl}/#website` },
-        "publisher": { "@id": `${siteUrl}/#organization` }
+        "publisher": { "@id": `${siteUrl}/#organization` },
+        ...(page ? { "about": { "@type": "Thing", "name": page.entity } } : {}),
+        ...(hasBreadcrumb ? { "breadcrumb": { "@id": `${canonicalURL}#breadcrumb` } } : {})
       },
       {
         "@type": "Organization",
@@ -97,7 +104,15 @@ const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, '
         "publisher": {
           "@id": "https://rockcoveragecalculator.com/#organization"
         }
-      }
+      },
+      ...(hasBreadcrumb ? [{
+        "@type": "BreadcrumbList",
+        "@id": `${canonicalURL}#breadcrumb`,
+        "itemListElement": breadcrumbItems.map((crumb, index) => ({
+          "@type": "ListItem", "position": index + 1, "name": crumb.name,
+          "item": new URL(crumb.url, siteUrl).href
+        }))
+      }] : [])
     ]
   })} />
 

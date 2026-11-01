@@ -1,4 +1,5 @@
 ---
+import TopicClusterNav from '../components/TopicClusterNav.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -116,6 +117,7 @@ const metaDescription = "Embed our free, interactive landscape rock and gravel c
       </div>
     </section>
 <section class="container section"><h2>What the embedded calculator does</h2><p>The widget converts an area and finished depth into cubic yards, estimated US short tons and volume-labeled bags. It supports the same shape and material inputs as the main tool. The embedded page excludes the separate 3D preview; the full website includes that feature.</p><h2>Set up and test your embed</h2><ol><li>Start with responsive width so the widget fits its parent column.</li><li>Allow enough height for inputs and expanded results. The widget scrolls within its frame when the chosen height is shorter than the content; 820 pixels does not fit every state.</li><li>Paste the HTML into a block that permits an iframe, then preview it at desktop and mobile widths.</li><li>Test a known example: 100 sq ft at 3 inches is 0.93 yd³ before extra. Supplier density changes estimated weight; bag label volume changes the bag count.</li></ol><h2>Preview or theme not updating?</h2><p>Some site editors remove iframe markup or block remote frames. Check the published page as well as the editor preview and review the host’s embed permissions. The calculator requires JavaScript. Browser storage and privacy settings may affect saved zones inside a third-party frame; visitors can use the <a href="/">main calculator</a> directly when needed.</p><p>The theme selector adds a light or dark theme to the embed URL and updates the preview. Without a theme parameter, the embed uses the visitor’s saved theme or the light default. Calculator results remain planning estimates; show your own product specifications and current quote beside the widget.</p><p><a href="/about">Read the calculation assumptions</a> or <a href="/contact">report an embed problem</a> with the host platform, browser and page URL.</p></section>
+  <TopicClusterNav />
   </main>
 
   <Footer />
@@ -178,6 +180,9 @@ const metaDescription = "Embed our free, interactive landscape rock and gravel c
 </script>
 
 <style>
+  .builder-controls-panel, .builder-preview-panel { min-width: 0; }
+  .builder-select, .snippet-textarea { min-width: 0; max-width: 100%; }
+  .control-group, .control-group .input-field { min-width: 0; }
   .widget-builder-grid {
     display: grid;
     grid-template-columns: 1fr;

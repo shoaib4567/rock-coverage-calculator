@@ -14,34 +14,58 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Rock Coverage Square Feet' },
-  { label: 'Area Geometries', value: 'Rectangle, Circle, Ring, Triangle, L-Shape' },
-  { label: 'Thickness Rule', value: 'Depth in Inches / 12 = Foot Fraction' },
-  { label: 'Spread Benchmark', value: '100 sq ft = 0.93 yd³ at 3" Depth' }
+  {
+    "label": "Input",
+    "value": "Known square feet or four measured beds"
+  },
+  {
+    "label": "Volume formula",
+    "value": "Square feet × inches ÷ 324"
+  },
+  {
+    "label": "Weight",
+    "value": "Editable material assumption"
+  },
+  {
+    "label": "Separate layers",
+    "value": "Calculate each product and depth separately"
+  }
 ];
 
 const quickStats = [
-  { value: '108 sq ft', label: '1 Yard Coverage', desc: 'Coverage of 1 cubic yard at 3 inch residential depth' },
-  { value: '80 sq ft', label: '1 Ton Coverage', desc: 'Standard coverage of 2,000 lbs of stone at 3 inch depth' },
-  { value: '6 Geometries', label: 'Supported Shapes', desc: 'Precise geometric formulas without approximation errors' }
+  {
+    "value": "4 beds",
+    "label": "Area addition",
+    "desc": "Combine measured areas using the same material and depth"
+  },
+  {
+    "value": "108 sq ft",
+    "label": "One yard at 3 inches",
+    "desc": "Geometric coverage before allowances"
+  },
+  {
+    "value": "Separate",
+    "label": "Different layers",
+    "desc": "Do not combine products into one weight estimate"
+  }
 ];
 
 const faqItems = [
   {
-    q: 'How many square feet does 1 ton of rock cover?',
-    a: 'At a standard 3-inch depth, 1 ton of typical crushed granite or river rock (density 1.35 tons/yd³) covers approximately 80 square feet. At a shallower 2-inch depth, 1 ton covers approximately 120 square feet. At a heavy 4-inch depth, 1 ton covers approximately 60 square feet.'
+    "q": "How much rock covers 500 square feet at 3 inches?",
+    "a": "The net volume is 500 × 3 ÷ 324 = 4.63 cubic yards. With a selected 10% extra order allowance it is 5.09 cubic yards. Estimated weight then depends on the chosen loose bulk density."
   },
   {
-    q: 'How do you calculate square footage for curved or kidney-shaped garden beds?',
-    a: 'Use the bounding box offset method. Measure the longest length of the curved bed through the center, then measure 3 to 4 cross-sectional widths at equal intervals. Average the widths together, and multiply the average width by the total length. Add 10% to account for perimeter undulations.'
+    "q": "Does this tool measure curved beds?",
+    "a": "It accepts known square footage or adds four entered bed areas. Measure curves separately or use the main calculator for its supported shapes. Irregular boundaries remain field estimates; an automatic extra percentage cannot correct every measurement error."
   },
   {
-    q: 'How much rock do I need for a 1,000 square foot backyard area?',
-    a: 'For 1,000 square feet covered to a 3-inch depth, you require 9.26 cubic yards of aggregate. Factoring in an average bulk density of 1.35 tons per yard and a 10% compaction allowance, you need approximately 13.8 tons of rock.'
+    "q": "How much rock covers 1,000 square feet?",
+    "a": "At an example 3-inch depth, the net volume is 9.26 cubic yards. A selected 10% order increase makes 10.19 cubic yards, about 13.75 US short tons at an example 1.35 short tons per yard."
   },
   {
-    q: 'Can I install rock directly on top of old gravel or dirt?',
-    a: 'Prepare the surface for its use and ground conditions. A suitable separator can reduce soil mixing where needed, but fabric is not a universal requirement or permanent weed solution. Follow the material and project detail.'
+    "q": "Can I combine beds with different depths or products?",
+    "a": "Calculate those separately. Adding areas is valid here when all included areas use the same depth, material weight assumption and allowance."
   }
 ];
 ---
@@ -57,7 +81,7 @@ const faqItems = [
       "@type": "WebApplication",
       "name": "Rock Coverage Calculator Square Feet",
       "url": "https://rockcoveragecalculator.com/rock-square-foot-calculator",
-      "description": "Calculates rock coverage by square footage across multiple geometries with instant cubic yard, tonnage, and bag outputs.",
+      "description": "Converts a known square-foot area or four entered bed areas into cubic yards, estimated US short tons and half-cubic-foot bag equivalents.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "about": {
@@ -97,85 +121,7 @@ const faqItems = [
     <SquareFootVisualizer />
 
     <!-- Technical Guide on Square Footage Calculations -->
-    <article class="content-guide-section">
-      <div class="container">
-        <div class="content-card">
-          <h2>Geometric Area Formulas for Landscape Rock Beds</h2>
-          <p>
-            Accurate rock coverage begins with rigorous geometric area determination. Because residential landscaping rarely conforms to simple rectangles, calculating accurate square footage requires decomposing irregular yard boundaries into primary geometric components.
-          </p>
-
-          <div class="formula-box">
-            <code>Rectangle Area = Length (ft) × Width (ft)</code>
-            <br />
-            <code>Circle Area = π × Radius² = 3.14159 × r²</code>
-            <br />
-            <code>Ring (Tree Collar) Area = π × (Outer Radius² - Inner Radius²)</code>
-            <br />
-            <code>Triangle Area = 0.5 × Base (ft) × Height (ft)</code>
-            <br />
-            <code>Trapezoid Area = 0.5 × (Top Width + Bottom Width) × Height</code>
-          </div>
-
-          <h3>Square Footage Coverage by Material Depth</h3>
-          <p>
-            Once total square footage is determined, application depth dictates the exact volumetric multiplier. As layer depth increases, coverage area per unit volume decreases inversely:
-          </p>
-
-          <div class="table-wrapper">
-            <table class="guide-table">
-              <thead>
-                <tr>
-                  <th>Installed Depth</th>
-                  <th>Coverage per 1 yd³</th>
-                  <th>Coverage per 1 Ton (Standard Stone)</th>
-                  <th>Coverage per 1 Ton (Lava Rock, 0.75 t/yd³)</th>
-                  <th>Cubic Yards per 1,000 Sq Ft</th>
-                </tr>
-              </thead>
-              <tbody>{[1,1.5,2,2.5,3,4,6].map(depth=><tr><th scope="row">{depth} inches</th><td>{Math.round(324/depth)} sq ft</td><td>{Math.round(324/depth/1.35)} sq ft</td><td>{Math.round(324/depth/0.75)} sq ft</td><td>{(1000*depth/324).toFixed(2)} yd³</td></tr>)}</tbody>
-            </table>
-          </div>
-
-          <h3>Offset Coordinate Method for Irregular Landscape Boundaries</h3>
-          <p>
-            When calculating free-form or serpentine landscape beds, do not guess total square footage. Use the civil engineering offset line method:
-          </p>
-          <ol class="steps-list">
-            <li>
-              <strong>Establish a Baseline:</strong> Stretch a straight nylon string line through the longest center axis of the curved bed. Measure this total baseline length in feet (L).
-            </li>
-            <li>
-              <strong>Measure Perpendicular Offsets:</strong> Every 5 or 10 feet along the baseline, measure the width of the bed perpendicular to the string line (w1, w2, w3, etc.).
-            </li>
-            <li>
-              <strong>Compute Average Width:</strong> Add all perpendicular width measurements together and divide by the total number of measurements taken to establish Average Width (W_avg).
-            </li>
-            <li>
-              <strong>Calculate Net Square Footage:</strong> Multiply baseline length by average width: <code>Area = L × W_avg</code>. This is a field approximation. Use more sections around curves and compare with an actual plan or survey when precision matters.
-            </li>
-          </ol>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Square Footage Coverage</h2>
-          <div class="faq-accordion">
-            {faqItems.map((item, index) => (
-              <details class="faq-detail" open={index === 0}>
-                <summary class="faq-summary">
-                  <span>{item.q}</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                </summary>
-                <div class="faq-answer">
-                  <p>{item.a}</p>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </div>
-    </article>
+    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Start with the area that will actually receive rock</h2><p>This tool converts a known footprint to a layer quantity. Enter one measured area, or add up to four bed areas. Deduct large planting gaps, paving, structures and other uncovered spaces before entering the total. Keep the measured area separate from an order allowance so the reason for extra material stays visible.</p><h3>One depth and product per calculation</h3><p>Adding four beds is useful when they use the same product and thickness. A 2-inch decorative bed and a 6-inch base layer need separate calculations, even on the same property. The base and finish course of one project are separate volumes, too; use the <a href="/layered-project-calculator">layered project calculator</a> for a course-by-course plan.</p><h3>Example: 500 square feet at different depths</h3><div class="table-wrapper"><table class="guide-table"><caption>Net geometric volume for 500 sq ft, before extra; these are comparison depths</caption><thead><tr><th scope="col">Entered depth</th><th scope="col">Net cubic yards</th></tr></thead><tbody><tr><th scope="row">1 in</th><td>1.54 yd³</td></tr><tr><th scope="row">2 in</th><td>3.09 yd³</td></tr><tr><th scope="row">3 in</th><td>4.63 yd³</td></tr><tr><th scope="row">4 in</th><td>6.17 yd³</td></tr><tr><th scope="row">6 in</th><td>9.26 yd³</td></tr></tbody></table></div><p>At 3 inches the net result is 4.63 yd³. Adding 10% gives 5.09 yd³. These figures describe a selected layer, not a recommended construction depth. Choose thickness for the actual stone size, intended use and project requirements.</p><h3>Convert volume to an order unit</h3><p>Multiply cubic yards by the supplier’s loose bulk weight to estimate US short tons. Bag count instead comes from package volume: cubic yards × 27 ÷ labeled cubic feet per bag, rounded up. A bag’s weight alone does not establish its volume without a product-specific conversion. The calculator’s half-cubic-foot bag output is a comparison unit; use the <a href="/rock-bag-calculator">bag calculator</a> for the package being purchased.</p><h3>When the area is not known yet</h3><p>Split an irregular footprint into measurable shapes or use a plan. For a curved strip, measure perpendicular widths at regular stations and approximate each section with the average of its two end widths times its length. More sections help around tight curves. Deduct exclusions and keep a note of the measurements; a blanket 10% addition cannot make an inaccurate footprint precise.</p><p>The <a href="/">main calculator</a> includes rectangle, circle, ring, triangle, trapezoid and L-shape inputs. Use the <a href="/rock-coverage-calculator-yard">cubic-yard tool</a> to work backward from known volume, or the <a href="/rock-yardage-calculator">yardage planner</a> for ordering increments and handling estimates.</p></div><div class="content-card faq-card"><h2>Questions about this calculation</h2><div class="faq-accordion">{faqItems.map((item,index)=><details class="faq-detail" open={index===0}><summary class="faq-summary">{item.q}</summary><div class="faq-answer"><p>{item.a}</p></div></details>)}</div></div></div></article>
 
     <TopicClusterNav currentPage="/rock-square-foot-calculator" category="quantity" />
   </main>

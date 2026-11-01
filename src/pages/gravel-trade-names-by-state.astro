@@ -1,4 +1,5 @@
 ---
+import TopicClusterNav from '../components/TopicClusterNav.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -13,40 +14,55 @@ const title = "Gravel & Aggregate Trade Names by State - Regional Cross-Referenc
 const metaDescription = "Complete state-by-state directory of gravel, base aggregate, and crushed stone trade names. Translate 21-A, CA-6, #304, #53, Item 4, QP, and ABC to civil ASTM/AASHTO specs.";
 
 const tradeData = [
-  // Northeast
-  { state: "New York", dotCode: "NYSDOT Item 4 (Subbase Type 1 & 2)", quarryNames: "Item 4, Crusher Run, Run of Bank", sieve: "2\" or 1.5\" down to mineral dust", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "Heavy driveway subbase, highway road foundation", calcSlug: "/crusher-run-calculator" },
-  { state: "New Jersey", dotCode: "NJDOT DGA (Dense Graded Aggregate)", quarryNames: "DGA, Quarry Process (QP), Dirty Stone", sieve: "1.5\" down to #200 sieve", density: "2,950 lbs / yd³ (1.48 T)", compaction: "20% (×1.25)", use: "Commercial parking subbases, municipal road foundations", calcSlug: "/crusher-run-calculator" },
-  { state: "Pennsylvania", dotCode: "PennDOT 2A Modified / 2RC", quarryNames: "2A Modified, 2RC Road Stone", sieve: "1.5\" down to #200 fines", density: "2,900 lbs / yd³ (1.45 T)", compaction: "18% (×1.22)", use: "Driveway base, paver subgrade, retaining wall backfill", calcSlug: "/crushed-stone-calculator" },
-  { state: "Massachusetts / CT / NH / VT / ME", dotCode: "MassDOT M2.01.7 Dense Graded Base", quarryNames: "Dense Grade, 3/4\" Minus, Bank Run Gravel", sieve: "3/4\" down to mineral fines", density: "2,850 lbs / yd³ (1.43 T)", compaction: "20% (×1.25)", use: "Frost-heave resistant residential driveways", calcSlug: "/crusher-run-calculator" },
-
-  // Mid-Atlantic & Southeast
-  { state: "Virginia", dotCode: "VDOT 21-A / 21-B", quarryNames: "21-A (Fine Base), 21-B (Coarse Base), Crusher Run", sieve: "1\" down to #200 sieve", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "State highway base, residential gravel driveways", calcSlug: "/crusher-run-calculator" },
-  { state: "Maryland", dotCode: "MDOT SHA GAB (Graded Aggregate Base)", quarryNames: "CR-6 (Crusher Run 6), GAB, Crusher Run", sieve: "1.5\" down to fines", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "Driveway subbase, foundation trench backfill", calcSlug: "/crusher-run-calculator" },
-  { state: "North Carolina", dotCode: "NCDOT ABC (Aggregate Base Course)", quarryNames: "ABC Stone, Crusher Run, Compactable Base", sieve: "1.5\" down to mineral dust", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "All vehicular driveway construction, paver base", calcSlug: "/crusher-run-calculator" },
-  { state: "South Carolina", dotCode: "SCDOT Macadam Base", quarryNames: "Macadam, CR-14, Crusher Run", sieve: "1.5\" down to fines", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "Compacted base layer under asphalt and top gravel", calcSlug: "/crusher-run-calculator" },
-  { state: "Georgia", dotCode: "GDOT GAB (Graded Aggregate Base)", quarryNames: "GAB, Crusher Run, 810 Base", sieve: "1.5\" down to mineral fines", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "Standard base for driveways, roads, and concrete pads", calcSlug: "/crusher-run-calculator" },
-  { state: "Florida", dotCode: "FDOT Section 285 Limerock Base", quarryNames: "Limerock Base, Coquina Base, Shell Rock", sieve: "3.5\" maximum down to dust (soft limestone)", density: "2,400 to 2,600 lbs / yd³", compaction: "25% (×1.33)", use: "High-compaction road base in sandy Florida soils", calcSlug: "/crushed-stone-calculator" },
-  { state: "Alabama", dotCode: "ALDOT Section 825 Dense Base", quarryNames: "ALDOT 825 Type A & B, Dense Graded Limestone", sieve: "1\" down to fines", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "Structural base for farm roads and home driveways", calcSlug: "/crusher-run-calculator" },
-  { state: "Tennessee", dotCode: "TDOT Pug Mix (Mineral Aggregate Base)", quarryNames: "Pug Mix, Dense Grade Base (DGB), Crusher Run", sieve: "1.5\" down to dust", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "Premixed with optimal moisture for roller compaction", calcSlug: "/crusher-run-calculator" },
-
-  // Midwest
-  { state: "Illinois", dotCode: "IDOT CA-6 / CA-10", quarryNames: "CA-6 (Crushed Aggregate 6), CA-10, Road Pack", sieve: "1\" down to #200 sieve", density: "2,970 lbs / yd³ (1.485 T)", compaction: "20% (×1.25)", use: "The most widely specified road base in the Midwest", calcSlug: "/crusher-run-calculator" },
-  { state: "Ohio", dotCode: "ODOT Item 304 / Item 411", quarryNames: "#304 Aggregate Base, #411 Berm / Driveway Stone", sieve: "#304: 2\" to dust; #411: 3/4\" to dust", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "#304 for heavy base; #411 with extra fines for surface binding", calcSlug: "/crusher-run-calculator" },
-  { state: "Indiana", dotCode: "INDOT #53 / #73 Stone", quarryNames: "Dense Graded #53, Compactable #73", sieve: "#53: 1.5\" to dust; #73: 1\" to dust", density: "2,950 lbs / yd³ (1.48 T)", compaction: "20% (×1.25)", use: "Compacted base for parking pads, pole barns, driveways", calcSlug: "/crusher-run-calculator" },
-  { state: "Michigan", dotCode: "MDOT 21AA / 22A", quarryNames: "21AA Dense Limestone, 22A Gravel", sieve: "1.5\" down to mineral dust", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "21AA (100% crushed rock) resists freeze-thaw cycles", calcSlug: "/crusher-run-calculator" },
-  { state: "Wisconsin", dotCode: "WisDOT 1-1/4\" Base Aggregate Dense", quarryNames: "1-1/4\" Breaker Run, Dense Base, Traffic Bond", sieve: "1-1/4\" down to fines", density: "2,900 lbs / yd³ (1.45 T)", compaction: "18% (×1.22)", use: "Heavy subbase for residential driveways and cattle yards", calcSlug: "/crusher-run-calculator" },
-  { state: "Minnesota", dotCode: "MnDOT Class 5 / Class 6 Base", quarryNames: "Class 5 Gravel, Class 5 Crushed Limestone", sieve: "1\" down to #200 sieve", density: "2,800 to 2,900 lbs / yd³", compaction: "18% (×1.22)", use: "The standard driveway material across MN and the Dakotas", calcSlug: "/gravel-calculator" },
-  { state: "Missouri / Kansas", dotCode: "MoDOT Type 5 Aggregate Base", quarryNames: "Type 5 Base, Rolling Base, Crusher Run", sieve: "1\" down to fines", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "Standard base under asphalt and chip-seal roads", calcSlug: "/crusher-run-calculator" },
-
-  // South & Southwest
-  { state: "Texas", dotCode: "TxDOT Item 247 Type A/B Grade 1-2 Flexbase", quarryNames: "Flexbase, Caliche Base, Crushed Limestone Base", sieve: "1-3/4\" down to mineral fines", density: "2,800 to 2,950 lbs / yd³", compaction: "20% (×1.25)", use: "Foundational base for ranches, driveways, commercial yards", calcSlug: "/crushed-stone-calculator" },
-  { state: "Arizona", dotCode: "ADOT Class 2 Aggregate Base", quarryNames: "ABC, Chat, 3/4\" Minus Granite Base", sieve: "1\" down to fines", density: "2,800 lbs / yd³ (1.40 T)", compaction: "18% (×1.22)", use: "Xeriscape walking paths, desert ranch access roads", calcSlug: "/decomposed-granite-calculator" },
-  { state: "Colorado / Utah", dotCode: "CDOT Class 6 Road Base", quarryNames: "Class 6 Base, 3/4\" Road Base, Pit Run", sieve: "3/4\" down to #200 sieve", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "Rocky Mountain high-elevation driveways and snow roads", calcSlug: "/crusher-run-calculator" },
-
-  // West & Pacific Northwest
-  { state: "California", dotCode: "Caltrans Class 2 Aggregate Base (Class 2 AB)", quarryNames: "Class 2 AB, Road Base, 3/4\" Minus Crushed Rock", sieve: "3/4\" down to #200 sieve", density: "2,900 lbs / yd³ (1.45 T)", compaction: "20% (×1.25)", use: "Universal base under driveways, pavers, permeable roads", calcSlug: "/crushed-stone-calculator" },
-  { state: "Washington / Oregon", dotCode: "WSDOT CSBC (Crushed Surfacing Base Course)", quarryNames: "5/8\" Minus, 1-1/4\" Minus, CSBC, CSTC", sieve: "5/8\" or 1-1/4\" down to rock dust", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "5/8\" minus for top dressing; 1-1/4\" minus for soft subgrades", calcSlug: "/crusher-run-calculator" },
-  { state: "Nevada", dotCode: "NDOT Type 2 Class B Aggregate Base", quarryNames: "Type 2 Base, 3/4\" Minus Base", sieve: "3/4\" down to fines", density: "2,850 lbs / yd³ (1.43 T)", compaction: "18% (×1.22)", use: "Compacted subbase for arid desert climates", calcSlug: "/crusher-run-calculator" }
+  {
+    "state": "Virginia",
+    "terms": "21-A / 21A; 21-B / 21B; aggregate base",
+    "check": "Confirm the specified type, size designation and current grading. The similar names do not make 21A and 21B identical.",
+    "url": "https://www.vdot.virginia.gov/doing-business/technical-guidance-and-support/technical-guidance-documents/road-and-bridge-specifications/",
+    "calcSlug": "/crusher-run-calculator"
+  },
+  {
+    "state": "Pennsylvania",
+    "terms": "2A; 2RC; open-graded subbase (OGS); DSA",
+    "check": "Identify the actual PennDOT or supplier product. These are different product classes, not interchangeable names for one blend.",
+    "url": "https://www.pa.gov/agencies/penndot/programs-and-doing-business/construction/aggregate-plant-book",
+    "calcSlug": "/gravel-calculator"
+  },
+  {
+    "state": "Illinois",
+    "terms": "CA-6 / CA 6; CA-10 / CA 10; coarse aggregate",
+    "check": "Read the complete IDOT designation and approved source information rather than substituting one CA number for another.",
+    "url": "https://idot.illinois.gov/doing-business/materials-marketplace/aggregate.html",
+    "calcSlug": "/gravel-calculator"
+  },
+  {
+    "state": "Ohio",
+    "terms": "Item 304; #304 aggregate base; Item 411",
+    "check": "Check the item and grading in the contract or supplier quote. A base item is not a universal finished driveway section.",
+    "url": "https://www.transportation.ohio.gov/business/publications/pdm",
+    "calcSlug": "/crusher-run-calculator"
+  },
+  {
+    "state": "Minnesota",
+    "terms": "Class 5; Class 5Q; base and surface aggregate",
+    "check": "Confirm the exact class and specification edition, including crushing and grading requirements.",
+    "url": "https://www.dot.state.mn.us/materials/gbforms.html",
+    "calcSlug": "/gravel-calculator"
+  },
+  {
+    "state": "New York",
+    "terms": "Item 4; subbase course; granular subbase",
+    "check": "A local Item 4 name needs the actual subbase specification and source; do not equate every bank-run product with a processed base.",
+    "url": "https://www.dot.ny.gov/portal/pls/portal/MEXIS_APP.EI_EB_DOC_DETAILS.show?p_arg_names=doc_id&p_arg_values=10291",
+    "calcSlug": "/gravel-calculator"
+  },
+  {
+    "state": "New Jersey",
+    "terms": "DGA; dense-graded aggregate; quarry process (QP)",
+    "check": "Ask for the specified DGA or actual QP grading. A trade phrase alone does not establish compliance with an agency specification.",
+    "url": "https://nj.gov/transportation/eng/documents/BDC/pdf/attachmentbdc07s03.pdf",
+    "calcSlug": "/crusher-run-calculator"
+  }
 ];
 ---
 
@@ -71,88 +87,42 @@ const tradeData = [
             <input 
               type="text" 
               id="trade-search-input" 
-              placeholder="Search by state, DOT code, or trade name (e.g. 'Virginia', 'CA-6', 'Item 4', 'Flexbase', 'Class 5')..."
+              placeholder="Search these regional examples by state or name, such as Virginia, CA-6, Item 4 or Class 5"
               aria-label="Filter aggregate trade names by state or code"
             />
             <button type="button" id="btn-clear-trade-search" class="btn-clear-search" style="display: none;" aria-label="Clear search input">&times;</button>
           </div>
           <div class="search-stats-row">
-            <span id="search-count-label">Showing all 25 state aggregate standards</span>
-            <div class="quick-tags">
-              <button type="button" class="btn-tag" data-tag="21-A">21-A</button>
-              <button type="button" class="btn-tag" data-tag="CA-6">CA-6</button>
-              <button type="button" class="btn-tag" data-tag="#304">#304</button>
-              <button type="button" class="btn-tag" data-tag="#53">#53</button>
-              <button type="button" class="btn-tag" data-tag="Item 4">Item 4</button>
-              <button type="button" class="btn-tag" data-tag="QP">QP</button>
-              <button type="button" class="btn-tag" data-tag="ABC">ABC</button>
-              <button type="button" class="btn-tag" data-tag="Flexbase">Flexbase</button>
-              <button type="button" class="btn-tag" data-tag="Class 5">Class 5</button>
-              <button type="button" class="btn-tag" data-tag="5/8 Minus">5/8" Minus</button>
-            </div>
+            <span id="search-count-label">Showing {tradeData.length} regional examples</span>
+            <div class="quick-tags">{['21-A','CA-6','304','Class 5','2A','Item 4','DGA'].map(term=><button type="button" class="btn-tag" data-tag={term}>{term}</button>)}</div>
           </div>
         </div>
 
         <!-- Master Directory Table -->
         <div class="trade-table-card">
           <div class="table-responsive">
-            <table class="trade-table" id="trade-table">
-              <thead>
-                <tr>
-                  <th>State / Region</th>
-                  <th>DOT Specification</th>
-                  <th>Common Quarry Trade Names</th>
-                  <th>Nominal Sieve Grading</th>
-                  <th>Loose Bulk Density</th>
-                  <th>Compaction Factor</th>
-                  <th>Calculate</th>
-                </tr>
-              </thead>
-              <tbody id="trade-table-body">
-                {tradeData.map((item) => (
-                  <tr class="trade-row" data-search={`${item.state} ${item.dotCode} ${item.quarryNames} ${item.sieve}`.toLowerCase()}>
-                    <td><strong>{item.state}</strong></td>
-                    <td><span class="dot-badge">{item.dotCode}</span></td>
-                    <td class="quarry-name-cell">{item.quarryNames}</td>
-                    <td>{item.sieve}</td>
-                    <td class="density-cell">{item.density}</td>
-                    <td><span class="compaction-badge">{item.compaction}</span></td>
-                    <td>
-                      <a href={item.calcSlug} class="btn btn-sm btn-secondary">Calculate</a>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <table class="trade-table" id="trade-table"><caption>Selected regional name examples and source checks; this is not a directory of every state or an equivalence table.</caption>
+<thead><tr><th scope="col">State</th><th scope="col">Names you may encounter</th><th scope="col">Check before ordering</th><th scope="col">Reference and quantity tool</th></tr></thead>
+<tbody id="trade-table-body">{tradeData.map(item=><tr class="trade-row" data-search={(item.state+' '+item.terms+' '+item.check).toLowerCase()}>
+<th scope="row">{item.state}</th><td class="quarry-name-cell">{item.terms}</td><td>{item.check}</td>
+<td><a href={item.url}>Read the agency reference</a><br/><a href={item.calcSlug}>Estimate the selected material</a></td>
+</tr>)}</tbody></table>
           </div>
         </div>
 
-        <!-- Technical Guide & Why Names Differ -->
-        <div class="editorial-box" style="margin-top: var(--space-12);">
-          <h2>Why Does the Same Rock Have 20 Different Names?</h2>
-          <p>
-            In civil engineering, a <strong>dense-graded aggregate base</strong> is an engineered blend of angular crushed stone fragments ranging from coarse aggregate (3/4-inch to 1-1/2-inch) continuously graded down to fine mineral stone dust (#200 sieve). 
-          </p>
-          <p>
-            When wetted and compacted with a vibratory roller, the smaller stone particles and mineral fines migrate into the void spaces between the larger stones. This mechanical interlock creates an impermeable, semi-rigid foundation that resists rutting from heavy vehicles and acts as a load-distribution bridge over soft subgrade soils.
-          </p>
-          <div class="specs-callout-grid">
-            <div class="callout-card">
-              <h3>Clean Stone (#57) vs. Dense Base (21-A / CA-6)</h3>
-              <p>
-                <strong>#57 Stone</strong> is washed with zero fines. It is free-draining and will never compact into a rigid slab. It is ideal for French drains and driveway surface courses. <strong>Crusher Run / CA-6</strong> contains 8% to 15% mineral fines and compacts like low-strength concrete, making it the mandatory foundation under any driveway.
-              </p>
-            </div>
-            <div class="callout-card">
-              <h3>The 20% Compaction Multiplier Rule</h3>
-              <p>
-                Because dense-graded base materials pack together tightly when compacted, their in-place volume decreases by 18% to 22% compared to their loose stockpile volume. To achieve a target 4-inch compacted depth, you must order <strong>1.25 times</strong> the loose cubic yards (4 &divide; 0.80 = 5.0 inches loose spread).
-              </p>
-            </div>
-          </div>
-        </div>
+<article class="editorial-box" style="margin-top: var(--space-10);">
+<h2>A familiar trade name is a starting question</h2>
+<p>Names such as crusher run, quarry process and road base often refer to locally sold aggregate blends. Agency designations identify requirements in a particular specification. Similar applications do not establish that two named products have the same grading, recycled content, fines, durability or placement requirements.</p>
+<p>The table lists selected examples supported by the linked agency material and specification references. Some references document historical terminology. Use the governing edition, supplements and project detail for an actual job; this page does not certify a source or replace a supplier’s product sheet.</p>
+<h2>Keep four product attributes separate</h2>
+<ol><li><strong>Designation and grading:</strong> ask for the actual product and complete size distribution, including fines.</li><li><strong>Layer purpose:</strong> base, surface, fill and drain materials have different requirements.</li><li><strong>Loose bulk weight:</strong> obtain a product-specific pounds-per-yard or short-tons-per-yard conversion.</li><li><strong>Placement allowance:</strong> define whether the figure is extra loose material or a reduction from loose to finished volume.</li></ol>
+<p>No state name establishes one loose density or a fixed compaction percentage. A 20% loose-order increase multiplies by 1.20; a stated 20% loss from loose volume would require division by 0.80. Apply the supplier or project’s actual definition.</p>
+<h2>Take the product details to the calculator</h2>
+<p>Once the grading and layer are selected, use the <a href="/gravel-calculator">gravel calculator</a> with the actual loose weight, or the <a href="/crusher-run-calculator">base-layer calculator</a> with a clearly defined loose-order increase. Estimate separate driveway courses with the <a href="/driveway-rock-calculator">driveway calculator</a>. The <a href="/gravel-sizes">size guide</a> explains why numbered grading, washing and mineral type are separate attributes.</p>
+</article>
       </div>
     </section>
+  <TopicClusterNav />
   </main>
 
   <Footer />
@@ -182,7 +152,7 @@ const tradeData = [
     }
 
     if (countLabel) {
-      countLabel.textContent = `Showing ${visibleCount} of ${rows.length} state aggregate standards`;
+      countLabel.textContent = `Showing ${visibleCount} of ${rows.length} regional name examples`;
     }
   }
 

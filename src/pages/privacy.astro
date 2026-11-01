@@ -1,4 +1,5 @@
 ---
+import TopicClusterNav from '../components/TopicClusterNav.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -12,7 +13,7 @@ const breadcrumbs = [
 const entityTags = [
   { label: 'Policy Type', value: 'Data Privacy & Transparency' },
   { label: 'Effective Date', value: 'January 2026' },
-  { label: 'Last Updated', value: 'September 2026' },
+  { label: 'Last Updated', value: 'November 2026' },
   { label: 'Storage Standard', value: 'Client-Side LocalStorage' }
 ];
 
@@ -28,20 +29,6 @@ const quickStats = [
   metaDescription="Read our transparent privacy policy. Learn how Rock Coverage Calculator handles local browser storage, analytics, and data protection."
   canonicalPath="/privacy"
 >
-  <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Privacy Policy - Rock Coverage Calculator",
-      "url": "https://rockcoveragecalculator.com/privacy",
-      "description": "Privacy policy and client-side data protection disclosure for Rock Coverage Calculator.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Rock Coverage Calculator",
-        "url": "https://rockcoveragecalculator.com"
-      }
-    })} />
-  </Fragment>
 
   <Header />
 
@@ -61,24 +48,16 @@ const quickStats = [
 
         <div class="aeo-quick-card">
           <div class="aeo-badge">Key Privacy Summary</div>
-          <h2>Your Estimations Stay on Your Device</h2>
+          <h2>Calculations, storage and sharing</h2>
           <p>
-            Rock Coverage Calculator runs directly in your web browser. When you input measurements, select aggregates, or save project zones, that data is processed client-side and saved into your browser's private local storage. We do not maintain user accounts or store your jobsite estimates on our servers.
+            Calculations run in your browser, and saved project zones use browser storage rather than a site account database. Loading the site still makes requests to hosting and third-party services. Sharing a project URL or contacting the site is a separate action that can disclose the information you choose to include.
           </p>
         </div>
 
-        <h2>1. Information We Do Not Collect</h2>
-        <p>
-          We do not require you to create an account, register, or provide personal credentials to use any of our 56+ calculation engines. We do not collect:
-        </p>
-        <ul>
-          <li>Names, home or business addresses, or phone numbers</li>
-          <li>Credit card numbers or payment processing information</li>
-          <li>Proprietary project blueprints, property locations, or contractor client records</li>
-          <li>User passwords or account credentials</li>
-        </ul>
-
-        <h2>2. Browser Local Storage (Client-Side Storage)</h2>
+        <h2>1. Information needed to use the tools</h2>
+<p>No account, payment details or personal profile is required to calculate a quantity. Measurements do not need to include your name, street address, customer records or private project documents.</p>
+<p>If you email a question or correction, the email provider processes the message and the site receives the details you send. Include only information needed to explain the calculation; see the <a href="/contact">contact page</a>. Third-party advertising and hosting requests are described separately below.</p>
+<h2>2. Browser Local Storage (Client-Side Storage)</h2>
         <p>
           To enhance your user experience, this website uses standard HTML5 <code>localStorage</code> technology. This allows your browser to remember:
         </p>
@@ -88,7 +67,7 @@ const quickStats = [
           <li><strong>Measurement Units:</strong> Your preferred default input unit (Feet, Inches, Yards, or Meters).</li>
         </ul>
         <p>
-          This data remains exclusively within your local browser sandbox. It is never transmitted across the network to our servers. You may erase this data at any time by clicking "Clear All" in the Saved Projects drawer or by clearing your browser's site data and cookies.
+          Saved projects remain in this browser until you clear them or use a sharing or export feature. You can remove saved zones with “Clear All” or clear the site’s browser storage. A shared project link can encode measurements in its URL; loading or sending that link exposes the URL to the host, recipient and services involved.
         </p>
 
         <h2>3. Google AdSense, Cookies & Advertising Technologies</h2>
@@ -140,10 +119,10 @@ const quickStats = [
             Under the General Data Protection Regulation (GDPR) and the ePrivacy Directive, you have the right to grant or deny consent for the storage and accessing of cookies or other information on your device.
           </li>
           <li>
-            Where required by law, we implement a Google-certified Consent Management Platform (CMP) that adheres to the IAB Europe Transparency and Consent Framework (TCF v2.2) to obtain explicit consent for personalized advertising and non-essential cookies.
+            Advertising and consent controls may be supplied by Google or other providers. Any consent interface shown when you visit describes the choices it offers; the presence of an advertising script alone does not establish consent or certification.
           </li>
           <li>
-            You can modify or withdraw your consent preferences at any time through our on-site cookie settings or through your browser settings.
+            Use any consent controls presented on the site and your browser’s cookie settings. Provider controls such as Google Ads Settings also govern options available through that service.
           </li>
         </ul>
 
@@ -165,16 +144,17 @@ const quickStats = [
 
         <h2>9. Contacting Us Regarding Privacy</h2>
         <p>
-          If you have questions, feedback, or concerns regarding our privacy practices or advertising disclosures, please contact our editorial and compliance team:
+          If you have questions, feedback, or concerns regarding our privacy practices or advertising disclosures, please contact our site contact:
         </p>
         <div class="contact-box">
-          <p><strong>Rock Coverage Calculator — Compliance & Privacy Desk</strong></p>
+          <p><strong>Rock Coverage Calculator</strong></p>
           <p>Email: <a href="mailto:rockcoveragecalculator@gmail.com" class="text-gold">rockcoveragecalculator@gmail.com</a></p>
           <p>Website: <a href="https://rockcoveragecalculator.com" class="text-gold">rockcoveragecalculator.com</a></p>
         </div>
 
       </div>
     </article>
+  <TopicClusterNav />
   </main>
 
   <Footer />

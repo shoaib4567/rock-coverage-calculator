@@ -1,23 +1,46 @@
 ---
-import { relatedTools, type ToolLink } from '../lib/site-navigation';
-interface Props { currentPage?: string; activePage?: string; category?: string; upLinks?: ToolLink[]; lateralLinks?: ToolLink[]; bridgeLinks?: ToolLink[]; supportGuides?: ToolLink[]; }
-const route=Astro.props.currentPage || Astro.url.pathname.replace(/\/$/,'') || '/';
-const {upLinks=[],lateralLinks=[],bridgeLinks=[],supportGuides=[]}=Astro.props;
-const candidates=[...upLinks,...bridgeLinks,...supportGuides,...lateralLinks,...relatedTools(route)];
-const seen=new Set<string>();
-const links=candidates.filter(l=>l.slug!==route&&!seen.has(l.slug)&&seen.add(l.slug)).slice(0,8);
+import { getContentPage, getTopicChildren, getNextPages } from '../lib/content-map.mjs';
+interface Link { title: string; slug: string; desc?: string; badge?: string; }
+interface Props { currentPage?: string; activePage?: string; category?: string; upLinks?: Link[]; lateralLinks?: Link[]; bridgeLinks?: Link[]; supportGuides?: Link[]; }
+const route = Astro.url.pathname.replace(/\/$/, '') || '/';
+const current = getContentPage(route);
+const parent = current?.parent ? getContentPage(current.parent) : undefined;
+const children = getTopicChildren(route);
+const nextPages = getNextPages(route);
+const description = (summary: string) => summary.split('. ')[0].replace(/\.$/, '') + '.';
 ---
-<nav class="topic-cluster-section" aria-label="Related calculators and guides">
- <div class="container related-tools">
-  <h2>Continue planning your project</h2>
-  <ul>{links.map(link=><li><a href={link.slug}>{link.title.replace(/\s*\((Pillar|Material Parent|Home|Conversion Hub|Quarry Weight|Pure Volume|Retail Bags)\)/g,'')}</a></li>)}</ul>
-  <p><a href="/calculators">Browse all calculators and guides →</a></p>
- </div>
-</nav>
+{current && <nav class="topic-cluster-section" aria-label="Related calculators and guides" data-topic-route={route}>
+  <div class="container related-tools">
+    <h2>{current.cluster === 'support' ? 'Related site information' : 'Continue planning your project'}</h2>
+    {parent && <p class="parent-link">Return to <a href={parent.route} data-topic-relation="parent">{parent.title}</a>.</p>}
+    {children.length > 0 && <div class="link-group">
+      <h3>Explore this topic</h3>
+      <ul>{children.map(child => <li>
+        <a href={child.route} data-topic-relation="child">{child.title}</a>
+        <p>{description(child.summary)}</p>
+      </li>)}</ul>
+    </div>}
+    {nextPages.length > 0 && <div class="link-group">
+      <h3>{children.length ? 'Check the next part of the plan' : 'Useful next steps'}</h3>
+      <ul>{nextPages.map(next => <li>
+        <a href={next.route} data-topic-relation="next">{next.title}</a>
+        <p>{description(next.summary)}</p>
+      </li>)}</ul>
+    </div>}
+    {parent?.route !== '/calculators' && !children.some(child => child.route === '/calculators') && <p class="library-link"><a href="/calculators">Browse all calculators and guides →</a></p>}
+  </div>
+</nav>}
 <style>
- .topic-cluster-section{padding:var(--space-8) 0;border-top:1px solid var(--border-subtle);margin-top:var(--space-8)}
- .related-tools h2{font-size:var(--text-xl);margin:0 0 var(--space-4);color:var(--text-primary)}
- ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--space-3)}
- a{color:var(--text-primary);text-decoration:underline;text-underline-offset:3px}li a{display:block;padding:var(--space-3);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md)}
- p{margin-top:var(--space-4)}a:focus-visible{outline:3px solid var(--gold-400);outline-offset:3px}
+  .topic-cluster-section { padding: var(--space-8) 0; border-top: 1px solid var(--border-subtle); margin-top: var(--space-8); }
+  .related-tools h2 { font-size: var(--text-xl); margin: 0 0 var(--space-3); color: var(--text-primary); }
+  .related-tools h3 { font-size: var(--text-base); margin: 0 0 var(--space-3); color: var(--text-secondary); }
+  .link-group { margin-top: var(--space-6); }
+  ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr)); gap: var(--space-3); }
+  li { padding: var(--space-4); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); min-width: 0; }
+  a { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+  li a { font-weight: 650; }
+  li p { color: var(--text-secondary); line-height: 1.6; font-size: var(--text-sm); margin: var(--space-2) 0 0; }
+  .parent-link, .library-link { color: var(--text-secondary); line-height: 1.6; margin: var(--space-3) 0 0; }
+  .library-link { margin-top: var(--space-6); }
+  a:focus-visible { outline: 3px solid var(--accent-gold); outline-offset: 4px; }
 </style>

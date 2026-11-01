@@ -1,4 +1,5 @@
 ---
+import TopicClusterNav from '../components/TopicClusterNav.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
@@ -7,14 +8,6 @@ const email = 'rockcoveragecalculator@gmail.com';
 const breadcrumbs = [{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact' }];
 ---
 <BaseLayout title="Contact | Rock Coverage Calculator" description="Email Rock Coverage Calculator with a calculation question, correction, or website issue. Include the page and the inputs you used." canonicalPath="/contact">
-  <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org', '@type': 'ContactPage',
-      name: 'Contact Rock Coverage Calculator', url: 'https://rockcoveragecalculator.com/contact',
-      mainEntity: { '@type': 'Organization', name: 'Rock Coverage Calculator',
-        url: 'https://rockcoveragecalculator.com', email }
-    })} />
-  </Fragment>
   <Header />
   <main id="main-content">
     <PageHero title="Contact Rock Coverage Calculator" highlightWord="Contact" badge="Questions and corrections" subtitle="Send a calculation question, report a problem, or suggest an improvement." breadcrumbs={breadcrumbs} />
@@ -41,6 +34,7 @@ const breadcrumbs = [{ name: 'Home', url: '/' }, { name: 'Contact', url: '/conta
         <p>See our <a href="/privacy">privacy policy</a> and <a href="/terms">terms of use</a>.</p>
       </section>
     </article>
+  <TopicClusterNav />
   </main>
   <Footer />
 </BaseLayout>

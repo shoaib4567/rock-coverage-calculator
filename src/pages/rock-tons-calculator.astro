@@ -7,6 +7,12 @@ import TonsVisualizer from '../components/visualizers/TonsVisualizer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
+const faqItems = [
+  { q: 'How do cubic yards become US short tons?', a: 'Multiply loose cubic yards by the supplier’s short tons per cubic yard. For example, 5 yards at 1.35 short tons per yard gives 6.75 short tons. A US short ton is 2,000 pounds.' },
+  { q: 'Is the result a measured delivery weight?', a: 'No. It is an estimate from volume and a selected loose weight. Check the actual order unit, product description and any scale ticket supplied with the delivery.' },
+  { q: 'Should I add the moisture adjustment?', a: 'Leave it at zero when the supplier’s loose weight already describes the product as sold. An additional adjustment is a scenario assumption and can double-count moisture if it is already included.' }
+];
+
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Quantity & Conversion', url: '/rock-coverage-calculator-yard' },
@@ -14,30 +20,35 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Tonnage (Weight)' },
-  { label: 'Unit of Measure', value: 'US Short Ton (2,000 lbs)' },
-  { label: 'Scale Formula', value: 'Tons = Cubic Yards × Bulk Density' },
-  { label: 'Density Range', value: '0.75 to 1.60 Tons per yd³' }
+  {
+    "label": "Weight unit",
+    "value": "US short ton = 2,000 pounds"
+  },
+  {
+    "label": "Volume conversion",
+    "value": "Multiply yards by loose short tons per yd³"
+  },
+  {
+    "label": "Product weight",
+    "value": "Use the actual supplier value"
+  }
 ];
 
-const quickStats = [{"value":"2,000 lb","label":"US short ton","desc":"Weight conversion"},{"value":"Supplier value","label":"Loose bulk weight","desc":"Presets are examples"},{"value":"Optional","label":"Moisture scenario","desc":"Avoid counting moisture twice"}];
-
-const faqItems = [
+const quickStats = [
   {
-    "q": "How many tons are needed for 500 sq ft at 3 inches?",
-    "a": "The geometric volume is 4.63 yd³. At the example 1.35 US short tons per yard, that is 6.25 tons before any extra order allowance."
+    "value": "2,000 lb",
+    "label": "US short ton",
+    "desc": "Distinct from metric tonnes and long tons"
   },
   {
-    "q": "How do I convert cubic yards to US short tons?",
-    "a": "Multiply loose cubic yards by the product’s loose tons per cubic yard. If the supplier gives pounds per cubic yard, multiply by yards and divide the pounds by 2,000."
+    "value": "Editable",
+    "label": "Loose bulk weight",
+    "desc": "Product, grading and moisture affect the conversion"
   },
   {
-    "q": "Is the result a certified weight?",
-    "a": "No. It is an estimate based on your inputs. A scale ticket measures the actual net weight of a load; the calculator does not certify a shipment."
-  },
-  {
-    "q": "Should I add moisture to every estimate?",
-    "a": "No. Only use an additional adjustment when appropriate to the density basis. Leave it at zero when your supplier’s weight factor already reflects the delivered product."
+    "value": "Estimate",
+    "label": "Order weight",
+    "desc": "Confirm the seller’s quoted unit and quantity"
   }
 ];
 ---

@@ -1,312 +1,47 @@
-﻿---
+---
 import GuideLayout from '../layouts/GuideLayout.astro';
-
 const calculatorsSupported = [
-  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Pipe & cover', desc: 'Calculate the clean stone in a drain trench after pipe displacement and top cover.' },
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³', desc: 'Estimate #57 angular crushed limestone and blue granite for driveway surfaces.' },
-  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³', desc: 'Determine total tonnage and volume for driveway gravel and parking pads.' },
-  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: '1.45 t/yd³', desc: 'Compare clean #57 stone against dense graded base containing stone fines.' }
-];
-
-const upLinks = [
-  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43' },
-  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
-];
-
-const bridgeLinks = [
-  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Tons' },
-  { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Yardage' },
-  { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: 'Volume' }
+  {
+    "title": "Crushed Stone Calculator",
+    "slug": "/crushed-stone-calculator",
+    "badge": "Quantity tool",
+    "desc": "Choose the tool for this part of the order."
+  },
+  {
+    "title": "Drain Rock Trench Calculator",
+    "slug": "/drain-rock-calculator",
+    "badge": "Quantity tool",
+    "desc": "Choose the tool for this part of the order."
+  },
+  {
+    "title": "Crushed Stone Tons Calculator",
+    "slug": "/crushed-stone-tons-calculator",
+    "badge": "Quantity tool",
+    "desc": "Choose the tool for this part of the order."
+  }
 ];
 ---
+<GuideLayout title="#57 Stone: Size, Fines and Ordering Checks" metaDescription="Read a #57 product as a grading designation, then check its actual stone type, fines, washing and loose bulk weight." canonicalPath="/57-stone-size-guide" guideTitle="#57 Stone: Size, Fines and Ordering Checks" guideSubtitle="Read a #57 product as a grading designation, then check its actual stone type, fines, washing and loose bulk weight." standardBadge="Read the actual product specification" readingTime="4 min read" lastUpdated="November 1, 2026" calculatorsSupported={calculatorsSupported}>
 
-<GuideLayout
-  title="#57 Stone Size Guide: Sieve Specifications, Density & Uses"
-  metaDescription="Technical civil engineering guide to #57 stone. ASTM D448 and AASHTO M43 gradation envelope, sieve passing percentages, bulk density, and drainage uses."
-  canonicalPath="/57-stone-size-guide"
-  guideTitle="#57 Stone Size Guide: Sieve Specifications, Density & Uses"
-  guideSubtitle="An engineering analysis of ASTM D448 and AASHTO M43 Number 57 coarse aggregate. Gradation envelopes, bulk densities, and construction applications."
-  standardBadge="ASTM D448 / AASHTO M43"
-  readingTime="7 min read"
-  lastUpdated="September 2026"
-  calculatorsSupported={calculatorsSupported}
-  upLinks={upLinks}
-  lateralLinks={lateralLinks}
-  bridgeLinks={bridgeLinks}
->
-  <!-- Project Reference Summary -->
-  <section class="aeo-guide-box" aria-label="Summary of Number 57 Stone">
-    <div class="aeo-guide-header">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      <span class="aeo-guide-title">Executive Technical Summary: Number 57 Stone</span>
-    </div>
-    <div class="aeo-guide-grid">
-      <div class="aeo-guide-item">
-        <span class="aeo-guide-label">Nominal Size</span>
-        <span class="aeo-guide-value">1/2 Inch to 1 Inch (12.5 to 25 mm)</span>
-        <p class="aeo-guide-desc">Defined by ASTM D448 as a blend of Number 5 and Number 7 size fractions.</p>
-      </div>
-      <div class="aeo-guide-item">
-        <span class="aeo-guide-label">Bulk Density</span>
-        <span class="aeo-guide-value">Use your supplier's lb/cu yd</span>
-        <p class="aeo-guide-desc">ASTM C29 measures bulk unit weight; it does not assign one weight to all #57 products.</p>
-      </div>
-      <div class="aeo-guide-item">
-        <span class="aeo-guide-label">Drainage Check</span>
-        <span class="aeo-guide-value">Confirm a clean grade</span>
-        <p class="aeo-guide-desc">Void space and fines vary with the product and are separate from its size designation.</p>
-      </div>
-      <div class="aeo-guide-item">
-        <span class="aeo-guide-label">Primary Uses</span>
-        <span class="aeo-guide-value">French Drains, Driveways & Concrete</span>
-        <p class="aeo-guide-desc">Applications depend on source stone, cleanliness, and the project specification.</p>
-      </div>
-    </div>
-  </section>
+<section aria-labelledby="meaning"><h2 id="meaning">What the #57 number tells you</h2>
+<p>#57 identifies an aggregate size grading in the specification being used. It is not a 57-millimeter diameter, a mineral name, a test of cleanliness or a universal weight per yard. A quarry may produce a crushed #57 stone; another supplier may sell a rounded gravel meeting a specified #57 grading.</p>
+<p>Use the number to start a product conversation. Obtain the full designation and applicable specification, then match it to the layer shown in the project detail. The <a href="/gravel-sizes">gravel size guide</a> explains nominal sizes, numbered sieves and regional product names.</p></section>
+<section aria-labelledby="read-report"><h2 id="read-report">Read the sieve result as percentages</h2>
+<p>A gradation report lists sieve openings and the percentage of the dry sample passing each opening. A nominal range is a short description; compliance is evaluated against the applicable limits across the required sieves.</p>
+<div class="table-responsive"><table><caption>How to read a grading report without treating its label as a complete product specification</caption><thead><tr><th scope="col">Report field</th><th scope="col">What it describes</th><th scope="col">What to ask</th></tr></thead><tbody>
+<tr><th scope="row">Nominal size</th><td>A shorthand for the grading</td><td>Which specification and size designation apply?</td></tr>
+<tr><th scope="row">Sieve opening</th><td>The opening through which a fraction of the sample passes</td><td>Are inch and numbered-sieve values being compared correctly?</td></tr>
+<tr><th scope="row">Percent passing</th><td>The dry sample fraction passing that opening</td><td>Does the complete result meet the project’s limits?</td></tr>
+<tr><th scope="row">Fines result</th><td>The measured small-particle fraction at the specified sieve</td><td>Does that result and the wash status suit the layer?</td></tr>
+</tbody></table></div>
+<p>For example, if one required sieve permits 0–10% passing and a sample reports 5%, that sieve result is within the stated band. It does not establish compliance at the other sieves, product durability, washing or suitability for a drain. A No. 8 sieve result is not the same measurement as the finer No. 200 sieve.</p></section>
+<section aria-labelledby="properties"><h2 id="properties">Confirm the properties the number leaves out</h2>
+<ul><li><strong>Source and shape:</strong> mineral type and crushed or rounded particles.</li><li><strong>Fines and washing:</strong> use actual product information, rather than assuming every #57 load is washed or has zero fines.</li><li><strong>Loose bulk weight:</strong> a quoted or measured pounds-per-yard value for the product being sold.</li><li><strong>Project use:</strong> the specified layer, filter or bedding, and placement requirements.</li></ul>
+<p>A scale ticket can document delivered weight. A sieve analysis describes grading. Neither substitutes for the other. <a href="https://www.pa.gov/agencies/penndot/programs-and-doing-business/construction/aggregate-plant-book">PennDOT’s Aggregate Plant Book</a> provides separate gradation, tonnage and quality-control records, illustrating why these attributes must be checked separately.</p></section>
+<section aria-labelledby="quantity"><h2 id="quantity">Estimate the selected #57 layer</h2>
+<p>Once the product and thickness are selected, use area × depth in inches ÷ 324 for cubic yards. A 100 sq ft layer at 3 inches occupies 0.93 yd³ before extra. With a chosen 10% allowance, it needs 1.02 yd³. At an explicitly assumed 1.35 US short tons per loose yard, that is about 1.38 tons; another supplier weight changes the ton result.</p>
+<p>For a pipe trench, use the <a href="/drain-rock-calculator">drain rock calculator</a> to account for cover and pipe displacement. For a general order, use the <a href="/crushed-stone-calculator">crushed stone calculator</a>. Calculate a separate base or surface as its own material.</p></section>
+<section aria-labelledby="reference"><h2 id="reference">Use the governing specification for the job</h2>
+<p><a href="https://www.pa.gov/content/dam/copapwp-pagov/en/penndot/documents/public/pubsforms/publications/pub_408/408_2026/408_2026_ie.pdf">PennDOT Publication 408, 2026 edition</a> and the <a href="https://www.vdot.virginia.gov/doing-business/technical-guidance-and-support/technical-guidance-documents/road-and-bridge-specifications/">VDOT specification library</a> are examples of agency-specific source documents. Apply the edition, supplements and project requirements that govern your work. This guide explains reading and ordering; it does not approve an aggregate source or select a drainage design.</p></section>
 
-  <!-- Technical Content Section -->
-  <div class="guide-text-block">
-    <h2>What Is Number 57 Stone?</h2>
-    <p>
-      In civil construction and aggregate quarrying, <strong>Number 57 Stone</strong> (often designated simply as #57 stone or #57 gravel) is one of the most widely specified coarse aggregate sizes in North America. Contrary to popular belief, the number 57 does not refer to a 57 millimeter particle diameter. Instead, it designates a standardized grading envelope established under <strong>ASTM D448</strong> (<em>Standard Classification for Sizes of Aggregate for Road and Bridge Construction</em>) and its highway equivalent, <strong>AASHTO M43</strong>.
-    </p>
-    <p>
-      The size number describes gradation, not mineral type or particle shape. Suppliers sell both crushed angular and naturally rounded products as #57 stone. Ask for the sieve gradation, source material, and fines content for the product you intend to use.
-    </p>
-
-    <h2>ASTM D448 and AASHTO M43 Gradation Sieve Envelope</h2>
-    <p>
-      A product sold to the ASTM D448 #57 size designation can be checked by laboratory sieve analysis under <strong>ASTM C136</strong> (<em>Standard Test Method for Sieve Analysis of Fine and Coarse Aggregates</em>). Its aggregate sample must fall within the applicable percentage-passing limits by dry weight:
-    </p>
-
-    <div class="table-container">
-      <table class="guide-data-table">
-        <thead>
-          <tr>
-            <th scope="col">Standard Sieve Size</th>
-            <th scope="col">Metric Opening (mm)</th>
-            <th scope="col">Specification: Percent Passing by Weight</th>
-            <th scope="col">Quarry Function in Aggregate Matrix</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>1.5 Inch (37.5 mm)</strong></td>
-            <td>37.5 mm</td>
-            <td><strong>100%</strong></td>
-            <td>Maximum upper boundary; zero oversize particles allowed</td>
-          </tr>
-          <tr>
-            <td><strong>1.0 Inch (25.0 mm)</strong></td>
-            <td>25.0 mm</td>
-            <td><strong>95% to 100%</strong></td>
-            <td>Primary top caliper stone; carries compressive load</td>
-          </tr>
-          <tr>
-            <td><strong>1/2 Inch (12.5 mm)</strong></td>
-            <td>12.5 mm</td>
-            <td><strong>25% to 60%</strong></td>
-            <td>Intermediate aggregate fraction; bridges open void spaces</td>
-          </tr>
-          <tr>
-            <td><strong>No. 4 Sieve (4.75 mm)</strong></td>
-            <td>4.75 mm</td>
-            <td><strong>0% to 10%</strong></td>
-            <td>Fine stone chips; limited to preserve void conductivity</td>
-          </tr>
-          <tr>
-            <td><strong>No. 8 Sieve (2.36 mm)</strong></td>
-            <td>2.36 mm</td>
-            <td><strong>0% to 5%</strong></td>
-            <td>Mineral dust limit; washed to eliminate silt and clay</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2>Bulk Density and Quarry Weight Conversion</h2>
-    <p>
-      Suppliers may sell #57 products by loose cubic yard, US short ton or bag. For a weight-based quote, one US short ton equals 2,000 pounds; convert volume using the actual product’s loose bulk weight.
-    </p>
-    <p>
-      <strong>ASTM C29 / C29M</strong> is a method for measuring bulk unit weight, not a universal #57 density. For comparison, <a href="https://southbaymaterials.com/drain-rock-3-4">South Bay lists 2,500 lb/cu yd</a> for one 3/4-inch washed drain rock, while <a href="https://shop.three-z.com/index.php?product_id=58&amp;route=product%2Fproduct">Three Z lists about 2,800 lb/cu yd</a> for a washed #57 gravel. The latter is rounded, so #57 does not always mean angular stone.
-    </p>
-
-    <div class="formula-callout">
-      <code>Cubic Yards = (Square Feet × Depth in Inches) / 324</code>
-      <br />
-      <code>Estimated US Short Tons = Cubic Yards × Supplier lb/cu yd ÷ 2,000</code>
-      <br />
-      <code>At 2,700 lb/cu yd: 1 Ton Covers 120 sq ft at 2" Depth</code>
-      <br />
-      <code>At 2,700 lb/cu yd: 1 Ton Covers 80 sq ft at 3" Depth</code>
-    </div>
-
-    <p>
-      <strong>Stockpile condition matters:</strong> Moisture and gradation can change the delivered weight of a cubic yard. Confirm the yard's estimate when ordering and use the <a href="/rock-density-chart">density chart</a> as a comparison, not a substitute for the quote.
-    </p>
-
-    <h2>Primary Construction and Landscaping Applications</h2>
-    
-    <h3>1. French Drains and Subsurface Drainage Systems</h3>
-    <p>
-      A clean, appropriately graded #57 product can be used around a perforated pipe where the project detail allows it. Check that the stone is supplied with suitably low fines; the size number alone does not guarantee it is washed or specify its void space. Use the <a href="/drain-rock-calculator">drain rock calculator</a> to account for top cover and pipe displacement.
-    </p>
-
-    <h3>2. Residential Driveway Top Dressing</h3>
-    <p>
-      Angular crushed #57 stone can be used as a surface or drainage layer in some driveways. For a compacted driving base, a specified dense-graded material with fines is often a different choice. Rounded #57 gravel behaves differently under tire loads; match the aggregate to the planned layer and site.
-    </p>
-
-    <h3>3. Concrete and Asphalt Coarse Aggregate</h3>
-    <p>
-      A producer may use #57-size aggregate in a concrete or asphalt mixture when the full material meets that mix's specification. The size number alone does not establish concrete strength or asphalt performance.
-    </p>
-
-    <h2>Number 57 Stone vs Crusher Run: The Critical Distinction</h2>
-    <p>
-      Contractors frequently confuse #57 stone with crusher run (also called dense graded aggregate or quarry process). The difference is fundamental:
-    </p>
-    <ul>
-      <li><strong>#57 Stone:</strong> A size designation. Specify a clean, low-fines version where open drainage is needed; confirm whether it is angular or rounded.</li>
-      <li><strong>Crusher Run:</strong> A dense-graded blend with fine particles that can compact into a base. Check the local product gradation rather than substituting it for specified drain stone.</li>
-    </ul>
-  </div>
 </GuideLayout>
-
-<style>
-  .aeo-guide-box {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
-  }
-
-  .aeo-guide-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-    color: var(--accent-gold);
-  }
-
-  .aeo-guide-title {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .aeo-guide-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-4);
-  }
-
-  .aeo-guide-item {
-    background: var(--bg-surface);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-subtle);
-  }
-
-  .aeo-guide-label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--accent-gold);
-    margin-bottom: 2px;
-  }
-
-  .aeo-guide-value {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 2px;
-  }
-
-  .aeo-guide-desc {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin: 0;
-    line-height: 1.35;
-  }
-
-  .guide-text-block h2 {
-    font-size: var(--text-2xl);
-    color: var(--text-primary);
-    margin: var(--space-8) 0 var(--space-4) 0;
-  }
-
-  .guide-text-block h3 {
-    font-size: var(--text-lg);
-    color: var(--text-primary);
-    margin: var(--space-6) 0 var(--space-2) 0;
-  }
-
-  .guide-text-block p {
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: var(--space-4);
-  }
-
-  .guide-text-block ul {
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin: var(--space-2) 0 var(--space-6) var(--space-6);
-  }
-
-  .guide-text-block li {
-    margin-bottom: var(--space-2);
-  }
-
-  .table-container {
-    overflow-x: auto;
-    margin: var(--space-6) 0;
-  }
-
-  .guide-data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-    text-align: left;
-  }
-
-  .guide-data-table th, .guide-data-table td {
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .guide-data-table th {
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    font-weight: 700;
-  }
-
-  .guide-data-table tr:hover td {
-    background: rgba(212, 168, 83, 0.04);
-  }
-
-  .formula-callout {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-</style>

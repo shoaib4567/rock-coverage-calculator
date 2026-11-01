@@ -3,6 +3,8 @@ import BaseLayout from './BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getContentPage } from '../lib/content-map.mjs';
 
 interface CalculatorCallout {
   title: string;
@@ -47,18 +49,13 @@ const {
 
 const siteUrl = 'https://rockcoveragecalculator.com';
 const canonicalURL = `${siteUrl}${canonicalPath}`;
-
-const breadcrumbs = [
-  { name: 'Home', url: '/' },
-  { name: 'Technical Guides', url: '/rock-coverage-chart' },
-  { name: guideTitle, url: canonicalPath }
-];
+const page = getContentPage(canonicalPath);
 
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": schemaType,
-  "headline": guideTitle,
-  "description": metaDescription,
+  "headline": page?.title ?? guideTitle,
+  "description": page?.summary ?? metaDescription,
   "inLanguage": "en-US",
   "url": canonicalURL,
   "author": {
@@ -82,16 +79,6 @@ const articleSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": breadcrumbs.map((crumb, index) => ({
-        "@type": "ListItem",
-        "position": index + 1,
-        "name": crumb.name,
-        "item": `${siteUrl}${crumb.url}`
-      }))
-    })} />
   </Fragment>
 
   <Header />
@@ -100,29 +87,16 @@ const articleSchema = {
     <!-- Guide Header -->
     <header class="guide-hero">
       <div class="container">
-        <nav class="guide-breadcrumbs" aria-label="Breadcrumbs">
-          <ol>
-            {breadcrumbs.map((crumb, index) => (
-              <li>
-                {index < breadcrumbs.length - 1 ? (
-                  <a href={crumb.url}>{crumb.name}</a>
-                ) : (
-                  <span aria-current="page">{crumb.name}</span>
-                )}
-                {index < breadcrumbs.length - 1 && <span class="crumb-separator">/</span>}
-              </li>
-            ))}
-          </ol>
-        </nav>
+        <Breadcrumbs compact />
 
         <div class="guide-hero-badge-row">
-          <span class="standard-badge">{standardBadge}</span>
+          <span class="standard-badge">{page?.kind === 'reference guide' ? 'Product and quantity reference' : standardBadge}</span>
           <span class="reading-meta">{readingTime}</span>
           {lastUpdated && <span class="reading-meta">Updated: {lastUpdated}</span>}
         </div>
 
-        <h1 class="guide-hero-title">{guideTitle}</h1>
-        <p class="guide-hero-subtitle">{guideSubtitle}</p>
+        <h1 class="guide-hero-title">{page?.title ?? guideTitle}</h1>
+        <p class="guide-hero-subtitle">{page?.summary ?? guideSubtitle}</p>
 
         <div class="guide-author-bar">
           <div class="author-avatar">
@@ -149,17 +123,17 @@ const articleSchema = {
             <section class="calc-callout-section" aria-label="Companion Calculators">
               <div class="calc-callout-header">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h10v10H7z"/></svg>
-                <h3>Companion Calculators for This Project</h3>
+                <h2>Companion calculators for this project</h2>
               </div>
               <p>Use these tools to estimate the material quantity, then check the inputs against your supplier and project plan.</p>
               <div class="calc-callout-grid">
                 {calculatorsSupported.map((calc) => (
                   <a href={calc.slug} class="calc-callout-card">
                     <div class="calc-callout-card-top">
-                      <h4>{calc.title}</h4>
+                      <h3>{getContentPage(calc.slug)?.title ?? calc.title}</h3>
                       <span class="calc-callout-badge">{calc.badge}</span>
                     </div>
-                    <p>{calc.desc}</p>
+                    <p>{getContentPage(calc.slug)?.summary ?? calc.desc}</p>
                     <span class="calc-callout-action">Launch Calculator &rarr;</span>
                   </a>
                 ))}
@@ -449,7 +423,7 @@ const articleSchema = {
     color: var(--accent-gold);
   }
 
-  .calc-callout-header h3 {
+  .calc-callout-header h2 {
     font-size: var(--text-lg);
     font-weight: 700;
     color: var(--text-primary);
@@ -494,7 +468,7 @@ const articleSchema = {
     margin-bottom: var(--space-2);
   }
 
-  .calc-callout-card-top h4 {
+  .calc-callout-card-top h3 {
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--text-primary);

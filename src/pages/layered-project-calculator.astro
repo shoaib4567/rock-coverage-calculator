@@ -1,4 +1,5 @@
 ---
+import TopicClusterNav from '../components/TopicClusterNav.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -232,6 +233,7 @@ const metaDescription = "Calculate multi-layer landscape projects in one unified
       </div>
     </section>
 <section class="container section"><h2>Worked two-layer example</h2><p>For a 12 × 16 ft patio, a 4-inch finished base occupies 2.37 yd³. At a chosen 25% loose-volume increase and 5% additional extra, order 3.11 yd³ of base. A separate 2-inch top occupies 1.19 yd³; with 10% extra and no loose-volume increase, order 1.30 yd³. Weight depends on the actual loose densities you enter.</p><h2>What this shopping list includes</h2><p>The estimator adds the selected layers, optional fabric and a full rectangular perimeter. Fabric assumes 15% overlap and 300 sq ft rolls; edging assumes a spike every 18 inches. Confirm product roll sizes, overlaps and fixing instructions. Subtract sides that do not need edging. The excavation figure covers the selected layer thicknesses only; it does not allow for every ground preparation or disposal condition.</p><p>Presets illustrate quantities rather than construction specifications. Check the <a href="/rock-depth-guide">depth planning guide</a> and <a href="/about">formulas and assumptions</a>. Use the <a href="/which-rock-should-i-use">material selection helper</a> when comparing products, then confirm the actual installation plan.</p></section>
+  <TopicClusterNav />
   </main>
 
   <Footer />
@@ -550,6 +552,10 @@ Calculated on rockcoveragecalculator.com/layered-project-calculator`;
 </script>
 
 <style>
+  .layered-inputs-panel, .layered-results-panel { min-width: 0; }
+  .layer-fields-grid > *, .dim-inputs-row > *, .layered-inputs-panel .input-field { min-width: 0; }
+  .layer-select, .layered-inputs-panel .input-field input { min-width: 0; max-width: 100%; }
+  @media (max-width: 480px) { .layered-inputs-panel .layer-fields-grid { grid-template-columns: minmax(0,1fr); } }
   .presets-card {
     background: var(--slate-900);
     border: 1px solid var(--border-card);

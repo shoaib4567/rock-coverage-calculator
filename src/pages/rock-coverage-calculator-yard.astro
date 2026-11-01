@@ -13,16 +13,40 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Rock Coverage Yards' },
-  { label: 'Conversion Base', value: '1 yd³ = 27 Cubic Feet' },
-  { label: 'Rule of 324', value: 'Sq Ft × Inches / 324 = Yards' },
-  { label: 'Hauling Unit', value: 'Commercial Dump Truck Loads' }
+  {
+    "label": "Volume unit",
+    "value": "1 cubic yard = 27 cubic feet"
+  },
+  {
+    "label": "Forward calculation",
+    "value": "Area × inches ÷ 324"
+  },
+  {
+    "label": "Reverse calculation",
+    "value": "Yards × 324 ÷ inches"
+  },
+  {
+    "label": "Delivery checks",
+    "value": "Usable volume and available payload"
+  }
 ];
 
 const quickStats = [
-  { value: '324 sq ft', label: '1 Inch Spread', desc: 'True theoretical coverage of 1 cubic yard at 1 inch depth' },
-  { value: '108 sq ft', label: '3 Inch Standard', desc: 'Standard residential bed coverage yield per cubic yard' },
-  { value: '5-14 yd³', label: 'Dump Truck Scale', desc: 'Single-axle (5-7 yds) up to tandem-axle (10-14 yds)' }
+  {
+    "value": "27 cu ft",
+    "label": "One cubic yard",
+    "desc": "Volume conversion, independent of rock type"
+  },
+  {
+    "value": "108 sq ft",
+    "label": "At 3 inches",
+    "desc": "Geometric coverage of one cubic yard"
+  },
+  {
+    "value": "Your limits",
+    "label": "Delivery estimate",
+    "desc": "Use the actual vehicle volume and payload"
+  }
 ];
 
 const faqItems = [
@@ -56,7 +80,7 @@ const faqItems = [
       "@type": "WebApplication",
       "name": "Rock Coverage Calculator Yard",
       "url": "https://rockcoveragecalculator.com/rock-coverage-calculator-yard",
-      "description": "Volumetric calculator converting square footage and layer depth into exact cubic yards with dump truck delivery recommendations.",
+      "description": "Converts rectangular layer dimensions to cubic yards or known yards to coverage, with editable loose bulk weight and delivery limits.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "about": {
@@ -96,72 +120,7 @@ const faqItems = [
     <CubicYardVisualizer />
 
     <!-- Technical Guide on Cubic Yard Sizing -->
-    <article class="content-guide-section">
-      <div class="container">
-        <div class="content-card">
-          <h2>The Mathematical Derivation of a Cubic Yard of Rock</h2>
-          <p>
-            In bulk landscaping and civil earthmoving, <strong>Cubic Yards</strong> represent the universal unit of trade. A cubic yard describes a three-dimensional volume measuring three feet wide by three feet long by three feet deep, containing exactly 27 cubic feet (3 ft × 3 ft × 3 ft = 27 cubic feet).
-          </p>
-
-          <div class="formula-box">
-            <code>Area (sq ft) = Length (ft) × Width (ft)</code>
-            <br />
-            <code>Volume (Cubic Feet) = Area (sq ft) × [Depth (inches) / 12]</code>
-            <br />
-            <code>Cubic Yards = Volume (Cubic Feet) / 27 = [Area × Depth] / 324</code>
-          </div>
-
-          <h3>The "324 Constant" Explained</h3>
-          <p>
-            Professional landscape estimators utilize the constant <strong>324</strong> as a field calculation shortcut. Because aggregate layer depth is commonly specified in inches while project perimeters are measured in feet, converting inches to feet requires dividing by 12, and converting cubic feet to cubic yards requires dividing by 27. Since $12 \times 27 = 324$, multiplying square footage directly by depth in inches and dividing by 324 produces exact cubic yards in a single calculation step.
-          </p>
-
-          <div class="table-wrapper">
-            <table class="guide-table">
-              <thead>
-                <tr>
-                  <th>Installed Depth</th>
-                  <th>Sq Ft Coverage per 1 yd³</th>
-                  <th>Sq Ft Coverage per 5 yd³</th>
-                  <th>Sq Ft Coverage per 10 yd³</th>
-                  <th>Formula Multiplier</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>1.0 inch</td><td>324 sq ft</td><td>1,620 sq ft</td><td>3,240 sq ft</td><td>Divide sq ft by 324</td></tr>
-                <tr><td>1.5 inches</td><td>216 sq ft</td><td>1,080 sq ft</td><td>2,160 sq ft</td><td>Divide sq ft by 216</td></tr>
-                <tr><td>2.0 inches</td><td>162 sq ft</td><td>810 sq ft</td><td>1,620 sq ft</td><td>Divide sq ft by 162</td></tr>
-                <tr><td>2.5 inches</td><td>130 sq ft</td><td>648 sq ft</td><td>1,296 sq ft</td><td>Divide sq ft by 130</td></tr>
-                <tr><td>3.0 inches</td><td>108 sq ft</td><td>540 sq ft</td><td>1,080 sq ft</td><td>Divide sq ft by 108</td></tr>
-                <tr><td>4.0 inches</td><td>81 sq ft</td><td>405 sq ft</td><td>810 sq ft</td><td>Divide sq ft by 81</td></tr>
-                <tr><td>6.0 inches</td><td>54 sq ft</td><td>270 sq ft</td><td>540 sq ft</td><td>Divide sq ft by 54</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Check payload and usable volume</h3><p>Confirm the actual truck’s allowable payload, volume and access with the supplier. Cubic yards multiplied by the product’s loose tons per yard estimates load weight; axle count alone cannot set a safe load. Use the <a href="/rock-yardage-calculator">order and delivery planner</a> for seller increments and handling estimates.</p>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="content-card faq-card">
-          <h2>Frequently Asked Questions About Cubic Yards of Rock</h2>
-          <div class="faq-accordion">
-            {faqItems.map((item, index) => (
-              <details class="faq-detail" open={index === 0}>
-                <summary class="faq-summary">
-                  <span>{item.q}</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                </summary>
-                <div class="faq-answer">
-                  <p>{item.a}</p>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </div>
-    </article>
+    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Convert a layer to yards, or yards to a covered area</h2><p>Use the forward mode when you know a rectangular footprint and finished depth. Use reverse mode when a supplier has quoted a volume or you already have material. The calculation treats the layer as uniform; large stones, irregular ground and placement losses can change actual coverage.</p><h3>Forward example: a 40 × 15 ft bed</h3><p>The 600-sq-ft footprint at 3 inches contains <strong>600 × 3 ÷ 324 = 5.56 cubic yards</strong> before extra. A selected 10% order increase gives 6.11 yd³. At the example loose bulk weight of 1.35 US short tons per yard, that order weighs about 8.25 short tons. Changing density changes estimated weight, not geometric volume.</p><div class="formula-box"><code>Net yd³ = area in sq ft × depth in inches ÷ 324</code><br/><code>Order yd³ = net yd³ × (1 + extra percent ÷ 100)</code><br/><code>Estimated short tons = order yd³ × supplier short tons per yd³</code></div><h3>Reverse example: five cubic yards</h3><p>At 3 inches, 5 × 324 ÷ 3 = <strong>540 sq ft</strong>. At 2 inches the same volume geometrically covers 810 sq ft. Reverse mode spreads the entered volume itself and does not add the forward mode’s extra percentage.</p><h3>Read depth comparisons as quantity examples</h3><div class="table-wrapper"><table class="guide-table"><caption>Geometric coverage of one cubic yard; no installation depth is prescribed</caption><thead><tr><th scope="col">Depth</th><th scope="col">Coverage</th></tr></thead><tbody><tr><th scope="row">1 in</th><td>324 sq ft</td></tr><tr><th scope="row">1.5 in</th><td>216 sq ft</td></tr><tr><th scope="row">2 in</th><td>162 sq ft</td></tr><tr><th scope="row">2.5 in</th><td>129.6 sq ft</td></tr><tr><th scope="row">3 in</th><td>108 sq ft</td></tr><tr><th scope="row">4 in</th><td>81 sq ft</td></tr><tr><th scope="row">6 in</th><td>54 sq ft</td></tr></tbody></table></div><p>Choose the depth for the actual product and project. The decimal result at 2.5 inches is 129.6 sq ft per yard. A rounded table value is a display convenience; it does not change the conversion constant.</p><h3>Check both delivery limits</h3><p>Delivery count is the larger of the volume-based and weight-based counts, rounded up. For example, 13 yd³ requires at least two trips in a vehicle with 7 yd³ usable volume, even if its payload could carry the whole order. Actual available payload, product weight, loading policy and site access still need confirmation. A vehicle class name alone cannot establish capacity.</p><p>For order increments and handling, use the <a href="/rock-yardage-calculator">yardage order planner</a>. For known square footage or separate beds, use the <a href="/rock-square-foot-calculator">square-foot calculator</a>. For six footprint shapes, start with the <a href="/">main rock calculator</a>. <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/" target="_blank" rel="noopener noreferrer">Penn State’s materials calculator</a> explains why finished volume and loose material weight need separate assumptions.</p></div><div class="content-card faq-card"><h2>Questions about this calculation</h2><div class="faq-accordion">{faqItems.map((item,index)=><details class="faq-detail" open={index===0}><summary class="faq-summary">{item.q}</summary><div class="faq-answer"><p>{item.a}</p></div></details>)}</div></div></div></article>
 
     <TopicClusterNav currentPage="/rock-coverage-calculator-yard" category="quantity" />
   </main>

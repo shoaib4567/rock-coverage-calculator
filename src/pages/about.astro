@@ -7,14 +7,6 @@ import Footer from '../components/Footer.astro';
 const breadcrumbs = [{ name: 'Home', url: '/' }, { name: 'About', url: '/about' }];
 ---
 <BaseLayout title="About Our Formulas and Assumptions | Rock Coverage Calculator" description="Understand how Rock Coverage Calculator estimates volume, weight, and bags, where supplier assumptions matter, and the limits of a material quantity estimate." canonicalPath="/about">
-  <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org', '@type': 'AboutPage',
-      name: 'About Rock Coverage Calculator', url: 'https://rockcoveragecalculator.com/about',
-      description: 'Formulas, material assumptions, and limitations of the quantity calculators.',
-      mainEntity: { '@type': 'Organization', name: 'Rock Coverage Calculator', url: 'https://rockcoveragecalculator.com' }
-    })} />
-  </Fragment>
   <Header />
   <main id="main-content">
     <PageHero title="About Rock Coverage Calculator" highlightWord="Calculator" badge="Formulas and assumptions" subtitle="Practical tools for estimating rock, gravel, and stone quantities from your measurements." breadcrumbs={breadcrumbs} />

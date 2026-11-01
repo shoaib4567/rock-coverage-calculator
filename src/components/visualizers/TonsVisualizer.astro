@@ -179,6 +179,8 @@
     });
   });
 
+  const observer=new MutationObserver(syncTonsVisualizer);
+  ['kpi-scale-tons','kpi-scale-lbs','kpi-moisture-lbs'].forEach(id=>{const source=document.getElementById(id);if(source)observer.observe(source,{childList:true,subtree:true,characterData:true});});
   document.addEventListener('DOMContentLoaded', syncTonsVisualizer);
   syncTonsVisualizer();
 })();

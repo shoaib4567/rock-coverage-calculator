@@ -12,16 +12,40 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Base Rock Coverage' },
-  { label: 'Gradation Standard', value: 'AASHTO M147 Dense-Graded Base' },
-  { label: 'Particle Caliper', value: '3/4" Minus Blended with Stone Flour' },
-  { label: 'Bulk Density', value: '1.45 t/yd³ Loose | 1.65 t/yd³ Compacted' }
+  {
+    "label": "Product",
+    "value": "Confirm the actual dense-graded blend"
+  },
+  {
+    "label": "Layer",
+    "value": "Specified finished thickness"
+  },
+  {
+    "label": "Order increase",
+    "value": "Editable loose-order allowance"
+  },
+  {
+    "label": "Weight",
+    "value": "Supplier loose short tons per yd³"
+  }
 ];
 
 const quickStats = [
-  { value: 'AASHTO M147', label: 'Base Standard', desc: 'Consolidates Quarry Process (QP), 21-A, and road base specifications' },
-  { value: '1.45 t/yd³', label: 'Quarry Density', desc: 'ASTM C29 loose stockpile weight (2,900 lbs per cubic yard)' },
-  { value: '20% Compaction', label: 'Plate Tamp Drop', desc: 'Volume loss as fine stone flour packs into larger aggregate voids' }
+  {
+    "value": "1.45",
+    "label": "Example short tons/yd³",
+    "desc": "Replace this starting weight with supplier data"
+  },
+  {
+    "value": "20%",
+    "label": "Starting order increase",
+    "desc": "Editable, including zero; not a universal compaction loss"
+  },
+  {
+    "value": "Separate",
+    "label": "Volume and weight",
+    "desc": "Density changes estimated tons, not layer volume"
+  }
 ];
 
 const faqItems = [
@@ -144,10 +168,16 @@ const supportGuides = [
               <input type="number" id="crusher-depth" value="4.0" min="1" max="18" step="0.5" />
             </div>
             <div class="input-field">
-              <label for="crusher-compaction">Compaction Factor (%)</label>
-              <input type="number" id="crusher-compaction" value="20" min="10" max="30" step="1" />
+              <label for="crusher-compaction">Loose-order increase (%)</label>
+              <input type="number" id="crusher-compaction" value="20" min="0" max="100" step="any" aria-describedby="crusher-assumptions" />
+            </div>
+            <div class="input-field">
+              <label for="crusher-density">Supplier loose weight (US short tons/yd³)</label>
+              <input type="number" id="crusher-density" value="1.45" min="0.1" max="5" step="any" aria-describedby="crusher-assumptions" />
             </div>
           </div>
+          <p id="crusher-assumptions">The starting 20% is a loose-order increase, not a universal compaction loss. Replace the 1.45 tons/yd³ weight with the supplier’s actual value. Zero extra is allowed.</p>
+          <p id="crusher-error" role="alert" hidden></p>
           </div>
 
           <!-- RIGHT: Results Panel -->
@@ -161,17 +191,17 @@ const supportGuides = [
               <div class="kpi-card highlight">
               <div class="kpi-value" id="kpi-crusher-yards">0.00</div>
               <div class="kpi-label">Order Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-crusher-loose">Includes 20% compaction buffer</div>
+              <div class="kpi-subtext" id="kpi-crusher-loose">Includes the selected loose-order increase</div>
             </div>
             <div class="kpi-card">
               <div class="kpi-value" id="kpi-crusher-tons">0.00</div>
-              <div class="kpi-label">Quarry Weight (Tons)</div>
-              <div class="kpi-subtext">At 1.45 t/yd³ (2,900 lbs/yd³)</div>
+              <div class="kpi-label">Estimated US Short Tons</div>
+              <div class="kpi-subtext" id="crusher-weight-note">At the entered loose bulk weight</div>
             </div>
             <div class="kpi-card">
               <div class="kpi-value" id="kpi-crusher-loads">0.0</div>
-              <div class="kpi-label">Tri-Axle Truckloads</div>
-              <div class="kpi-subtext">15 tons per load</div>
+              <div class="kpi-label">15-Ton Equivalents</div>
+              <div class="kpi-subtext">Arithmetic example; confirm actual deliveries</div>
             </div>
             </div>
           </div>
@@ -198,27 +228,25 @@ const supportGuides = [
   <Footer />
 
   <script>
+    import {estimateBaseLayer} from '../lib/quantity-assumptions.mjs';
     function updateCrusher() {
-      const l = parseFloat((document.getElementById('crusher-length') as HTMLInputElement)?.value) || 0;
-      const w = parseFloat((document.getElementById('crusher-width') as HTMLInputElement)?.value) || 0;
-      const d = parseFloat((document.getElementById('crusher-depth') as HTMLInputElement)?.value) || 0;
-      const c = parseFloat((document.getElementById('crusher-compaction') as HTMLInputElement)?.value) || 20;
-
-      const netYards = (l * w * d) / 324;
-      const orderYards = netYards * (1 + c / 100);
-      const tons = orderYards * 1.45;
-      const loads = tons / 15;
-
-      const yEl = document.getElementById('kpi-crusher-yards');
-      const tEl = document.getElementById('kpi-crusher-tons');
-      const lEl = document.getElementById('kpi-crusher-loads');
-
-      if (yEl) yEl.innerText = orderYards.toFixed(2);
-      if (tEl) tEl.innerText = tons.toFixed(2);
-      if (lEl) lEl.innerText = loads.toFixed(1);
+      const read=(id:string)=>{const input=document.getElementById(id) as HTMLInputElement;const valid=input.value.trim()!==''&&input.validity.valid;input.setAttribute('aria-invalid',String(!valid));return valid?Number(input.value):NaN;};
+      const set=(id:string,value:string)=>{const node=document.getElementById(id);if(node)node.textContent=value;};
+      const error=document.getElementById('crusher-error');
+      try {
+        const extra=read('crusher-compaction'),density=read('crusher-density');
+        const estimate=estimateBaseLayer({length:read('crusher-length'),width:read('crusher-width'),depth:read('crusher-depth'),extra,density});
+        set('kpi-crusher-yards',estimate.orderYards.toFixed(2));set('kpi-crusher-tons',estimate.tons.toFixed(2));set('kpi-crusher-loads',(estimate.tons/15).toFixed(1));
+        set('kpi-crusher-loose',estimate.finishedYards.toFixed(2)+' yd³ finished; '+extra+'% loose-order increase');
+        set('crusher-weight-note','At '+density+' US short tons per loose cubic yard');
+        if(error){error.hidden=true;error.textContent='';}
+      }catch(problem){
+        ['kpi-crusher-yards','kpi-crusher-tons','kpi-crusher-loads'].forEach(id=>set(id,'—'));
+        if(error){error.hidden=false;error.textContent=problem instanceof Error?problem.message:'Check the highlighted inputs.';}
+      }
     }
 
-    ['crusher-length', 'crusher-width', 'crusher-depth', 'crusher-compaction'].forEach(id => {
+    ['crusher-length', 'crusher-width', 'crusher-depth', 'crusher-compaction', 'crusher-density'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', updateCrusher);
     });
     updateCrusher();

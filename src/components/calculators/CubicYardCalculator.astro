@@ -6,7 +6,7 @@
     <div class="section-header">
       <h2>Rock Cubic Yard Calculator</h2>
       <div class="section-divider"></div>
-      <p>Calculate exact cubic yards for bulk rock delivery with forward and reverse coverage modes, the contractor Rule of 324, and dump truck class payload recommendations.</p>
+      <p>Convert a measured layer to cubic yards, or find the coverage of a known volume. Enter supplier bulk weight and separate vehicle volume and payload limits for a delivery estimate.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -18,9 +18,9 @@
         </div>
 
         <!-- Mode Toggle -->
-        <div class="unit-toggle mode-toggle" role="tablist">
-          <button class="active" id="yd-mode-forward" type="button">Forward: Area & Depth → Yards</button>
-          <button id="yd-mode-reverse" type="button">Reverse: Given Yards → Coverage</button>
+        <div class="unit-toggle mode-toggle" role="group" aria-label="Calculation direction">
+          <button class="active" id="yd-mode-forward" type="button" aria-pressed="true">Forward: Area & Depth → Yards</button>
+          <button id="yd-mode-reverse" type="button" aria-pressed="false">Reverse: Given Yards → Coverage</button>
         </div>
 
         <!-- Forward Inputs -->
@@ -44,7 +44,7 @@
               <span class="unit-label">inches</span>
             </div>
             <div class="input-field">
-              <label for="yd-waste">Quarry Safety Buffer</label>
+              <label for="yd-waste">Extra order allowance</label>
               <input type="number" id="yd-waste" value="10" min="0" max="25" step="1" />
               <span class="unit-label">% buffer</span>
             </div>
@@ -67,7 +67,14 @@
           </div>
         </div>
 
-        <!-- Density / Aggregate Type Selector -->
+        <div class="dim-grid">
+  <div class="input-field"><label for="yd-density">Supplier loose weight (US short tons/yd³)</label><input id="yd-density" type="number" value="1.35" min="0.1" max="5" step="any" /></div>
+  <div class="input-field"><label for="yd-load-payload">Available payload per delivery (US short tons)</label><input id="yd-load-payload" type="number" value="15" min="0.1" step="any" /></div>
+  <div class="input-field"><label for="yd-load-volume">Usable volume per delivery (cu yd)</label><input id="yd-load-volume" type="number" value="10" min="0.1" step="any" /></div>
+</div>
+<p>Density and delivery limits start as examples. Replace them with the actual supplier and vehicle figures. A load count cannot establish vehicle access or ground capacity.</p>
+<p id="yd-error" role="alert" hidden></p>
+<!-- Density / Aggregate Type Selector -->
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
           <h3>Rock Material Density</h3>
@@ -104,7 +111,7 @@
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-total-tons">0.00</div>
-            <div class="kpi-label">Estimated Quarry Tons</div>
+            <div class="kpi-label">Estimated US Short Tons</div>
             <div class="kpi-subtext" id="kpi-exact-lbs">0 lbs total payload</div>
           </div>
           <div class="kpi-card">
@@ -122,14 +129,14 @@
         <!-- Dump Truck Sizer Card -->
         <div class="truck-sizer-card">
           <div class="truck-header">
-            <div class="truck-title">Dump Truck Dispatch Classification</div>
-            <div class="truck-badge" id="truck-class-badge">Single Axle</div>
+            <div class="truck-title">Deliveries from your entered limits</div>
+            <div class="truck-badge" id="truck-class-badge">Enter delivery limits</div>
           </div>
           <p class="truck-desc" id="truck-desc">
-            Recommended vehicle for delivery to prevent overweight fines or multiple trip drop fees.
+            Estimated trips use both usable volume and available payload. Confirm those limits and access with the supplier.
           </p>
           <div class="truck-specs" id="truck-specs">
-            Capacity: 5 to 7 cubic yards (8 to 10 tons max)
+            Volume and payload fields above start with editable examples.
           </div>
         </div>
 
@@ -447,6 +454,7 @@
 </style>
 
 <script>
+import {estimateDeliveryLoads} from '../../lib/quantity-assumptions.mjs';
 function initCubicYardCalculator() {
   const modeForwardBtn = document.getElementById('yd-mode-forward');
   const modeReverseBtn = document.getElementById('yd-mode-reverse');
@@ -467,80 +475,42 @@ function initCubicYardCalculator() {
   let activeDensity = 1.35; // Tons/yd³
 
   function calculate() {
-    let totalYards = 0;
-    let totalCuFt = 0;
-    let totalSqFt = 0;
-    let depthInches = 3.0;
-
-    if (activeMode === 'forward') {
-      if (!lengthInput || !widthInput || !depthInput || !wasteInput) return;
-      const length = Math.max(0.5, parseFloat(lengthInput.value) || 0);
-      const width = Math.max(0.5, parseFloat(widthInput.value) || 0);
-      depthInches = Math.max(0.25, parseFloat(depthInput.value) || 0);
-      const wastePercent = parseFloat(wasteInput.value) || 0;
-
-      totalSqFt = length * width;
-      const depthFeet = depthInches / 12;
-      const netCuFt = totalSqFt * depthFeet;
-      totalCuFt = netCuFt * (1 + wastePercent / 100);
-      totalYards = totalCuFt / 27;
+    const set=(id:string,value:string)=>{const node=document.getElementById(id);if(node)node.textContent=value;};
+    const read=(input:HTMLInputElement|null)=>{
+      if(!input)return NaN;
+      const valid=input.value.trim()!==''&&input.validity.valid&&Number.isFinite(Number(input.value));
+      input.setAttribute('aria-invalid',String(!valid));return valid?Number(input.value):NaN;
+    };
+    let totalYards:number,totalSqFt:number,totalCuFt:number,depthInches:number;
+    if(activeMode==='forward') {
+      const length=read(lengthInput),width=read(widthInput),extra=read(wasteInput);depthInches=read(depthInput);
+      totalSqFt=length*width;totalCuFt=totalSqFt*depthInches/12*(1+extra/100);totalYards=totalCuFt/27;
     } else {
-      if (!revYardsInput || !revDepthInput) return;
-      totalYards = Math.max(0.1, parseFloat(revYardsInput.value) || 0);
-      depthInches = Math.max(0.25, parseFloat(revDepthInput.value) || 0);
-      totalCuFt = totalYards * 27;
-      // Rule of 324: Sq Ft = (Yards * 324) / DepthInches
-      totalSqFt = (totalYards * 324) / depthInches;
+      totalYards=read(revYardsInput);depthInches=read(revDepthInput);totalCuFt=totalYards*27;totalSqFt=totalYards*324/depthInches;
     }
-
-    const totalTons = totalYards * activeDensity;
-    const totalLbs = totalTons * 2000;
-
-    // Wheelbarrow loads (6 cu ft standard contractor barrow)
-    const barrowLoads = Math.ceil(totalCuFt / 6.0);
-
-    // Rule of 324 single yard yield
-    const singleYardSqFt = Math.round(324 / depthInches);
-
-    // Update KPI displays
-    const kpiYards = document.getElementById('kpi-total-yards');
-    const kpiCuFt = document.getElementById('kpi-exact-cuft');
-    const kpiTons = document.getElementById('kpi-total-tons');
-    const kpiLbs = document.getElementById('kpi-exact-lbs');
-    const kpiSqFt = document.getElementById('kpi-total-sqft');
-    const kpiCoverage = document.getElementById('kpi-yard-coverage');
-    const kpiWheel = document.getElementById('kpi-wheelbarrows');
-
-    if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
-    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft total`;
-    if (kpiTons) kpiTons.textContent = totalTons.toFixed(2);
-    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lbs net`;
-    if (kpiSqFt) kpiSqFt.textContent = Math.round(totalSqFt).toLocaleString();
-    if (kpiCoverage) kpiCoverage.textContent = `1 yd³ covers ${singleYardSqFt} sq ft @ ${depthInches}"`;
-    if (kpiWheel) kpiWheel.textContent = barrowLoads.toString();
-
-    // Dump Truck Classification
-    const truckBadge = document.getElementById('truck-class-badge');
-    const truckDesc = document.getElementById('truck-desc');
-    const truckSpecs = document.getElementById('truck-specs');
-
-    if (totalYards <= 2.5) {
-      if (truckBadge) truckBadge.textContent = '1-Ton / F-350 Dump';
-      if (truckDesc) truckDesc.textContent = 'Ideal for tight residential driveways and small alley access without cracking asphalt.';
-      if (truckSpecs) truckSpecs.textContent = 'Payload: 1.5 to 3.0 cu yds (3 to 4 tons max)';
-    } else if (totalYards <= 7.0) {
-      if (truckBadge) truckBadge.textContent = 'Single-Axle Dump';
-      if (truckDesc) truckDesc.textContent = 'Standard residential landscape delivery. Fits on suburban concrete driveways.';
-      if (truckSpecs) truckSpecs.textContent = 'Payload: 5 to 7 cu yds (8 to 10 tons max)';
-    } else if (totalYards <= 14.0) {
-      if (truckBadge) truckBadge.textContent = 'Tandem-Axle Dump';
-      if (truckDesc) truckDesc.textContent = 'Medium-large hauler. Requires wide street staging; can damage fragile residential driveways.';
-      if (truckSpecs) truckSpecs.textContent = 'Payload: 10 to 14 cu yds (14 to 16 tons max)';
-    } else {
-      const truckTrips = Math.ceil(totalYards / 18.0);
-      if (truckBadge) truckBadge.textContent = `Tri-Axle Commercial (${truckTrips} trip${truckTrips === 1 ? '' : 's'})`;
-      if (truckDesc) truckDesc.textContent = 'Maximum legal payload hauler. Multiple trips required for large commercial developments.';
-      if (truckSpecs) truckSpecs.textContent = 'Payload: 16 to 20 cu yds per trip (20 to 24 tons max)';
+    const error=document.getElementById('yd-error');
+    const volumeValid=[totalYards,totalCuFt,totalSqFt,depthInches].every(Number.isFinite)&&totalYards>0&&depthInches>0;
+    if(!volumeValid) {
+      ['kpi-total-yards','kpi-exact-cuft','kpi-total-tons','kpi-exact-lbs','kpi-total-sqft','kpi-yard-coverage','kpi-wheelbarrows'].forEach(id=>set(id,'—'));
+      if(error){error.hidden=false;error.textContent='Enter valid positive measurements and an extra allowance within the field limits.';}
+      set('truck-class-badge','Measurements needed');set('truck-desc','Correct the highlighted fields to estimate deliveries.');set('truck-specs','');return;
+    }
+    const density=read(document.getElementById('yd-density') as HTMLInputElement|null);
+    const tons=totalYards*density;
+    set('kpi-total-yards',totalYards.toFixed(2));set('kpi-exact-cuft',totalCuFt.toFixed(1)+' cu ft order volume');
+    set('kpi-total-sqft',Math.round(totalSqFt).toLocaleString());set('kpi-yard-coverage','1 yd³ covers '+Math.round(324/depthInches)+' sq ft at '+depthInches+' in');
+    set('kpi-wheelbarrows',String(Math.ceil(totalCuFt/6)));
+    set('kpi-total-tons',Number.isFinite(tons)?tons.toFixed(2):'—');set('kpi-exact-lbs',Number.isFinite(tons)?Math.round(tons*2000).toLocaleString()+' lb estimated':'Supplier weight needed');
+    if(error){error.hidden=Number.isFinite(tons);error.textContent=Number.isFinite(tons)?'':'Volume is ready. Enter a positive supplier loose weight to estimate tons.';}
+    const payload=read(document.getElementById('yd-load-payload') as HTMLInputElement|null);
+    const capacity=read(document.getElementById('yd-load-volume') as HTMLInputElement|null);
+    try {
+      const loads=estimateDeliveryLoads(totalYards,tons,payload,capacity);
+      set('truck-class-badge',loads+' estimated deliver'+(loads===1?'y':'ies'));
+      set('truck-desc','Uses both the volume limit and payload limit you entered. Confirm the supplier’s actual loading and site access requirements.');
+      set('truck-specs',capacity+' yd³ and '+payload+' US short tons per delivery');
+    }catch {
+      set('truck-class-badge','Delivery limits needed');set('truck-desc','Enter valid supplier weight and positive per-delivery volume and payload limits.');set('truck-specs','');
     }
   }
 
@@ -549,6 +519,7 @@ function initCubicYardCalculator() {
     modeForwardBtn.addEventListener('click', () => {
       modeForwardBtn.classList.add('active');
       modeReverseBtn.classList.remove('active');
+      modeForwardBtn.setAttribute('aria-pressed','true');modeReverseBtn.setAttribute('aria-pressed','false');
       forwardInputs.style.display = 'block';
       reverseInputs.style.display = 'none';
       activeMode = 'forward';
@@ -560,6 +531,7 @@ function initCubicYardCalculator() {
     modeReverseBtn.addEventListener('click', () => {
       modeReverseBtn.classList.add('active');
       modeForwardBtn.classList.remove('active');
+      modeForwardBtn.setAttribute('aria-pressed','false');modeReverseBtn.setAttribute('aria-pressed','true');
       forwardInputs.style.display = 'none';
       reverseInputs.style.display = 'block';
       activeMode = 'reverse';
@@ -575,17 +547,19 @@ function initCubicYardCalculator() {
       matBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeDensity = parseFloat(btn.getAttribute('data-density') || '1.35');
+      const density=document.getElementById('yd-density') as HTMLInputElement|null;if(density)density.value=String(activeDensity);
       calculate();
     });
   });
 
   // Inputs
-  [lengthInput, widthInput, depthInput, wasteInput, revYardsInput, revDepthInput].forEach(input => {
+  [lengthInput, widthInput, depthInput, wasteInput, revYardsInput, revDepthInput, document.getElementById('yd-density'), document.getElementById('yd-load-payload'), document.getElementById('yd-load-volume')].forEach(input => {
     if (input) {
       input.addEventListener('input', calculate);
     }
   });
 
+  document.getElementById('yd-density')?.addEventListener('input',()=>matBtns.forEach(button=>button.classList.remove('active')));
   calculate();
 }
 
