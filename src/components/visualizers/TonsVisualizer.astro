@@ -153,10 +153,8 @@
     if (ticketNet) ticketNet.textContent = netLbs.toLocaleString() + ' lbs (' + netTons.toFixed(2) + ' T)';
     if (ticketMoist) ticketMoist.textContent = '+' + moistLbs.toLocaleString() + ' lbs additional weight';
 
-    // Update truck load text & risk
+    // Update truck load text
     const loadTxt = document.getElementById('viz-axle-load-txt');
-    const riskFill = document.getElementById('viz-risk-fill');
-    const riskVal = document.getElementById('viz-crack-risk');
     const badge = document.getElementById('viz-axle-badge');
 
     if (loadTxt) loadTxt.textContent = netTons.toFixed(1) + ' Tons';

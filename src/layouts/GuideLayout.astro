@@ -28,6 +28,11 @@ interface Props {
   upLinks?: Array<{ title: string; slug: string; badge?: string }>;
   lateralLinks?: Array<{ title: string; slug: string; badge?: string }>;
   bridgeLinks?: Array<{ title: string; slug: string; badge?: string }>;
+  companionIntro?: string;
+  sidebarTitle?: string;
+  sidebarPoints?: Array<{ label: string; value: string; href?: string }>;
+  sidebarCtaTitle?: string;
+  sidebarCtaText?: string;
 }
 
 const {
@@ -44,7 +49,16 @@ const {
   schemaData = {},
   upLinks = [],
   lateralLinks = [],
-  bridgeLinks = []
+  bridgeLinks = [],
+  companionIntro = 'Select the calculator aligned with your unit, material, and project stage below.',
+  sidebarTitle = 'Key estimating checks',
+  sidebarPoints = [
+    { label: '1 cubic yard:', value: '27 cubic feet of volume.' },
+    { label: '1 short ton:', value: '2,000 pounds of weight.' },
+    { label: 'Supplier weight:', value: "Override defaults with the yard's loose bulk density." }
+  ],
+  sidebarCtaTitle = 'Calculate Your Project',
+  sidebarCtaText = 'Open the multi-shape estimator to convert bed dimensions into yards, tons, and bags.'
 } = Astro.props;
 
 const siteUrl = 'https://rockcoveragecalculator.com';
@@ -123,17 +137,17 @@ const articleSchema = {
             <section class="calc-callout-section" aria-label="Companion Calculators">
               <div class="calc-callout-header">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h10v10H7z"/></svg>
-                <h2>Companion calculators for this project</h2>
+                <h2>Calculators for {page?.title ?? guideTitle}</h2>
               </div>
-              <p>Use these tools to estimate the material quantity, then check the inputs against your supplier and project plan.</p>
+              <p>{companionIntro}</p>
               <div class="calc-callout-grid">
                 {calculatorsSupported.map((calc) => (
                   <a href={calc.slug} class="calc-callout-card">
                     <div class="calc-callout-card-top">
-                      <h3>{getContentPage(calc.slug)?.title ?? calc.title}</h3>
+                      <h3>{calc.title || getContentPage(calc.slug)?.title}</h3>
                       <span class="calc-callout-badge">{calc.badge}</span>
                     </div>
-                    <p>{getContentPage(calc.slug)?.summary ?? calc.desc}</p>
+                    <p>{calc.desc || getContentPage(calc.slug)?.summary}</p>
                     <span class="calc-callout-action">Launch Calculator &rarr;</span>
                   </a>
                 ))}
@@ -146,30 +160,20 @@ const articleSchema = {
         <aside class="guide-sidebar-col">
           <div class="sidebar-sticky-wrapper">
             <div class="sidebar-card">
-              <h3 class="sidebar-title">Useful reference points</h3>
+              <h3 class="sidebar-title">{sidebarTitle}</h3>
               <ul class="standards-list">
-                <li>
-                  <strong>1 cubic yard:</strong>
-                  <span>27 cubic feet of volume.</span>
-                </li>
-                <li>
-                  <strong>1 short ton:</strong>
-                  <span>2,000 pounds of weight.</span>
-                </li>
-                <li>
-                  <strong>Material weight:</strong>
-                  <span>Use the supplier's loose bulk density when available.</span>
-                </li>
-                <li>
-                  <strong>More detail:</strong>
-                  <a href="/rock-density-chart">Compare the site's density planning factors.</a>
-                </li>
+                {sidebarPoints.map(pt => (
+                  <li>
+                    <strong>{pt.label}</strong>
+                    {pt.href ? <a href={pt.href}>{pt.value}</a> : <span>{pt.value}</span>}
+                  </li>
+                ))}
               </ul>
             </div>
 
             <div class="sidebar-card highlight">
-              <h3 class="sidebar-title">Need Immediate Estimates?</h3>
-              <p class="sidebar-text">Use our primary multi-shape estimator to calculate cubic yards and tons for any bed geometry.</p>
+              <h3 class="sidebar-title">{sidebarCtaTitle}</h3>
+              <p class="sidebar-text">{sidebarCtaText}</p>
               <a href="/" class="btn-sidebar-primary">Open Main Calculator</a>
             </div>
           </div>

@@ -1,10 +1,25 @@
 ---
-import GuideLayout from '../layouts/GuideLayout.astro';
+import GuideLayout from "../layouts/GuideLayout.astro";
 
 const calculatorsSupported = [
-  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags', desc: 'Count bags using the volume printed on the product.' },
-  { title: 'River Rock Bag Calculator', slug: '/river-rock-bag-calculator', badge: 'River rock', desc: 'Compare a bag total with your local bulk quote and delivery fee.' },
-  { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: 'Yards', desc: 'Estimate the loose cubic yards to discuss with your supplier.' }
+  {
+    title: "Rock Bag Calculator",
+    slug: "/rock-bag-calculator",
+    badge: "Bags",
+    desc: "Count bags using the volume printed on the product.",
+  },
+  {
+    title: "River Rock Bag Calculator",
+    slug: "/river-rock-bag-calculator",
+    badge: "River rock",
+    desc: "Compare a bag total with your local bulk quote and delivery fee.",
+  },
+  {
+    title: "Rock Coverage Calculator Yard",
+    slug: "/rock-coverage-calculator-yard",
+    badge: "Yards",
+    desc: "Estimate the loose cubic yards to discuss with your supplier.",
+  },
 ];
 ---
 
@@ -18,33 +33,61 @@ const calculatorsSupported = [
   readingTime="7 min read"
   lastUpdated="November 2026"
   calculatorsSupported={calculatorsSupported}
+  companionIntro="Run your project dimensions through the bag and bulk tools below to compare whole-package cost against delivered yardage or short tons."
+  sidebarTitle="Purchasing & haul checks"
+  sidebarPoints={[
+    { label: '0.5 cu ft bag yield:', value: '54 half-cubic-foot bags equal 1 loose cubic yard.' },
+    { label: 'Bulk minimum order:', value: 'Many landscape yards set 1 to 3 cubic yard minimums plus a drop fee.' },
+    { label: 'Vehicle payload:', value: 'Divide your door-jamb payload rating by labeled bag pounds before loading.' },
+    { label: 'Compare weights:', value: 'Check bulk vs. palletized density factors', href: '/rock-density-chart' }
+  ]}
+  sidebarCtaTitle="Need Multi-Zone Totals?"
+  sidebarCtaText="Measure rectangular, circular, or multi-bed yards and switch between bulk tons and bags."
 >
   <!-- Project Reference Summary -->
   <section class="aeo-guide-box" aria-label="Summary of Bulk vs Bagged Rock">
     <div class="aeo-guide-header">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+      </svg>
       <span class="aeo-guide-title">Compare the full order</span>
     </div>
     <div class="aeo-guide-grid">
       <div class="aeo-guide-item">
         <span class="aeo-guide-label">Bag quantity</span>
         <span class="aeo-guide-value">Round up volume ÷ bag size</span>
-        <p class="aeo-guide-desc">A 0.5 ft³ bag is one example; check the volume on your chosen product.</p>
+        <p class="aeo-guide-desc">
+          A 0.5 ft³ bag is one example; check the volume on your chosen product.
+        </p>
       </div>
       <div class="aeo-guide-item">
         <span class="aeo-guide-label">Bagged total</span>
         <span class="aeo-guide-value">Bags × local price</span>
-        <p class="aeo-guide-desc">Include tax, delivery or collection costs if they apply.</p>
+        <p class="aeo-guide-desc">
+          Include tax, delivery or collection costs if they apply.
+        </p>
       </div>
       <div class="aeo-guide-item">
         <span class="aeo-guide-label">Bulk total</span>
         <span class="aeo-guide-value">Order × quote + delivery</span>
-        <p class="aeo-guide-desc">Check minimums and whether the yard sells by cubic yard or short ton.</p>
+        <p class="aeo-guide-desc">
+          Check minimums and whether the yard sells by cubic yard or short ton.
+        </p>
       </div>
       <div class="aeo-guide-item">
         <span class="aeo-guide-label">Hauling limit</span>
         <span class="aeo-guide-value">Use your payload label</span>
-        <p class="aeo-guide-desc">Subtract passengers and gear before dividing by the bag's labeled weight.</p>
+        <p class="aeo-guide-desc">
+          Subtract passengers and gear before dividing by the bag's labeled
+          weight.
+        </p>
       </div>
     </div>
   </section>
@@ -52,15 +95,26 @@ const calculatorsSupported = [
   <div class="guide-text-block">
     <h2>Start with the volume and the two local quotes</h2>
     <p>
-      When planning a rock landscape project, one of the first procurement decisions is whether to purchase pre-bagged stone from a big-box home improvement center or order loose bulk material delivered by dump truck from a local quarry.
+      When planning a rock landscape project, one of the first procurement
+      decisions is whether to purchase pre-bagged stone from a big-box home
+      improvement center or order loose bulk material delivered by dump truck
+      from a local quarry.
     </p>
     <p>
-      Bags are easy to carry through a narrow gate and buy a few at a time. Bulk stone can reduce handling and packaging, but delivery fees, minimum orders, and the place where the truck can unload change the comparison.
+      Bags are easy to carry through a narrow gate and buy a few at a time. Bulk
+      stone can reduce handling and packaging, but delivery fees, minimum
+      orders, and the place where the truck can unload change the comparison.
     </p>
 
     <h2>There is no universal bag count where bulk becomes cheaper</h2>
     <p>
-      For the same finished volume, compare <strong>rounded-up bag count × price per bag</strong> with <strong>supplier-rounded bulk order × price per yard or ton + delivery</strong>. Twenty 0.5 ft³ bags contain 10 ft³, or about 0.37 yd³; that conversion alone says nothing about which order costs less.
+      For the same finished volume, compare{" "}
+      <strong>rounded-up bag count × price per bag</strong> with{" "}
+      <strong>
+        supplier-rounded bulk order × price per yard or ton + delivery
+      </strong>
+      . Twenty 0.5 ft³ bags contain 10 ft³, or about 0.37 yd³; that conversion
+      alone says nothing about which order costs less.
     </p>
 
     <div class="table-container">
@@ -74,27 +128,37 @@ const calculatorsSupported = [
         </thead>
         <tbody>
           <tr>
-            <td><strong>Quantity to price</strong></td>
+            <td>
+              <strong>Quantity to price</strong>
+            </td>
             <td>Round up total ft³ ÷ labeled bag ft³</td>
             <td>Round up planned yd³ to the supplier's selling increment</td>
           </tr>
           <tr>
-            <td><strong>Material price</strong></td>
+            <td>
+              <strong>Material price</strong>
+            </td>
             <td>Use the current price for the chosen bag</td>
             <td>Use a quote for the same stone size and finish</td>
           </tr>
           <tr>
-            <td><strong>Delivery Surcharge</strong></td>
+            <td>
+              <strong>Delivery Surcharge</strong>
+            </td>
             <td>Check pickup time, fuel, tax, or bag delivery</td>
             <td>Ask for the actual fee, minimum, and unloading location</td>
           </tr>
           <tr>
-            <td><strong>Handling Logistics</strong></td>
+            <td>
+              <strong>Handling Logistics</strong>
+            </td>
             <td>Hand-carried individually; fits through narrow gates</td>
             <td>Dumped in one pile; requires shovel and wheelbarrow</td>
           </tr>
           <tr>
-            <td><strong>Packaging Waste</strong></td>
+            <td>
+              <strong>Packaging Waste</strong>
+            </td>
             <td>One package per bag unless sold in reusable containers</td>
             <td>Loose delivery can avoid retail bag packaging</td>
           </tr>
@@ -104,55 +168,101 @@ const calculatorsSupported = [
 
     <div style="background: rgba(212, 168, 83, 0.1); border: 1px solid rgba(212, 168, 83, 0.3); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 1.75rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
       <div>
-        <strong style="color: var(--text-primary); font-size: 1rem; display: block;">Need to compare product labels?</strong>
-        <span style="color: var(--text-secondary); font-size: 0.9rem;">Our bag guide shows how volume, weight, and current local prices affect the order.</span>
+        <strong style="color: var(--text-primary); font-size: 1rem; display: block;">
+          Need to compare product labels?
+        </strong>
+        <span style="color: var(--text-secondary); font-size: 0.9rem;">
+          Our bag guide shows how volume, weight, and current local prices
+          affect the order.
+        </span>
       </div>
-      <a href="/rock-bag-calculator" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; white-space: nowrap;">
+      <a
+        href="/rock-bag-calculator"
+        class="btn btn-secondary"
+        style="font-size: 0.85rem; padding: 0.5rem 1rem; white-space: nowrap;"
+      >
         Open the Bag, Weight &amp; Pallet Calculator &rarr;
       </a>
     </div>
 
     <h2>Worked example: 200 square feet of river rock</h2>
     <p>
-      Consider a 200 square foot shrub border requiring a 3-inch layer of river rock:
+      Consider a 200 square foot shrub border requiring a 3-inch layer of river
+      rock:
     </p>
     <ul>
-      <li><strong>Volume Required:</strong> (200 sq ft × 3 inches) / 324 = <strong>1.85 cubic yards</strong> (50 cubic feet).</li>
-      <li><strong>Weight Required:</strong> 1.85 cubic yards × 1.35 tons/yd³ = <strong>2.50 short tons (5,000 lbs)</strong>.</li>
+      <li>
+        <strong>Volume Required:</strong> (200 sq ft × 3 inches) / 324 ={" "}
+        <strong>1.85 cubic yards</strong> (50 cubic feet).
+      </li>
+      <li>
+        <strong>Weight Required:</strong> 1.85 cubic yards × 1.35 tons/yd³ ={" "}
+        <strong>2.50 short tons (5,000 lbs)</strong>.
+      </li>
     </ul>
 
     <h3>Option A: Buying 0.5 Cu Ft Retail Bags</h3>
     <p>
-      50 cubic feet / 0.5 cu ft per bag = <strong>100 retail bags</strong>. If a local store quotes $5.00 per bag, that illustrative material total is <strong>$500.00</strong> before tax or delivery. Divide the bags into trips using your vehicle's remaining rated payload and the chosen bag's labeled weight.
+      50 cubic feet / 0.5 cu ft per bag = <strong>100 retail bags</strong>. If a
+      local store quotes $5.00 per bag, that illustrative material total is{" "}
+      <strong>$500.00</strong> before tax or delivery. Divide the bags into
+      trips using your vehicle's remaining rated payload and the chosen bag's
+      labeled weight.
     </p>
 
     <h3>Option B: Ordering Bulk Quarry Delivery</h3>
     <p>
-      If your supplier sells in whole yards, 1.85 yd³ becomes a 2.0 yd³ order. At an <em>illustrative</em> quote of $45.00 per short ton, 2.0 yd³ × 1.35 short tons/yd³ costs $121.50 in stone. An illustrative $85 delivery fee makes the total <strong>$206.50</strong>. Get actual quotes before deciding.
+      If your supplier sells in whole yards, 1.85 yd³ becomes a 2.0 yd³ order.
+      At an <em>illustrative</em> quote of $45.00 per short ton, 2.0 yd³ × 1.35
+      short tons/yd³ costs $121.50 in stone. An illustrative $85 delivery fee
+      makes the total <strong>$206.50</strong>. Get actual quotes before
+      deciding.
     </p>
     <p>
-      In this example, bulk is $293.50 less before tax and handling. A different bag price, bulk minimum, stone selection, or delivery distance can reverse the result. The <a href="/river-rock-bag-calculator">river rock bag calculator</a> lets you enter your own bag and bulk prices.
+      In this example, bulk is $293.50 less before tax and handling. A different
+      bag price, bulk minimum, stone selection, or delivery distance can reverse
+      the result. The{" "}
+      <a href="/river-rock-bag-calculator">river rock bag calculator</a> lets
+      you enter your own bag and bulk prices.
     </p>
 
     <h2>Vehicle Weight Limitations and Safety</h2>
-    <p>Look for your vehicle's payload label and subtract everyone and everything else you plan to carry. Compare the remainder with the bag's labeled or measured weight. Stone weight and vehicle payload vary by product and vehicle.</p>
+    <p>
+      Look for your vehicle's payload label and subtract everyone and everything
+      else you plan to carry. Compare the remainder with the bag's labeled or
+      measured weight. Stone weight and vehicle payload vary by product and
+      vehicle.
+    </p>
 
     <div class="formula-callout">
-      <code>maximum bags per trip = floor(remaining rated payload ÷ actual lb per bag)</code>
+      <code>
+        maximum bags per trip = floor(remaining rated payload ÷ actual lb per
+        bag)
+      </code>
     </div>
 
     <p>
-      At the site's <em>illustrative</em> 1.35-short-ton/yd³ river rock density, one cubic yard weighs about 2,700 lb. Ask the supplier for the actual load weight and compare it with your specific vehicle's remaining payload, axle, and tire ratings. Arrange delivery if the load exceeds those limits.
+      At the site's <em>illustrative</em> 1.35-short-ton/yd³ river rock density,
+      one cubic yard weighs about 2,700 lb. Ask the supplier for the actual load
+      weight and compare it with your specific vehicle's remaining payload,
+      axle, and tire ratings. Arrange delivery if the load exceeds those limits.
     </p>
 
     <h2>When Bagged Rock Is Actually the Better Choice</h2>
-    <p>
-      Bags can be a practical choice in these situations:
-    </p>
+    <p>Bags can be a practical choice in these situations:</p>
     <ul>
-      <li><strong>Restricted access:</strong> Hand-carried bags can reach enclosed beds even when a truck can only unload at the street.</li>
-      <li><strong>Small touch-ups:</strong> Buy just the amount needed to fill a low spot, planter, or tree ring.</li>
-      <li><strong>Specialty finishes:</strong> Compare the exact product; a polished or colored bagged stone may have no local loose equivalent.</li>
+      <li>
+        <strong>Restricted access:</strong> Hand-carried bags can reach enclosed
+        beds even when a truck can only unload at the street.
+      </li>
+      <li>
+        <strong>Small touch-ups:</strong> Buy just the amount needed to fill a
+        low spot, planter, or tree ring.
+      </li>
+      <li>
+        <strong>Specialty finishes:</strong> Compare the exact product; a
+        polished or colored bagged stone may have no local loose equivalent.
+      </li>
     </ul>
   </div>
 </GuideLayout>
@@ -260,7 +370,8 @@ const calculatorsSupported = [
     text-align: left;
   }
 
-  .guide-data-table th, .guide-data-table td {
+  .guide-data-table th,
+  .guide-data-table td {
     padding: var(--space-3) var(--space-4);
     border-bottom: 1px solid var(--border-subtle);
   }
