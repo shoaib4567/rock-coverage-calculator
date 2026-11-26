@@ -3,8 +3,7 @@
    Dark Quarry Slate palette, zero-emoji SVG-first design tokens.
    ========================================================================== */
 
-/* --- Google Fonts Import --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+/* --- Google Fonts loaded cleanly via BaseLayout preconnect links --- */
 
 /* --- Design Tokens --- */
 :root {

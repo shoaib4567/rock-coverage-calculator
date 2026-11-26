@@ -1,20 +1,21 @@
 ---
-import TopicClusterNav from '../components/TopicClusterNav.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from "../components/TopicClusterNav.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
 
 const breadcrumbs = [
-  { name: 'Home', url: '/' },
-  { name: 'Free Embed Widget', url: '/calculator-widget' }
+  { name: "Home", url: "/" },
+  { name: "Free Embed Widget", url: "/calculator-widget" },
 ];
 
 const title = "Free Rock Coverage Calculator Widget - Embed on Your Website";
-const metaDescription = "Embed our free, interactive landscape rock and gravel coverage calculator on your contractor, quarry, or garden center website with a simple copy-paste HTML iframe code snippet.";
+const metaDescription =
+  "Embed our free, interactive landscape rock and gravel coverage calculator on your contractor, quarry, or garden center website with a simple copy-paste HTML iframe code snippet.";
 ---
 
-<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/calculator-widget">
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/calculator-widget" hideAds>
   <Header />
 
   <main id="main-content">
@@ -32,33 +33,60 @@ const metaDescription = "Embed our free, interactive landscape rock and gravel c
           <!-- Left: Configuration Controls -->
           <div class="builder-controls-panel">
             <div class="calc-panel-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+              </svg>
               <h2>Customize Your Widget</h2>
             </div>
 
             <div class="control-group">
               <label for="widget-width-select">Widget Width</label>
               <select id="widget-width-select" class="builder-select">
-                <option value="100%" selected>100% Responsive (Fits any container / mobile-friendly)</option>
+                <option value="100%" selected>
+                  100% Responsive (Fits any container / mobile-friendly)
+                </option>
                 <option value="960px">Fixed 960px (Standard Desktop)</option>
-                <option value="800px">Fixed 800px (Medium Content Column)</option>
+                <option value="800px">
+                  Fixed 800px (Medium Content Column)
+                </option>
               </select>
             </div>
 
             <div class="control-group">
               <label for="widget-height-input">Widget Height</label>
               <div class="input-field mini">
-                <input type="number" id="widget-height-input" value="820" min="600" max="1400" step="20" />
+                <input
+                  type="number"
+                  id="widget-height-input"
+                  value="820"
+                  min="600"
+                  max="1400"
+                  step="20"
+                />
                 <span class="unit-label">px</span>
               </div>
-              <span class="control-hint">820px is a starting height. Expanded results may need more space or scrolling.</span>
+              <span class="control-hint">
+                820px is a starting height. Expanded results may need more space
+                or scrolling.
+              </span>
             </div>
 
             <div class="control-group">
               <label for="widget-theme-select">Default Color Theme</label>
               <select id="widget-theme-select" class="builder-select">
-                <option value="dark" selected>Quarry Dark Slate (High contrast)</option>
-                <option value="light">Clean Light Mode (White background)</option>
+                <option value="dark" selected>
+                  Quarry Dark Slate (High contrast)
+                </option>
+                <option value="light">
+                  Clean Light Mode (White background)
+                </option>
               </select>
             </div>
 
@@ -66,12 +94,32 @@ const metaDescription = "Embed our free, interactive landscape rock and gravel c
             <div class="snippet-box">
               <div class="snippet-header">
                 <span>Embed Code (Copy &amp; Paste into Your HTML)</span>
-                <button type="button" id="btn-copy-widget-code" class="btn btn-sm btn-primary">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <button
+                  type="button"
+                  id="btn-copy-widget-code"
+                  class="btn btn-sm btn-primary"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
                   Copy HTML
                 </button>
               </div>
-              <textarea id="widget-code-preview" aria-label="HTML code to embed the calculator" class="snippet-textarea" rows="6" readonly></textarea>
+              <textarea
+                id="widget-code-preview"
+                aria-label="HTML code to embed the calculator"
+                class="snippet-textarea"
+                rows="6"
+                readonly
+              ></textarea>
             </div>
 
             <!-- Platform Installation Guides -->
@@ -79,15 +127,27 @@ const metaDescription = "Embed our free, interactive landscape rock and gravel c
               <h3>Quick Setup Instructions:</h3>
               <details class="guide-accordion">
                 <summary>WordPress (Block Editor / Elementor)</summary>
-                <p>Add a <strong>Custom HTML</strong> block or element to your page or blog post, and paste the embed code directly into the block.</p>
+                <p>
+                  Add a <strong>Custom HTML</strong> block or element to your
+                  page or blog post, and paste the embed code directly into the
+                  block.
+                </p>
               </details>
               <details class="guide-accordion">
                 <summary>Squarespace</summary>
-                <p>Click <strong>Add Block</strong>, choose <strong>Code</strong> or <strong>Embed</strong>, set mode to HTML, and paste the snippet.</p>
+                <p>
+                  Click <strong>Add Block</strong>, choose <strong>Code</strong>{" "}
+                  or <strong>Embed</strong>, set mode to HTML, and paste the
+                  snippet.
+                </p>
               </details>
               <details class="guide-accordion">
                 <summary>Wix &amp; Shopify</summary>
-                <p>Add an <strong>Embed Code &gt; Embed a Widget (HTML iframe)</strong> element and paste the snippet into the code field.</p>
+                <p>
+                  Add an{" "}
+                  <strong>Embed Code &gt; Embed a Widget (HTML iframe)</strong>{" "}
+                  element and paste the snippet into the code field.
+                </p>
               </details>
             </div>
           </div>
@@ -102,12 +162,12 @@ const metaDescription = "Embed our free, interactive landscape rock and gravel c
               <span class="preview-meta">Updates in real time</span>
             </div>
             <div class="iframe-container" id="preview-iframe-wrapper">
-              <iframe 
-                id="preview-iframe" 
-                src="/embed" 
-                width="100%" 
-                height="820" 
-                frameborder="0" 
+              <iframe
+                id="preview-iframe"
+                src="/embed"
+                width="100%"
+                height="820"
+                frameborder="0"
                 style="border: none; border-radius: 12px; background: transparent;"
                 title="Landscape Rock Coverage Calculator Preview"
               ></iframe>
@@ -116,73 +176,137 @@ const metaDescription = "Embed our free, interactive landscape rock and gravel c
         </div>
       </div>
     </section>
-<section class="container section"><h2>What the embedded calculator does</h2><p>The widget converts an area and finished depth into cubic yards, estimated short tons and volume-labeled bags. It supports the same shape and material inputs as the main tool. The embedded page excludes the separate 3D preview; the full website includes that feature.</p><h2>Set up and test your embed</h2><ol><li>Start with responsive width so the widget fits its parent column.</li><li>Allow enough height for inputs and expanded results. The widget scrolls within its frame when the chosen height is shorter than the content; 820 pixels does not fit every state.</li><li>Paste the HTML into a block that permits an iframe, then preview it at desktop and mobile widths.</li><li>Test a known example: 100 sq ft at 3 inches is 0.93 yd³ before extra. Supplier density changes estimated weight; bag label volume changes the bag count.</li></ol><h2>Preview or theme not updating?</h2><p>Some site editors remove iframe markup or block remote frames. Check the published page as well as the editor preview and review the host’s embed permissions. The calculator requires JavaScript. Browser storage and privacy settings may affect saved zones inside a third-party frame; visitors can use the <a href="/">main calculator</a> directly when needed.</p><p>The theme selector adds a light or dark theme to the embed URL and updates the preview. Without a theme parameter, the embed uses the visitor’s saved theme or the light default. Calculator results remain planning estimates; show your own product specifications and current quote beside the widget.</p><p><a href="/about">Read the calculation assumptions</a> or <a href="/contact">report an embed problem</a> with the host platform, browser and page URL.</p></section>
-  <TopicClusterNav />
+    <section class="container section">
+      <h2>What the embedded calculator does</h2>
+      <p>
+        The widget converts an area and finished depth into cubic yards,
+        estimated short tons and volume-labeled bags. It supports the same shape
+        and material inputs as the main tool. The embedded page excludes the
+        separate 3D preview; the full website includes that feature.
+      </p>
+      <h2>Set up and test your embed</h2>
+      <ol>
+        <li>
+          Start with responsive width so the widget fits its parent column.
+        </li>
+        <li>
+          Allow enough height for inputs and expanded results. The widget
+          scrolls within its frame when the chosen height is shorter than the
+          content; 820 pixels does not fit every state.
+        </li>
+        <li>
+          Paste the HTML into a block that permits an iframe, then preview it at
+          desktop and mobile widths.
+        </li>
+        <li>
+          Test a known example: 100 sq ft at 3 inches is 0.93 yd³ before extra.
+          Supplier density changes estimated weight; bag label volume changes
+          the bag count.
+        </li>
+      </ol>
+      <h2>Preview or theme not updating?</h2>
+      <p>
+        Some site editors remove iframe markup or block remote frames. Check the
+        published page as well as the editor preview and review the host’s embed
+        permissions. The calculator requires JavaScript. Browser storage and
+        privacy settings may affect saved zones inside a third-party frame;
+        visitors can use the <a href="/">main calculator</a> directly when
+        needed.
+      </p>
+      <p>
+        The theme selector adds a light or dark theme to the embed URL and
+        updates the preview. Without a theme parameter, the embed uses the
+        visitor’s saved theme or the light default. Calculator results remain
+        planning estimates; show your own product specifications and current
+        quote beside the widget.
+      </p>
+      <p>
+        <a href="/about">Read the calculation assumptions</a> or{" "}
+        <a href="/contact">report an embed problem</a> with the host platform,
+        browser and page URL.
+      </p>
+    </section>
+    <TopicClusterNav />
   </main>
 
   <Footer />
 </BaseLayout>
 
 <script is:inline>
-(function() {
-  const widthSelect = document.getElementById('widget-width-select');
-  const heightInput = document.getElementById('widget-height-input');
-  const themeSelect = document.getElementById('widget-theme-select');
-  const codePreview = document.getElementById('widget-code-preview');
-  const previewIframe = document.getElementById('preview-iframe');
-  const previewWrapper = document.getElementById('preview-iframe-wrapper');
-  const btnCopy = document.getElementById('btn-copy-widget-code');
+  (function () {
+    const widthSelect = document.getElementById("widget-width-select");
+    const heightInput = document.getElementById("widget-height-input");
+    const themeSelect = document.getElementById("widget-theme-select");
+    const codePreview = document.getElementById("widget-code-preview");
+    const previewIframe = document.getElementById("preview-iframe");
+    const previewWrapper = document.getElementById("preview-iframe-wrapper");
+    const btnCopy = document.getElementById("btn-copy-widget-code");
 
-  function updateWidget() {
-    const width = widthSelect?.value || '100%';
-    const height = heightInput?.value || '820';
-    const theme = themeSelect?.value || 'dark';
+    function updateWidget() {
+      const width = widthSelect?.value || "100%";
+      const height = heightInput?.value || "820";
+      const theme = themeSelect?.value || "dark";
 
-    const embedUrl = `https://rockcoveragecalculator.com/embed?theme=${encodeURIComponent(theme)}`;
+      const embedUrl = `https://rockcoveragecalculator.com/embed?theme=${encodeURIComponent(theme)}`;
 
-    const code = `<iframe src="${embedUrl}" width="${width}" height="${height}" frameborder="0" style="border:none;border-radius:12px;width:${width};height:${height}px;box-shadow:0 10px 30px rgba(0,0,0,0.15);" title="Landscape Rock Coverage Calculator" loading="lazy"></iframe>
+      const code = `<iframe src="${embedUrl}" width="${width}" height="${height}" frameborder="0" style="border:none;border-radius:12px;width:${width};height:${height}px;box-shadow:0 10px 30px rgba(0,0,0,0.15);" title="Landscape Rock Coverage Calculator" loading="lazy"></iframe>
 <p style="font-size:12px;text-align:center;color:#6b7280;margin-top:6px;">Calculations powered by <a href="https://rockcoveragecalculator.com" target="_blank" rel="noopener nofollow" style="color:#b8860b;text-decoration:underline;">Rock Coverage Calculator</a></p>`;
 
-    if (previewIframe && previewIframe.getAttribute('src') !== `/embed?theme=${encodeURIComponent(theme)}`) previewIframe.src = `/embed?theme=${encodeURIComponent(theme)}`;
-    if (codePreview) {
-      codePreview.value = code;
+      if (
+        previewIframe &&
+        previewIframe.getAttribute("src") !==
+          `/embed?theme=${encodeURIComponent(theme)}`
+      )
+        previewIframe.src = `/embed?theme=${encodeURIComponent(theme)}`;
+      if (codePreview) {
+        codePreview.value = code;
+      }
+
+      if (previewIframe) {
+        previewIframe.style.height = `${height}px`;
+      }
+
+      if (previewWrapper) {
+        previewWrapper.style.maxWidth = width === "100%" ? "100%" : width;
+      }
     }
 
-    if (previewIframe) {
-      previewIframe.style.height = `${height}px`;
-    }
-
-    if (previewWrapper) {
-      previewWrapper.style.maxWidth = width === '100%' ? '100%' : width;
-    }
-  }
-
-  [widthSelect, heightInput, themeSelect].forEach(el => {
-    if (el) {
-      el.addEventListener('input', updateWidget);
-      el.addEventListener('change', updateWidget);
-    }
-  });
-
-  if (btnCopy && codePreview) {
-    btnCopy.addEventListener('click', () => {
-      navigator.clipboard.writeText(codePreview.value).then(() => {
-        btnCopy.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied HTML!`;
-        setTimeout(() => {
-          btnCopy.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy HTML`;
-        }, 2000);
-      });
+    [widthSelect, heightInput, themeSelect].forEach((el) => {
+      if (el) {
+        el.addEventListener("input", updateWidget);
+        el.addEventListener("change", updateWidget);
+      }
     });
-  }
 
-  updateWidget();
-})();
+    if (btnCopy && codePreview) {
+      btnCopy.addEventListener("click", () => {
+        navigator.clipboard.writeText(codePreview.value).then(() => {
+          btnCopy.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied HTML!`;
+          setTimeout(() => {
+            btnCopy.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy HTML`;
+          }, 2000);
+        });
+      });
+    }
+
+    updateWidget();
+  })();
 </script>
 
 <style>
-  .builder-controls-panel, .builder-preview-panel { min-width: 0; }
-  .builder-select, .snippet-textarea { min-width: 0; max-width: 100%; }
-  .control-group, .control-group .input-field { min-width: 0; }
+  .builder-controls-panel,
+  .builder-preview-panel {
+    min-width: 0;
+  }
+  .builder-select,
+  .snippet-textarea {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .control-group,
+  .control-group .input-field {
+    min-width: 0;
+  }
   .widget-builder-grid {
     display: grid;
     grid-template-columns: 1fr;

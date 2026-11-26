@@ -9,7 +9,7 @@ const email = 'rockcoveragecalculator@gmail.com';
 const breadcrumbs = [{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact' }];
 ---
 
-<BaseLayout title="Contact | Rock Coverage Calculator" description="Email Rock Coverage Calculator with a calculation question, correction, or website issue. Include the page and the inputs you used." canonicalPath="/contact">
+<BaseLayout title="Contact | Rock Coverage Calculator" description="Email Rock Coverage Calculator with a calculation question, correction, or website issue. Include the page and the inputs you used." canonicalPath="/contact" hideAds>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -44,9 +44,9 @@ const breadcrumbs = [{ name: 'Home', url: '/' }, { name: 'Contact', url: '/conta
       </section>
 
       <section aria-labelledby="scope-title">
-        <h2 id="scope-title">Project &amp; delivery questions</h2>
+        <h2 id="scope-title">Project, privacy &amp; policy inquiries</h2>
         <p>Our tools estimate material volume and approximate weights. Contact your local quarry or landscape yard regarding current pricing, loose vs. scale weight, stock availability, and dump-truck clearance. Consult a qualified civil engineer or contractor for structural base design, drainage permits, or accessibility specifications.</p>
-        <p>See our <a href="/privacy">privacy policy</a> and <a href="/terms">terms of use</a>.</p>
+        <p>You can also email the address above for privacy inquiries, advertising-disclosure questions, broken-link reports, or feedback on embedded calculator behavior. Review our <a href="/privacy">privacy policy</a> and <a href="/terms">terms of use</a> before submitting sensitive project details.</p>
       </section>
     </article>
     <TopicClusterNav />

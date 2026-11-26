@@ -253,7 +253,7 @@ const faqItems = [
         </div>
       </div>
     </section>
-<section class="container section"><h2>Worked two-layer example</h2><p>For a 12 × 16 ft patio, a 4-inch finished base occupies 2.37 yd³. At a chosen 25% loose-volume increase and 5% additional extra, order 3.11 yd³ of base. A separate 2-inch top occupies 1.19 yd³; with 10% extra and no loose-volume increase, order 1.30 yd³. Weight depends on the actual loose densities you enter.</p><h2>What this shopping list includes</h2><p>The estimator adds the selected layers, optional fabric and a full rectangular perimeter. Fabric assumes 15% overlap and 300 sq ft rolls; edging assumes a spike every 18 inches. Confirm product roll sizes, overlaps and fixing instructions. Subtract sides that do not need edging. The excavation figure covers the selected layer thicknesses only; it does not allow for every ground preparation or disposal condition.</p><p>Presets illustrate quantities rather than construction specifications. Check the <a href="/rock-depth-guide">depth planning guide</a> and <a href="/about">formulas and assumptions</a>. Use the <a href="/which-rock-should-i-use">material selection helper</a> when comparing products, then confirm the actual installation plan.</p></section>
+<section class="container section"><h2>Worked two-layer example</h2><p>For a 12 × 16 ft patio, a 4-inch finished base occupies 2.37 yd³. At a chosen 25% loose-volume increase and 5% additional extra, order 3.11 yd³ of base. A separate 2-inch top occupies 1.19 yd³; with 10% extra and no loose-volume increase, order 1.30 yd³. Weight depends on the actual loose densities you enter.</p><h2>Why base and top layers use different allowances</h2><p>Dense-graded road bases such as crusher run contain stone dust and fine particles that consolidate under plate compaction, so ordering loose volume requires an expansion multiplier above the finished thickness. Clean angular surface stones (#57 crushed stone, pea gravel, or river rock) bridge against each other and do not compact substantially, so only a perimeter or grading buffer (typically 5%–10%) is applied.</p><p>When estimating edging, check how many sides actually touch lawn or planting soil. Subtract existing concrete slabs, garage aprons, retaining walls, or house foundations from the automated full-rectangle perimeter so you do not over-order metal or plastic border strip and anchoring spikes.</p><h2>What this shopping list includes</h2><p>The estimator adds the selected layers, optional fabric and a full rectangular perimeter. Fabric assumes 15% overlap and 300 sq ft rolls; edging assumes a spike every 18 inches. Confirm product roll sizes, overlaps and fixing instructions. Subtract sides that do not need edging. The excavation figure covers the selected layer thicknesses only; it does not allow for every ground preparation or disposal condition.</p><p>Presets illustrate quantities rather than construction specifications. Check the <a href="/rock-depth-guide">depth planning guide</a> and <a href="/about">formulas and assumptions</a>. Use the <a href="/which-rock-should-i-use">material selection helper</a> when comparing products, then confirm the actual installation plan.</p><h2>Frequently asked questions</h2><div class="layered-faq-list">{faqItems.map(item => <details class="layered-faq-item"><summary>{item.q}</summary><p>{item.a}</p></details>)}</div></section>
   <TopicClusterNav />
   </main>
 
@@ -927,5 +927,32 @@ function syncMaterialAssumptions(only){for(const [prefix,select] of [['base',bas
     color: #60a5fa;
     display: block;
     margin-bottom: 2px;
+  }
+
+  .layered-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .layered-faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .layered-faq-item summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .layered-faq-item p {
+    margin-top: var(--space-3);
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    line-height: 1.65;
   }
 </style>
