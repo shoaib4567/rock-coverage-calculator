@@ -7,7 +7,7 @@ import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 import { getMaterialById } from '../scripts/materials-data.js';
 
-const pageTitle = 'Gravel Calculator: Cubic Yards and Tons';
+const pageTitle = 'Gravel Calculator: Loose Yards and Short Tons';
 const crushedDensity = getMaterialById('crushed-granite').tonsPerCuYd;
 const baseDensity = getMaterialById('crusher-run-21a').tonsPerCuYd;
 const peaDensity = getMaterialById('pea-gravel').tonsPerCuYd;
@@ -18,19 +18,19 @@ const breadcrumbs = [
   { name: 'Gravel Calculator', url: '/gravel-calculator' }
 ];
 const entityTags = [
-  { label: 'Inputs', value: 'Length × Width × Finished Depth' },
-  { label: 'Results', value: 'Cubic Yards and US Tons' },
+  { label: 'Inputs', value: 'Length × Width, Circle, Known Sq Ft, or Yards → Tons' },
+  { label: 'Results', value: 'Loose Cubic Yards and Short Tons (2,000 lb)' },
   { label: 'Materials', value: 'Crushed Stone, Crusher Run, Pea Gravel' }
 ];
 const quickStats = [
   { value: '27 cu ft', label: 'Per cubic yard', desc: 'Volume conversion for bulk gravel orders' },
-  { value: '2,000 lb', label: 'Per US ton', desc: 'Weight unit used in the ton estimate' },
+  { value: '2,000 lb', label: 'Per short ton', desc: 'Weight unit used in the tonnage estimate' },
   { value: 'Your choice', label: 'Order allowance', desc: 'Adjust for compaction, low spots, and grading' }
 ];
 const faqItems = [
   {
     q: 'How much gravel do I need for a 50 × 12 ft driveway?',
-    a: `At a 4-inch finished depth, the area is 600 sq ft and the finished volume is 7.41 cubic yards. A 15% allowance makes the estimated order ${exampleOrderYards.toFixed(2)} cubic yards. At the calculator’s ${crushedDensity.toFixed(2)} US tons per cubic yard starting density for crushed stone, that is ${exampleTons.toFixed(2)} US tons. Calculate a separate layer if your driveway also needs a base.`
+    a: `At a 4-inch finished depth, the area is 600 sq ft and the finished volume is 7.41 cubic yards. A 15% allowance makes the estimated order ${exampleOrderYards.toFixed(2)} cubic yards. At the calculator’s ${crushedDensity.toFixed(2)} short tons per cubic yard starting density for crushed stone, that is ${exampleTons.toFixed(2)} short tons. Calculate a separate layer if your driveway also needs a base.`
   },
   {
     q: 'Does the calculator include a base and a surface layer?',
@@ -38,7 +38,7 @@ const faqItems = [
   },
   {
     q: 'How many tons are in a cubic yard of gravel?',
-    a: `There is no single value for every gravel. This calculator starts with ${crushedDensity.toFixed(2)} US tons per cubic yard for crushed stone, ${baseDensity.toFixed(2)} for dense graded base, and ${peaDensity.toFixed(2)} for pea gravel. Change the density to your supplier’s figure when available; gradation, source, and moisture affect the delivered weight.`
+    a: `There is no single value for every gravel. This calculator starts with ${crushedDensity.toFixed(2)} short tons per cubic yard for crushed stone, ${baseDensity.toFixed(2)} for dense graded base, and ${peaDensity.toFixed(2)} for pea gravel. Change the density to your supplier’s figure when available; gradation, source, and moisture affect the delivered weight.`
   },
   {
     q: 'Should I add a compaction allowance to pea gravel?',
@@ -49,7 +49,7 @@ const faqItems = [
 
 <BaseLayout
   title={pageTitle}
-  description="Enter area, finished depth, gravel type, and allowance to estimate cubic yards and US tons. See the exact formula and a worked driveway example."
+  description="Enter length and width, circle diameter, square footage, or cubic yards to estimate loose gravel volume and short tons. Includes supplier rounding and worked driveway math."
   canonicalPath="/gravel-calculator"
 >
   <Fragment slot="head">
@@ -58,7 +58,7 @@ const faqItems = [
       '@type': 'WebApplication',
       name: pageTitle,
       url: 'https://rockcoveragecalculator.com/gravel-calculator',
-      description: 'Estimates gravel volume and US tons from length, width, finished depth, an optional order allowance, and material bulk density.',
+      description: 'Estimates gravel volume and short tons from rectangular dimensions, circle diameter, known square footage, or cubic-yard conversion with optional order allowance and seller rounding.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Web'
     })} />
@@ -79,7 +79,7 @@ const faqItems = [
       title={pageTitle}
       highlightWord="Gravel Calculator"
       badge="Bulk gravel planning"
-      subtitle="Measure the area and choose a finished gravel depth. This calculator converts that volume to cubic yards, adds your order allowance, then estimates US tons using a material density you can adjust to match your supplier."
+      subtitle="Measure rectangular driveways, circular pads, known square footage, or convert cubic yards to short tons. Adjust order allowance, seller yard increments, and loose bulk weight to match your supplier."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -87,8 +87,8 @@ const faqItems = [
 
     <section class="answer-strip" aria-label="Gravel calculation at a glance">
       <div class="container answer-grid">
-        <p><strong>For a rectangle:</strong> square feet = length × width. Finished cubic yards = square feet × depth in inches ÷ 324.</p>
-        <p><strong>For an order:</strong> multiply finished yards by 1 + your allowance, then by tons per cubic yard if the yard sells by weight.</p>
+        <p><strong>For a rectangle:</strong> square feet = length &times; width. Finished cubic yards = square feet &times; depth in inches &divide; 324.</p>
+        <p><strong>For an order:</strong> multiply finished yards by 1 + your allowance, then by short tons per cubic yard if the yard sells by weight.</p>
       </div>
     </section>
 
@@ -102,26 +102,26 @@ const faqItems = [
           <figure class="formula-figure">
             <svg viewBox="0 0 680 170" role="img" aria-labelledby="formula-title formula-desc">
               <title id="formula-title">Gravel quantity calculation</title>
-              <desc id="formula-desc">Length times width gives square feet; square feet times depth in inches divided by 324 gives cubic yards; the chosen allowance and material density give an estimated order in US tons.</desc>
+              <desc id="formula-desc">Length times width gives square feet; square feet times depth in inches divided by 324 gives cubic yards; the chosen allowance and material density give an estimated order in short tons.</desc>
               <rect x="2" y="2" width="676" height="166" rx="15" fill="#17212b" stroke="#586575" />
               <rect x="22" y="30" width="145" height="110" rx="10" fill="#29465c" />
-              <text x="94" y="75" text-anchor="middle" fill="white" font-size="16" font-weight="700">Length × width</text>
+              <text x="94" y="75" text-anchor="middle" fill="white" font-size="16" font-weight="700">Length &times; width</text>
               <text x="94" y="101" text-anchor="middle" fill="#c6d8e6" font-size="13">square feet</text>
-              <text x="182" y="91" fill="#fbbf24" font-size="22">→</text>
+              <text x="182" y="91" fill="#fbbf24" font-size="22">&rarr;</text>
               <rect x="215" y="30" width="145" height="110" rx="10" fill="#29465c" />
-              <text x="287" y="75" text-anchor="middle" fill="white" font-size="16" font-weight="700">× depth ÷ 324</text>
-              <text x="287" y="101" text-anchor="middle" fill="#c6d8e6" font-size="13">finished yd³</text>
-              <text x="376" y="91" fill="#fbbf24" font-size="22">→</text>
+              <text x="287" y="75" text-anchor="middle" fill="white" font-size="16" font-weight="700">&times; depth &divide; 324</text>
+              <text x="287" y="101" text-anchor="middle" fill="#c6d8e6" font-size="13">finished yd&sup3;</text>
+              <text x="376" y="91" fill="#fbbf24" font-size="22">&rarr;</text>
               <rect x="408" y="30" width="245" height="110" rx="10" fill="#29465c" />
-              <text x="530" y="70" text-anchor="middle" fill="white" font-size="16" font-weight="700">× (1 + allowance)</text>
-              <text x="530" y="96" text-anchor="middle" fill="#c6d8e6" font-size="13">order yd³</text>
-              <text x="530" y="118" text-anchor="middle" fill="#c6d8e6" font-size="13">× density = US tons</text>
+              <text x="530" y="70" text-anchor="middle" fill="white" font-size="16" font-weight="700">&times; (1 + allowance)</text>
+              <text x="530" y="96" text-anchor="middle" fill="#c6d8e6" font-size="13">order yd&sup3;</text>
+              <text x="530" y="118" text-anchor="middle" fill="#c6d8e6" font-size="13">&times; density = short tons</text>
             </svg>
             <figcaption>One calculation covers one material layer. Run it separately for each base or surface layer, or use the <a href="/layered-project-calculator">multi-layer project planner</a>.</figcaption>
           </figure>
           <div class="example">
-            <h3>Worked example: 50 ft × 12 ft at 4 in</h3>
-            <p>600 sq ft × 4 ÷ 324 = <strong>7.41 finished yd³</strong>. With a 15% allowance, 7.41 × 1.15 = <strong>{exampleOrderYards.toFixed(2)} order yd³</strong>. At {crushedDensity.toFixed(2)} US tons per yd³, the estimate is <strong>{exampleTons.toFixed(2)} US tons</strong>. Confirm the actual density, order increment, and delivery options with the supplier.</p>
+            <h3>Worked example: 50 ft &times; 12 ft at 4 in</h3>
+            <p>600 sq ft &times; 4 &divide; 324 = <strong>7.41 finished yd&sup3;</strong>. With a 15% allowance, 7.41 &times; 1.15 = <strong>{exampleOrderYards.toFixed(2)} order yd&sup3;</strong>. At {crushedDensity.toFixed(2)} short tons per yd&sup3;, the estimate is <strong>{exampleTons.toFixed(2)} short tons</strong>. Confirm the actual density, order increment, and delivery options with the supplier.</p>
           </div>
         </section>
 
@@ -131,7 +131,7 @@ const faqItems = [
             <li><strong>Measure the footprint.</strong> Break curves, flares, and wider parking areas into rectangles and add their square footage. Use average depth only if the existing ground is reasonably even; measure low spots separately.</li>
             <li><strong>Specify the finished layer.</strong> A thin top-up over a sound driveway and a new base are different jobs. Enter each material and depth in its own calculation.</li>
             <li><strong>Choose an allowance deliberately.</strong> Zero gives the geometric volume. Increase it if a compacted base, rough grade, or handling loss calls for more loose material. A fixed percentage cannot replace site measurements.</li>
-            <li><strong>Check the supplier’s unit.</strong> Ask whether the quote is in loose cubic yards or US short tons, what material name and gradation they use, and whether they can provide tons per cubic yard. Also confirm the smallest deliverable load and a safe place to tip it.</li>
+            <li><strong>Check the supplier’s unit.</strong> Ask whether the quote is in loose cubic yards or short tons (2,000 lb), what material name and gradation they use, and whether they can provide tons per cubic yard. Also confirm the smallest deliverable load and a safe place to tip it.</li>
           </ol>
         </section>
 
@@ -147,9 +147,9 @@ const faqItems = [
             <table>
               <thead><tr><th scope="col">Material</th><th scope="col">Starting density</th><th scope="col">Useful distinction</th></tr></thead>
               <tbody>
-                <tr><th scope="row">Crushed stone</th><td>{crushedDensity.toFixed(2)} US tons/yd³</td><td>Angular aggregate; this starting figure uses the site’s crushed granite preset. Confirm size and fines if used as a driveway surface.</td></tr>
-                <tr><th scope="row">Crusher run / dense graded base</th><td>{baseDensity.toFixed(2)} US tons/yd³</td><td>Mixed sizes and fines are intended to compact into a base; name and blend vary locally.</td></tr>
-                <tr><th scope="row">Pea gravel</th><td>{peaDensity.toFixed(2)} US tons/yd³</td><td>Rounded gravel works well in contained pedestrian areas, but can shift under tires.</td></tr>
+                <tr><th scope="row">Crushed stone</th><td>{crushedDensity.toFixed(2)} short tons/yd&sup3;</td><td>Angular aggregate; this starting figure uses the site’s crushed granite preset. Confirm size and fines if used as a driveway surface.</td></tr>
+                <tr><th scope="row">Crusher run / dense graded base</th><td>{baseDensity.toFixed(2)} short tons/yd&sup3;</td><td>Mixed sizes and fines are intended to compact into a base; name and blend vary locally.</td></tr>
+                <tr><th scope="row">Pea gravel</th><td>{peaDensity.toFixed(2)} short tons/yd&sup3;</td><td>Rounded gravel works well in contained pedestrian areas, but can shift under tires.</td></tr>
               </tbody>
             </table>
           </div>
@@ -170,22 +170,7 @@ const faqItems = [
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/gravel-calculator"
-      bridgeLinks={[
-        { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', desc: 'Focus on weight-based ordering.' },
-        { title: 'Gravel Cubic Yard Calculator', slug: '/gravel-cubic-yard-calculator', desc: 'Focus on bulk volume and supplier yard increments.' },
-        { title: 'Gravel Bag Calculator', slug: '/gravel-bag-calculator', desc: 'Count bags by their label volume and compare local quotes.' }
-      ]}
-      lateralLinks={[
-        { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', desc: 'Estimate a dense graded driveway base.' },
-        { title: 'Pea Gravel Calculator', slug: '/pea-gravel-calculator', desc: 'Estimate rounded gravel for a path or patio.' }
-      ]}
-      supportGuides={[
-        { title: 'Gravel Size Guide', slug: '/gravel-sizes', desc: 'Compare aggregate size labels.' },
-        { title: 'Rock Density Chart', slug: '/rock-density-chart', desc: 'Check material weight assumptions.' }
-      ]}
-    />
+    <TopicClusterNav />
   </main>
   <Footer />
 </BaseLayout>

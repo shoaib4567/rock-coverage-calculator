@@ -12,57 +12,28 @@ import Footer from '../components/Footer.astro';
 
 const pageTitle = 'Rock Coverage Calculator';
 ---
-<BaseLayout 
+<BaseLayout
   title={pageTitle}
-  description="Measure a rock bed, choose a material and depth, and estimate cubic yards, tons, and 0.5-cubic-foot bags. Six area shapes and editable supplier density."
+  description="Measure a rock bed in any shape or square footage, choose a material and depth, and estimate cubic yards, short tons, and 0.5-cubic-foot bags."
+  canonicalPath="/"
+  ogType="website"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "HowTo",
-      "name": "How to Calculate Landscape Rock Coverage in Cubic Yards and Tons",
-      "description": "Estimate cubic yards, tons, and bags of rock from measured area and planned depth.",
-      "totalTime": "PT2M",
-      "tool": {
-        "@type": "HowToTool",
-        "name": "Rock Coverage Calculator"
-      },
-      "step": [
-        {
-          "@type": "HowToStep",
-          "position": 1,
-          "name": "Measure Project Area",
-          "text": "Measure the length and width of your area in feet (or radius for circular beds). Multiply length by width to find total square footage.",
-          "url": "https://rockcoveragecalculator.com/#calculator"
-        },
-        {
-          "@type": "HowToStep",
-          "position": 2,
-          "name": "Determine Required Layer Depth",
-          "text": "Enter the planned finished layer depth in inches. Choose it for the actual stone size, use, and site conditions; calculate compacted base layers separately.",
-          "url": "https://rockcoveragecalculator.com/#depth-guidelines"
-        },
-        {
-          "@type": "HowToStep",
-          "position": 3,
-          "name": "Calculate Cubic Yards",
-          "text": "Divide the product of area and depth by 324 (12 inches per foot x 27 cubic feet per cubic yard): Volume (cu yd) = (Square Feet x Depth in Inches) / 324.",
-          "url": "https://rockcoveragecalculator.com/#mathematical-derivation"
-        },
-        {
-          "@type": "HowToStep",
-          "position": 4,
-          "name": "Convert Volume to Commercial Quarry Tons",
-          "text": "Multiply cubic yards by the selected material's estimated loose bulk density. Replace the default with a supplier-provided value when available.",
-          "url": "https://rockcoveragecalculator.com/#density-reference-table"
-        },
-        {
-          "@type": "HowToStep",
-          "position": 5,
-          "name": "Choose an Extra Material Allowance",
-          "text": "Select an allowance for measurement uncertainty and low spots. Dense-graded materials can require a separate compaction adjustment; confirm the amount with the supplier or project specification.",
-          "url": "https://rockcoveragecalculator.com/#compaction-factors"
-        }
+      "@type": "WebApplication",
+      "name": pageTitle,
+      "url": "https://rockcoveragecalculator.com/",
+      "description": "Multi-shape rock, gravel, and stone coverage calculator converting project footprint, finished depth, and editable loose bulk density into cubic yards, short tons (2,000 lb), and 0.5-cubic-foot bags.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en",
+      "featureList": [
+        "Rectangle, circle, ring, triangle, trapezoid, L-shape, and known square-foot area inputs",
+        "Editable loose bulk density presets synchronized with aggregate density chart",
+        "Optional order allowance and compactable-base loose-order multiplier",
+        "2D scaled blueprint and interactive 3D layer preview",
+        "Multi-zone project saver and CSV / printable specification export"
       ]
     })} />
   </Fragment>

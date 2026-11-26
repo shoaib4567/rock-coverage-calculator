@@ -1,45 +1,234 @@
 ---
-import GuideLayout from '../layouts/GuideLayout.astro';
+import GuideLayout from "../layouts/GuideLayout.astro";
 const calculatorsSupported = [
   {
-    "title": "Gravel Calculator",
-    "slug": "/gravel-calculator",
-    "badge": "Quantity tool",
-    "desc": "Choose the tool for this part of the order."
+    title: "Gravel Calculator",
+    slug: "/gravel-calculator",
+    badge: "Quantity tool",
+    desc: "Choose the tool for this part of the order.",
   },
   {
-    "title": "Crushed Stone Calculator",
-    "slug": "/crushed-stone-calculator",
-    "badge": "Quantity tool",
-    "desc": "Choose the tool for this part of the order."
+    title: "Crushed Stone Calculator",
+    slug: "/crushed-stone-calculator",
+    badge: "Quantity tool",
+    desc: "Choose the tool for this part of the order.",
   },
   {
-    "title": "Crusher Run Calculator",
-    "slug": "/crusher-run-calculator",
-    "badge": "Quantity tool",
-    "desc": "Choose the tool for this part of the order."
-  }
+    title: "Crusher Run Calculator",
+    slug: "/crusher-run-calculator",
+    badge: "Quantity tool",
+    desc: "Choose the tool for this part of the order.",
+  },
 ];
 ---
-<GuideLayout title="Gravel Sizes: Read the Product Gradation" metaDescription="Distinguish nominal stone sizes, sieve designations, fines and local trade names before choosing a material quantity tool." canonicalPath="/gravel-sizes" guideTitle="Gravel Sizes: Read the Product Gradation" guideSubtitle="Distinguish nominal stone sizes, sieve designations, fines and local trade names before choosing a material quantity tool." standardBadge="Read the actual product specification" readingTime="4 min read" lastUpdated="November 1, 2026" calculatorsSupported={calculatorsSupported}>
 
-<section aria-labelledby="three-labels"><h2 id="three-labels">Separate three kinds of product labels</h2>
-<p>A label such as “¾-inch gravel,” a grading such as #57, and a regional name such as crusher run answer different questions. The first suggests a size, the second points to a grading system, and the third may describe a locally sold blend. None alone establishes the material’s mineral type, washing, bulk weight or correct use on your site.</p>
-<div class="table-responsive"><table><caption>Questions to ask about the words on an aggregate quote</caption><thead><tr><th scope="col">Label type</th><th scope="col">Example</th><th scope="col">Information still needed</th></tr></thead><tbody>
-<tr><th scope="row">Nominal product size</th><td>¾-inch stone</td><td>Actual grading, oversize and smaller fractions, fines and wash status</td></tr>
-<tr><th scope="row">Numbered size designation</th><td>#57 or #67</td><td>Governing specification, sieve results, source and intended layer</td></tr>
-<tr><th scope="row">Minus product</th><td>¾-inch minus</td><td>The complete particle-size blend and whether its fines meet the project requirements</td></tr>
-<tr><th scope="row">Regional or supplier name</th><td>QP, DGA, 21-A or CA-6</td><td>Exact product designation; names from different agencies are not automatically interchangeable</td></tr>
-</tbody></table></div></section>
-<section aria-labelledby="sieves"><h2 id="sieves">Read openings and percentages together</h2>
-<p>Sieve analysis separates a sample through a series of openings and reports the proportion passing them. A larger opening passes more of a given sample. Numbered US sieves use their designated opening dimensions; the number is not an inch fraction or a stone’s diameter.</p>
-<p>Ask for the current grading sheet and the specification used to evaluate it. Compare the complete required sieve series, not only the largest stone visible on the pile. <a href="https://www.pa.gov/agencies/penndot/programs-and-doing-business/construction/aggregate-plant-book">PennDOT’s producer records</a> list separate grading worksheets for #57, #67, other coarse aggregates and base products. Its <a href="https://www.ecamms.penndot.pa.gov/Public/Pages/Bulletins/BulletinSearch.aspx?BulletinTypeKey=1">Bulletin 14 search</a> is a source for Pennsylvania aggregate approvals.</p></section>
-<section aria-labelledby="fines"><h2 id="fines">Clean grading and dense grading serve different layers</h2>
-<p>An open-graded product has relatively few smaller particles between the larger pieces. A dense-graded product includes a broader blend and fines that can help particles pack together. The actual grading and fines content affect performance along with shape, moisture, confinement and the ground underneath.</p>
-<p>Confirm washing and measured fines separately. A size number does not guarantee that stone is washed or establish its drainage rate. For a drain, follow the pipe and filter detail; for a base, follow the required product, thickness and placement procedure. The <a href="/angular-vs-rounded-rock">particle-shape comparison</a> explains another part of that choice.</p></section>
-<section aria-labelledby="order"><h2 id="order">Turn the product choice into a quantity</h2>
-<ol><li>Identify the actual product and layer specification.</li><li>Measure the finished footprint and selected layer thickness.</li><li>Calculate yards from geometry, then add a clearly defined loose-order allowance if needed.</li><li>Convert yards to US short tons with that supplier’s loose bulk weight, or use the bag’s stated cubic-foot yield.</li></ol>
-<p>A 3-inch layer over 200 sq ft needs 1.85 yd³ before extra, whether the selected product is rounded or angular. Its estimated tons depend on loose bulk density. Particle size can change the thickness you need to select; it does not change the geometric conversion for a specified area and depth.</p>
-<p>Use the <a href="/gravel-calculator">gravel calculator</a> for a loose layer, the <a href="/crusher-run-calculator">crusher run calculator</a> for a specified base, or the <a href="/57-stone-size-guide">#57 guide</a> for the grading and ordering checks behind that particular designation.</p></section>
-
-</GuideLayout>
+<GuideLayout
+  title="Gravel Sizes & #57 Stone Sieve Guide"
+  metaDescription="Distinguish nominal stone sizes, ASTM D448 / AASHTO M43 sieve designations (#1, #4, #57, #67, #78, #8, #89), fines, and local trade names before ordering."
+  canonicalPath="/gravel-sizes"
+  guideTitle="Gravel Sizes & Gradation: Read the Product Spec"
+  guideSubtitle="Distinguish nominal stone sizes, ASTM D448 sieve designations (#57, #67, #8), fines, and regional names before choosing a material quantity tool."
+  standardBadge="ASTM D448 / AASHTO M43 gradation context"
+  readingTime="6 min read"
+  lastUpdated="November 25, 2026"
+  calculatorsSupported={calculatorsSupported}
+>
+  <section aria-labelledby="three-labels">
+    <h2 id="three-labels">Separate three kinds of product labels</h2>
+    <p>
+      A label such as “¾-inch gravel,” a grading such as #57, and a regional
+      name such as crusher run answer different questions. The first suggests a
+      size, the second points to a grading system, and the third may describe a
+      locally sold blend. None alone establishes the material’s mineral type,
+      washing, bulk weight or correct use on your site.
+    </p>
+    <div class="table-responsive">
+      <table>
+        <caption>
+          Questions to ask about the words on an aggregate quote
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Label type</th>
+            <th scope="col">Example</th>
+            <th scope="col">Information still needed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Nominal product size</th>
+            <td>¾-inch stone</td>
+            <td>
+              Actual grading, oversize and smaller fractions, fines and wash
+              status
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Numbered size designation</th>
+            <td>#57 or #67</td>
+            <td>
+              Governing specification, sieve results, source and intended layer
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Minus product</th>
+            <td>¾-inch minus</td>
+            <td>
+              The complete particle-size blend and whether its fines meet the
+              project requirements
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Regional or supplier name</th>
+            <td>QP, DGA, 21-A or CA-6</td>
+            <td>
+              Exact product designation; names from different agencies are not
+              automatically interchangeable
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section aria-labelledby="sieves">
+    <h2 id="sieves">ASTM D448 / AASHTO M43 coarse aggregate sieves</h2>
+    <p>
+      Sieve analysis separates a sample through a series of square openings and
+      reports the percentage passing each sieve. A larger opening passes more of
+      the sample, while numbered sieves (such as No. 4, No. 8, or No. 200) use
+      designated wire-cloth openings rather than inch fractions.
+    </p>
+    <div class="table-responsive">
+      <table>
+        <caption>
+          Reference coarse aggregate size designations per ASTM D448 / AASHTO
+          M43
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Size #</th>
+            <th scope="col">Nominal Size</th>
+            <th scope="col">Key Sieve Limits (% Passing)</th>
+            <th scope="col">Typical Project Uses</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">#1</th>
+            <td>3½ to 1½ in</td>
+            <td>90–100% passing 3½ in; 0–15% passing 1½ in</td>
+            <td>
+              Heavy subbase stabilization, gabions, construction entrances
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">#4</th>
+            <td>1½ to ¾ in</td>
+            <td>90–100% passing 1½ in; 0–15% passing ¾ in</td>
+            <td>
+              Structural drainage courses, heavy backfill, primary reservoir
+              layers
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">#57</th>
+            <td>1 in to No. 4</td>
+            <td>
+              95–100% passing 1 in; 25–60% passing ½ in; 0–10% passing No. 4
+            </td>
+            <td>
+              French drains, pipe bedding, concrete aggregate, clean driveways
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">#67</th>
+            <td>¾ in to No. 4</td>
+            <td>
+              90–100% passing ¾ in; 20–55% passing ⅜ in; 0–10% passing No. 4
+            </td>
+            <td>
+              Concrete mixes, tight utility trench bedding, clean architectural
+              paths
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">#78</th>
+            <td>½ in to No. 8</td>
+            <td>
+              90–100% passing ½ in; 40–75% passing ⅜ in; 0–10% passing No. 8
+            </td>
+            <td>
+              Surface chip seals, thin top-dressing, fine drainage overlays
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">#8</th>
+            <td>⅜ in to No. 8</td>
+            <td>
+              85–100% passing ⅜ in; 10–30% passing No. 4; 0–10% passing No. 8
+            </td>
+            <td>
+              Pea gravel / fine walkways, chip seal, tightly spaced paver joints
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">#89</th>
+            <td>⅜ in to No. 16</td>
+            <td>
+              90–100% passing ⅜ in; 20–55% passing No. 4; 5–30% passing No. 8
+            </td>
+            <td>
+              Masonry fills, thin ornamental beds, small aggregate concrete
+              mixes
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Ask for the current grading sheet and the specification used to evaluate
+      it. Compare the complete required sieve series, not only the largest stone
+      visible on the pile.{" "}
+      <a href="https://www.pa.gov/agencies/penndot/programs-and-doing-business/construction/aggregate-plant-book">
+        PennDOT’s producer records
+      </a>{" "}
+      list separate grading worksheets for #57, #67, other coarse aggregates and
+      base products. Its{" "}
+      <a href="https://www.ecamms.penndot.pa.gov/Public/Pages/Bulletins/BulletinSearch.aspx?BulletinTypeKey=1">
+        Bulletin 14 search
+      </a>{" "}
+      is a source for Pennsylvania aggregate approvals.
+    </p>
+  </section>
+  <section id="57-stone" aria-labelledby="stone57-heading">
+    <h2 id="stone57-heading">Understanding #57 stone before ordering</h2>
+    <p>
+      <strong>#57</strong> identifies a coarse aggregate grading in{" "}
+      <a href="https://www.pa.gov/content/dam/copapwp-pagov/en/penndot/documents/public/pubsforms/publications/pub_408/408_2026/408_2026_ie.pdf">
+        state highway
+      </a>{" "}
+      and ASTM D448 specifications. It is not a 57-millimeter particle diameter,
+      a single mineral type, or a certification that every quarry load has been
+      washed free of dust. One quarry sells crushed #57 limestone or granite;
+      another sells rounded river stone meeting #57 sieve limits.
+    </p>
+    <ul>
+      <li>
+        <strong>Source and shape:</strong> confirm mineral type (limestone,
+        granite, trap rock, or rounded river stone).
+      </li>
+      <li>
+        <strong>Fines and washing:</strong> request the No. 200 wash result when
+        ordering for French drains or permeable bedding.
+      </li>
+      <li>
+        <strong>Loose bulk weight:</strong> ask the supplier for pounds or short
+        tons per cubic yard (many #57 clean stone quotes fall near 1.30–1.45
+        short tons/yd³).
+      </li>
+    </ul>
+    <p>
+      A 100 sq ft layer of #57 stone at 3 inches deep occupies 0.93 yd³ before
+      extra; with a 10% allowance, order 1.02 yd³ (about 1.38 short tons at 1.35
+      tons/yd³). Estimate trench and pipe deductions on the{" "}
+      <a href="

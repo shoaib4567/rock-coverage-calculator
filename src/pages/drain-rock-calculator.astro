@@ -37,21 +37,8 @@ const faqItems = [
   },
   {
     q: 'How much does a cubic yard of drain rock weigh?',
-    a: 'There is no single weight for every drain-rock product. For example, South Bay Materials lists 2,500 pounds per cubic yard for its 3/4-inch drain rock, while Three Z lists about 1.4 US short tons, or 2,800 pounds, per cubic yard for its #57 washed gravel. Use the weight quoted for the stone you will buy.'
+    a: 'There is no single weight for every drain-rock product. For example, South Bay Materials lists 2,500 pounds per cubic yard for its 3/4-inch drain rock, while Three Z lists about 1.4 short tons, or 2,800 pounds, per cubic yard for its #57 washed gravel. Use the weight quoted for the stone you will buy.'
   }
-];
-const upLinks = [
-  { title: 'Rock Coverage Calculator', slug: '/', badge: 'Main tool' },
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Aggregate hub' }
-];
-const lateralLinks = [
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'Gradation' },
-  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'Rounded option' },
-  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: 'Broader material' }
-];
-const bridgeLinks = [
-  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Supplier weights' },
-  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'General method' }
 ];
 ---
 
@@ -69,7 +56,7 @@ const bridgeLinks = [
       description: 'Estimates drain-rock fill, order volume and weight from trench dimensions, top cover and pipe outside diameter.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      inLanguage: 'en'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -118,7 +105,7 @@ const bridgeLinks = [
             <li><strong>Find the stone height.</strong><span>Excavated depth − non-rock top cover. For the example, 18 − 4 = 14 inches.</span></li>
             <li><strong>Calculate the envelope.</strong><span>Length × width × stone height after converting inches to feet. Here: 50 × 1 × 14/12 = 58.33 cubic feet.</span></li>
             <li><strong>Remove the pipe.</strong><span>For a 4-inch outside diameter, length × π × (4/24)² = 4.36 cubic feet. The finished stone fill is 53.97 cubic feet, or 2.00 cubic yards.</span></li>
-            <li><strong>Plan the purchase.</strong><span>Apply any chosen site allowance to the stone volume. At 10% extra and 2,500 lb per cubic yard, the example is 2.20 cubic yards or 2.75 US short tons.</span></li>
+            <li><strong>Plan the purchase.</strong><span>Apply any chosen site allowance to the stone volume. At 10% extra and 2,500 lb per cubic yard, the example is 2.20 cubic yards or 2.75 short tons.</span></li>
           </ol>
           <p class="note">A 4-inch nominal pipe can have a different outside diameter by product. Replace the default with the manufacturer's actual dimension when it matters. The estimate assumes the entire pipe cross-section is within the rock zone.</p>
         </section>
@@ -126,7 +113,7 @@ const bridgeLinks = [
         <section class="guide-block" aria-labelledby="choose-drain-stone">
           <p class="eyebrow">Choose the actual product</p>
           <h2 id="choose-drain-stone">Clean stone, gradation, and supplier weight</h2>
-          <p>“Drain rock” describes a job, not one universal rock type. A yard may sell washed, rounded gravel or clean, angular crushed stone under the same name. <a href="/57-stone-size-guide">#57 stone</a> is one common graded option, but check the product's stated size and whether it includes fines. A dense <a href="/crusher-run-calculator">crusher run</a> base includes fines and serves a different purpose.</p>
+          <p>“Drain rock” describes a job, not one universal rock type. A yard may sell washed, rounded gravel or clean, angular crushed stone under the same name. <a href="/gravel-sizes#57-stone">#57 stone</a> is one common graded option, but check the product's stated size and whether it includes fines. A dense <a href="/crusher-run-calculator">crusher run</a> base includes fines and serves a different purpose.</p>
           <div class="source-table-wrap">
             <table>
               <caption>Published product examples; weights are for those products, not every drain rock.</caption>
@@ -137,7 +124,7 @@ const bridgeLinks = [
               </tbody>
             </table>
           </div>
-          <p>Ask whether your yard sells by cubic yard or by scale ton, and use its weight for that specific product. If you are comparing with <a href="/rock-density-chart">other rock weights</a>, keep pounds per cubic yard and US short tons separate from metric tonnes.</p>
+          <p>Ask whether your yard sells by cubic yard or by scale ton, and use its weight for that specific product. If you are comparing with <a href="/rock-density-chart">other rock weights</a>, keep pounds per cubic yard and short tons separate from metric tonnes.</p>
         </section>
 
         <section class="guide-block" aria-labelledby="before-digging">
@@ -170,7 +157,7 @@ const bridgeLinks = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/drain-rock-calculator" category="material" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} />
+    <TopicClusterNav />
   </main>
   <Footer />
 </BaseLayout>

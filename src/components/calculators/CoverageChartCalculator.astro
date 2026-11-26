@@ -20,12 +20,12 @@
         <div class="dim-grid">
           <div class="input-field">
             <label for="chart-length">Area Length</label>
-            <input type="number" id="chart-length" value="30" min="1" step="0.5" />
+            <input type="number" id="chart-length" value="30" min="0.5" step="any" />
             <span class="unit-label">feet</span>
           </div>
           <div class="input-field">
             <label for="chart-width">Area Width</label>
-            <input type="number" id="chart-width" value="10" min="1" step="0.5" />
+            <input type="number" id="chart-width" value="10" min="0.5" step="any" />
             <span class="unit-label">feet</span>
           </div>
         </div>
@@ -33,15 +33,15 @@
         <div class="dim-grid">
           <div class="input-field">
             <label for="chart-waste">Safety Buffer</label>
-            <input type="number" id="chart-waste" value="10" min="0" max="25" step="1" />
+            <input type="number" id="chart-waste" value="10" min="0" max="50" step="any" />
             <span class="unit-label">% extra</span>
           </div>
           <div class="input-field">
             <label for="chart-density-select">Rock Material</label>
             <select id="chart-density-select" class="custom-select" aria-label="Select rock material density">
-              <option value="1.35">River Rock / Gravel (#57) (1.35 T/yd³)</option>
-              <option value="1.40">Crushed Granite / Limestone (1.40 T/yd³)</option>
-              <option value="1.50">Dense Graded Base with Fines (1.50 T/yd³)</option>
+              <option value="1.35">River Rock / Gravel / Crushed Limestone (1.35 T/yd³)</option>
+              <option value="1.40">Crushed Granite (1.40 T/yd³)</option>
+              <option value="1.45">Dense Graded Base / 21-A / #411 (1.45 T/yd³)</option>
               <option value="0.75">Volcanic Lava Rock (0.75 T/yd³ example)</option>
             </select>
           </div>
@@ -269,7 +269,7 @@ function initCoverageChartCalculator() {
 
     const length = Math.max(0.5, parseFloat(lengthInput.value) || 0);
     const width = Math.max(0.5, parseFloat(widthInput.value) || 0);
-    const wastePercent = parseFloat(wasteInput.value) || 0;
+    const wastePercent = Math.max(0, parseFloat(wasteInput.value) || 0);
     const density = parseFloat(densitySelect?.value || '1.35') || 1.35;
 
     const area = length * width;
@@ -290,7 +290,7 @@ function initCoverageChartCalculator() {
       const totalCuFt = netCuFt * (1 + wastePercent / 100);
       const totalYards = (totalCuFt / 27).toFixed(2);
       const totalTons = ((totalCuFt / 27) * density).toFixed(2);
-      const bags = Math.ceil(totalCuFt / 0.5);
+      const bags = Math.ceil(totalCuFt / 0.5 - 1e-9);
 
       const isDefaultDepth = d === 3.0;
 

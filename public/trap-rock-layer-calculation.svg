@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="500" viewBox="0 0 760 500" role="img" aria-labelledby="title desc">
   <title id="title">Trap rock layer to cubic yards and tons</title>
-  <desc id="desc">A 20 by 5 foot area at a finished depth of 3 inches contains 25 cubic feet, or 0.93 cubic yard. At an example loose weight of 2,600 pounds per cubic yard the layer weighs about 1.20 US short tons.</desc>
+  <desc id="desc">A 20 by 5 foot area at a finished depth of 3 inches contains 25 cubic feet, or 0.93 cubic yard. At an example loose weight of 2,600 pounds per cubic yard the layer weighs about 1.20 short tons.</desc>
   <defs>
     <pattern id="stone" width="44" height="30" patternUnits="userSpaceOnUse">
       <path d="M2 13 13 4 27 7 34 18 21 26 7 24Z" fill="#687b82" stroke="#a8bac0" stroke-width="1.3"/>
@@ -42,5 +42,5 @@
   <rect x="512" y="334" width="214" height="120" rx="10" fill="#63513e" stroke="#e7ba73"/>
   <text x="528" y="360" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#ffe0a3">04  ESTIMATED ORDER</text>
   <text x="528" y="394" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#fff">1.20 tons</text>
-  <text x="528" y="426" font-family="Arial, sans-serif" font-size="15" fill="#f3ddbb">US short tons</text>
+  <text x="528" y="426" font-family="Arial, sans-serif" font-size="15" fill="#f3ddbb">short tons</text>
 </svg>

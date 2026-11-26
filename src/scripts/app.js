@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function getDimsInFeet() {
     const feetDims = {};
     Object.keys(state.rawDims).forEach(k => {
-      feetDims[k] = RockEngine.toFeet(state.rawDims[k], state.unit);
+      feetDims[k] = state.shape === 'sqft' ? Number(state.rawDims[k]) || 0 : RockEngine.toFeet(state.rawDims[k], state.unit);
     });
     return feetDims;
   }
@@ -71,7 +71,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const zoneShapeKeys = {
     rectangle: ['length', 'width'], circle: ['radius'], ring: ['outerRadius', 'innerRadius'],
     triangle: ['base', 'height'], trapezoid: ['top', 'bottom', 'height'],
-    lshape: ['length1', 'width1', 'length2', 'width2']
+    lshape: ['length1', 'width1', 'length2', 'width2'],
+    sqft: ['sqFt']
   };
   function normalizeSavedZones(input) {
     if (!Array.isArray(input)) return [];
@@ -230,7 +231,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const themeToggleBtn = document.getElementById('theme-toggle');
 
   /* ── Theme Toggle Event ── */
-  if (themeToggleBtn) {
+  if (themeToggleBtn && !themeToggleBtn.dataset.bound) {
+    themeToggleBtn.dataset.bound = 'true';
     themeToggleBtn.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme') || 'dark';
       const target = current === 'light' ? 'dark' : 'light';
@@ -319,7 +321,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       { key: 'width1', label: 'Section 1 Width', placeholder: '4' },
       { key: 'length2', label: 'Section 2 Length', placeholder: '6' },
       { key: 'width2', label: 'Section 2 Width', placeholder: '4' }
-    ]
+    ],
+
   };
 
   function setShape(shape) {
@@ -330,7 +333,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     state.rawDims = {};
     configs.forEach(c => {
       const defaultFt = parseFloat(c.placeholder) || 0;
-      const inUnit = RockEngine.fromFeet(defaultFt, state.unit);
+      const inUnit = shape === 'sqft' ? defaultFt : RockEngine.fromFeet(defaultFt, state.unit);
       state.rawDims[c.key] = Math.round(inUnit * 100) / 100;
     });
 
@@ -362,7 +365,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                   aria-label="${c.label} (${state.unit})"
                   aria-describedby="dimension-error"
                  autocomplete="off">
-          <span class="unit-label">${state.unit}</span>
+          <span class="unit-label">${shape === 'sqft' ? 'sq ft' : state.unit}</span>
         </div>
       </div>
     `).join('');
@@ -463,6 +466,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         b.setAttribute('aria-checked', isActive ? 'true' : 'false');
       });
 
+      if (state.shape === 'sqft') {
+        state.unit = newUnit;
+        recalculate();
+        return;
+      }
       // Convert existing dimensions to new unit
       Object.keys(state.rawDims).forEach(k => {
         const valInFeet = RockEngine.toFeet(state.rawDims[k], oldUnit);
@@ -812,7 +820,9 @@ Thank you!`;
     } else if (shape === 'triangle') {
       areaFormula = `½ × Base (${state.rawDims.base || 0} ${state.unit}) × Height (${state.rawDims.height || 0} ${state.unit}) = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
     } else if (shape === 'trapezoid') {
-      areaFormula = `[Base A (${state.rawDims.baseA || 0}) + Base B (${state.rawDims.baseB || 0})] ÷ 2 × Height (${state.rawDims.height || 0}) = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
+      areaFormula = `[Top (${state.rawDims.top || 0} ${state.unit}) + Bottom (${state.rawDims.bottom || 0} ${state.unit})] ÷ 2 × Height (${state.rawDims.height || 0} ${state.unit}) = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
+    } else if (shape === 'sqft') {
+      areaFormula = `Direct Known Surface Area = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
     } else {
       areaFormula = `Measured Surface Footprint = ${RockEngine.formatNumber(result.areaSqFt)} sq ft`;
     }
@@ -905,7 +915,7 @@ Thank you!`;
         weightTons: result.weightTons,
         bags: result.bags,
         totalCost,
-        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        date: new Date().toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' })
       };
 
       savedProjects.push(zone);
@@ -1289,12 +1299,12 @@ Thank you!`;
     const salesTax = subtotal * (taxRate / 100);
     const grandTotal = subtotal + salesTax;
 
-    if (costSummaryMaterial) costSummaryMaterial.textContent = `$${materialCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    if (costSummaryDelivery) costSummaryDelivery.textContent = `$${deliveryFee.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    if (costSummaryLabor) costSummaryLabor.textContent = `$${laborCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    if (costSummaryFabric) costSummaryFabric.textContent = `$${fabricCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    if (costSummaryTax) costSummaryTax.textContent = `$${salesTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    if (costTotal) costTotal.textContent = `$${grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costSummaryMaterial) costSummaryMaterial.textContent = `$${materialCost.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costSummaryDelivery) costSummaryDelivery.textContent = `$${deliveryFee.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costSummaryLabor) costSummaryLabor.textContent = `$${laborCost.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costSummaryFabric) costSummaryFabric.textContent = `$${fabricCost.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costSummaryTax) costSummaryTax.textContent = `$${salesTax.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (costTotal) costTotal.textContent = `$${grandTotal.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
     // Update 2D Blueprint with actual user inputs and active unit
     try {
@@ -1340,7 +1350,12 @@ Thank you!`;
     const valueEl = element.querySelector('.kpi-value') || element;
     const animationToken = String(Number(valueEl.dataset.animationToken || 0) + 1);
     valueEl.dataset.animationToken = animationToken;
-    const current = parseFloat(valueEl.textContent.replace(/,/g, '')) || 0;
+    const rawText = (valueEl.textContent || '').trim();
+    const current = parseFloat(rawText.replace(/,/g, '')) || 0;
+    if (rawText !== '—' && Math.abs(current - target) < 0.01) {
+      valueEl.textContent = RockEngine.formatNumber(target);
+      return;
+    }
 
     if (Math.abs(current - target) < 0.01) return;
 

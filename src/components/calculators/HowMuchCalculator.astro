@@ -44,12 +44,12 @@
         <div class="dim-grid">
           <div class="input-field">
             <label for="hm-length">Length</label>
-            <input type="number" id="hm-length" value="30" min="1" step="0.5" />
+            <input type="number" id="hm-length" value="30" min="0.1" step="any" />
             <span class="unit-label">feet</span>
           </div>
           <div class="input-field">
             <label for="hm-width">Width</label>
-            <input type="number" id="hm-width" value="10" min="1" step="0.5" />
+            <input type="number" id="hm-width" value="10" min="0.1" step="any" />
             <span class="unit-label">feet</span>
           </div>
         </div>
@@ -57,19 +57,19 @@
         <div class="dim-grid">
           <div class="input-field">
             <label for="hm-depth">Finished stone depth</label>
-            <input type="number" id="hm-depth" value="3" min="0.5" max="36" step="0.1" />
+            <input type="number" id="hm-depth" value="3" min="0.25" max="36" step="any" />
             <span class="unit-label">inches</span>
           </div>
           <div class="input-field">
             <label for="hm-waste">Extra order allowance</label>
-            <input type="number" id="hm-waste" value="10" min="0" max="25" step="1" />
+            <input type="number" id="hm-waste" value="10" min="0" max="50" step="any" />
             <span class="unit-label">% extra</span>
           </div>
         </div>
         <div class="dim-grid">
           <div class="input-field">
             <label for="hm-density">Loose bulk density</label>
-            <input type="number" id="hm-density" value="1.35" min="0.25" max="2.5" step="0.01" />
+            <input type="number" id="hm-density" value="1.35" min="0.25" max="3" step="any" />
             <span class="unit-label">tons/yd³</span>
           </div>
         </div>
@@ -87,7 +87,7 @@
         <div class="kpi-grid">
           <div class="kpi-card highlight">
             <div class="kpi-value" id="kpi-hm-tons">0.00</div>
-            <div class="kpi-label">US short tons</div>
+            <div class="kpi-label">Short tons (2,000 lb)</div>
             <div class="kpi-subtext" id="kpi-hm-lbs">At selected planning density</div>
           </div>
           <div class="kpi-card">
@@ -255,9 +255,9 @@
   color: var(--color-text-muted);
 }
 
-.calc-input-error { color: #b91c1c; }
+.calc-input-error { color: var(--color-error); font-weight: 600; }
 
-.input-field input[aria-invalid="true"] { border-color: #b91c1c; }
+.input-field input[aria-invalid="true"] { border-color: var(--color-error); }
 
 .input-field .unit-label {
   position: absolute;
@@ -412,7 +412,7 @@ function initHowMuchCalculator() {
       errorText.textContent = invalid.length ? 'Enter values within the shown input limits to update the estimate.' : '';
     }
     if (invalid.length) {
-      ['kpi-hm-tons', 'kpi-hm-yards', 'kpi-hm-bags', 'kpi-hm-net', 'row-hm-area'].forEach(id => {
+      ['kpi-hm-tons', 'kpi-hm-lbs', 'kpi-hm-yards', 'kpi-hm-cuft', 'kpi-hm-bags', 'kpi-hm-pallets', 'kpi-hm-net', 'row-hm-area'].forEach(id => {
         const element = document.getElementById(id);
         if (element) element.textContent = '—';
       });

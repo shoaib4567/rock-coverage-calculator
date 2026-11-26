@@ -43,7 +43,14 @@ export const RockVisualizer = {
         this._drawTrapezoid(svg, svgNS, dims, padding, maxW, maxH, unit);
         break;
       case 'lshape':
+      case 'lshape':
         this._drawLShape(svg, svgNS, dims, padding, maxW, maxH, unit);
+        break;
+      case 'sqft': {
+        const side = Math.sqrt(Math.max(Number(dims.sqFt) || 100, 1));
+        this._drawRect(svg, svgNS, { length: side.toFixed(1), width: side.toFixed(1) }, padding, maxW, maxH, 'ft (equiv)');
+        break;
+      }
         break;
     }
 

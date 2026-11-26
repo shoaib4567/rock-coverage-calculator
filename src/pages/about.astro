@@ -13,8 +13,8 @@ const breadcrumbs = [{ name: 'Home', url: '/' }, { name: 'About', url: '/about' 
     <article class="about-content container">
       <section aria-labelledby="purpose-title">
         <h2 id="purpose-title">From a measured space to a material order</h2>
-        <p>Rock Coverage Calculator helps homeowners and contractors estimate cubic yards, US short tons, and bags for landscape beds, paths, and other aggregate layers. Start with a measured area and the planned layer depth, then check the result against the product your supplier actually sells.</p>
-        <p>The <a href="/">main calculator</a> supports several area shapes. The <a href="/calculators">calculator library</a> groups material tools, unit conversions, and project guides so you can choose the estimate that matches the job.</p>
+        <p>Rock Coverage Calculator helps homeowners and contractors estimate cubic yards, short tons, and bags for landscape beds, paths, and other aggregate layers. Start with a measured area and the planned layer depth, then check the result against the product your supplier actually sells.</p>
+        <p>The calculator models and editorial reference notes are maintained by the Rock Coverage Calculator editorial team using ASTM C29/C29M, ASTM D448, AASHTO M43, FHWA, NRCS, and state DOT public test methods (updated November 2026). The <a href="/">main calculator</a> supports several area shapes. The <a href="/calculators">calculator library</a> groups material tools, unit conversions, and project guides so you can choose the estimate that matches the job.</p>
       </section>
       <section id="engineering-standards" aria-labelledby="method-title">
         <h2 id="method-title">How the quantity estimates work</h2>
@@ -24,7 +24,7 @@ const breadcrumbs = [{ name: 'Home', url: '/' }, { name: 'About', url: '/about' 
           <tbody>
             <tr><th scope="row">Cubic feet</th><td>Area in square feet × depth in inches ÷ 12</td><td>Measured footprint and finished layer thickness</td></tr>
             <tr><th scope="row">Cubic yards</th><td>Cubic feet ÷ 27</td><td>Whether the supplier quotes loose or installed volume</td></tr>
-            <tr><th scope="row">US short tons</th><td>Cubic yards × short tons per cubic yard</td><td>The product's loose bulk weight; 1 short ton = 2,000 lb</td></tr>
+            <tr><th scope="row">Short tons</th><td>Cubic yards × short tons per cubic yard</td><td>The product's loose bulk weight; 1 short ton = 2,000 lb</td></tr>
             <tr><th scope="row">Whole bags</th><td>Round up: required cubic feet ÷ labeled cubic feet per bag</td><td>The bag's actual volume; weight-labeled bags also need a density assumption</td></tr>
           </tbody>
         </table></div>
@@ -46,7 +46,7 @@ const breadcrumbs = [{ name: 'Home', url: '/' }, { name: 'About', url: '/about' 
         <p>Read the <a href="/terms">terms of use</a> and <a href="/privacy">privacy policy</a>.</p>
       </section>
     </article>
-    <TopicClusterNav currentPage="/about" />
+    <TopicClusterNav />
   </main>
   <Footer />
 </BaseLayout>

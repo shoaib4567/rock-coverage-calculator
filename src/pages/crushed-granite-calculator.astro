@@ -18,13 +18,13 @@ const entityTags = [
 ];
 const quickStats = [
   { value: '5.56 cu yd', label: '50 × 12 ft at 3 in', desc: 'Finished layer volume before any order extra.' },
-  { value: '7.78 tons', label: 'Same example', desc: 'US short tons at 2,800 lb per loose cubic yard.' },
+  { value: '7.78 tons', label: 'Same example', desc: 'Short tons at 2,800 lb per loose cubic yard.' },
   { value: '108 sq ft', label: 'Per cubic yard at 3 in', desc: 'Geometric coverage; check the actual product and site.' }
 ];
 const faqItems = [
   {
     q: 'How much crushed granite do I need for a 50-foot driveway?',
-    a: 'For a 50-by-12-foot area at a 3-inch finished depth, the measured layer is 150 cubic feet, or 5.56 cubic yards. At an example loose bulk weight of 2,800 pounds per cubic yard, that is about 7.78 US short tons before extra. If your site calls for 10% additional material, plan 6.11 cubic yards or about 8.56 tons. Confirm the grade, finished depth, and supplier conversion before ordering.'
+    a: 'For a 50-by-12-foot area at a 3-inch finished depth, the measured layer is 150 cubic feet, or 5.56 cubic yards. At an example loose bulk weight of 2,800 pounds per cubic yard, that is about 7.78 short tons before extra. If your site calls for 10% additional material, plan 6.11 cubic yards or about 8.56 tons. Confirm the grade, finished depth, and supplier conversion before ordering.'
   },
   {
     q: 'Is crushed granite the same as decomposed granite?',
@@ -36,33 +36,14 @@ const faqItems = [
   },
   {
     q: 'How many tons are in one cubic yard of crushed granite?',
-    a: 'A 3/4-inch crushed granite product listed at 2,800 pounds per cubic yard equals 1.40 US short tons per loose cubic yard. Another seller lists clear-crush granite at about 2,600 pounds per yard. Product gradation, moisture, and loading change the conversion, so enter your seller’s loose bulk weight.'
+    a: 'A 3/4-inch crushed granite product listed at 2,800 pounds per cubic yard equals 1.40 short tons per loose cubic yard. Another seller lists clear-crush granite at about 2,600 pounds per yard. Product gradation, moisture, and loading change the conversion, so enter your seller’s loose bulk weight.'
   }
-];
-const upLinks = [
-  { title: 'Rock Coverage Calculator', slug: '/', badge: 'Main tool' },
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Material hub' }
-];
-const lateralLinks = [
-  { title: 'Decomposed Granite Calculator', slug: '/decomposed-granite-calculator', badge: 'Fine path material' },
-  { title: 'Trap Rock Calculator', slug: '/trap-rock-calculator', badge: 'Different rock type' },
-  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: 'Other aggregates' }
-];
-const bridgeLinks = [
-  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Weight planning' },
-  { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Bulk yard order' },
-  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Clean drainage stone' }
-];
-const supportGuides = [
-  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Particle shape' },
-  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Supplier weights' },
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'Gradation' }
 ];
 ---
 
 <BaseLayout
   title={pageTitle}
-  metaDescription="Calculate crushed granite cubic yards and US short tons from area and finished depth. Adjust supplier weight and order extra; compare clean stone, graded granite, and DG."
+  metaDescription="Calculate crushed granite cubic yards and short tons from area and finished depth. Adjust supplier weight and order extra; compare clean stone, graded granite, and DG."
   canonicalPath="/crushed-granite-calculator"
 >
   <Fragment slot="head">
@@ -71,10 +52,10 @@ const supportGuides = [
       '@type': 'WebApplication',
       name: pageTitle,
       url: 'https://rockcoveragecalculator.com/crushed-granite-calculator',
-      description: 'Estimates finished crushed granite volume and a supplier-specific loose order in cubic yards and US short tons.',
+      description: 'Estimates finished crushed granite volume and a supplier-specific loose order in cubic yards and short tons.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      inLanguage: 'en'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -93,7 +74,7 @@ const supportGuides = [
       title={pageTitle}
       highlightWord="Calculator"
       badge="Coarse granite and driveway planning"
-      subtitle="A 50 × 12 ft surface at 3 in deep needs 5.56 cu yd of crushed granite before extra, or about 7.78 US short tons at the editable 2,800 lb/cu yd supplier example. Match the stone grade to drainage and driving needs before ordering."
+      subtitle="A 50 × 12 ft surface at 3 in deep needs 5.56 cu yd of crushed granite before extra, or about 7.78 short tons at the editable 2,800 lb/cu yd supplier example. Match the stone grade to drainage and driving needs before ordering."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -135,9 +116,9 @@ const supportGuides = [
             <p class="granite-result-note"><span id="granite-installed-cuft">150.00</span> cu ft over <span id="granite-result-area">600</span> sq ft at <span id="granite-result-depth">3</span> in.</p>
             <div class="granite-result-grid">
               <div><span>Loose order volume</span><strong id="granite-order-yards">5.56 cu yd</strong></div>
-              <div><span>Estimated order weight</span><strong id="granite-order-tons">7.78 US tons</strong></div>
+              <div><span>Estimated order weight</span><strong id="granite-order-tons">7.78 short tons</strong></div>
               <div><span>Geometric yield per cu yd</span><strong id="granite-yard-coverage">108 sq ft</strong></div>
-              <div><span>Geometric yield per US ton</span><strong id="granite-ton-coverage">77 sq ft</strong></div>
+              <div><span>Geometric yield per short ton</span><strong id="granite-ton-coverage">77 sq ft</strong></div>
             </div>
             <p class="granite-result-note">Weight is an estimate from the entered loose bulk weight, not a scale-ticket quantity. Coverage figures describe layer volume, not a guaranteed visible finish.</p>
           </div>
@@ -166,10 +147,10 @@ const supportGuides = [
             <p>Suppose the measured surface area is 600 sq ft and the planned finished granite layer is 3 in deep. This describes that layer only. It does not include a separate base or excavation volume.</p>
             <ol class="granite-steps">
               <li><strong>Finished volume:</strong> 600 × 3 ÷ 324 = 5.56 cu yd (150 cu ft).</li>
-              <li><strong>Weight example:</strong> 5.56 × 2,800 ÷ 2,000 = 7.78 US short tons.</li>
+              <li><strong>Weight example:</strong> 5.56 × 2,800 ÷ 2,000 = 7.78 short tons.</li>
               <li><strong>If 10% extra is justified:</strong> 5.56 × 1.10 = 6.11 cu yd, or about 8.56 tons at that same weight.</li>
             </ol>
-            <p>One cubic yard covers 108 sq ft at 3 in deep by geometry. At 2,800 lb/cu yd, one US short ton represents about 77 sq ft at that depth. Replace 2,800 with your supplier’s figure before converting a yard quote into tons.</p>
+            <p>One cubic yard covers 108 sq ft at 3 in deep by geometry. At 2,800 lb/cu yd, one short ton represents about 77 sq ft at that depth. Replace 2,800 with your supplier’s figure before converting a yard quote into tons.</p>
           </div>
           <aside class="granite-note">
             <h3>Before calling the yard</h3>
@@ -195,7 +176,7 @@ const supportGuides = [
         </section>
       </div>
     </article>
-    <TopicClusterNav currentPage="/crushed-granite-calculator" category="material" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
+    <TopicClusterNav />
   </main>
   <Footer />
 
@@ -246,15 +227,18 @@ const supportGuides = [
       const yardCoverage = 324 / depth;
       graniteOutput('granite-installed-yards', installedYards.toFixed(2));
       graniteOutput('granite-installed-cuft', installedCubicFeet.toFixed(2));
-      graniteOutput('granite-result-area', area.toLocaleString(undefined, { maximumFractionDigits: 2 }));
+      graniteOutput('granite-result-area', area.toLocaleString('en', { maximumFractionDigits: 2 }));
       graniteOutput('granite-result-depth', String(depth));
       graniteOutput('granite-order-yards', orderYards.toFixed(2) + ' cu yd');
       graniteOutput('granite-yard-coverage', yardCoverage.toFixed(0) + ' sq ft');
-      graniteOutput('granite-order-tons', weight === null ? '—' : (orderYards * weight / 2000).toFixed(2) + ' US tons');
+      graniteOutput('granite-order-tons', weight === null ? '—' : (orderYards * weight / 2000).toFixed(2) + ' short tons');
       graniteOutput('granite-ton-coverage', weight === null ? '—' : (yardCoverage * 2000 / weight).toFixed(0) + ' sq ft');
     }
     graniteModes.forEach(input => input.addEventListener('change', updateGranite));
-    Object.values(graniteInputs).forEach(input => input.addEventListener('input', updateGranite));
+    Object.values(graniteInputs).forEach(input => {
+      input.addEventListener('input', updateGranite);
+      input.addEventListener('change', updateGranite);
+    });
     updateGranite();
   </script>
 </BaseLayout>

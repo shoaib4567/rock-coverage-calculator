@@ -87,6 +87,13 @@ const {
             </svg>
             <span>L-Shape</span>
           </button>
+          <button class="shape-tab" data-shape="sqft" role="tab" aria-selected="false" aria-label="Known Square Feet">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="4" y="4" width="20" height="20" rx="2" stroke-dasharray="3 2"/>
+              <path d="M9 14h10M14 9v10"/>
+            </svg>
+            <span>Known Sq Ft</span>
+          </button>
         </div>
 
         <!-- Unit Toggle -->
@@ -436,7 +443,7 @@ const {
           </div>
           <div class="outcome-feedback-form" id="outcome-form" style="display: none;">
             <div class="outcome-form-row">
-              <input type="number" id="outcome-ticket-tons" aria-label="Actual material weight in US short tons" placeholder="Actual Scale Ticket (Tons, optional)" step="0.01" min="0" class="outcome-input" />
+              <input type="number" id="outcome-ticket-tons" aria-label="Actual material weight in short tons" placeholder="Actual Scale Ticket (Tons, optional)" step="0.01" min="0" class="outcome-input" />
               <input type="text" id="outcome-notes" aria-label="Project outcome notes" placeholder="Notes (e.g. 4in crusher run base, vibratory rolled)" class="outcome-input notes" />
               <button type="button" id="btn-submit-outcome" class="btn btn-sm btn-primary">Log Field Result</button>
             </div>

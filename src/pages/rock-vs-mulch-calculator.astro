@@ -1,31 +1,355 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';import Header from '../components/Header.astro';import Footer from '../components/Footer.astro';import PageHero from '../components/PageHero.astro';import TopicClusterNav from '../components/TopicClusterNav.astro';
-const fields=[['tco-rock-rate','Rock price per US short ton ($)',65],['tco-mulch-rate','Mulch price per cubic yard ($)',38],['tco-rock-depth','Finished rock depth (in)',3],['tco-rock-density','Loose rock weight (US tons/yd³)',1.35],['tco-mulch-depth','Initial mulch depth (in)',3],['tco-annual-mulch','Annual mulch top-up (in; 0 allowed)',1.5]];
-const rates=[['tco-rock-delivery','Initial rock delivery ($)',75],['tco-mulch-delivery','Initial mulch delivery ($)',50],['tco-annual-trip','Annual mulch delivery / trip ($)',15],['tco-rock-upkeep','Annual rock upkeep ($)',7.5],['tco-fabric-rate','Optional fabric cost ($/sq ft; 0 to omit)',0.18],['tco-rock-labor','Rock placement labor ($/ton)',35],['tco-mulch-labor','Mulch placement labor ($/yd³)',25]];
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import TopicClusterNav from '../components/TopicClusterNav.astro';
+
+const pageTitle = 'Rock vs Mulch: 10-Year Cost Comparison';
+const metaDescription = 'Compare ten-year landscape rock and organic mulch costs using editable local prices, delivery charges, upkeep, and replenishment rates. Either option can cost less.';
+
+const fields = [
+  ['tco-rock-rate', 'Rock price per short ton ($)', 65],
+  ['tco-mulch-rate', 'Mulch price per cubic yard ($)', 38],
+  ['tco-rock-depth', 'Finished rock depth (in)', 3],
+  ['tco-rock-density', 'Loose rock weight (short tons/yd³)', 1.35],
+  ['tco-mulch-depth', 'Initial mulch depth (in)', 3],
+  ['tco-annual-mulch', 'Annual mulch top-up (in; 0 allowed)', 1.5]
+] as const;
+
+const rates = [
+  ['tco-rock-delivery', 'Initial rock delivery ($)', 75],
+  ['tco-mulch-delivery', 'Initial mulch delivery ($)', 50],
+  ['tco-annual-trip', 'Annual mulch delivery / trip ($)', 15],
+  ['tco-rock-upkeep', 'Annual rock upkeep ($)', 7.5],
+  ['tco-fabric-rate', 'Optional fabric cost ($/sq ft; 0 to omit)', 0.18],
+  ['tco-rock-labor', 'Rock placement labor ($/ton)', 35],
+  ['tco-mulch-labor', 'Mulch placement labor ($/yd³)', 25]
+] as const;
+
+const faqItems = [
+  {
+    q: 'Does landscape rock always become cheaper than mulch over 10 years?',
+    a: 'No. Whether rock or organic mulch costs less depends on your delivered quote for each material, initial bed depth, whether mulch is topped up every year or every other year, and ongoing cleanup or replacement upkeep. Enter zero for unused upkeep or fabric line items to test conservative and high-upkeep scenarios side by side.'
+  },
+  {
+    q: 'Why does the comparison include fabric and extra volume?',
+    a: 'The calculator models 10% extra rock volume, 5% extra organic mulch volume, and area plus 15% overlap for optional permeable landscape fabric. Set optional rates such as fabric cost or annual trips to zero when they do not apply to your project.'
+  },
+  {
+    q: 'Should rock replace wood mulch around every tree or shrub?',
+    a: 'No. Organic mulch breaks down to buffer moisture and soil temperature around shallow roots, whereas dark stone can increase radiant heat near stressed plantings. Compare plant health, drainage, leaf debris cleanup, and future removal before choosing stone purely on material cost.'
+  }
+];
 ---
-<BaseLayout title="Rock vs Mulch: 10-Year Cost Comparison" description="Compare ten-year rock and mulch costs using editable local prices, delivery, upkeep and replenishment assumptions. Either material can cost less." canonicalPath="/rock-vs-mulch-calculator">
-<Header/><main id="main-content"><PageHero title="Rock vs Mulch Cost Calculator" subtitle="Compare both materials with your local quotes and expected maintenance. Every starting price is an example; either choice can cost less." badge="Editable cost comparison" breadcrumbs={[{name:'Home',url:'/'},{name:'Rock vs mulch',url:'/rock-vs-mulch-calculator'}]}/>
-<section class="container comparison-tool" aria-labelledby="cost-inputs"><h2 id="cost-inputs">Enter your project and local rates</h2><p>The model adds 10% to rock volume and 5% to mulch volume. Fabric uses area plus 15% for overlap. Change costs to zero to omit them. Totals exclude tax, price inflation, removal and replacement unless you include those in your rates.</p>
-<div class="cost-grid"><div class="cost-inputs"><label for="tco-area">Area receiving cover (sq ft)</label><input id="tco-area" type="number" min="1" value="400" step="1"/>
-{fields.map(([id,label,value])=><div><label for={String(id)}>{label}</label><input id={String(id)} type="number" min="0" value={value} step="any"/></div>)}
-<label class="diy"><input type="checkbox" id="tco-diy-labor" checked/>DIY placement: omit labor charges</label><details><summary>Delivery, upkeep and labor rates</summary>{rates.map(([id,label,value])=><div><label for={String(id)}>{label}</label><input id={String(id)} type="number" min="0" value={value} step="any"/></div>)}</details></div>
-<div class="cost-output" aria-live="polite"><h2>Your example comparison</h2><p id="tco-error" role="alert"></p><p id="breakeven-year-text">Enter valid project values to calculate.</p><p id="breakeven-desc">The comparison uses the costs and replenishment you enter, not a guaranteed material lifespan.</p><dl><dt>Rock at installation</dt><dd id="rock-initial-cost">—</dd><dt>Rock after ten years</dt><dd id="rock-10yr-cost">—</dd><dt>Mulch at installation</dt><dd id="mulch-initial-cost">—</dd><dt>Mulch after ten years</dt><dd id="mulch-10yr-cost">—</dd></dl><p id="net-savings-val"></p><p><a href="/garden-rock-calculator">Estimate garden rock quantities →</a></p></div></div>
-<h2>Compare the same ten-year period</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Ten-year cost table"><table><caption>Year 1 is installation; years 2–10 add nine annual upkeep cycles.</caption><thead><tr><th scope="col">Year</th><th scope="col">Rock cumulative cost</th><th scope="col">Mulch cumulative cost</th></tr></thead><tbody id="yearly-table-body"></tbody></table></div>
-<h2>Cost is one part of the choice</h2><p>Rock can suit a stable decorative surface; organic mulch can suit a planted bed where soil improvement and frequent replanting matter. Consider plant needs, surface temperature, drainage, accessibility and future removal as well as the quote. Both surfaces can need weed and debris maintenance. Rock does not make a bed pest-free or establish that a site meets a fire standard.</p><p>There is no fixed annual decomposition rate for every mulch or permanent savings result for every property. Enter the top-up depth and upkeep you expect, then compare a low and high scenario. If no annual mulch top-up is planned, enter zero. <a href="/rock-bag-weight-and-price-guide">Compare actual bag prices and hauling</a> or check the <a href="/bulk-vs-bagged-rock">bulk purchasing guide</a>.</p><TopicClusterNav/></section></main><Footer/>
+
+<BaseLayout title={pageTitle} description={metaDescription} canonicalPath="/rock-vs-mulch-calculator">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/rock-vs-mulch-calculator',
+      description: 'Ten-year cost comparison calculator for decorative landscape rock versus replenished organic mulch using editable local rates.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en'
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content">
+    <PageHero
+      title="Rock vs Mulch Cost Calculator"
+      subtitle="Compare both materials with your local quotes and expected maintenance. Every starting price is an example; either choice can cost less."
+      badge="Editable cost comparison"
+      breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Rock vs mulch', url: '/rock-vs-mulch-calculator' }]}
+    />
+
+    <section class="container comparison-tool" aria-labelledby="cost-inputs">
+      <h2 id="cost-inputs">Enter your project and local rates</h2>
+      <p>The model adds 10% to rock volume and 5% to mulch volume. Fabric uses area plus 15% for overlap. Change costs to zero to omit them. Totals exclude tax, price inflation, removal, and replacement unless you include those in your rates.</p>
+
+      <div class="cost-grid">
+        <div class="cost-inputs">
+          <div class="input-field">
+            <label for="tco-area">Area receiving cover (sq ft)</label>
+            <input id="tco-area" type="number" min="1" value="400" step="any" inputmode="decimal" />
+          </div>
+          {fields.map(([id, label, value]) => (
+            <div class="input-field">
+              <label for={String(id)}>{label}</label>
+              <input id={String(id)} type="number" min="0" value={value} step="any" inputmode="decimal" />
+            </div>
+          ))}
+          <label class="diy">
+            <input type="checkbox" id="tco-diy-labor" checked />
+            DIY placement: omit labor charges
+          </label>
+          <details>
+            <summary>Delivery, upkeep and labor rates</summary>
+            {rates.map(([id, label, value]) => (
+              <div class="input-field">
+                <label for={String(id)}>{label}</label>
+                <input id={String(id)} type="number" min="0" value={value} step="any" inputmode="decimal" />
+              </div>
+            ))}
+          </details>
+        </div>
+
+        <div class="cost-output" aria-live="polite">
+          <h2>Your example comparison</h2>
+          <p id="tco-error" role="alert" hidden></p>
+          <p id="breakeven-year-text" class="verdict-lead">Enter valid project values to calculate.</p>
+          <p id="breakeven-desc">The comparison uses the costs and replenishment you enter, not a guaranteed material lifespan.</p>
+
+          <dl class="cost-kpi-grid">
+            <div><dt>Rock at installation</dt><dd id="rock-initial-cost">—</dd></div>
+            <div><dt>Rock after ten years</dt><dd id="rock-10yr-cost">—</dd></div>
+            <div><dt>Mulch at installation</dt><dd id="mulch-initial-cost">—</dd></div>
+            <div><dt>Mulch after ten years</dt><dd id="mulch-10yr-cost">—</dd></div>
+          </dl>
+
+          <div class="milestone-chart" aria-label="Cumulative cost comparison at years 1, 5, and 10">
+            <h3>Cumulative cost snapshot</h3>
+            <div class="milestone-group">
+              <div class="milestone-label"><span>Year 1</span><span id="bar-y1-label">—</span></div>
+              <div class="bar-track"><div class="bar-rock" id="bar-y1-rock" style="width:0%"></div></div>
+              <div class="bar-track"><div class="bar-mulch" id="bar-y1-mulch" style="width:0%"></div></div>
+            </div>
+            <div class="milestone-group">
+              <div class="milestone-label"><span>Year 5</span><span id="bar-y5-label">—</span></div>
+              <div class="bar-track"><div class="bar-rock" id="bar-y5-rock" style="width:0%"></div></div>
+              <div class="bar-track"><div class="bar-mulch" id="bar-y5-mulch" style="width:0%"></div></div>
+            </div>
+            <div class="milestone-group">
+              <div class="milestone-label"><span>Year 10</span><span id="bar-y10-label">—</span></div>
+              <div class="bar-track"><div class="bar-rock" id="bar-y10-rock" style="width:0%"></div></div>
+              <div class="bar-track"><div class="bar-mulch" id="bar-y10-mulch" style="width:0%"></div></div>
+            </div>
+            <div class="chart-legend">
+              <span><i class="swatch-rock"></i> Decorative rock</span>
+              <span><i class="swatch-mulch"></i> Organic mulch</span>
+            </div>
+          </div>
+
+          <p id="net-savings-val" class="net-savings"></p>
+          <p><a href="/landscape-rock-calculator">Estimate landscape rock quantities →</a></p>
+        </div>
+      </div>
+
+      <h2>Compare the same ten-year period</h2>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Ten-year cost table">
+        <table>
+          <caption>Year 1 is installation; years 2–10 add nine annual upkeep cycles.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Year</th>
+              <th scope="col">Rock cumulative cost</th>
+              <th scope="col">Mulch cumulative cost</th>
+            </tr>
+          </thead>
+          <tbody id="yearly-table-body"></tbody>
+        </table>
+      </div>
+
+      <h2>Cost is one part of the choice</h2>
+      <p>Rock can suit a stable decorative surface; organic mulch can suit a planted bed where soil improvement and frequent replanting matter. Consider plant needs, surface temperature, drainage, accessibility, and future removal as well as the quote. Both surfaces can need weed and debris maintenance. Rock does not make a bed pest-free or establish that a site meets a fire standard.</p>
+      <p>There is no fixed annual decomposition rate for every mulch or permanent savings result for every property. Enter the top-up depth and upkeep you expect, then compare a low and high scenario. If no annual mulch top-up is planned, enter zero. <a href="/rock-bag-calculator">Compare actual bag prices and hauling</a> or check the <a href="/bulk-vs-bagged-rock">bulk purchasing guide</a>.</p>
+
+      <section class="faq-block" aria-labelledby="tco-faq-heading">
+        <h2 id="tco-faq-heading">Cost comparison questions</h2>
+        <div class="faq-list">
+          {faqItems.map(item => (
+            <details>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <TopicClusterNav />
+    </section>
+  </main>
+  <Footer />
 </BaseLayout>
+
 <script>
-import {calculateLandscapeCosts} from '../lib/landscape-costs.mjs';
-const ids={area:'tco-area',rockRate:'tco-rock-rate',mulchRate:'tco-mulch-rate',rockDepth:'tco-rock-depth',density:'tco-rock-density',mulchDepth:'tco-mulch-depth',annualMulch:'tco-annual-mulch',rockDelivery:'tco-rock-delivery',mulchDelivery:'tco-mulch-delivery',annualTrip:'tco-annual-trip',rockUpkeep:'tco-rock-upkeep',fabricRate:'tco-fabric-rate',rockLabor:'tco-rock-labor',mulchLabor:'tco-mulch-labor'};
-const money=(n:number)=>n.toLocaleString('en-US',{style:'currency',currency:'USD'});
-function update(){
- const set=(id:string,text:string)=>{const el=document.getElementById(id);if(el)el.textContent=text;};
- try {const values=Object.fromEntries(Object.entries(ids).map(([k,id])=>{const input=document.getElementById(id) as HTMLInputElement;return [k,input.value===''?NaN:Number(input.value)];}));const r=calculateLandscapeCosts({...values,diy:(document.getElementById('tco-diy-labor') as HTMLInputElement).checked});
- set('tco-error','');set('rock-initial-cost',money(r.rockInitial));set('rock-10yr-cost',money(r.years[9].rock));set('mulch-initial-cost',money(r.mulchInitial));set('mulch-10yr-cost',money(r.years[9].mulch));
- set('breakeven-year-text',r.firstRockCheaperYear===null?'Rock does not become cheaper within these ten years.':r.firstRockCheaperYear===1?'Rock costs no more at installation in this scenario.':'Rock first costs no more in Year '+r.firstRockCheaperYear+' in this scenario.');
- set('breakeven-desc','This is the first modeled year at which rock’s cumulative cost is no higher. Review later years too; different upkeep can change the comparison.');set('net-savings-val',Math.abs(r.savings)<0.005?'The ten-year costs are equal in this scenario.':(r.savings>=0?'Rock':'Mulch')+' costs '+money(Math.abs(r.savings))+' less over ten years in this scenario.');
- const body=document.getElementById('yearly-table-body');if(body)body.innerHTML=r.years.map(y=>'<tr><th scope="row">Year '+y.year+'</th><td>'+money(y.rock)+'</td><td>'+money(y.mulch)+'</td></tr>').join('');
- }catch(e){set('tco-error',e instanceof Error?e.message:'Check the input values.');['rock-initial-cost','rock-10yr-cost','mulch-initial-cost','mulch-10yr-cost'].forEach(id=>set(id,'—'));set('breakeven-year-text','Enter valid values to compare.');set('breakeven-desc','');set('net-savings-val','');const body=document.getElementById('yearly-table-body');if(body)body.innerHTML='';}
-}
-Object.values(ids).forEach(id=>document.getElementById(id)?.addEventListener('input',update));document.getElementById('tco-diy-labor')?.addEventListener('change',update);update();
+  import { calculateLandscapeCosts } from '../lib/landscape-costs.mjs';
+
+  const ids = {
+    area: 'tco-area',
+    rockRate: 'tco-rock-rate',
+    mulchRate: 'tco-mulch-rate',
+    rockDepth: 'tco-rock-depth',
+    density: 'tco-rock-density',
+    mulchDepth: 'tco-mulch-depth',
+    annualMulch: 'tco-annual-mulch',
+    rockDelivery: 'tco-rock-delivery',
+    mulchDelivery: 'tco-mulch-delivery',
+    annualTrip: 'tco-annual-trip',
+    rockUpkeep: 'tco-rock-upkeep',
+    fabricRate: 'tco-fabric-rate',
+    rockLabor: 'tco-rock-labor',
+    mulchLabor: 'tco-mulch-labor'
+  } as const;
+
+  const money = (n: number) => n.toLocaleString('en', { style: 'currency', currency: 'USD' });
+
+  function update() {
+    const set = (id: string, text: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+    const errorEl = document.getElementById('tco-error');
+    const numericEntries = Object.entries(ids).map(([key, id]) => {
+      const input = document.getElementById(id) as HTMLInputElement;
+      const val = input.value.trim() === '' ? NaN : Number(input.value);
+      const min = input.min === '' ? 0 : Number(input.min);
+      const positiveOnly = key === 'area' || key === 'rockDepth' || key === 'density';
+      const valid = input.validity.valid && Number.isFinite(val) && (positiveOnly ? val > 0 : val >= min);
+      input.setAttribute('aria-invalid', String(!valid));
+      return [key, val, valid] as const;
+    });
+
+    const allValid = numericEntries.every(([, , ok]) => ok);
+    if (!allValid) {
+      if (errorEl) {
+        errorEl.hidden = false;
+        errorEl.textContent = 'Enter positive numbers for area, rock depth, and loose rock weight, and zero or more for all rates and mulch depths.';
+      }
+      ['rock-initial-cost', 'rock-10yr-cost', 'mulch-initial-cost', 'mulch-10yr-cost', 'bar-y1-label', 'bar-y5-label', 'bar-y10-label'].forEach(id => set(id, '—'));
+      ['bar-y1-rock', 'bar-y1-mulch', 'bar-y5-rock', 'bar-y5-mulch', 'bar-y10-rock', 'bar-y10-mulch'].forEach(id => {
+        const el = document.getElementById(id) as HTMLElement | null;
+        if (el) el.style.width = '0%';
+      });
+      set('breakeven-year-text', 'Enter valid project values to compare.');
+      set('breakeven-desc', '');
+      set('net-savings-val', '');
+      const body = document.getElementById('yearly-table-body');
+      if (body) body.innerHTML = '';
+      return;
+    }
+
+    try {
+      const values = Object.fromEntries(numericEntries.map(([k, v]) => [k, v]));
+      const r = calculateLandscapeCosts({
+        ...values,
+        diy: (document.getElementById('tco-diy-labor') as HTMLInputElement).checked
+      });
+      if (errorEl) {
+        errorEl.hidden = true;
+        errorEl.textContent = '';
+      }
+      set('rock-initial-cost', money(r.rockInitial));
+      set('rock-10yr-cost', money(r.years[9].rock));
+      set('mulch-initial-cost', money(r.mulchInitial));
+      set('mulch-10yr-cost', money(r.years[9].mulch));
+      set(
+        'breakeven-year-text',
+        r.firstRockCheaperYear === null
+          ? 'Rock does not become cheaper within these ten years.'
+          : r.firstRockCheaperYear === 1
+            ? 'Rock costs no more at installation in this scenario.'
+            : 'Rock first costs no more in Year ' + r.firstRockCheaperYear + ' in this scenario.'
+      );
+      set('breakeven-desc', 'This is the first modeled year at which rock’s cumulative cost is no higher. Review later years too; different upkeep can change the comparison.');
+      set(
+        'net-savings-val',
+        Math.abs(r.savings) < 0.005
+          ? 'The ten-year costs are equal in this scenario.'
+          : (r.savings >= 0 ? 'Rock' : 'Mulch') + ' costs ' + money(Math.abs(r.savings)) + ' less over ten years in this scenario.'
+      );
+
+      const maxTenYr = Math.max(1, r.years[9].rock, r.years[9].mulch);
+      const milestones: Array<[string, typeof r.years[number]]> = [
+        ['y1', r.years[0]],
+        ['y5', r.years[4]],
+        ['y10', r.years[9]]
+      ];
+      milestones.forEach(([key, row]) => {
+        set('bar-' + key + '-label', money(row.rock) + ' vs ' + money(row.mulch));
+        const rockBar = document.getElementById('bar-' + key + '-rock') as HTMLElement | null;
+        const mulchBar = document.getElementById('bar-' + key + '-mulch') as HTMLElement | null;
+        if (rockBar) rockBar.style.width = Math.min(100, (row.rock / maxTenYr) * 100).toFixed(1) + '%';
+        if (mulchBar) mulchBar.style.width = Math.min(100, (row.mulch / maxTenYr) * 100).toFixed(1) + '%';
+      });
+
+      const body = document.getElementById('yearly-table-body');
+      if (body) {
+        body.innerHTML = r.years
+          .map(y => `<tr><th scope="row">Year ${y.year}</th><td>${money(y.rock)}</td><td>${money(y.mulch)}</td></tr>`)
+          .join('');
+      }
+    } catch (e) {
+      if (errorEl) {
+        errorEl.hidden = false;
+        errorEl.textContent = e instanceof Error ? e.message : 'Check the input values.';
+      }
+    }
+  }
+
+  Object.values(ids).forEach(id => {
+    const el = document.getElementById(id);
+    el?.addEventListener('input', update);
+    el?.addEventListener('change', update);
+  });
+  document.getElementById('tco-diy-labor')?.addEventListener('change', update);
+  update();
 </script>
-<style>.comparison-tool{max-width:1100px;padding-block:var(--space-8)}.cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:start;margin-block:var(--space-6)}.cost-inputs,.cost-output{padding:var(--space-5);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);min-width:0}.cost-inputs label{display:block;margin-top:var(--space-3);font-size:.9rem}.cost-inputs input[type=number]{display:block;width:100%;padding:.7rem;background:var(--bg-input);color:var(--text-primary);border:1px solid var(--border-subtle);border-radius:var(--radius-sm)}.cost-inputs .diy{display:flex;gap:.5rem;align-items:center}summary{cursor:pointer;margin-top:var(--space-4)}h2{font-size:var(--text-xl);margin-block:var(--space-6) var(--space-3)}p{line-height:1.7;margin-bottom:var(--space-4)}dd{font-size:1.5rem;margin:0 0 var(--space-4);font-weight:700}a{color:var(--text-primary);text-decoration:underline}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{padding:.8rem;text-align:left;border-bottom:1px solid var(--border-subtle)}caption{text-align:left;margin-bottom:.75rem}#tco-error{color:var(--color-error,#b91c1c)}@media(max-width:700px){.cost-grid{grid-template-columns:1fr}}</style>
+
+<style>
+  .comparison-tool { max-width: 1100px; padding-block: var(--space-8); }
+  .cost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: start; margin-block: var(--space-6); }
+  .cost-inputs, .cost-output { padding: var(--space-6); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); min-width: 0; }
+  .cost-inputs .input-field { margin-bottom: var(--space-3); }
+  .cost-inputs label { display: block; margin-bottom: var(--space-1); font-size: .88rem; color: var(--text-secondary); font-weight: 600; }
+  .cost-inputs input[type='number'] { display: block; width: 100%; padding: .7rem; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); }
+  .cost-inputs input[aria-invalid='true'] { border-color: var(--color-error); }
+  .cost-inputs .diy { display: flex; gap: .55rem; align-items: center; margin-top: var(--space-4); color: var(--text-primary); font-weight: 600; font-size: .92rem; cursor: pointer; }
+  summary { cursor: pointer; margin-top: var(--space-4); color: var(--text-primary); font-weight: 600; }
+  .cost-inputs details > .input-field:first-of-type { margin-top: var(--space-3); }
+  .verdict-lead { font-size: 1.05rem; font-weight: 700; color: var(--accent-gold); margin-bottom: var(--space-2); }
+  .cost-kpi-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+  .cost-kpi-grid > div { padding: var(--space-3); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+  .cost-kpi-grid dt { font-size: .78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+  .cost-kpi-grid dd { font-size: 1.28rem; margin: 0; font-weight: 700; color: var(--text-primary); }
+  .milestone-chart { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); margin: var(--space-4) 0; }
+  .milestone-chart h3 { font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); margin: 0 0 var(--space-3); }
+  .milestone-group { margin-bottom: var(--space-3); }
+  .milestone-label { display: flex; justify-content: space-between; font-size: .8rem; color: var(--text-secondary); margin-bottom: 4px; }
+  .bar-track { height: 8px; background: var(--bg-card); border-radius: var(--radius-full); overflow: hidden; margin-bottom: 4px; }
+  .bar-rock { height: 100%; background: var(--accent-gold); border-radius: var(--radius-full); transition: width 0.2s ease; }
+  .bar-mulch { height: 100%; background: #10b981; border-radius: var(--radius-full); transition: width 0.2s ease; }
+  .chart-legend { display: flex; gap: var(--space-4); font-size: .76rem; color: var(--text-muted); margin-top: var(--space-2); }
+  .chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch-rock, .swatch-mulch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+  .swatch-rock { background: var(--accent-gold); }
+  .swatch-mulch { background: #10b981; }
+  .net-savings { font-weight: 700; color: var(--text-primary); }
+  h2 { font-size: var(--text-xl); margin-block: var(--space-6) var(--space-3); color: var(--text-primary); }
+  p { line-height: 1.7; margin-bottom: var(--space-4); color: var(--text-secondary); }
+  a { color: var(--accent-gold); text-decoration: underline; }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: .8rem; text-align: left; border-bottom: 1px solid var(--border-subtle); }
+  thead th { background: var(--bg-surface); color: var(--text-primary); }
+  tbody th { color: var(--text-primary); }
+  caption { text-align: left; margin-bottom: .75rem; color: var(--text-muted); font-size: .88rem; }
+  #tco-error { color: var(--color-error); font-size: .9rem; margin-bottom: var(--space-3); }
+  .faq-list { display: grid; gap: var(--space-3); margin-bottom: var(--space-8); }
+  .faq-list details { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); background: var(--bg-card); }
+  .faq-list summary { margin-top: 0; }
+  .faq-list details p { margin: var(--space-3) 0 0; }
+  @media (max-width: 720px) { .cost-grid, .cost-kpi-grid { grid-template-columns: 1fr; } }
+</style>

@@ -2,22 +2,38 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
-    {
-      "source": "/rock-cubic-yard-calculator",
-      "destination": "/rock-coverage-calculator-yard",
-      "permanent": true
-    },
-    {
-      "source": "/rock-coverage-calculator-yards",
-      "destination": "/rock-coverage-calculator-yard",
-      "permanent": true
-    }
+    { "source": "/rock-cubic-yard-calculator", "destination": "/rock-coverage-calculator-yard", "permanent": true },
+    { "source": "/rock-coverage-calculator-yards", "destination": "/rock-coverage-calculator-yard", "permanent": true },
+    { "source": "/rock-calculator", "destination": "/", "permanent": true },
+    { "source": "/rock-yardage-calculator", "destination": "/rock-coverage-calculator-yard", "permanent": true },
+    { "source": "/rock-bag-weight-and-price-guide", "destination": "/rock-bag-calculator", "permanent": true },
+    { "source": "/landscape-stone-calculator", "destination": "/crusher-run-calculator", "permanent": true },
+    { "source": "/garden-rock-calculator", "destination": "/landscape-rock-calculator", "permanent": true },
+    { "source": "/57-stone-size-guide", "destination": "/gravel-sizes", "permanent": true },
+    { "source": "/gravel-tons-calculator", "destination": "/gravel-calculator", "permanent": true },
+    { "source": "/gravel-cubic-yard-calculator", "destination": "/gravel-calculator", "permanent": true },
+    { "source": "/crushed-stone-tons-calculator", "destination": "/crushed-stone-calculator", "permanent": true },
+    { "source": "/crushed-stone-yardage-calculator", "destination": "/crushed-stone-calculator", "permanent": true },
+    { "source": "/pea-gravel-tons-calculator", "destination": "/pea-gravel-calculator", "permanent": true },
+    { "source": "/pea-gravel-cubic-yard-calculator", "destination": "/pea-gravel-calculator", "permanent": true },
+    { "source": "/pea-gravel-coverage-calculator", "destination": "/pea-gravel-calculator", "permanent": true },
+    { "source": "/river-rock-tons-calculator", "destination": "/river-rock-calculator", "permanent": true },
+    { "source": "/river-rock-cubic-yard-calculator", "destination": "/river-rock-calculator", "permanent": true },
+    { "source": "/river-rock-coverage-calculator", "destination": "/river-rock-calculator", "permanent": true },
+    { "source": "/decomposed-granite-tons-calculator", "destination": "/decomposed-granite-calculator", "permanent": true },
+    { "source": "/decomposed-granite-coverage-calculator", "destination": "/decomposed-granite-calculator", "permanent": true },
+    { "source": "/lava-rock-coverage-calculator", "destination": "/lava-rock-calculator", "permanent": true }
   ],
   "headers": [
     {
       "source": "/(.*)",
-      "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }]
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
     },
     {
       "source": "/embed",

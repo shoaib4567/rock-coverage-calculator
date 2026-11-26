@@ -47,25 +47,6 @@ const faqItems = [
   }
 ];
 
-const upLinks = [
-  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: 'Material' },
-  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Planning' }
-];
-const lateralLinks = [
-  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Dense Base' },
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Stone' },
-  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Weight' }
-];
-const bridgeLinks = [
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'Gradation' },
-  { title: 'Gravel Sizes Guide', slug: '/gravel-sizes', badge: 'Local Names' },
-  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Bulk Weight' }
-];
-const supportGuides = [
-  { title: 'Stop Gravel Washing Out on a Slope', slug: '/how-to-stop-gravel-washing-out-on-slope', badge: 'Drainage' },
-  { title: 'Fix Rock Sinking into Soil', slug: '/how-to-fix-rock-sinking-into-soil', badge: 'Subgrade' },
-  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Selection' }
-];
 ---
 
 <BaseLayout
@@ -82,7 +63,7 @@ const supportGuides = [
       description: 'Estimates separate driveway base and surface aggregate quantities from area, finished depth, loose-material allowances and supplier bulk weights.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      inLanguage: 'en'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -264,7 +245,7 @@ const supportGuides = [
               </tbody>
             </table>
           </div>
-          <p>Washington Rock’s <a href="https://www.wa-rock.com/product/top-course/" rel="noopener noreferrer">5/8 in minus top course</a> is one example of a compacting driveway surface over a separate base. The <a href="/57-stone-size-guide">#57 size guide</a> explains a coarse-stone grading; it does not make every #57 product an ideal surface. For a base material with fines, use the <a href="/crusher-run-calculator">crusher run guide</a>. Match the local product specification rather than relying on a name alone.</p>
+          <p>Washington Rock’s <a href="https://www.wa-rock.com/product/top-course/" rel="noopener noreferrer">5/8 in minus top course</a> is one example of a compacting driveway surface over a separate base. The <a href="/gravel-sizes#57-stone">#57 size guide</a> explains a coarse-stone grading; it does not make every #57 product an ideal surface. For a base material with fines, use the <a href="/crusher-run-calculator">crusher run guide</a>. Match the local product specification rather than relying on a name alone.</p>
           <h3>Drainage and installation come before the final load</h3>
           <p>Remove organics and correct soft spots, establish a crown or cross slope with a safe outlet, and compact suitable aggregate in manageable lifts. The <a href="https://www.fhwa.dot.gov/construction/pubs/ots15002.pdf" rel="noopener noreferrer">FHWA Gravel Roads Construction & Maintenance Guide</a> discusses lift thickness, moisture and compaction for unpaved roads. <a href="https://extension.psu.edu/access-road-improvements-for-practical-and-water-quality-benefits" rel="noopener noreferrer">Penn State Extension</a> emphasizes repairing ruts and drainage before placing a new surface. A residential drive’s section should still be chosen for its soil and loading, rather than copied from a public-road detail.</p>
         </section>
@@ -288,7 +269,7 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/driveway-rock-calculator" category="quantity" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
+    <TopicClusterNav />
   </main>
   <Footer />
 
@@ -333,7 +314,7 @@ const supportGuides = [
       const baseFinished = isNew ? area * read('dwr-base-depth') / 324 : 0;
       const baseOrder = isNew ? baseFinished * (1 + read('dwr-base-loose') / 100) * contingency : 0;
       const baseTons = isNew ? baseOrder * read('dwr-base-density') : 0;
-      put('dwr-area', new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 }).format(area));
+      put('dwr-area', new Intl.NumberFormat('en', { maximumFractionDigits: 1 }).format(area));
       put('dwr-total-yards', (surfaceOrder + baseOrder).toFixed(2));
       put('dwr-total-tons', (surfaceTons + baseTons).toFixed(2));
       put('dwr-surface-finished', surfaceFinished.toFixed(2) + ' yd³');
@@ -353,7 +334,11 @@ const supportGuides = [
         : 'Refresh estimate. Inspect ruts and drainage before adding a top layer.');
       updateDriveway();
     });
-    numberIds.forEach(id => document.getElementById(id)?.addEventListener('input', updateDriveway));
+    numberIds.forEach(id => {
+      const el = document.getElementById(id);
+      el?.addEventListener('input', updateDriveway);
+      el?.addEventListener('change', updateDriveway);
+    });
     updateDriveway();
   </script>
 </BaseLayout>
@@ -370,10 +355,9 @@ const supportGuides = [
   .course-fields legend span { color: var(--text-muted); font-size: var(--text-sm); font-weight: 400; }
   .course-fields input:disabled { opacity: .55; cursor: not-allowed; }
   .field-note, .result-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin: var(--space-3) 0 0; }
-  .calc-error { color: #fca5a5; border: 1px solid #ef4444; background: rgba(239,68,68,.12); padding: var(--space-3); border-radius: var(--radius-md); margin: var(--space-4) 0; }
+  .calc-error { color: var(--color-error); border: 1px solid var(--color-error); background: color-mix(in srgb, var(--color-error) 10%, transparent); padding: var(--space-3); border-radius: var(--radius-md); margin: var(--space-4) 0; }
   .calc-error[hidden] { display: none; }
-  .input-field input[aria-invalid="true"] { border-color: #ef4444; box-shadow: 0 0 0 2px rgba(239,68,68,.2); }
-  [data-theme="light"] .calc-error { color: #991b1b; background: #fef2f2; }
+  .input-field input[aria-invalid="true"] { border-color: var(--color-error); box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-error) 20%, transparent); }
   .course-results { margin-top: var(--space-6); border-top: 1px solid var(--border-subtle); padding-top: var(--space-4); }
   .course-results h4 { margin: 0 0 var(--space-3); color: var(--text-primary); }
   .course-results > div { display: flex; justify-content: space-between; gap: var(--space-3); border-bottom: 1px solid var(--border-subtle); padding: var(--space-2) 0; color: var(--text-secondary); }

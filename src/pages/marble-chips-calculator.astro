@@ -5,7 +5,7 @@ import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
 
-const pageTitle = 'Marble Chips Calculator: Yards, Tons & Bags';
+const pageTitle = 'Marble Chips Calculator: Bags, Yards & Coverage';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Marble Chips Calculator', url: '/marble-chips-calculator' }
@@ -17,13 +17,13 @@ const entityTags = [
 ];
 const quickStats = [
   { value: '162 sq ft', label: 'Per cubic yard at 2 in', desc: 'Geometric coverage before ordering extra.' },
-  { value: '1.35 tons', label: 'Example weight per yard', desc: 'US short tons; replace with your supplier’s loose bulk weight.' },
+  { value: '1.35 tons', label: 'Example weight per yard', desc: 'Short tons (2,000 lb); replace with supplier bulk weight.' },
   { value: '3 sq ft', label: 'Per 0.5 cu ft bag at 2 in', desc: 'Theoretical yield; check the product label.' }
 ];
 const faqItems = [
   {
     q: 'How much marble do I need for 150 square feet at 2 inches deep?',
-    a: 'The finished layer is 25 cubic feet, or 0.93 cubic yard. With 10% extra, plan 27.5 cubic feet or 1.02 cubic yards. At the editable example weight of 2,700 pounds per cubic yard, that is about 1.38 US short tons. It also equals 55 half-cubic-foot bags.'
+    a: 'The finished layer is 25 cubic feet, or 0.93 cubic yard. With 10% extra, plan 27.5 cubic feet or 1.02 cubic yards. At the editable example weight of 2,700 pounds per cubic yard, that is about 1.38 short tons. It also equals 55 half-cubic-foot bags.'
   },
   {
     q: 'How many square feet does one cubic yard of marble chips cover?',
@@ -60,7 +60,7 @@ const supportGuides = [
 
 <BaseLayout
   title={pageTitle}
-  metaDescription="Measure a white marble chip bed in cubic yards, US short tons, and bags. Adjust supplier bulk weight and order allowance; see depth examples and planting cautions."
+  metaDescription="How many bags or yards of white marble chips? Measure any bed to get 0.5-cu-ft bags, cubic yards, and short tons at 2,700 lb/yd³—plus depth yield charts and pH notes."
   canonicalPath="/marble-chips-calculator"
 >
   <Fragment slot="head">
@@ -71,8 +71,7 @@ const supportGuides = [
       url: 'https://rockcoveragecalculator.com/marble-chips-calculator',
       description: 'Estimates white marble chip layer volume, loose bulk weight, and half-cubic-foot bag equivalents from measured area and depth.',
       applicationCategory: 'UtilityApplication',
-      operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      operatingSystem: 'Web'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -90,7 +89,7 @@ const supportGuides = [
       title={pageTitle}
       highlightWord="Calculator"
       badge="White marble landscape stone"
-      subtitle="For a 150 sq ft bed at 2 inches, the finished layer is 0.93 cubic yard. Add 10% to plan 1.02 cubic yards, or about 1.38 US short tons at the editable 2,700 lb/yd³ example weight."
+      subtitle="For a 150 sq ft bed at 2 inches, the finished layer is 0.93 cubic yard (55 half-cubic-foot bags with 10% extra), or about 1.38 short tons at 2,700 lb/yd³."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -107,11 +106,11 @@ const supportGuides = [
           <div class="calc-panel">
             <div class="calc-panel-title"><h3>Bed measurements</h3></div>
             <div class="dim-grid">
-              <div class="input-field"><label for="marble-length">Length (ft)</label><input id="marble-length" type="number" value="30" min="0.1" step="0.1" inputmode="decimal" /></div>
-              <div class="input-field"><label for="marble-width">Width (ft)</label><input id="marble-width" type="number" value="5" min="0.1" step="0.1" inputmode="decimal" /></div>
-              <div class="input-field"><label for="marble-depth">Finished depth (in)</label><input id="marble-depth" type="number" value="2" min="0.5" max="12" step="0.5" inputmode="decimal" /></div>
-              <div class="input-field"><label for="marble-allowance">Order allowance (%)</label><input id="marble-allowance" type="number" value="10" min="0" max="25" step="1" inputmode="decimal" /></div>
-              <div class="input-field"><label for="marble-density">Supplier bulk weight (lb/yd³)</label><input id="marble-density" type="number" value="2700" min="1" max="10000" step="50" inputmode="decimal" /><small>2,700 is one supplier example, not a universal marble density.</small></div>
+              <div class="input-field"><label for="marble-length">Length (ft)</label><input id="marble-length" type="number" value="30" min="0.1" step="any" inputmode="decimal" /></div>
+              <div class="input-field"><label for="marble-width">Width (ft)</label><input id="marble-width" type="number" value="5" min="0.1" step="any" inputmode="decimal" /></div>
+              <div class="input-field"><label for="marble-depth">Finished depth (in)</label><input id="marble-depth" type="number" value="2" min="0.5" max="12" step="any" inputmode="decimal" /></div>
+              <div class="input-field"><label for="marble-allowance">Order allowance (%)</label><input id="marble-allowance" type="number" value="10" min="0" max="50" step="any" inputmode="decimal" /></div>
+              <div class="input-field"><label for="marble-density">Supplier bulk weight (lb/yd³)</label><input id="marble-density" type="number" value="2700" min="1" max="10000" step="any" inputmode="decimal" /><small>2,700 is one supplier example, not a universal marble density.</small></div>
             </div>
             <p class="input-error" id="marble-error" role="status" aria-live="polite"></p>
           </div>
@@ -120,7 +119,7 @@ const supportGuides = [
             <div class="kpi-grid">
               <div class="kpi-card"><div class="kpi-value" id="kpi-marble-net">0.00</div><div class="kpi-label">Finished cubic yards</div><div class="kpi-subtext" id="kpi-marble-net-cuft">Before allowance</div></div>
               <div class="kpi-card highlight"><div class="kpi-value" id="kpi-marble-order">0.00</div><div class="kpi-label">Order cubic yards</div><div class="kpi-subtext" id="kpi-marble-order-cuft">With 10% allowance</div></div>
-              <div class="kpi-card"><div class="kpi-value" id="kpi-marble-tons">0.00</div><div class="kpi-label">Estimated US short tons</div><div class="kpi-subtext" id="kpi-marble-lbs">At supplier bulk weight</div></div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-marble-tons">0.00</div><div class="kpi-label">Estimated short tons</div><div class="kpi-subtext" id="kpi-marble-lbs">At supplier bulk weight</div></div>
               <div class="kpi-card"><div class="kpi-value" id="kpi-marble-bags">0</div><div class="kpi-label">0.5 cu ft bag equivalents</div><div class="kpi-subtext">Round up whole bags; confirm your bag label.</div></div>
             </div>
             <p class="result-note">Order volume includes the chosen allowance. The scale weight is a planning estimate; a supplier’s actual material and moisture determine the billed weight.</p>
@@ -133,11 +132,11 @@ const supportGuides = [
       <div class="container">
         <section class="content-card" aria-labelledby="marble-math-title">
           <h2 id="marble-math-title">What the result means</h2>
-          <p>A 30 × 5 ft border is 150 sq ft. A 2 in finished layer takes <strong>25 cu ft</strong> (150 × 2 ÷ 12), or <strong>0.93 cu yd</strong> (25 ÷ 27). A 10% ordering allowance brings that to <strong>27.5 cu ft = 1.02 cu yd</strong>. At 2,700 lb per loose cubic yard, the order weighs about <strong>2,750 lb = 1.38 US short tons</strong>. If you instead buy 0.5 cu ft bags, 27.5 ÷ 0.5 = <strong>55 bags</strong>.</p>
+          <p>A 30 × 5 ft border is 150 sq ft. A 2 in finished layer takes <strong>25 cu ft</strong> (150 × 2 ÷ 12), or <strong>0.93 cu yd</strong> (25 ÷ 27). A 10% ordering allowance brings that to <strong>27.5 cu ft = 1.02 cu yd</strong>. At 2,700 lb per loose cubic yard, the order weighs about <strong>2,750 lb = 1.38 short tons</strong>. If you instead buy 0.5 cu ft bags, 27.5 ÷ 0.5 = <strong>55 bags</strong>.</p>
           <div class="formula-box" aria-label="Marble chips calculation formulas">
             <span>Finished cu ft = area (sq ft) × finished depth (in) ÷ 12</span>
             <span>Order cu yd = finished cu ft × (1 + allowance ÷ 100) ÷ 27</span>
-            <span>US short tons = order cu yd × supplier lb/yd³ ÷ 2,000</span>
+            <span>Short tons = order cu yd × supplier lb/yd³ ÷ 2,000</span>
           </div>
           <p>Use the <a href="/marble-chips-bag-calculator">bag calculator</a> when a store sells 0.4 cu ft bags or quotes bag weight and price. Bag count depends on <em>labeled volume</em>; bulk density is used only for the loose stone tonnage estimate.</p>
         </section>
@@ -145,14 +144,14 @@ const supportGuides = [
         <section class="content-card" aria-labelledby="marble-depth-title">
           <h2 id="marble-depth-title">Choose depth before you buy</h2>
           <p>Coverage changes directly with finished depth. Choose a depth suited to the chip size, ground beneath, and the look you want; a top-up over existing rock is different from a new bed. The table shows pure volume math. The <a href="https://cumminlandscapesupply.com/marblechips-gravel">supplier used for the default weight</a> advertises about 100 sq ft per cubic yard at 2 inches, versus 162 sq ft by geometry. Ask your seller to explain its product-specific yield and use the verified figure when placing the order.</p>
-          <div class="table-scroll"><table><caption>Geometric coverage from one cubic yard, before allowance</caption><thead><tr><th scope="col">Finished depth</th><th scope="col">Coverage per cu yd</th><th scope="col">Coverage per US short ton at 2,700 lb/yd³</th></tr></thead><tbody><tr><th scope="row">1.5 in</th><td>216 sq ft</td><td>160 sq ft</td></tr><tr><th scope="row">2 in</th><td>162 sq ft</td><td>120 sq ft</td></tr><tr><th scope="row">3 in</th><td>108 sq ft</td><td>80 sq ft</td></tr></tbody></table></div>
+          <div class="table-scroll"><table><caption>Geometric coverage from one cubic yard, before allowance</caption><thead><tr><th scope="col">Finished depth</th><th scope="col">Coverage per cu yd</th><th scope="col">Coverage per short ton at 2,700 lb/yd³</th></tr></thead><tbody><tr><th scope="row">1.5 in</th><td>216 sq ft</td><td>160 sq ft</td></tr><tr><th scope="row">2 in</th><td>162 sq ft</td><td>120 sq ft</td></tr><tr><th scope="row">3 in</th><td>108 sq ft</td><td>80 sq ft</td></tr></tbody></table></div>
           <figure class="marble-figure"><div class="figure-scroll" tabindex="0" aria-label="Scroll marble layer diagram"><img src="/marble-chips-layer.svg" width="1000" height="480" loading="lazy" alt="Cross section showing a measured two inch white marble chip layer inside edging, with an optional permeable separator above prepared soil." /></div><figcaption>Measure the chip layer itself. A permeable separator can keep soil and stone apart, but it is not a permanent weed solution. <span class="figure-scroll-tip">Swipe the diagram to see its full width.</span></figcaption></figure>
         </section>
 
         <section class="content-card" aria-labelledby="marble-weight-title">
           <h2 id="marble-weight-title">Why bulk weight is editable</h2>
           <p>White marble products differ by source and chip grading. <a href="https://cumminlandscapesupply.com/marblechips-gravel">Cummin Landscape Supply lists about 2,700 lb per cubic yard</a> for its marble chips, while <a href="https://www.gravelshop.com/shop/calculate-cubic-yard-feet-ton.asp?groupid=86&amp;productid=529">Gravelshop lists 2,410 lb per cubic yard</a> for its 1 in white chips. Both are supplier examples. Ask the seller for the loose bulk weight of the stone being delivered and replace the default when estimating tons.</p>
-          <p>Marble is a recrystallized carbonate rock that can contain calcite, dolomite, or both, as described by the <a href="https://apps.usgs.gov/thesaurus/term-simple.php?code=5.2.5&amp;thcode=4">US Geological Survey</a>. Its <em>particle density</em> is different from the loose bulk weight used here because a stockpile contains gaps between chips. <a href="https://store.astm.org/c0029_c0029m-23.html">ASTM C29/C29M</a> describes a method for measuring aggregate bulk density; this calculator uses supplier figures and does not claim a laboratory test of this particular stone.</p>
+          <p>Marble is a recrystallized carbonate rock that can contain calcite, dolomite, or both, as described by the <a href="https://apps.usgs.gov/thesaurus/term-simple.php?code=5.2.5&amp;thcode=4">Geological Survey thesaurus</a>. Its <em>particle density</em> is different from the loose bulk weight used here because a stockpile contains gaps between chips. <a href="https://store.astm.org/c0029_c0029m-23.html">ASTM C29/C29M</a> describes a method for measuring aggregate bulk density; this calculator uses supplier figures and does not claim a laboratory test of this particular stone.</p>
         </section>
 
         <section class="content-card" aria-labelledby="marble-fit-title">
@@ -171,7 +170,7 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/marble-chips-calculator" category="material" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
+    <TopicClusterNav />
   </main>
   <Footer />
 
@@ -242,7 +241,7 @@ const supportGuides = [
   .section-intro p, .content-card p { color: var(--text-secondary); line-height: 1.7; }
   .section-intro a, .content-card a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 2px; }
   .input-field small { display: block; color: var(--text-muted); font-size: var(--text-xs); line-height: 1.4; margin-top: 4px; }
-  .input-error { color: #fbbf7b; min-height: 1.5em; font-size: var(--text-sm); margin-top: var(--space-3); }
+  .input-error { color: var(--color-error); font-weight: 600; min-height: 1.5em; font-size: var(--text-sm); margin-top: var(--space-3); }
   .result-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin-top: var(--space-4); }
   .marble-guide { background: var(--bg-body); padding: var(--space-8) 0 var(--space-12); }
   .content-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); margin-bottom: var(--space-8); }

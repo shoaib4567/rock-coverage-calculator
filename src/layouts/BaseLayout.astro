@@ -11,9 +11,11 @@ interface Props {
   metaDescription?: string;
   canonicalPath?: string;
   noindex?: boolean;
+  hideAds?: boolean;
+  ogType?: 'website' | 'article';
 }
 
-const { title, description, metaDescription, canonicalPath, noindex = false } = Astro.props;
+const { title, description, metaDescription, canonicalPath, noindex = false, hideAds = false, ogType } = Astro.props;
 const siteUrl = 'https://rockcoveragecalculator.com';
 const pagePath = canonicalPath ?? Astro.url.pathname;
 const page = getContentPage(pagePath);
@@ -22,9 +24,11 @@ const pageDescription = page?.summary || description || metaDescription || 'Esti
 const breadcrumbItems = getBreadcrumbs(pagePath);
 const hasBreadcrumb = breadcrumbItems.length > 1 && !['/embed', '/404'].includes(pagePath);
 const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, ''), siteUrl).href;
+const isArticleKind = Boolean(page?.kind?.includes('guide') || page?.kind === 'methodology');
+const resolvedOgType = ogType ?? (isArticleKind ? 'article' : 'website');
 ---
 <!doctype html>
-<html lang="en-US">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,13 +37,9 @@ const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, '
   <meta name="google-site-verification" content="HCyFYA4BAPRS0wlYok2AsFsajHg5rBZyENsSi1pIcNI" />
   <link rel="canonical" href={canonicalURL} />
 
-  <!-- US Geographic Targeting -->
-  <meta name="geo.region" content="US" />
-  <meta name="geo.placename" content="United States" />
-
   <!-- Open Graph -->
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en" />
+  <meta property="og:type" content={resolvedOgType} />
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={pageDescription} />
   <meta property="og:url" content={canonicalURL} />
@@ -61,8 +61,9 @@ const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, '
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8089300808424687" crossorigin="anonymous"></script>
+  {!hideAds && !noindex && (
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8089300808424687" crossorigin="anonymous"></script>
+  )}
 
   <!-- JSON-LD Schema Knowledge Graph -->
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -74,7 +75,7 @@ const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, '
         "name": pageTitle,
         "url": canonicalURL,
         "description": pageDescription,
-        "inLanguage": "en-US",
+        "inLanguage": "en",
         "isPartOf": { "@id": `${siteUrl}/#website` },
         "publisher": { "@id": `${siteUrl}/#organization` },
         ...(page ? { "about": { "@type": "Thing", "name": page.entity } } : {}),
@@ -88,10 +89,6 @@ const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, '
         "logo": {
           "@type": "ImageObject",
           "url": "https://rockcoveragecalculator.com/favicon.svg"
-        },
-        "areaServed": {
-          "@type": "Country",
-          "name": "United States"
         }
       },
       {
@@ -99,8 +96,8 @@ const canonicalURL = new URL(pagePath === '/' ? '/' : pagePath.replace(/\/+$/, '
         "@id": "https://rockcoveragecalculator.com/#website",
         "url": "https://rockcoveragecalculator.com",
         "name": "Rock Coverage Calculator",
-        "description": "Rock, gravel, and stone coverage estimators and practical project guides.",
-        "inLanguage": "en-US",
+        "description": "Rock, gravel, and stone coverage estimators and project reference guides.",
+        "inLanguage": "en",
         "publisher": {
           "@id": "https://rockcoveragecalculator.com/#organization"
         }

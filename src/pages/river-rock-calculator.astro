@@ -13,13 +13,13 @@ const breadcrumbs = [
 ];
 const entityTags = [
   { label: 'Input', value: 'Area × installed depth' },
-  { label: 'Order units', value: 'Cubic yards, US short tons, bags' },
+  { label: 'Order units', value: 'Cubic yards, short tons, bags' },
   { label: 'Weight', value: 'Editable supplier bulk density' }
 ];
 const faqItems = [
   {
     q: 'How much river rock do I need for a 300-square-foot bed?',
-    a: 'At 3 inches deep, 300 square feet takes 75 cubic feet, or 2.78 cubic yards, before extra. With 10% extra, order about 3.06 cubic yards. At an assumed 1.35 US short tons per cubic yard, that is about 4.13 tons. Confirm the bulk weight with your supplier.'
+    a: 'At 3 inches deep, 300 square feet takes 75 cubic feet, or 2.78 cubic yards, before extra. With 10% extra, order about 3.06 cubic yards. At an assumed 1.325 short tons per cubic yard for 1–3 in river rock, that is about 4.05 tons. Confirm the bulk weight with your supplier.'
   },
   {
     q: 'How many square feet does one ton of river rock cover?',
@@ -42,7 +42,7 @@ const faqItems = [
 
 <BaseLayout
   title={pageTitle}
-  description="Estimate river rock in cubic yards, US short tons, and bags from your measured area and depth. Compare coverage, stone sizes, and dry creek bed measuring tips."
+  description="Estimate river rock in cubic yards, short tons, and bags from area, depth, or reverse coverage. Compare stone sizes and dry creek bed measuring tips."
   canonicalPath="/river-rock-calculator"
 >
   <Fragment slot="head">
@@ -72,7 +72,7 @@ const faqItems = [
       title={pageTitle}
       highlightWord="Calculator"
       badge="Landscape stone quantity planner"
-      subtitle="A 30 × 10 ft bed covered 3 in deep needs 2.78 cubic yards of river rock before extra. With 10% added, plan on 3.06 cubic yards, or about 4.13 US short tons at the calculator's default weight. Enter your own dimensions below."
+      subtitle="A 30 × 10 ft bed covered 3 in deep needs 2.78 cubic yards of river rock before extra. With 10% added, plan on 3.06 cubic yards, or about 4.05 short tons at the 1–3 in rock planning weight. Enter dimensions, known square feet, or reverse coverage below."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       theme="decorative"
@@ -97,7 +97,7 @@ const faqItems = [
             <p>River rock coverage starts with the space the loose stone will fill. Multiply length by width for a simple bed, convert installed depth from inches to feet, then divide cubic feet by 27 to get cubic yards. Add your ordering allowance after calculating the installed volume. Convert yards to tons with the <em>bulk</em> weight for the actual product, which includes spaces between stones.</p>
             <div class="formula-line"><code>cubic yards = length (ft) × width (ft) × depth (in) ÷ 324</code></div>
             <p>For the 30 × 10 ft example at 3 in: 300 × 3 ÷ 324 = <strong>2.78 yd³</strong>. Ten percent extra makes <strong>3.06 yd³</strong>; multiply that by 1.35 short tons/yd³ for <strong>4.13 short tons</strong>. The bag estimate divides the order volume in cubic feet by the volume printed on each bag and rounds up.</p>
-            <p class="small-note">One cubic yard is 27 cubic feet. A US short ton is 2,000 pounds. Overage covers small measuring differences and uneven spreading; it is separate from the installed depth.</p>
+            <p class="small-note">One cubic yard is 27 cubic feet. A short ton is 2,000 pounds. Overage covers small measuring differences and uneven spreading; it is separate from the installed depth.</p>
           </div>
           <figure class="measure-figure">
             <img src="/river-rock-measuring-guide.svg" width="900" height="520" loading="lazy" alt="Plan view showing length and width of a rectangular river rock bed, plus a cross section showing installed rock depth and how to measure a contoured creek lining across its banks." />
@@ -116,7 +116,7 @@ const faqItems = [
             <div class="size-item"><h3>3–5 in cobbles</h3><p>Often placed as larger individual pieces. A blanket depth estimate is rough; ask the yard about its actual size range.</p></div>
           </div>
           <h3>River rock coverage at common depths</h3>
-          <p>The table assumes 1.35 US short tons per cubic yard and excludes extra. Size alone does not set coverage; depth and the product's bulk weight do.</p>
+          <p>The table uses a 1.35 short tons per cubic yard reference baseline (adjust to 1.325 for 1–3 in or 1.25 for 3–5 in cobbles) and excludes extra. Size alone does not set coverage; depth and bulk weight do.</p>
           <div class="table-wrap">
             <table>
               <caption>Volume-based river rock coverage before ordering allowance</caption>
@@ -154,11 +154,12 @@ const faqItems = [
             <li><strong>Decide whether to use a separator.</strong> Permeable fabric can help keep soil and rock apart, but it is not a weed-free guarantee. Remove leaves and sediment as they accumulate. Around planting beds, stone can also increase summer heat near sensitive plants. <a href="https://extension.umn.edu/about/our-stories/news/mulching-and-perennial-overwintering" target="_blank" rel="noopener noreferrer">University of Minnesota Extension</a> describes these tradeoffs.</li>
           </ul>
           <div class="related-links" aria-label="Related river rock tools and guides">
-            <a href="/river-rock-coverage-calculator">Compare square feet per ton</a>
-            <a href="/river-rock-tons-calculator">Focus on tons</a>
-            <a href="/river-rock-cubic-yard-calculator">Focus on cubic yards</a>
+          <div class="related-links" aria-label="Related river rock tools and guides">
+            <a href="#river-rock-calc">Calculate yards, tons &amp; coverage</a>
+            <a href="/dry-creek-bed">Dry creek bed guide</a>
             <a href="/river-rock-bag-calculator">Plan bagged rock</a>
             <a href="/how-to-stop-weeds-in-landscape-rock">Maintain a rock bed</a>
+          </div>
           </div>
         </section>
 
@@ -179,7 +180,6 @@ const faqItems = [
     <TopicClusterNav currentPage="/river-rock-calculator" />
   </main>
   <Footer />
-  <script src="../scripts/app.js"></script>
 </BaseLayout>
 
 <style>

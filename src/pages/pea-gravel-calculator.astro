@@ -13,9 +13,9 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  { label: 'Material', value: 'Rounded pea gravel, often sold near 3/8 in' },
-  { label: 'Outputs', value: 'Cubic yards, US short tons, 0.5 ft³ bags' },
-  { label: 'Density used', value: '1.35 US short tons/yd³ by default' }
+  { label: 'Material', value: 'Washed rounded pea gravel (~3/8 in / ASTM #8)' },
+  { label: 'Outputs', value: 'Cubic yards, short tons (2,000 lb), 0.5 ft³ bags, reverse coverage' },
+  { label: 'Density used', value: '1.35 short tons/yd³ (2,700 lb/yd³) default' }
 ];
 
 const quickStats = [
@@ -27,7 +27,11 @@ const quickStats = [
 const faqItems = [
   {
     q: 'How much pea gravel do I need for a 12 × 12 foot area?',
-    a: 'At 2 inches deep, 144 square feet needs 24 cubic feet, or 0.89 cubic yard before overage. With this calculator’s default 10% order allowance, that is 0.98 cubic yard, about 1.32 US short tons at the default density, or 53 bags if each bag contains 0.5 cubic foot.'
+    a: 'At 2 inches deep, 144 square feet needs 24 cubic feet, or 0.89 cubic yard before overage. With this calculator’s default 10% order allowance, that is 0.98 cubic yard, about 1.32 short tons at the default density, or 53 bags if each bag contains 0.5 cubic foot.'
+  },
+  {
+    q: 'How much area does 1 cubic yard or 1 short ton of pea gravel cover?',
+    a: 'One cubic yard equals 27 cubic feet and covers about 162 square feet at 2 inches deep before spreading allowance. At 1.35 short tons per cubic yard, 1 short ton covers about 120 square feet at 2 inches deep. Switch the calculator above to Reverse: Stock → Area to test any quantity and depth.'
   },
   {
     q: 'What depth should I enter for a pea gravel patio or path?',
@@ -50,7 +54,7 @@ const faqItems = [
 
 <BaseLayout
   title={pageTitle}
-  description="Estimate pea gravel in cubic yards, US short tons, and 0.5-cubic-foot bags from your dimensions and depth. Check patio, path, edging, and play-area planning guidance."
+  description="Estimate pea gravel in cubic yards, short tons, 0.5-cubic-foot bags, or reverse coverage area from bulk stock. Includes patio, path, edging, and play-area planning notes."
   canonicalPath="/pea-gravel-calculator"
 >
   <Fragment slot="head">
@@ -59,7 +63,7 @@ const faqItems = [
       '@type': 'WebApplication',
       name: pageTitle,
       url: 'https://rockcoveragecalculator.com/pea-gravel-calculator',
-      description: 'Estimates pea gravel volume, weight, bag count, and rectangular perimeter from area and depth.',
+      description: 'Estimates pea gravel volume, short tons, 0.5 cu ft bag count, rectangular perimeter, and reverse coverage area from bulk yards, short tons, or bags.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Web'
     })} />
@@ -80,7 +84,7 @@ const faqItems = [
       title={pageTitle}
       highlightWord="Calculator"
       badge="Pea gravel material estimate"
-      subtitle="A 12 × 12-foot area at 2 inches takes 0.89 cubic yard before overage. With the calculator’s default 10% allowance, plan on 0.98 cubic yard—about 1.32 US short tons or 53 half-cubic-foot bags. Enter your own dimensions below."
+      subtitle="A 12 × 12-foot area at 2 inches takes 0.89 cubic yard before overage. With the calculator’s default 10% allowance, plan on 0.98 cubic yard—about 1.32 short tons or 53 half-cubic-foot bags. Switch modes above for known square feet or reverse stock coverage."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -98,14 +102,13 @@ const faqItems = [
 
         <section aria-labelledby="method-title">
           <h2 id="method-title">How the pea gravel estimate works</h2>
-          <p>Measure the finished area, then choose the depth of <em>pea gravel itself</em>—not the excavation depth or the thickness of any crushed-stone base. The calculator treats the area as a rectangle and applies your order allowance to the finished stone volume.</p>
+          <p>Measure the finished area, then choose the depth of <em>pea gravel itself</em>—not the excavation depth or the thickness of any crushed-stone base. The calculator handles rectangular dimensions, known square footage, or reverse coverage from stock, and applies your order allowance to the finished stone volume.</p>
           <div class="formula-card">
             <strong>Volume in cubic yards</strong>
             <span>Length (ft) × width (ft) × depth (in) ÷ 12 ÷ 27 × (1 + allowance ÷ 100)</span>
           </div>
-          <p>For example, a 12 × 12-foot area at 2 inches needs <strong>24 cubic feet = 0.89 cubic yard</strong> before allowance. Adding 10% gives <strong>26.4 cubic feet = 0.98 cubic yard</strong>. At the default 1.35 US short tons per cubic yard, the order estimate is <strong>1.32 tons</strong>; 26.4 ÷ 0.5 rounds up to <strong>53 bags</strong>.</p>
-          <p>Bulk weight is an estimate because stone source, moisture, and grading change loose density. Ask the yard for its product weight if your order must be precise. Bag count uses <em>volume</em>, so check the bag label before buying.</p>
-          <p>Choose the tool that matches how you will buy: <a href="/pea-gravel-cubic-yard-calculator">bulk cubic yards</a> for a yard quote, <a href="/pea-gravel-tons-calculator">short tons</a> for a scale ticket, or <a href="/pea-gravel-bag-calculator">retail bags</a> for a small job. If you already know how much stone you have, the <a href="/pea-gravel-coverage-calculator">coverage calculator</a> works backward from quantity to area.</p>
+          <p>For example, a 12 × 12-foot area at 2 inches needs <strong>24 cubic feet = 0.89 cubic yard</strong> before allowance. Adding 10% gives <strong>26.4 cubic feet = 0.98 cubic yard</strong>. At the default 1.35 short tons per cubic yard (2,700 lb/yd³), the order estimate is <strong>1.32 short tons</strong>; 26.4 ÷ 0.5 rounds up to <strong>53 bags</strong>.</p>
+          <p>Bulk weight is an estimate because washed river stone gradation, mineralogy, and moisture change loose density. Ask your supplier for their scale density if freight weight or truck payload is tight. Use the <strong>Supplier bulk yard increment</strong> menu when buying quarter-, half-, or whole-yard scoops, or open the <a href="/pea-gravel-bag-calculator">pea gravel bag calculator</a> when comparing retail pallet and bag prices.</p>
         </section>
 
         <section aria-labelledby="depth-title">
@@ -114,19 +117,19 @@ const faqItems = [
             <div class="use-card">
               <span class="use-label">Path or seating area</span>
               <h3>Keep the loose top layer modest</h3>
-              <p>About 1.5–2.5 inches is a planning range, not a firmness guarantee. Rounded stones roll instead of locking together. A compacted angular base, stable edge, and a thinner topping can make a path easier to use. Furniture with narrow legs may still sink.</p>
-              <a href="/pea-gravel-patio-calculator">Estimate a patio and its base →</a>
+              <p>About 1.5–2.5 inches is a planning range, not a firmness guarantee. Rounded 3/8-inch (#8) stones roll instead of locking together. A compacted angular base, stable edge, and a thinner topping can make a path easier to use. Furniture with narrow legs may still sink.</p>
+              <a href="/pea-gravel-patio-calculator">Estimate a patio and its base &rarr;</a>
             </div>
             <div class="use-card">
               <span class="use-label">Decorative bed</span>
               <h3>Cover the surface without burying plants</h3>
               <p>Set the depth for the visual coverage you want and the stone size your supplier stocks. Keep gravel back from stems and crowns, and allow for hand-raking around planting holes. Edging matters where pebbles meet turf or paving.</p>
-              <a href="/garden-rock-calculator">Explore garden rock estimates →</a>
+              <a href="/landscape-rock-calculator">Estimate landscape rock beds &rarr;</a>
             </div>
             <div class="use-card use-card-safety">
               <span class="use-label">Equipment fall zone</span>
               <h3>Quantity is one part of play safety</h3>
-              <p>For non-impact-tested pea gravel, the <a href="https://www.cpsc.gov/s3fs-public/325_PublicPlaygroundSafetyHandbook2025_7-30-25_1.pdf">CPSC 2025 handbook</a> lists 12 inches installed and at least 9 inches maintained at a 5-foot critical height. Measure the entire use zone; account for displacement, drainage, access, and ongoing inspection. The calculator cannot certify the surface.</p>
+              <p>For non-impact-tested pea gravel, the <a href="https://www.cpsc.gov/s3fs-public/325_PublicPlaygroundSafetyHandbook2025_7-30-25_1.pdf">CPSC handbook</a> lists 12 inches installed and at least 9 inches maintained at a 5-foot critical height. Measure the entire use zone; account for displacement, drainage, access, and ongoing inspection. The calculator cannot certify the surface.</p>
             </div>
           </div>
         </section>
@@ -162,7 +165,7 @@ const faqItems = [
       </div>
     </article>
 
-    <TopicClusterNav activePage="pea-gravel-calculator" />
+    <TopicClusterNav />
   </main>
   <Footer />
 </BaseLayout>

@@ -38,26 +38,6 @@ const faqItems = [
     a: 'There is no dependable bag-count cutoff. Multiply your whole-bag count by your local bag price, then compare it with an all-in quote for a comparable bulk stone and quantity. Include the supplier minimum, delivery, bag transport, and where you can unload.'
   }
 ];
-const upLinks = [
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Material' },
-  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'All Stone' },
-  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Reference' }
-];
-const lateralLinks = [
-  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Tons' },
-  { title: 'Crushed Stone Yardage Calculator', slug: '/crushed-stone-yardage-calculator', badge: 'Yards' },
-  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Pea Gravel' }
-];
-const bridgeLinks = [
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'Gradation' },
-  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Dense Base' },
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Buying' }
-];
-const supportGuides = [
-  { title: 'Rock Bag Weight and Price Guide', slug: '/rock-bag-weight-and-price-guide', badge: 'Loading' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
-  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Drainage' }
-];
 ---
 
 <BaseLayout
@@ -74,7 +54,7 @@ const supportGuides = [
       description: 'Calculates whole bags of crushed stone from finished layer volume and the volume stated on a product label.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      inLanguage: 'en'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -176,6 +156,10 @@ const supportGuides = [
                 <label for="csb-bulk-quote">Comparable bulk quote ($, optional)</label>
                 <input type="number" id="csb-bulk-quote" placeholder="All-in for this job" min="0" step="any" inputmode="decimal" />
               </div>
+              <div class="input-field">
+                <label for="csb-pallet-size">Bags per pallet (optional)</label>
+                <input type="number" id="csb-pallet-size" placeholder="Optional pallet count" min="1" step="1" inputmode="numeric" />
+              </div>
             </div>
             <p class="field-note">A bulk quote should include the supplier's minimum and delivery for the same stone and at least the planned volume. The cost comparison excludes tax and your own transport.</p>
             <p class="input-error" id="csb-error" role="alert" hidden></p>
@@ -210,6 +194,7 @@ const supportGuides = [
               <p id="csb-volume-line">100 sq ft × 3 in ÷ 12 = 25 cu ft installed.</p>
               <p id="csb-bag-line">25 cu ft ÷ 0.5 cu ft per bag = 50; buy 50 whole bags.</p>
               <p id="csb-coverage-line">One bag covers 2 sq ft at this depth, by volume.</p>
+              <p id="csb-pallet-line">Add your supplier's bags-per-pallet count to split full pallets and loose bags.</p>
             </div>
             <div class="quote-result">
               <strong>Bag versus bulk quote</strong>
@@ -251,7 +236,7 @@ const supportGuides = [
           <div class="choice-grid">
             <div>
               <h3>Open drainage layer</h3>
-              <p>Look for clean, low-fines stone in the specified size range. <a href="/57-stone-size-guide">#57</a> is a gradation designation, not a promise that every bag has been washed or fits your drain design. Confirm the label and the required outlet and separator for the project.</p>
+              <p>Look for clean, low-fines stone in the specified size range. <a href="/gravel-sizes#57-stone">#57</a> is a gradation designation, not a promise that every bag has been washed or fits your drain design. Confirm the label and the required outlet and separator for the project.</p>
             </div>
             <div>
               <h3>Compacted base</h3>
@@ -287,14 +272,7 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/crushed-stone-bag-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav />
   </main>
   <Footer />
 
@@ -305,8 +283,8 @@ const supportGuides = [
         const element = document.getElementById(id);
         if (element) element.textContent = value;
       };
-      const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
-      const number = (value: number, digits = 2) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
+      const money = new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' });
+      const number = (value: number, digits = 2) => new Intl.NumberFormat('en', { maximumFractionDigits: digits }).format(value);
       const required = (element: HTMLInputElement, positive: boolean) => {
         const value = Number(element.value);
         const valid = element.value.trim() !== '' && element.validity.valid && Number.isFinite(value) && (positive ? value > 0 : value >= 0);
@@ -345,17 +323,19 @@ const supportGuides = [
         const bagWeight = optional(input('csb-bag-weight'), true);
         const bagPrice = optional(input('csb-price'), false);
         const bulkQuote = optional(input('csb-bulk-quote'), false);
+        const palletSize = optional(input('csb-pallet-size'), true);
         const coreValid = Number.isFinite(area) && area > 0 && Number.isFinite(depth) && Number.isFinite(extra) && Number.isFinite(bagVolume);
         const messages: string[] = [];
         if (!coreValid) messages.push('Enter a positive area, depth, and bag volume; extra can be zero.');
         if (Number.isNaN(bagWeight)) messages.push('Bag weight must be greater than zero, or left blank.');
         if (Number.isNaN(bagPrice)) messages.push('Bag price must be zero or more, or left blank.');
         if (Number.isNaN(bulkQuote)) messages.push('Bulk quote must be zero or more, or left blank.');
+        if (Number.isNaN(palletSize)) messages.push('Bags per pallet must be a positive whole number, or left blank.');
         error.hidden = messages.length === 0;
         error.textContent = messages.join(' ');
 
         if (!coreValid) {
-          ['csb-bags', 'csb-purchased', 'csb-yards', 'csb-plan-cuft', 'csb-weight', 'csb-cost', 'csb-volume-line', 'csb-bag-line', 'csb-coverage-line'].forEach(id => output(id, '—'));
+          ['csb-bags', 'csb-purchased', 'csb-yards', 'csb-plan-cuft', 'csb-weight', 'csb-cost', 'csb-volume-line', 'csb-bag-line', 'csb-coverage-line', 'csb-pallet-line'].forEach(id => output(id, '—'));
           output('csb-compare', 'Correct the measurements and bag volume to compare costs.');
           return;
         }
@@ -367,7 +347,7 @@ const supportGuides = [
         if (!Number.isSafeInteger(bags)) {
           error.hidden = false;
           error.textContent = 'The entered quantity is too large to calculate a reliable bag count.';
-          ['csb-bags', 'csb-purchased', 'csb-yards', 'csb-plan-cuft', 'csb-weight', 'csb-cost', 'csb-volume-line', 'csb-bag-line', 'csb-coverage-line'].forEach(id => output(id, '—'));
+          ['csb-bags', 'csb-purchased', 'csb-yards', 'csb-plan-cuft', 'csb-weight', 'csb-cost', 'csb-volume-line', 'csb-bag-line', 'csb-coverage-line', 'csb-pallet-line'].forEach(id => output(id, '—'));
           output('csb-compare', 'Reduce the project size to compare costs.');
           return;
         }
@@ -380,6 +360,15 @@ const supportGuides = [
         output('csb-volume-line', number(area) + ' sq ft × ' + number(depth) + ' in ÷ 12 = ' + number(installed) + ' cu ft installed; ' + number(planned) + ' cu ft planned.');
         output('csb-bag-line', number(planned) + ' cu ft ÷ ' + number(bagVolume) + ' cu ft per bag = ' + number(planned / bagVolume) + '; round up to ' + number(bags, 0) + ' bags.');
         output('csb-coverage-line', 'One bag covers ' + number(bagVolume * 12 / depth) + ' sq ft at ' + number(depth) + ' in, by volume.');
+        if (palletSize !== null && !Number.isNaN(palletSize)) {
+          const pallets = Math.floor(bags / palletSize);
+          const loose = bags % palletSize;
+          const palletLabel = number(pallets, 0) + ' full pallet' + (pallets === 1 ? '' : 's');
+          const looseLabel = loose > 0 ? ' + ' + number(loose, 0) + ' loose bag' + (loose === 1 ? '' : 's') : '';
+          output('csb-pallet-line', 'At ' + number(palletSize, 0) + ' bags per pallet: ' + palletLabel + looseLabel + '.');
+        } else {
+          output('csb-pallet-line', 'Add your supplier\'s bags-per-pallet count to split full pallets and loose bags.');
+        }
 
         if (bagPrice === null || bulkQuote === null || Number.isNaN(bagPrice) || Number.isNaN(bulkQuote)) {
           output('csb-compare', 'Enter a valid bag price and an all-in bulk quote to compare local material costs.');
@@ -422,9 +411,9 @@ const supportGuides = [
   .area-choice input { accent-color: var(--accent-gold); }
   [hidden] { display: none !important; }
   .dim-grid { margin-bottom: var(--space-4); }
-  .input-field input[aria-invalid="true"] { border-color: #dc2626; box-shadow: 0 0 0 2px rgba(220,38,38,.18); }
+  .input-field input[aria-invalid="true"] { border-color: var(--color-error); box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-error) 18%, transparent); }
   .field-note, .result-note { color: var(--text-muted); font-size: var(--text-xs); line-height: 1.6; margin: 0 0 var(--space-4); }
-  .input-error { color: #b91c1c; border: 1px solid #dc2626; border-radius: var(--radius-md); background: rgba(220,38,38,.08); padding: var(--space-3); font-size: var(--text-sm); line-height: 1.5; }
+  .input-error { color: var(--color-error); border: 1px solid var(--color-error); border-radius: var(--radius-md); background: color-mix(in srgb, var(--color-error) 8%, transparent); padding: var(--space-3); font-size: var(--text-sm); line-height: 1.5; }
   .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
   .kpi-value { overflow-wrap: anywhere; }
   .math-breakdown, .quote-result { margin-top: var(--space-5); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); padding: var(--space-4); color: var(--text-secondary); line-height: 1.55; }

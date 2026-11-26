@@ -2,13 +2,11 @@ import http from 'node:http';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { LEGACY_ROUTES } from './src/lib/content-map.mjs';
 
 const filename = fileURLToPath(import.meta.url);
 const defaultDistDir = path.join(path.dirname(filename), 'dist');
-const redirects = {
-  '/rock-cubic-yard-calculator': '/rock-coverage-calculator-yard',
-  '/rock-coverage-calculator-yards': '/rock-coverage-calculator-yard'
-};
+const redirects = LEGACY_ROUTES;
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',

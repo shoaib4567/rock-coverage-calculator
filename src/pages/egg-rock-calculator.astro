@@ -13,7 +13,7 @@ const breadcrumbs = [
 ];
 const entityTags = [
   { label: 'Material', value: 'Rounded egg rock or egg stone' },
-  { label: 'Buying units', value: 'Cubic yards, US short tons, or labeled bags' },
+  { label: 'Buying units', value: 'Cubic yards, short tons, or labeled bags' },
   { label: 'Supplier weight example', value: '2,800 lb/cu yd; editable' }
 ];
 const quickStats = [
@@ -24,11 +24,11 @@ const quickStats = [
 const faqItems = [
   {
     q: 'How much egg rock do I need for 100 square feet?',
-    a: 'At a 3-inch finished depth, 100 square feet needs 25 cubic feet, or 0.93 cubic yard, before extra. That is 50 bags labeled 0.5 cubic foot. At an example loose bulk weight of 2,800 pounds per cubic yard, the same volume is about 1.30 US short tons. Replace the weight and bag volume with your product details.'
+    a: 'At a 3-inch finished depth, 100 square feet needs 25 cubic feet, or 0.93 cubic yard, before extra. That is 50 bags labeled 0.5 cubic foot. At an example loose bulk weight of 2,800 pounds per cubic yard, the same volume is about 1.30 short tons. Replace the weight and bag volume with your product details.'
   },
   {
     q: 'How many square feet does a ton of egg rock cover?',
-    a: 'At 3 inches deep and an example weight of 2,800 pounds per cubic yard, one US short ton is about 0.71 cubic yard and covers about 77 square feet by volume. A supplier listing 2,400 pounds per cubic yard would yield about 90 square feet at the same depth. Actual visible coverage can change with size, voids, and the bed surface.'
+    a: 'At 3 inches deep and an example weight of 2,800 pounds per cubic yard, one short ton is about 0.71 cubic yard and covers about 77 square feet by volume. A supplier listing 2,400 pounds per cubic yard would yield about 90 square feet at the same depth. Actual visible coverage can change with size, voids, and the bed surface.'
   },
   {
     q: 'How many bags of egg rock are in a cubic yard?',
@@ -66,7 +66,7 @@ const supportGuides = [
 
 <BaseLayout
   title={pageTitle}
-  metaDescription="Estimate egg rock cubic yards, US short tons, and whole bags from area and depth. Adjust supplier weight, bag volume, and allowance; compare grades and practical uses."
+  metaDescription="Estimate egg rock cubic yards, short tons, and whole bags from area and depth. Adjust supplier weight, bag volume, and allowance; compare grades and practical uses."
   canonicalPath="/egg-rock-calculator"
 >
   <Fragment slot="head">
@@ -77,8 +77,7 @@ const supportGuides = [
       url: 'https://rockcoveragecalculator.com/egg-rock-calculator',
       description: 'Estimates rounded egg rock bed volume, supplier-specific bulk weight, and whole bags by labeled volume.',
       applicationCategory: 'UtilityApplication',
-      operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      operatingSystem: 'Web'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -96,7 +95,7 @@ const supportGuides = [
       title={pageTitle}
       highlightWord="Calculator"
       badge="Rounded landscape stone planner"
-      subtitle="For 100 sq ft of egg rock at a 3 in finished depth, plan 25 cu ft (0.93 cu yd) before extra. That is 50 half-cubic-foot bags, or about 1.30 US short tons at the editable 2,800 lb/cu yd supplier example."
+      subtitle="For 100 sq ft of egg rock at a 3 in finished depth, plan 25 cu ft (0.93 cu yd) before extra. That is 50 half-cubic-foot bags, or about 1.30 short tons at the editable 2,800 lb/cu yd supplier example."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -143,7 +142,7 @@ const supportGuides = [
             <p class="egg-result-help"><output id="egg-finished-feet">25.00</output> cu ft before optional extra</p>
             <div class="egg-result-grid">
               <div><span>Bulk order volume</span><strong><output id="egg-order-yards">0.93</output> cu yd</strong></div>
-              <div><span>Estimated US short tons</span><strong><output id="egg-order-tons">1.30</output> tons</strong></div>
+              <div><span>Estimated short tons</span><strong><output id="egg-order-tons">1.30</output> tons</strong></div>
               <div><span>Whole retail bags</span><strong><output id="egg-order-bags">50</output> bags</strong></div>
               <div><span>One ton covers at this depth</span><strong><output id="egg-ton-coverage">77</output> sq ft</strong></div>
             </div>
@@ -160,11 +159,11 @@ const supportGuides = [
           <div>
             <p class="egg-kicker">The worked example</p>
             <h2 id="egg-example-title">What a 100-square-foot result means</h2>
-            <p>A 20 × 5 ft bed is 100 sq ft. At 3 in deep, the finished layer occupies <strong>25 cu ft</strong> (100 × 3 ÷ 12), or <strong>0.93 cu yd</strong>. With no optional extra, 25 ÷ 0.5 means <strong>50 bags</strong> labeled half a cubic foot. At <a href="https://mainslandscapesupply.com/product/egg-rock/">Main's example weight of 2,800 lb per cubic yard</a>, 0.93 yard is about <strong>2,593 lb, or 1.30 US short tons</strong>. Your supplier's weight changes the tons; it does not change the geometric volume.</p>
+            <p>A 20 × 5 ft bed is 100 sq ft. At 3 in deep, the finished layer occupies <strong>25 cu ft</strong> (100 × 3 ÷ 12), or <strong>0.93 cu yd</strong>. With no optional extra, 25 ÷ 0.5 means <strong>50 bags</strong> labeled half a cubic foot. At <a href="https://mainslandscapesupply.com/product/egg-rock/">Main's example weight of 2,800 lb per cubic yard</a>, 0.93 yard is about <strong>2,593 lb, or 1.30 short tons</strong>. Your supplier's weight changes the tons; it does not change the geometric volume.</p>
             <div class="egg-formula" aria-label="Egg rock calculation formulas">
               <p><strong>Finished cu ft</strong> = area (sq ft) × depth (in) ÷ 12</p>
               <p><strong>Order cu yd</strong> = finished cu ft × (1 + optional extra ÷ 100) ÷ 27</p>
-              <p><strong>US short tons</strong> = order cu yd × supplier lb/cu yd ÷ 2,000</p>
+              <p><strong>Short tons</strong> = order cu yd × supplier lb/cu yd ÷ 2,000</p>
             </div>
           </div>
           <figure class="egg-figure">
@@ -219,7 +218,7 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/egg-rock-calculator" category="material" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
+    <TopicClusterNav />
   </main>
   <Footer />
 
@@ -272,7 +271,7 @@ const supportGuides = [
       eggSet('egg-order-bags', Number.isFinite(bags) ? bags.toLocaleString() : '—');
       eggSet('egg-error', !Number.isFinite(density) || !Number.isFinite(bag) ? 'Volume is ready. Correct the highlighted supplier weight or bag volume to calculate its separate result.' : '');
       eggSet('egg-result-context', 'Based on ' + area.toLocaleString(undefined, { maximumFractionDigits: 1 }) + ' sq ft, ' + depth + ' in, ' + extra + '% extra, ' + (Number.isFinite(density) ? density.toLocaleString() + ' lb/cu yd' : 'supplier weight needed') + ', and ' + (Number.isFinite(bag) ? bag + ' cu ft per bag.' : 'bag volume needed.'));
-      eggSet('egg-result-summary', 'Order ' + orderYards.toFixed(2) + ' cubic yards' + (Number.isFinite(tons) ? ', approximately ' + tons.toFixed(2) + ' US short tons' : '') + (Number.isFinite(bags) ? ', or ' + bags + ' whole bags.' : '.'));
+      eggSet('egg-result-summary', 'Order ' + orderYards.toFixed(2) + ' cubic yards' + (Number.isFinite(tons) ? ', approximately ' + tons.toFixed(2) + ' short tons' : '') + (Number.isFinite(bags) ? ', or ' + bags + ' whole bags.' : '.'));
     }
     document.querySelectorAll('#calculator input').forEach(field => field.addEventListener('input', updateEggRock));
     document.querySelectorAll('input[name="egg-mode"]').forEach(field => field.addEventListener('change', updateEggRock));
@@ -303,7 +302,7 @@ const supportGuides = [
   .egg-field input[aria-invalid="true"] { border-color: #d75c5c; }
   .egg-help { margin: calc(-1 * var(--space-2)) 0 var(--space-4); color: var(--text-muted); font-size: var(--text-xs); line-height: 1.55; }
   .egg-input-divider { border-top: 1px solid var(--border-subtle); margin: var(--space-5) 0; }
-  .egg-error { min-height: 1.5em; margin: 0; color: #ef8181; font-size: var(--text-sm); }
+  .egg-error { min-height: 1.5em; margin: 0; color: var(--color-error); font-weight: 600; font-size: var(--text-sm); }
   .egg-results { background: radial-gradient(circle at top right, rgba(212,168,83,.13), transparent 55%), var(--bg-card); }
   .egg-primary { display: flex; align-items: baseline; flex-wrap: wrap; gap: .55rem; color: var(--text-primary); }
   .egg-primary output { font: 800 clamp(2.7rem,5vw,4rem)/1 var(--font-mono); color: var(--accent-gold); }

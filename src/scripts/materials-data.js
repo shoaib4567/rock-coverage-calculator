@@ -1,7 +1,7 @@
 /**
  * Aggregate Materials Database - rockcoveragecalculator.com
  * Density specifications, void ratios, sizing caliper, and field application rules.
- * All densities reflect loose, damp-to-dry quarry stockpile conditions.
+ * All densities reflect loose quarry stockpile conditions.
  */
 
 export const ROCK_MATERIALS = [
@@ -18,8 +18,8 @@ export const ROCK_MATERIALS = [
     typicalRange: [2600, 2800],
     isCompactable: false,
     swatchColor: '#a09080',
-    description: 'Small, rounded stones ideal for pathways, drainage, and decorative beds.',
-    notes: 'Smooth rounded profile, low void ratio, self-leveling'
+    description: 'Small, rounded stones suited for pathways, contained patios, and decorative beds.',
+    notes: 'ASTM No. 8 smooth rounded profile, low void ratio, requires perimeter restraint'
   },
   {
     id: 'river-rock-1',
@@ -34,7 +34,7 @@ export const ROCK_MATERIALS = [
     typicalRange: [2550, 2750],
     isCompactable: false,
     swatchColor: '#7a8a7a',
-    description: 'Smooth, water-tumbled stones with natural color variation.',
+    description: 'Smooth, water-tumbled cobbles with natural color variation for beds and borders.',
     notes: 'Natural tumbled finish, mixed color, moderate void ratio'
   },
   {
@@ -50,8 +50,8 @@ export const ROCK_MATERIALS = [
     typicalRange: [2600, 2800],
     isCompactable: false,
     swatchColor: '#c8bca0',
-    description: 'Angular crushed limestone, compacts well for driveways and base layers.',
-    notes: 'Angular fractured faces, high interlock, excellent compaction'
+    description: 'Angular crushed limestone for driveways, surface drainage, and utilitarian aggregate cover.',
+    notes: 'Angular fractured faces, mechanical interlock, drains well when clean'
   },
   {
     id: 'crushed-granite',
@@ -66,8 +66,24 @@ export const ROCK_MATERIALS = [
     typicalRange: [2700, 2900],
     isCompactable: false,
     swatchColor: '#8b9da8',
-    description: 'Durable angular granite aggregate for heavy-traffic surfaces.',
-    notes: 'High hardness, angular faces, excellent drainage'
+    description: 'Durable angular granite aggregate for heavy-traffic surfaces and clean drainage.',
+    notes: 'High mineral hardness, angular faces, non-calcareous'
+  },
+  {
+    id: 'trap-rock',
+    name: 'Trap Rock / Basalt',
+    category: 'crushed',
+    typicalSize: '3/4"',
+    minDepthInches: 3,
+    densityLbsPerCuYd: 2600,
+    tonsPerCuYd: 1.30,
+    densityLbsPerCuFt: 96,
+    densityKgPerCuM: 1543,
+    typicalRange: [2500, 2900],
+    isCompactable: false,
+    swatchColor: '#4a5562',
+    description: 'Dense crushed basalt/diabase aggregate for high-wear driveways, ballast, and dark trim beds.',
+    notes: 'Igneous microcrystalline toughness; verify loose weight against the quarry quote'
   },
   {
     id: 'decomposed-granite',
@@ -83,8 +99,8 @@ export const ROCK_MATERIALS = [
     isCompactable: true,
     compactionFactor: 1.12,
     swatchColor: '#b8a080',
-    description: 'Naturally weathered granite, fine texture, great for paths and patios.',
-    notes: 'Fine granular, self-binding when wet, compacts to firm surface'
+    description: 'Naturally weathered granitic screenings with fines for walkable paths and patio aprons.',
+    notes: 'Fine granular texture; compacts under moisture and tamping'
   },
   {
     id: 'lava-rock',
@@ -96,11 +112,11 @@ export const ROCK_MATERIALS = [
     tonsPerCuYd: 0.75,
     densityLbsPerCuFt: 56,
     densityKgPerCuM: 890,
-    typicalRange: [1250, 1500],
+    typicalRange: [1000, 1500],
     isCompactable: false,
     swatchColor: '#8b3a3a',
-    description: 'Lightweight volcanic scoria for decorative landscape beds; confirm the supplier bulk weight.',
-    notes: 'Planning preset only; landscape bags are not automatically suitable for gas fire features'
+    description: 'Lightweight porous volcanic scoria for landscape beds; confirm supplier bulk weight.',
+    notes: 'Landscape mulch weight preset; bagged landscape scoria is distinct from fire-appliance media'
   },
   {
     id: 'marble-chips',
@@ -115,8 +131,24 @@ export const ROCK_MATERIALS = [
     typicalRange: [2400, 2700],
     isCompactable: false,
     swatchColor: '#e8e0d8',
-    description: 'Bright white ornamental chips for garden borders and accents.',
-    notes: 'Planning density only; confirm loose bulk weight with your supplier. Angular carbonate chips may affect soil pH.'
+    description: 'Bright white carbonate marble chips for high-contrast landscape beds and borders.',
+    notes: 'High albedo; avoid directly around acid-loving plants'
+  },
+  {
+    id: 'beach-pebbles',
+    name: 'Beach Pebbles',
+    category: 'decorative',
+    typicalSize: '1/2-3"',
+    minDepthInches: 3,
+    densityLbsPerCuYd: 2600,
+    tonsPerCuYd: 1.30,
+    densityLbsPerCuFt: 96,
+    densityKgPerCuM: 1543,
+    typicalRange: [2500, 2750],
+    isCompactable: false,
+    swatchColor: '#3f4852',
+    description: 'Smooth rounded coastal pebbles suited for border accents, planters, and dry gardens.',
+    notes: 'Verify package dry volume (often 0.25 to 0.5 cu ft per sack)'
   },
   {
     id: 'river-rock-3-5',
@@ -131,8 +163,40 @@ export const ROCK_MATERIALS = [
     typicalRange: [2400, 2600],
     isCompactable: false,
     swatchColor: '#6a7a6a',
-    description: 'Large river stones for borders, dry creek beds, and erosion control.',
-    notes: 'Large profile, high void ratio, requires deeper bed'
+    description: 'Larger rounded river cobbles for dry creek channels, drip lines, and heavy borders.',
+    notes: 'Higher void ratio requires deeper fill over separator fabric'
+  },
+  {
+    id: 'egg-rock',
+    name: 'Egg Rock (1-3")',
+    category: 'decorative',
+    typicalSize: '1-3"',
+    minDepthInches: 3,
+    densityLbsPerCuYd: 2800,
+    tonsPerCuYd: 1.40,
+    densityLbsPerCuFt: 104,
+    densityKgPerCuM: 1661,
+    typicalRange: [2400, 2800],
+    isCompactable: false,
+    swatchColor: '#857b6e',
+    description: 'Rounded mixed-color cobble for drip-line protection, dry creek accents, and borders.',
+    notes: 'Planning default based on washed rounded cobble schedules'
+  },
+  {
+    id: 'clean-stone-57',
+    name: '#57 Clean Stone / Drain Rock',
+    category: 'crushed',
+    typicalSize: '1/2-1"',
+    minDepthInches: 3,
+    densityLbsPerCuYd: 2700,
+    tonsPerCuYd: 1.35,
+    densityLbsPerCuFt: 100,
+    densityKgPerCuM: 1602,
+    typicalRange: [2600, 2800],
+    isCompactable: false,
+    swatchColor: '#9a9080',
+    description: 'ASTM D448 / AASHTO M43 open-graded washed stone for French drains and clean driveways.',
+    notes: 'Minimal fines, high permeability and void storage'
   },
   {
     id: 'quarry-process',
@@ -148,60 +212,12 @@ export const ROCK_MATERIALS = [
     isCompactable: true,
     compactionFactor: 1.18,
     swatchColor: '#8a8070',
-    description: 'Mixed aggregate with fines for sub-base compaction under pavers.',
-    notes: 'Contains fines, high compaction rate, DOT approved base material'
-  },
-  {
-    id: 'rip-rap',
-    name: 'Riprap / Armor Stone (Example)',
-    category: 'erosion',
-    typicalSize: 'Per project spec',
-    minDepthInches: 12,
-    densityLbsPerCuYd: 2800,
-    tonsPerCuYd: 1.4,
-    densityLbsPerCuFt: 104,
-    densityKgPerCuM: 1661,
-    typicalRange: [2400, 2800],
-    isCompactable: false,
-    swatchColor: '#707070',
-    description: 'Armor rock planning example; a project-specific hydraulic design controls stone size and layer thickness.',
-    notes: '2,800 lb/yd³ seller example and 12 in illustrative depth; confirm the specified gradation, filter and supplier weight'
-  },
-  {
-    id: 'egg-rock',
-    name: 'Egg Rock (1-3")',
-    category: 'decorative',
-    typicalSize: '1-3"',
-    minDepthInches: 3,
-    densityLbsPerCuYd: 2800,
-    tonsPerCuYd: 1.4,
-    densityLbsPerCuFt: 104,
-    densityKgPerCuM: 1661,
-    typicalRange: [2400, 2800],
-    isCompactable: false,
-    swatchColor: '#857b6e',
-    description: 'Rounded mixed-color stone for decorative borders and dry creek accents.',
-    notes: 'Main\'s Landscape Supply 2,800 lb/yd³ product example; check your supplier quote'
-  },
-  {
-    id: 'clean-stone-57',
-    name: '#57 Clean Stone / Drain Rock',
-    category: 'crushed',
-    typicalSize: '1/2-1"',
-    minDepthInches: 3,
-    densityLbsPerCuYd: 2700,
-    tonsPerCuYd: 1.35,
-    densityLbsPerCuFt: 100,
-    densityKgPerCuM: 1602,
-    typicalRange: [2600, 2800],
-    isCompactable: false,
-    swatchColor: '#9a9080',
-    description: 'ASTM D448 washed angular aggregate for French drains, weeping tile, and clean driveways.',
-    notes: 'Zero fines, 35-40% void ratio, excellent permeability'
+    description: 'Blended crushed screenings and coarse aggregate for patio and walkway compaction.',
+    notes: 'Dense blend with fines; compacts tightly under plate tampers'
   },
   {
     id: 'crusher-run-21a',
-    name: 'Crusher Run / 21-A Base',
+    name: 'Crusher Run / #411 / 21-A Base',
     category: 'base',
     typicalSize: '3/4" minus',
     minDepthInches: 4,
@@ -213,25 +229,41 @@ export const ROCK_MATERIALS = [
     isCompactable: true,
     compactionFactor: 1.25,
     swatchColor: '#8a8070',
-    description: 'Dense-graded aggregate with stone dust fines for structural compaction under driveways and slabs.',
-    notes: 'AASHTO M147 / dense graded base, compacts to solid interlocked pavement'
+    description: 'Dense-graded angular stone and dust blend for driveway subbases, slabs, and paver foundations.',
+    notes: 'High compacted density; known regionally as #411, 21-A, CA-6, ABC, Item 4, or Class 2 Base'
   },
   {
     id: 'base-gravel-21a',
-    name: 'Road Base Gravel (21-A)',
+    name: 'Road Base Gravel (CA-6 / Class 2)',
     category: 'base',
-    typicalSize: '3/4" minus',
+    typicalSize: '1" minus',
     minDepthInches: 4,
-    densityLbsPerCuYd: 2900,
-    tonsPerCuYd: 1.45,
-    densityLbsPerCuFt: 107.4,
-    densityKgPerCuM: 1720,
-    typicalRange: [2750, 3150],
+    densityLbsPerCuYd: 2800,
+    tonsPerCuYd: 1.40,
+    densityLbsPerCuFt: 104,
+    densityKgPerCuM: 1661,
+    typicalRange: [2700, 3100],
     isCompactable: true,
     compactionFactor: 1.25,
     swatchColor: '#9a9080',
-    description: 'Standard structural base for driveways, sheds, and retaining walls.',
-    notes: 'AASHTO M147 / 21-A standard road base aggregate'
+    description: 'Coarser structural road-base gradation for deeper driveway subbases and parking pads.',
+    notes: 'Confirm regional sieve gradation and compacted lift target with local yard'
+  },
+  {
+    id: 'rip-rap',
+    name: 'Riprap / Armor Stone',
+    category: 'erosion',
+    typicalSize: '6-18"+',
+    minDepthInches: 12,
+    densityLbsPerCuYd: 2800,
+    tonsPerCuYd: 1.40,
+    densityLbsPerCuFt: 104,
+    densityKgPerCuM: 1661,
+    typicalRange: [2400, 2800],
+    isCompactable: false,
+    swatchColor: '#707070',
+    description: 'Angular erosion-control armor stone for stream banks, slopes, and culvert outfalls.',
+    notes: 'Hydraulic design determines Class I/II/III D50 sizing and non-woven filter fabric'
   }
 ];
 

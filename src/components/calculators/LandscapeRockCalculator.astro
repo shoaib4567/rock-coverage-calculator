@@ -1,19 +1,25 @@
 ---
-// Landscape bed quantity estimator. Density presets are editable assumptions.
+// Landscape bed & planted rock garden estimator (Dimensions or Known Sq Ft + planting pocket deductions)
 ---
 <section class="section" id="landscape-rock-calc" aria-labelledby="land-calc-title">
   <div class="container">
     <div class="section-header">
       <h2 id="land-calc-title">Estimate landscape rock for your bed</h2>
       <div class="section-divider"></div>
-      <p>Enter the rock-covered length, average width, and finished depth. The estimate includes cubic yards, short tons, and 0.5-cubic-foot bags.</p>
+      <p>Enter dimensions or known square footage, subtract any bare planting pockets or hardscape islands, and choose a finished depth and bag label volume.</p>
     </div>
 
     <div class="calc-wrapper">
       <div class="calc-panel">
         <h3>Bed measurements</h3>
-        <p class="panel-help">For a curved bed, split it into sections or use its average width. Enter only the area you will cover with rock.</p>
-        <div class="dim-grid">
+        <p class="panel-help">For a curved bed, average multiple width readings or enter measured square feet directly.</p>
+
+        <div class="unit-toggle" role="group" aria-label="Area measurement method">
+          <button type="button" class="active" id="land-mode-dims" aria-pressed="true">Dimensions (L &times; W)</button>
+          <button type="button" id="land-mode-sqft" aria-pressed="false">Known Sq Ft</button>
+        </div>
+
+        <div id="land-dims-fields" class="dim-grid">
           <div class="input-field">
             <label for="land-length">Bed length</label>
             <input type="number" id="land-length" value="40" min="0.1" step="any" required />
@@ -25,45 +31,67 @@
             <span class="unit-label">ft</span>
           </div>
         </div>
-        <div class="dim-grid">
+
+        <div id="land-sqft-field" class="dim-grid single-col" style="display: none;">
           <div class="input-field">
-            <label for="land-depth">Finished rock depth</label>
-            <input type="number" id="land-depth" value="3" min="0.5" max="8" step="any" required aria-describedby="depth-help" />
-            <span class="unit-label">in</span>
-          </div>
-          <div class="input-field">
-            <label for="land-waste">Extra material allowance</label>
-            <input type="number" id="land-waste" value="10" min="0" max="25" step="any" required aria-describedby="allowance-help" />
-            <span class="unit-label">%</span>
+            <label for="land-area">Measured bed area</label>
+            <input type="number" id="land-area" value="320" min="0.5" step="any" />
+            <span class="unit-label">sq ft</span>
           </div>
         </div>
-        <p class="field-note" id="depth-help">Start around 2–3 inches for many rock mulches, then check coverage with your chosen stone.</p>
-        <p class="field-note" id="allowance-help">Optional room for uneven ground and trimming. Set to 0% to see the measured volume alone.</p>
+
+        <div class="dim-grid">
+          <div class="input-field">
+            <label for="land-openings">Uncovered pockets / islands</label>
+            <input type="number" id="land-openings" value="0" min="0" step="any" aria-describedby="openings-help" />
+            <span class="unit-label">sq ft</span>
+          </div>
+          <div class="input-field">
+            <label for="land-depth">Finished rock depth</label>
+            <input type="number" id="land-depth" value="3" min="0.5" max="12" step="any" required aria-describedby="depth-help" />
+            <span class="unit-label">in</span>
+          </div>
+        </div>
+        <div class="dim-grid">
+          <div class="input-field">
+            <label for="land-waste">Extra material allowance</label>
+            <input type="number" id="land-waste" value="10" min="0" max="50" step="any" required aria-describedby="allowance-help" />
+            <span class="unit-label">%</span>
+          </div>
+          <div class="input-field">
+            <label for="land-bag-vol">Bag label volume</label>
+            <input type="number" id="land-bag-vol" value="0.5" min="0.05" max="50" step="any" required />
+            <span class="unit-label">cu ft</span>
+          </div>
+        </div>
+        <p class="field-note" id="openings-help">Deduct large plant crowns, stepping stones, or water features that remain uncovered.</p>
+        <p class="field-note" id="depth-help">Start around 2–3 inches for decorative rock mulch; larger river cobbles require 3+ inches to conceal fabric.</p>
+        <p class="field-note" id="allowance-help">Set extra allowance to 0% to see exact geometric volume without trimming reserve.</p>
 
         <h3 class="material-heading">Rock type and bulk density</h3>
         <div class="stone-opt-grid" aria-label="Example landscape rock densities">
           <button type="button" class="land-btn active" data-density="1.35" aria-pressed="true">
             <span class="land-btn-title">Rounded river rock</span>
-            <span class="land-btn-desc">Example: 1.35 short tons/yd³</span>
+            <span class="land-btn-desc">Example: 1.35 short tons/yd&sup3; (2,700 lb/yd&sup3;)</span>
           </button>
           <button type="button" class="land-btn" data-density="1.40" aria-pressed="false">
             <span class="land-btn-title">Angular crushed stone</span>
-            <span class="land-btn-desc">Example: 1.40 short tons/yd³</span>
+            <span class="land-btn-desc">Example: 1.40 short tons/yd&sup3; (2,800 lb/yd&sup3;)</span>
           </button>
           <button type="button" class="land-btn" data-density="0.75" aria-pressed="false">
-            <span class="land-btn-title">Lava rock</span>
-            <span class="land-btn-desc">Example: 0.75 short tons/yd³</span>
+            <span class="land-btn-title">Volcanic lava rock (scoria)</span>
+            <span class="land-btn-desc">Example: 0.75 short tons/yd&sup3; (1,500 lb/yd&sup3;)</span>
           </button>
         </div>
         <div class="density-field">
           <div class="input-field">
             <label for="land-density">Bulk density to use</label>
             <input type="number" id="land-density" value="1.35" min="0.1" max="3" step="any" required aria-describedby="density-help" />
-            <span class="unit-label">t/yd³</span>
+            <span class="unit-label">t/yd&sup3;</span>
           </div>
-          <p class="field-note" id="density-help">Presets are rough examples. Enter your supplier's figure for a better ton estimate; volume does not change.</p>
+          <p class="field-note" id="density-help">Presets are planning starting weights. Enter your supplier’s short tons/yd&sup3; when available.</p>
         </div>
-        <p class="input-error" id="land-error" role="alert" hidden>Enter positive bed dimensions, a depth from 0.5 to 8 inches, allowance from 0 to 25%, and density from 0.1 to 3.</p>
+        <p class="input-error" id="land-error" role="alert" hidden>Enter positive bed measurements, uncovered area smaller than total footprint, depth 0.5–12 in, 0–50% allowance, positive bag volume, and density 0.1–3.0.</p>
       </div>
 
       <div class="calc-results-panel">
@@ -82,20 +110,20 @@
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-land-bags">176</div>
-            <div class="kpi-label">0.5-cu-ft bags</div>
+            <div class="kpi-label" id="label-land-bags">0.5-cu-ft bags</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-land-area">320</div>
-            <div class="kpi-label">Square feet covered</div>
+            <div class="kpi-label">Net square feet covered</div>
           </div>
         </div>
         <div class="breakdown-list" aria-label="Quantity breakdown">
-          <div class="breakdown-row"><span>Measured volume</span><strong id="row-land-net">2.96 yd³</strong></div>
-          <div class="breakdown-row"><span>Extra material</span><strong id="row-land-extra">0.30 yd³ (10%)</strong></div>
+          <div class="breakdown-row"><span>Measured net volume</span><strong id="row-land-net">2.96 yd&sup3;</strong></div>
+          <div class="breakdown-row"><span>Extra material allowance</span><strong id="row-land-extra">0.30 yd&sup3; (10%)</strong></div>
           <div class="breakdown-row"><span>Total loose rock volume</span><strong id="row-land-cuft">88.0 cu ft</strong></div>
-          <div class="breakdown-row"><span>Bulk density used</span><strong id="row-land-density">1.35 short tons/yd³</strong></div>
+          <div class="breakdown-row"><span>Bulk density used</span><strong id="row-land-density">1.35 short tons/yd&sup3;</strong></div>
         </div>
-        <p class="result-note">These are planning quantities. Suppliers may sell by whole or partial yards, by scale weight, or in bags with a different volume. Check the product listing and round to the supplier's selling increment.</p>
+        <p class="result-note">Suppliers commonly round bulk orders to 0.25, 0.50, or 1.0 cubic yard increments. Verify minimum delivery quantities and bag cubic-foot labeling before checkout.</p>
       </div>
     </div>
   </div>
@@ -106,12 +134,17 @@
   .calc-panel, .calc-results-panel { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); }
   .calc-panel h3, .calc-results-panel h3 { margin: 0 0 var(--space-2); font-size: var(--text-lg); color: var(--color-text); }
   .panel-help, .field-note, .result-note { color: var(--color-text-muted); line-height: 1.5; font-size: var(--text-sm); }
-  .panel-help { margin: 0 0 var(--space-4); }
+  .panel-help { margin: 0 0 var(--space-3); }
   .field-note { margin: var(--space-1) 0 var(--space-2); font-size: var(--text-xs); }
+  .unit-toggle { display: flex; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 3px; margin-bottom: var(--space-4); gap: 2px; }
+  .unit-toggle button { flex: 1; padding: .48rem; border: none; background: transparent; color: var(--color-text-muted); font-size: var(--text-xs); font-weight: 600; border-radius: var(--radius-sm); cursor: pointer; }
+  .unit-toggle button.active { background: var(--color-primary); color: #000; }
   .dim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-3); }
+  .dim-grid.single-col { grid-template-columns: 1fr; }
   .input-field { position: relative; display: flex; flex-direction: column; }
   .input-field label { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); margin-bottom: var(--space-1); }
-  .input-field input { width: 100%; padding: .65rem 4.5rem .65rem .75rem; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font-size: var(--text-base); font-weight: 600; }
+  .input-field input { width: 100%; padding: .65rem 3.5rem .65rem .75rem; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font-size: var(--text-base); font-weight: 600; }
+  .input-field input[aria-invalid="true"] { border-color: var(--color-error); }
   .input-field input:focus-visible, .land-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
   .unit-label { position: absolute; right: .8rem; bottom: .65rem; font-size: var(--text-xs); color: var(--color-text-muted); pointer-events: none; }
   .material-heading { margin-top: var(--space-5) !important; }
@@ -123,7 +156,7 @@
   .land-btn-title { font-size: var(--text-sm); font-weight: 700; color: var(--color-text); }
   .land-btn-desc { font-size: var(--text-xs); color: var(--color-text-muted); }
   .density-field { margin-top: var(--space-4); }
-  .input-error { color: #dc2626; font-size: var(--text-sm); font-weight: 600; }
+  .input-error { color: var(--color-error); font-size: var(--text-xs); font-weight: 600; margin-top: var(--space-3); }
   .results-header { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border); }
   .results-header h3 { margin: 0; }
   .results-badge { font-size: var(--text-xs); padding: .25rem .6rem; background: rgba(202, 138, 4, .12); color: var(--color-primary); border-radius: 999px; font-weight: 700; }
@@ -142,49 +175,108 @@
 
 <script>
   function initLandscapeRockCalculator() {
+    let mode: 'dims' | 'sqft' = 'dims';
+    const dimsBtn = document.getElementById('land-mode-dims');
+    const sqftBtn = document.getElementById('land-mode-sqft');
+    const dimsFields = document.getElementById('land-dims-fields');
+    const sqftField = document.getElementById('land-sqft-field');
+
     const lengthInput = document.getElementById('land-length') as HTMLInputElement | null;
     const widthInput = document.getElementById('land-width') as HTMLInputElement | null;
+    const areaInput = document.getElementById('land-area') as HTMLInputElement | null;
+    const openingsInput = document.getElementById('land-openings') as HTMLInputElement | null;
     const depthInput = document.getElementById('land-depth') as HTMLInputElement | null;
     const allowanceInput = document.getElementById('land-waste') as HTMLInputElement | null;
+    const bagVolInput = document.getElementById('land-bag-vol') as HTMLInputElement | null;
     const densityInput = document.getElementById('land-density') as HTMLInputElement | null;
     const error = document.getElementById('land-error');
     const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('.land-btn'));
-    if (!lengthInput || !widthInput || !depthInput || !allowanceInput || !densityInput) return;
+    if (!lengthInput || !widthInput || !areaInput || !openingsInput || !depthInput || !allowanceInput || !bagVolInput || !densityInput) return;
 
     function setText(id: string, value: string) {
       const element = document.getElementById(id);
       if (element) element.textContent = value;
     }
 
-    function calculate() {
-      const inputs = [lengthInput!, widthInput!, depthInput!, allowanceInput!, densityInput!];
-      const valid = inputs.every(input => input.validity.valid && Number.isFinite(input.valueAsNumber));
-      if (error) error.hidden = valid;
-      if (!valid) return;
+    function clearOutputs() {
+      ['kpi-land-yards', 'kpi-land-tons', 'kpi-land-bags', 'kpi-land-area', 'row-land-net', 'row-land-extra', 'row-land-cuft', 'row-land-density'].forEach(id => setText(id, '—'));
+    }
 
-      const length = lengthInput!.valueAsNumber;
-      const width = widthInput!.valueAsNumber;
-      const depth = depthInput!.valueAsNumber;
-      const allowance = allowanceInput!.valueAsNumber;
-      const density = densityInput!.valueAsNumber;
-      const area = length * width;
-      const netCuFt = area * depth / 12;
+    function readVal(el: HTMLInputElement, min: number, max = Infinity): number {
+      const n = Number(el.value);
+      const ok = el.value.trim() !== '' && Number.isFinite(n) && n >= min && n <= max;
+      el.setAttribute('aria-invalid', String(!ok));
+      return ok ? n : NaN;
+    }
+
+    function calculate() {
+      let grossArea = NaN;
+      if (mode === 'dims') {
+        areaInput!.removeAttribute('aria-invalid');
+        grossArea = readVal(lengthInput!, 0.1) * readVal(widthInput!, 0.1);
+      } else {
+        lengthInput!.removeAttribute('aria-invalid');
+        widthInput!.removeAttribute('aria-invalid');
+        grossArea = readVal(areaInput!, 0.5);
+      }
+      const openings = readVal(openingsInput!, 0);
+      const depth = readVal(depthInput!, 0.5, 12);
+      const allowance = readVal(allowanceInput!, 0, 50);
+      const bagVol = readVal(bagVolInput!, 0.05, 50);
+      const density = readVal(densityInput!, 0.1, 3);
+
+      const netArea = grossArea - openings;
+      const valid = [grossArea, openings, depth, allowance, bagVol, density].every(Number.isFinite) && netArea > 0;
+      if (Number.isFinite(grossArea) && Number.isFinite(openings) && openings >= grossArea) {
+        openingsInput!.setAttribute('aria-invalid', 'true');
+      }
+
+      if (error) error.hidden = valid;
+      if (!valid) {
+        clearOutputs();
+        return;
+      }
+
+      const netCuFt = netArea * depth / 12;
       const totalCuFt = netCuFt * (1 + allowance / 100);
       const netYards = netCuFt / 27;
       const totalYards = totalCuFt / 27;
       const extraYards = totalYards - netYards;
       const tons = totalYards * density;
-      const bags = Math.ceil(totalCuFt / 0.5 - 1e-9);
+      const bags = totalCuFt > 0 ? Math.ceil(totalCuFt / bagVol - 1e-10) : 0;
 
       setText('kpi-land-yards', totalYards.toFixed(2));
       setText('kpi-land-tons', tons.toFixed(2));
       setText('kpi-land-bags', bags.toLocaleString());
-      setText('kpi-land-area', area.toLocaleString(undefined, { maximumFractionDigits: 1 }));
+      setText('label-land-bags', `${bagVol}-cu-ft bags`);
+      setText('kpi-land-area', netArea.toLocaleString(undefined, { maximumFractionDigits: 1 }));
       setText('row-land-net', netYards.toFixed(2) + ' yd³');
       setText('row-land-extra', extraYards.toFixed(2) + ' yd³ (' + allowance + '%)');
       setText('row-land-cuft', totalCuFt.toFixed(1) + ' cu ft');
       setText('row-land-density', density.toFixed(2) + ' short tons/yd³');
     }
+
+    dimsBtn?.addEventListener('click', () => {
+      mode = 'dims';
+      dimsBtn.classList.add('active');
+      dimsBtn.setAttribute('aria-pressed', 'true');
+      sqftBtn?.classList.remove('active');
+      sqftBtn?.setAttribute('aria-pressed', 'false');
+      if (dimsFields) dimsFields.style.display = '';
+      if (sqftField) sqftField.style.display = 'none';
+      calculate();
+    });
+
+    sqftBtn?.addEventListener('click', () => {
+      mode = 'sqft';
+      sqftBtn.classList.add('active');
+      sqftBtn.setAttribute('aria-pressed', 'true');
+      dimsBtn?.classList.remove('active');
+      dimsBtn?.setAttribute('aria-pressed', 'false');
+      if (dimsFields) dimsFields.style.display = 'none';
+      if (sqftField) sqftField.style.display = '';
+      calculate();
+    });
 
     buttons.forEach(button => {
       button.addEventListener('click', () => {
@@ -209,7 +301,7 @@
       calculate();
     });
 
-    [lengthInput, widthInput, depthInput, allowanceInput].forEach(input => input.addEventListener('input', calculate));
+    [lengthInput, widthInput, areaInput, openingsInput, depthInput, allowanceInput, bagVolInput].forEach(input => input.addEventListener('input', calculate));
     calculate();
   }
 

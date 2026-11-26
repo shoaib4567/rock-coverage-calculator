@@ -656,11 +656,11 @@
   border-bottom: none;
 }
 
-.breakdown-table td {
+.breakdown-table td, .breakdown-table th {
   padding: var(--space-3) var(--space-5);
 }
 
-.breakdown-table td:first-child {
+.breakdown-table th:first-child, .breakdown-table td:first-child { text-align: left; font-weight: 500;
   font-size: 0.825rem;
   color: var(--text-secondary);
 }
@@ -1261,7 +1261,7 @@
   background: #f1f5f9;
 }
 
-[data-theme="light"] .breakdown-table td:first-child {
+[data-theme="light"] .breakdown-table th:first-child, .breakdown-table td:first-child { text-align: left; font-weight: 500;
   color: #475569;
 }
 

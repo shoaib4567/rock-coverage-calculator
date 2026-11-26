@@ -4,12 +4,100 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
+
+const pageTitle = 'Angular vs Rounded Rock: Choose for the Project';
+const metaDescription = 'Compare how stone shape, grading and the prepared base affect walking, driving and drainage before estimating your order.';
+
+const faqItems = [
+  {
+    q: 'Why does angular rock lock in place better than rounded rock?',
+    a: 'Fractured faces on angular crushed stone create mechanical friction between adjacent particles, whereas smooth rounded gravel and river rock tend to roll under shear forces from tires or shoes.'
+  },
+  {
+    q: 'Can rounded pea gravel or river rock be compacted for a firm driveway?',
+    a: 'Vibratory tamping settles loose particles slightly, but rounded stones without fractured interlocking edges and binding fines will continue shifting under turning wheels or narrow chair legs.'
+  },
+  {
+    q: 'Does stone shape change the cubic yards needed at a fixed depth?',
+    a: 'No. Volume comes from area multiplied by depth (Area × Depth ÷ 324). Stone shape and size grading affect your chosen finished depth and supplier weight per cubic yard, not geometric volume.'
+  }
+];
 ---
-<BaseLayout title="Angular vs Rounded Rock: Choose for the Project" description="Compare how stone shape, grading and the prepared base affect walking, driving and drainage before estimating your order." canonicalPath="/angular-vs-rounded-rock">
-<Header/><main id="main-content" class="container practical-guide"><Breadcrumbs /><h1>Angular vs Rounded Rock: Match Shape to Use</h1><p class="intro">Compare angular and rounded particles together with grading, fines and confinement. Shape affects movement, but it does not by itself establish drainage, load capacity or the correct layer specification.</p>
-<h2>Shape is one part of the choice</h2><p>Angular rock has fractured faces; rounded rock has smoother edges. Angular particles can resist movement by interlocking. Rounded pebbles tend to move under feet and wheels. These descriptions do not establish a material’s strength, drainage rate or friction angle: size distribution, fines, moisture, confinement and the ground underneath also matter.</p>
-<h2>Match the product to its layer</h2><h3>Driveways and loaded surfaces</h3><p>Distinguish the base from the wearing layer. A specified dense-graded base contains a range of particle sizes and fines that can compact. Clean, open-graded angular stone is a different product and should not be substituted solely because both are called gravel. Rounded decorative rock can move under turning tires; use the aggregate and layer thickness required by the driveway plan.</p><h3>Paths and seating areas</h3><p>Small rounded pea gravel may feel smoother than sharp crushed stone, but a loose surface can be difficult for chair legs, wheelchairs and other small wheels. A thicker loose layer may increase movement. Try an actual sample with the intended footwear or furniture. A firm base and secure border help containment; the material name alone does not establish accessibility or slip safety.</p><h3>Drainage layers</h3><p>Both angular and rounded products can be supplied in clean drainage gradings. Ask for the specified particle size and fines content. A #57 size designation does not by itself guarantee washed stone or a particular void percentage. A drain also needs an appropriate outlet, pipe and soil-separation detail. Stone quantity does not establish hydraulic capacity.</p>
-<h2>Can rounded stone be compacted?</h2><p>Placement can rearrange and settle particles, but smooth stone does not form the same interlocking surface as a suitable angular base. Follow the product and installation specification for equipment, lift thickness and confinement. Avoid a universal rule that every rounded product can never be vibrated or that every angular product becomes rigid after tamping.</p>
-<h2>Estimate volume before converting weight</h2><p>For a 10 × 20 ft bed at 3 in, the volume is 200 × 3 ÷ 324 = 1.85 cubic yards before extra material. Shape does not change that geometry. Your chosen product’s loose bulk weight changes the tonnage; a different layer depth changes both volume and weight. The <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/">Penn State materials calculator</a> distinguishes shipped loose material from finished depth.</p><h2>What to ask the supplier</h2><ul><li>What is the actual product, grading, particle shape and fines content?</li><li>Is the quote for loose cubic yards, US short tons, or volume-labeled bags?</li><li>What loose bulk weight and placement allowance apply to this product?</li><li>What base, containment and maintenance will the intended use need?</li></ul><p>Continue with the <a href="/which-rock-should-i-use">material selection helper</a>, <a href="/crushed-stone-calculator">crushed stone calculator</a>, or <a href="/pea-gravel-calculator">pea gravel calculator</a>.</p><TopicClusterNav/></main><Footer/>
+
+<BaseLayout title={pageTitle} description={metaDescription} canonicalPath="/angular-vs-rounded-rock">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: 'Angular vs Rounded Rock: Match Shape to Use',
+      description: metaDescription,
+      mainEntityOfPage: 'https://rockcoveragecalculator.com/angular-vs-rounded-rock',
+      inLanguage: 'en',
+      dateModified: '2026-11-25'
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content" class="container practical-guide">
+    <Breadcrumbs />
+    <h1>Angular vs Rounded Rock: Match Shape to Use</h1>
+    <p class="intro">Compare angular and rounded particles together with grading, fines and confinement. Shape affects movement, but it does not by itself establish drainage, load capacity or the correct layer specification.</p>
+
+    <h2>Shape is one part of the choice</h2>
+    <p>Angular rock has fractured faces; rounded rock has smoother edges. Angular particles can resist movement by interlocking. Rounded pebbles tend to move under feet and wheels. These descriptions do not establish a material’s strength, drainage rate or friction angle: size distribution, fines, moisture, confinement and the ground underneath also matter.</p>
+
+    <h2>Match the product to its layer</h2>
+    <h3>Driveways and loaded surfaces</h3>
+    <p>Distinguish the base from the wearing layer. A specified dense-graded base contains a range of particle sizes and fines that can compact. Clean, open-graded angular stone is a different product and should not be substituted solely because both are called gravel. Rounded decorative rock can move under turning tires; use the aggregate and layer thickness required by the driveway plan.</p>
+    <h3>Paths and seating areas</h3>
+    <p>Small rounded pea gravel may feel smoother than sharp crushed stone, but a loose surface can be difficult for chair legs, wheelchairs and other small wheels. A thicker loose layer may increase movement. Try an actual sample with the intended footwear or furniture. A firm base and secure border help containment; the material name alone does not establish accessibility or slip safety.</p>
+    <h3>Drainage layers</h3>
+    <p>Both angular and rounded products can be supplied in clean drainage gradings. Ask for the specified particle size and fines content. A #57 size designation does not by itself guarantee washed stone or a particular void percentage. A drain also needs an appropriate outlet, pipe and soil-separation detail. Stone quantity does not establish hydraulic capacity.</p>
+
+    <h2>Can rounded stone be compacted?</h2>
+    <p>Placement can rearrange and settle particles, but smooth stone does not form the same interlocking surface as a suitable angular base. Follow the product and installation specification for equipment, lift thickness and confinement. Avoid a universal rule that every rounded product can never be vibrated or that every angular product becomes rigid after tamping.</p>
+
+    <h2>Estimate volume before converting weight</h2>
+    <p>For a 10 × 20 ft bed at 3 in, the volume is 200 × 3 ÷ 324 = 1.85 cubic yards before extra material. Shape does not change that geometry. Your chosen product’s loose bulk weight changes the tonnage; a different layer depth changes both volume and weight. The <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/">Penn State materials calculator</a> distinguishes shipped loose material from finished depth.</p>
+
+    <h2>What to ask the supplier</h2>
+    <ul>
+      <li>What is the actual product, grading, particle shape and fines content?</li>
+      <li>Is the quote for loose cubic yards, short tons, or volume-labeled bags?</li>
+      <li>What loose bulk weight and placement allowance apply to this product?</li>
+      <li>What base, containment and maintenance will the intended use need?</li>
+    </ul>
+    <p>Continue with the <a href="/which-rock-should-i-use">material selection helper</a>, <a href="/crushed-stone-calculator">crushed stone calculator</a>, or <a href="/pea-gravel-calculator">pea gravel calculator</a>.</p>
+
+    <section class="faq-block" aria-labelledby="shape-faq-heading">
+      <h2 id="shape-faq-heading">Frequently asked questions</h2>
+      {faqItems.map(item => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}
+    </section>
+
+    <TopicClusterNav />
+  </main>
+  <Footer />
 </BaseLayout>
-<style>.practical-guide{max-width:900px;padding-block:var(--space-10)}h1{font-size:var(--text-3xl);margin-block:var(--space-5)}h2{font-size:var(--text-xl);margin-block:var(--space-7) var(--space-3)}h3{font-size:var(--text-lg);margin-block:var(--space-5) var(--space-2)}p,li{line-height:1.75;color:var(--text-secondary)}p,ul,ol{margin-bottom:var(--space-4)}a{color:var(--text-primary);text-decoration:underline;text-underline-offset:3px}ul,ol{padding-left:1.4rem}</style>
+
+<style>
+  .practical-guide { max-width: 900px; padding-block: var(--space-10); }
+  h1 { font-size: var(--text-3xl); margin-block: var(--space-5); color: var(--text-primary); }
+  h2 { font-size: var(--text-xl); margin-block: var(--space-7) var(--space-3); color: var(--text-primary); }
+  h3 { font-size: var(--text-lg); margin-block: var(--space-5) var(--space-2); color: var(--text-primary); }
+  p, li { line-height: 1.75; color: var(--text-secondary); }
+  p, ul, ol { margin-bottom: var(--space-4); }
+  a { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
+  ul, ol { padding-left: 1.4rem; }
+  .faq-block details { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-3); }
+  .faq-block summary { cursor: pointer; font-weight: 700; color: var(--text-primary); }
+  .faq-block details p { margin: var(--space-3) 0 0; }
+</style>

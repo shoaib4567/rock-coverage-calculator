@@ -12,63 +12,40 @@ const breadcrumbs = [
 
 const entityTags = [
   { label: 'Material', value: 'Decomposed Granite (DG)' },
-  { label: 'Gradation', value: 'Granite Particles with Fines; Check Product' },
-  { label: 'Loose Density Preset', value: '1.25 short t/yd³ (editable)' },
+  { label: 'Gradation', value: '3/8" or 1/4"-minus granite particles with fines' },
+  { label: 'Loose Density Preset', value: '1.25 short t/yd³ (2,500 lb/yd³ editable)' },
   { label: 'Order Allowance', value: '20% starting estimate (editable)' }
 ];
 
 const quickStats = [
-  { value: 'Check Product', label: 'Gradation', desc: 'Particle size and fines content vary by supplier' },
-  { value: '1.25 t/yd³', label: 'Loose Density Preset', desc: 'Planning estimate of 2,500 lb/yd³; verify with your supplier' },
-  { value: '20% Extra', label: 'Order Allowance', desc: 'Adjust for your product and finished depth' }
+  { value: '1/4"–3/8" Minus', label: 'Typical gradation', desc: 'Contains angular stone particles and natural fines' },
+  { value: '1.25 t/yd³', label: 'Loose density preset', desc: 'Planning estimate of 2,500 lb/yd³; verify with supplier' },
+  { value: '20% Extra', label: 'Compaction / order buffer', desc: 'Editable down to 0% for exact geometric coverage' }
 ];
 
 const faqItems = [
   {
-    q: 'How much decomposed granite do I need for a 10x20 foot patio?',
-    a: 'A 10x20 foot patio is 200 square feet. At a 3-inch finished depth, the geometric volume is 1.85 cubic yards. With the calculator’s editable 20% order allowance, plan for 2.22 loose cubic yards. At the editable 1.25-short-ton-per-yard planning density, that is about 2.78 short tons. Confirm the density and allowance for the DG you buy.'
+    q: 'How much decomposed granite do I need for a 10 × 20 foot patio?',
+    a: 'A 10 × 20 foot patio is 200 square feet. At a 3-inch finished depth, the geometric volume is 1.85 cubic yards. With the calculator’s editable 20% order allowance, plan for 2.22 loose cubic yards. At 1.25 short tons per cubic yard, that is about 2.78 short tons or 120 half-cubic-foot bags.'
+  },
+  {
+    q: 'How much square footage does 1 ton or 1 yard of decomposed granite cover?',
+    a: 'At 3 inches thick before extra allowance, 1 cubic yard covers 108 square feet and 1 short ton (at 1.25 t/yd³) covers about 86.4 square feet. Switch the calculator above to Reverse: Stock → Area to compute coverage for any quantity in yards, short tons, or bags.'
   },
   {
     q: 'What is the difference between standard DG and stabilized DG?',
-    a: 'Standard DG contains granite particles and fines that can be compacted for a walking surface. Stabilized products add a binder; their mixing, base, moisture, and compaction directions vary by manufacturer. A stabilizer can improve surface cohesion, but drainage and slope still need to be designed for the site.'
-  },
-  {
-    q: 'How deep should decomposed granite be installed for pathways?',
-    a: 'Specify the finished DG depth using the product guide and the path’s traffic, soil, and drainage conditions. The depth entered here is the finished DG layer only; it does not include a separate aggregate base. Do not apply one path or driveway section to every site.'
+    a: 'Standard DG contains granite particles and natural mineral fines that compact into a natural-looking surface. Stabilized products blend an organic or synthetic binder; their mixing, base, moisture, and plate-compaction requirements vary by manufacturer. A stabilizer improves erosion resistance, though proper crown and drainage remain essential.'
   },
   {
     q: 'Can decomposed granite be installed without a plate compactor?',
-    a: 'Follow the directions for the DG product and project scale. A manufacturer may specify a plate compactor or roller for a new path, while a hand tamper may be suitable for a small repair. Walking over loose material is not a reliable compaction method; check the finished thickness and grade after compacting.'
+    a: 'Follow the directions for the DG product and project scale. A manufacturer typically specifies a vibratory plate compactor or roller over moistened lifts for pathways and patios, while a heavy hand tamper suits small touch-up patches. Foot traffic alone will not achieve uniform density.'
   }
-];
-
-const upLinks = [
-  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
-  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: 'Coarse stone' },
-  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³' },
-  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: '1.40 t/yd³' }
-];
-
-const bridgeLinks = [
-  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
-  { title: 'Rock Square Foot Calculator', slug: '/rock-square-foot-calculator', badge: 'Sq Ft' },
-  { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: 'Volume' }
-];
-
-const supportGuides = [
-  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' },
-  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
 ];
 ---
 
 <BaseLayout
   title="Decomposed Granite Calculator"
-  metaDescription="Estimate cubic yards and short tons of decomposed granite for paths and patios. Adjust finished depth, loose bulk density, and extra material before ordering."
+  description="Estimate cubic yards, short tons, and 0.5-cu-ft bags of decomposed granite for paths and patios, or reverse-calculate coverage from existing stock."
   canonicalPath="/decomposed-granite-calculator"
 >
   <Fragment slot="head">
@@ -77,10 +54,9 @@ const supportGuides = [
       "@type": "WebApplication",
       "name": "Decomposed Granite Calculator",
       "url": "https://rockcoveragecalculator.com/decomposed-granite-calculator",
-      "description": "Calculates finished decomposed granite layer volume, estimated loose order yards, and short tons for paths and patios with editable ordering assumptions.",
+      "description": "Calculates finished decomposed granite layer volume, estimated loose order yards, short tons, bags, and reverse coverage area for paths and patios.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
-      "inLanguage": "en-US",
       "audience": {
         "@type": "Audience",
         "audienceType": "Landscape Contractors, Masons, Homeowners, Civil Estimators"
@@ -111,72 +87,117 @@ const supportGuides = [
       title="Decomposed Granite Calculator"
       highlightWord="Calculator"
       badge="Pathways & Compacted Patio Engine"
-      subtitle="Estimate cubic yards and short tons for a finished DG path or patio. Adjust the loose density and extra material to match your supplier’s product."
+      subtitle="Estimate cubic yards, short tons, and bags for a finished DG path or patio—or switch to Reverse mode to see how much area existing bulk stock or bags will cover."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
     />
 
     <!-- Specialized Decomposed Granite Interactive Calculator -->
-    <section class="section">
+    <section class="section" id="dg-calc">
       <div class="container">
         <div class="calc-wrapper">
           <!-- LEFT: Input Panel -->
           <div class="calc-panel animate-fade-in-up">
             <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h2>Decomposed Granite Dimensions</h2>
-          </div>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+              <h2>Decomposed Granite Project Setup</h2>
+            </div>
 
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="dg-length">Length (Feet)</label>
-              <input type="number" id="dg-length" value="30" min="1" step="0.5" />
+            <div class="unit-toggle" role="group" aria-label="Calculation mode">
+              <button class="active" id="dg-mode-dims" type="button" aria-pressed="true">Dimensions (L &times; W)</button>
+              <button id="dg-mode-sqft" type="button" aria-pressed="false">Known Sq Ft</button>
+              <button id="dg-mode-reverse" type="button" aria-pressed="false">Reverse: Stock &rarr; Area</button>
             </div>
-            <div class="input-field">
-              <label for="dg-width">Width (Feet)</label>
-              <input type="number" id="dg-width" value="10" min="1" step="0.5" />
+
+            <div id="dg-dims-group" class="dim-grid">
+              <div class="input-field">
+                <label for="dg-length">Length (Feet)</label>
+                <input type="number" id="dg-length" value="30" min="0.1" step="any" />
+              </div>
+              <div class="input-field">
+                <label for="dg-width">Width (Feet)</label>
+                <input type="number" id="dg-width" value="10" min="0.1" step="any" />
+              </div>
             </div>
-            <div class="input-field">
-              <label for="dg-depth">Target Compacted Depth (Inches)</label>
-              <input type="number" id="dg-depth" value="3.0" min="1" max="12" step="0.5" />
+
+            <div id="dg-sqft-group" class="dim-grid single-col" style="display: none;">
+              <div class="input-field">
+                <label for="dg-area">Coverage Area (Sq Ft)</label>
+                <input type="number" id="dg-area" value="300" min="1" step="any" />
+              </div>
             </div>
-            <div class="input-field">
-              <label for="dg-compaction">Extra Material for Ordering (%)</label>
-              <input type="number" id="dg-compaction" value="20" min="0" max="50" step="1" />
+
+            <div id="dg-reverse-group" class="dim-grid" style="display: none;">
+              <div class="input-field">
+                <label for="dg-reverse-qty">Available DG Quantity</label>
+                <input type="number" id="dg-reverse-qty" value="3" min="0.05" step="any" />
+              </div>
+              <div class="input-field">
+                <label for="dg-reverse-unit">Stock Unit</label>
+                <select id="dg-reverse-unit">
+                  <option value="yards">Cubic yards (yd&sup3;)</option>
+                  <option value="tons">Short tons (2,000 lb)</option>
+                  <option value="bags">0.5 cu ft bags</option>
+                </select>
+              </div>
             </div>
-            <div class="input-field">
-              <label for="dg-density">Loose Bulk Density (Short Tons/Yard³)</label>
-              <input type="number" id="dg-density" value="1.25" min="0.3" max="3" step="0.01" inputmode="decimal" aria-describedby="dg-density-hint" />
-              <small id="dg-density-hint">Use your supplier’s tons per loose cubic yard when available.</small>
+
+            <div class="dim-grid">
+              <div class="input-field">
+                <label for="dg-depth">Target Compacted Depth (Inches)</label>
+                <input type="number" id="dg-depth" value="3.0" min="0.5" max="12" step="any" />
+              </div>
+              <div class="input-field">
+                <label for="dg-compaction">Compaction / Extra Material (%)</label>
+                <input type="number" id="dg-compaction" value="20" min="0" max="50" step="any" />
+              </div>
+              <div class="input-field">
+                <label for="dg-density">Loose Bulk Density (Short Tons/Yd&sup3;)</label>
+                <input type="number" id="dg-density" value="1.25" min="0.3" max="3" step="any" inputmode="decimal" aria-describedby="dg-density-hint" />
+                <small id="dg-density-hint">Divide lb/yd&sup3; by 2,000 (e.g., 2,500 lb = 1.25 t/yd&sup3;).</small>
+              </div>
+              <div class="input-field" id="dg-rounding-wrap">
+                <label for="dg-rounding">Supplier Bulk Increment</label>
+                <select id="dg-rounding">
+                  <option value="0">Exact calculated yards</option>
+                  <option value="0.25">Round up to 0.25 yd&sup3;</option>
+                  <option value="0.5">Round up to 0.50 yd&sup3;</option>
+                  <option value="1">Round up to 1.00 yd&sup3;</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <p id="dg-input-error" class="calc-error" role="alert" hidden>Enter positive dimensions, 0–50% extra material, and a loose density from 0.3 to 3 short tons per cubic yard.</p>
+            <p id="dg-input-error" class="calc-error" role="alert" hidden>Enter positive dimensions or quantity, depth from 0.5 to 12 in, 0–50% extra material, and loose density from 0.3 to 3.0 short tons/yd&sup3;.</p>
           </div>
 
           <!-- RIGHT: Results Panel -->
           <div class="calc-results-panel animate-fade-in-up">
             <div class="calc-panel-title">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-              <h2>Required Material Totals</h2>
+              <h2 id="dg-results-heading">Required Material Totals</h2>
             </div>
 
             <div class="kpi-grid">
               <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-dg-yards">0.00</div>
-              <div class="kpi-label">Order Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-dg-loose">Includes 20% extra material</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-dg-tons">0.00</div>
-              <div class="kpi-label">Estimated Weight (Short Tons)</div>
-              <div class="kpi-subtext" id="kpi-dg-density">At 1.25 t/yd³ loose density</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-dg-bags">0</div>
-              <div class="kpi-label">0.5 cu ft Bags</div>
-              <div class="kpi-subtext">54 bags per cubic yard</div>
-            </div>
+                <span class="kpi-value" id="kpi-dg-primary">0.00</span>
+                <div class="kpi-label" id="label-dg-primary">Order Volume (Cubic Yards)</div>
+                <div class="kpi-subtext" id="kpi-dg-loose">Includes 20% extra material</div>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-value" id="kpi-dg-tons">0.00</span>
+                <div class="kpi-label" id="label-dg-tons">Estimated Weight (Short Tons)</div>
+                <div class="kpi-subtext" id="kpi-dg-density">At 1.25 t/yd&sup3; loose density</div>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-value" id="kpi-dg-bags">0</span>
+                <div class="kpi-label" id="label-dg-bags">0.5 cu ft Bags</div>
+                <div class="kpi-subtext" id="kpi-dg-bags-sub">54 bags per cubic yard</div>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-value" id="kpi-dg-fourth">300 sq ft</span>
+                <div class="kpi-label" id="label-dg-fourth">Covered Surface Area</div>
+                <div class="kpi-subtext" id="kpi-dg-fourth-sub">At target compacted depth</div>
+              </div>
             </div>
           </div>
         </div>
@@ -196,23 +217,23 @@ const supportGuides = [
           <div class="aeo-quick-grid">
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Finished Layer Volume</span>
-              <span class="aeo-quick-value">Yards = (Area [sq ft] × Depth [in]) / 324</span>
-              <p class="aeo-quick-desc">The geometric space occupied by the target finished layer.</p>
+              <span class="aeo-quick-value">Yards = (Area [sq ft] &times; Depth [in]) / 324</span>
+              <p class="aeo-quick-desc">The geometric space occupied by the compacted finished layer.</p>
             </div>
             <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Order Allowance</span>
-              <span class="aeo-quick-value">Order Yards = Finished Yards × 1.20</span>
-              <p class="aeo-quick-desc">The default adds 20% of finished volume. Enter a different allowance for your product and site.</p>
+              <span class="aeo-quick-label">Compaction Allowance</span>
+              <span class="aeo-quick-value">Order Yards = Finished Yards &times; 1.20</span>
+              <p class="aeo-quick-desc">The default adds 20% for vibratory plate compaction and grading. Set to 0% for raw volume.</p>
             </div>
             <div class="aeo-quick-item">
-              <span class="aeo-quick-label">Bulk Density</span>
-              <span class="aeo-quick-value">1.25 t/yd³ (2,500 lb/yd³)</span>
-              <p class="aeo-quick-desc">Editable loose-density planning preset. ASTM C29 is a test method, not a prescribed DG density.</p>
+              <span class="aeo-quick-label">Loose Bulk Density</span>
+              <span class="aeo-quick-value">1.25 t/yd&sup3; (2,500 lb/yd&sup3;)</span>
+              <p class="aeo-quick-desc">Editable loose-density planning preset. Typical quarried DG ranges from 2,400 to 3,000 lb/yd&sup3;.</p>
             </div>
             <div class="aeo-quick-item">
               <span class="aeo-quick-label">Finished Depth</span>
-              <span class="aeo-quick-value">Enter Your Specified Layer</span>
-              <p class="aeo-quick-desc">Product, traffic, soil, and base design determine the depth and compaction method.</p>
+              <span class="aeo-quick-value">2.5–3.0 in (Paths) · 4.0+ in (Patios)</span>
+              <p class="aeo-quick-desc">Traffic load, soil, and base design govern lift thickness and stabilizer choice.</p>
             </div>
           </div>
         </section>
@@ -220,42 +241,55 @@ const supportGuides = [
         <div class="content-card">
           <h2>Keep finished DG volume and the loose order separate</h2>
           <p>
-            <strong>Decomposed granite (DG)</strong> is weathered granitic material sold as a mixture of small particles and fines. Gradation varies by quarry and product, so check the size and binder information for the material you plan to install.
+            <strong>Decomposed granite (DG)</strong> is weathered granitic material sold as a mixture of angular stone particles and natural fines. Gradation varies by quarry and binder type, so verify the particle size and stabilizer specs before installation.
           </p>
           <p>
-            Unlike <a href="/crushed-granite-calculator">clean coarse crushed granite</a>, DG includes fine particles as well as small angular grains. Moistening and compacting a suitable product can form a firmer walking surface. Drainage, erosion resistance, and installation steps depend on the DG gradation, stabilizer, base, and site slope.
+            Unlike <a href="/crushed-granite-calculator">clean coarse crushed granite</a>, DG includes fine particles that lock together when moistened and compacted into a firm pedestrian surface. For structural driveways or sub-bases under pavers, compare <a href="/crusher-run-calculator">crusher run dense-graded aggregate</a>.
           </p>
 
+          <figure class="dg-figure">
+            <img src="/dg-tons-order-path.svg" width="880" height="390" loading="lazy" alt="Diagram showing the order calculation workflow from compacted DG area and depth to loose cubic yards and short tons." />
+            <figcaption>From finished path dimensions to loose order cubic yards and short tons. Use Reverse mode above when working backward from a supplier quote.</figcaption>
+          </figure>
+
           <div class="formula-box">
-            <code>Target Compacted Volume (yd³) = [Area (sq ft) × Finished Depth (in)] / 324</code>
+            <code>Compacted Layer Volume (yd&sup3;) = [Area (sq ft) &times; Finished Depth (in)] / 324</code>
             <br />
-            <code>Estimated Loose Order (yd³) = Finished Volume × (1 + Extra Material % ÷ 100)</code>
+            <code>Estimated Loose Order (yd&sup3;) = Compacted Volume &times; (1 + Extra % &divide; 100)</code>
             <br />
-            <code>Estimated Short Tons = Loose Order (yd³) × Entered Loose Density (short t/yd³)</code>
+            <code>Estimated Short Tons = Loose Order (yd&sup3;) &times; Loose Density (short t/yd&sup3;)</code>
           </div>
 
-          <p>The calculator starts at <strong>1.25 short tons per loose cubic yard</strong>, or 2,500 lb/yd³. It is a planning estimate, not a value set by <a href="https://store.astm.org/c0029_c0029m-23.html" rel="noopener noreferrer">ASTM C29/C29M</a>. That standard describes how to measure aggregate bulk density. Published seller figures show why the density is editable: <a href="https://www.gravelshop.com/shop/calculate-cubic-yard-feet-ton.asp?groupid=30&amp;productid=819" rel="noopener noreferrer">Gravelshop lists one ½-inch-minus DG at 2,410 lb/yd³</a>, while <a href="https://centraltexasmaterials.com/materials/crushed-granite" rel="noopener noreferrer">Central Texas Materials lists its DG at 2,700 lb/yd³</a>. Ask your supplier for the loose conversion and product-specific installation guidance before ordering.</p>
+          <p>The calculator starts at <strong>1.25 short tons per loose cubic yard</strong> (2,500 lb/yd&sup3;). <a href="https://store.astm.org/c0029_c0029m-23.html" rel="noopener noreferrer">ASTM C29/C29M</a> defines how unit weight is tested in the lab, while published supplier specs vary by moisture and fines (<a href="https://www.gravelshop.com/shop/calculate-cubic-yard-feet-ton.asp?groupid=30&amp;productid=819" rel="noopener noreferrer">2,410 lb/yd&sup3;</a> for 1/2-inch-minus DG up to <a href="https://centraltexasmaterials.com/materials/crushed-granite" rel="noopener noreferrer">2,700 lb/yd&sup3;</a>). Update the density input whenever your quarry provides a scale weight.</p>
 
-          <p>Need a different starting point? Use the <a href="/decomposed-granite-tons-calculator">DG tons calculator</a> when the supplier quotes by weight, or the <a href="/decomposed-granite-coverage-calculator">DG coverage calculator</a> when you already know how many tons or yards are available. These tools use the same editable loose-density and order-allowance assumptions.</p>
+          <div class="table-wrap">
+            <table class="dg-table">
+              <caption>Reference loose DG order quantities at 3 in finished depth (includes 20% compaction buffer at 1.25 t/yd&sup3;)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Footprint</th>
+                  <th scope="col">Finished Volume</th>
+                  <th scope="col">Loose Order (+20%)</th>
+                  <th scope="col">Short Tons</th>
+                  <th scope="col">0.5 cu ft Bags</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">100 sq ft</th><td>0.93 yd&sup3;</td><td>1.11 yd&sup3;</td><td>1.39 t</td><td>60 bags</td></tr>
+                <tr><th scope="row">200 sq ft (10 &times; 20)</th><td>1.85 yd&sup3;</td><td>2.22 yd&sup3;</td><td>2.78 t</td><td>120 bags</td></tr>
+                <tr><th scope="row">300 sq ft (30 &times; 10)</th><td>2.78 yd&sup3;</td><td>3.33 yd&sup3;</td><td>4.17 t</td><td>180 bags</td></tr>
+                <tr><th scope="row">500 sq ft</th><td>4.63 yd&sup3;</td><td>5.56 yd&sup3;</td><td>6.94 t</td><td>300 bags</td></tr>
+              </tbody>
+            </table>
+          </div>
 
           <h3>Planning a DG Pathway Installation</h3>
-          <p>Use the installation sheet for the exact product you buy. For example, <a href="https://www.kafkagranite.com/wp-content/uploads/2023/04/Standard_Pathway_Spec.pdf" rel="noopener noreferrer">Kafka Granite's standard pathway specification</a> defines its own subbase, placement, and compaction requirements. Those details are product and project specifications, not defaults built into this quantity calculator.</p>
+          <p>Follow the specification sheet for your exact product (<a href="https://www.kafkagranite.com/wp-content/uploads/2023/04/Standard_Pathway_Spec.pdf" rel="noopener noreferrer">typical pathway installation guidelines</a> define lift thickness, subbase, and moisture control):</p>
           <ol class="steps-list">
-            <li>
-              <strong>Set the finished grade:</strong> Mark the path edges and finished elevation, then excavate enough for the DG layer and any base your site requires. Keep the surface graded so water does not collect against a building.
-            </li>
-            <li>
-              <strong>Check the subgrade:</strong> Firm up soft or wet spots before placing material. Use a separation fabric only when the soil and base design call for one; follow the fabric maker's overlap and anchoring directions.
-            </li>
-            <li>
-              <strong>Place manageable lifts:</strong> Spread the DG at the thickness recommended for your product and compactor. Some stabilized blends have their own mixing and moisture instructions.
-            </li>
-            <li>
-              <strong>Compact as specified:</strong> Follow the product and equipment guidance for moisture, passes, and finished thickness. Check the grade after compacting rather than assuming a fixed percentage of volume loss.
-            </li>
-            <li>
-              <strong>Finish and remeasure:</strong> Add material to low areas, compact again as needed, and measure the finished layer at several points. Keep loose DG from spilling into drains or planting beds.
-            </li>
+            <li><strong>Set the finished grade:</strong> Excavate for the compacted DG thickness plus any required angular base, sloping slightly (1–2%) away from buildings for runoff.</li>
+            <li><strong>Install sturdy edging:</strong> Steel, composite, or concrete bender-board containment keeps compacted path shoulders from raveling into lawn or planted beds.</li>
+            <li><strong>Place and moisten in thin lifts:</strong> Spread DG uniformly (2 to 3 inches maximum per lift), lightly water until evenly damp—not muddy—before compacting.</li>
+            <li><strong>Compact mechanically:</strong> Make 3–4 passes with a vibratory plate compactor, then re-check grade stakes and top up low depressions before final rolling.</li>
           </ol>
         </div>
 
@@ -275,80 +309,242 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/decomposed-granite-calculator"
-      category="material"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav />
   </main>
 
   <Footer />
 
   <script>
     function updateDG() {
+      const dimsBtn = document.getElementById('dg-mode-dims');
+      const sqftBtn = document.getElementById('dg-mode-sqft');
+      const revBtn = document.getElementById('dg-mode-reverse');
+      const dimsGroup = document.getElementById('dg-dims-group');
+      const sqftGroup = document.getElementById('dg-sqft-group');
+      const revGroup = document.getElementById('dg-reverse-group');
+      const roundingWrap = document.getElementById('dg-rounding-wrap');
+
       const lengthInput = document.getElementById('dg-length') as HTMLInputElement | null;
       const widthInput = document.getElementById('dg-width') as HTMLInputElement | null;
+      const areaInput = document.getElementById('dg-area') as HTMLInputElement | null;
+      const revQtyInput = document.getElementById('dg-reverse-qty') as HTMLInputElement | null;
+      const revUnitSelect = document.getElementById('dg-reverse-unit') as HTMLSelectElement | null;
       const depthInput = document.getElementById('dg-depth') as HTMLInputElement | null;
       const extraInput = document.getElementById('dg-compaction') as HTMLInputElement | null;
       const densityInput = document.getElementById('dg-density') as HTMLInputElement | null;
-      if (!lengthInput || !widthInput || !depthInput || !extraInput || !densityInput) return;
+      const roundingSelect = document.getElementById('dg-rounding') as HTMLSelectElement | null;
 
-      const yEl = document.getElementById('kpi-dg-yards');
-      const tEl = document.getElementById('kpi-dg-tons');
-      const bEl = document.getElementById('kpi-dg-bags');
-      const errorEl = document.getElementById('dg-input-error');
-      const valid = [lengthInput, widthInput, depthInput, extraInput, densityInput]
-        .every(input => input.value !== '' && input.checkValidity());
-      if (errorEl) errorEl.hidden = valid;
-      if (!valid) {
-        if (yEl) yEl.textContent = '—';
-        if (tEl) tEl.textContent = '—';
-        if (bEl) bEl.textContent = '—';
-        return;
+      let activeMode: 'dims' | 'sqft' | 'reverse' = 'dims';
+
+      function readPos(el: HTMLInputElement | null, min: number, max = Infinity): number {
+        if (!el || el.value.trim() === '') {
+          el?.setAttribute('aria-invalid', 'true');
+          return NaN;
+        }
+        const v = Number(el.value);
+        const ok = Number.isFinite(v) && v >= min && v <= max;
+        el.setAttribute('aria-invalid', String(!ok));
+        return ok ? v : NaN;
       }
 
-      const l = Number(lengthInput.value);
-      const w = Number(widthInput.value);
-      const d = Number(depthInput.value);
-      const extra = Number(extraInput.value);
-      const density = Number(densityInput.value);
+      function render() {
+        const headingEl = document.getElementById('dg-results-heading');
+        const pEl = document.getElementById('kpi-dg-primary');
+        const pLabelEl = document.getElementById('label-dg-primary');
+        const looseEl = document.getElementById('kpi-dg-loose');
+        const tEl = document.getElementById('kpi-dg-tons');
+        const tLabelEl = document.getElementById('label-dg-tons');
+        const densEl = document.getElementById('kpi-dg-density');
+        const bEl = document.getElementById('kpi-dg-bags');
+        const bLabelEl = document.getElementById('label-dg-bags');
+        const bSubEl = document.getElementById('kpi-dg-bags-sub');
+        const fEl = document.getElementById('kpi-dg-fourth');
+        const fLabelEl = document.getElementById('label-dg-fourth');
+        const fSubEl = document.getElementById('kpi-dg-fourth-sub');
+        const errorEl = document.getElementById('dg-input-error');
 
-      const netYards = (l * w * d) / 324;
-      const orderYards = netYards * (1 + extra / 100);
-      const tons = orderYards * density;
-      const bags = Math.ceil(orderYards * 54);
+        const d = readPos(depthInput, 0.5, 12);
+        const extra = readPos(extraInput, 0, 50);
+        const density = readPos(densityInput, 0.3, 3);
 
-      if (yEl) yEl.textContent = orderYards.toFixed(2);
-      if (tEl) tEl.textContent = tons.toFixed(2);
-      if (bEl) bEl.textContent = bags.toLocaleString();
-      const extraEl = document.getElementById('kpi-dg-loose');
-      const densityEl = document.getElementById('kpi-dg-density');
-      if (extraEl) extraEl.textContent = `Includes ${extra}% extra material`;
-      if (densityEl) densityEl.textContent = `At ${density.toFixed(2)} t/yd³ loose density`;
+        if (activeMode === 'reverse') {
+          lengthInput?.removeAttribute('aria-invalid');
+          widthInput?.removeAttribute('aria-invalid');
+          areaInput?.removeAttribute('aria-invalid');
+          const qty = readPos(revQtyInput, 0.05);
+          const unit = revUnitSelect?.value || 'yards';
+          const valid = [qty, d, extra, density].every(Number.isFinite);
+          if (errorEl) errorEl.hidden = valid;
+          if (headingEl) headingEl.textContent = 'Coverage Yield from DG Stock';
+          if (pLabelEl) pLabelEl.textContent = 'Planned Coverage (Sq Ft)';
+          if (tLabelEl) tLabelEl.textContent = 'Bulk Volume (Cubic Yards)';
+          if (bLabelEl) bLabelEl.textContent = 'Estimated Weight (Short Tons)';
+          if (fLabelEl) fLabelEl.textContent = '0.5 cu ft Bag Equivalent';
+
+          if (!valid) {
+            [pEl, tEl, bEl, fEl].forEach(el => { if (el) el.textContent = '—'; });
+            if (looseEl) looseEl.textContent = 'Check inputs';
+            if (densEl) densEl.textContent = '—';
+            if (bSubEl) bSubEl.textContent = '—';
+            if (fSubEl) fSubEl.textContent = '—';
+            return;
+          }
+
+          let yards = qty;
+          if (unit === 'tons') yards = qty / density;
+          if (unit === 'bags') yards = (qty * 0.5) / 27;
+
+          const totalCuFt = yards * 27;
+          const rawArea = (yards * 324) / d;
+          const plannedArea = rawArea / (1 + extra / 100);
+          const tons = yards * density;
+          const bags = totalCuFt > 0 ? Math.ceil(totalCuFt / 0.5 - 1e-10) : 0;
+
+          if (pEl) pEl.textContent = Math.round(plannedArea).toLocaleString();
+          if (looseEl) looseEl.textContent = `${Math.round(rawArea).toLocaleString()} sq ft max before ${extra}% extra`;
+          if (tEl) tEl.textContent = yards.toFixed(2);
+          if (densEl) densEl.textContent = `${totalCuFt.toFixed(1)} cu ft total volume`;
+          if (bEl) bEl.textContent = tons.toFixed(2);
+          if (bSubEl) bSubEl.textContent = `At ${density.toFixed(2)} short t/yd³`;
+          if (fEl) fEl.textContent = bags.toLocaleString();
+          if (fSubEl) fSubEl.textContent = `At ${d} in compacted depth`;
+          return;
+        }
+
+        let area = NaN;
+        if (activeMode === 'dims') {
+          areaInput?.removeAttribute('aria-invalid');
+          const l = readPos(lengthInput, 0.1);
+          const w = readPos(widthInput, 0.1);
+          area = l * w;
+        } else {
+          lengthInput?.removeAttribute('aria-invalid');
+          widthInput?.removeAttribute('aria-invalid');
+          area = readPos(areaInput, 1);
+        }
+        revQtyInput?.removeAttribute('aria-invalid');
+
+        const valid = [area, d, extra, density].every(Number.isFinite) && area > 0;
+        if (errorEl) errorEl.hidden = valid;
+        if (headingEl) headingEl.textContent = 'Required Material Totals';
+        if (pLabelEl) pLabelEl.textContent = 'Order Volume (Cubic Yards)';
+        if (tLabelEl) tLabelEl.textContent = 'Estimated Weight (Short Tons)';
+        if (bLabelEl) bLabelEl.textContent = '0.5 cu ft Bags';
+        if (bSubEl) bSubEl.textContent = '54 bags per cubic yard';
+        if (fLabelEl) fLabelEl.textContent = 'Covered Surface Area';
+        if (fSubEl) fSubEl.textContent = `At ${d || 3} in target compacted depth`;
+
+        if (!valid) {
+          [pEl, tEl, bEl, fEl].forEach(el => { if (el) el.textContent = '—'; });
+          if (looseEl) looseEl.textContent = 'Check inputs';
+          if (densEl) densEl.textContent = '—';
+          return;
+        }
+
+        const netYards = (area * d) / 324;
+        const rawOrderYards = netYards * (1 + extra / 100);
+        const inc = parseFloat(roundingSelect?.value || '0') || 0;
+        const orderYards = inc > 0 ? Math.ceil(rawOrderYards / inc - 1e-10) * inc : rawOrderYards;
+        const tons = orderYards * density;
+        const rawCuFt = rawOrderYards * 27;
+        const bags = rawCuFt > 0 ? Math.ceil(rawCuFt / 0.5 - 1e-10) : 0;
+
+        if (pEl) pEl.textContent = orderYards.toFixed(2);
+        if (looseEl) looseEl.textContent = inc > 0
+          ? `Raw order: ${rawOrderYards.toFixed(2)} yd³ (${extra}% allowance)`
+          : `Includes ${extra}% extra (${netYards.toFixed(2)} yd³ finished)`;
+        if (tEl) tEl.textContent = tons.toFixed(2);
+        if (densEl) densEl.textContent = `At ${density.toFixed(2)} t/yd³ loose density`;
+        if (bEl) bEl.textContent = bags.toLocaleString();
+        if (fEl) fEl.textContent = `${Math.round(area).toLocaleString()} sq ft`;
+      }
+
+      function setMode(mode: 'dims' | 'sqft' | 'reverse') {
+        activeMode = mode;
+        const items: [HTMLElement | null, boolean][] = [
+          [dimsBtn, mode === 'dims'],
+          [sqftBtn, mode === 'sqft'],
+          [revBtn, mode === 'reverse']
+        ];
+        items.forEach(([el, active]) => {
+          el?.classList.toggle('active', active);
+          el?.setAttribute('aria-pressed', String(active));
+        });
+        if (dimsGroup) dimsGroup.style.display = mode === 'dims' ? '' : 'none';
+        if (sqftGroup) sqftGroup.style.display = mode === 'sqft' ? '' : 'none';
+        if (revGroup) revGroup.style.display = mode === 'reverse' ? '' : 'none';
+        if (roundingWrap) roundingWrap.style.display = mode === 'reverse' ? 'none' : '';
+        render();
+      }
+
+      dimsBtn?.addEventListener('click', () => setMode('dims'));
+      sqftBtn?.addEventListener('click', () => setMode('sqft'));
+      revBtn?.addEventListener('click', () => setMode('reverse'));
+
+      ['dg-length', 'dg-width', 'dg-area', 'dg-reverse-qty', 'dg-depth', 'dg-compaction', 'dg-density'].forEach(id => {
+        document.getElementById(id)?.addEventListener('input', render);
+      });
+      ['dg-reverse-unit', 'dg-rounding'].forEach(id => {
+        document.getElementById(id)?.addEventListener('change', render);
+      });
+
+      render();
     }
-
-    ['dg-length', 'dg-width', 'dg-depth', 'dg-compaction', 'dg-density'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateDG);
-    });
     updateDG();
   </script>
 </BaseLayout>
 
 <style>
   .calc-panel-title h2 { margin: 0; color: var(--text-primary); font-size: var(--text-lg); font-weight: 700; }
-  .calc-panel .input-field input { flex: 0 0 auto; min-height: 44px; }
-  .section {
-    padding: var(--space-8) 0;
+  .unit-toggle {
+    display: flex;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 3px;
+    margin-bottom: var(--space-4);
+    gap: 2px;
   }
-
-  .content-guide-section {
-    padding: var(--space-12) 0;
-    background: var(--bg-body);
+  .unit-toggle button {
+    flex: 1;
+    padding: 0.5rem 0.35rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
   }
-
+  .unit-toggle button.active {
+    background: var(--accent-gold);
+    color: #000;
+  }
+  .dim-grid.single-col { grid-template-columns: 1fr; }
+  .calc-panel .input-field input,
+  .calc-panel .input-field select {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 0.65rem 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+  .calc-panel .input-field input[aria-invalid="true"] {
+    border-color: var(--color-error);
+  }
+  .calc-error {
+    color: var(--color-error);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    margin-top: var(--space-3);
+  }
+  .section { padding: var(--space-8) 0; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
   .aeo-quick-card {
     background: var(--bg-card);
     border: 1px solid var(--accent-gold);
@@ -357,60 +553,13 @@ const supportGuides = [
     margin-bottom: var(--space-8);
     box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
   }
-
-  .aeo-quick-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-    color: var(--accent-gold);
-  }
-
-  .aeo-quick-title {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .aeo-quick-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: var(--space-4);
-  }
-
-  .aeo-quick-item {
-    background: var(--bg-surface);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-subtle);
-  }
-
-  .aeo-quick-label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--accent-gold);
-    margin-bottom: 2px;
-  }
-
-  .aeo-quick-value {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 2px;
-  }
-
-  .aeo-quick-desc {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin: 0;
-    line-height: 1.35;
-  }
-
+  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
+  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
+  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
   .content-card {
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
@@ -420,19 +569,12 @@ const supportGuides = [
     line-height: 1.7;
     color: var(--text-secondary);
   }
-
-  .content-card h2 {
-    font-size: var(--text-2xl);
-    color: var(--text-primary);
-    margin-bottom: var(--space-4);
-  }
-
-  .content-card h3 {
-    font-size: var(--text-xl);
-    color: var(--text-primary);
-    margin: var(--space-6) 0 var(--space-3) 0;
-  }
-
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
+  .content-card a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 3px; }
+  .dg-figure { margin: var(--space-5) 0; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; }
+  .dg-figure img { width: 100%; height: auto; display: block; }
+  .dg-figure figcaption { padding: var(--space-3) var(--space-4); font-size: var(--text-xs); color: var(--text-muted); }
   .formula-box {
     background: var(--bg-surface);
     border-left: 3px solid var(--accent-gold);
@@ -444,42 +586,17 @@ const supportGuides = [
     font-size: var(--text-sm);
     line-height: 1.8;
   }
-
-  .steps-list {
-    padding-left: var(--space-6);
-    margin: var(--space-4) 0;
-  }
-
-  .steps-list li {
-    margin-bottom: var(--space-3);
-  }
-
-  .faq-card {
-    margin-top: var(--space-8);
-  }
-
-  .faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .faq-item {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-  }
-
-  .faq-item h3 {
-    font-size: var(--text-base);
-    color: var(--text-primary);
-    margin: 0 0 var(--space-2) 0;
-  }
-
-  .faq-item p {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: 0;
-  }
+  .table-wrap { overflow-x: auto; margin: var(--space-5) 0; }
+  .dg-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); text-align: left; }
+  .dg-table caption { text-align: left; font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-2); }
+  .dg-table th, .dg-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); }
+  .dg-table thead th { background: var(--bg-surface); color: var(--text-primary); font-weight: 700; }
+  .dg-table tbody th { color: var(--text-primary); font-weight: 600; }
+  .steps-list { padding-left: var(--space-6); margin: var(--space-4) 0; }
+  .steps-list li { margin-bottom: var(--space-3); }
+  .faq-card { margin-top: var(--space-8); }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+  .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
+  .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
 </style>

@@ -15,6 +15,18 @@ const metaDescription = "Find the best landscape rock, gravel, or crushed stone 
 ---
 
 <BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/which-rock-should-i-use">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: title,
+      url: 'https://rockcoveragecalculator.com/which-rock-should-i-use',
+      description: metaDescription,
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en'
+    })} />
+  </Fragment>
   <Header />
 
   <main id="main-content">

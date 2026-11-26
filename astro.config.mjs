@@ -1,10 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { LEGACY_ROUTES } from './src/lib/content-map.mjs';
 
 export default defineConfig({
   site: 'https://rockcoveragecalculator.com',
-  redirects: {
-    '/rock-cubic-yard-calculator': '/rock-coverage-calculator-yard',
-    '/rock-coverage-calculator-yards': '/rock-coverage-calculator-yard'
-  }
+  trailingSlash: 'never',
+  redirects: LEGACY_ROUTES
 });

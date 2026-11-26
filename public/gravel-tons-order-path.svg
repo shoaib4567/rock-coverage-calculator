@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="550" viewBox="0 0 840 550" role="img" aria-labelledby="title desc">
   <title id="title">From a measured gravel layer to an estimated tonnage order</title>
-  <desc id="desc">A 50 by 10 foot area at 3 inches is 500 square feet and 4.63 cubic yards. At 1.40 US short tons per cubic yard it is 6.48 tons before extra; with 10 percent extra it is 7.13 tons to order.</desc>
+  <desc id="desc">A 50 by 10 foot area at 3 inches is 500 square feet and 4.63 cubic yards. At 1.40 short tons per cubic yard it is 6.48 tons before extra; with 10 percent extra it is 7.13 tons to order.</desc>
   <defs>
     <linearGradient id="back" x2="1" y2="1">
       <stop stop-color="#182738"/>
@@ -47,7 +47,7 @@
   <text x="331" y="362" fill="#d9b064" font-family="Arial,sans-serif" font-size="14" font-weight="700">02 / WEIGHT</text>
   <text x="331" y="408" fill="#f8faf9" font-family="Arial,sans-serif" font-size="34" font-weight="700">6.48 tons</text>
   <text x="331" y="445" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="15">4.63 yd³ × 1.40</text>
-  <text x="331" y="466" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="13">US short tons</text>
+  <text x="331" y="466" fill="#a9b5c0" font-family="Arial,sans-serif" font-size="13">short tons</text>
 
   <path d="M540 405h30" stroke="#d9b064" stroke-width="3"/>
   <path d="m564 396 10 9-10 9" fill="none" stroke="#d9b064" stroke-width="3"/>

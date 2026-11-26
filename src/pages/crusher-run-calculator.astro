@@ -4,7 +4,12 @@ import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
 import Footer from '../components/Footer.astro';
-import CivilStructuralBlock from '../components/intent/CivilStructuralBlock.astro';
+import { getMaterialById } from '../scripts/materials-data.js';
+
+const baseDensity = getMaterialById('crusher-run-21a').tonsPerCuYd;
+const ca6Density = getMaterialById('base-gravel-21a').tonsPerCuYd;
+const clean57Density = getMaterialById('clean-stone-57').tonsPerCuYd;
+const dgDensity = getMaterialById('decomposed-granite').tonsPerCuYd;
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
@@ -12,107 +17,58 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  {
-    "label": "Product",
-    "value": "Confirm the actual dense-graded blend"
-  },
-  {
-    "label": "Layer",
-    "value": "Specified finished thickness"
-  },
-  {
-    "label": "Order increase",
-    "value": "Editable loose-order allowance"
-  },
-  {
-    "label": "Weight",
-    "value": "Supplier loose short tons per yd³"
-  }
+  { label: 'Blends', value: '21-A / #411 / QP / CA-6 / Class 2 Road Base / Clean #57' },
+  { label: 'Calculation modes', value: 'Loose Order Increase % or Compaction Shrinkage %' },
+  { label: 'Default density', value: `${baseDensity.toFixed(2)} short tons/yd³ (2,900 lb/yd³ editable)` }
 ];
 
 const quickStats = [
-  {
-    "value": "1.45",
-    "label": "Example short tons/yd³",
-    "desc": "Replace this starting weight with supplier data"
-  },
-  {
-    "value": "20%",
-    "label": "Starting order increase",
-    "desc": "Editable, including zero; not a universal compaction loss"
-  },
-  {
-    "value": "Separate",
-    "label": "Volume and weight",
-    "desc": "Density changes estimated tons, not layer volume"
-  }
+  { value: '1.45 t/yd³', label: 'Dense graded preset', desc: 'Compacted stone + fines blend; verify supplier weight' },
+  { value: '20%', label: 'Starting allowance', desc: 'Compare Add-Extra % vs Loose-to-Finished shrinkage' },
+  { value: 'AASHTO M147', label: 'Base gradation class', desc: 'Supports compacted driveway, patio, and shed bases' }
 ];
 
 const faqItems = [
   {
-    "q": "How much base is needed for a 12 × 24 ft area?",
-    "a": "At a 4-inch finished depth the volume is 3.56 yd³. A selected 20% loose-order increase gives 4.27 yd³, about 6.19 US short tons at the example 1.45 tons per yard. Confirm both allowance and weight with the supplier."
+    q: 'How much crusher run do I need for a 12 × 24 ft driveway?',
+    a: 'At a 4-inch finished depth, the compacted volume is 3.56 yd³. Adding a 20% loose-order allowance yields 4.27 yd³ (~6.19 short tons at 1.45 t/yd³). If instead your spec calls for 20% compaction shrinkage (loose depth 5.0 in compressing down to 4.0 in), divide 3.56 by 0.80 to order 4.44 loose yd³ (~6.44 short tons).'
   },
   {
-    "q": "Are crusher run, QP and 21-A interchangeable?",
-    "a": "They are regional product names that may refer to dense-graded blends, but do not guarantee the same grading, mineral source or approval. Ask for the actual product specification."
+    q: 'Are crusher run, QP, 21-A, CA-6, and Class 2 Base the same?',
+    a: 'All are regional names for dense-graded base aggregates containing fractured rock plus rock dust (fines) designed to compact mechanically. Specific sieve curves vary by state DOT spec—always check your local quarry ticket for weight and top stone size.'
   },
   {
-    "q": "Is one compaction percentage suitable everywhere?",
-    "a": "No. The extra percentage in this tool is an order allowance above the finished volume. A measured loose-to-finished loss requires a different calculation; follow the product and project requirements."
+    q: 'What is the difference between Extra Order % and Compaction Shrinkage %?',
+    a: 'An order increase adds a percentage onto finished volume (Finished × 1.20 = 1.20×). Compaction volume loss divides by the remaining fraction after shrinkage (Finished ÷ 0.80 = 1.25×, meaning 5 inches placed loose settles to 4 inches finished).'
   },
   {
-    "q": "Can crusher run be used as a surface?",
-    "a": "Some products are used for driveway surfaces as well as bases. Choose the grading and layer thickness for the planned use, drainage and ground conditions rather than the name alone."
+    q: 'Can crusher run be used as a finished driveway surface?',
+    a: 'Yes—21-A, #411, and CA-6 are widely used both under pavers and as self-binding gravel driveways. Because fines retain some moisture when dust settles, ensure clean edge drainage and crown the driveway center.'
   }
-];
-
-const upLinks = [
-  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
-  { title: 'How Much Rock Do I Need? (Intent Hub)', slug: '/how-much-rock-do-i-need', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: '1.40 t/yd³' },
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: '1.40 t/yd³' },
-  { title: 'Landscape Stone Calculator', slug: '/landscape-stone-calculator', badge: '1.40 t/yd³' }
-];
-
-const bridgeLinks = [
-  { title: 'Rock Tons Calculator', slug: '/rock-tons-calculator', badge: 'Tons' },
-  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Yardage' },
-  { title: 'Crushed Stone Tons Calculator', slug: '/crushed-stone-tons-calculator', badge: 'Tons Solver' }
-];
-
-const supportGuides = [
-  { title: '#57 Stone Size Guide', slug: '/57-stone-size-guide', badge: 'ASTM D448' },
-  { title: 'Gravel Size Chart Explained', slug: '/gravel-sizes', badge: 'AASHTO M43' },
-  { title: 'Angular vs Rounded Aggregate', slug: '/angular-vs-rounded-rock', badge: 'Geotech' }
 ];
 ---
 
 <BaseLayout
-  title="Crusher Run & Base Rock Coverage Calculator - Road Base & QP Tonnage"
-  metaDescription="Calculate cubic yards, scale tons, and coverage of crusher run, base rock, quarry process (QP), and 21-A road base. AASHTO M147 compaction math for driveways and patios."
+  title="Crusher Run Calculator: Road Base, 21-A, QP & Landscape Stone"
+  description="Estimate loose cubic yards and short tons for crusher run, 21-A, QP, CA-6 road base, or structural landscape stone. Switch between order allowance and compaction shrinkage math."
   canonicalPath="/crusher-run-calculator"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Crusher Run & Base Rock Coverage Calculator",
+      "name": "Crusher Run Calculator",
       "url": "https://rockcoveragecalculator.com/crusher-run-calculator",
-      "description": "Calculates dense-graded crusher run, base rock, QP, and road base volume, compaction factors, and quarry scale tons.",
+      "description": "Calculates dense-graded crusher run, 21-A, QP, CA-6 road base, and compacted landscape stone loose cubic yards and short tons.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
-      "inLanguage": "en-US",
       "audience": {
         "@type": "Audience",
         "audienceType": "Paving Installers, Hardscape Masons, Civil Contractors, Estimators"
       },
       "about": {
         "@type": "Thing",
-        "name": "Base Rock Coverage"
+        "name": "Crusher Run and Base Rock Coverage"
       }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -133,10 +89,10 @@ const supportGuides = [
 
   <main id="main-content">
     <PageHero
-      title="Crusher Run & Base Rock Coverage Calculator"
-      highlightWord="Base Rock"
-      badge="AASHTO M147 Dense Base Engine"
-      subtitle="Accurate volume and quarry scale tonnage calculations for crusher run, base rock, quarry process (QP), dense graded aggregate (DGA), and 21-A road base."
+      title="Crusher Run Calculator"
+      highlightWord="Crusher Run"
+      badge="Dense-Graded Road Base & Hardscape Stone"
+      subtitle="Calculate loose cubic yards and short tons for crusher run, 21-A, #411, quarry process (QP), CA-6 road base, or structural base stone using either extra-order % or compaction shrinkage math."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -144,40 +100,83 @@ const supportGuides = [
     />
 
     <!-- Interactive Crusher Run Calculator Tool -->
-    <section class="section">
+    <section class="section" id="crusher-calc">
       <div class="container">
         <div class="calc-wrapper">
           <!-- LEFT: Input Panel -->
           <div class="calc-panel animate-fade-in-up">
             <div class="calc-panel-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-            <h2>Crusher Run Base Dimensions</h2>
-          </div>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
+              <h2>Base Layer &amp; Gradation</h2>
+            </div>
 
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="crusher-length">Length (Feet)</label>
-              <input type="number" id="crusher-length" value="40" min="1" step="0.5" />
+            <div class="preset-grid" role="group" aria-label="Gradation presets">
+              <button type="button" class="preset-btn active" aria-pressed="true" data-density={baseDensity} data-loss="20" data-name="Crusher Run / #411 / 21-A">
+                <strong>Crusher Run / 21-A / #411</strong>
+                <span>{baseDensity.toFixed(2)} t/yd&sup3; &middot; Mixed stone + fines</span>
+              </button>
+              <button type="button" class="preset-btn" aria-pressed="false" data-density={ca6Density} data-loss="20" data-name="CA-6 / Class 2 Road Base">
+                <strong>CA-6 / Class 2 Road Base</strong>
+                <span>{ca6Density.toFixed(2)} t/yd&sup3; &middot; Structural highway base</span>
+              </button>
+              <button type="button" class="preset-btn" aria-pressed="false" data-density={clean57Density} data-loss="0" data-name="Clean #57 Open-Graded">
+                <strong>Clean #57 Angular Stone</strong>
+                <span>{clean57Density.toFixed(2)} t/yd&sup3; &middot; Open-graded drainage base</span>
+              </button>
+              <button type="button" class="preset-btn" aria-pressed="false" data-density={dgDensity} data-loss="15" data-name="Decomposed Granite">
+                <strong>Decomposed Granite Base</strong>
+                <span>{dgDensity.toFixed(2)} t/yd&sup3; &middot; Fine path stone</span>
+              </button>
             </div>
-            <div class="input-field">
-              <label for="crusher-width">Width (Feet)</label>
-              <input type="number" id="crusher-width" value="12" min="1" step="0.5" />
+
+            <div class="unit-toggle" role="group" aria-label="Area measurement mode">
+              <button class="active" id="crusher-area-dims" type="button" aria-pressed="true">Dimensions (L &times; W)</button>
+              <button id="crusher-area-sqft" type="button" aria-pressed="false">Known Sq Ft</button>
             </div>
-            <div class="input-field">
-              <label for="crusher-depth">Target Compacted Depth (Inches)</label>
-              <input type="number" id="crusher-depth" value="4.0" min="1" max="18" step="0.5" />
+
+            <div id="crusher-dims-fields" class="dim-grid">
+              <div class="input-field">
+                <label for="crusher-length">Length (Feet)</label>
+                <input type="number" id="crusher-length" value="40" min="0.1" step="any" />
+              </div>
+              <div class="input-field">
+                <label for="crusher-width">Width (Feet)</label>
+                <input type="number" id="crusher-width" value="12" min="0.1" step="any" />
+              </div>
             </div>
-            <div class="input-field">
-              <label for="crusher-compaction">Loose-order increase (%)</label>
-              <input type="number" id="crusher-compaction" value="20" min="0" max="100" step="any" aria-describedby="crusher-assumptions" />
+
+            <div id="crusher-sqft-field" class="dim-grid single-col" style="display: none;">
+              <div class="input-field">
+                <label for="crusher-area">Measured Area (Sq Ft)</label>
+                <input type="number" id="crusher-area" value="480" min="1" step="any" />
+              </div>
             </div>
-            <div class="input-field">
-              <label for="crusher-density">Supplier loose weight (US short tons/yd³)</label>
-              <input type="number" id="crusher-density" value="1.45" min="0.1" max="5" step="any" aria-describedby="crusher-assumptions" />
+
+            <div class="dim-grid">
+              <div class="input-field">
+                <label for="crusher-depth">Target Compacted Depth (Inches)</label>
+                <input type="number" id="crusher-depth" value="4.0" min="0.25" max="24" step="any" />
+              </div>
+              <div class="input-field">
+                <label for="crusher-density">Loose Bulk Weight (Short Tons/Yd&sup3;)</label>
+                <input type="number" id="crusher-density" value={baseDensity} min="0.3" max="5" step="any" aria-describedby="crusher-assumptions" />
+              </div>
             </div>
-          </div>
-          <p id="crusher-assumptions">The starting 20% is a loose-order increase, not a universal compaction loss. Replace the 1.45 tons/yd³ weight with the supplier’s actual value. Zero extra is allowed.</p>
-          <p id="crusher-error" role="alert" hidden></p>
+
+            <div class="unit-toggle" role="group" aria-label="Adjustment method">
+              <button class="active" id="crusher-method-extra" type="button" aria-pressed="true">Order Increase % (+Extra)</button>
+              <button id="crusher-method-shrink" type="button" aria-pressed="false">Compaction Loss % (Shrinkage)</button>
+            </div>
+
+            <div class="dim-grid single-col">
+              <div class="input-field">
+                <label for="crusher-compaction" id="crusher-factor-label">Loose-Order Increase (%)</label>
+                <input type="number" id="crusher-compaction" value="20" min="0" max="40" step="any" aria-describedby="crusher-assumptions" />
+              </div>
+            </div>
+
+            <p id="crusher-assumptions">Order Increase multiplies finished volume by (1 + %). Compaction Loss divides by (1 &minus; %) to show deeper loose fill needed before plate-compacting down to target thickness.</p>
+            <p id="crusher-error" class="calc-error" role="alert" hidden></p>
           </div>
 
           <!-- RIGHT: Results Panel -->
@@ -189,88 +188,350 @@ const supportGuides = [
 
             <div class="kpi-grid">
               <div class="kpi-card highlight">
-              <div class="kpi-value" id="kpi-crusher-yards">0.00</div>
-              <div class="kpi-label">Order Volume (Cubic Yards)</div>
-              <div class="kpi-subtext" id="kpi-crusher-loose">Includes the selected loose-order increase</div>
+                <span class="kpi-value" id="kpi-crusher-yards">0.00</span>
+                <div class="kpi-label">Loose Order Volume (Cubic Yards)</div>
+                <div class="kpi-subtext" id="kpi-crusher-loose">Includes adjustment</div>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-value" id="kpi-crusher-tons">0.00</span>
+                <div class="kpi-label">Estimated Short Tons</div>
+                <div class="kpi-subtext" id="crusher-weight-note">At entered loose bulk weight</div>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-value" id="kpi-crusher-finished">0.00</span>
+                <div class="kpi-label">Finished Compacted Volume (Yd&sup3;)</div>
+                <div class="kpi-subtext" id="kpi-crusher-area-sub">480 sq ft footprint</div>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-value" id="kpi-crusher-loads">0.0</span>
+                <div class="kpi-label">15-Ton Truck Equivalents</div>
+                <div class="kpi-subtext">Arithmetic planning reference</div>
+              </div>
             </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-crusher-tons">0.00</div>
-              <div class="kpi-label">Estimated US Short Tons</div>
-              <div class="kpi-subtext" id="crusher-weight-note">At the entered loose bulk weight</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-crusher-loads">0.0</div>
-              <div class="kpi-label">15-Ton Equivalents</div>
-              <div class="kpi-subtext">Arithmetic example; confirm actual deliveries</div>
-            </div>
+
+            <div class="compaction-diagram-card">
+              <div class="diagram-title">Loose vs. Finished Layer Thickness</div>
+              <div class="diagram-bars">
+                <div class="bar-col">
+                  <div class="bar-fill loose-bar" id="bar-loose"><span id="bar-loose-text">Loose: 4.8"</span></div>
+                  <div class="bar-caption">Loose order depth</div>
+                </div>
+                <div class="bar-arrow">&rarr;</div>
+                <div class="bar-col">
+                  <div class="bar-fill compact-bar" id="bar-compact"><span id="bar-compact-text">Finished: 4.0"</span></div>
+                  <div class="bar-caption">Finished base depth</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Civil Truckload Logistics & Subgrade Stabilization Block -->
-    <CivilStructuralBlock />
-
     <!-- Technical Guide on Crusher Run -->
-    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Estimate the specified base layer</h2><p>Crusher run and other dense-graded base products contain a mix of particle sizes and fines. Actual grading and placement requirements vary. Use the material and finished thickness selected for the project; this calculator does not establish structural support or drainage performance.</p><h2>Keep finished volume and loose order separate</h2><p>Finished cubic yards = length × width × depth in inches ÷ 324. The order allowance then increases that quantity. A 20% extra order multiplies by 1.20. If a supplier instead specifies a 20% reduction from loose to finished volume, divide by 0.80, giving a 1.25 multiplier. These are different assumptions.</p><p>For a 12 × 24 ft area at 4 inches, the finished volume is 3.56 yd³. With a chosen 20% order increase and the example 1.45 US tons per loose yard, the estimate is 4.27 yd³ or 6.19 tons. Ask for your actual product’s loose bulk weight and allowance.</p><h2>Plan base and surface independently</h2><p>Do not include a separate decorative surface in the base depth. Use the <a href="/layered-project-calculator">multi-layer planner</a> for a base, top stone and optional supplies. Material names and numbered gradings do not automatically specify the soil separation, moisture conditioning, lift thickness or compaction procedure needed on site.</p><p><a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/">Penn State’s materials calculator</a> distinguishes loose shipped quantities from finished dimensions. Confirm the actual supplier product before using a generic factor.</p><h2>Crusher run questions</h2>{faqItems.map(item=><section><h3>{item.q}</h3><p>{item.a}</p></section>)}</div></div></article>
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Estimate the specified base layer</h2>
+          <p>Crusher run and dense-graded aggregate (DGA) contain crushed stone mixed with mineral fines. When spread in moistened lifts and compacted, fines fill void space so the base locks rigidly under pavers, slabs, and driveways. Use the finished target thickness in the calculator above; switch between Order Increase % and Compaction Loss % depending on how your engineer or quarry specifies expansion.</p>
 
-    <TopicClusterNav
-      currentPage="/crusher-run-calculator"
-      category="material"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+          <h2>Keep finished volume and loose order separate</h2>
+          <p>Finished cubic yards = area (sq ft) &times; finished depth (in) &divide; 324. An order increase of 20% multiplies finished volume by 1.20. A shrinkage loss of 20% from loose to compacted thickness divides finished volume by (1 &minus; 0.20) = 0.80, giving a 1.25&times; multiplier (5.0 loose inches compacting to 4.0 finished inches).</p>
+
+          <div class="table-wrap">
+            <table class="base-table">
+              <caption>Dense-graded base vs. open-graded clean stone comparison</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Product Name / Spec</th>
+                  <th scope="col">Fines Content</th>
+                  <th scope="col">Compaction Behavior</th>
+                  <th scope="col">Best Structural Use</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">21-A / #411 / QP</th>
+                  <td>High (stone dust to 3/4"–1")</td>
+                  <td>High interlock &amp; dry density</td>
+                  <td>Paver base, patio sub-base, gravel driveway cap</td>
+                </tr>
+                <tr>
+                  <th scope="row">CA-6 / Class 2 Base</th>
+                  <td>Controlled DOT blend</td>
+                  <td>Structural engineered compaction</td>
+                  <td>Heavy driveway aprons, shed pads, road base</td>
+                </tr>
+                <tr>
+                  <th scope="row">Clean #57 Stone</th>
+                  <td>Washed / &lt; 2% fines</td>
+                  <td>Requires mechanical confinement</td>
+                  <td>Open-graded French drains, permeable paver base</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Plan base and surface layers independently</h2>
+          <p>Do not mix top decorative stone thickness into your compacted base calculation. Use our <a href="/layered-project-calculator">multi-layer project planner</a> when calculating both base rock and bedding sand/top stone in one order, or inspect regional base terminology in our <a href="/gravel-trade-names-by-state">aggregate trade names guide</a> and <a href="/gravel-sizes#57-stone">gravel sizes chart</a>.</p>
+
+          <p><a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/">Penn State’s Center for Dirt and Gravel Road Studies</a> distinguishes loose shipped quantities from finished dimensions. Confirm the local supplier’s delivered weight per cubic yard and truck payload before scheduling dump deliveries.</p>
+
+          <h2>Crusher run questions</h2>
+          <div class="faq-list">
+            {faqItems.map(item => (
+              <div class="faq-item">
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav />
   </main>
 
   <Footer />
 
   <script>
-    import {estimateBaseLayer} from '../lib/quantity-assumptions.mjs';
-    function updateCrusher() {
-      const read=(id:string)=>{const input=document.getElementById(id) as HTMLInputElement;const valid=input.value.trim()!==''&&input.validity.valid;input.setAttribute('aria-invalid',String(!valid));return valid?Number(input.value):NaN;};
-      const set=(id:string,value:string)=>{const node=document.getElementById(id);if(node)node.textContent=value;};
-      const error=document.getElementById('crusher-error');
-      try {
-        const extra=read('crusher-compaction'),density=read('crusher-density');
-        const estimate=estimateBaseLayer({length:read('crusher-length'),width:read('crusher-width'),depth:read('crusher-depth'),extra,density});
-        set('kpi-crusher-yards',estimate.orderYards.toFixed(2));set('kpi-crusher-tons',estimate.tons.toFixed(2));set('kpi-crusher-loads',(estimate.tons/15).toFixed(1));
-        set('kpi-crusher-loose',estimate.finishedYards.toFixed(2)+' yd³ finished; '+extra+'% loose-order increase');
-        set('crusher-weight-note','At '+density+' US short tons per loose cubic yard');
-        if(error){error.hidden=true;error.textContent='';}
-      }catch(problem){
-        ['kpi-crusher-yards','kpi-crusher-tons','kpi-crusher-loads'].forEach(id=>set(id,'—'));
-        if(error){error.hidden=false;error.textContent=problem instanceof Error?problem.message:'Check the highlighted inputs.';}
-      }
-    }
+    function initCrusherCalculator() {
+      let areaMode: 'dims' | 'sqft' = 'dims';
+      let factorMode: 'extra' | 'shrink' = 'extra';
 
-    ['crusher-length', 'crusher-width', 'crusher-depth', 'crusher-compaction', 'crusher-density'].forEach(id => {
-      document.getElementById(id)?.addEventListener('input', updateCrusher);
-    });
-    updateCrusher();
+      const dimsBtn = document.getElementById('crusher-area-dims');
+      const sqftBtn = document.getElementById('crusher-area-sqft');
+      const dimsFields = document.getElementById('crusher-dims-fields');
+      const sqftField = document.getElementById('crusher-sqft-field');
+
+      const extraBtn = document.getElementById('crusher-method-extra');
+      const shrinkBtn = document.getElementById('crusher-method-shrink');
+      const factorLabel = document.getElementById('crusher-factor-label');
+
+      const presetBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.preset-btn'));
+      const lengthEl = document.getElementById('crusher-length') as HTMLInputElement | null;
+      const widthEl = document.getElementById('crusher-width') as HTMLInputElement | null;
+      const areaEl = document.getElementById('crusher-area') as HTMLInputElement | null;
+      const depthEl = document.getElementById('crusher-depth') as HTMLInputElement | null;
+      const densityEl = document.getElementById('crusher-density') as HTMLInputElement | null;
+      const factorEl = document.getElementById('crusher-compaction') as HTMLInputElement | null;
+      const errorEl = document.getElementById('crusher-error');
+
+      const set = (id: string, val: string) => {
+        const node = document.getElementById(id);
+        if (node) node.textContent = val;
+      };
+
+      function readNum(el: HTMLInputElement | null, min: number, max: number): number {
+        if (!el || el.value.trim() === '') {
+          el?.setAttribute('aria-invalid', 'true');
+          return NaN;
+        }
+        const n = Number(el.value);
+        const ok = Number.isFinite(n) && n >= min && n <= max;
+        el.setAttribute('aria-invalid', String(!ok));
+        return ok ? n : NaN;
+      }
+
+      function updateCrusher() {
+        const depth = readNum(depthEl, 0.25, 24);
+        const density = readNum(densityEl, 0.3, 5);
+        const pct = readNum(factorEl, 0, factorMode === 'shrink' ? 40 : 100);
+
+        let area = NaN;
+        if (areaMode === 'dims') {
+          areaEl?.removeAttribute('aria-invalid');
+          const l = readNum(lengthEl, 0.1, 10000);
+          const w = readNum(widthEl, 0.1, 10000);
+          area = l * w;
+        } else {
+          lengthEl?.removeAttribute('aria-invalid');
+          widthEl?.removeAttribute('aria-invalid');
+          area = readNum(areaEl, 1, 10000000);
+        }
+
+        const valid = [area, depth, density, pct].every(Number.isFinite) && area > 0;
+        if (errorEl) {
+          errorEl.hidden = valid;
+          errorEl.textContent = valid ? '' : 'Enter positive area, depth (0.25–24 in), loose bulk weight (0.3–5 t/yd³), and valid percentage.';
+        }
+
+        if (!valid) {
+          ['kpi-crusher-yards', 'kpi-crusher-tons', 'kpi-crusher-finished', 'kpi-crusher-loads'].forEach(id => set(id, '—'));
+          set('kpi-crusher-loose', 'Check inputs');
+          return;
+        }
+
+        const finishedYards = (area * depth) / 324;
+        const multiplier = factorMode === 'shrink'
+          ? 1 / (1 - pct / 100)
+          : 1 + pct / 100;
+        const orderYards = finishedYards * multiplier;
+        const tons = orderYards * density;
+        const looseDepth = depth * multiplier;
+
+        set('kpi-crusher-yards', orderYards.toFixed(2));
+        set('kpi-crusher-tons', tons.toFixed(2));
+        set('kpi-crusher-finished', finishedYards.toFixed(2));
+        set('kpi-crusher-loads', (tons / 15).toFixed(1));
+        set('kpi-crusher-loose', factorMode === 'shrink'
+          ? `÷ ${(1 - pct / 100).toFixed(2)} for ${pct}% compaction shrinkage`
+          : `+${pct}% loose-order allowance`);
+        set('crusher-weight-note', `At ${density.toFixed(2)} short tons/yd³ loose density`);
+        set('kpi-crusher-area-sub', `${Math.round(area).toLocaleString()} sq ft footprint`);
+
+        set('bar-loose-text', `Loose: ${looseDepth.toFixed(1)}"`);
+        set('bar-compact-text', `Finished: ${depth.toFixed(1)}"`);
+        const looseBar = document.getElementById('bar-loose') as HTMLElement | null;
+        const compactBar = document.getElementById('bar-compact') as HTMLElement | null;
+        if (looseBar && compactBar) {
+          looseBar.style.height = '100px';
+          const ratio = Math.max(45, Math.min(100, (depth / looseDepth) * 100));
+          compactBar.style.height = `${ratio.toFixed(0)}px`;
+        }
+      }
+
+      presetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          presetBtns.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
+          if (densityEl && btn.dataset.density) densityEl.value = btn.dataset.density;
+          if (factorEl && btn.dataset.loss) factorEl.value = btn.dataset.loss;
+          updateCrusher();
+        });
+      });
+
+      dimsBtn?.addEventListener('click', () => {
+        areaMode = 'dims';
+        dimsBtn.classList.add('active');
+        dimsBtn.setAttribute('aria-pressed', 'true');
+        sqftBtn?.classList.remove('active');
+        sqftBtn?.setAttribute('aria-pressed', 'false');
+        if (dimsFields) dimsFields.style.display = '';
+        if (sqftField) sqftField.style.display = 'none';
+        updateCrusher();
+      });
+
+      sqftBtn?.addEventListener('click', () => {
+        areaMode = 'sqft';
+        sqftBtn.classList.add('active');
+        sqftBtn.setAttribute('aria-pressed', 'true');
+        dimsBtn?.classList.remove('active');
+        dimsBtn?.setAttribute('aria-pressed', 'false');
+        if (dimsFields) dimsFields.style.display = 'none';
+        if (sqftField) sqftField.style.display = '';
+        updateCrusher();
+      });
+
+      extraBtn?.addEventListener('click', () => {
+        factorMode = 'extra';
+        extraBtn.classList.add('active');
+        extraBtn.setAttribute('aria-pressed', 'true');
+        shrinkBtn?.classList.remove('active');
+        shrinkBtn?.setAttribute('aria-pressed', 'false');
+        if (factorLabel) factorLabel.textContent = 'Loose-Order Increase (%)';
+        if (factorEl) factorEl.max = '100';
+        updateCrusher();
+      });
+
+      shrinkBtn?.addEventListener('click', () => {
+        factorMode = 'shrink';
+        shrinkBtn.classList.add('active');
+        shrinkBtn.setAttribute('aria-pressed', 'true');
+        extraBtn?.classList.remove('active');
+        extraBtn?.setAttribute('aria-pressed', 'false');
+        if (factorLabel) factorLabel.textContent = 'Compaction Shrinkage Loss (%)';
+        if (factorEl) factorEl.max = '40';
+        updateCrusher();
+      });
+
+      [lengthEl, widthEl, areaEl, depthEl, densityEl, factorEl].forEach(el => {
+        el?.addEventListener('input', () => {
+          if (el === densityEl) {
+            presetBtns.forEach(b => {
+              b.classList.remove('active');
+              b.setAttribute('aria-pressed', 'false');
+            });
+          }
+          updateCrusher();
+        });
+      });
+
+      updateCrusher();
+    }
+    initCrusherCalculator();
   </script>
 </BaseLayout>
 
 <style>
   .section { padding: var(--space-8) 0; }
-  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
-  .aeo-quick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--accent-gold);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin-bottom: var(--space-8);
-    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.08);
+  .calc-panel-title h2 { margin: 0; color: var(--text-primary); font-size: var(--text-lg); font-weight: 700; }
+  .preset-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); margin-bottom: var(--space-4); }
+  .preset-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.55rem 0.7rem;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
   }
-  .aeo-quick-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--accent-gold); }
-  .aeo-quick-title { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .aeo-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
-  .aeo-quick-item { background: var(--bg-surface); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
-  .aeo-quick-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-gold); margin-bottom: 2px; }
-  .aeo-quick-value { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .aeo-quick-desc { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+  .preset-btn strong { display: block; font-size: var(--text-xs); color: var(--text-primary); }
+  .preset-btn span { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .preset-btn.active { border-color: var(--accent-gold); background: rgba(212, 168, 83, 0.1); }
+  .unit-toggle {
+    display: flex;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 3px;
+    margin-bottom: var(--space-3);
+    gap: 2px;
+  }
+  .unit-toggle button {
+    flex: 1;
+    padding: 0.5rem 0.35rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .unit-toggle button.active { background: var(--accent-gold); color: #000; }
+  .dim-grid.single-col { grid-template-columns: 1fr; }
+  .calc-panel .input-field input {
+    min-height: 44px;
+    padding: 0.65rem 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .calc-error { color: var(--color-error); font-size: var(--text-xs); font-weight: 600; margin-top: var(--space-3); }
+  .compaction-diagram-card {
+    margin-top: var(--space-4);
+    padding: var(--space-4);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+  }
+  .diagram-title { font-size: var(--text-xs); font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-3); }
+  .diagram-bars { display: flex; align-items: flex-end; justify-content: space-around; height: 120px; padding-top: var(--space-2); }
+  .bar-col { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 42%; }
+  .bar-fill { width: 100%; border-radius: 6px 6px 2px 2px; display: flex; align-items: center; justify-content: center; font-size: var(--text-xs); font-weight: 700; transition: height 0.2s ease; }
+  .loose-bar { background: rgba(212, 168, 83, 0.25); border: 1px solid var(--accent-gold); color: var(--text-primary); }
+  .compact-bar { background: var(--accent-gold); color: #000; }
+  .bar-caption { font-size: 11px; color: var(--text-muted); }
+  .bar-arrow { font-size: 1.25rem; color: var(--accent-gold); align-self: center; }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
   .content-card {
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
@@ -280,24 +541,18 @@ const supportGuides = [
     line-height: 1.7;
     color: var(--text-secondary);
   }
-  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
-  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-    line-height: 1.8;
-  }
-  .steps-list { padding-left: var(--space-6); margin: var(--space-4) 0; }
-  .steps-list li { margin-bottom: var(--space-3); }
-  .faq-card { margin-top: var(--space-8); }
-  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
+  .content-card h2:first-child { margin-top: 0; }
+  .content-card a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 3px; }
+  .table-wrap { overflow-x: auto; margin: var(--space-5) 0; }
+  .base-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); text-align: left; }
+  .base-table caption { text-align: left; font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-2); }
+  .base-table th, .base-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); }
+  .base-table thead th { background: var(--bg-surface); color: var(--text-primary); font-weight: 700; }
+  .base-table tbody th { color: var(--text-primary); font-weight: 600; }
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-4); }
   .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
   .faq-item h3 { font-size: var(--text-base); color: var(--text-primary); margin: 0 0 var(--space-2) 0; }
   .faq-item p { font-size: var(--text-sm); color: var(--text-muted); margin: 0; }
+  @media (max-width: 600px) { .preset-grid { grid-template-columns: 1fr; } }
 </style>

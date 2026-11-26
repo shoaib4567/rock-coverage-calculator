@@ -6,7 +6,7 @@ const title = "Rock Coverage Calculator - Embeddable Jobsite Tool";
 const metaDescription = "Embeddable landscape rock, gravel, and stone coverage calculator for contractor and supplier websites.";
 ---
 
-<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/embed" noindex>
+<BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/embed" noindex hideAds>
   <main id="main-content" class="embed-wrapper">
     <h1 class="sr-only">Rock coverage calculator</h1>
     <div class="embed-header-bar">
@@ -14,7 +14,7 @@ const metaDescription = "Embeddable landscape rock, gravel, and stone coverage c
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="embed-icon"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
         <span class="embed-title">Rock Coverage Calculator</span>
       </div>
-      <a href="https://rockcoveragecalculator.com" target="_blank" rel="noopener" class="embed-credit-badge">
+      <a href="https://rockcoveragecalculator.com" target="_blank" rel="noopener nofollow" class="embed-credit-badge">
         <span>rockcoveragecalculator.com</span>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       </a>
@@ -22,9 +22,10 @@ const metaDescription = "Embeddable landscape rock, gravel, and stone coverage c
 
     <Calculator showVisualizerLink={false}
       headline="Instant Rock Coverage & Weight Calculator"
-      subtitle="Select the project shape, material and finished depth to estimate cubic yards, US short tons and 0.5-cu-ft bags. Confirm the product weight and bag yield."
+      subtitle="Select the project shape, material and finished depth to estimate cubic yards, short tons and 0.5-cu-ft bags. Confirm the product weight and bag yield."
     />
   </main>
+  <script src="../scripts/app.js"></script>
 </BaseLayout>
 
 <style>

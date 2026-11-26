@@ -14,6 +14,27 @@ const breadcrumbs = [
 ---
 
 <BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/how-to-stop-gravel-washing-out-on-slope">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: title,
+      description: metaDescription,
+      mainEntityOfPage: 'https://rockcoveragecalculator.com/how-to-stop-gravel-washing-out-on-slope',
+      inLanguage: 'en',
+      dateModified: '2026-11-25'
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'Will bigger gravel stop a driveway from washing out?', acceptedAnswer: { '@type': 'Answer', text: 'Not if runoff continues down the tire tracks. Larger stone may resist movement but can leave a rough, unstable surface and will not fix a weak base or missing outlet. Address the water path first, then choose the surface gradation.' } },
+        { '@type': 'Question', name: 'Should I install a French drain across the driveway?', acceptedAnswer: { '@type': 'Answer', text: 'A buried drain is suited to seepage or a designed collection system, but exposed surface flow needs an inlet and a sized, maintainable outlet. A silted trench or pipe can worsen washout. For visible runoff, assess surface shaping, a swale or a traffic-rated cross drain first.' } },
+        { '@type': 'Question', name: 'Does landscape fabric keep gravel on a slope?', acceptedAnswer: { '@type': 'Answer', text: 'Fabric can separate aggregate from soft soil when specified for that job. It does not hold the surface stone in place or redirect water, and weed-control fabric should not be assumed to carry driveway loads.' } },
+        { '@type': 'Question', name: 'When should I get a site-specific design?', acceptedAnswer: { '@type': 'Answer', text: 'Get local help when washout repeatedly reaches a road or building, a culvert is involved, the slope shows cracks or slumping, or you cannot identify a stable and permitted discharge point. A high-flow outlet or steep vehicle access needs more than a generic grade rule.' } }
+      ]
+    })} />
+  </Fragment>
   <Header />
 
   <main id="main-content">
@@ -130,7 +151,7 @@ const breadcrumbs = [
               <div>
                 <h3 id="fix-shape">Give a driveway cross fall and a way out</h3>
                 <p>Reshape a traveled gravel surface so rain runs toward a maintained side swale instead of following wheel ruts downhill. Depending on the site, that may be a crown or a one-sided cross slope. The side swale needs an outlet too.</p>
-                <p>On a longer run, a properly shaped, driveable <strong>rolling dip</strong> or designed cross drain can turn water off the road before it gains volume. A flush timber laid across a drive may trap gravel, but it does not automatically drain water and can create a driving hazard. Drain spacing and profile depend on local flow, soil and vehicle clearance. The <a href="https://www.fs.usda.gov/t-d/pubs/pdf/w-r/98771806.pdf">US Forest Service surface cross-drain guide</a> distinguishes driveable dips from waterbars commonly used on roads closed to traffic.</p>
+                <p>On a longer run, a properly shaped, driveable <strong>rolling dip</strong> or designed cross drain can turn water off the road before it gains volume. A flush timber laid across a drive may trap gravel, but it does not automatically drain water and can create a driving hazard. Drain spacing and profile depend on local flow, soil and vehicle clearance. The <a href="https://www.fs.usda.gov/t-d/pubs/pdf/w-r/98771806.pdf">Forest Service surface cross-drain guide</a> distinguishes driveable dips from waterbars commonly used on roads closed to traffic.</p>
               </div>
             </section>
 
@@ -138,7 +159,7 @@ const breadcrumbs = [
               <div class="fix-number">03</div>
               <div>
                 <h3 id="fix-stone">Use aggregate that fits the surface</h3>
-                <p>For a vehicle surface, ask a local quarry for a <strong>well-graded, angular surface gravel</strong> with a suitable blend of coarse particles and fines, then compact it in lifts to the intended profile. Local names include crusher run, dense-graded aggregate and road base; the actual gradation matters more than the trade name. Clean <a href="/57-stone-size-guide">#57 stone</a> is useful in drainage work but has little fine material to bind a traveled surface.</p>
+                <p>For a vehicle surface, ask a local quarry for a <strong>well-graded, angular surface gravel</strong> with a suitable blend of coarse particles and fines, then compact it in lifts to the intended profile. Local names include crusher run, dense-graded aggregate and road base; the actual gradation matters more than the trade name. Clean <a href="/gravel-sizes#57-stone">#57 stone</a> is useful in drainage work but has little fine material to bind a traveled surface.</p>
                 <p>Loose <a href="/pea-gravel-calculator">pea gravel</a> and rounded river rock tend to move under tires and feet on a slope. On a decorative bed or path with little runoff, angular stone and solid edging may be enough. On a driveway, edging only contains lateral scatter; it cannot replace surface drainage. Compare <a href="/angular-vs-rounded-rock">angular and rounded rock</a> before choosing the finish.</p>
               </div>
             </section>
@@ -229,8 +250,8 @@ const breadcrumbs = [
           <p>These references inform the drainage and aggregate principles above; they do not replace a design for an individual property.</p>
           <ul>
             <li><a href="https://www.fhwa.dot.gov/construction/pubs/ots15002.pdf">Federal Highway Administration — Gravel Roads Construction and Maintenance Guide</a></li>
-            <li><a href="https://www.epa.gov/sites/default/files/2015-10/documents/environmentallysensitivemaintenance_dirtgravelroads.pdf">U.S. EPA — Environmentally Sensitive Maintenance for Dirt and Gravel Roads</a></li>
-            <li><a href="https://www.fs.usda.gov/t-d/pubs/pdf/w-r/98771806.pdf">U.S. Forest Service — Water/Road Interaction: Surface Cross Drains</a></li>
+            <li><a href="https://www.epa.gov/sites/default/files/2015-10/documents/environmentallysensitivemaintenance_dirtgravelroads.pdf">EPA — Environmentally Sensitive Maintenance for Dirt and Gravel Roads</a></li>
+            <li><a href="https://www.fs.usda.gov/t-d/pubs/pdf/w-r/98771806.pdf">Forest Service — Water/Road Interaction: Surface Cross Drains</a></li>
             <li><a href="https://extension.wsu.edu/clark/naturalresources/smallacreageprogram/improving-drainage/">Washington State University Extension — Improving Drainage</a></li>
           </ul>
         </section>

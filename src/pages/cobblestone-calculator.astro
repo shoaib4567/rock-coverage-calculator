@@ -37,7 +37,7 @@ const faqItems = [
   },
   {
     q: 'Can I convert the piece count into tons and pallets?',
-    a: 'Yes, if the supplier gives a weight per piece and pieces per pallet for the exact product. Multiply the order count by piece weight; divide pounds by 2,000 for US short tons. If only full pallets are sold, round the pallet count up and use all purchased pieces for the stone delivery weight; pallet packaging adds more weight. Do not use a loose aggregate density for solid blocks.'
+    a: 'Yes, if the supplier gives a weight per piece and pieces per pallet for the exact product. Multiply the order count by piece weight; divide pounds by 2,000 for short tons. If only full pallets are sold, round the pallet count up and use all purchased pieces for the stone delivery weight; pallet packaging adds more weight. Do not use a loose aggregate density for solid blocks.'
   },
   {
     q: 'How much extra should I allow for a curved apron or reclaimed blocks?',
@@ -63,8 +63,7 @@ const faqItems = [
       url: 'https://rockcoveragecalculator.com/cobblestone-calculator',
       description: 'Estimates individual granite cobble and Belgian block pieces for a paved area or a single edging run.',
       applicationCategory: 'UtilityApplication',
-      operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      operatingSystem: 'Web'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -204,10 +203,10 @@ const faqItems = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/cobblestone-calculator" />
+    <TopicClusterNav />
   </main>
   <Footer />
-  <script src="../scripts/app.js"></script>
+  <Footer />
 </BaseLayout>
 
 <style>

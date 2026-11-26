@@ -18,7 +18,7 @@ const breadcrumbs = [
 ];
 const entityTags = [
   { label: 'Measure', value: 'Length × width × finished depth' },
-  { label: 'Results', value: 'Cubic yards and US short tons' },
+  { label: 'Results', value: 'Cubic yards and short tons' },
   { label: 'Choose', value: '#57, crusher run, #4 or #1' }
 ];
 const quickStats = [
@@ -29,7 +29,7 @@ const quickStats = [
 const faqItems = [
   {
     q: 'How much crushed stone do I need for 100 square feet at 3 inches deep?',
-    a: `The installed volume is 100 × 3 ÷ 324 = 0.93 cubic yard. At the calculator's ${density57.toFixed(2)} US short tons per cubic yard planning density, that is about ${(100 * 3 / 324 * density57).toFixed(2)} tons before any allowance, or ${(100 * 3 / 324 * 1.10 * density57).toFixed(2)} tons with 10% added. Your supplier’s actual density may differ.`
+    a: `The installed volume is 100 × 3 ÷ 324 = 0.93 cubic yard. At the calculator's ${density57.toFixed(2)} short tons per cubic yard planning density, that is about ${(100 * 3 / 324 * density57).toFixed(2)} tons before any allowance, or ${(100 * 3 / 324 * 1.10 * density57).toFixed(2)} tons with 10% added. Your supplier’s actual density may differ.`
   },
   {
     q: 'Is #57 stone the same as crusher run?',
@@ -48,10 +48,20 @@ const faqItems = [
 
 <BaseLayout
   title={pageTitle}
-  description="Estimate crushed stone in cubic yards and US short tons from length, width, finished depth, stone grade and a clear order allowance. Includes a worked example and supplier checklist."
+  description="Estimate crushed stone in cubic yards and short tons from dimensions or square feet, finished depth, stone grade and order allowance. Includes a worked example and truckload check."
   canonicalPath="/crushed-stone-calculator"
 >
   <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: pageTitle,
+      url: 'https://rockcoveragecalculator.com/crushed-stone-calculator',
+      description: 'Estimates crushed stone cubic yards, short tons, seller rounding increments, and truckload counts by stone grade and finished depth.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'en'
+    })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -69,7 +79,7 @@ const faqItems = [
       title={pageTitle}
       highlightWord="Crushed Stone"
       badge="Estimate by grade, depth and local density"
-      subtitle={`For a 40 × 12 ft area at 4 inches deep, allow 5.93 cubic yards in place. With 10% extra and a #57 planning density of ${density57.toFixed(2)} US short tons per cubic yard, the order estimate is 6.52 cubic yards or ${exampleTons.toFixed(2)} tons.`}
+      subtitle={`For a 40 × 12 ft area at 4 inches deep, allow 5.93 cubic yards in place. With 10% extra and a #57 planning density of ${density57.toFixed(2)} short tons per cubic yard, the order estimate is 6.52 cubic yards or ${exampleTons.toFixed(2)} tons.`}
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -80,7 +90,7 @@ const faqItems = [
       <div class="container intro-layout">
         <div>
           <h2 id="estimate-heading">Turn a measured layer into an order</h2>
-          <p>Measure the area and the <strong>finished layer depth</strong>, then choose the stone you actually need: a clean, open gradation for a drainage layer or a dense blend with fines for a compacted base. The calculator converts that volume to cubic yards and estimated US short tons. If the quarry quotes a different loose bulk density, enter its number for a better local estimate.</p>
+          <p>Measure the area and the <strong>finished layer depth</strong>, then choose the stone you actually need: a clean, open gradation for a drainage layer or a dense blend with fines for a compacted base. The calculator converts that volume to cubic yards, estimated short tons, and delivery loads. If the quarry quotes a different loose bulk density, enter its number for a better local estimate.</p>
         </div>
         <div class="formula-callout">
           <span class="eyebrow">The calculation</span>
@@ -117,7 +127,7 @@ const faqItems = [
               <caption>Common quarry choices and how to use them</caption>
               <thead><tr><th scope="col">Material</th><th scope="col">What to ask for</th><th scope="col">Typical use</th><th scope="col">Calculator assumption</th></tr></thead>
               <tbody>
-                <tr><th scope="row"><a href="/57-stone-size-guide">#57 clean stone</a></th><td>Coarse, low-fines gradation; confirm whether it is washed</td><td>Drainage aggregate and some surface layers</td><td>{density57.toFixed(2)} short tons/yd³</td></tr>
+                <tr><th scope="row"><a href="/gravel-sizes#57-stone">#57 clean stone</a></th><td>Coarse, low-fines gradation; confirm whether it is washed</td><td>Drainage aggregate and some surface layers</td><td>{density57.toFixed(2)} short tons/yd³</td></tr>
                 <tr><th scope="row"><a href="/crusher-run-calculator">Crusher run / dense-graded base</a></th><td>Top size and amount of fines; “#411” varies by market</td><td>Compacted driveway or patio base</td><td>{densityBase.toFixed(2)} short tons/yd³</td></tr>
                 <tr><th scope="row">#4 clean stone</th><td>Coarse gradation, roughly 2 in. down to 3/4 in.; confirm local product</td><td>Coarse drainage or stabilization layer where specified</td><td>1.45 short tons/yd³</td></tr>
                 <tr><th scope="row">#1 large stone</th><td>Large gradation, roughly 3½ in. down to 1½ in.</td><td>Deep stabilization or coarse fill where specified</td><td>1.50 short tons/yd³</td></tr>
@@ -135,9 +145,9 @@ const faqItems = [
               <li><strong>Area:</strong> 40 × 12 = 480 sq ft.</li>
               <li><strong>Installed volume:</strong> 480 × 4 ÷ 324 = 5.93 yd³.</li>
               <li><strong>With 10% added:</strong> 5.93 × 1.10 = 6.52 yd³.</li>
-              <li><strong>Estimated #57 weight:</strong> 6.52 × {density57.toFixed(2)} = {exampleTons.toFixed(2)} US short tons.</li>
+              <li><strong>Estimated #57 weight:</strong> 6.52 × {density57.toFixed(2)} = {exampleTons.toFixed(2)} short tons.</li>
             </ol>
-            <p>If the area is irregular, divide it into rectangles, total their square footage and enter an equivalent length and width. The <a href="/crushed-stone-yardage-calculator">yardage calculator</a> rounds volume to your supplier's selling step and checks delivery capacity. The <a href="/crushed-stone-tons-calculator">tons calculator</a> estimates quarry weight; the <a href="/crushed-stone-bag-calculator">bag calculator</a> counts packages from their labeled volume.</p>
+            <p>If the area is irregular, divide it into rectangles, total their square footage and select <strong>Known Sq Ft</strong> in the <a href="#crushed-calc">calculator above</a>, which also rounds to your supplier's selling increment and checks truck payload limits. For retail bags, use the <a href="/crushed-stone-bag-calculator">crushed stone bag calculator</a>.</p>
           </div>
           <div class="content-card">
             <div class="section-kicker">Before placing an order</div>

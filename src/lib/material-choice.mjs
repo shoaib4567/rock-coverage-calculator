@@ -42,9 +42,9 @@ export function getMaterialCandidate({project,traffic,slope,aesthetic}) {
     calcUrl:'/drain-rock-calculator'};
   if (slope === 'moderate-slope') return {...candidate,
     title:'Resolve surface movement and runoff before choosing stone',
-    summary:'A slope can move loose material. Trace the runoff and compare containment, grading and the repair detail before selecting the finish.',
-    pitfalls:'There is no universal percentage slope at which every stone is suitable or unsuitable. Use the actual grade, water path, traffic and site detail.',
-    calcUrl:'/how-to-stop-gravel-washing-out-on-slope'};
+    summary:'A slope can move loose material. Choose angular interlocking stone for better stability, and plan containment and runoff control before sizing your load.',
+    pitfalls:'There is no universal percentage slope at which every stone is suitable or unsuitable. Review the slope runoff guide alongside your local angular stone product.',
+    calcUrl:'/crushed-stone-calculator'};
   if (project === 'dogrun' || traffic === 'barefoot') return {...candidate,
     title:'Compare a small rounded gravel sample',
     summary:'Small rounded gravel is one option to inspect for feel and maintenance. Evaluate the actual sample, drainage, containment and how the area will be used.',
@@ -55,6 +55,11 @@ export function getMaterialCandidate({project,traffic,slope,aesthetic}) {
     summary:'Natural and stabilized DG have product-specific preparation and placement requirements. Compare the finished surface with the walking and access needs of the route.',
     pitfalls:'A material name alone does not establish accessibility or a firm finish. Follow the actual product’s base, moisture, binder and placement instructions.',
     calcUrl:'/decomposed-granite-calculator'};
+  if (aesthetic === 'budget-utility') return {...candidate,
+    title:'Compare #57 limestone and local dense-graded utility blends',
+    summary:'Crushed limestone (#57) and crusher-run quarry blends are commonly priced competitively by the short ton in bulk delivery.',
+    pitfalls:'Quarry naming, moisture content, and delivery minimums drive local delivered pricing. Request delivered short-ton quotes for both clean stone and base blends.',
+    calcUrl:'/crushed-stone-calculator'};
   if (aesthetic === 'volcanic') return {...candidate,
     title:'Compare landscape lava-rock mulch',
     summary:'Inspect the actual porous landscape product for size, texture, color and planting conditions. Its loose weight can differ substantially between products.',

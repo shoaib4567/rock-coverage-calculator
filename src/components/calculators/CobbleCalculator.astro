@@ -130,7 +130,7 @@
   .result-details div { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid var(--border-subtle); }
   .result-details dt { color: var(--text-secondary); }
   .result-details dd { margin: 0; color: var(--text-primary); text-align: right; font-weight: 600; overflow-wrap: anywhere; }
-  .calc-error { padding: .75rem; border: 1px solid #b84c4c; border-radius: var(--radius-md); color: #ffd1d1; }
+  .calc-error { padding: .75rem; border: 1px solid var(--color-error); border-radius: var(--radius-md); color: var(--color-error); font-weight: 600; }
   @media (max-width: 650px) { .cobble-kpis { grid-template-columns: 1fr; } .result-details div { display: block; } .result-details dd { text-align: left; } }
 </style>
 
@@ -144,8 +144,8 @@
     var modeButtons = root.querySelectorAll('[data-cobble-mode]');
     var stoneButtons = root.querySelectorAll('[data-cobble-stone]');
     var ids = ['cobble-length', 'cobble-width', 'cobble-run', 'cobble-face-length', 'cobble-face-width', 'cobble-joint', 'cobble-extra', 'cobble-piece-weight', 'cobble-pallet-size', 'cobble-direction'];
-    var formatter = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 });
-    var whole = new Intl.NumberFormat('en-US');
+    var formatter = new Intl.NumberFormat('en', { maximumFractionDigits: 2 });
+    var whole = new Intl.NumberFormat('en');
     function val(id) { return Number(get(id).value); }
     function valid(id, optional) {
       var el = get(id);
@@ -194,19 +194,24 @@
         output('cobble-rate-unit', 'pieces per linear ft');
         output('cobble-measure', formatter.format(run) + ' linear ft, one run');
       }
-      var layout = Math.ceil(raw);
-      var order = Math.ceil(raw * (1 + extra));
+      var dirSel = get('cobble-direction');
+      if (dirSel && dirSel.options.length >= 2) {
+        dirSel.options[0].text = 'Block length (' + formatter.format(faceLength) + ' in)';
+        dirSel.options[1].text = 'Block width (' + formatter.format(faceWidth) + ' in)';
+      }
+      var layout = Math.ceil(raw - 1e-9);
+      var order = Math.ceil(raw * (1 + extra) - 1e-9);
       output('cobble-layout', whole.format(layout));
       output('cobble-order', whole.format(order));
       output('cobble-module', formatter.format(faceLength) + ' × ' + formatter.format(faceWidth) + ' in face; ' + formatter.format(joint) + ' in joint');
       var pieceWeight = get('cobble-piece-weight').value.trim();
       var palletSize = get('cobble-pallet-size').value.trim();
-      output('cobble-weight', !pieceWeight ? 'Enter piece weight' : optionalWeightOk ? whole.format(Math.round(order * val('cobble-piece-weight'))) + ' lb / ' + formatter.format(order * val('cobble-piece-weight') / 2000) + ' US short tons' : 'Check piece weight');
+      output('cobble-weight', !pieceWeight ? 'Enter piece weight' : optionalWeightOk ? whole.format(Math.round(order * val('cobble-piece-weight'))) + ' lb / ' + formatter.format(order * val('cobble-piece-weight') / 2000) + ' short tons' : 'Check piece weight');
       var fullPallets = palletSize && optionalPalletOk ? Math.ceil(order / val('cobble-pallet-size')) : 0;
       var fullPalletPieces = fullPallets ? fullPallets * val('cobble-pallet-size') : 0;
       output('cobble-pallets', !palletSize ? 'Enter pieces per pallet' : optionalPalletOk ? whole.format(fullPallets) + ' whole pallets (' + whole.format(fullPalletPieces) + ' pieces)' : 'Check pallet quantity');
       var palletStoneWeight = fullPalletPieces * val('cobble-piece-weight');
-      output('cobble-pallet-weight', !pieceWeight || !palletSize ? 'Enter weight and pallet capacity' : optionalWeightOk && optionalPalletOk ? whole.format(Math.round(palletStoneWeight)) + ' lb / ' + formatter.format(palletStoneWeight / 2000) + ' US short tons' : 'Check supplier inputs');
+      output('cobble-pallet-weight', !pieceWeight || !palletSize ? 'Enter weight and pallet capacity' : optionalWeightOk && optionalPalletOk ? whole.format(Math.round(palletStoneWeight)) + ' lb / ' + formatter.format(palletStoneWeight / 2000) + ' short tons' : 'Check supplier inputs');
       error.textContent = !optionalWeightOk || !optionalPalletOk ? 'Stone count is ready. Correct the optional supplier field to see its estimate.' : '';
       error.hidden = optionalWeightOk && optionalPalletOk;
     }

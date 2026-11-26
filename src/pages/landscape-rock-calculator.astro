@@ -22,19 +22,19 @@ const faqItems = [
     a: 'Two to three inches is a useful starting range for many inorganic mulches. The right depth also depends on the stone size, desired coverage, plants, and site. Test a small area before ordering, especially when individual stones are nearly as thick as the planned layer.'
   },
   {
-    q: 'Does landscape fabric keep a rock bed weed-free?',
-    a: 'No. Permeable fabric can separate stone from soil and reduce some weeds, but windblown soil and seeds can collect above it. Fabric can also complicate planting and later changes. Remove new weeds and leaf debris before they become established.'
+    q: 'Should I subtract plants and bare pockets from my bed square footage?',
+    a: 'Small shrubs covered right up to their mulched ring barely alter bulk totals, though large bare planting pockets, tree wells, boulder groupings, and stepping-stone patios should be subtracted using the Uncovered pockets field.'
   },
   {
     q: 'Can I calculate bag count from a 50-pound bag label?',
-    a: 'Not reliably. This calculator counts 0.5-cubic-foot bags by volume. Bags sold only by weight cover different volumes depending on the stone and packing; check the bag’s cubic-foot coverage or ask the seller.'
+    a: 'Not reliably. This calculator counts bags by cubic-foot volume (0.5 cu ft by default). Bags sold solely by weight cover different volumes depending on the rock density; check the bag’s cubic-foot coverage or ask the seller.'
   }
 ];
 ---
 
 <BaseLayout
   title={pageTitle}
-  description="Estimate cubic yards, short tons, and 0.5-cu-ft bags of landscape rock for garden beds and borders. Measure the bed, choose depth and stone, then check your supplier’s density."
+  description="Estimate cubic yards, short tons, and 0.5-cu-ft bags of landscape rock for garden beds and planted borders. Deduct uncovered planting islands and compare rock weights."
   canonicalPath="/landscape-rock-calculator"
 >
   <Fragment slot="head">
@@ -43,7 +43,7 @@ const faqItems = [
       "@type": "WebApplication",
       "name": pageTitle,
       "url": "https://rockcoveragecalculator.com/landscape-rock-calculator",
-      "description": "Estimate landscape rock volume, weight, and 0.5-cubic-foot bag count from bed dimensions, depth, allowance, and bulk density.",
+      "description": "Estimate landscape rock volume, short tons, and bag counts from bed dimensions or known square feet with planting-pocket deductions.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web"
     })} />
@@ -64,14 +64,14 @@ const faqItems = [
     <PageHero
       title={pageTitle}
       highlightWord="Landscape Rock"
-      badge="Garden beds and borders"
-      subtitle="For a 100-square-foot bed at 3 inches deep, plan on 0.93 cubic yard of rock before extra material. That is about 1.25 short tons at an assumed density of 1.35 tons per cubic yard. Enter your own bed dimensions below."
+      badge="Garden beds, islands & borders"
+      subtitle="A 100-square-foot planted bed at 3 inches deep takes 0.93 cubic yard (~1.25 short tons or 50 half-cubic-foot bags). Enter dimensions or known square feet above, and deduct any uncovered planting pockets."
       breadcrumbs={breadcrumbs}
       theme="decorative"
       entityTags={[
-        { label: 'Use', value: 'Decorative rock mulch' },
+        { label: 'Use', value: 'Decorative rock mulch & garden beds' },
         { label: 'Starting depth', value: '2–3 inches' },
-        { label: 'Order units', value: 'Yards, short tons, bags' }
+        { label: 'Order units', value: 'Cubic yards, short tons, custom bags' }
       ]}
     />
 
@@ -83,8 +83,8 @@ const faqItems = [
           <div>
             <span class="eyebrow">Before you order</span>
             <h2 id="measure-title">Measure the rock-covered area, then set the finished depth</h2>
-            <p>A bed’s square footage is its length times its <strong>average</strong> width. For a curved border, measure its width in several places and average those readings, or split it into smaller rectangles and add their areas. Subtract large paved sections and plant islands that will stay bare.</p>
-            <p>Use the depth you want <em>after</em> spreading. A 2–3 inch layer is a useful starting point for inorganic mulch, but a larger stone may leave visible gaps at the shallow end. Spread a small test patch with your chosen rock before you commit to a truckload.</p>
+            <p>A bed’s square footage is its length times its <strong>average</strong> width. For a curved border, measure width at several spots and average those readings, or measure square feet directly. Enter large paved islands, tree rings, or planting pockets that stay uncovered in the deduction field above.</p>
+            <p>Use the depth you want <em>after</em> spreading. A 2–3 inch layer works for standard 3/4"–1.5" ornamental stone; larger river cobbles need deeper coverage so underlying geotextile stays hidden.</p>
           </div>
           <figure class="measure-figure">
             <img src="/landscape-rock-bed-measurement.svg" width="900" height="390" loading="lazy" alt="Plan view of a 40-foot by 8-foot landscape bed and side view showing a 3-inch finished rock layer" />
@@ -96,14 +96,14 @@ const faqItems = [
           <div class="section-heading">
             <span class="eyebrow">Check the number</span>
             <h2 id="math-title">From bed dimensions to the order quantity</h2>
-            <p>The calculator converts square feet and inches into cubic yards, then uses the selected bulk density to estimate short tons. The allowance is added to volume before converting to tons and bags.</p>
+            <p>The calculator deducts bare pockets, converts square feet and inches into cubic yards, applies your extra allowance, and multiplies by supplier bulk density or bag volume.</p>
           </div>
           <div class="math-grid">
-            <div class="math-card"><span class="math-step">01 · Area</span><strong>Length × average width</strong><p>40 ft × 8 ft = <b>320 sq ft</b></p></div>
-            <div class="math-card"><span class="math-step">02 · Rock volume</span><strong>Area × depth ÷ 324</strong><p>320 × 3 in ÷ 324 = <b>2.96 yd³</b></p></div>
-            <div class="math-card"><span class="math-step">03 · Order estimate</span><strong>Volume × (1 + allowance)</strong><p>2.96 yd³ × 1.10 = <b>3.26 yd³</b>, or <b>4.40 short tons</b> at 1.35 t/yd³</p></div>
+            <div class="math-card"><span class="math-step">01 &middot; Net Area</span><strong>(Length &times; width) &minus; bare pockets</strong><p>40 ft &times; 8 ft = <b>320 sq ft</b></p></div>
+            <div class="math-card"><span class="math-step">02 &middot; Rock volume</span><strong>Area &times; depth &divide; 324</strong><p>320 &times; 3 in &divide; 324 = <b>2.96 yd&sup3;</b></p></div>
+            <div class="math-card"><span class="math-step">03 &middot; Order estimate</span><strong>Volume &times; (1 + allowance)</strong><p>2.96 yd&sup3; &times; 1.10 = <b>3.26 yd&sup3;</b>, or <b>4.40 short tons</b> at 1.35 t/yd&sup3;</p></div>
           </div>
-          <p class="math-note">The same example fills <strong>176 bags at 0.5 cu ft each</strong>: 320 × (3 ÷ 12) × 1.10 ÷ 0.5. A bag marked only in pounds needs its own volume or coverage figure.</p>
+          <p class="math-note">The same example fills <strong>176 bags at 0.5 cu ft each</strong>: 320 &times; (3 &divide; 12) &times; 1.10 &divide; 0.5. A bag marked only in pounds requires checking its labeled cubic-foot yield.</p>
         </section>
 
         <section class="choice-section" aria-labelledby="choice-title">
@@ -114,15 +114,15 @@ const faqItems = [
           <div class="choice-grid">
             <div class="choice-card">
               <h3>Rounded river rock</h3>
-              <p>A smooth finish suits broad borders and dry stream accents. Rounded pieces move more easily at an open edge or on a slope, so plan for containment and assess drainage. For a dedicated estimate, use the <a href="/river-rock-calculator">river rock calculator</a>.</p>
+              <p>A smooth finish suits broad borders and dry stream accents. Rounded pieces migrate at open edges, so pair them with solid steel or stone restraint. Estimate specific sizes in the <a href="/river-rock-calculator">river rock calculator</a>.</p>
             </div>
             <div class="choice-card">
               <h3>Angular crushed stone</h3>
-              <p>Angular pieces tend to nest together more firmly than rounded stone. The actual bulk weight depends on grading and source. Compare options in the <a href="/crushed-stone-calculator">crushed stone calculator</a>. For a path or patio base, the <a href="/landscape-stone-calculator">landscape stone calculator</a> separates finished depth from loose order volume.</p>
+              <p>Fractured faces lock together better on mild grades than tumbled pebbles. Check clean ornamental stone on the <a href="/crushed-stone-calculator">crushed stone calculator</a>, or use the <a href="/crusher-run-calculator">crusher run calculator</a> for compacted bases.</p>
             </div>
             <div class="choice-card">
               <h3>Porous lava rock</h3>
-              <p>Lava rock can be much lighter by volume than dense natural stone. Its porosity and piece size vary, so treat the preset density as a starting estimate. See the <a href="/lava-rock-calculator">lava rock calculator</a> for that material.</p>
+              <p>Vesicular volcanic scoria weighs roughly half as much per cubic yard as dense river gravel. Keep the lower bulk density in mind when ordering by the ton on our <a href="/lava-rock-calculator">lava rock calculator</a>.</p>
             </div>
           </div>
         </section>
@@ -134,26 +134,26 @@ const faqItems = [
           </div>
           <div class="practical-grid">
             <div class="practical-card">
-              <h3>Decide whether fabric helps here</h3>
-              <p>Permeable landscape fabric can keep rock from mixing into soft soil. It is less convenient in beds you replant often, and weeds can establish in dust and leaves above it. Do not rely on solid plastic as a universal weed fix; it restricts water and air movement. Read the <a href="/how-to-stop-weeds-in-landscape-rock">rock-bed weed guide</a> and the <a href="/how-to-fix-rock-sinking-into-soil">stone-sinking guide</a>.</p>
+              <h3>Decide whether fabric helps</h3>
+              <p>Permeable geotextile separates decorative stone from soft soil, though windblown silt and leaves will still sprout seeds above the fabric over time. Read the <a href="/how-to-stop-weeds-in-landscape-rock">rock-bed weed guide</a> and <a href="/how-to-fix-rock-sinking-into-soil">soil-sinking guide</a>.</p>
             </div>
             <div class="practical-card">
               <h3>Protect plants and bed edges</h3>
-              <p>Keep stone a few inches clear of woody stems and root collars. Check the site’s sun exposure: rock can warm the soil in summer, which may matter around heat-sensitive plants. Remove leaf litter before it turns into a growing medium for weeds. For installation details, see <a href="/how-to-install-landscape-rock">how to install landscape rock</a>.</p>
+              <p>Keep rock several inches clear of tree trunks and woody plant crowns, and account for radiated heat around heat-sensitive perennials. Review <a href="/how-to-install-landscape-rock">step-by-step rock bed installation</a> before ordering.</p>
             </div>
             <div class="practical-card">
-              <h3>Confirm the purchase unit</h3>
-              <p>Bring your yardage, chosen stone, and target depth to the supplier. Ask whether they sell by cubic yard or short ton and what bulk density they use. The calculator’s three rock presets are estimates; replace the density with the supplier’s figure when available. For a broader depth comparison, see the <a href="/rock-depth-guide">rock depth guide</a>.</p>
+              <h3>Need multi-shape or 3D sizing?</h3>
+              <p>Use our <a href="/">main rock coverage calculator</a> when planning up to six irregularly shaped zones with a live blueprint, or add a standalone estimator to your site with the <a href="/calculator-widget">embed widget builder</a>.</p>
             </div>
           </div>
         </section>
 
         <section class="reference-section" aria-labelledby="reference-title">
           <h2 id="reference-title">Landscape rock coverage examples</h2>
-          <p>These figures use 1.35 short tons per cubic yard and 0.5-cu-ft bags, with <strong>no added allowance</strong>. Your supplier’s density and packaging can differ.</p>
+          <p>These figures assume 1.35 short tons per cubic yard and 0.5-cu-ft bags, with <strong>0% extra allowance</strong>. Adjust density above to match local quarry weight.</p>
           <div class="table-scroll">
             <table>
-              <caption>Estimated material at two common bed depths, before extra material</caption>
+              <caption>Estimated material at common bed depths before extra allowance</caption>
               <thead><tr><th scope="col">Bed area</th><th scope="col">Depth</th><th scope="col">Cubic yards</th><th scope="col">Short tons</th><th scope="col">0.5-cu-ft bags</th></tr></thead>
               <tbody>
                 <tr><th scope="row">100 sq ft</th><td>2 in</td><td>0.62</td><td>0.83</td><td>34</td></tr>
@@ -177,17 +177,15 @@ const faqItems = [
 
         <aside class="sources" aria-label="Gardening and weed-management references">
           <h2>Field references</h2>
-          <p>Depth and maintenance guidance follows <a href="https://extension.usu.edu/cwel/principles">Utah State University Extension</a>, <a href="https://yardandgarden.extension.iastate.edu/how-to/using-mulch-garden">Iowa State University Extension</a>, and <a href="https://ipm.ucanr.edu/home-and-landscape/weed-management-in-landscapes/">University of California IPM</a>. Supplier density and installed depth still need local confirmation.</p>
+          <p>Depth and maintenance guidance draws from <a href="https://extension.usu.edu/cwel/principles">Utah State University Extension</a>, <a href="https://yardandgarden.extension.iastate.edu/how-to/using-mulch-garden">Iowa State University Extension</a>, and <a href="https://ipm.ucanr.edu/home-and-landscape/weed-management-in-landscapes/">University of California IPM</a>. Confirm delivered bulk weight locally.</p>
         </aside>
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/landscape-rock-calculator" />
-<section class="container section"><h2>Which estimate should you use?</h2><p>This page focuses on a decorative landscape bed. Use the <a href="/">main calculator</a> for more shapes, saved zones and a 3D preview; use the <a href="/garden-rock-calculator">garden tool</a> when excluding uncovered planting pockets, or <a href="/calculator-widget">embed the calculator</a> on your own website.</p></section>
+    <TopicClusterNav />
   </main>
 
   <Footer />
-  <script src="../scripts/app.js"></script>
 </BaseLayout>
 
 <style>

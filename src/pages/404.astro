@@ -3,20 +3,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
-<BaseLayout title="Page Not Found | Rock Coverage Calculator" description="Find a rock calculator or project guide from our calculator library." canonicalPath="/404" noindex>
+
+<BaseLayout title="Page Not Found | Rock Coverage Calculator" description="Find a rock calculator, unit converter, or project guide from our calculator library." canonicalPath="/404" noindex>
   <Header />
   <main id="main-content" class="container missing-page">
-    <p>404</p>
+    <p class="eyebrow">404 Error</p>
     <h1>We couldn’t find that page</h1>
-    <p>Check the address, or choose a calculator for your project.</p>
-    <a href="/" class="btn btn-primary">Rock coverage calculator</a>
-    <a href="/calculators" class="btn">Browse calculators and guides</a>
+    <p>That link may have moved during a site cleanup or been mistyped. Choose a calculator or guide below to continue estimating.</p>
+
+    <div class="missing-actions">
+      <a href="/" class="btn btn-primary">Main Coverage Calculator</a>
+      <a href="/calculators" class="btn btn-secondary">All Calculators &amp; Guides</a>
+    </div>
+
+    <nav class="missing-grid" aria-label="Popular rock calculators and references">
+      <a href="/gravel-calculator"><strong>Gravel Calculator</strong><span>Loose yards, short tons, and supplier presets</span></a>
+      <a href="/pea-gravel-calculator"><strong>Pea Gravel Calculator</strong><span>Walkways, patios, beds, and bag yield</span></a>
+      <a href="/crushed-stone-calculator"><strong>Crushed Stone Calculator</strong><span>Clean #57 stone and base quantities</span></a>
+      <a href="/rock-coverage-chart"><strong>Coverage Reference Chart</strong><span>Square feet per yard, ton, and bag by depth</span></a>
+      <a href="/rock-density-chart"><strong>Rock Density Chart</strong><span>Planning weights and lb/yd³ reference</span></a>
+      <a href="/which-rock-should-i-use"><strong>Which Rock Should I Use?</strong><span>Compare aggregates for your site and traffic</span></a>
+    </nav>
   </main>
   <Footer />
 </BaseLayout>
+
 <style>
-  .missing-page { padding-block: var(--space-16); min-height: 55vh; }
-  .missing-page h1 { margin-bottom: var(--space-5); }
-  .missing-page p { margin-bottom: var(--space-6); }
-  .missing-page a { margin: 0 var(--space-3) var(--space-3) 0; }
+  .missing-page { max-width: 960px; padding-block: var(--space-12); min-height: 60vh; }
+  .eyebrow { color: var(--accent-gold); font-size: var(--text-xs); font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-bottom: var(--space-2); }
+  .missing-page h1 { margin-bottom: var(--space-4); color: var(--text-primary); }
+  .missing-page > p { max-width: 60ch; color: var(--text-secondary); margin-bottom: var(--space-6); line-height: 1.7; }
+  .missing-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-8); }
+  .missing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); }
+  .missing-grid a { display: block; padding: var(--space-4); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); text-decoration: none; }
+  .missing-grid a:hover { border-color: var(--accent-gold); }
+  .missing-grid strong { display: block; color: var(--text-primary); margin-bottom: 4px; }
+  .missing-grid span { display: block; color: var(--text-secondary); font-size: var(--text-sm); line-height: 1.45; }
 </style>

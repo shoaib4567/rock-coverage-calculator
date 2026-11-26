@@ -16,16 +16,16 @@
           <p class="deco-help">These weights are planning examples for loose rock. The number on your supplier's quote takes priority.</p>
           <div class="deco-material-grid">
             <button class="deco-material active" type="button" aria-pressed="true" data-name="Mixed decorative stone" data-density="1.30" data-bag-volume="0.5" data-tone="mixed">
-              <strong>Mixed decorative stone</strong><span>1.30 US tons / yd³ example</span>
+              <strong>Mixed decorative stone</strong><span>1.30 tons / yd³ example</span>
             </button>
             <button class="deco-material" type="button" aria-pressed="false" data-name="White marble chips" data-density="1.35" data-bag-volume="0.5" data-tone="marble">
-              <strong>White marble chips</strong><span>1.35 US tons / yd³ example</span>
+              <strong>White marble chips</strong><span>1.35 tons / yd³ example</span>
             </button>
             <button class="deco-material" type="button" aria-pressed="false" data-name="Red lava rock" data-density="0.75" data-bag-volume="0.5" data-tone="lava">
-              <strong>Red lava rock</strong><span>0.75 US tons / yd³ example</span>
+              <strong>Red lava rock</strong><span>0.75 tons / yd³ example</span>
             </button>
-            <button class="deco-material" type="button" aria-pressed="false" data-name="Beach pebbles" data-density="1.35" data-bag-volume="0.25" data-tone="pebble">
-              <strong>Beach pebbles</strong><span>1.35 US tons / yd³ placeholder</span>
+            <button class="deco-material" type="button" aria-pressed="false" data-name="Beach pebbles" data-density="1.30" data-bag-volume="0.25" data-tone="pebble">
+              <strong>Beach pebbles</strong><span>1.30 tons / yd³ example</span>
             </button>
           </div>
         </fieldset>
@@ -35,11 +35,11 @@
           <label>Width <span>feet</span><input id="deco-width" type="number" inputmode="decimal" min="0.01" step="any" value="10" /></label>
           <label>Finished depth <span>inches</span><input id="deco-depth" type="number" inputmode="decimal" min="0.25" step="any" value="3" /></label>
           <label>Extra for edges / spill <span>%</span><input id="deco-extra" type="number" inputmode="decimal" min="0" max="100" step="any" value="0" /></label>
-          <label>Loose bulk weight <span>US tons / yd³</span><input id="deco-density" type="number" inputmode="decimal" min="0.01" step="any" value="1.30" /></label>
+          <label>Loose bulk weight <span>short tons / yd³</span><input id="deco-density" type="number" inputmode="decimal" min="0.01" step="any" value="1.30" /></label>
           <label>Bag volume on label <span>ft³ / bag</span><input id="deco-bag-size" type="number" inputmode="decimal" min="0.01" step="any" value="0.5" /></label>
         </div>
         <p class="deco-help" id="deco-bag-hint">The 0.5 ft³ bag is a starting example. Enter the volume printed on the product you will buy; bag count does not come from pounds.</p>
-        <p class="deco-help">US short ton = 2,000 lb. Only add an allowance you actually need.</p>
+        <p class="deco-help">One short ton = 2,000 lb. Only add an allowance you actually need.</p>
       </div>
 
       <div class="deco-panel deco-result" aria-live="polite">
@@ -47,7 +47,7 @@
         <p class="deco-error" id="deco-error" hidden>Correct the highlighted inputs. Dimensions must be at least 0.01 ft, depth at least 0.25 in, weight and bag size at least 0.01, and extra 0–100%.</p>
         <div class="deco-result-grid">
           <div class="deco-result-main"><strong id="deco-yards">0.93</strong><span>cubic yards to order</span></div>
-          <div><strong id="deco-tons">1.20</strong><span>US short tons, estimated</span></div>
+          <div><strong id="deco-tons">1.20</strong><span>short tons, estimated</span></div>
           <div><strong id="deco-bags">50</strong><span>bags at your labeled volume</span></div>
         </div>
         <dl class="deco-breakdown">
@@ -73,7 +73,7 @@
     const numericInputs = ['deco-length', 'deco-width', 'deco-depth', 'deco-extra', 'deco-density', 'deco-bag-size'].map(input);
     const bagField = input('deco-bag-size');
     let bagVolumeEdited = false;
-    const display = (value: number, digits = 2) => value.toLocaleString('en-US', { maximumFractionDigits: digits, minimumFractionDigits: digits });
+    const display = (value: number, digits = 2) => value.toLocaleString('en', { maximumFractionDigits: digits, minimumFractionDigits: digits });
     const empty = ['deco-area', 'deco-base', 'deco-extra-volume', 'deco-total', 'deco-yards', 'deco-tons', 'deco-bags', 'deco-pounds'];
 
     function calculate() {
@@ -111,8 +111,8 @@
       output('deco-yards').textContent = display(yards);
       const tons = checks['deco-density'] ? yards * density : NaN;
       output('deco-tons').textContent = Number.isFinite(tons) ? display(tons) : '—';
-      output('deco-pounds').textContent = Number.isFinite(tons) ? Math.round(tons * 2000).toLocaleString('en-US') + ' lb' : '—';
-      output('deco-bags').textContent = checks['deco-bag-size'] ? Math.ceil(total / bagSize - 1e-10).toLocaleString('en-US') : '—';
+      output('deco-pounds').textContent = Number.isFinite(tons) ? Math.round(tons * 2000).toLocaleString('en') + ' lb' : '—';
+      output('deco-bags').textContent = checks['deco-bag-size'] ? Math.ceil(total / bagSize - 1e-10).toLocaleString('en') : '—';
     }
 
     function updateBagHint(tone: string) {
@@ -177,7 +177,7 @@
   .deco-breakdown dd { margin:0; font-weight:650; text-align:right; }
   .deco-formula,.deco-order-note { color:var(--text-muted); font-size:.83rem; line-height:1.55; margin:var(--space-3) 0 0; }
   .deco-order-note { border-left:3px solid var(--accent-gold); padding-left:var(--space-3); }
-  .deco-error { color:#f87171; margin:0 0 var(--space-4); font-size:.85rem; }
+  .deco-error { color:var(--color-error); font-weight:600; margin:0 0 var(--space-4); font-size:.85rem; }
   @media(max-width:850px) { .deco-layout { grid-template-columns:1fr; } }
   @media(max-width:520px) { .deco-panel { padding:var(--space-4); } .deco-material-grid { grid-template-columns:1fr; } }
 </style>

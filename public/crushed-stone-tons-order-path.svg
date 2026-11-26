@@ -31,7 +31,7 @@
     <text x="636" y="249" fill="#f3f0e8" font-size="22">4.50 tons × 1.10</text>
     <text x="636" y="283" fill="#c2d4c4" font-size="17">10% added to order</text>
     <text x="636" y="355" fill="#fff" font-size="34" font-weight="700">4.95 tons</text>
-    <text x="48" y="448" fill="#d1dbd9" font-size="18">Planning example: #57 stone at 1.35 US short tons/yd³</text>
+    <text x="48" y="448" fill="#d1dbd9" font-size="18">Planning example: #57 stone at 1.35 short tons/yd³</text>
     <text x="48" y="478" fill="#a9bec1" font-size="16">Replace sample bulk weight and extra with your supplier’s figures.</text>
   </g>
 </svg>

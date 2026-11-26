@@ -6,7 +6,7 @@
     <div class="section-header">
       <h2>Rock Tonnage & Quarry Scale Calculator</h2>
       <div class="section-divider"></div>
-      <p>Convert loose cubic yards or a measured layer to estimated US short tons using supplier bulk weight. Add a moisture adjustment only if that factor is not already included in the quoted weight.</p>
+      <p>Convert loose cubic yards or a measured layer to estimated short tons (2,000 lb) using supplier bulk weight. Add a moisture adjustment only when not already included in the quoted weight.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -27,24 +27,24 @@
           <div class="dim-grid">
             <div class="input-field">
               <label for="tons-length">Length</label>
-              <input type="number" id="tons-length" value="30" min="1" step="0.5" />
+              <input type="number" id="tons-length" value="30" min="0.1" step="any" />
               <span class="unit-label">feet</span>
             </div>
             <div class="input-field">
               <label for="tons-width">Width</label>
-              <input type="number" id="tons-width" value="12" min="1" step="0.5" />
+              <input type="number" id="tons-width" value="12" min="0.1" step="any" />
               <span class="unit-label">feet</span>
             </div>
           </div>
           <div class="dim-grid">
             <div class="input-field">
               <label for="tons-depth">Depth</label>
-              <input type="number" id="tons-depth" value="3.0" min="0.5" max="18" step="0.5" />
+              <input type="number" id="tons-depth" value="3.0" min="0.25" max="18" step="any" />
               <span class="unit-label">inches</span>
             </div>
             <div class="input-field">
               <label for="tons-waste">Quarry Delivery Buffer</label>
-              <input type="number" id="tons-waste" value="10" min="0" max="25" step="1" />
+              <input type="number" id="tons-waste" value="10" min="0" max="50" step="any" />
               <span class="unit-label">% extra</span>
             </div>
           </div>
@@ -54,7 +54,7 @@
         <div id="tons-yards-container" style="display: none;">
           <div class="input-field" style="margin-bottom: var(--space-4);">
             <label for="tons-direct-yards">Cubic Yards</label>
-            <input type="number" id="tons-direct-yards" value="4.0" min="0.1" step="0.25" />
+            <input type="number" id="tons-direct-yards" value="4.0" min="0.05" step="any" />
             <span class="unit-label">yd³</span>
           </div>
         </div>
@@ -74,9 +74,9 @@
             <div class="dens-title">Crushed Granite / Traprock</div>
             <div class="dens-spec">1.40 Tons/yd³ (2,800 lbs/yd³)</div>
           </button>
-          <button type="button" class="dens-btn" data-density="1.50" data-name="Dense Graded Base / Quarry Process / #411">
-            <div class="dens-title">Crushed Base with Fines (#411 / DGA)</div>
-            <div class="dens-spec">1.50 Tons/yd³ (3,000 lbs/yd³ uncompacted)</div>
+          <button type="button" class="dens-btn" data-density="1.45" data-name="Dense Graded Base / Quarry Process / #411">
+            <div class="dens-title">Crushed Base with Fines (#411 / 21-A)</div>
+            <div class="dens-spec">1.45 Tons/yd&sup3; (2,900 lbs/yd&sup3; loose)</div>
           </button>
           <button type="button" class="dens-btn" data-density="0.75" data-name="Volcanic Lava Rock (Red/Black)">
             <div class="dens-title">Volcanic Lava Rock</div>
@@ -84,7 +84,7 @@
           </button>
         </div>
 
-        <div class="input-group"><label for="tons-supplier-density">Supplier loose weight (US short tons per cubic yard)</label><input id="tons-supplier-density" type="number" min="0.01" step="0.01" value="1.35"/><p id="tons-input-error" role="alert"></p><p>Presets fill this example. Enter the actual supplier weight; leave extra moisture at zero when already included.</p></div>
+        <div class="input-field" style="margin-top: var(--space-3);"><label for="tons-supplier-density">Supplier loose weight (short tons per cubic yard)</label><input id="tons-supplier-density" type="number" min="0.01" step="any" value="1.35"/><span class="unit-label">t/yd&sup3;</span></div><p id="tons-input-error" style="color: var(--color-error); font-size: var(--text-xs); font-weight: 600; margin: var(--space-2) 0 0;" role="alert"></p><p style="font-size: var(--text-xs); color: var(--color-text-muted); margin: var(--space-1) 0 var(--space-3);">Presets fill this example. Enter the actual supplier weight; leave extra moisture at zero when already included.</p>
 <!-- Stockpile Moisture Saturation Slider -->
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
@@ -117,7 +117,7 @@
         <div class="kpi-grid">
           <div class="kpi-card highlight">
             <div class="kpi-value" id="kpi-scale-tons">0.00</div>
-            <div class="kpi-label">Estimated US Short Tons</div>
+            <div class="kpi-label">Estimated Short Tons</div>
             <div class="kpi-subtext" id="kpi-scale-lbs">0 lbs total payload</div>
           </div>
           <div class="kpi-card">
@@ -140,8 +140,8 @@
         <!-- Simulated Quarry Scale Ticket -->
         <div class="ticket-slip">
           <div class="ticket-header">
-            <span>OFFICIAL WEIGH-SCALE RECEIPT</span>
-            <span>TICKET #74921</span>
+            <span>ESTIMATED WEIGHT WORKSHEET</span>
+            <span>PLANNING ONLY</span>
           </div>
           <div class="ticket-row">
             <span>Material Classification:</span>
@@ -531,7 +531,7 @@ function initTonsCalculator() {
       const length = Math.max(0.5, parseFloat(lengthInput.value) || 0);
       const width = Math.max(0.5, parseFloat(widthInput.value) || 0);
       const depthInches = Math.max(0.25, parseFloat(depthInput.value) || 0);
-      const wastePercent = parseFloat(wasteInput.value) || 0;
+      const wastePercent = Math.max(0, parseFloat(wasteInput.value) || 0);
 
       const area = length * width;
       const netCuFt = area * (depthInches / 12);

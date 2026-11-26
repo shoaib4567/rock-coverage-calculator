@@ -13,8 +13,8 @@ const breadcrumbs = [
 ];
 const entityTags = [
   { label: 'Rock family', value: 'Basalt and diabase trap rock' },
-  { label: 'Buying units', value: 'Cubic yards or US short tons' },
-  { label: 'Weight example', value: '2,600 lb/cu yd; editable' }
+  { label: 'Buying units', value: 'Cubic yards, short tons, or bags' },
+  { label: 'Weight example', value: '2,600 lb/cu yd (1.30 t/yd³ editable)' }
 ];
 const quickStats = [
   { value: '0.93 cu yd', label: '100 sq ft at 3 in', desc: 'Finished layer volume before optional extra.' },
@@ -24,15 +24,15 @@ const quickStats = [
 const faqItems = [
   {
     q: 'How much trap rock do I need for 100 square feet?',
-    a: 'At a finished depth of 3 inches, 100 square feet requires 25 cubic feet, or 0.93 cubic yard, before any optional order extra. Using Dresser Trap Rock’s average 2,600 pounds per cubic yard, that volume is about 1.20 US short tons. Ask your supplier for the loose bulk weight of the exact gradation you are buying.'
+    a: 'At a finished depth of 3 inches, 100 square feet requires 25 cubic feet, or 0.93 cubic yard, before any optional order extra. Using Dresser Trap Rock’s average 2,600 pounds per cubic yard, that volume is about 1.20 short tons or 50 half-cubic-foot bags. Ask your supplier for the loose bulk weight of the exact gradation you are buying.'
   },
   {
     q: 'How many square feet will one ton of trap rock cover?',
-    a: 'At 3 inches deep and an example loose bulk weight of 2,600 pounds per cubic yard, one US short ton covers about 83 square feet by volume. At 2 inches it covers about 125 square feet; at 4 inches, about 62. Product weight, finished depth, grading, and uneven ground change the estimate.'
+    a: 'At 3 inches deep and an example loose bulk weight of 2,600 pounds per cubic yard, one short ton covers about 83 square feet by volume. At 2 inches it covers about 125 square feet; at 4 inches, about 62. Product weight, finished depth, grading, and uneven ground change the estimate.'
   },
   {
     q: 'How much does a cubic yard of trap rock weigh?',
-    a: 'There is no single weight for every trap-rock gradation. Dresser Trap Rock lists an average of 1.3 US short tons (2,600 pounds) per cubic yard. Fick Supply lists 2,700 pounds per cubic yard for its 3/4- to 1-inch trap rock. Enter the weight given by your seller before converting cubic yards to tons.'
+    a: 'There is no single weight for every trap-rock gradation. Dresser Trap Rock lists an average of 1.3 short tons (2,600 pounds) per cubic yard. Fick Supply lists 2,700 pounds per cubic yard for its 3/4- to 1-inch trap rock. Enter the weight given by your seller before converting cubic yards to tons.'
   },
   {
     q: 'Is clean trap rock the same as trap-rock driveway base?',
@@ -43,30 +43,11 @@ const faqItems = [
     a: 'A clean, open-graded trap-rock product can be used where the drain design calls for that size and grading. A dense-graded driveway base containing fines is a different product and can obstruct the open spaces that carry water. For a pipe trench, use the Drain Rock Calculator to account for pipe displacement and the actual stone envelope.'
   }
 ];
-const upLinks = [
-  { title: 'Rock Coverage Calculator', slug: '/', badge: 'Main tool' },
-  { title: 'Crushed Stone Calculator', slug: '/crushed-stone-calculator', badge: 'Material hub' }
-];
-const lateralLinks = [
-  { title: 'Crusher Run Calculator', slug: '/crusher-run-calculator', badge: 'Graded base' },
-  { title: 'Crushed Granite Calculator', slug: '/crushed-granite-calculator', badge: 'Other quarried stone' },
-  { title: 'Driveway Rock Calculator', slug: '/driveway-rock-calculator', badge: 'Surface planning' }
-];
-const bridgeLinks = [
-  { title: 'Drain Rock Calculator', slug: '/drain-rock-calculator', badge: 'Clean stone trench' },
-  { title: 'Riprap Calculator', slug: '/riprap-calculator', badge: 'Larger erosion stone' },
-  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Bulk weight' }
-];
-const supportGuides = [
-  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Stone shape' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Layer depth' },
-  { title: 'How Much Rock Do I Need?', slug: '/how-much-rock-do-i-need', badge: 'Measuring' }
-];
 ---
 
 <BaseLayout
   title={pageTitle}
-  metaDescription="Estimate trap rock cubic yards and US short tons from area and finished depth. Adjust supplier bulk weight, compare clean stone with graded base, and check one-ton coverage."
+  description="Estimate trap rock cubic yards, short tons, and bag yield from area and finished depth. Adjust supplier bulk weight, compare clean stone with graded base, and check one-ton coverage."
   canonicalPath="/trap-rock-calculator"
 >
   <Fragment slot="head">
@@ -75,10 +56,9 @@ const supportGuides = [
       '@type': 'WebApplication',
       name: pageTitle,
       url: 'https://rockcoveragecalculator.com/trap-rock-calculator',
-      description: 'Estimates the volume and supplier-specific bulk weight of a trap-rock layer.',
+      description: 'Estimates the volume, bag yield, and supplier-specific bulk weight of a basalt or diabase trap-rock layer.',
       applicationCategory: 'UtilityApplication',
-      operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      operatingSystem: 'Web'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -97,7 +77,7 @@ const supportGuides = [
       title={pageTitle}
       highlightWord="Calculator"
       badge="Quarry stone quantity planner"
-      subtitle="A 100 sq ft layer of trap rock at a finished 3 in depth takes 25 cu ft (0.93 cu yd). At Dresser Trap Rock’s example loose weight of 2,600 lb/cu yd, that is about 1.20 US short tons before any optional extra. Change the weight to match your supplier’s product."
+      subtitle="A 100 sq ft layer of trap rock at a finished 3 in depth takes 25 cu ft (0.93 cu yd or 50 half-cubic-foot bags). At 2,600 lb/cu yd, that is about 1.20 short tons before any optional extra. Change the weight to match your supplier’s product."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -108,16 +88,16 @@ const supportGuides = [
       <div class="container">
         <div class="trap-section-head">
           <div>
-            <p class="trap-eyebrow">Measure → convert → order</p>
-            <h2 id="trap-tool-title">Calculate the layer first, then its weight</h2>
+            <p class="trap-eyebrow">Measure &rarr; convert &rarr; order</p>
+            <h2 id="trap-tool-title">Calculate the layer first, then its weight and bags</h2>
           </div>
-          <p>Volume comes from the space you are filling. Tons depend on the particular trap-rock product and its loose bulk weight. Keep those two measurements separate when you call the yard.</p>
+          <p>Volume comes from the space you are filling. Short tons depend on the particular trap-rock product and its loose bulk weight. Keep those two measurements separate when you call the yard.</p>
         </div>
         <div class="trap-tool-grid">
           <div class="trap-panel trap-inputs">
             <fieldset class="trap-modes">
               <legend>How do you know the area?</legend>
-              <label><input type="radio" name="trap-mode" value="dimensions" checked /> Length × width</label>
+              <label><input type="radio" name="trap-mode" value="dimensions" checked /> Length &times; width</label>
               <label><input type="radio" name="trap-mode" value="area" /> Total square feet</label>
             </fieldset>
             <div class="trap-fields" id="trap-dimensions-fields">
@@ -131,13 +111,19 @@ const supportGuides = [
               <div class="trap-field"><label for="trap-depth">Finished layer depth <span>(in)</span></label><input id="trap-depth" type="number" min="0.25" max="24" step="any" inputmode="decimal" value="3" /></div>
               <div class="trap-field"><label for="trap-extra">Optional order extra <span>(%)</span></label><input id="trap-extra" type="number" min="0" max="100" step="any" inputmode="decimal" value="0" aria-describedby="trap-extra-help" /></div>
             </div>
-            <p class="trap-help" id="trap-extra-help">Use extra only for a measured uneven subgrade, spillage, or another site reason. This is an order allowance, not a fixed “trap rock compaction” rate.</p>
+            <p class="trap-help" id="trap-extra-help">Use extra only for a measured uneven subgrade, spillage, or another site reason. This is an order allowance, not a fixed compaction rate.</p>
             <div class="trap-divider"></div>
-            <div class="trap-field">
-              <label for="trap-density">Supplier loose bulk weight <span>(lb/cu yd)</span></label>
-              <input id="trap-density" type="number" min="100" max="10000" step="any" inputmode="decimal" value="2600" aria-describedby="trap-density-help" />
-              <p class="trap-help" id="trap-density-help">Starts at <a href="https://dressertraprock.com/price-schedule/">Dresser Trap Rock’s listed 1.3 US short tons per cubic yard</a>. <a href="https://shop.ficksupply.com/product/trap-small-34-1">Fick lists 2,700 lb/cu yd</a> for its 3/4–1 in product. Your material may differ.</p>
+            <div class="trap-fields">
+              <div class="trap-field">
+                <label for="trap-density">Loose bulk weight <span>(lb/cu yd)</span></label>
+                <input id="trap-density" type="number" min="100" max="10000" step="any" inputmode="decimal" value="2600" aria-describedby="trap-density-help" />
+              </div>
+              <div class="trap-field">
+                <label for="trap-bag">Bag volume <span>(cu ft/bag)</span></label>
+                <input id="trap-bag" type="number" min="0.05" max="50" step="any" inputmode="decimal" value="0.5" />
+              </div>
             </div>
+            <p class="trap-help" id="trap-density-help">Starts at <a href="https://dressertraprock.com/price-schedule/">Dresser Trap Rock’s listed 1.3 short tons per cubic yard</a>. <a href="https://shop.ficksupply.com/product/trap-small-34-1">Fick lists 2,700 lb/cu yd</a> for its 3/4–1 in product. Your material may differ.</p>
             <p class="trap-error" id="trap-error" role="alert"></p>
           </div>
           <div class="trap-panel trap-results">
@@ -146,11 +132,11 @@ const supportGuides = [
             <p class="trap-result-note"><output id="trap-finished-feet">25.00</output> cu ft before optional extra</p>
             <div class="trap-result-grid">
               <div><span>Planned bulk order</span><strong><output id="trap-order-yards">0.93</output> cu yd</strong></div>
-              <div><span>Estimated US short tons</span><strong><output id="trap-order-tons">1.20</output> tons</strong></div>
+              <div><span>Estimated short tons</span><strong><output id="trap-order-tons">1.20</output> tons</strong></div>
               <div><span>One ton covers at this depth</span><strong><output id="trap-ton-coverage">83.1</output> sq ft</strong></div>
-              <div><span>Measured area</span><strong><output id="trap-measured-area">100</output> sq ft</strong></div>
+              <div><span>Bag yield (0.5 cu ft/bag)</span><strong><output id="trap-order-bags">50</output> bags</strong></div>
             </div>
-            <p class="trap-result-note">The ton figure estimates loose material from the weight entered. Ask whether your supplier sells by measured tons or bucket volume, and whether delivery has a minimum.</p>
+            <p class="trap-result-note">Measured area: <strong><output id="trap-measured-area">100</output> sq ft</strong>. Confirm whether your supplier sells by measured tons or bucket volume, and whether delivery has a minimum.</p>
             <p class="trap-sr-only" id="trap-result-summary" aria-live="polite"></p>
           </div>
         </div>
@@ -175,12 +161,12 @@ const supportGuides = [
         <section class="trap-feature" aria-labelledby="trap-example-title">
           <div>
             <p class="trap-eyebrow">The calculation</p>
-            <h2 id="trap-example-title">A 20 × 5 ft area at 3 inches</h2>
-            <p>Measure only the part that will receive trap rock. This 100 sq ft layer is <strong>25 cu ft</strong> (100 × 3 ÷ 12) or <strong>0.93 cu yd</strong> (25 ÷ 27). Using <a href="https://dressertraprock.com/price-schedule/">Dresser’s 2,600 lb/cu yd average</a>, its estimated loose ordering weight is <strong>2,407 lb, or 1.20 US short tons</strong>. The volume is the same if another supplier’s product weighs more or less.</p>
+            <h2 id="trap-example-title">A 20 &times; 5 ft area at 3 inches</h2>
+            <p>Measure only the part that will receive trap rock. This 100 sq ft layer is <strong>25 cu ft</strong> (100 &times; 3 &divide; 12) or <strong>0.93 cu yd</strong> (25 &divide; 27), equal to <strong>50 bags</strong> at 0.5 cu ft per bag. Using <a href="https://dressertraprock.com/price-schedule/">Dresser’s 2,600 lb/cu yd average</a>, its estimated loose ordering weight is <strong>2,407 lb, or 1.20 short tons</strong>.</p>
             <div class="trap-formula" aria-label="Trap rock quantity formulas">
-              <p><strong>Finished cu ft</strong> = area (sq ft) × finished depth (in) ÷ 12</p>
-              <p><strong>Planned cu yd</strong> = finished cu ft × (1 + optional extra ÷ 100) ÷ 27</p>
-              <p><strong>US short tons</strong> = planned cu yd × supplier lb/cu yd ÷ 2,000</p>
+              <p><strong>Finished cu ft</strong> = area (sq ft) &times; finished depth (in) &divide; 12</p>
+              <p><strong>Planned cu yd</strong> = finished cu ft &times; (1 + optional extra &divide; 100) &divide; 27</p>
+              <p><strong>Short tons</strong> = planned cu yd &times; supplier lb/cu yd &divide; 2,000</p>
             </div>
             <p>Supplier coverage suggestions are useful for shopping, but a range such as “2–3 inches” cannot yield one exact square-foot figure. Choose a finished depth first, then compare the estimate with the yard’s product guidance.</p>
           </div>
@@ -193,25 +179,25 @@ const supportGuides = [
         <section class="trap-card" aria-labelledby="trap-grade-title">
           <p class="trap-eyebrow">Name the product</p>
           <h2 id="trap-grade-title">“Trap rock” is a rock type, not one gradation</h2>
-          <p><a href="https://pubs.usgs.gov/ha/ha730/ch_l/L-text4.html">USGS groups basalt and diabase under trap rock</a>. A quarry then crushes and screens that rock into different products. <a href="https://dressertraprock.com/price-schedule/">Dresser’s current schedule</a> separately lists 3/4 in rock, 3/4 in Class 5 base, and drain-field stone. Ask for the product name and size range, not only the geological name.</p>
+          <p><a href="https://pubs.usgs.gov/ha/ha730/ch_l/L-text4.html">USGS groups basalt and diabase under trap rock</a>. A quarry crushes and screens that stone into distinct grades. Ask for the size range or DOT code, not just “trap rock.”</p>
           <div class="trap-grade-grid">
-            <div class="trap-grade-item"><span>01 / CLEAN</span><h3>Open-graded crushed rock</h3><p>Little fine material leaves spaces between pieces. Check the actual product specification for a <a href="/drain-rock-calculator">drain trench</a>, an open-graded base, or a contained decorative surface. It may move under tires if used as an unsupported driveway wearing course.</p></div>
-            <div class="trap-grade-item"><span>02 / GRADED</span><h3>Minus or Class 5 base</h3><p>A range of coarse and fine particles is intended to compact into a firmer base. <a href="https://www.fhwa.dot.gov/publications/research/infrastructure/pavements/97148/073.cfm">FHWA distinguishes dense-graded structural bases from open-graded drainage layers</a>. Ask the yard for its compaction guidance and loose delivery weight.</p></div>
-            <div class="trap-grade-item"><span>03 / LARGE</span><h3>Drain-field or erosion stone</h3><p>Larger screened rock serves a different design. Dresser lists a 1–4 in drain-field product and still larger erosion sizes. Use the project specification for size and thickness; a 3 in decorative-layer example should not be copied to those applications.</p></div>
+            <div class="trap-grade-item"><span>01 / CLEAN</span><h3>Open-graded crushed rock</h3><p>Little fine material leaves open spaces between stones. Works for a <a href="/drain-rock-calculator">drain trench</a>, railroad ballast, open-graded base, or contained dark trim bed. Unconfined clean stone can shift under steering wheels.</p></div>
+            <div class="trap-grade-item"><span>02 / GRADED</span><h3>Minus or Class 5 base</h3><p>A full blend of coarse stone and fines compacts into a tight structural pad. <a href="https://www.fhwa.dot.gov/publications/research/infrastructure/pavements/97148/073.cfm">FHWA distinguishes dense-graded bases from open-graded drainage layers</a>. Plan compactable lifts on the <a href="/crusher-run-calculator">crusher run calculator</a>.</p></div>
+            <div class="trap-grade-item"><span>03 / LARGE</span><h3>Drain-field or erosion stone</h3><p>1–4 in drain-field stone and heavy erosion basalt require deeper trenches and armor slope calculations. Use dedicated specs or our <a href="/riprap-calculator">riprap calculator</a> for sloped bank protection.</p></div>
           </div>
         </section>
 
         <section class="trap-card" aria-labelledby="trap-table-title">
           <p class="trap-eyebrow">Reference</p>
           <h2 id="trap-table-title">Coverage changes with finished depth</h2>
-          <p>These are geometric yields at the <strong>2,600 lb/cu yd example weight</strong>, before any order extra. One cubic yard always contains 27 cu ft; the square feet per short ton depend on bulk weight. For another product, change the calculator field.</p>
+          <p>Geometric yields at <strong>2,600 lb/cu yd</strong>, before any order extra. Adjust the calculator density above to match a heavier 2,700–2,900 lb/cu yd basalt quarry.</p>
           <div class="trap-table-wrap">
             <table>
               <thead><tr><th scope="col">Finished depth</th><th scope="col">Sq ft per cu yd</th><th scope="col">Sq ft per short ton</th><th scope="col">100 sq ft needs</th></tr></thead>
               <tbody>
-                <tr><th scope="row">2 in</th><td>162</td><td>124.6</td><td>0.62 cu yd / 0.80 ton</td></tr>
-                <tr><th scope="row">3 in</th><td>108</td><td>83.1</td><td>0.93 cu yd / 1.20 tons</td></tr>
-                <tr><th scope="row">4 in</th><td>81</td><td>62.3</td><td>1.23 cu yd / 1.60 tons</td></tr>
+                <tr><th scope="row">2 in</th><td>162</td><td>124.6</td><td>0.62 cu yd / 0.80 ton (34 bags)</td></tr>
+                <tr><th scope="row">3 in</th><td>108</td><td>83.1</td><td>0.93 cu yd / 1.20 tons (50 bags)</td></tr>
+                <tr><th scope="row">4 in</th><td>81</td><td>62.3</td><td>1.23 cu yd / 1.60 tons (67 bags)</td></tr>
               </tbody>
             </table>
           </div>
@@ -222,19 +208,19 @@ const supportGuides = [
           <div>
             <p class="trap-eyebrow">Before you call the quarry</p>
             <h2 id="trap-buy-title">Four details that make a useful quote</h2>
-            <p>Bring a material takeoff that a supplier can verify. It is especially useful when the same yard stocks clean decorative trap, compactable base, and larger drainage or erosion grades.</p>
+            <p>Bring a material takeoff that a supplier can verify—especially where a yard stocks clean decorative basalt, Class 5 road base, and oversized riprap side by side.</p>
           </div>
           <ol>
-            <li><strong>State the use and grade.</strong> A driveway base, visible stone bed, and pipe trench call for different gradations. Ask for the full product name and size range.</li>
+            <li><strong>State the use and grade.</strong> A driveway base, decorative rock bed, and pipe trench require different gradations. Ask for the full product name and sieve size range.</li>
             <li><strong>Give area and finished depth.</strong> Measure the actual footprint, deduct large features, and note low spots separately. See the <a href="/rock-depth-guide">depth guide</a> for layer planning.</li>
-            <li><strong>Confirm units and weight.</strong> Ask whether the quote is by cubic yard or US short ton and what loose weight per cubic yard they use for that load. A truck scale ticket is a delivered weight; it does not prove a universal density.</li>
-            <li><strong>Check delivery and placement.</strong> Confirm the minimum order, drop location, access, and whether the grade you chose is currently available. Keep clean drain stone separate from any base containing fines.</li>
+            <li><strong>Confirm units and weight.</strong> Ask whether the quote is by cubic yard or short ton and what loose weight per cubic yard they use for that load.</li>
+            <li><strong>Check delivery and placement.</strong> Confirm minimum order volume, drop access, and keep clean drain stone separated from fines-bearing base stone.</li>
           </ol>
         </section>
 
         <section class="trap-card trap-sources" aria-labelledby="trap-sources-title">
           <h2 id="trap-sources-title">Source notes and practical limits</h2>
-          <p>The <a href="https://dressertraprock.com/price-schedule/">Dresser Trap Rock 2026 product schedule</a> supplies the 1.3-short-ton/cu-yd starting value and shows separate gradations. <a href="https://shop.ficksupply.com/product/trap-small-34-1">Fick’s 3/4–1 in listing</a> uses 2,700 lb/cu yd, illustrating why the field is editable. The <a href="https://www.fhwa.dot.gov/publications/research/infrastructure/pavements/97148/073.cfm">FHWA granular-base guide</a> explains how grading and fines affect base stability and drainage. The calculator estimates material volume; it cannot select a structural pavement design or predict the exact weight of a wet, graded delivery.</p>
+          <p>The <a href="https://dressertraprock.com/price-schedule/">Dresser Trap Rock schedule</a> supplies the 1.3-short-ton/cu-yd starting value and distinguishes clean grades from Class 5 base. <a href="https://shop.ficksupply.com/product/trap-small-34-1">Fick’s 3/4–1 in listing</a> cites 2,700 lb/cu yd. The <a href="https://www.fhwa.dot.gov/publications/research/infrastructure/pavements/97148/073.cfm">FHWA granular-base guide</a> explains how grading and fines govern compaction and permeability.</p>
         </section>
 
         <section class="trap-card" aria-labelledby="trap-faq-title">
@@ -246,7 +232,7 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
+    <TopicClusterNav />
   </main>
   <Footer />
 </BaseLayout>
@@ -261,12 +247,13 @@ const supportGuides = [
     const depth = byId('trap-depth') as HTMLInputElement;
     const extra = byId('trap-extra') as HTMLInputElement;
     const density = byId('trap-density') as HTMLInputElement;
+    const bag = byId('trap-bag') as HTMLInputElement;
     const knownTons = byId('trap-known-tons') as HTMLInputElement;
     const error = byId('trap-error') as HTMLElement;
     const reverseError = byId('trap-reverse-error') as HTMLElement;
     const dimensionsFields = byId('trap-dimensions-fields') as HTMLElement;
     const areaFields = byId('trap-area-fields') as HTMLElement;
-    const primaryOutputs = ['trap-finished-yards', 'trap-finished-feet', 'trap-order-yards', 'trap-order-tons', 'trap-ton-coverage', 'trap-measured-area'];
+    const primaryOutputs = ['trap-finished-yards', 'trap-finished-feet', 'trap-order-yards', 'trap-order-tons', 'trap-ton-coverage', 'trap-order-bags', 'trap-measured-area'];
 
     function valid(input: HTMLInputElement, min: number, max: number) {
       const value = Number(input.value);
@@ -289,6 +276,7 @@ const supportGuides = [
       const depthValue = valid(depth, 0.25, 24);
       const extraValue = valid(extra, 0, 100);
       const densityValue = valid(density, 100, 10000);
+      const bagValue = valid(bag, 0.05, 50);
       let area: number | null;
       if (mode === 'dimensions') {
         const lengthValue = valid(length, 0.01, 10000);
@@ -308,12 +296,14 @@ const supportGuides = [
         const finishedYards = finishedFeet / 27;
         output('trap-finished-feet', finishedFeet.toFixed(2));
         output('trap-finished-yards', finishedYards.toFixed(2));
-        output('trap-measured-area', area.toLocaleString('en-US', { maximumFractionDigits: 1 }));
+        output('trap-measured-area', area.toLocaleString('en', { maximumFractionDigits: 1 }));
         const plannedYards = extraValue === null ? null : finishedYards * (1 + extraValue / 100);
         const plannedTons = plannedYards === null || densityValue === null ? null : plannedYards * densityValue / 2000;
+        const plannedBags = plannedYards === null || bagValue === null ? null : Math.ceil((plannedYards * 27) / bagValue - 1e-10);
         output('trap-order-yards', plannedYards === null ? '—' : plannedYards.toFixed(2));
         output('trap-order-tons', plannedTons === null ? '—' : plannedTons.toFixed(2));
         output('trap-ton-coverage', densityValue === null ? '—' : (2000 / densityValue * 324 / depthValue).toFixed(1));
+        output('trap-order-bags', plannedBags === null ? '—' : plannedBags.toLocaleString());
         error.textContent = extraValue === null ? 'Enter an optional extra from 0 to 100% to plan an order.' : densityValue === null ? 'Enter a supplier bulk weight from 100 to 10,000 lb/cu yd for tons and one-ton coverage.' : '';
         output('trap-result-summary', plannedYards === null ? `${finishedYards.toFixed(2)} cubic yards installed for ${area.toFixed(1)} square feet.` : plannedTons === null ? `${plannedYards.toFixed(2)} cubic yards planned for ${area.toFixed(1)} square feet.` : `${plannedYards.toFixed(2)} cubic yards and ${plannedTons.toFixed(2)} short tons planned for ${area.toFixed(1)} square feet.`);
       }
@@ -326,7 +316,7 @@ const supportGuides = [
         reverseError.textContent = '';
       }
     }
-    [...modes, length, width, areaInput, depth, extra, density, knownTons].forEach(field => field.addEventListener('input', calculate));
+    [...modes, length, width, areaInput, depth, extra, density, bag, knownTons].forEach(field => field.addEventListener('input', calculate));
     calculate();
   }
   initTrapCalculator();

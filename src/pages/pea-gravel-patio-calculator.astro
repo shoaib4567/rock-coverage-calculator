@@ -15,7 +15,7 @@ const breadcrumbs = [
 const entityTags = [
   { label: 'Top layer', value: 'Washed, rounded pea gravel (often 3/8 in)' },
   { label: 'Base', value: 'Compacted angular crushed aggregate' },
-  { label: 'Outputs', value: 'Yards, US short tons, 0.5 ft³ bags, edging' }
+  { label: 'Outputs', value: 'Yards, short tons, 0.5 ft³ bags, edging' }
 ];
 
 const quickStats = [
@@ -27,7 +27,7 @@ const quickStats = [
 const faqItems = [
   {
     q: 'How much pea gravel and base do I need for a 12 × 16-foot patio?',
-    a: 'At the default 2-inch top layer and 4-inch finished base, a 192-square-foot patio needs 1.19 cubic yards of pea gravel (about 1.60 US short tons or 64 bags labeled 0.5 cubic foot). The base needs 2.37 cubic yards at finished depth, or 2.84 loose cubic yards with this calculator’s 20% order allowance (about 4.12 US short tons at its assumed density). Confirm bulk weights with your supplier.'
+    a: 'At the default 2-inch top layer and 4-inch finished base, a 192-square-foot patio needs 1.19 cubic yards of pea gravel (about 1.60 short tons or 64 bags labeled 0.5 cubic foot). The base needs 2.37 cubic yards at finished depth, or 2.84 loose cubic yards with this calculator’s 20% order allowance (about 4.12 short tons at its assumed density). Confirm bulk weights with your supplier.'
   },
   {
     q: 'Why use a crushed-stone base under pea gravel?',
@@ -46,30 +46,6 @@ const faqItems = [
     a: 'Narrow chair legs can sink or wobble because rounded stones roll. Broad furniture feet or a firm pad help, but loose pea gravel is still difficult for many mobility devices. For a reliably firm accessible route or dining surface, consider a properly built paver or other stable surface.'
   }
 ];
-
-const upLinks = [
-  { title: 'Pea Gravel Calculator (Material Parent)', slug: '/pea-gravel-calculator', badge: 'Material' },
-  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Coverage' },
-  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'Pea Gravel Tons Calculator', slug: '/pea-gravel-tons-calculator', badge: 'Tons' },
-  { title: 'Pea Gravel Cubic Yard Calculator', slug: '/pea-gravel-cubic-yard-calculator', badge: 'Yards' },
-  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Bags' }
-];
-
-const bridgeLinks = [
-  { title: 'Crusher Run Calculator (Base Layer)', slug: '/crusher-run-calculator', badge: 'Base Course' },
-  { title: 'Landscape Rock Installation', slug: '/how-to-install-landscape-rock', badge: 'Protocol' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' }
-];
-
-const supportGuides = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Economics' },
-  { title: 'Rock Density Reference Chart', slug: '/rock-density-chart', badge: 'ASTM C29' }
-];
 ---
 
 <BaseLayout
@@ -86,7 +62,7 @@ const supportGuides = [
       "description": "Estimates pea gravel patio surface stone, an optional compacted angular base, fabric, and edging with editable depths and density assumptions.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
-      "inLanguage": "en-US",
+      "inLanguage": "en",
       "audience": {
         "@type": "Audience",
         "audienceType": "Landscape Contractors, Hardscape Builders, Homeowners"
@@ -218,11 +194,11 @@ const supportGuides = [
               <p>These values change tons only. The yard and bag volumes stay the same.</p>
               <div class="dim-grid">
                 <div class="input-field">
-                  <label for="patio-top-density">Pea Gravel (US Short Tons/Yd³)</label>
+                  <label for="patio-top-density">Pea Gravel (Short Tons/Yd³)</label>
                   <input type="number" id="patio-top-density" value="1.35" min="0.01" step="0.01" />
                 </div>
                 <div class="input-field">
-                  <label for="patio-base-density">Loose Base (US Short Tons/Yd³)</label>
+                  <label for="patio-base-density">Loose Base (Short Tons/Yd³)</label>
                   <input type="number" id="patio-base-density" value="1.45" min="0.01" step="0.01" />
                 </div>
               </div>
@@ -299,7 +275,7 @@ const supportGuides = [
 
         <section aria-labelledby="estimate-method">
           <h2 id="estimate-method">What the calculator includes</h2>
-          <p>The example is a <strong>12 × 16-foot patio (192 square feet)</strong>. At 2 inches deep, the loose pea gravel surface needs <strong>32 cubic feet = 1.19 cubic yards</strong>. At the assumed 1.35 US short tons per cubic yard, that is about <strong>1.60 tons</strong>. By package volume, it is <strong>64 bags labeled 0.5 cubic foot</strong>. A bag labeled 50 pounds is a weight measure and may hold a different volume.</p>
+          <p>The example is a <strong>12 × 16-foot patio (192 square feet)</strong>. At 2 inches deep, the loose pea gravel surface needs <strong>32 cubic feet = 1.19 cubic yards</strong>. At the assumed 1.35 short tons per cubic yard, that is about <strong>1.60 tons</strong>. By package volume, it is <strong>64 bags labeled 0.5 cubic foot</strong>. A bag labeled 50 pounds is a weight measure and may hold a different volume.</p>
           <div class="formula-grid">
             <div class="formula-card">
               <h3>Pea gravel surface</h3>
@@ -310,7 +286,7 @@ const supportGuides = [
               <p>Area (ft²) × finished base depth (in) ÷ 12 ÷ 27 × 1.20 = loose cubic yards</p>
             </div>
           </div>
-          <p>The same footprint at 4 inches of <em>finished</em> base needs 2.37 cubic yards after compaction. The 20% order allowance raises that to <strong>2.84 loose cubic yards</strong>, or about <strong>4.12 US short tons</strong> at the assumed 1.45 tons per loose cubic yard. The allowance is a planning factor, not a measured compaction rate for every quarry product. Ask the yard for both loose bulk densities and expected compacted yield, then adjust the weight fields above. For another material alone, use the <a href="/crusher-run-calculator">crusher run calculator</a> or <a href="/pea-gravel-cubic-yard-calculator">pea gravel cubic yard calculator</a>.</p>
+          <p>The same footprint at 4 inches of <em>finished</em> base needs 2.37 cubic yards after compaction. The 20% order allowance raises that to <strong>2.84 loose cubic yards</strong>, or about <strong>4.12 short tons</strong> at the assumed 1.45 tons per loose cubic yard. The allowance is a planning factor, not a measured compaction rate for every quarry product. Ask the yard for both loose bulk densities and expected compacted yield, then adjust the weight fields above. For another material alone, use the <a href="/crusher-run-calculator">crusher run calculator</a> or <a href="/pea-gravel-calculator">pea gravel calculator</a>.</p>
           <p>The fabric line budgets <strong>one layer</strong> at the patio footprint plus 10% for cuts and overlaps; roll width and seam layout may require more. The edging line adds 5% or 10% to the perimeter. In area mode, enter a measured exposed perimeter for curves or walls; otherwise the tool estimates the perimeter of a square with the same area.</p>
         </section>
 
@@ -428,12 +404,7 @@ const supportGuides = [
     </article>
 
     <!-- Cluster Navigation Section -->
-    <TopicClusterNav
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav />
   </main>
 
   <Footer />
@@ -535,14 +506,14 @@ const supportGuides = [
         const topDensity = Number(inputTopDensity.value);
         const baseDensity = Number(inputBaseDensity.value);
         if (!Number.isFinite(topDensity) || topDensity <= 0 || !Number.isFinite(baseDensity) || baseDensity <= 0) {
-          showError('Enter both supplier densities as positive US short tons per cubic yard.', [inputTopDensity, inputBaseDensity]);
+          showError('Enter both supplier densities as positive short tons per cubic yard.', [inputTopDensity, inputBaseDensity]);
           return;
         }
 
         // Top layer volume is independent of supplier density.
         const topYards = (area * (topDepth / 12)) / 27;
         const topTons = topYards * topDensity;
-        const topBags = Math.ceil((topYards * 27) / 0.5); // bags labeled 0.5 ft³
+        const topBags = Math.ceil((topYards * 27) / 0.5 - 1e-10); // bags labeled 0.5 ft³
 
         // Base layer: 20% extra loose-order allowance over finished volume.
         const baseFinishedYards = (area * (baseDepth / 12)) / 27;
@@ -550,14 +521,14 @@ const supportGuides = [
         const baseTons = baseAdjustedYards * baseDensity;
 
         // Fabric (area + 10% overlap)
-        const fabricSqFt = Math.ceil(area * 1.10);
+        const fabricSqFt = Math.ceil(area * 1.10 - 1e-10);
 
         // Edging linear feet
-        const edgingFt = Math.ceil(perimeter * edgingBuffer);
+        const edgingFt = Math.ceil(perimeter * edgingBuffer - 1e-10);
 
-        resTopTons.textContent = `${topTons.toFixed(2)} Short Tons (${Math.round(topTons * 2000).toLocaleString()} lbs)`;
+        resTopTons.textContent = `${topTons.toFixed(2)} Short Tons (${Math.round(topTons * 2000).toLocaleString('en')} lbs)`;
         resTopYards.textContent = `${topYards.toFixed(2)} Cubic Yards`;
-        resTopBags.textContent = `${topBags.toLocaleString()} Bags`;
+        resTopBags.textContent = `${topBags.toLocaleString('en')} Bags`;
 
         if (baseDepth > 0) {
           resBaseTons.textContent = `${baseTons.toFixed(2)} Short Tons`;
@@ -569,8 +540,8 @@ const supportGuides = [
           resBaseFinished.textContent = '0.00 Cubic Yards';
         }
 
-        resFabric.textContent = `${fabricSqFt.toLocaleString()} Sq Ft (+10%)`;
-        resEdging.textContent = `${edgingFt.toLocaleString()} Linear Feet${perimeterEstimated ? ' (square estimate)' : ''}`;
+        resFabric.textContent = `${fabricSqFt.toLocaleString('en')} Sq Ft (+10%)`;
+        resEdging.textContent = `${edgingFt.toLocaleString('en')} Linear Feet${perimeterEstimated ? ' (square estimate)' : ''}`;
       }
 
       [inputLen, inputWid, inputArea, inputPerimeter, inputTopDepth, inputBaseDepth, inputEdgingBuffer, inputTopDensity, inputBaseDensity].forEach(el => {

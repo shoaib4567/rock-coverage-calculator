@@ -417,8 +417,9 @@ export async function initRockScene(containerId) {
 
       case 'rectangle':
       default: {
-        const lRaw = dims.length || 10;
-        const wRaw = dims.width || 10;
+        const sqSide = Math.sqrt(Math.max(Number(dims.sqFt) || 100, 1));
+        const lRaw = shape === 'sqft' ? sqSide : (dims.length || 10);
+        const wRaw = shape === 'sqft' ? sqSide : (dims.width || 10);
         const maxDim = Math.max(lRaw, wRaw);
         const scale = maxExtent / maxDim;
 

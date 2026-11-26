@@ -38,25 +38,7 @@ const faqItems = [
     a: 'There is no reliable bag-count cutoff. Multiply the rounded-up bag count by the local price, then compare it with a delivered bulk quote for enough of a comparable gravel, including minimums and fees. Consider where the material can be unloaded and how you will move it.'
   }
 ];
-const upLinks = [
-  { title: 'Gravel Calculator', slug: '/gravel-calculator', badge: 'Material' },
-  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'All bags' },
-  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Reference' }
-];
-const lateralLinks = [
-  { title: 'Gravel Tons Calculator', slug: '/gravel-tons-calculator', badge: 'Tons' },
-  { title: 'Gravel Cubic Yards Calculator', slug: '/gravel-cubic-yard-calculator', badge: 'Yards' },
-  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Rounded' }
-];
-const bridgeLinks = [
-  { title: 'Crushed Stone Bag Calculator', slug: '/crushed-stone-bag-calculator', badge: 'Angular' },
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Buying' },
-  { title: 'Gravel Sizes', slug: '/gravel-sizes', badge: 'Choose grade' }
-];
-const supportGuides = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
-  { title: 'Rock Bag Weight and Price Guide', slug: '/rock-bag-weight-and-price-guide', badge: 'Hauling' }
-];
+const pageHeadingCleanup = true;
 ---
 
 <BaseLayout
@@ -73,7 +55,7 @@ const supportGuides = [
       description: 'Counts whole gravel bags from project area, installed depth, and labeled bag volume; optional inputs estimate packaged weight and local cost.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      inLanguage: 'en'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -133,6 +115,7 @@ const supportGuides = [
               <div class="gb-field"><label for="gb-price">Price per bag ($, optional)</label><input id="gb-price" type="number" min="0" step="any" inputmode="decimal" placeholder="Your store price" /></div>
               <div class="gb-field"><label for="gb-bag-fees">Bag trip and fees ($, optional)</label><input id="gb-bag-fees" type="number" min="0" step="any" inputmode="decimal" placeholder="Added once" /></div>
               <div class="gb-field"><label for="gb-bulk">Delivered bulk quote ($, optional)</label><input id="gb-bulk" type="number" min="0" step="any" inputmode="decimal" placeholder="Same gravel and volume" /></div>
+              <div class="gb-field"><label for="gb-pallet-size">Bags per pallet (optional)</label><input id="gb-pallet-size" type="number" min="1" step="1" inputmode="numeric" placeholder="Pallet count" /></div>
             </div>
             <p class="gb-hint">The starting 0.5 cu ft is an example, not a size for every 50 lb bag. Add bag trip costs once; the bulk quote should include its minimum, delivery, and fees. Compare taxes consistently.</p>
             <p class="gb-error" id="gb-error" role="alert" hidden></p>
@@ -147,7 +130,7 @@ const supportGuides = [
               <div><dt>Packaged weight</dt><dd id="gb-total-weight">Add bag weight</dd></div>
               <div><dt>Bag cost</dt><dd id="gb-cost">Add local price</dd></div>
             </dl>
-            <div class="gb-receipt"><h4>How this count is built</h4><p id="gb-volume-line">100 sq ft × 2 in ÷ 12 = 16.67 cu ft installed.</p><p id="gb-bag-line">16.67 cu ft ÷ 0.5 cu ft per bag = 33.33; round up to 34 bags.</p></div>
+            <div class="gb-receipt"><h4>How this count is built</h4><p id="gb-volume-line">100 sq ft × 2 in ÷ 12 = 16.67 cu ft installed.</p><p id="gb-bag-line">16.67 cu ft ÷ 0.5 cu ft per bag = 33.33; round up to 34 bags.</p><p id="gb-pallet-line">Add your supplier's bags-per-pallet count to split full pallets and loose bags.</p></div>
             <div class="gb-compare"><h4>Bagged or loose?</h4><p id="gb-compare-line">Add a bag price and an all-in delivered quote to compare the same gravel and required volume.</p></div>
           </div>
         </div>
@@ -216,7 +199,7 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/gravel-bag-calculator" category="quantity" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
+    <TopicClusterNav />
   </main>
   <Footer />
 
@@ -224,8 +207,8 @@ const supportGuides = [
     function initGravelBagCalculator() {
       const input = (id: string) => document.getElementById(id) as HTMLInputElement;
       const put = (id: string, value: string) => { const element = document.getElementById(id); if (element) element.textContent = value; };
-      const fmt = (value: number, digits = 2) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
-      const usd = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
+      const fmt = (value: number, digits = 2) => new Intl.NumberFormat('en', { maximumFractionDigits: digits }).format(value);
+      const usd = (value: number) => new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(value);
       const read = (element: HTMLInputElement, positive: boolean): number => {
         const value = Number(element.value);
         const valid = element.value.trim() !== '' && element.validity.valid && Number.isFinite(value) && (positive ? value > 0 : value >= 0);
@@ -254,6 +237,7 @@ const supportGuides = [
         const price = readOptional(input('gb-price'), false);
         const bagFees = readOptional(input('gb-bag-fees'), false);
         const bulk = readOptional(input('gb-bulk'), false);
+        const palletSize = readOptional(input('gb-pallet-size'), true);
         const messages: string[] = [];
         const coreValid = Number.isFinite(area) && area > 0 && Number.isFinite(depth) && Number.isFinite(extra) && Number.isFinite(volume);
         if (!coreValid) messages.push('Enter a positive area, finished depth, and bag volume. Extra may be zero.');
@@ -261,10 +245,11 @@ const supportGuides = [
         if (price !== null && Number.isNaN(price)) messages.push('Bag price must be zero or more, or blank.');
         if (bagFees !== null && Number.isNaN(bagFees)) messages.push('Bag trip and fees must be zero or more, or blank.');
         if (bulk !== null && Number.isNaN(bulk)) messages.push('Bulk quote must be zero or more, or blank.');
+        if (palletSize !== null && Number.isNaN(palletSize)) messages.push('Bags per pallet must be a positive whole number, or blank.');
         error.hidden = messages.length === 0;
         error.textContent = messages.join(' ');
         if (!coreValid) {
-          ['gb-bags', 'gb-coverage', 'gb-installed', 'gb-planned', 'gb-purchased', 'gb-total-weight', 'gb-cost', 'gb-volume-line', 'gb-bag-line', 'gb-compare-line'].forEach(id => put(id, '—'));
+          ['gb-bags', 'gb-coverage', 'gb-installed', 'gb-planned', 'gb-purchased', 'gb-total-weight', 'gb-cost', 'gb-volume-line', 'gb-bag-line', 'gb-pallet-line', 'gb-compare-line'].forEach(id => put(id, '—'));
           return;
         }
         const installed = area * depth / 12;
@@ -274,7 +259,7 @@ const supportGuides = [
         if (!Number.isFinite(installed) || !Number.isFinite(planned) || !Number.isSafeInteger(bags)) {
           error.hidden = false;
           error.textContent = 'These measurements are too large to calculate a reliable whole-bag order.';
-          ['gb-bags', 'gb-coverage', 'gb-installed', 'gb-planned', 'gb-purchased', 'gb-total-weight', 'gb-cost', 'gb-volume-line', 'gb-bag-line', 'gb-compare-line'].forEach(id => put(id, '—'));
+          ['gb-bags', 'gb-coverage', 'gb-installed', 'gb-planned', 'gb-purchased', 'gb-total-weight', 'gb-cost', 'gb-volume-line', 'gb-bag-line', 'gb-pallet-line', 'gb-compare-line'].forEach(id => put(id, '—'));
           return;
         }
         put('gb-bags', fmt(bags, 0));
@@ -286,6 +271,15 @@ const supportGuides = [
         put('gb-cost', price === null || Number.isNaN(price) || Number.isNaN(bagFees) ? 'Add local price' : usd(bags * price + (bagFees ?? 0)));
         put('gb-volume-line', fmt(area) + ' sq ft × ' + fmt(depth) + ' in ÷ 12 = ' + fmt(installed) + ' cu ft installed; ' + fmt(planned) + ' cu ft with ' + fmt(extra) + '% extra.');
         put('gb-bag-line', fmt(planned) + ' cu ft ÷ ' + fmt(volume) + ' cu ft per bag = ' + fmt(quotient) + '; round up to ' + fmt(bags, 0) + ' whole bags.');
+        if (palletSize !== null && !Number.isNaN(palletSize)) {
+          const pallets = Math.floor(bags / palletSize);
+          const loose = bags % palletSize;
+          const palletLabel = fmt(pallets, 0) + ' full pallet' + (pallets === 1 ? '' : 's');
+          const looseLabel = loose > 0 ? ' + ' + fmt(loose, 0) + ' loose bag' + (loose === 1 ? '' : 's') : '';
+          put('gb-pallet-line', 'At ' + fmt(palletSize, 0) + ' bags per pallet: ' + palletLabel + looseLabel + '.');
+        } else {
+          put('gb-pallet-line', 'Add your supplier\'s bags-per-pallet count to split full pallets and loose bags.');
+        }
         if (price !== null && bulk !== null && !Number.isNaN(price) && !Number.isNaN(bagFees) && !Number.isNaN(bulk)) {
           const bagCost = bags * price + (bagFees ?? 0);
           const difference = Math.abs(bagCost - bulk);
@@ -322,9 +316,9 @@ const supportGuides = [
   .gb-field label { display: block; color: var(--text-secondary); font-size: var(--text-xs); font-weight: 700; margin-bottom: var(--space-2); }
   .gb-field input { display: block; width: 100%; min-width: 0; padding: .72rem .8rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); color: var(--text-primary); font-size: var(--text-base); }
   .gb-field input:focus { outline: 2px solid var(--accent-gold); outline-offset: 1px; }
-  .gb-field input[aria-invalid="true"] { border-color: #dc2626; }
+  .gb-field input[aria-invalid="true"] { border-color: var(--color-error); }
   .gb-hint, .gb-fineprint { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin: 0; }
-  .gb-error { color: #b91c1c; border: 1px solid #dc2626; border-radius: var(--radius-md); padding: var(--space-3); margin-top: var(--space-4); }
+  .gb-error { color: var(--color-error); border: 1px solid var(--color-error); background: color-mix(in srgb, var(--color-error) 8%, var(--bg-surface)); border-radius: var(--radius-md); padding: var(--space-3); margin-top: var(--space-4); }
   [hidden] { display: none !important; }
   .gb-results { border-color: var(--accent-gold); }
   .gb-result-header { background: var(--bg-surface); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); }

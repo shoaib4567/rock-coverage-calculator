@@ -4,24 +4,7 @@ import GuideLayout from '../layouts/GuideLayout.astro';
 const calculatorsSupported = [
   { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'Bags', desc: 'Count bags using the volume printed on the product.' },
   { title: 'River Rock Bag Calculator', slug: '/river-rock-bag-calculator', badge: 'River rock', desc: 'Compare a bag total with your local bulk quote and delivery fee.' },
-  { title: 'Rock Yardage Calculator', slug: '/rock-yardage-calculator', badge: 'Yards', desc: 'Estimate the loose cubic yards to discuss with your supplier.' }
-];
-
-const upLinks = [
-  { title: 'Rock Coverage Calculator (Pillar)', slug: '/', badge: 'Pillar' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'How Deep Should Rock Be?', slug: '/rock-depth-guide', badge: 'Depth Rules' },
-  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Protocol' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'ASTM C29' }
-];
-
-const bridgeLinks = [
-  { title: 'Gravel Bag Calculator', slug: '/gravel-bag-calculator', badge: 'Gravel Bags' },
-  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Pea Gravel Bags' },
-  { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: 'Volume' }
+  { title: 'Rock Coverage Calculator Yard', slug: '/rock-coverage-calculator-yard', badge: 'Yards', desc: 'Estimate the loose cubic yards to discuss with your supplier.' }
 ];
 ---
 
@@ -33,11 +16,8 @@ const bridgeLinks = [
   guideSubtitle="Find the delivered cost for the amount you actually need, then check access, handling, and the weight your vehicle can carry."
   standardBadge="Buying guide"
   readingTime="7 min read"
-  lastUpdated="October 2026"
+  lastUpdated="November 2026"
   calculatorsSupported={calculatorsSupported}
-  upLinks={upLinks}
-  lateralLinks={lateralLinks}
-  bridgeLinks={bridgeLinks}
 >
   <!-- Project Reference Summary -->
   <section class="aeo-guide-box" aria-label="Summary of Bulk vs Bagged Rock">
@@ -127,8 +107,8 @@ const bridgeLinks = [
         <strong style="color: var(--text-primary); font-size: 1rem; display: block;">Need to compare product labels?</strong>
         <span style="color: var(--text-secondary); font-size: 0.9rem;">Our bag guide shows how volume, weight, and current local prices affect the order.</span>
       </div>
-      <a href="/rock-bag-weight-and-price-guide" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; white-space: nowrap;">
-        Read the Bag Weight &amp; Price Guide &rarr;
+      <a href="/rock-bag-calculator" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; white-space: nowrap;">
+        Open the Bag, Weight &amp; Pallet Calculator &rarr;
       </a>
     </div>
 

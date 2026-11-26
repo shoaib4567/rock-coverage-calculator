@@ -47,28 +47,6 @@ const faqItems = [
   }
 ];
 
-const upLinks = [
-  { title: 'Lava Rock Calculator (Material Parent)', slug: '/lava-rock-calculator', badge: 'Material' },
-  { title: 'Rock Bag Calculator (Unit Parent)', slug: '/rock-bag-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'Lava Rock Coverage Calculator', slug: '/lava-rock-coverage-calculator', badge: 'Coverage' },
-  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Decorative' },
-  { title: 'Marble Chips Bag Calculator', slug: '/marble-chips-bag-calculator', badge: 'Marble' }
-];
-
-const bridgeLinks = [
-  { title: 'Rock Bag Weight and Price Guide', slug: '/rock-bag-weight-and-price-guide', badge: 'Hauling' },
-  { title: 'Rock Weight and Density Reference', slug: '/rock-density-chart', badge: 'Bulk weight' }
-];
-
-const supportGuides = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
-  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' }
-];
 ---
 
 <BaseLayout
@@ -85,7 +63,7 @@ const supportGuides = [
       description: 'Estimates whole bags of landscape lava rock from area, finished depth, labeled bag volume and optional allowance.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      inLanguage: 'en'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -170,6 +148,10 @@ const supportGuides = [
                 <label for="lrb-weight">Labeled weight per bag (lb)</label>
                 <input type="number" id="lrb-weight" min="0.01" step="any" inputmode="decimal" placeholder="From your bag" />
               </div>
+              <div class="input-field">
+                <label for="lrb-pallet">Bags per pallet</label>
+                <input type="number" id="lrb-pallet" min="1" step="1" inputmode="numeric" placeholder="Optional pallet count" />
+              </div>
             </div>
             <p class="field-note">These fields can stay blank. An invalid price or weight only affects its own estimate, not your bag count.</p>
             <p id="lrb-error" class="dimension-error" role="alert" hidden></p>
@@ -195,6 +177,7 @@ const supportGuides = [
                 <div class="result-item"><span>One bag covers</span><strong id="lrb-coverage">3 sq ft</strong></div>
                 <div class="result-item"><span>Bag material cost</span><strong id="lrb-cost">Add price</strong></div>
                 <div class="result-item"><span>Bagged product weight</span><strong id="lrb-total-weight">Add label weight</strong></div>
+                <div class="result-item"><span>Pallet breakdown</span><strong id="lrb-pallet-result">Add pallet size</strong></div>
               </div>
               <p id="lrb-optional-note" class="result-note" hidden></p>
               <p id="lrb-summary" class="sr-only" aria-live="polite"></p>
@@ -247,7 +230,7 @@ const supportGuides = [
         <section class="content-card" aria-labelledby="placement-heading">
           <p class="eyebrow">Where the rock goes</p>
           <h2 id="placement-heading">Choose the layer for the place, then calculate it</h2>
-          <p>Bagged lava rock is useful for small decorative beds, dry landscape accents and narrow areas where loose delivery is awkward. A <a href="/lava-rock-calculator">lava rock project estimate</a> covers broader yardage and weight planning; the <a href="/lava-rock-coverage-calculator">lava rock coverage calculator</a> answers how far a quantity on hand will spread.</p>
+          <p>Bagged lava rock is useful for small decorative beds, dry landscape accents and narrow areas where loose delivery is awkward. The <a href="/lava-rock-calculator">lava rock calculator</a> also covers broader yardage and weight planning as well as how far a quantity on hand will spread.</p>
           <p>Rock mulch does not decompose to improve soil. It can also warm soil in summer, and dust and leaves eventually support weeds between stones, even over landscape fabric. <a href="https://yardandgarden.extension.iastate.edu/how-to/using-mulch-garden" target="_blank" rel="noopener noreferrer">Iowa State Extension</a> describes these limits; <a href="https://ipm.ucanr.edu/home-and-landscape/weed-management-in-landscapes/" target="_blank" rel="noopener noreferrer">UC IPM</a> notes that fabric under rock can separate stone from soil but dark rock may stress plants. Keep leaves out of the bed and watch plants near sun-heated stone.</p>
           <p class="safety-note"><strong>Gas fire pit?</strong> Landscape package coverage does not set a burner fill depth, and <a href="https://www.homedepot.com/p/100427379" target="_blank" rel="noopener noreferrer">a common 0.5 ft³ landscape bag is expressly marked unsuitable for fire pits</a>. Choose only media approved for your appliance. <a href="https://hpcfire.com/wp-content/product-documents/Indoor-Outdoor-Product-Instructions/Fire%20Pit%20Inserts/Outdoor%20-%20Push%20Button/Fire%20Pit%20Insert%20-%20Push%20Button%20%28820%29.pdf" target="_blank" rel="noopener noreferrer">HPC's burner instructions</a> say to cover the ring only as directed and leave ignition vents open; <a href="https://cms.firegearoutdoors.com/documents/All-instructions/90214A-FPB-BS-Outdoor-Square-Pan-Flat-Disc-Fire-Pits-with-All-Weather-System-AWS-Installation-and-Operating-Instructions.pdf" target="_blank" rel="noopener noreferrer">Firegear's manual</a> warns that wet media can crack or pop.</p>
         </section>
@@ -266,19 +249,12 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/lava-rock-bag-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav />
   </main>
   <Footer />
 
   <script>
-    type InputId = 'lrb-length' | 'lrb-width' | 'lrb-area' | 'lrb-depth' | 'lrb-capacity' | 'lrb-extra' | 'lrb-price' | 'lrb-weight';
+    type InputId = 'lrb-length' | 'lrb-width' | 'lrb-area' | 'lrb-depth' | 'lrb-capacity' | 'lrb-extra' | 'lrb-price' | 'lrb-weight' | 'lrb-pallet';
     const input = (id: InputId) => document.getElementById(id) as HTMLInputElement;
     const output = (id: string, value: string) => { const element = document.getElementById(id); if (element) element.textContent = value; };
     const value = (id: InputId) => {
@@ -290,17 +266,17 @@ const supportGuides = [
       const number = value(id);
       const minimum = Number(field.min);
       const maximum = field.max === '' ? Infinity : Number(field.max);
-      return Number.isFinite(number) && number >= minimum && number <= maximum;
+      return field.validity.valid && Number.isFinite(number) && number >= minimum && number <= maximum;
     };
-    const fmt = (number: number, digits = 2) => number.toLocaleString('en-US', { maximumFractionDigits: digits });
-    const money = (number: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(number);
+    const fmt = (number: number, digits = 2) => number.toLocaleString('en', { maximumFractionDigits: digits });
+    const money = (number: number) => new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(number);
     let areaMode: 'dimensions' | 'square-feet' = 'dimensions';
 
     function updateLRB() {
       const required: InputId[] = areaMode === 'dimensions'
         ? ['lrb-length', 'lrb-width', 'lrb-depth', 'lrb-capacity', 'lrb-extra']
         : ['lrb-area', 'lrb-depth', 'lrb-capacity', 'lrb-extra'];
-      const optional: InputId[] = ['lrb-price', 'lrb-weight'];
+      const optional: InputId[] = ['lrb-price', 'lrb-weight', 'lrb-pallet'];
       const invalidRequired = required.find(id => !valid(id));
       [...required, ...optional].forEach(id => {
         const field = input(id);
@@ -348,6 +324,16 @@ const supportGuides = [
       output('lrb-coverage', fmt(capacity * 12 / depth) + ' sq ft');
       output('lrb-cost', input('lrb-price').value.trim() === '' ? 'Add price' : valid('lrb-price') ? money(bags * value('lrb-price')) : 'Check price');
       output('lrb-total-weight', input('lrb-weight').value.trim() === '' ? 'Add label weight' : valid('lrb-weight') ? fmt(bags * value('lrb-weight'), 1) + ' lb' : 'Check weight');
+      if (input('lrb-pallet').value.trim() === '') {
+        output('lrb-pallet-result', 'Add pallet size');
+      } else if (valid('lrb-pallet')) {
+        const perPallet = value('lrb-pallet');
+        const pallets = Math.floor(bags / perPallet);
+        const loose = bags % perPallet;
+        output('lrb-pallet-result', fmt(pallets, 0) + ' full' + (loose > 0 ? ' + ' + fmt(loose, 0) + ' bag' + (loose === 1 ? '' : 's') : ' pallet' + (pallets === 1 ? '' : 's')));
+      } else {
+        output('lrb-pallet-result', 'Check pallet size');
+      }
       output('lrb-summary', fmt(bags, 0) + ' whole lava rock bags for ' + fmt(area) + ' square feet at ' + fmt(depth) + ' inches.');
       const optionalNote = document.getElementById('lrb-optional-note') as HTMLElement;
       const invalidOptional = optional.filter(id => input(id).value.trim() !== '' && !valid(id));
@@ -371,8 +357,9 @@ const supportGuides = [
 
     document.getElementById('lrb-mode-dims')?.addEventListener('click', () => setMode('dimensions'));
     document.getElementById('lrb-mode-area')?.addEventListener('click', () => setMode('square-feet'));
-    (['lrb-length', 'lrb-width', 'lrb-area', 'lrb-depth', 'lrb-capacity', 'lrb-extra', 'lrb-price', 'lrb-weight'] as InputId[]).forEach(id => {
+    (['lrb-length', 'lrb-width', 'lrb-area', 'lrb-depth', 'lrb-capacity', 'lrb-extra', 'lrb-price', 'lrb-weight', 'lrb-pallet'] as InputId[]).forEach(id => {
       input(id).addEventListener('input', updateLRB);
+      input(id).addEventListener('change', updateLRB);
     });
     updateLRB();
   </script>
@@ -391,7 +378,7 @@ const supportGuides = [
   .field-note { margin: calc(var(--space-4) * -1) 0 var(--space-5); color: var(--text-muted); font-size: .82rem; line-height: 1.5; }
   .optional-heading { color: var(--text-primary); font-size: .88rem; margin: var(--space-5) 0 var(--space-3); }
   .optional-grid { margin-bottom: var(--space-6); }
-  .input-field input[aria-invalid="true"] { border-color: #dc2626; }
+  .input-field input[aria-invalid="true"] { border-color: var(--color-error); }
   .bag-count { display: flex; flex-direction: column; align-items: center; text-align: center; padding: var(--space-5); margin-bottom: var(--space-4); border: 1px solid rgba(212, 168, 83, .4); border-radius: var(--radius-lg); background: rgba(212, 168, 83, .08); }
   .bag-count-label { color: var(--text-muted); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
   .bag-count strong { color: var(--accent-gold); font: 800 clamp(2.6rem, 6vw, 4.5rem)/1.1 var(--font-mono); margin: var(--space-2) 0; }

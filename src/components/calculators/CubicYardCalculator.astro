@@ -1,12 +1,12 @@
 ---
-// Rock Cubic Yard Calculator & Dump Truck Dispatch Sizer
+// Rock Cubic Yard Calculator & Bulk Yardage Delivery Planner
 ---
 <section class="section" id="cuyd-calc">
   <div class="container">
     <div class="section-header">
-      <h2>Rock Cubic Yard Calculator</h2>
+      <h2>Rock Cubic Yard &amp; Yardage Calculator</h2>
       <div class="section-divider"></div>
-      <p>Convert a measured layer to cubic yards, or find the coverage of a known volume. Enter supplier bulk weight and separate vehicle volume and payload limits for a delivery estimate.</p>
+      <p>Calculate cubic yards from rectangular dimensions or known square feet, or reverse-calculate coverage area from known yards. Includes supplier yard-increment rounding, wheelbarrow sizing, and truck delivery limits.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -14,84 +14,131 @@
       <div class="calc-panel animate-fade-in-up">
         <div class="calc-panel-title">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-          <h3>Calculation Direction</h3>
+          <h3>Calculation Mode</h3>
         </div>
 
-        <!-- Mode Toggle -->
         <div class="unit-toggle mode-toggle" role="group" aria-label="Calculation direction">
-          <button class="active" id="yd-mode-forward" type="button" aria-pressed="true">Forward: Area & Depth → Yards</button>
-          <button id="yd-mode-reverse" type="button" aria-pressed="false">Reverse: Given Yards → Coverage</button>
+          <button class="active" id="yd-mode-forward" type="button" aria-pressed="true">Dimensions &rarr; Yards</button>
+          <button id="yd-mode-sqft" type="button" aria-pressed="false">Known Sq Ft &rarr; Yards</button>
+          <button id="yd-mode-reverse" type="button" aria-pressed="false">Yards &rarr; Coverage</button>
         </div>
 
-        <!-- Forward Inputs -->
+        <!-- Forward Dimensions -->
         <div id="forward-yd-inputs">
           <div class="dim-grid">
             <div class="input-field">
               <label for="yd-length">Length</label>
-              <input type="number" id="yd-length" value="40" min="1" step="0.5" />
+              <input type="number" id="yd-length" value="40" min="0.1" step="any" />
               <span class="unit-label">feet</span>
             </div>
             <div class="input-field">
               <label for="yd-width">Width</label>
-              <input type="number" id="yd-width" value="15" min="1" step="0.5" />
+              <input type="number" id="yd-width" value="15" min="0.1" step="any" />
               <span class="unit-label">feet</span>
-            </div>
-          </div>
-          <div class="dim-grid">
-            <div class="input-field">
-              <label for="yd-depth">Installed Depth</label>
-              <input type="number" id="yd-depth" value="3.0" min="0.5" max="18" step="0.5" />
-              <span class="unit-label">inches</span>
-            </div>
-            <div class="input-field">
-              <label for="yd-waste">Extra order allowance</label>
-              <input type="number" id="yd-waste" value="10" min="0" max="25" step="1" />
-              <span class="unit-label">% buffer</span>
             </div>
           </div>
         </div>
 
-        <!-- Reverse Inputs (Hidden by default) -->
+        <!-- Known Sq Ft -->
+        <div id="sqft-yd-inputs" style="display: none;">
+          <div class="dim-grid single-col">
+            <div class="input-field">
+              <label for="yd-known-sqft">Measured Surface Area</label>
+              <input type="number" id="yd-known-sqft" value="600" min="1" step="any" />
+              <span class="unit-label">sq ft</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Forward Shared Depth & Waste -->
+        <div id="forward-yd-shared">
+          <div class="dim-grid">
+            <div class="input-field">
+              <label for="yd-depth">Installed Depth</label>
+              <input type="number" id="yd-depth" value="3.0" min="0.25" max="24" step="any" />
+              <span class="unit-label">inches</span>
+            </div>
+            <div class="input-field">
+              <label for="yd-waste">Extra Order Allowance</label>
+              <input type="number" id="yd-waste" value="10" min="0" max="50" step="any" />
+              <span class="unit-label">% buffer</span>
+            </div>
+          </div>
+          <div class="dim-grid single-col">
+            <div class="input-field">
+              <label for="yd-rounding">Supplier Yard Order Increment</label>
+              <select id="yd-rounding">
+                <option value="0">Exact calculated cubic yards</option>
+                <option value="0.25">Round up to 0.25 yd&sup3; (quarter yard)</option>
+                <option value="0.5">Round up to 0.50 yd&sup3; (half yard)</option>
+                <option value="1">Round up to 1.00 yd&sup3; (whole yard)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reverse Inputs -->
         <div id="reverse-yd-inputs" style="display: none;">
           <div class="dim-grid">
             <div class="input-field">
               <label for="rev-yards">Known Cubic Yards</label>
-              <input type="number" id="rev-yards" value="5.0" min="0.25" step="0.25" />
-              <span class="unit-label">yd³</span>
+              <input type="number" id="rev-yards" value="5.0" min="0.05" step="any" />
+              <span class="unit-label">yd&sup3;</span>
             </div>
             <div class="input-field">
               <label for="rev-depth">Target Spread Depth</label>
-              <input type="number" id="rev-depth" value="3.0" min="0.5" max="18" step="0.5" />
+              <input type="number" id="rev-depth" value="3.0" min="0.25" max="24" step="any" />
               <span class="unit-label">inches</span>
             </div>
           </div>
         </div>
 
         <div class="dim-grid">
-  <div class="input-field"><label for="yd-density">Supplier loose weight (US short tons/yd³)</label><input id="yd-density" type="number" value="1.35" min="0.1" max="5" step="any" /></div>
-  <div class="input-field"><label for="yd-load-payload">Available payload per delivery (US short tons)</label><input id="yd-load-payload" type="number" value="15" min="0.1" step="any" /></div>
-  <div class="input-field"><label for="yd-load-volume">Usable volume per delivery (cu yd)</label><input id="yd-load-volume" type="number" value="10" min="0.1" step="any" /></div>
-</div>
-<p>Density and delivery limits start as examples. Replace them with the actual supplier and vehicle figures. A load count cannot establish vehicle access or ground capacity.</p>
-<p id="yd-error" role="alert" hidden></p>
-<!-- Density / Aggregate Type Selector -->
+          <div class="input-field">
+            <label for="yd-density">Supplier Loose Weight</label>
+            <input id="yd-density" type="number" value="1.35" min="0.1" max="5" step="any" />
+            <span class="unit-label">t/yd&sup3;</span>
+          </div>
+          <div class="input-field">
+            <label for="yd-barrow-size">Wheelbarrow Capacity</label>
+            <select id="yd-barrow-size">
+              <option value="4">4 cu ft standard</option>
+              <option value="6" selected>6 cu ft contractor</option>
+              <option value="8">8 cu ft dual-wheel</option>
+            </select>
+          </div>
+          <div class="input-field">
+            <label for="yd-load-payload">Payload per Delivery</label>
+            <input id="yd-load-payload" type="number" value="15" min="0.1" step="any" />
+            <span class="unit-label">short tons</span>
+          </div>
+          <div class="input-field">
+            <label for="yd-load-volume">Volume per Delivery</label>
+            <input id="yd-load-volume" type="number" value="10" min="0.1" step="any" />
+            <span class="unit-label">cu yd</span>
+          </div>
+        </div>
+        <p class="field-hint">Weight and delivery capacities start as planning examples. Replace them with actual quarry and hauler specifications.</p>
+        <p id="yd-error" class="calc-error" role="alert" hidden></p>
+
+        <!-- Density Selector -->
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
           <h3>Rock Material Density</h3>
         </div>
 
         <div class="material-quick-grid">
-          <button type="button" class="mat-btn active" data-density="1.35" data-name="River Rock / Round Gravel">
-            <div class="mat-name">River Rock / Gravel</div>
-            <div class="mat-spec">1.35 Tons/yd³ (2,700 lbs)</div>
+          <button type="button" class="mat-btn active" data-density="1.35" data-name="River Rock / Pea Gravel / Limestone">
+            <div class="mat-name">River Rock / Pea Gravel / Crushed Limestone</div>
+            <div class="mat-spec">1.35 short tons/yd&sup3; (2,700 lb/yd&sup3;)</div>
           </button>
-          <button type="button" class="mat-btn" data-density="1.40" data-name="Crushed Limestone / Granite">
-            <div class="mat-name">Crushed Limestone</div>
-            <div class="mat-spec">1.40 Tons/yd³ (2,800 lbs)</div>
+          <button type="button" class="mat-btn" data-density="1.40" data-name="Crushed Granite / CA-6 Base">
+            <div class="mat-name">Crushed Granite / Dense Base</div>
+            <div class="mat-spec">1.40 short tons/yd&sup3; (2,800 lb/yd&sup3;)</div>
           </button>
           <button type="button" class="mat-btn" data-density="0.75" data-name="Volcanic Lava Rock">
-            <div class="mat-name">Lava Rock (Porous)</div>
-            <div class="mat-spec">0.75 short tons/yd³ example (1,500 lb)</div>
+            <div class="mat-name">Lava Rock (Porous Scoria)</div>
+            <div class="mat-spec">0.75 short tons/yd&sup3; example (1,500 lb/yd&sup3;)</div>
           </button>
         </div>
       </div>
@@ -99,8 +146,8 @@
       <!-- Output Panel -->
       <div class="calc-results-panel animate-fade-in-up">
         <div class="results-header">
-          <div class="results-title">Volumetric & Hauling Analysis</div>
-          <div class="results-badge" id="yd-direction-badge">Forward: Dimensions → Yards</div>
+          <div class="results-title">Volumetric &amp; Hauling Analysis</div>
+          <div class="results-badge" id="yd-direction-badge">Forward: Dimensions &rarr; Yards</div>
         </div>
 
         <div class="kpi-grid">
@@ -111,13 +158,13 @@
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-total-tons">0.00</div>
-            <div class="kpi-label">Estimated US Short Tons</div>
-            <div class="kpi-subtext" id="kpi-exact-lbs">0 lbs total payload</div>
+            <div class="kpi-label">Estimated Short Tons</div>
+            <div class="kpi-subtext" id="kpi-exact-lbs">0 lb total weight</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-total-sqft">0</div>
             <div class="kpi-label">Surface Coverage (Sq Ft)</div>
-            <div class="kpi-subtext" id="kpi-yard-coverage">1 yd³ covers 108 sq ft @ 3"</div>
+            <div class="kpi-subtext" id="kpi-yard-coverage">1 yd&sup3; covers 108 sq ft @ 3"</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-wheelbarrows">0</div>
@@ -133,10 +180,10 @@
             <div class="truck-badge" id="truck-class-badge">Enter delivery limits</div>
           </div>
           <p class="truck-desc" id="truck-desc">
-            Estimated trips use both usable volume and available payload. Confirm those limits and access with the supplier.
+            Estimated trips account for both bed volume and legal payload weight. Confirm access with your supplier.
           </p>
           <div class="truck-specs" id="truck-specs">
-            Volume and payload fields above start with editable examples.
+            Volume and payload fields above use editable planning limits.
           </div>
         </div>
 
@@ -144,14 +191,13 @@
         <div class="rule-card">
           <div class="rule-header">Contractor Quick Math: The Rule of 324</div>
           <p class="rule-text">
-            One cubic yard (27 cu ft × 12 inches/ft) contains exactly <strong>324 square feet of rock at 1 inch depth</strong>.
-            Divide 324 by your depth in inches to get exact square footage per cubic yard:
+            One cubic yard (27 cu ft &times; 12 in/ft) equals <strong>324 square feet of coverage at 1 inch deep</strong>. Divide 324 by inches of depth to find square feet per yard:
           </p>
           <div class="rule-pills">
-            <div class="pill">1" Depth = 324 sq ft/yd³</div>
-            <div class="pill">2" Depth = 162 sq ft/yd³</div>
-            <div class="pill">3" Depth = 108 sq ft/yd³</div>
-            <div class="pill">4" Depth = 81 sq ft/yd³</div>
+            <div class="pill">1" Depth = 324 sq ft/yd&sup3;</div>
+            <div class="pill">2" Depth = 162 sq ft/yd&sup3;</div>
+            <div class="pill">3" Depth = 108 sq ft/yd&sup3;</div>
+            <div class="pill">4" Depth = 81 sq ft/yd&sup3;</div>
           </div>
         </div>
       </div>
@@ -160,406 +206,226 @@
 </section>
 
 <style>
-.calc-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-6);
-  margin-top: var(--space-6);
-}
-
-@media (max-width: 900px) {
-  .calc-wrapper {
-    grid-template-columns: 1fr;
-  }
-}
-
-.calc-panel, .calc-results-panel {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-6);
-}
-
-.calc-panel-title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-  color: var(--color-text);
-}
-
-.calc-panel-title svg {
-  color: var(--color-primary);
-}
-
-.calc-panel-title h3 {
-  font-size: var(--text-base);
-  font-weight: 600;
-  margin: 0;
-}
-
-.unit-toggle {
-  display: flex;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 3px;
-  margin-bottom: var(--space-4);
-}
-
-.unit-toggle button {
-  flex: 1;
-  padding: 0.5rem;
-  border: none;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.unit-toggle button.active {
-  background: var(--color-primary);
-  color: #000;
-}
-
-.dim-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
-  margin-bottom: var(--space-3);
-}
-
-.input-field {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.input-field label {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-1);
-}
-
-.input-field input {
-  padding: 0.65rem 0.75rem;
-  padding-right: 3.5rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-  font-size: var(--text-base);
-  font-weight: 600;
-  outline: none;
-  transition: border-color var(--transition-fast);
-}
-
-.input-field input:focus {
-  border-color: var(--color-primary);
-}
-
-.input-field .unit-label {
-  position: absolute;
-  right: 0.75rem;
-  bottom: 0.65rem;
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  pointer-events: none;
-}
-
-.material-quick-grid {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.mat-btn {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 0.6rem 0.8rem;
-  text-align: left;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.mat-btn:hover {
-  border-color: var(--color-primary-light);
-}
-
-.mat-btn.active {
-  border-color: var(--color-primary);
-  background: rgba(202, 138, 4, 0.08);
-}
-
-.mat-name {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.mat-spec {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-}
-
-.results-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.results-title {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.results-badge {
-  font-size: var(--text-xs);
-  padding: 0.25rem 0.6rem;
-  background: rgba(202, 138, 4, 0.12);
-  color: var(--color-primary);
-  border-radius: 9999px;
-  font-weight: 600;
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-  margin-bottom: var(--space-4);
-}
-
-.kpi-card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-3) var(--space-4);
-}
-
-.kpi-card.highlight {
-  border-color: var(--color-primary);
-  background: rgba(202, 138, 4, 0.05);
-}
-
-.kpi-value {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  color: var(--color-primary);
-  line-height: 1.1;
-}
-
-.kpi-label {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  margin-top: var(--space-1);
-}
-
-.kpi-subtext {
-  font-size: 0.75rem;
-  color: var(--color-text);
-  opacity: 0.8;
-  margin-top: 0.15rem;
-}
-
-.truck-sizer-card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  margin-bottom: var(--space-3);
-}
-
-.truck-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-2);
-}
-
-.truck-title {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-muted);
-}
-
-.truck-badge {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  padding: 0.2rem 0.5rem;
-  border-radius: var(--radius-sm);
-  background: var(--color-primary);
-  color: #000;
-}
-
-.truck-desc {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  margin: 0 0 var(--space-2) 0;
-  line-height: 1.4;
-}
-
-.truck-specs {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.rule-card {
-  background: rgba(202, 138, 4, 0.05);
-  border: 1px solid rgba(202, 138, 4, 0.2);
-  border-radius: var(--radius-lg);
-  padding: var(--space-3) var(--space-4);
-}
-
-.rule-header {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-bottom: var(--space-1);
-}
-
-.rule-text {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  margin: 0 0 var(--space-2) 0;
-  line-height: 1.35;
-}
-
-.rule-pills {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-1);
-}
-
-.pill {
-  font-size: 0.7rem;
-  padding: 0.2rem 0.4rem;
-  background: var(--color-bg);
-  border-radius: var(--radius-sm);
-  color: var(--color-text);
-  text-align: center;
-  font-weight: 500;
-}
+.calc-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); margin-top: var(--space-6); }
+@media (max-width: 900px) { .calc-wrapper { grid-template-columns: 1fr; } }
+.calc-panel, .calc-results-panel { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); }
+.calc-panel-title { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); color: var(--color-text); }
+.calc-panel-title svg { color: var(--color-primary); }
+.calc-panel-title h3 { font-size: var(--text-base); font-weight: 600; margin: 0; }
+.unit-toggle { display: flex; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 3px; margin-bottom: var(--space-4); gap: 2px; }
+.unit-toggle button { flex: 1; padding: 0.5rem 0.3rem; border: none; background: transparent; color: var(--color-text-muted); font-size: var(--text-xs); font-weight: 600; border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition-fast); }
+.unit-toggle button.active { background: var(--color-primary); color: #000; }
+.dim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-3); }
+.dim-grid.single-col { grid-template-columns: 1fr; }
+.input-field { position: relative; display: flex; flex-direction: column; }
+.input-field label { font-size: var(--text-xs); font-weight: 500; color: var(--color-text-muted); margin-bottom: var(--space-1); }
+.input-field input, .input-field select { padding: 0.65rem 0.75rem; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font-size: var(--text-base); font-weight: 600; outline: none; transition: border-color var(--transition-fast); width: 100%; }
+.input-field input { padding-right: 4rem; }
+.input-field select { font-size: var(--text-sm); cursor: pointer; }
+.input-field input:focus, .input-field select:focus { border-color: var(--color-primary); }
+.input-field input[aria-invalid="true"] { border-color: var(--color-error); }
+.input-field .unit-label { position: absolute; right: 0.75rem; bottom: 0.65rem; font-size: var(--text-xs); color: var(--color-text-muted); pointer-events: none; }
+.field-hint { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.45; margin: var(--space-2) 0; }
+.calc-error { color: var(--color-error); font-size: var(--text-xs); font-weight: 600; margin: var(--space-2) 0; }
+.material-quick-grid { display: flex; flex-direction: column; gap: var(--space-2); }
+.mat-btn { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.6rem 0.8rem; text-align: left; cursor: pointer; transition: all var(--transition-fast); }
+.mat-btn:hover { border-color: var(--color-primary-light); }
+.mat-btn.active { border-color: var(--color-primary); background: rgba(202, 138, 4, 0.08); }
+.mat-name { font-size: var(--text-sm); font-weight: 600; color: var(--color-text); }
+.mat-spec { font-size: var(--text-xs); color: var(--color-text-muted); }
+.results-header { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border); }
+.results-title { font-size: var(--text-base); font-weight: 600; color: var(--color-text); }
+.results-badge { font-size: var(--text-xs); padding: 0.25rem 0.6rem; background: rgba(202, 138, 4, 0.12); color: var(--color-primary); border-radius: 9999px; font-weight: 600; }
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-4); }
+.kpi-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4); }
+.kpi-card.highlight { border-color: var(--color-primary); background: rgba(202, 138, 4, 0.05); }
+.kpi-value { font-size: var(--text-2xl); font-weight: 700; color: var(--color-primary); line-height: 1.1; }
+.kpi-label { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
+.kpi-subtext { font-size: 0.75rem; color: var(--color-text); opacity: 0.85; margin-top: 0.15rem; }
+.truck-sizer-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-3); }
+.truck-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); gap: var(--space-2); flex-wrap: wrap; }
+.truck-title { font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); }
+.truck-badge { font-size: var(--text-xs); font-weight: 700; padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); background: var(--color-primary); color: #000; }
+.truck-desc { font-size: 0.75rem; color: var(--color-text-muted); margin: 0 0 var(--space-2) 0; line-height: 1.4; }
+.truck-specs { font-size: var(--text-xs); font-weight: 600; color: var(--color-text); }
+.rule-card { background: rgba(202, 138, 4, 0.05); border: 1px solid rgba(202, 138, 4, 0.2); border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4); }
+.rule-header { font-size: var(--text-xs); font-weight: 700; color: var(--color-primary); margin-bottom: var(--space-1); }
+.rule-text { font-size: 0.75rem; color: var(--color-text-muted); margin: 0 0 var(--space-2) 0; line-height: 1.35; }
+.rule-pills { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-1); }
+.pill { font-size: 0.7rem; padding: 0.2rem 0.4rem; background: var(--color-bg); border-radius: var(--radius-sm); color: var(--color-text); text-align: center; font-weight: 500; }
+@media (max-width: 500px) { .dim-grid { grid-template-columns: 1fr; } }
 </style>
 
 <script>
-import {estimateDeliveryLoads} from '../../lib/quantity-assumptions.mjs';
+import { estimateDeliveryLoads } from '../../lib/quantity-assumptions.mjs';
 function initCubicYardCalculator() {
   const modeForwardBtn = document.getElementById('yd-mode-forward');
+  const modeSqftBtn = document.getElementById('yd-mode-sqft');
   const modeReverseBtn = document.getElementById('yd-mode-reverse');
+
   const forwardInputs = document.getElementById('forward-yd-inputs');
+  const sqftInputs = document.getElementById('sqft-yd-inputs');
+  const forwardShared = document.getElementById('forward-yd-shared');
   const reverseInputs = document.getElementById('reverse-yd-inputs');
 
   const lengthInput = document.getElementById('yd-length') as HTMLInputElement | null;
   const widthInput = document.getElementById('yd-width') as HTMLInputElement | null;
+  const knownSqFtInput = document.getElementById('yd-known-sqft') as HTMLInputElement | null;
   const depthInput = document.getElementById('yd-depth') as HTMLInputElement | null;
   const wasteInput = document.getElementById('yd-waste') as HTMLInputElement | null;
+  const roundingSelect = document.getElementById('yd-rounding') as HTMLSelectElement | null;
+  const barrowSelect = document.getElementById('yd-barrow-size') as HTMLSelectElement | null;
 
   const revYardsInput = document.getElementById('rev-yards') as HTMLInputElement | null;
   const revDepthInput = document.getElementById('rev-depth') as HTMLInputElement | null;
-
   const matBtns = document.querySelectorAll('.mat-btn');
 
-  let activeMode = 'forward'; // 'forward' or 'reverse'
-  let activeDensity = 1.35; // Tons/yd³
+  let activeMode: 'forward' | 'sqft' | 'reverse' = 'forward';
 
   function calculate() {
-    const set=(id:string,value:string)=>{const node=document.getElementById(id);if(node)node.textContent=value;};
-    const read=(input:HTMLInputElement|null)=>{
-      if(!input)return NaN;
-      const valid=input.value.trim()!==''&&input.validity.valid&&Number.isFinite(Number(input.value));
-      input.setAttribute('aria-invalid',String(!valid));return valid?Number(input.value):NaN;
+    const set = (id: string, value: string) => {
+      const node = document.getElementById(id);
+      if (node) node.textContent = value;
     };
-    let totalYards:number,totalSqFt:number,totalCuFt:number,depthInches:number;
-    if(activeMode==='forward') {
-      const length=read(lengthInput),width=read(widthInput),extra=read(wasteInput);depthInches=read(depthInput);
-      totalSqFt=length*width;totalCuFt=totalSqFt*depthInches/12*(1+extra/100);totalYards=totalCuFt/27;
+    const read = (input: HTMLInputElement | null, min: number, max = Infinity) => {
+      if (!input) return NaN;
+      const n = Number(input.value);
+      const valid = input.value.trim() !== '' && Number.isFinite(n) && n >= min && n <= max;
+      input.setAttribute('aria-invalid', String(!valid));
+      return valid ? n : NaN;
+    };
+
+    let rawYards = NaN;
+    let totalYards = NaN;
+    let totalSqFt = NaN;
+    let totalCuFt = NaN;
+    let depthInches = NaN;
+    let inc = 0;
+
+    if (activeMode === 'forward' || activeMode === 'sqft') {
+      revYardsInput?.removeAttribute('aria-invalid');
+      revDepthInput?.removeAttribute('aria-invalid');
+      if (activeMode === 'forward') {
+        knownSqFtInput?.removeAttribute('aria-invalid');
+        totalSqFt = read(lengthInput, 0.1) * read(widthInput, 0.1);
+      } else {
+        lengthInput?.removeAttribute('aria-invalid');
+        widthInput?.removeAttribute('aria-invalid');
+        totalSqFt = read(knownSqFtInput, 1);
+      }
+      depthInches = read(depthInput, 0.25, 24);
+      const extra = read(wasteInput, 0, 50);
+      rawYards = (totalSqFt * depthInches / 324) * (1 + extra / 100);
+      inc = parseFloat(roundingSelect?.value || '0') || 0;
+      totalYards = inc > 0 && Number.isFinite(rawYards)
+        ? Math.ceil(rawYards / inc - 1e-9) * inc
+        : rawYards;
+      totalCuFt = totalYards * 27;
     } else {
-      totalYards=read(revYardsInput);depthInches=read(revDepthInput);totalCuFt=totalYards*27;totalSqFt=totalYards*324/depthInches;
+      [lengthInput, widthInput, knownSqFtInput, depthInput, wasteInput].forEach(el => el?.removeAttribute('aria-invalid'));
+      totalYards = read(revYardsInput, 0.05);
+      rawYards = totalYards;
+      depthInches = read(revDepthInput, 0.25, 24);
+      totalCuFt = totalYards * 27;
+      totalSqFt = (totalYards * 324) / depthInches;
     }
-    const error=document.getElementById('yd-error');
-    const volumeValid=[totalYards,totalCuFt,totalSqFt,depthInches].every(Number.isFinite)&&totalYards>0&&depthInches>0;
-    if(!volumeValid) {
-      ['kpi-total-yards','kpi-exact-cuft','kpi-total-tons','kpi-exact-lbs','kpi-total-sqft','kpi-yard-coverage','kpi-wheelbarrows'].forEach(id=>set(id,'—'));
-      if(error){error.hidden=false;error.textContent='Enter valid positive measurements and an extra allowance within the field limits.';}
-      set('truck-class-badge','Measurements needed');set('truck-desc','Correct the highlighted fields to estimate deliveries.');set('truck-specs','');return;
+
+    const error = document.getElementById('yd-error');
+    const volumeValid = [totalYards, totalCuFt, totalSqFt, depthInches].every(Number.isFinite) && totalYards > 0 && depthInches > 0;
+    if (!volumeValid) {
+      ['kpi-total-yards', 'kpi-exact-cuft', 'kpi-total-tons', 'kpi-exact-lbs', 'kpi-total-sqft', 'kpi-yard-coverage', 'kpi-wheelbarrows'].forEach(id => set(id, '—'));
+      if (error) {
+        error.hidden = false;
+        error.textContent = 'Enter valid positive measurements and allowance within the shown limits.';
+      }
+      set('truck-class-badge', 'Measurements needed');
+      set('truck-desc', 'Correct the highlighted fields to estimate deliveries.');
+      set('truck-specs', '');
+      return;
     }
-    const density=read(document.getElementById('yd-density') as HTMLInputElement|null);
-    const tons=totalYards*density;
-    set('kpi-total-yards',totalYards.toFixed(2));set('kpi-exact-cuft',totalCuFt.toFixed(1)+' cu ft order volume');
-    set('kpi-total-sqft',Math.round(totalSqFt).toLocaleString());set('kpi-yard-coverage','1 yd³ covers '+Math.round(324/depthInches)+' sq ft at '+depthInches+' in');
-    set('kpi-wheelbarrows',String(Math.ceil(totalCuFt/6)));
-    set('kpi-total-tons',Number.isFinite(tons)?tons.toFixed(2):'—');set('kpi-exact-lbs',Number.isFinite(tons)?Math.round(tons*2000).toLocaleString()+' lb estimated':'Supplier weight needed');
-    if(error){error.hidden=Number.isFinite(tons);error.textContent=Number.isFinite(tons)?'':'Volume is ready. Enter a positive supplier loose weight to estimate tons.';}
-    const payload=read(document.getElementById('yd-load-payload') as HTMLInputElement|null);
-    const capacity=read(document.getElementById('yd-load-volume') as HTMLInputElement|null);
+
+    const density = read(document.getElementById('yd-density') as HTMLInputElement | null, 0.1, 5);
+    const barrowSize = parseFloat(barrowSelect?.value || '6') || 6;
+    const tons = totalYards * density;
+    const barrowCount = Math.ceil(totalCuFt / barrowSize - 1e-9);
+
+    set('kpi-total-yards', totalYards.toFixed(2));
+    set('kpi-exact-cuft', inc > 0
+      ? `Raw: ${rawYards.toFixed(2)} yd³ (${totalCuFt.toFixed(1)} cu ft ordered)`
+      : `${totalCuFt.toFixed(1)} cu ft order volume`);
+    set('kpi-total-sqft', Math.round(totalSqFt).toLocaleString());
+    set('kpi-yard-coverage', `1 yd³ covers ${Math.round(324 / depthInches)} sq ft at ${depthInches} in`);
+    set('kpi-wheelbarrows', barrowCount.toLocaleString());
+    set('kpi-wheel-spec', `${barrowSize} cu ft wheelbarrow`);
+    set('kpi-total-tons', Number.isFinite(tons) ? tons.toFixed(2) : '—');
+    set('kpi-exact-lbs', Number.isFinite(tons) ? `${Math.round(tons * 2000).toLocaleString()} lb estimated` : 'Supplier weight needed');
+
+    if (error) {
+      error.hidden = Number.isFinite(tons);
+      error.textContent = Number.isFinite(tons) ? '' : 'Volume is calculated. Enter a supplier loose bulk weight to estimate short tons.';
+    }
+
+    const payload = read(document.getElementById('yd-load-payload') as HTMLInputElement | null, 0.1);
+    const capacity = read(document.getElementById('yd-load-volume') as HTMLInputElement | null, 0.1);
     try {
-      const loads=estimateDeliveryLoads(totalYards,tons,payload,capacity);
-      set('truck-class-badge',loads+' estimated deliver'+(loads===1?'y':'ies'));
-      set('truck-desc','Uses both the volume limit and payload limit you entered. Confirm the supplier’s actual loading and site access requirements.');
-      set('truck-specs',capacity+' yd³ and '+payload+' US short tons per delivery');
-    }catch {
-      set('truck-class-badge','Delivery limits needed');set('truck-desc','Enter valid supplier weight and positive per-delivery volume and payload limits.');set('truck-specs','');
+      const loads = estimateDeliveryLoads(totalYards, tons, payload, capacity);
+      set('truck-class-badge', `${loads} estimated deliver${loads === 1 ? 'y' : 'ies'}`);
+      set('truck-desc', 'Uses both the usable volume limit and legal payload weight above. Confirm access and minimums with the supplier.');
+      set('truck-specs', `${capacity} yd³ max bed volume · ${payload} short tons max payload`);
+    } catch {
+      set('truck-class-badge', 'Delivery limits needed');
+      set('truck-desc', 'Enter valid supplier weight and positive delivery limits.');
+      set('truck-specs', '');
     }
   }
 
-  // Mode buttons
-  if (modeForwardBtn && modeReverseBtn && forwardInputs && reverseInputs) {
-    modeForwardBtn.addEventListener('click', () => {
-      modeForwardBtn.classList.add('active');
-      modeReverseBtn.classList.remove('active');
-      modeForwardBtn.setAttribute('aria-pressed','true');modeReverseBtn.setAttribute('aria-pressed','false');
-      forwardInputs.style.display = 'block';
-      reverseInputs.style.display = 'none';
-      activeMode = 'forward';
-      const badge = document.getElementById('yd-direction-badge');
-      if (badge) badge.textContent = 'Forward: Dimensions → Yards';
-      calculate();
+  function setMode(mode: 'forward' | 'sqft' | 'reverse') {
+    activeMode = mode;
+    [
+      [modeForwardBtn, mode === 'forward'],
+      [modeSqftBtn, mode === 'sqft'],
+      [modeReverseBtn, mode === 'reverse']
+    ].forEach(([btn, active]) => {
+      (btn as HTMLElement | null)?.classList.toggle('active', Boolean(active));
+      (btn as HTMLElement | null)?.setAttribute('aria-pressed', String(active));
     });
+    if (forwardInputs) forwardInputs.style.display = mode === 'forward' ? 'block' : 'none';
+    if (sqftInputs) sqftInputs.style.display = mode === 'sqft' ? 'block' : 'none';
+    if (forwardShared) forwardShared.style.display = mode === 'reverse' ? 'none' : 'block';
+    if (reverseInputs) reverseInputs.style.display = mode === 'reverse' ? 'block' : 'none';
 
-    modeReverseBtn.addEventListener('click', () => {
-      modeReverseBtn.classList.add('active');
-      modeForwardBtn.classList.remove('active');
-      modeForwardBtn.setAttribute('aria-pressed','false');modeReverseBtn.setAttribute('aria-pressed','true');
-      forwardInputs.style.display = 'none';
-      reverseInputs.style.display = 'block';
-      activeMode = 'reverse';
-      const badge = document.getElementById('yd-direction-badge');
-      if (badge) badge.textContent = 'Reverse: Known Yards → Area';
-      calculate();
-    });
+    const badge = document.getElementById('yd-direction-badge');
+    if (badge) {
+      badge.textContent = mode === 'forward'
+        ? 'Forward: Dimensions → Yards'
+        : mode === 'sqft'
+          ? 'Forward: Known Sq Ft → Yards'
+          : 'Reverse: Known Yards → Area';
+    }
+    calculate();
   }
 
-  // Material selection
+  modeForwardBtn?.addEventListener('click', () => setMode('forward'));
+  modeSqftBtn?.addEventListener('click', () => setMode('sqft'));
+  modeReverseBtn?.addEventListener('click', () => setMode('reverse'));
+
   matBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       matBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      activeDensity = parseFloat(btn.getAttribute('data-density') || '1.35');
-      const density=document.getElementById('yd-density') as HTMLInputElement|null;if(density)density.value=String(activeDensity);
+      const val = btn.getAttribute('data-density') || '1.35';
+      const density = document.getElementById('yd-density') as HTMLInputElement | null;
+      if (density) density.value = val;
       calculate();
     });
   });
 
-  // Inputs
-  [lengthInput, widthInput, depthInput, wasteInput, revYardsInput, revDepthInput, document.getElementById('yd-density'), document.getElementById('yd-load-payload'), document.getElementById('yd-load-volume')].forEach(input => {
-    if (input) {
-      input.addEventListener('input', calculate);
-    }
-  });
+  [lengthInput, widthInput, knownSqFtInput, depthInput, wasteInput, revYardsInput, revDepthInput,
+    document.getElementById('yd-density'), document.getElementById('yd-load-payload'), document.getElementById('yd-load-volume')
+  ].forEach(el => el?.addEventListener('input', calculate));
+  [roundingSelect, barrowSelect].forEach(sel => sel?.addEventListener('change', calculate));
+  document.getElementById('yd-density')?.addEventListener('input', () => matBtns.forEach(b => b.classList.remove('active')));
 
-  document.getElementById('yd-density')?.addEventListener('input',()=>matBtns.forEach(button=>button.classList.remove('active')));
   calculate();
 }
 

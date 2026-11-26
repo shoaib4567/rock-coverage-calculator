@@ -77,16 +77,16 @@
 
             <div class="fs-metrics-grid">
               <div class="fs-node">
-                <span class="fs-val good">1 Delivery</span>
-                <span class="fs-lbl">Consolidated Trips</span>
+                <span class="fs-val good" id="viz-combined-yds">4.63 yd&sup3;</span>
+                <span class="fs-lbl">Combined Area Net Vol</span>
               </div>
               <div class="fs-node">
-                <span class="fs-val gold">$75 Flat</span>
-                <span class="fs-lbl">Total Freight Cost</span>
+                <span class="fs-val gold">1 Dispatch</span>
+                <span class="fs-lbl">Single Combined Ticket</span>
               </div>
               <div class="fs-node">
-                <span class="fs-val good" id="viz-saved-fees">$150 - $225</span>
-                <span class="fs-lbl">Saved Drop Fees</span>
+                <span class="fs-val good">Same Stone</span>
+                <span class="fs-lbl">Ask About Split Loads</span>
               </div>
             </div>
           </div>
@@ -147,7 +147,11 @@
       if (mapZC) mapZC.textContent = `Zone 3: Swale (${vC} sf)`;
       if (mapZD) mapZD.textContent = `Zone 4: Tree (${vD} sf)`;
     } else {
-      const v = directSqFtInput ? parseInt(directSqFtInput.value) || 500 : 500;
+      const v = directSqFtInput ? Math.round(parseFloat(directSqFtInput.value) || 0) : 500;
+      const depthEl = document.getElementById('sqft-depth');
+      const dVal = depthEl ? parseFloat(depthEl.value) || 3 : 3;
+      const combYdsEl = document.getElementById('viz-combined-yds');
+      if (combYdsEl) combYdsEl.textContent = ((v * dVal) / 324).toFixed(2) + ' yd\u00b3';
       if (sqftBadge) sqftBadge.textContent = v.toLocaleString() + ' Total Sq Ft';
     }
   }

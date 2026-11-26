@@ -14,22 +14,22 @@ const breadcrumbs = [
 ];
 const entityTags = [
   { label: 'Use', value: 'Visible stone beds & borders' },
-  { label: 'Order units', value: 'Cubic yards, US tons & bags' },
+  { label: 'Order units', value: 'Cubic yards, short tons & bags' },
   { label: 'Key input', value: 'Finished layer depth' }
 ];
 const quickStats = [
   { value: '108 sq ft', label: 'One cubic yard at 3 in', desc: 'Geometric coverage before extra material' },
   { value: '27 ft³', label: 'One cubic yard', desc: 'Volume stays the same when stone type changes' },
-  { value: '2,000 lb', label: 'One US short ton', desc: 'Use your supplier weight for a tonnage quote' }
+  { value: '2,000 lb', label: 'One short ton', desc: 'Use your supplier weight for a tonnage quote' }
 ];
 const faqItems = [
   {
     q: 'How much decorative rock do I need for 100 square feet?',
-    a: 'At a finished depth of 3 inches, 100 square feet needs 25 cubic feet, or about 0.93 cubic yard, before any extra material. At the mixed-stone planning weight of 1.30 US tons per cubic yard, that is about 1.20 US tons. A 0.5-cubic-foot bag count is 50; verify the actual bag label.'
+    a: 'At a finished depth of 3 inches, 100 square feet needs 25 cubic feet, or about 0.93 cubic yard, before any extra material. At the mixed-stone planning weight of 1.30 short tons per cubic yard, that is about 1.20 short tons. A 0.5-cubic-foot bag count is 50; verify the actual bag label.'
   },
   {
     q: 'Does one ton of lava rock cover the same area as one ton of marble chips?',
-    a: 'Usually no. Area and depth set the volume, while loose bulk weight determines how many tons fill that volume. The calculator uses editable examples of 0.75 US ton per cubic yard for lava rock and 1.35 for marble chips. Supplier figures can differ.'
+    a: 'Usually no. Area and depth set the volume, while loose bulk weight determines how many tons fill that volume. The calculator uses editable examples of 0.75 short ton per cubic yard for lava rock and 1.35 for marble chips. Supplier figures can differ.'
   },
   {
     q: 'Can I assume every decorative rock bag is 0.5 cubic foot?',
@@ -43,7 +43,7 @@ const faqItems = [
 ---
 <BaseLayout
   title={title}
-  description="Estimate decorative rock in cubic yards, US tons and bags from your bed dimensions and depth. Compare marble chips, lava rock and beach pebbles with editable supplier weight and bag volume."
+  description="Estimate decorative rock in cubic yards, short tons and bags from your bed dimensions and depth. Compare marble chips, lava rock and beach pebbles with editable supplier weight and bag volume."
   canonicalPath="/decorative-rock-calculator"
 >
   <Fragment slot="head">
@@ -115,17 +115,17 @@ const faqItems = [
           <ol class="deco-steps">
             <li><strong>Measure the stone footprint.</strong> Use length × width for a rectangle. Split an L-shaped border into smaller rectangles and add them. Subtract paving or other ground you will leave uncovered; a shrub canopy alone does not remove the ground beneath it.</li>
             <li><strong>Choose the installed depth.</strong> A 2–3 inch layer is a common starting range for inorganic mulch, but larger stones and the exact look you want may call for a different depth. Check the product's coverage guidance. For an existing bed, enter only the <em>missing</em> depth of a top-up.</li>
-            <li><strong>Calculate volume, then ordering units.</strong> Square feet × inches ÷ 12 gives cubic feet; divide by 27 for cubic yards. Enter the supplier's loose weight to estimate US tons. Divide cubic feet by the bag's labeled cubic-foot volume and round up.</li>
+            <li><strong>Calculate volume, then ordering units.</strong> Square feet × inches ÷ 12 gives cubic feet; divide by 27 for cubic yards. Enter the supplier's loose weight to estimate short tons. Divide cubic feet by the bag's labeled cubic-foot volume and round up.</li>
             <li><strong>Compare the quote.</strong> Ask whether the yard sells by cubic yard, short ton, bag or pallet; check its minimum increment and delivery charge. Check your vehicle's payload before choosing pickup.</li>
           </ol>
-          <p class="deco-note">At 100 sq ft and 3 in, base volume is 25 ft³ = 0.93 yd³. With a 10% allowance it becomes 27.5 ft³ = 1.02 yd³, or 55 bags at 0.5 ft³ each. At the editable 1.35 ton/yd³ example, the buffered load is about 1.38 US tons. A bag labeled 0.25 ft³ would require 110 bags for that same buffered volume.</p>
+          <p class="deco-note">At 100 sq ft and 3 in, base volume is 25 ft³ = 0.93 yd³. With a 10% allowance it becomes 27.5 ft³ = 1.02 yd³, or 55 bags at 0.5 ft³ each. At the editable 1.35 ton/yd³ example, the buffered load is about 1.38 short tons. A bag labeled 0.25 ft³ would require 110 bags for that same buffered volume.</p>
           <p>Depth guidance: <a href="https://extension.usu.edu/yardandgarden/research/water-wise-landscaping-mulch.pdf">Utah State University Extension recommends 2–3 inches for inorganic mulch</a>; <a href="https://beachpebblesdirect.com/pages/beach-pebbles-coverage-chart">Beach Pebbles Direct uses 2 inches for most of its pebble projects</a>. See the <a href="/rock-depth-guide">rock depth guide</a> for a closer look at stone size and use.</p>
         </section>
 
         <section class="deco-card" aria-labelledby="weight-heading">
           <p class="deco-eyebrow">Understand the estimate</p>
           <h2 id="weight-heading">Why a weight preset is only a starting point</h2>
-          <p>The same 0.93 cubic yard fills a 100 sq ft bed at 3 inches no matter which stone is selected. The tonnage changes with the product's loose bulk weight. The calculator starts at 1.30 US tons per cubic yard for mixed decorative rock, 1.35 for marble chips (2,700 lb) and 0.75 for lava rock (1,500 lb), all editable. <a href="https://sunshinecoastmaterials.com/materials/decorative-stone/">Sunshine Coast Materials gives a 1.30–1.45 tons-per-yard range for its decorative stone</a>. <a href="https://cumminlandscapesupply.com/marblechips-gravel">Cummin Landscape Supply lists about 2,700 lb per cubic yard for its marble chips</a>. Lava rock is lighter and varies too: <a href="https://www.landscapecentre.com/products/bulk-materials/lava-rock">Landscape Centre lists 1,250 lb per yard</a>, while <a href="https://www.kentuckylawncare.com/product/lava-rock-bulk-landscape-material/">Kentucky Lawn Care lists 1,500 lb</a>. Replace each preset with the loose weight for the product on your quote.</p>
+          <p>The same 0.93 cubic yard fills a 100 sq ft bed at 3 inches no matter which stone is selected. The tonnage changes with the product's loose bulk weight. The calculator starts at 1.30 short tons per cubic yard for mixed decorative rock, 1.35 for marble chips (2,700 lb) and 0.75 for lava rock (1,500 lb), all editable. <a href="https://sunshinecoastmaterials.com/materials/decorative-stone/">Sunshine Coast Materials gives a 1.30–1.45 tons-per-yard range for its decorative stone</a>. <a href="https://cumminlandscapesupply.com/marblechips-gravel">Cummin Landscape Supply lists about 2,700 lb per cubic yard for its marble chips</a>. Lava rock is lighter and varies too: <a href="https://www.landscapecentre.com/products/bulk-materials/lava-rock">Landscape Centre lists 1,250 lb per yard</a>, while <a href="https://www.kentuckylawncare.com/product/lava-rock-bulk-landscape-material/">Kentucky Lawn Care lists 1,500 lb</a>. Replace each preset with the loose weight for the product on your quote.</p>
           <p>Bag volume is equally product-specific. <a href="https://www.homedepot.com/p/100583677">Vigoro marble chips are labeled 0.5 ft³ and 50 lb</a>; a <a href="https://www.lowes.com/pd/Rain-Forest-20-lb-Gray-Mexican-Beach-Pebbles/1000491537">Rain Forest beach pebble bag is labeled 0.25 ft³ and 20 lb</a>. Those labels describe different products. If a package only gives square-foot coverage at a stated depth, use that exact product coverage to check the quantity before purchase.</p>
         </section>
 
@@ -145,8 +145,8 @@ const faqItems = [
           <nav class="deco-links" aria-label="Related decorative stone calculators">
             <a href="/marble-chips-calculator">Marble chip coverage and care</a>
             <a href="/marble-chips-bag-calculator">Marble chip bags</a>
-            <a href="/lava-rock-calculator">Lava rock quantities</a>
-            <a href="/lava-rock-coverage-calculator">Lava rock coverage</a>
+            <a href="/lava-rock-calculator">Lava rock quantities &amp; coverage</a>
+            <a href="/lava-rock-bag-calculator">Lava rock bag cost &amp; weight</a>
             <a href="/beach-pebble-calculator">Beach pebble sizes and quantities</a>
             <a href="/rock-vs-mulch-calculator">Rock versus mulch</a>
           </nav>
@@ -160,7 +160,7 @@ const faqItems = [
         </section>
       </div>
     </article>
-    <TopicClusterNav currentPage="/decorative-rock-calculator" />
+    <TopicClusterNav />
   </main>
   <Footer />
 </BaseLayout>

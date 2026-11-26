@@ -14,6 +14,17 @@ const breadcrumbs = [
 ---
 
 <BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/how-to-fix-rock-sinking-into-soil">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: title,
+      description: metaDescription,
+      mainEntityOfPage: 'https://rockcoveragecalculator.com/how-to-fix-rock-sinking-into-soil',
+      inLanguage: 'en',
+      dateModified: '2026-11-25'
+    })} />
+  </Fragment>
   <Header />
   <main id="main-content">
     <PageHero
@@ -133,7 +144,7 @@ const breadcrumbs = [
           <p>Measure the repaired <strong>length × width</strong> and the finished depth of each layer. For a rectangular area, cubic yards = length (ft) × width (ft) × depth (in) ÷ 324. Reused clean rock reduces the amount you need to buy.</p>
           <div class="estimate-example"><strong>Example:</strong> A 10 × 12 ft bed restored to 2 in of stone needs <strong>0.74 cubic yards</strong> before any project-specific ordering allowance: 10 × 12 × 2 ÷ 324 = 0.74. Ask the supplier for the delivered material's bulk density if you order by tons.</div>
           <div class="tool-grid">
-            <a href="/rock-calculator"><strong>Rock calculator <span aria-hidden="true">↗</span></strong><span>Size a decorative surface layer by area and depth.</span></a>
+            <a href="/"><strong>Rock coverage calculator <span aria-hidden="true">↗</span></strong><span>Size a decorative surface layer by area and depth.</span></a>
             <a href="/crusher-run-calculator"><strong>Crusher run calculator <span aria-hidden="true">↗</span></strong><span>Enter the target compacted depth and adjust its compaction allowance for a base layer.</span></a>
             <a href="/drain-rock-calculator"><strong>Drain rock calculator <span aria-hidden="true">↗</span></strong><span>Estimate clean aggregate for a separately designed drainage trench.</span></a>
           </div>
@@ -182,7 +193,7 @@ const breadcrumbs = [
   .field-note strong { color: var(--text-primary); }
   .layer-figure { margin: 1.8rem 0 2rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; background: #f2efe8; }
   .layer-figure img { display: block; width: 100%; height: auto; }
-  .layer-figure figcaption { padding: .8rem 1rem; color: var(--text-secondary); font-size: .84rem; background: var(--surface-card); }
+  .layer-figure figcaption { padding: .85rem 1rem; color: var(--text-primary); font-size: .85rem; background: var(--bg-surface); border-top: 1px solid var(--border-subtle); }
   .repair-steps { counter-reset: step; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
   .repair-steps li { counter-increment: step; position: relative; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--surface-card); padding: 1.25rem 1.35rem 1.25rem 4rem; }
   .repair-steps li::before { content: counter(step, decimal-leading-zero); position: absolute; left: 1.2rem; top: 1.2rem; color: var(--accent-gold); font-weight: 800; }

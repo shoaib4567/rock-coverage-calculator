@@ -39,22 +39,6 @@ const faqItems = [
     a: 'Use the bag’s stated volume for coverage. Pounds tell you the estimated carrying load once the bag count is known. They do not by themselves state how much area the product covers.'
   }
 ];
-const upLinks = [
-  { title: 'Marble Chips Calculator', slug: '/marble-chips-calculator', badge: 'Material parent' },
-  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'All rock bags' }
-];
-const lateralLinks = [
-  { title: 'Lava Rock Bag Calculator', slug: '/lava-rock-bag-calculator', badge: 'Lava bags' },
-  { title: 'Decorative Rock Calculator', slug: '/decorative-rock-calculator', badge: 'Material family' }
-];
-const bridgeLinks = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Compare quotes' },
-  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Depth conversions' }
-];
-const supportGuides = [
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Finished layer' },
-  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Site preparation' }
-];
 ---
 
 <BaseLayout
@@ -71,7 +55,7 @@ const supportGuides = [
       description: 'Counts whole marble chip bags from their labeled volume and estimates optional carrying weight and material cost.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      inLanguage: 'en'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -106,13 +90,14 @@ const supportGuides = [
           <div class="calc-panel">
             <div class="calc-panel-title"><h3>Area and bag label</h3></div>
             <div class="dim-grid">
-              <div class="input-field"><label for="mcb-length">Length (ft)</label><input id="mcb-length" type="number" value="10" min="0.1" step="0.1" inputmode="decimal" /></div>
-              <div class="input-field"><label for="mcb-width">Width (ft)</label><input id="mcb-width" type="number" value="10" min="0.1" step="0.1" inputmode="decimal" /></div>
-              <div class="input-field"><label for="mcb-depth">Finished depth (in)</label><input id="mcb-depth" type="number" value="2" min="0.5" max="12" step="0.5" inputmode="decimal" /></div>
-              <div class="input-field"><label for="mcb-allowance">Order allowance (%)</label><input id="mcb-allowance" type="number" value="10" min="0" max="25" step="1" inputmode="decimal" /></div>
-              <div class="input-field"><label for="mcb-volume">Labeled volume per bag (cu ft)</label><input id="mcb-volume" type="number" value="0.5" min="0.01" max="5" step="0.1" inputmode="decimal" /><small>Some marble products are 0.4 cu ft. Check your bag.</small></div>
-              <div class="input-field"><label for="mcb-weight">Labeled weight per bag (lb), optional</label><input id="mcb-weight" type="number" min="0.1" max="1000" step="0.5" inputmode="decimal" placeholder="e.g. 50" /></div>
-              <div class="input-field"><label for="mcb-price">Your price per bag ($), optional</label><input id="mcb-price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter local price" /></div>
+              <div class="input-field"><label for="mcb-length">Length (ft)</label><input id="mcb-length" type="number" value="10" min="0.1" step="any" inputmode="decimal" /></div>
+              <div class="input-field"><label for="mcb-width">Width (ft)</label><input id="mcb-width" type="number" value="10" min="0.1" step="any" inputmode="decimal" /></div>
+              <div class="input-field"><label for="mcb-depth">Finished depth (in)</label><input id="mcb-depth" type="number" value="2" min="0.5" max="12" step="any" inputmode="decimal" /></div>
+              <div class="input-field"><label for="mcb-allowance">Order allowance (%)</label><input id="mcb-allowance" type="number" value="10" min="0" max="25" step="any" inputmode="decimal" /></div>
+              <div class="input-field"><label for="mcb-volume">Labeled volume per bag (cu ft)</label><input id="mcb-volume" type="number" value="0.5" min="0.01" max="5" step="any" inputmode="decimal" /><small>Some marble products are 0.4 cu ft. Check your bag.</small></div>
+              <div class="input-field"><label for="mcb-weight">Labeled weight per bag (lb), optional</label><input id="mcb-weight" type="number" min="0.1" max="1000" step="any" inputmode="decimal" placeholder="e.g. 50" /></div>
+              <div class="input-field"><label for="mcb-price">Your price per bag ($), optional</label><input id="mcb-price" type="number" min="0" step="any" inputmode="decimal" placeholder="Enter local price" /></div>
+              <div class="input-field"><label for="mcb-pallet-size">Bags per pallet, optional</label><input id="mcb-pallet-size" type="number" min="1" step="1" inputmode="numeric" placeholder="Optional pallet count" /></div>
             </div>
             <p class="input-error" id="mcb-error" role="status" aria-live="polite"></p>
           </div>
@@ -124,6 +109,7 @@ const supportGuides = [
               <div class="kpi-card"><div class="kpi-value" id="kpi-mcb-order">0.0</div><div class="kpi-label">Order cu ft</div><div class="kpi-subtext" id="kpi-mcb-order-yards">After allowance</div></div>
               <div class="kpi-card"><div class="kpi-value" id="kpi-mcb-cost">—</div><div class="kpi-label">Estimated bag cost</div><div class="kpi-subtext" id="kpi-mcb-cost-note">Add local price to estimate cost.</div></div>
               <div class="kpi-card"><div class="kpi-value" id="kpi-mcb-weight">—</div><div class="kpi-label">Estimated carrying load</div><div class="kpi-subtext" id="kpi-mcb-weight-result">Add label weight to estimate load.</div></div>
+              <div class="kpi-card"><div class="kpi-value" id="kpi-mcb-pallet">—</div><div class="kpi-label">Pallet breakdown</div><div class="kpi-subtext" id="kpi-mcb-pallet-note">Add pallet count to split full pallets.</div></div>
             </div>
             <p class="result-note">Cost excludes tax and delivery. Bag weight is based on the label you enter; the count itself uses labeled cubic feet. Check vehicle payload before transporting a large order.</p>
           </div>
@@ -167,21 +153,30 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/marble-chips-bag-calculator" category="quantity" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
+    <TopicClusterNav />
   </main>
   <Footer />
 
   <script>
     function updateMCB() {
-      const raw = (id: string) => (document.getElementById(id) as HTMLInputElement).value.trim();
-      const required = (id: string) => parseFloat(raw(id));
-      const length = required('mcb-length');
-      const width = required('mcb-width');
-      const depth = required('mcb-depth');
-      const allowance = required('mcb-allowance');
-      const volume = required('mcb-volume');
-      const weight = raw('mcb-weight') === '' ? null : required('mcb-weight');
-      const price = raw('mcb-price') === '' ? null : required('mcb-price');
+      const fmt = (val: number, digits = 2) => new Intl.NumberFormat('en', { maximumFractionDigits: digits }).format(val);
+      const usd = (val: number) => new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(val);
+      const inputEl = (id: string) => document.getElementById(id) as HTMLInputElement;
+      const raw = (id: string) => inputEl(id).value.trim();
+      const numVal = (id: string) => {
+        const el = inputEl(id);
+        const s = el.value.trim();
+        if (s === '' || !el.validity.valid) return NaN;
+        return Number(s);
+      };
+      const length = numVal('mcb-length');
+      const width = numVal('mcb-width');
+      const depth = numVal('mcb-depth');
+      const allowance = numVal('mcb-allowance');
+      const volume = numVal('mcb-volume');
+      const weight = raw('mcb-weight') === '' ? null : numVal('mcb-weight');
+      const price = raw('mcb-price') === '' ? null : numVal('mcb-price');
+      const palletSize = raw('mcb-pallet-size') === '' ? null : numVal('mcb-pallet-size');
       const fieldValidity: Record<string, boolean> = {
         'mcb-length': Number.isFinite(length) && length > 0,
         'mcb-width': Number.isFinite(width) && width > 0,
@@ -189,7 +184,8 @@ const supportGuides = [
         'mcb-allowance': Number.isFinite(allowance) && allowance >= 0 && allowance <= 25,
         'mcb-volume': Number.isFinite(volume) && volume > 0 && volume <= 5,
         'mcb-weight': weight === null || (Number.isFinite(weight) && weight > 0 && weight <= 1000),
-        'mcb-price': price === null || (Number.isFinite(price) && price >= 0)
+        'mcb-price': price === null || (Number.isFinite(price) && price >= 0),
+        'mcb-pallet-size': palletSize === null || (Number.isInteger(palletSize) && palletSize >= 1)
       };
       Object.entries(fieldValidity).forEach(([id, valid]) => {
         document.getElementById(id)?.setAttribute('aria-invalid', String(!valid));
@@ -198,43 +194,57 @@ const supportGuides = [
         .every(id => fieldValidity[id]);
       const error = document.getElementById('mcb-error');
       if (!volumeValid) {
-        ['kpi-mcb-bags', 'kpi-mcb-net', 'kpi-mcb-order', 'kpi-mcb-cost'].forEach(id => {
+        ['kpi-mcb-bags', 'kpi-mcb-net', 'kpi-mcb-order', 'kpi-mcb-cost', 'kpi-mcb-weight', 'kpi-mcb-pallet'].forEach(id => {
           const el = document.getElementById(id); if (el) el.textContent = '—';
         });
-        const weightEl = document.getElementById('kpi-mcb-weight');
-        if (weightEl) weightEl.textContent = '—';
-        ['kpi-mcb-purchased', 'kpi-mcb-net-yards', 'kpi-mcb-order-yards', 'kpi-mcb-weight-result', 'kpi-mcb-cost-note'].forEach(id => {
+        ['kpi-mcb-purchased', 'kpi-mcb-net-yards', 'kpi-mcb-order-yards', 'kpi-mcb-weight-result', 'kpi-mcb-cost-note', 'kpi-mcb-pallet-note'].forEach(id => {
           const el = document.getElementById(id); if (el) el.textContent = 'Enter valid values to calculate.';
         });
-        if (error) error.textContent = 'Enter positive dimensions and bag volume, a 0.5–12 in depth, and a 0–25% allowance.';
+        if (error) error.textContent = 'Enter positive dimensions and bag volume (up to 5 cu ft), a 0.5–12 in depth, and a 0–25% allowance.';
         return;
       }
-      if (error) error.textContent = '';
+      const optionalErrors: string[] = [];
+      if (!fieldValidity['mcb-weight']) optionalErrors.push('Enter a labeled bag weight between 0.1 and 1,000 lb (or leave blank).');
+      if (!fieldValidity['mcb-price']) optionalErrors.push('Enter a zero or positive bag price (or leave blank).');
+      if (!fieldValidity['mcb-pallet-size']) optionalErrors.push('Enter a positive whole number for bags per pallet (or leave blank).');
+      if (error) error.textContent = optionalErrors.join(' ');
       const finishedFeet = length * width * depth / 12;
       const orderFeet = finishedFeet * (1 + allowance / 100);
       const bags = Math.max(1, Math.ceil(orderFeet / volume - 1e-10));
       const values: Record<string, string> = {
-        'kpi-mcb-bags': bags.toLocaleString(),
-        'kpi-mcb-net': finishedFeet.toFixed(1),
-        'kpi-mcb-order': orderFeet.toFixed(1),
-        'kpi-mcb-purchased': (bags * volume).toFixed(1) + ' cu ft purchased in whole bags',
-        'kpi-mcb-net-yards': (finishedFeet / 27).toFixed(2) + ' cu yd before allowance',
-        'kpi-mcb-order-yards': (orderFeet / 27).toFixed(2) + ' cu yd with ' + allowance + '% extra'
+        'kpi-mcb-bags': fmt(bags, 0),
+        'kpi-mcb-net': fmt(finishedFeet, 1),
+        'kpi-mcb-order': fmt(orderFeet, 1),
+        'kpi-mcb-purchased': fmt(bags * volume, 1) + ' cu ft purchased in whole bags',
+        'kpi-mcb-net-yards': fmt(finishedFeet / 27, 2) + ' cu yd before allowance',
+        'kpi-mcb-order-yards': fmt(orderFeet / 27, 2) + ' cu yd with ' + fmt(allowance) + '% extra'
       };
       Object.entries(values).forEach(([id, text]) => { const el = document.getElementById(id); if (el) el.textContent = text; });
       const cost = document.getElementById('kpi-mcb-cost');
       const costNote = document.getElementById('kpi-mcb-cost-note');
-      if (cost) cost.textContent = price !== null && fieldValidity['mcb-price'] ? '$' + (bags * price).toFixed(2) : '—';
+      if (cost) cost.textContent = price !== null && fieldValidity['mcb-price'] ? usd(bags * price) : '—';
       if (costNote) costNote.textContent = !fieldValidity['mcb-price'] ? 'Enter a nonnegative price per bag.' :
         price === null ? 'Add local price to estimate cost.' : 'Whole bags × your local price; before tax and delivery.';
       const load = document.getElementById('kpi-mcb-weight');
       const loadNote = document.getElementById('kpi-mcb-weight-result');
-      if (load) load.textContent = weight !== null && fieldValidity['mcb-weight'] ? Math.round(bags * weight).toLocaleString() + ' lb' : '—';
+      if (load) load.textContent = weight !== null && fieldValidity['mcb-weight'] ? fmt(Math.round(bags * weight), 0) + ' lb' : '—';
       if (loadNote) loadNote.textContent = !fieldValidity['mcb-weight'] ? 'Enter a positive labeled bag weight.' :
-        weight === null ? 'Add label weight to estimate load.' : bags + ' bags × ' + weight + ' lb per bag.';
+        weight === null ? 'Add label weight to estimate load.' : fmt(bags, 0) + ' bags × ' + fmt(weight) + ' lb per bag.';
+      const palletEl = document.getElementById('kpi-mcb-pallet');
+      const palletNote = document.getElementById('kpi-mcb-pallet-note');
+      if (palletSize !== null && fieldValidity['mcb-pallet-size'] && Number.isSafeInteger(bags)) {
+        const pallets = Math.floor(bags / palletSize);
+        const loose = bags % palletSize;
+        if (palletEl) palletEl.textContent = fmt(pallets, 0) + ' pallet' + (pallets === 1 ? '' : 's') + (loose > 0 ? ' + ' + fmt(loose, 0) : '');
+        if (palletNote) palletNote.textContent = fmt(pallets, 0) + ' full pallet' + (pallets === 1 ? '' : 's') + (loose > 0 ? ' and ' + fmt(loose, 0) + ' loose bag' + (loose === 1 ? '' : 's') : '') + ' at ' + fmt(palletSize, 0) + '/pallet.';
+      } else {
+        if (palletEl) palletEl.textContent = '—';
+        if (palletNote) palletNote.textContent = !fieldValidity['mcb-pallet-size'] ? 'Enter a positive whole number.' : 'Add pallet count to split full pallets.';
+      }
     }
-    ['mcb-length', 'mcb-width', 'mcb-depth', 'mcb-allowance', 'mcb-volume', 'mcb-weight', 'mcb-price'].forEach(id => {
+    ['mcb-length', 'mcb-width', 'mcb-depth', 'mcb-allowance', 'mcb-volume', 'mcb-weight', 'mcb-price', 'mcb-pallet-size'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', updateMCB);
+      document.getElementById(id)?.addEventListener('change', updateMCB);
     });
     updateMCB();
   </script>
@@ -247,7 +257,8 @@ const supportGuides = [
   .section-intro p, .content-card p { color: var(--text-secondary); line-height: 1.7; }
   .section-intro a, .content-card a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 2px; }
   .input-field small { display: block; color: var(--text-muted); font-size: var(--text-xs); line-height: 1.4; margin-top: 4px; }
-  .input-error { color: #fbbf7b; min-height: 1.5em; font-size: var(--text-sm); margin-top: var(--space-3); }
+  .input-field input[aria-invalid="true"] { border-color: var(--color-error); }
+  .input-error { color: var(--color-error); min-height: 1.5em; font-size: var(--text-sm); margin-top: var(--space-3); }
   .result-note { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.55; margin-top: var(--space-4); }
   .bag-guide { background: var(--bg-body); padding: var(--space-8) 0 var(--space-12); }
   .content-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); margin-bottom: var(--space-8); }

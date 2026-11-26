@@ -13,65 +13,41 @@ const breadcrumbs = [
 ];
 
 const entityTags = [
-  {
-    "label": "Volume unit",
-    "value": "1 cubic yard = 27 cubic feet"
-  },
-  {
-    "label": "Forward calculation",
-    "value": "Area × inches ÷ 324"
-  },
-  {
-    "label": "Reverse calculation",
-    "value": "Yards × 324 ÷ inches"
-  },
-  {
-    "label": "Delivery checks",
-    "value": "Usable volume and available payload"
-  }
+  { label: 'Volume unit', value: '1 cubic yard = 27 cubic feet' },
+  { label: 'Forward calculation', value: 'Area × inches ÷ 324' },
+  { label: 'Reverse calculation', value: 'Yards × 324 ÷ inches' },
+  { label: 'Delivery checks', value: 'Supplier increment, wheelbarrow & truck limits' }
 ];
 
 const quickStats = [
-  {
-    "value": "27 cu ft",
-    "label": "One cubic yard",
-    "desc": "Volume conversion, independent of rock type"
-  },
-  {
-    "value": "108 sq ft",
-    "label": "At 3 inches",
-    "desc": "Geometric coverage of one cubic yard"
-  },
-  {
-    "value": "Your limits",
-    "label": "Delivery estimate",
-    "desc": "Use the actual vehicle volume and payload"
-  }
+  { value: '27 cu ft', label: 'One cubic yard', desc: 'Exact volumetric unit independent of rock weight' },
+  { value: '108 sq ft', label: 'At 3 inches', desc: 'Geometric coverage per cubic yard' },
+  { value: '0.25 / 0.5 / 1 yd³', label: 'Order rounding', desc: 'Match local quarry loader bucket increments' }
 ];
 
 const faqItems = [
   {
     q: 'How do you calculate cubic yards of rock by hand?',
-    a: 'Multiply the length of the area in feet by the width in feet to find total square feet. Next, multiply that area by the depth in inches, and divide the final product by 324. For example, a 20x10 foot area at 3 inches depth is: (20 × 10 × 3) / 324 = 600 / 324 = 1.85 cubic yards.'
+    a: 'Multiply length in feet by width in feet to get square feet. Multiply square feet by depth in inches, then divide by 324. For example, a 20 × 10 ft bed at 3 inches is (20 × 10 × 3) ÷ 324 = 600 ÷ 324 = 1.85 cubic yards.'
   },
   {
     q: 'How much area does 1 cubic yard of rock cover at 2 inches and 3 inches?',
-    a: 'At a depth of 2 inches, 1 cubic yard covers exactly 162 square feet. At a depth of 3 inches, 1 cubic yard covers exactly 108 square feet. At 4 inches, it covers 81 square feet.'
+    a: 'At 2 inches deep, 1 cubic yard covers 162 square feet. At 3 inches deep, it covers 108 square feet. At 4 inches deep, it covers 81 square feet.'
   },
   {
     q: 'Why do you divide by 324 when calculating cubic yards of rock?',
-    a: 'One cubic yard equals 27 cubic feet. When depth is measured in inches, you must divide depth by 12 to convert it to feet. Combining the two conversion steps: 27 cubic feet multiplied by 12 inches per foot equals 324. Dividing square feet multiplied by inches by 324 directly yields cubic yards.'
+    a: 'One cubic yard equals 27 cubic feet, and there are 12 inches per foot. Multiplying 27 × 12 equals 324 cubic-foot-inches per cubic yard.'
   },
   {
-    q: 'How many cubic yards of rock can a standard pickup truck carry?',
-    a: 'Check the actual vehicle’s remaining rated payload after occupants and other cargo, along with the supplier’s loading policy. Multiply the order volume by the product’s loose weight. A vehicle class name does not establish how much rock it may carry.'
+    q: 'How do bulk yardage increments affect my quarry order?',
+    a: 'Many supply yards load in quarter-yard (0.25 yd³), half-yard (0.50 yd³), or whole-yard (1.0 yd³) bucket increments rather than exact decimals. Use the Order Increment menu above to round your calculated volume upward to match how the yard bills.'
   }
 ];
 ---
 
 <BaseLayout
-  title="Rock Coverage Calculator Yard - Cubic Yards & Truckload Sizing"
-  description="Calculate rock coverage in cubic yards for landscaping, driveways, and gardens. Mathematical derivation, depth-to-coverage tables, and dump truck capacities."
+  title="Rock Coverage Calculator Yard - Cubic Yards & Delivery Planner"
+  description="Convert dimensions or square feet to cubic yards of rock, or reverse-calculate square-foot coverage from known yards. Includes seller rounding, wheelbarrow count, and dump truck limits."
   canonicalPath="/rock-coverage-calculator-yard"
 >
   <Fragment slot="head">
@@ -80,13 +56,10 @@ const faqItems = [
       "@type": "WebApplication",
       "name": "Rock Coverage Calculator Yard",
       "url": "https://rockcoveragecalculator.com/rock-coverage-calculator-yard",
-      "description": "Converts rectangular layer dimensions to cubic yards or known yards to coverage, with editable loose bulk weight and delivery limits.",
+      "description": "Converts rectangular dimensions or square feet to cubic yards or known yards to coverage area, with supplier rounding increments, wheelbarrow sizing, and delivery limits.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
-      "about": {
-        "@type": "Thing",
-        "name": "Rock Coverage Yards"
-      }
+      "about": { "@type": "Thing", "name": "Rock Coverage Yards" }
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -94,10 +67,7 @@ const faqItems = [
       "mainEntity": faqItems.map(item => ({
         "@type": "Question",
         "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
+        "acceptedAnswer": { "@type": "Answer", "text": item.a }
       }))
     })} />
   </Fragment>
@@ -108,8 +78,8 @@ const faqItems = [
     <PageHero
       title="Rock Coverage Calculator Yard"
       highlightWord="Yard"
-      badge="Volumetric Conversion & Hauling Capacity"
-      subtitle="Convert square footage, radius, or custom irregular area dimensions into exact cubic yards for quarry ordering and bulk dump truck deliveries."
+      badge="Volumetric Conversion, Yardage Rounding & Hauling"
+      subtitle="Convert rectangular dimensions or known square footage into cubic yards, round up to your quarry’s bucket increment, and estimate wheelbarrow loads or dump truck trips."
       breadcrumbs={breadcrumbs}
       entityTags={entityTags}
       quickStats={quickStats}
@@ -120,122 +90,80 @@ const faqItems = [
     <CubicYardVisualizer />
 
     <!-- Technical Guide on Cubic Yard Sizing -->
-    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Convert a layer to yards, or yards to a covered area</h2><p>Use the forward mode when you know a rectangular footprint and finished depth. Use reverse mode when a supplier has quoted a volume or you already have material. The calculation treats the layer as uniform; large stones, irregular ground and placement losses can change actual coverage.</p><h3>Forward example: a 40 × 15 ft bed</h3><p>The 600-sq-ft footprint at 3 inches contains <strong>600 × 3 ÷ 324 = 5.56 cubic yards</strong> before extra. A selected 10% order increase gives 6.11 yd³. At the example loose bulk weight of 1.35 US short tons per yard, that order weighs about 8.25 short tons. Changing density changes estimated weight, not geometric volume.</p><div class="formula-box"><code>Net yd³ = area in sq ft × depth in inches ÷ 324</code><br/><code>Order yd³ = net yd³ × (1 + extra percent ÷ 100)</code><br/><code>Estimated short tons = order yd³ × supplier short tons per yd³</code></div><h3>Reverse example: five cubic yards</h3><p>At 3 inches, 5 × 324 ÷ 3 = <strong>540 sq ft</strong>. At 2 inches the same volume geometrically covers 810 sq ft. Reverse mode spreads the entered volume itself and does not add the forward mode’s extra percentage.</p><h3>Read depth comparisons as quantity examples</h3><div class="table-wrapper"><table class="guide-table"><caption>Geometric coverage of one cubic yard; no installation depth is prescribed</caption><thead><tr><th scope="col">Depth</th><th scope="col">Coverage</th></tr></thead><tbody><tr><th scope="row">1 in</th><td>324 sq ft</td></tr><tr><th scope="row">1.5 in</th><td>216 sq ft</td></tr><tr><th scope="row">2 in</th><td>162 sq ft</td></tr><tr><th scope="row">2.5 in</th><td>129.6 sq ft</td></tr><tr><th scope="row">3 in</th><td>108 sq ft</td></tr><tr><th scope="row">4 in</th><td>81 sq ft</td></tr><tr><th scope="row">6 in</th><td>54 sq ft</td></tr></tbody></table></div><p>Choose the depth for the actual product and project. The decimal result at 2.5 inches is 129.6 sq ft per yard. A rounded table value is a display convenience; it does not change the conversion constant.</p><h3>Check both delivery limits</h3><p>Delivery count is the larger of the volume-based and weight-based counts, rounded up. For example, 13 yd³ requires at least two trips in a vehicle with 7 yd³ usable volume, even if its payload could carry the whole order. Actual available payload, product weight, loading policy and site access still need confirmation. A vehicle class name alone cannot establish capacity.</p><p>For order increments and handling, use the <a href="/rock-yardage-calculator">yardage order planner</a>. For known square footage or separate beds, use the <a href="/rock-square-foot-calculator">square-foot calculator</a>. For six footprint shapes, start with the <a href="/">main rock calculator</a>. <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/" target="_blank" rel="noopener noreferrer">Penn State’s materials calculator</a> explains why finished volume and loose material weight need separate assumptions.</p></div><div class="content-card faq-card"><h2>Questions about this calculation</h2><div class="faq-accordion">{faqItems.map((item,index)=><details class="faq-detail" open={index===0}><summary class="faq-summary">{item.q}</summary><div class="faq-answer"><p>{item.a}</p></div></details>)}</div></div></div></article>
+    <article class="content-guide-section">
+      <div class="container">
+        <div class="content-card">
+          <h2>Convert a layer to yards, or yards to a covered area</h2>
+          <p>Use forward mode when you have a measured footprint and finished depth. Switch to <strong>Yards &rarr; Coverage</strong> when a supplier has quoted bulk yardage or you already have rock staged on site. Large boulders or irregular subgrades reduce net flat coverage.</p>
 
-    <TopicClusterNav currentPage="/rock-coverage-calculator-yard" category="quantity" />
+          <h3>Forward example: a 40 &times; 15 ft bed</h3>
+          <p>The 600-sq-ft footprint at 3 inches contains <strong>600 &times; 3 &divide; 324 = 5.56 cubic yards</strong> net. Adding a 10% buffer brings that to 6.11 yd&sup3; (or 6.25 yd&sup3; / 6.50 yd&sup3; depending on bucket rounding). At 1.35 short tons per cubic yard, 6.11 yd&sup3; weighs roughly 8.25 short tons.</p>
+
+          <div class="formula-box">
+            <code>Net yd&sup3; = area (sq ft) &times; depth (in) &divide; 324</code><br/>
+            <code>Order yd&sup3; = net yd&sup3; &times; (1 + extra % &divide; 100)</code><br/>
+            <code>Estimated short tons = order yd&sup3; &times; supplier short tons/yd&sup3;</code>
+          </div>
+
+          <h3>Reverse example: five cubic yards</h3>
+          <p>At 3 inches deep, 5 &times; 324 &divide; 3 = <strong>540 sq ft</strong>. At 2 inches deep, the same 5 yards covers 810 sq ft geometrically.</p>
+
+          <h3>Depth-to-coverage reference table (per cubic yard)</h3>
+          <div class="table-wrapper">
+            <table class="guide-table">
+              <caption>Geometric coverage of one cubic yard (27 cu ft); select depth to match stone size and traffic</caption>
+              <thead><tr><th scope="col">Depth</th><th scope="col">Coverage per yd&sup3;</th><th scope="col">Typical use note</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">1 in</th><td>324 sq ft</td><td>Fine screenings or leveling top-dressings only</td></tr>
+                <tr><th scope="row">1.5 in</th><td>216 sq ft</td><td>Modest topping for tight 3/8 in pea gravel</td></tr>
+                <tr><th scope="row">2 in</th><td>162 sq ft</td><td>Standard decorative mulch for 3/8"–1" stone</td></tr>
+                <tr><th scope="row">2.5 in</th><td>129.6 sq ft</td><td>Minimum cover for blended 1–1.5 in ornamental gravel</td></tr>
+                <tr><th scope="row">3 in</th><td>108 sq ft</td><td>Heavy landscape beds, 1–3 in river rock, drain toppings</td></tr>
+                <tr><th scope="row">4 in</th><td>81 sq ft</td><td>Compacted base lifts and standard residential driveways</td></tr>
+                <tr><th scope="row">6 in</th><td>54 sq ft</td><td>Deep drainage trenches and heavy structural pads</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Check delivery volume, weight limits, and handling</h3>
+          <p>Delivery count equals whichever limit hits first—bed volume or legal payload weight—rounded up. For instance, 13 yd&sup3; in a dump truck holding 7 yd&sup3; requires at least 2 trips by volume, while very dense granite or wet base rock may hit axle payload limits sooner.</p>
+          <p>For direct weight conversions, use the <a href="/rock-tons-calculator">rock tons calculator</a>. For multi-zone projects with 3D previews and saved printouts, open the <a href="/">main rock coverage calculator</a>, or read Penn State’s <a href="https://dirtandgravel.psu.edu/general-resources/dglvr-materials-calculator/" target="_blank" rel="noopener noreferrer">loose vs. compacted materials reference</a>.</p>
+        </div>
+
+        <div class="content-card faq-card">
+          <h2>Questions about this calculation</h2>
+          <div class="faq-accordion">
+            {faqItems.map((item, index) => (
+              <details class="faq-detail" open={index === 0}>
+                <summary class="faq-summary">{item.q}</summary>
+                <div class="faq-answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <TopicClusterNav />
   </main>
 
   <Footer />
-  <script src="../scripts/app.js"></script>
 </BaseLayout>
 
 <style>
-  .content-guide-section {
-    padding: var(--space-12) 0;
-    background: var(--bg-body);
-  }
-
-  .content-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    margin-bottom: var(--space-8);
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-
-  .content-card h2 {
-    font-size: var(--text-2xl);
-    color: var(--text-primary);
-    margin-bottom: var(--space-4);
-  }
-
-  .content-card h3 {
-    font-size: var(--text-xl);
-    color: var(--text-primary);
-    margin: var(--space-6) 0 var(--space-3) 0;
-  }
-
-  .formula-box {
-    background: var(--bg-surface);
-    border-left: 3px solid var(--accent-gold);
-    padding: var(--space-4);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin: var(--space-4) 0;
-    font-family: var(--font-mono);
-    color: var(--accent-gold);
-    font-size: var(--text-sm);
-  }
-
-  .table-wrapper {
-    overflow-x: auto;
-    margin: var(--space-6) 0;
-  }
-
-  .guide-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-    text-align: left;
-  }
-
-  .guide-table th, .guide-table td {
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .guide-table th {
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    font-weight: 700;
-  }
-
-  .guide-table tr:hover td {
-    background: rgba(212, 168, 83, 0.04);
-  }
-
-  .steps-list {
-    padding-left: var(--space-6);
-    margin: var(--space-4) 0;
-  }
-
-  .steps-list li {
-    margin-bottom: var(--space-3);
-  }
-
-  .faq-detail {
-    border-bottom: 1px solid var(--border-subtle);
-    padding: var(--space-4) 0;
-  }
-
-  .faq-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--text-primary);
-    font-size: var(--text-base);
-    list-style: none;
-  }
-
-  .faq-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq-summary svg {
-    transition: transform var(--transition-fast);
-  }
-
-  .faq-detail[open] .faq-summary svg {
-    transform: rotate(180deg);
-  }
-
-  .faq-answer {
-    padding-top: var(--space-3);
-    color: var(--text-muted);
-    font-size: var(--text-sm);
-    line-height: 1.6;
-  }
+  .content-guide-section { padding: var(--space-12) 0; background: var(--bg-body); }
+  .content-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-8); margin-bottom: var(--space-8); line-height: 1.7; color: var(--text-secondary); }
+  .content-card h2 { font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-4); }
+  .content-card h3 { font-size: var(--text-xl); color: var(--text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
+  .content-card a { color: var(--accent-gold); text-decoration: underline; text-underline-offset: 3px; }
+  .formula-box { background: var(--bg-surface); border-left: 3px solid var(--accent-gold); padding: var(--space-4); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: var(--space-4) 0; font-family: var(--font-mono); color: var(--accent-gold); font-size: var(--text-sm); }
+  .table-wrapper { overflow-x: auto; margin: var(--space-6) 0; }
+  .guide-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); text-align: left; }
+  .guide-table th, .guide-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); }
+  .guide-table th { background: var(--bg-surface); color: var(--text-primary); font-weight: 700; }
+  .guide-table tr:hover td { background: rgba(212, 168, 83, 0.04); }
+  .faq-detail { border-bottom: 1px solid var(--border-subtle); padding: var(--space-4) 0; }
+  .faq-summary { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: var(--text-primary); font-size: var(--text-base); list-style: none; }
+  .faq-summary::-webkit-details-marker { display: none; }
+  .faq-answer { padding-top: var(--space-3); color: var(--text-muted); font-size: var(--text-sm); line-height: 1.6; }
 </style>

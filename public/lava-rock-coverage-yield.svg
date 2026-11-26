@@ -22,5 +22,5 @@
   <path d="M540 219h12m18 8h15m23-7h12m31 12h19m27-15h14m25 15h12m25-12h16m28 11h18m21-12h20M553 245h16m32-4h14m24 3h21m30-7h18m25 8h22m23-9h14m26 8h16m28-6h19" stroke="#d69779" stroke-width="5" stroke-linecap="round" opacity=".8"/>
   <text x="524" y="296" fill="#17263a" font-family="Arial, sans-serif" font-size="30" font-weight="700">216 sq ft*</text>
 
-  <text x="40" y="356" fill="#506176" font-family="Arial, sans-serif" font-size="15">* Ton example assumes loose bulk density of 1,500 lb/yd³ (0.75 US short ton/yd³). Check your supplier's figure.</text>
+  <text x="40" y="356" fill="#506176" font-family="Arial, sans-serif" font-size="15">* Ton example assumes loose bulk density of 1,500 lb/yd³ (0.75 short ton/yd³). Check your supplier's figure.</text>
 </svg>

@@ -15,6 +15,27 @@ const breadcrumbs = [
 ---
 
 <BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/how-to-stop-weeds-in-landscape-rock">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: title,
+      description: metaDescription,
+      mainEntityOfPage: 'https://rockcoveragecalculator.com/how-to-stop-weeds-in-landscape-rock',
+      inLanguage: 'en',
+      dateModified: '2026-11-25'
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'Will landscape fabric stop all weeds in rock?', acceptedAnswer: { '@type': 'Answer', text: 'No. It can reduce weed emergence from below and keep soil and stone apart, but weeds can establish in material that later collects on top, through gaps, and at bed edges. Keep the upper rock layer clean and remove new seedlings early.' } },
+        { '@type': 'Question', name: 'Can I just add more rock over the weeds?', acceptedAnswer: { '@type': 'Answer', text: 'Remove living weeds and trapped soil first. More stone may hide them briefly while leaving perennial roots and a seed-friendly layer in place. Check the finished depth before ordering so the bed remains suited to its plants and use.' } },
+        { '@type': 'Question', name: 'Is a preemergent enough for a weedy bed?', acceptedAnswer: { '@type': 'Answer', text: 'No. Preemergence products target germinating seeds, not weeds already visible. Clean and remove existing growth first. If you choose a product, confirm that its label permits use in your specific bed and around its plants.' } },
+        { '@type': 'Question', name: 'Are flame weeding or boiling water safe beside plants?', acceptedAnswer: { '@type': 'Answer', text: 'Both can damage desirable plants. A flame can ignite dry material and nearby structures; hot water can burn people and only gives limited suppression. For weeds close to shrubs, fabric, plastic edging, or a building, hand removal is usually the simpler choice.' } }
+      ]
+    })} />
+  </Fragment>
   <Header />
   <main id="main-content">
     <PageHero
@@ -92,7 +113,7 @@ const breadcrumbs = [
           <div class="section-heading"><span class="section-kicker">04 / Renovate if needed</span><h2 id="rebuild-heading">When cleaning is enough, and when to lift the rock</h2></div>
           <div class="decision-grid">
             <div class="decision-card"><span>Keep the bed</span><h3>Stone is mostly clean and the layer is even</h3><p>Remove weeds and debris, then maintain the edges. Replacing sound fabric or adding stone to a clean bed may add labor without addressing the real problem: new seeds arriving on top.</p></div>
-            <div class="decision-card"><span>Renovate sections</span><h3>Soil has filled the gaps or fabric is exposed</h3><p>Lift a manageable section, separate reusable rock from the accumulated fines, remove live weeds and roots, and repair the underlying layer if needed. Return clean stone at an even depth. If you need more, the <a href="/rock-calculator">rock calculator</a> estimates cubic yards, approximate short tons, and 0.5-cu-ft bags from measured area and finished depth.</p></div>
+            <div class="decision-card"><span>Renovate sections</span><h3>Soil has filled the gaps or fabric is exposed</h3><p>Lift a manageable section, separate reusable rock from the accumulated fines, remove live weeds and roots, and repair the underlying layer if needed. Return clean stone at an even depth. If you need more, the <a href="/">rock coverage calculator</a> estimates cubic yards, approximate short tons, and 0.5-cu-ft bags from measured area and finished depth.</p></div>
           </div>
           <p>Fabric is a site choice, not a permanent weed cure. Under rock it can help keep stone and soil separate. It is less convenient where you expect to replant annuals, spread groundcovers, or work around dense roots. Use a permeable material appropriate to the site and maintain the rock above it. Read the <a href="/how-to-install-landscape-rock">installation guide</a> before rebuilding a bed, and the <a href="/how-to-fix-rock-sinking-into-soil">sinking-rock guide</a> if the main issue is stone mixing into wet soil. <a href="https://ipm.ucanr.edu/home-and-landscape/weed-management-in-landscapes/">UC IPM</a> describes these fabric tradeoffs.</p>
         </section>
@@ -121,7 +142,7 @@ const breadcrumbs = [
           <div class="related-links">
             <a href="/rock-depth-guide"><strong>Check rock depth</strong><span>Pick a finished layer with the actual stone and use in mind.</span></a>
             <a href="/how-to-install-landscape-rock"><strong>Install a rock bed</strong><span>Prepare the site and choose where a separator belongs.</span></a>
-            <a href="/rock-calculator"><strong>Estimate replacement stone</strong><span>Enter area and depth to plan yards, tons, or bags.</span></a>
+            <a href="/"><strong>Estimate replacement stone</strong><span>Enter area and depth to plan yards, tons, or bags.</span></a>
           </div>
         </aside>
       </div>
@@ -132,47 +153,48 @@ const breadcrumbs = [
 </BaseLayout>
 
 <style>
-  .weed-guide { padding: clamp(2rem, 4vw, 4rem) 0 5rem; }
+  .weed-guide { --weed-accent: #34d399; --weed-caution-title: var(--accent-gold); padding: clamp(2rem, 4vw, 4rem) 0 5rem; }
+  :global([data-theme="light"]) .weed-guide { --weed-accent: #047857; --weed-caution-title: #92400e; }
   .reading-shell { max-width: 980px; margin: 0 auto; }
   .weed-guide p { color: var(--text-secondary); line-height: 1.75; }
-  .weed-guide a { color: #55dbab; text-underline-offset: .2em; }
-  .weed-guide a:hover { color: #a3f2d0; }
-  .opening-card { padding: clamp(1.25rem, 3vw, 2.25rem); background: linear-gradient(125deg, rgba(16,185,129,.15), rgba(16,185,129,.03)); border: 1px solid rgba(52,211,153,.35); border-radius: 20px; }
+  .weed-guide a { color: var(--weed-accent); text-underline-offset: .2em; }
+  .weed-guide a:hover { color: var(--text-primary); }
+  .opening-card { padding: clamp(1.25rem, 3vw, 2.25rem); background: linear-gradient(125deg, rgba(16,185,129,.12), rgba(16,185,129,.02)); border: 1px solid rgba(16,185,129,.35); border-radius: 20px; }
   .opening-card p { font-size: 1.08rem; margin: 0; }
-  .opening-card .eyebrow, .section-kicker { display: block; color: #6ee7b7; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; font-size: .72rem; }
+  .opening-card .eyebrow, .section-kicker { display: block; color: var(--weed-accent); font-weight: 800; letter-spacing: .11em; text-transform: uppercase; font-size: .72rem; }
   .opening-card .eyebrow { margin-bottom: .75rem; }
   .jump-links { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.5rem; }
-  .jump-links a { display: inline-block; color: var(--text-primary); text-decoration: none; padding: .45rem .8rem; background: rgba(255,255,255,.055); border: 1px solid var(--border-subtle); border-radius: 100px; font-size: .83rem; font-weight: 700; }
-  .jump-links a:hover { border-color: #34d399; }
+  .jump-links a { display: inline-block; color: var(--text-primary); text-decoration: none; padding: .45rem .8rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 100px; font-size: .83rem; font-weight: 700; }
+  .jump-links a:hover { border-color: var(--weed-accent); }
   .guide-section { padding: clamp(2.5rem, 5vw, 4.25rem) 0; border-bottom: 1px solid var(--border-subtle); scroll-margin-top: 2rem; }
   .section-heading { margin-bottom: 1.2rem; }
   .section-heading h2 { color: var(--text-primary); font-size: clamp(1.65rem, 3vw, 2.25rem); line-height: 1.2; letter-spacing: -.025em; margin: .45rem 0 0; }
   .guide-section > p { max-width: 80ch; }
   .bed-diagram { margin: 2rem 0 2.25rem; }
   .bed-diagram img { width: 100%; height: auto; display: block; border: 1px solid var(--border-subtle); border-radius: 16px; background: #10251f; }
-  .bed-diagram figcaption { color: var(--text-muted); font-size: .82rem; line-height: 1.5; margin-top: .65rem; }
+  .bed-diagram figcaption { color: var(--text-secondary); font-size: .84rem; line-height: 1.5; margin-top: .65rem; }
   .clue-grid, .decision-grid, .rhythm-grid, .related-links { display: grid; gap: 1rem; }
   .clue-grid { grid-template-columns: repeat(3, 1fr); }
   .clue-card, .decision-card, .rhythm-grid > div { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 1.2rem; }
   .clue-card h3, .decision-card h3 { color: var(--text-primary); margin: .4rem 0 .6rem; font-size: 1.08rem; }
   .clue-card p, .decision-card p, .rhythm-grid p { margin: 0; font-size: .93rem; }
-  .clue-label, .decision-card > span { color: #6ee7b7; font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
+  .clue-label, .decision-card > span { color: var(--weed-accent); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
   .action-list { padding: 0; margin: 1.65rem 0 0; list-style: none; display: grid; gap: 1.15rem; }
   .action-list li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; align-items: start; padding: 1.15rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 14px; }
-  .action-number { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: rgba(16,185,129,.17); color: #6ee7b7; font-weight: 800; }
+  .action-number { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: rgba(16,185,129,.15); color: var(--weed-accent); font-weight: 800; }
   .action-list h3 { color: var(--text-primary); font-size: 1.12rem; margin: 0 0 .35rem; }
   .action-list p { margin: 0; }
   .method-table-wrap { overflow-x: auto; margin-top: 1.4rem; border: 1px solid var(--border-subtle); border-radius: 14px; }
   .method-table { width: 100%; min-width: 680px; border-collapse: collapse; line-height: 1.55; }
   .method-table caption { text-align: left; color: var(--text-muted); font-size: .8rem; padding: .75rem 1rem; background: var(--bg-card); }
   .method-table th, .method-table td { text-align: left; vertical-align: top; padding: .95rem 1rem; border-top: 1px solid var(--border-subtle); }
-  .method-table thead th { color: #6ee7b7; font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; }
+  .method-table thead th { color: var(--weed-accent); font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; }
   .method-table tbody th { color: var(--text-primary); width: 23%; }
   .method-table td { color: var(--text-secondary); font-size: .92rem; }
   .method-table tbody tr:nth-child(even) { background: rgba(255,255,255,.025); }
   .source-note { font-size: .82rem; margin-top: .7rem; }
-  .caution-panel { margin-top: 1.8rem; padding: 1.25rem 1.5rem; border-left: 4px solid #eabf69; border-radius: 0 12px 12px 0; background: rgba(234,191,105,.08); }
-  .caution-panel h3 { color: #f7d998; font-size: 1.13rem; margin: 0 0 .5rem; }
+  .caution-panel { margin-top: 1.8rem; padding: 1.25rem 1.5rem; border-left: 4px solid var(--accent-gold); border-radius: 0 12px 12px 0; background: color-mix(in srgb, var(--accent-gold) 8%, transparent); }
+  .caution-panel h3 { color: var(--weed-caution-title); font-size: 1.13rem; margin: 0 0 .5rem; }
   .caution-panel p { margin: 0; }
   .decision-grid { grid-template-columns: repeat(2, 1fr); margin: 1.4rem 0 1.2rem; }
   .rhythm-section { background: radial-gradient(circle at 100% 0, rgba(16,185,129,.08), transparent 46%); }

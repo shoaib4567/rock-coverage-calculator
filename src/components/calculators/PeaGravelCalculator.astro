@@ -1,12 +1,12 @@
 ---
-// Pea gravel quantity estimator for rectangular areas
+// Pea gravel quantity and reverse coverage estimator (Dimensions, Known Sq Ft, Reverse Area)
 ---
 <section class="section" id="pea-calc">
   <div class="container">
     <div class="section-header">
       <h2>Estimate pea gravel for your area</h2>
       <div class="section-divider"></div>
-      <p>Enter a rectangular footprint and the planned loose layer depth. Results include volume, an estimated bulk weight, half-cubic-foot bags, and the full perimeter if every side needs edging.</p>
+      <p>Switch between dimensions, known square footage, or reverse coverage from bulk yards, short tons, or bags. Results include volume, estimated weight, half-cubic-foot bags, and rectangular edging perimeter.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -17,34 +17,75 @@
           <h3>Project and dimensions</h3>
         </div>
 
-        <div class="unit-toggle mode-toggle" role="group" aria-label="Project type">
+        <div class="unit-toggle input-mode-toggle" role="group" aria-label="Calculation mode">
+          <button class="active" id="pea-input-dims" type="button" aria-pressed="true">Dimensions (L &times; W)</button>
+          <button id="pea-input-sqft" type="button" aria-pressed="false">Known Sq Ft</button>
+          <button id="pea-input-reverse" type="button" aria-pressed="false">Reverse: Stock &rarr; Area</button>
+        </div>
+
+        <div class="unit-toggle mode-toggle" role="group" aria-label="Project depth preset">
           <button class="active" id="pea-mode-patio" type="button" aria-pressed="true">Patio / Path / Bed</button>
           <button id="pea-mode-play" type="button" aria-pressed="false">Play area</button>
         </div>
 
-        <div class="dim-grid">
+        <div id="pea-dims-group" class="dim-grid">
           <div class="input-field">
             <label for="pea-length">Length</label>
-            <input type="number" id="pea-length" value="25" min="1" step="0.5" />
+            <input type="number" id="pea-length" value="12" min="0.1" step="any" />
             <span class="unit-label">feet</span>
           </div>
           <div class="input-field">
             <label for="pea-width">Width</label>
-            <input type="number" id="pea-width" value="16" min="1" step="0.5" />
+            <input type="number" id="pea-width" value="12" min="0.1" step="any" />
             <span class="unit-label">feet</span>
+          </div>
+        </div>
+
+        <div id="pea-sqft-group" class="dim-grid single-col" style="display: none;">
+          <div class="input-field">
+            <label for="pea-area">Coverage area</label>
+            <input type="number" id="pea-area" value="144" min="1" step="any" />
+            <span class="unit-label">sq ft</span>
+          </div>
+        </div>
+
+        <div id="pea-reverse-group" class="dim-grid" style="display: none;">
+          <div class="input-field">
+            <label for="pea-reverse-qty">Available stone</label>
+            <input type="number" id="pea-reverse-qty" value="2" min="0.05" step="any" />
+          </div>
+          <div class="input-field">
+            <label for="pea-reverse-unit">Supply unit</label>
+            <select id="pea-reverse-unit">
+              <option value="yards">Cubic yards (yd&sup3;)</option>
+              <option value="tons">Short tons (2,000 lb)</option>
+              <option value="bags">0.5 cu ft bags</option>
+            </select>
           </div>
         </div>
 
         <div class="dim-grid">
           <div class="input-field">
             <label for="pea-depth">Loose gravel depth</label>
-            <input type="number" id="pea-depth" value="2" min="0.5" step="0.5" />
+            <input type="number" id="pea-depth" value="2" min="0.25" step="any" />
             <span class="unit-label">inches</span>
           </div>
           <div class="input-field">
             <label for="pea-waste">Order allowance</label>
-            <input type="number" id="pea-waste" value="10" min="0" step="1" />
+            <input type="number" id="pea-waste" value="10" min="0" max="50" step="1" />
             <span class="unit-label">% extra</span>
+          </div>
+        </div>
+
+        <div id="pea-rounding-group" class="dim-grid single-col">
+          <div class="input-field">
+            <label for="pea-rounding">Supplier bulk yard increment</label>
+            <select id="pea-rounding">
+              <option value="0">Exact calculated yards</option>
+              <option value="0.25">Round up to 0.25 yd&sup3; (quarter yard)</option>
+              <option value="0.5">Round up to 0.50 yd&sup3; (half yard)</option>
+              <option value="1">Round up to 1.00 yd&sup3; (full yard)</option>
+            </select>
           </div>
         </div>
 
@@ -54,7 +95,7 @@
           <span id="pea-advisory-text" role="status">For a patio or path, start with about 2 inches over a prepared base. Rounded stone still moves under feet and furniture.</span>
         </div>
 
-        <!-- Pea Gravel Size -->
+        <!-- Pea Gravel Density -->
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
           <h3>Bulk density assumption</h3>
@@ -62,72 +103,72 @@
 
         <div class="pea-type-grid" role="group" aria-label="Estimated material density">
           <button type="button" class="pea-btn active" aria-pressed="true" data-density="1.35">
-            <div class="pea-btn-title">Typical estimate</div>
-            <div class="pea-btn-spec">1.35 US short tons per cubic yard (2,700 lb/yd³)</div>
+            <div class="pea-btn-title">Typical washed 3/8 in pea gravel</div>
+            <div class="pea-btn-spec">1.35 short tons per cubic yard (2,700 lb/yd&sup3;)</div>
           </button>
           <button type="button" class="pea-btn" aria-pressed="false" data-density="1.40">
-            <div class="pea-btn-title">Heavier estimate</div>
-            <div class="pea-btn-spec">1.40 US short tons per cubic yard (2,800 lb/yd³)</div>
+            <div class="pea-btn-title">Denser / damp stone allowance</div>
+            <div class="pea-btn-spec">1.40 short tons per cubic yard (2,800 lb/yd&sup3;)</div>
           </button>
         </div>
         <div class="input-field density-field">
-          <label for="pea-density">Supplier loose bulk weight (US short tons per cubic yard)</label>
+          <label for="pea-density">Supplier loose bulk weight (short tons per cubic yard)</label>
           <input type="number" id="pea-density" value="1.35" min="0.5" max="3" step="any" aria-describedby="pea-density-feedback" />
-          <span class="unit-label">t/yd³</span>
+          <span class="unit-label">t/yd&sup3;</span>
         </div>
-        <p class="calc-note" id="pea-density-feedback" role="status">Presets are planning assumptions. Enter your supplier’s weight if available; divide lb/yd³ by 2,000 to convert to US short tons/yd³.</p>
+        <p class="calc-note" id="pea-density-feedback" role="status">Presets are planning assumptions. Enter your supplier’s weight if available; divide lb/yd&sup3; by 2,000 to convert to short tons/yd&sup3;.</p>
       </div>
 
       <!-- Output Panel -->
       <div class="calc-results-panel animate-fade-in-up">
         <div class="results-header">
-          <div class="results-title">Pea Gravel Requirements</div>
-          <div class="results-badge" id="pea-badge">Planning estimate</div>
+          <div class="results-title" id="pea-results-title">Pea Gravel Requirements</div>
+          <div class="results-badge" id="pea-badge">Patio / path estimate</div>
         </div>
 
         <div class="kpi-grid">
           <div class="kpi-card highlight">
-            <div class="kpi-value" id="kpi-pea-tons">0.00</div>
-            <div class="kpi-label">Estimated US Short Tons</div>
-            <div class="kpi-subtext" id="kpi-pea-lbs">0 lb estimated weight</div>
+            <div class="kpi-value" id="kpi-pea-primary">1.32</div>
+            <div class="kpi-label" id="label-pea-primary">Estimated Short Tons</div>
+            <div class="kpi-subtext" id="sub-pea-primary">2,640 lb incl. allowance</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-value" id="kpi-pea-yards">0.00</div>
-            <div class="kpi-label">Volume (Cubic Yards)</div>
-            <div class="kpi-subtext" id="kpi-pea-cuft">0 cu ft volume</div>
+            <div class="kpi-value" id="kpi-pea-yards">0.98</div>
+            <div class="kpi-label" id="label-pea-yards">Order Volume (Cubic Yards)</div>
+            <div class="kpi-subtext" id="sub-pea-yards">26.4 cu ft total volume</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-value" id="kpi-pea-bags">0</div>
-            <div class="kpi-label">0.5 Cubic Foot Bags</div>
-            <div class="kpi-subtext">Confirm the bag's labeled volume</div>
+            <div class="kpi-value" id="kpi-pea-bags">53</div>
+            <div class="kpi-label" id="label-pea-bags">0.5 Cubic Foot Bags</div>
+            <div class="kpi-subtext" id="sub-pea-bags">Confirm the bag’s labeled volume</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-value" id="kpi-pea-edging">0</div>
-            <div class="kpi-label">Full Perimeter (Feet)</div>
-            <div class="kpi-subtext">Subtract sides already contained</div>
+            <div class="kpi-value" id="kpi-pea-fourth">48 LF</div>
+            <div class="kpi-label" id="label-pea-fourth">Full Perimeter (Feet)</div>
+            <div class="kpi-subtext" id="sub-pea-fourth">Subtract sides already contained</div>
           </div>
         </div>
 
         <!-- Containment Caution Box -->
         <div class="containment-card">
           <div class="containment-title">Before you order</div>
-          <p class="containment-text">
-            The allowance is applied to yards, tons, and bags. Pea gravel shifts because its rounded stones do not interlock; a secure edge helps keep it out of adjacent lawn or paving. The edging figure assumes all four sides of a rectangle need a border.
+          <p class="containment-text" id="pea-containment-text">
+            The allowance is applied to yards, short tons, and bags. Pea gravel shifts because its rounded stones do not interlock; a secure edge helps keep it out of adjacent lawn or paving. The edging figure assumes all sides need a border.
           </p>
         </div>
 
         <div class="breakdown-list">
           <div class="breakdown-row">
-            <span>Measured footprint</span>
-            <span class="breakdown-val" id="row-pea-area">400 sq ft</span>
+            <span id="row-pea-area-label">Measured footprint</span>
+            <span class="breakdown-val" id="row-pea-area">144 sq ft (12&prime; &times; 12&prime;)</span>
           </div>
           <div class="breakdown-row">
-            <span>Optional separator fabric estimate</span>
-            <span class="breakdown-val" id="row-pea-fabric">440 sq ft</span>
+            <span id="row-pea-fabric-label">Optional separator fabric estimate</span>
+            <span class="breakdown-val" id="row-pea-fabric">159 sq ft incl. 10% allowance</span>
           </div>
           <div class="breakdown-row">
             <span>Surface note</span>
-            <span class="breakdown-val" id="row-pea-firmness">Rounded stone remains loose</span>
+            <span class="breakdown-val" id="row-pea-firmness">Loose rounded surface</span>
           </div>
         </div>
       </div>
@@ -180,12 +221,13 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 3px;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
+  gap: 2px;
 }
 
 .unit-toggle button {
   flex: 1;
-  padding: 0.5rem;
+  padding: 0.5rem 0.35rem;
   border: none;
   background: transparent;
   color: var(--color-text-muted);
@@ -208,6 +250,16 @@
   margin-bottom: var(--space-3);
 }
 
+.dim-grid.single-col {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 500px) {
+  .dim-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .input-field {
   position: relative;
   display: flex;
@@ -221,9 +273,9 @@
   margin-bottom: var(--space-1);
 }
 
-.input-field input {
+.input-field input,
+.input-field select {
   padding: 0.65rem 0.75rem;
-  padding-right: 3.5rem;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -232,9 +284,20 @@
   font-weight: 600;
   outline: none;
   transition: border-color var(--transition-fast);
+  width: 100%;
 }
 
-.input-field input:focus {
+.input-field input {
+  padding-right: 3.5rem;
+}
+
+.input-field select {
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.input-field input:focus,
+.input-field select:focus {
   border-color: var(--color-primary);
 }
 
@@ -251,13 +314,14 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 0.5rem 0.75rem;
+  padding: 0.55rem 0.75rem;
   background: rgba(202, 138, 4, 0.1);
   border: 1px solid rgba(202, 138, 4, 0.25);
   border-radius: var(--radius-md);
   font-size: var(--text-xs);
   color: var(--color-text);
   margin-bottom: var(--space-3);
+  line-height: 1.45;
 }
 
 .advisory-box svg {
@@ -314,7 +378,8 @@
 }
 
 .calc-note.error {
-  color: #f87171;
+  color: var(--color-error);
+  font-weight: 600;
 }
 
 .results-header {
@@ -378,7 +443,7 @@
 .kpi-subtext {
   font-size: 0.75rem;
   color: var(--color-text);
-  opacity: 0.8;
+  opacity: 0.85;
   margin-top: 0.15rem;
 }
 
@@ -402,7 +467,7 @@
 .containment-text {
   font-size: 0.75rem;
   color: var(--color-text-muted);
-  line-height: 1.4;
+  line-height: 1.45;
   margin: 0;
 }
 
@@ -436,60 +501,78 @@
 
 <script>
 function initPeaGravelCalculator() {
+  const inputDimsBtn = document.getElementById('pea-input-dims');
+  const inputSqftBtn = document.getElementById('pea-input-sqft');
+  const inputReverseBtn = document.getElementById('pea-input-reverse');
+
+  const dimsGroup = document.getElementById('pea-dims-group');
+  const sqftGroup = document.getElementById('pea-sqft-group');
+  const reverseGroup = document.getElementById('pea-reverse-group');
+  const roundingGroup = document.getElementById('pea-rounding-group');
+
   const modePatioBtn = document.getElementById('pea-mode-patio');
   const modePlayBtn = document.getElementById('pea-mode-play');
 
   const lengthInput = document.getElementById('pea-length') as HTMLInputElement | null;
   const widthInput = document.getElementById('pea-width') as HTMLInputElement | null;
+  const areaInput = document.getElementById('pea-area') as HTMLInputElement | null;
+  const reverseQtyInput = document.getElementById('pea-reverse-qty') as HTMLInputElement | null;
+  const reverseUnitSelect = document.getElementById('pea-reverse-unit') as HTMLSelectElement | null;
   const depthInput = document.getElementById('pea-depth') as HTMLInputElement | null;
   const wasteInput = document.getElementById('pea-waste') as HTMLInputElement | null;
+  const roundingSelect = document.getElementById('pea-rounding') as HTMLSelectElement | null;
   const densityInput = document.getElementById('pea-density') as HTMLInputElement | null;
   const densityFeedback = document.getElementById('pea-density-feedback');
 
   const peaBtns = document.querySelectorAll('.pea-btn');
 
-  let activeMode = 'patio';
+  let inputMode: 'dims' | 'sqft' | 'reverse' = 'dims';
+  let activeMode: 'patio' | 'play' = 'patio';
 
-  function calculate() {
-    if (!lengthInput || !widthInput || !depthInput || !wasteInput || !densityInput) return;
+  function parsePositive(input: HTMLInputElement | null): number {
+    if (!input || input.value.trim() === '') return NaN;
+    const val = parseFloat(input.value);
+    return Number.isFinite(val) && val > 0 ? val : NaN;
+  }
 
-    const length = Math.max(0, parseFloat(lengthInput.value) || 0);
-    const width = Math.max(0, parseFloat(widthInput.value) || 0);
-    const depthInches = Math.max(0, parseFloat(depthInput.value) || 0);
-    const wastePercent = Math.max(0, parseFloat(wasteInput.value) || 0);
-    const density = Number(densityInput.value);
-    const densityValid = densityInput.value.trim() !== '' && Number.isFinite(density) && density >= 0.5 && density <= 3;
-    densityInput.setAttribute('aria-invalid', String(!densityValid));
-    if (densityFeedback) {
-      densityFeedback.textContent = densityValid
-        ? 'Presets are planning assumptions. Enter your supplier’s weight if available; divide lb/yd³ by 2,000 to convert to US short tons/yd³.'
-        : 'Enter a loose bulk weight from 0.5 to 3.0 US short tons per cubic yard.';
-      densityFeedback.classList.toggle('error', !densityValid);
-    }
+  function parseNonNegative(input: HTMLInputElement | null): number {
+    if (!input || input.value.trim() === '') return NaN;
+    const val = parseFloat(input.value);
+    return Number.isFinite(val) && val >= 0 ? val : NaN;
+  }
 
-    const area = length * width;
-    const netCuFt = area * (depthInches / 12);
-    const totalCuFt = netCuFt * (1 + wastePercent / 100);
-    const totalYards = totalCuFt / 27;
+  function setInputMode(mode: 'dims' | 'sqft' | 'reverse') {
+    inputMode = mode;
+    const toggles: [HTMLElement | null, boolean][] = [
+      [inputDimsBtn, mode === 'dims'],
+      [inputSqftBtn, mode === 'sqft'],
+      [inputReverseBtn, mode === 'reverse']
+    ];
+    toggles.forEach(([btn, active]) => {
+      if (!btn) return;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+    if (dimsGroup) dimsGroup.style.display = mode === 'dims' ? '' : 'none';
+    if (sqftGroup) sqftGroup.style.display = mode === 'sqft' ? '' : 'none';
+    if (reverseGroup) reverseGroup.style.display = mode === 'reverse' ? '' : 'none';
+    if (roundingGroup) roundingGroup.style.display = mode === 'reverse' ? 'none' : '';
+    calculate();
+  }
 
-    const totalTons = totalYards * density;
-    const totalLbs = totalTons * 2000;
-
-    // Ignore binary floating-point noise at exact half-cubic-foot boundaries.
-    const totalBags = Math.ceil(totalCuFt / 0.5 - 1e-10);
-    // Edging perimeter: 2 * (length + width)
-    const edgingFt = length && width ? Math.ceil(2 * (length + width)) : 0;
-
-    // Advisory check
+  function syncAdvisory(depthInches: number, densityValid: boolean, inputsValid: boolean) {
     const advisoryText = document.getElementById('pea-advisory-text');
     const badge = document.getElementById('pea-badge');
     const firmnessRow = document.getElementById('row-pea-firmness');
 
-    if (!length || !width || !depthInches) {
-      if (advisoryText) advisoryText.textContent = 'Enter a positive length, width, and depth to estimate material.';
-      if (badge) badge.textContent = 'Enter dimensions';
-      if (firmnessRow) firmnessRow.textContent = 'Enter dimensions';
-    } else if (activeMode === 'patio') {
+    if (!inputsValid) {
+      if (advisoryText) advisoryText.textContent = 'Enter positive dimensions, quantity, depth, and a non-negative order allowance to calculate.';
+      if (badge) badge.textContent = 'Check inputs';
+      if (firmnessRow) firmnessRow.textContent = 'Enter valid inputs';
+      return;
+    }
+
+    if (activeMode === 'patio') {
       if (depthInches > 2.5) {
         if (advisoryText) advisoryText.textContent = 'A deep layer of rounded pea gravel can shift under shoes and chair legs. Consider a thinner decorative layer over a prepared, compacted base.';
         if (badge) badge.textContent = 'Deep loose layer';
@@ -500,42 +583,193 @@ function initPeaGravelCalculator() {
         if (firmnessRow) firmnessRow.textContent = 'Base may show through';
       } else {
         if (advisoryText) advisoryText.textContent = 'About 1.5–2.5 inches is a practical starting range for a patio or path topping. Pea gravel stays loose; firmness depends on the base and use.';
-        if (badge) badge.textContent = 'Patio / path estimate';
+        if (badge) badge.textContent = inputMode === 'reverse' ? 'Coverage check' : 'Patio / path estimate';
         if (firmnessRow) firmnessRow.textContent = 'Loose rounded surface';
       }
     } else {
       if (depthInches < 12) {
-        if (advisoryText) advisoryText.textContent = 'CPSC Table 2 gives 12 inches at installation and 9 inches maintained for non-impact-tested pea gravel at a 5-foot critical height. This depth is below that initial fill figure.';
+        if (advisoryText) advisoryText.textContent = 'CPSC Table 2 lists 12 inches installed and 9 inches maintained for non-impact-tested pea gravel at a 5-foot critical height. This depth is below that initial fill figure.';
         if (badge) badge.textContent = 'Below initial fill guide';
       } else {
-        if (advisoryText) advisoryText.textContent = 'CPSC Table 2 gives 12 inches installed and 9 inches maintained for non-impact-tested pea gravel at a 5-foot critical height. Quantity alone does not establish playground safety.';
+        if (advisoryText) advisoryText.textContent = 'CPSC Table 2 lists 12 inches installed and 9 inches maintained for non-impact-tested pea gravel at a 5-foot critical height. Quantity alone does not establish playground safety.';
         if (badge) badge.textContent = 'Quantity estimate only';
       }
       if (firmnessRow) firmnessRow.textContent = 'Check fall height and use zone';
     }
-    if (badge && !densityValid && length && width && depthInches) badge.textContent = 'Check bulk weight';
 
-    // Update KPIs
-    const kpiTons = document.getElementById('kpi-pea-tons');
-    const kpiLbs = document.getElementById('kpi-pea-lbs');
+    if (badge && !densityValid) badge.textContent = 'Check bulk weight';
+  }
+
+  function calculate() {
+    if (!depthInput || !wasteInput || !densityInput) return;
+
+    const depthInches = parsePositive(depthInput);
+    const wastePercent = parseNonNegative(wasteInput);
+    const density = parsePositive(densityInput);
+    const densityValid = Number.isFinite(density) && density >= 0.5 && density <= 3;
+
+    densityInput.setAttribute('aria-invalid', String(!densityValid));
+    if (densityFeedback) {
+      densityFeedback.textContent = densityValid
+        ? 'Presets are planning assumptions. Enter your supplier’s weight if available; divide lb/yd³ by 2,000 to convert to short tons/yd³.'
+        : 'Enter a loose bulk weight from 0.5 to 3.0 short tons per cubic yard.';
+      densityFeedback.classList.toggle('error', !densityValid);
+    }
+
+    const resultsTitle = document.getElementById('pea-results-title');
+    const kpiPrimary = document.getElementById('kpi-pea-primary');
+    const labelPrimary = document.getElementById('label-pea-primary');
+    const subPrimary = document.getElementById('sub-pea-primary');
     const kpiYards = document.getElementById('kpi-pea-yards');
-    const kpiCuFt = document.getElementById('kpi-pea-cuft');
+    const labelYards = document.getElementById('label-pea-yards');
+    const subYards = document.getElementById('sub-pea-yards');
     const kpiBags = document.getElementById('kpi-pea-bags');
-    const kpiEdging = document.getElementById('kpi-pea-edging');
-
+    const labelBags = document.getElementById('label-pea-bags');
+    const subBags = document.getElementById('sub-pea-bags');
+    const kpiFourth = document.getElementById('kpi-pea-fourth');
+    const labelFourth = document.getElementById('label-pea-fourth');
+    const subFourth = document.getElementById('sub-pea-fourth');
+    const containmentText = document.getElementById('pea-containment-text');
+    const rowAreaLabel = document.getElementById('row-pea-area-label');
     const rowArea = document.getElementById('row-pea-area');
+    const rowFabricLabel = document.getElementById('row-pea-fabric-label');
     const rowFabric = document.getElementById('row-pea-fabric');
 
-    if (kpiTons) kpiTons.textContent = densityValid ? totalTons.toFixed(2) : '—';
-    if (kpiLbs) kpiLbs.textContent = densityValid ? `${Math.round(totalLbs).toLocaleString()} lb incl. allowance` : 'Enter a valid bulk weight';
-    if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
-    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft volume`;
-    if (kpiBags) kpiBags.textContent = totalBags.toLocaleString();
-    if (kpiEdging) kpiEdging.textContent = `${edgingFt} LF`;
+    if (inputMode === 'reverse') {
+      const qty = parsePositive(reverseQtyInput);
+      const unit = reverseUnitSelect?.value || 'yards';
+      const needsDensity = unit === 'tons';
+      const inputsValid = Number.isFinite(qty) && Number.isFinite(depthInches) && Number.isFinite(wastePercent) && (!needsDensity || densityValid);
 
-    if (rowArea) rowArea.textContent = `${area.toLocaleString(undefined, { maximumFractionDigits: 2 })} sq ft (${length}' × ${width}')`;
-    if (rowFabric) rowFabric.textContent = `${Math.ceil(area * 1.10).toLocaleString()} sq ft incl. 10% allowance`;
+      syncAdvisory(depthInches || 0, densityValid, inputsValid);
+      if (resultsTitle) resultsTitle.textContent = 'Coverage Yield from Stock';
+
+      if (!inputsValid) {
+        if (kpiPrimary) kpiPrimary.textContent = '—';
+        if (labelPrimary) labelPrimary.textContent = 'Estimated Coverage Area';
+        if (subPrimary) subPrimary.textContent = 'Enter a valid quantity, depth, and allowance';
+        if (kpiYards) kpiYards.textContent = '—';
+        if (kpiBags) kpiBags.textContent = '—';
+        if (kpiFourth) kpiFourth.textContent = '—';
+        if (rowArea) rowArea.textContent = '—';
+        if (rowFabric) rowFabric.textContent = '—';
+        return;
+      }
+
+      let rawYards = qty;
+      if (unit === 'tons') rawYards = qty / density;
+      if (unit === 'bags') rawYards = (qty * 0.5) / 27;
+
+      const totalCuFt = rawYards * 27;
+      const rawCoverageSqFt = (totalCuFt * 12) / depthInches;
+      const plannedCoverageSqFt = rawCoverageSqFt / (1 + wastePercent / 100);
+      const squareSide = Math.sqrt(plannedCoverageSqFt);
+      const estTons = densityValid ? rawYards * density : NaN;
+      const equivBags = totalCuFt > 0 ? Math.ceil(totalCuFt / 0.5 - 1e-10) : 0;
+
+      if (labelPrimary) labelPrimary.textContent = 'Planned Coverage (sq ft)';
+      if (kpiPrimary) kpiPrimary.textContent = Math.round(plannedCoverageSqFt).toLocaleString();
+      if (subPrimary) subPrimary.textContent = `~${squareSide.toFixed(1)} ft × ${squareSide.toFixed(1)} ft square (at ${wastePercent}% allowance)`;
+
+      if (labelYards) labelYards.textContent = 'Total Bulk Volume';
+      if (kpiYards) kpiYards.textContent = rawYards.toFixed(2);
+      if (subYards) subYards.textContent = `${totalCuFt.toFixed(1)} cu ft total stock`;
+
+      if (labelBags) labelBags.textContent = 'Estimated Short Tons';
+      if (kpiBags) kpiBags.textContent = Number.isFinite(estTons) ? estTons.toFixed(2) : '—';
+      if (subBags) subBags.textContent = Number.isFinite(estTons) ? `${Math.round(estTons * 2000).toLocaleString()} lb at ${density.toFixed(2)} t/yd³` : 'Check bulk weight';
+
+      if (labelFourth) labelFourth.textContent = '0.5 cu ft Bag Equivalent';
+      if (kpiFourth) kpiFourth.textContent = equivBags.toLocaleString();
+      if (subFourth) subFourth.textContent = `Based on 0.5 cu ft per bag`;
+
+      if (containmentText) {
+        containmentText.textContent = `Reverse coverage divides available cubic feet by finished depth (${depthInches} in) and your ${wastePercent}% allowance. Set allowance to 0% to see pure theoretical area before spreading waste.`;
+      }
+      if (rowAreaLabel) rowAreaLabel.textContent = 'Theoretical area (0% allowance)';
+      if (rowArea) rowArea.textContent = `${Math.round(rawCoverageSqFt).toLocaleString()} sq ft max`;
+      if (rowFabricLabel) rowFabricLabel.textContent = 'Estimated square perimeter';
+      if (rowFabric) rowFabric.textContent = `${Math.ceil(squareSide * 4)} LF (${squareSide.toFixed(1)} ft per side)`;
+      return;
+    }
+
+    // Forward modes: Dimensions or Known Sq Ft
+    const length = inputMode === 'dims' ? parsePositive(lengthInput) : NaN;
+    const width = inputMode === 'dims' ? parsePositive(widthInput) : NaN;
+    const knownArea = inputMode === 'sqft' ? parsePositive(areaInput) : NaN;
+    const area = inputMode === 'dims' ? length * width : knownArea;
+
+    const inputsValid = Number.isFinite(area) && area > 0 && Number.isFinite(depthInches) && Number.isFinite(wastePercent);
+    syncAdvisory(depthInches || 0, densityValid, inputsValid);
+
+    if (resultsTitle) resultsTitle.textContent = 'Pea Gravel Requirements';
+    if (labelPrimary) labelPrimary.textContent = 'Estimated Short Tons';
+    if (labelYards) labelYards.textContent = 'Order Volume (Cubic Yards)';
+    if (labelBags) labelBags.textContent = '0.5 Cubic Foot Bags';
+    if (subBags) subBags.textContent = 'Confirm the bag’s labeled volume';
+    if (labelFourth) labelFourth.textContent = 'Full Perimeter (Feet)';
+    if (subFourth) subFourth.textContent = inputMode === 'dims' ? 'Subtract sides already contained' : 'Square perimeter estimate';
+    if (rowAreaLabel) rowAreaLabel.textContent = 'Measured footprint';
+    if (rowFabricLabel) rowFabricLabel.textContent = 'Optional separator fabric estimate';
+    if (containmentText) {
+      containmentText.textContent = 'The allowance is applied to yards, short tons, and bags. Pea gravel shifts because its rounded stones do not interlock; a secure edge helps keep it out of adjacent lawn or paving. The edging figure assumes all sides need a border.';
+    }
+
+    if (!inputsValid) {
+      if (kpiPrimary) kpiPrimary.textContent = '—';
+      if (subPrimary) subPrimary.textContent = 'Enter valid measurements';
+      if (kpiYards) kpiYards.textContent = '—';
+      if (subYards) subYards.textContent = '—';
+      if (kpiBags) kpiBags.textContent = '—';
+      if (kpiFourth) kpiFourth.textContent = '—';
+      if (rowArea) rowArea.textContent = '—';
+      if (rowFabric) rowFabric.textContent = '—';
+      return;
+    }
+
+    const netCuFt = area * (depthInches / 12);
+    const totalCuFt = netCuFt * (1 + wastePercent / 100);
+    const rawOrderYards = totalCuFt / 27;
+    const roundingInc = parseFloat(roundingSelect?.value || '0') || 0;
+    const orderYards = roundingInc > 0
+      ? Math.ceil(rawOrderYards / roundingInc - 1e-10) * roundingInc
+      : rawOrderYards;
+
+    const totalTons = orderYards * density;
+    const totalLbs = totalTons * 2000;
+    const totalBags = totalCuFt > 0 ? Math.ceil(totalCuFt / 0.5 - 1e-10) : 0;
+    const edgingFt = inputMode === 'dims'
+      ? Math.ceil(2 * (length + width))
+      : Math.ceil(4 * Math.sqrt(area));
+
+    if (kpiPrimary) kpiPrimary.textContent = densityValid ? totalTons.toFixed(2) : '—';
+    if (subPrimary) {
+      subPrimary.textContent = densityValid
+        ? `${Math.round(totalLbs).toLocaleString()} lb incl. ${roundingInc > 0 ? 'rounding & ' : ''}allowance`
+        : 'Enter a valid bulk weight';
+    }
+
+    if (kpiYards) kpiYards.textContent = orderYards.toFixed(2);
+    if (subYards) {
+      subYards.textContent = roundingInc > 0
+        ? `Raw order: ${rawOrderYards.toFixed(2)} yd³ (${totalCuFt.toFixed(1)} cu ft)`
+        : `${totalCuFt.toFixed(1)} cu ft total volume`;
+    }
+
+    if (kpiBags) kpiBags.textContent = totalBags.toLocaleString();
+    if (kpiFourth) kpiFourth.textContent = `${edgingFt} LF`;
+
+    if (rowArea) {
+      rowArea.textContent = inputMode === 'dims'
+        ? `${area.toLocaleString(undefined, { maximumFractionDigits: 2 })} sq ft (${length}′ × ${width}′)`
+        : `${area.toLocaleString(undefined, { maximumFractionDigits: 2 })} sq ft entered`;
+    }
+    if (rowFabric) rowFabric.textContent = `${Math.ceil(area * 1.10 - 1e-10).toLocaleString()} sq ft incl. 10% allowance`;
   }
+
+  inputDimsBtn?.addEventListener('click', () => setInputMode('dims'));
+  inputSqftBtn?.addEventListener('click', () => setInputMode('sqft'));
+  inputReverseBtn?.addEventListener('click', () => setInputMode('reverse'));
 
   if (modePatioBtn && modePlayBtn && depthInput) {
     modePatioBtn.addEventListener('click', () => {
@@ -580,10 +814,11 @@ function initPeaGravelCalculator() {
     calculate();
   });
 
-  [lengthInput, widthInput, depthInput, wasteInput].forEach(input => {
-    if (input) {
-      input.addEventListener('input', calculate);
-    }
+  [lengthInput, widthInput, areaInput, reverseQtyInput, depthInput, wasteInput].forEach(input => {
+    input?.addEventListener('input', calculate);
+  });
+  [reverseUnitSelect, roundingSelect].forEach(sel => {
+    sel?.addEventListener('change', calculate);
   });
 
   calculate();

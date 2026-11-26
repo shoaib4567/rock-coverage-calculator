@@ -128,17 +128,18 @@
 (function() {
   function updateFootprint() {
     const slider = document.getElementById('viz-chart-depth-slider');
+    const densitySelect = document.getElementById('chart-density-select');
     const depth = slider ? parseFloat(slider.value) || 3.0 : 3.0;
+    const density = densitySelect ? parseFloat(densitySelect.value) || 1.35 : 1.35;
 
     const depthTxt = document.getElementById('viz-slider-depth-txt');
     if (depthTxt) depthTxt.textContent = depth.toFixed(1) + ' Inches';
+    const badge = document.getElementById('viz-footprint-badge');
+    if (badge) badge.textContent = density.toFixed(2) + ' T/yd³';
 
-    // 1 yd³ = 324 / depth
     const sqftPerYard = Math.round(324 / depth);
-    // 1 ton (assuming 1.35 T/yd³ river rock) = sqftPerYard / 1.35
-    const sqftPerTon = Math.round(sqftPerYard / 1.35);
-    // Bags (0.5 cu ft) for 100 sq ft = (100 * (depth/12)) / 0.5
-    const bagsPer100 = Math.ceil((100 * (depth / 12)) / 0.5);
+    const sqftPerTon = Math.round(sqftPerYard / density);
+    const bagsPer100 = Math.ceil((100 * (depth / 12)) / 0.5 - 1e-9);
 
     const yardVal = document.getElementById('viz-sqft-per-yard');
     const tonVal = document.getElementById('viz-sqft-per-ton');
@@ -150,6 +151,8 @@
   }
 
   const slider = document.getElementById('viz-chart-depth-slider');
+  const densitySel = document.getElementById('chart-density-select');
+  if (densitySel) densitySel.addEventListener('change', updateFootprint);
   if (slider) {
     slider.addEventListener('input', updateFootprint);
     slider.addEventListener('change', updateFootprint);

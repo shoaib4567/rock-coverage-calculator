@@ -4,14 +4,95 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import TopicClusterNav from '../components/TopicClusterNav.astro';
+
+const pageTitle = 'How to Install Landscape Rock: Plan, Place and Maintain';
+const metaDescription = 'Prepare a decorative rock bed, estimate its layers and plan ongoing upkeep using the requirements of your site and product.';
+
+const faqItems = [
+  {
+    q: 'Do I always need landscape fabric under decorative rock?',
+    a: 'Not always. Permeable separation fabric can prevent stone from pressing into damp soil, though windblown seeds and leaf litter can still sprout above the fabric over time. In frequently replanted beds, exposed cuts often complicate upkeep.'
+  },
+  {
+    q: 'Should I subtract planter pockets and stepping stones before ordering?',
+    a: 'Yes. Subtract large non-rocked features (planters, utility pads, concrete walkways) before multiplying by depth so you do not over-order decorative aggregate.'
+  },
+  {
+    q: 'How deep should decorative rock sit around trees and shrubs?',
+    a: 'Keep stone pulled back several inches from tree trunks and plant crowns to avoid holding moisture or reflecting excess heat directly against stems.'
+  }
+];
 ---
-<BaseLayout title="How to Install Landscape Rock: Plan, Place and Maintain" description="Prepare a decorative rock bed, estimate its layers and plan ongoing upkeep using the requirements of your site and product." canonicalPath="/how-to-install-landscape-rock">
-<Header/><main id="main-content" class="container practical-guide"><Breadcrumbs /><h1>How to Install a Decorative Landscape Rock Bed</h1><p class="intro">Plan a decorative bed’s footprint, planting gaps, finished grade, edging and stone order, then place and maintain the surface. Loaded bases and functional drainage layers require their own details.</p>
-<h2>Measure and plan before ordering</h2><p>Mark the area that will actually receive stone. Subtract large uncovered planting pockets, paving and other surfaces. Choose a finished stone depth for the size and appearance of the product, then check that planned levels allow drainage and room around plant stems, crowns and building features. For a curved area, measure several sections rather than filling its entire bounding rectangle.</p><p>Decorative cover, a vehicle base and a drain trench have different requirements. Obtain the appropriate installation detail for loaded surfaces or drainage work; a decorative-bed guide cannot set their structural depth or hydraulic capacity. Check underground services and access before digging.</p>
-<h2>Prepare the ground for the intended use</h2><p>Remove unwanted vegetation and address persistent weeds before covering the surface. Soil preparation, excavation and compaction depend on the use, soil and nearby roots. Avoid prescribing the same excavation depth or compactor procedure for every planted bed. Plan a route for water and keep the finished level compatible with the surrounding landscape.</p>
-<h2>Decide whether a separator is useful</h2><p>A suitable geotextile can reduce mixing between soil and aggregate where the design calls for separation. It is not a permanent weed solution. Leaves and airborne soil can accumulate above the fabric and support new growth. <a href="https://extension.unh.edu/blog/2019/05/should-i-use-landscape-fabric-keep-weeds-out-my-perennial-garden">UNH Extension’s landscape-fabric guidance</a> discusses these limitations in planted areas.</p><p>Choose the fabric type, overlaps, anchoring and placement for its function and the manufacturer’s instructions. Do not treat a generic fabric weight or a fixed overlap as a specification for all soils, drainage systems and loads. Preserve access needed for irrigation and future planting.</p>
-<h2>Contain and spread the rock</h2><p>Use an edge detail appropriate to the material and adjacent lawn or paving. Allow for the stone’s movement and the finished levels. Arrange a drop location with the supplier and plan a practical route for moving the load into the bed. Confirm the vehicle’s actual payload and unloading access; plywood does not establish that a loaded delivery truck is safe on a driveway.</p><p>Spread the stone to the planned thickness, check several locations and adjust low spots. Keep it clear of stems and crowns. Calculate any structural base or separate bedding layer on its own rather than including it in the decorative depth.</p>
-<h2>Worked order example</h2><p>A 12 × 10 ft bed with 20 sq ft of uncovered planting pockets has 100 sq ft receiving stone. At 3 inches, 100 × 3 ÷ 324 = 0.93 cubic yard. With a selected 10% allowance, the example order is 1.02 cubic yards, or 55 bags if each contains 0.5 cubic foot. Confirm the labeled bag yield; a 50-pound bag is not automatically half a cubic foot.</p>
-<h2>Plan maintenance</h2><p>Remove leaves and sediment, pull weeds early, repair borders and rake displaced stones back into place. Investigate sinking or water flow before buying another surface layer. Rock does not create a maintenance-free bed. Use the <a href="/how-to-stop-weeds-in-landscape-rock">weed guide</a> or <a href="/how-to-fix-rock-sinking-into-soil">sinking-rock guide</a> to diagnose recurring problems.</p><p>Estimate a single bed with the <a href="/landscape-rock-calculator">landscape rock calculator</a>, or use the <a href="/layered-project-calculator">layered project planner</a> when the design includes a separate base.</p><TopicClusterNav/></main><Footer/>
+
+<BaseLayout title={pageTitle} description={metaDescription} canonicalPath="/how-to-install-landscape-rock">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: 'How to Install a Decorative Landscape Rock Bed',
+      description: metaDescription,
+      mainEntityOfPage: 'https://rockcoveragecalculator.com/how-to-install-landscape-rock',
+      inLanguage: 'en',
+      dateModified: '2026-11-25'
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
+      }))
+    })} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content" class="container practical-guide">
+    <Breadcrumbs />
+    <h1>How to Install a Decorative Landscape Rock Bed</h1>
+    <p class="intro">Plan a decorative bed’s footprint, planting gaps, finished grade, edging and stone order, then place and maintain the surface. Loaded bases and functional drainage layers require their own details.</p>
+
+    <h2>Measure and plan before ordering</h2>
+    <p>Mark the area that will actually receive stone. Subtract large uncovered planting pockets, paving and other surfaces. Choose a finished stone depth for the size and appearance of the product, then check that planned levels allow drainage and room around plant stems, crowns and building features. For a curved area, measure several sections rather than filling its entire bounding rectangle.</p>
+    <p>Decorative cover, a vehicle base and a drain trench have different requirements. Obtain the appropriate installation detail for loaded surfaces or drainage work; a decorative-bed guide cannot set their structural depth or hydraulic capacity. Check underground services and access before digging.</p>
+
+    <h2>Prepare the ground for the intended use</h2>
+    <p>Remove unwanted vegetation and address persistent weeds before covering the surface. Soil preparation, excavation and compaction depend on the use, soil and nearby roots. Avoid prescribing the same excavation depth or compactor procedure for every planted bed. Plan a route for water and keep the finished level compatible with the surrounding landscape.</p>
+
+    <h2>Decide whether a separator is useful</h2>
+    <p>A suitable geotextile can reduce mixing between soil and aggregate where the design calls for separation. It is not a permanent weed solution. Leaves and airborne soil can accumulate above the fabric and support new growth. <a href="https://extension.unh.edu/blog/2019/05/should-i-use-landscape-fabric-keep-weeds-out-my-perennial-garden">UNH Extension’s landscape-fabric guidance</a> discusses these limitations in planted areas.</p>
+    <p>Choose the fabric type, overlaps, anchoring and placement for its function and the manufacturer’s instructions. Do not treat a generic fabric weight or a fixed overlap as a specification for all soils, drainage systems and loads. Preserve access needed for irrigation and future planting.</p>
+
+    <h2>Contain and spread the rock</h2>
+    <p>Use an edge detail appropriate to the material and adjacent lawn or paving. Allow for the stone’s movement and the finished levels. Arrange a drop location with the supplier and plan a practical route for moving the load into the bed. Confirm the vehicle’s actual payload and unloading access; plywood does not establish that a loaded delivery truck is safe on a driveway.</p>
+    <p>Spread the stone to the planned thickness, check several locations and adjust low spots. Keep it clear of stems and crowns. Calculate any structural base or separate bedding layer on its own rather than including it in the decorative depth.</p>
+
+    <h2>Worked order example</h2>
+    <p>A 12 × 10 ft bed with 20 sq ft of uncovered planting pockets has 100 sq ft receiving stone. At 3 inches, 100 × 3 ÷ 324 = 0.93 cubic yard. With a selected 10% allowance, the example order is 1.02 cubic yards, or 55 bags if each contains 0.5 cubic foot. Confirm the labeled bag yield; a 50-pound bag is not automatically half a cubic foot.</p>
+
+    <h2>Plan maintenance</h2>
+    <p>Remove leaves and sediment, pull weeds early, repair borders and rake displaced stones back into place. Investigate sinking or water flow before buying another surface layer. Rock does not create a maintenance-free bed. Use the <a href="/how-to-stop-weeds-in-landscape-rock">weed guide</a> or <a href="/how-to-fix-rock-sinking-into-soil">sinking-rock guide</a> to diagnose recurring problems.</p>
+    <p>Estimate a single bed with the <a href="/landscape-rock-calculator">landscape rock calculator</a>, or use the <a href="/layered-project-calculator">layered project planner</a> when the design includes a separate base.</p>
+
+    <section class="faq-block" aria-labelledby="install-faq-heading">
+      <h2 id="install-faq-heading">Installation questions</h2>
+      {faqItems.map(item => <details><summary>{item.q}</summary><p>{item.a}</p></details>)}
+    </section>
+
+    <TopicClusterNav />
+  </main>
+  <Footer />
 </BaseLayout>
-<style>.practical-guide{max-width:900px;padding-block:var(--space-10)}h1{font-size:var(--text-3xl);margin-block:var(--space-5)}h2{font-size:var(--text-xl);margin-block:var(--space-7) var(--space-3)}h3{font-size:var(--text-lg);margin-block:var(--space-5) var(--space-2)}p,li{line-height:1.75;color:var(--text-secondary)}p,ul,ol{margin-bottom:var(--space-4)}a{color:var(--text-primary);text-decoration:underline;text-underline-offset:3px}ul,ol{padding-left:1.4rem}</style>
+
+<style>
+  .practical-guide { max-width: 900px; padding-block: var(--space-10); }
+  h1 { font-size: var(--text-3xl); margin-block: var(--space-5); color: var(--text-primary); }
+  h2 { font-size: var(--text-xl); margin-block: var(--space-7) var(--space-3); color: var(--text-primary); }
+  p, li { line-height: 1.75; color: var(--text-secondary); }
+  p, ul, ol { margin-bottom: var(--space-4); }
+  a { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
+  ul, ol { padding-left: 1.4rem; }
+  .faq-block details { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-3); }
+  .faq-block summary { cursor: pointer; font-weight: 700; color: var(--text-primary); }
+  .faq-block details p { margin: var(--space-3) 0 0; }
+</style>

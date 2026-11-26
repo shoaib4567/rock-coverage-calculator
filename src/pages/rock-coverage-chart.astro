@@ -57,7 +57,7 @@ const faqItems = [
   },
   {
     "q": "How many square feet does one ton cover?",
-    "a": "For a US short ton, divide 324 by depth in inches and by the supplier’s short tons per cubic yard. At 3 inches and an example 1.35 short tons per yard, the result is 80 square feet. Different loose weights produce different coverage."
+    "a": "For a short ton (2,000 lb), divide 324 by depth in inches and by the supplier’s short tons per cubic yard. At 3 inches and an example 1.35 short tons per yard, the result is 80 square feet. Different loose weights produce different coverage."
   },
   {
     "q": "Does stone size change the volume formula?",
@@ -110,7 +110,7 @@ const supportGuides = [
       "description": "Interactive rock coverage chart and depth matrix calculator for landscape aggregates.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
-      "inLanguage": "en-US",
+      "inLanguage": "en",
       "about": {
         "@type": "Thing",
         "name": "Rock Coverage Chart"
@@ -152,16 +152,9 @@ const supportGuides = [
     <QuickConverterBlock />
 
     <!-- Engineering Guide Section -->
-    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Read the unit before using a coverage figure</h2><p>This chart compares geometric coverage at different depths. A cubic yard is a volume; a US short ton is 2,000 pounds of weight. Their coverage figures can be compared only after stating a loose bulk density. Metric tonnes and long tons are different units and should not be substituted into the short-ton column.</p><h3>Three coverage formulas</h3><div class="formula-box"><code>Sq ft per cubic yard = 324 ÷ depth in inches</code><br/><code>Sq ft per US short ton = 324 ÷ depth ÷ short tons per yd³</code><br/><code>Sq ft per bag = bag volume in cu ft × 12 ÷ depth</code></div><div class="table-wrapper"><table class="guide-table"><caption>Coverage before extra, using an example loose weight of 1.35 US short tons per yd³ and a 0.5-cu-ft bag</caption><thead><tr><th scope="col">Depth</th><th scope="col">Sq ft per yd³</th><th scope="col">Sq ft per short ton</th><th scope="col">Sq ft per bag</th></tr></thead><tbody><tr><th scope="row">1 in</th><td>324</td><td>240</td><td>6</td></tr><tr><th scope="row">1.5 in</th><td>216</td><td>160</td><td>4</td></tr><tr><th scope="row">2 in</th><td>162</td><td>120</td><td>3</td></tr><tr><th scope="row">2.5 in</th><td>129.6</td><td>96</td><td>2.4</td></tr><tr><th scope="row">3 in</th><td>108</td><td>80</td><td>2</td></tr><tr><th scope="row">4 in</th><td>81</td><td>60</td><td>1.5</td></tr><tr><th scope="row">6 in</th><td>54</td><td>40</td><td>1</td></tr></tbody></table></div><h3>Density changes weight coverage, not yard coverage</h3><p>At 3 inches one yard geometrically covers 108 sq ft regardless of the selected weight. At 1.35 short tons per yard, one short ton corresponds to 80 sq ft. At a lighter example 0.75 short tons per yard it corresponds to 144 sq ft. These are conversion examples, not certified weights for every stone sold under a material name. Ask for the quoted product’s loose weight or labeled bag yield.</p><h3>Keep rounding and extra separate</h3><p>At 2.5 inches the exact geometric yard figure is 129.6 sq ft. A display rounded to 130 is useful for a quick comparison; use unrounded calculations for an order. Divide your actual area by the applicable coverage figure, then apply a chosen extra allowance once. Do not add another allowance if the supplier’s quote already includes it.</p><h3>Example: 500 sq ft at 3 inches</h3><p>The net layer is 125 cu ft or 4.63 yd³. A selected 10% order increase gives 137.5 cu ft or 5.09 yd³: 275 half-cubic-foot bags, or about 6.88 short tons at the example 1.35 density. Rounding whole bags and rounding a bulk order are separate purchasing decisions.</p><p>Use the <a href="/rock-depth-guide">depth guide</a> to review thickness questions, the <a href="/rock-density-chart">density reference</a> to understand loose weights, and the <a href="/rock-square-foot-calculator">square-foot calculator</a> for a known area. The <a href="/rock-coverage-calculator-yard">cubic-yard calculator</a> also works backward from volume. A coverage table does not determine a drainage or load-bearing design.</p></div><div class="content-card faq-card"><h2>Questions about this calculation</h2><div class="faq-accordion">{faqItems.map((item,index)=><details class="faq-detail" open={index===0}><summary class="faq-summary">{item.q}</summary><div class="faq-answer"><p>{item.a}</p></div></details>)}</div></div></div></article>
+    <article class="content-guide-section"><div class="container"><div class="content-card"><h2>Read the unit before using a coverage figure</h2><p>This chart compares geometric coverage at different depths. A cubic yard is a volume; a short ton is 2,000 pounds of weight. Their coverage figures can be compared only after stating a loose bulk density. Metric tonnes and long tons are different units and should not be substituted into the short-ton column.</p><h3>Three coverage formulas</h3><div class="formula-box"><code>Sq ft per cubic yard = 324 ÷ depth in inches</code><br/><code>Sq ft per short ton = 324 ÷ depth ÷ short tons per yd³</code><br/><code>Sq ft per bag = bag volume in cu ft × 12 ÷ depth</code></div><div class="table-wrapper"><table class="guide-table"><caption>Coverage before extra, using an example loose weight of 1.35 short tons per yd³ and a 0.5-cu-ft bag</caption><thead><tr><th scope="col">Depth</th><th scope="col">Sq ft per yd³</th><th scope="col">Sq ft per short ton</th><th scope="col">Sq ft per bag</th></tr></thead><tbody><tr><th scope="row">1 in</th><td>324</td><td>240</td><td>6</td></tr><tr><th scope="row">1.5 in</th><td>216</td><td>160</td><td>4</td></tr><tr><th scope="row">2 in</th><td>162</td><td>120</td><td>3</td></tr><tr><th scope="row">2.5 in</th><td>129.6</td><td>96</td><td>2.4</td></tr><tr><th scope="row">3 in</th><td>108</td><td>80</td><td>2</td></tr><tr><th scope="row">4 in</th><td>81</td><td>60</td><td>1.5</td></tr><tr><th scope="row">6 in</th><td>54</td><td>40</td><td>1</td></tr></tbody></table></div><h3>Density changes weight coverage, not yard coverage</h3><p>At 3 inches one yard geometrically covers 108 sq ft regardless of the selected weight. At 1.35 short tons per yard, one short ton corresponds to 80 sq ft. At a lighter example 0.75 short tons per yard it corresponds to 144 sq ft. These are conversion examples, not certified weights for every stone sold under a material name. Ask for the quoted product’s loose weight or labeled bag yield.</p><h3>Keep rounding and extra separate</h3><p>At 2.5 inches the exact geometric yard figure is 129.6 sq ft. A display rounded to 130 is useful for a quick comparison; use unrounded calculations for an order. Divide your actual area by the applicable coverage figure, then apply a chosen extra allowance once. Do not add another allowance if the supplier’s quote already includes it.</p><h3>Example: 500 sq ft at 3 inches</h3><p>The net layer is 125 cu ft or 4.63 yd³. A selected 10% order increase gives 137.5 cu ft or 5.09 yd³: 275 half-cubic-foot bags, or about 6.88 short tons at the example 1.35 density. Rounding whole bags and rounding a bulk order are separate purchasing decisions.</p><p>Use the <a href="/rock-depth-guide">depth guide</a> to review thickness questions, the <a href="/rock-density-chart">density reference</a> to understand loose weights, and the <a href="/rock-square-foot-calculator">square-foot calculator</a> for a known area. The <a href="/rock-coverage-calculator-yard">cubic-yard calculator</a> also works backward from volume. A coverage table does not determine a drainage or load-bearing design.</p></div><div class="content-card faq-card"><h2>Questions about this calculation</h2><div class="faq-accordion">{faqItems.map((item,index)=><details class="faq-detail" open={index===0}><summary class="faq-summary">{item.q}</summary><div class="faq-answer"><p>{item.a}</p></div></details>)}</div></div></div></article>
 
-    <TopicClusterNav
-      currentPage="/rock-coverage-chart"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav />
   </main>
 
   <Footer />
@@ -258,6 +251,14 @@ tr:hover td {
   background: rgba(202, 138, 4, 0.04);
 }
 
+.formula-box { background: var(--color-bg); border-left: 3px solid var(--color-primary); padding: var(--space-4); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: var(--space-4) 0; font-family: var(--font-mono); color: var(--color-primary); font-size: var(--text-sm); line-height: 1.8; }
+.table-wrapper { overflow-x: auto; margin: var(--space-5) 0; }
+.guide-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.guide-table caption { text-align: left; font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-2); }
+.faq-accordion { display: flex; flex-direction: column; gap: var(--space-3); }
+.faq-detail { border-bottom: 1px solid var(--color-border); padding: var(--space-3) 0; }
+.faq-summary { font-weight: 600; color: var(--color-text); cursor: pointer; }
+.faq-answer p { margin: var(--space-2) 0 0; }
 .faq-card {
   margin-top: var(--space-8);
 }

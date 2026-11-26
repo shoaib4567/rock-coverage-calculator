@@ -7,7 +7,7 @@
   </defs>
   <rect width="840" height="560" rx="24" fill="url(#background)"/>
   <text x="44" y="58" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#213c3d">River rock: from area to order weight</text>
-  <text x="44" y="88" font-family="Arial, sans-serif" font-size="16" fill="#476262">Worked example · US short tons · editable weight assumption</text>
+  <text x="44" y="88" font-family="Arial, sans-serif" font-size="16" fill="#476262">Worked example · Short tons · editable weight assumption</text>
 
   <rect x="44" y="120" width="340" height="180" rx="17" fill="#fff" stroke="#d6ddd5" stroke-width="2"/>
   <rect x="68" y="150" width="168" height="108" rx="8" fill="url(#rock)" stroke="#566d67" stroke-width="2"/>

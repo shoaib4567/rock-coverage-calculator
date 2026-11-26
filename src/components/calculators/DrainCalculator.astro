@@ -65,7 +65,7 @@
           </div>
           <div class="drain-result">
             <span>Estimated order weight</span>
-            <strong id="drain-tons">2.75 US short tons</strong>
+            <strong id="drain-tons">2.75 short tons</strong>
             <small id="drain-weight-caption">At 2,500 lb per cu yd; confirm with supplier</small>
           </div>
         </div>
@@ -133,8 +133,8 @@
     result['installed-cuft'].textContent = `${qty(stoneCuFt)} cu ft, after pipe displacement`;
     result.order.textContent = orderYards === null ? '—' : `${qty(orderYards)} cu yd`;
     result['extra-caption'].textContent = invalid.has('extra') ? 'Enter 0–50%' : `${values.extra}% optional extra`;
-    result.tons.textContent = orderTons === null ? '—' : `${qty(orderTons)} US short tons`;
-    result['weight-caption'].textContent = invalid.has('density') ? 'Enter a supplier weight' : `At ${values.density.toLocaleString()} lb per cu yd; confirm with supplier`;
+    result.tons.textContent = orderTons === null ? '—' : `${qty(orderTons)} short tons`;
+    result['weight-caption'].textContent = invalid.has('density') ? 'Enter a supplier weight' : `At ${values.density.toLocaleString('en')} lb per cu yd; confirm with supplier`;
     result['fill-height'].textContent = `${qty(fill)} in`;
     result.envelope.textContent = `${qty(envelope)} cu ft`;
     result['pipe-volume'].textContent = `${qty(pipeVolume)} cu ft`;
@@ -142,7 +142,10 @@
     result['fabric-area'].textContent = fabricWidth === null ? '—' : `${Math.ceil(fabricWidth * values.length)} sq ft`;
   }
 
-  drainIds.forEach(id => fields[id]?.addEventListener('input', updateDrain));
+  drainIds.forEach(id => {
+    fields[id]?.addEventListener('input', updateDrain);
+    fields[id]?.addEventListener('change', updateDrain);
+  });
   updateDrain();
 </script>
 
@@ -151,8 +154,8 @@
   .drain-input-grid .input-field { min-width: 0; }
   .drain-input-grid small { display: block; color: var(--text-muted); font-size: var(--text-xs); line-height: 1.45; margin-top: var(--space-2); }
   .drain-input-grid input { width: 100%; }
-  .drain-input-grid input[aria-invalid="true"] { border-color: #dc6b65; }
-  .drain-error { margin: var(--space-4) 0 0; color: #f3a19a; }
+  .drain-input-grid input[aria-invalid="true"] { border-color: var(--color-error); }
+  .drain-error { margin: var(--space-4) 0 0; color: var(--color-error); }
   .drain-result { padding: var(--space-4); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); }
   .drain-result span, .drain-result small { display: block; color: var(--text-muted); }
   .drain-result strong { display: block; font-size: clamp(1.2rem, 2vw, 1.7rem); color: var(--text-primary); margin: var(--space-2) 0; }

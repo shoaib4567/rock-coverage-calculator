@@ -28,7 +28,7 @@ const faqItems = [
   },
   {
     q: 'How many tons are in a cubic yard of rock?',
-    a: 'There is no single conversion for every rock. The calculator starts with a planning density for each project preset. At 1.35 U.S. short tons per cubic yard, one cubic yard weighs about 2,700 pounds. Ask your supplier for its product-specific conversion before a weight-based order.'
+    a: 'There is no single conversion for every rock. The calculator starts with a planning density for each project preset. At 1.35 short tons (2,700 pounds) per cubic yard, ask your supplier for its product-specific conversion before a weight-based order.'
   },
   {
     q: 'Should I add 10% extra rock?',
@@ -73,8 +73,7 @@ const supportGuides = [
       url: 'https://rockcoveragecalculator.com/how-much-rock-do-i-need',
       description: 'Estimates landscape rock volume, weight, and half-cubic-foot bag counts from area, depth, and an optional allowance.',
       applicationCategory: 'UtilityApplication',
-      operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      operatingSystem: 'Web'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -125,7 +124,7 @@ const supportGuides = [
               <span class="tile-number">01</span>
               <h3>Cubic yards tell you the space to fill</h3>
               <p>Square feet alone cannot tell you how much rock to buy. The planned <strong>finished depth</strong> determines volume: square feet × inches of depth ÷ 324. A cubic yard contains 27 cubic feet.</p>
-              <a href="/rock-yardage-calculator">Work from cubic yards</a>
+              <a href="/rock-coverage-calculator-yard">Work from cubic yards</a>
             </div>
             <div class="result-tile">
               <span class="tile-number">02</span>
@@ -243,7 +242,7 @@ const supportGuides = [
             <h2 id="order-heading">What to tell the rock supplier</h2>
             <p>Bring the name and size of the stone, your calculated cubic yards, chosen allowance, and the depth of each layer. Then ask these questions before paying:</p>
             <ul>
-              <li>Is this product sold by the cubic yard, U.S. short ton, or bag?</li>
+              <li>Is this product sold by the cubic yard, short ton (2,000 lb), or bag?</li>
               <li>What is this product’s actual tons-per-cubic-yard factor or coverage at my depth?</li>
               <li>What are the minimum order, delivery charge, access needs, and dump location?</li>
               <li>If bagged, what <strong>volume</strong> does each bag contain, and how many bags are on a pallet?</li>
@@ -279,7 +278,7 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav currentPage="/how-much-rock-do-i-need" category="quantity" upLinks={upLinks} lateralLinks={lateralLinks} bridgeLinks={bridgeLinks} supportGuides={supportGuides} />
+    <TopicClusterNav />
   </main>
   <Footer />
 </BaseLayout>

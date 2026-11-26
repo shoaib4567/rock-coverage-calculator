@@ -38,26 +38,6 @@ const faqItems = [
     a: 'There is no universal bag-count cutoff. Compare your rounded-up bag purchase with a quote for the same stone, including the supplier’s minimum order and delivery charge. Bags may be easier to place in a narrow yard even when their material cost is higher.'
   }
 ];
-const upLinks = [
-  { title: 'River Rock Calculator', slug: '/river-rock-calculator', badge: 'Material' },
-  { title: 'Rock Bag Calculator', slug: '/rock-bag-calculator', badge: 'All Stone' },
-  { title: 'Rock Coverage Chart', slug: '/rock-coverage-chart', badge: 'Reference' }
-];
-const lateralLinks = [
-  { title: 'River Rock Tons Calculator', slug: '/river-rock-tons-calculator', badge: 'Tons' },
-  { title: 'River Rock Cubic Yard Calculator', slug: '/river-rock-cubic-yard-calculator', badge: 'Yards' },
-  { title: 'Pea Gravel Bag Calculator', slug: '/pea-gravel-bag-calculator', badge: 'Pea Gravel' }
-];
-const bridgeLinks = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Buying' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
-  { title: 'Dry Creek Bed Guide', slug: '/dry-creek-bed', badge: 'Project' }
-];
-const supportGuides = [
-  { title: 'Rock Bag Weight and Price Guide', slug: '/rock-bag-weight-and-price-guide', badge: 'Hauling' },
-  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Install' },
-  { title: 'Rock Density Chart', slug: '/rock-density-chart', badge: 'Bulk Weight' }
-];
 ---
 
 <BaseLayout
@@ -74,7 +54,7 @@ const supportGuides = [
       "description": "Estimates whole river rock bags, purchased volume, carrying weight, and cost using the package label and project dimensions.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
-      "inLanguage": "en-US"
+      "inLanguage": "en"
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -156,6 +136,10 @@ const supportGuides = [
                 <label for="rrb-bag-price">Store price per bag ($)</label>
                 <input type="number" id="rrb-bag-price" placeholder="Optional" min="0" step="any" inputmode="decimal" />
               </div>
+              <div class="input-field">
+                <label for="rrb-pallet-size">Bags per pallet (optional)</label>
+                <input type="number" id="rrb-pallet-size" placeholder="Optional pallet count" min="1" step="1" inputmode="numeric" />
+              </div>
             </div>
             <p class="tool-note">The 0.5 cu ft and 50 lb values are examples from one retail product. Other half-cubic-foot river rock bags list 40 or 44 lb; use the package you will buy.</p>
             <details class="quote-fields">
@@ -216,6 +200,7 @@ const supportGuides = [
               <strong>How the count is built</strong>
               <p id="rrb-volume-line">100 sq ft × 3 in ÷ 12 = 25 cu ft installed. Add 10% = 27.5 cu ft to order (1.02 cu yd).</p>
               <p id="rrb-rounding-line">27.5 cu ft ÷ 0.5 cu ft per bag = 55; buy 55 whole bags.</p>
+              <p id="rrb-pallet-line">Add your supplier's bags-per-pallet count to split full pallets and loose bags.</p>
             </div>
             <div class="quote-result" id="rrb-quote-result">
               <strong>Bulk comparison</strong>
@@ -293,14 +278,7 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/river-rock-bag-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav />
   </main>
   <Footer />
 
@@ -311,16 +289,16 @@ const supportGuides = [
       if (el) el.textContent = value;
     };
     const numberText = (value: number, maximumFractionDigits = 2) =>
-      value.toLocaleString('en-US', { maximumFractionDigits });
+      value.toLocaleString('en', { maximumFractionDigits });
     const moneyText = (value: number) =>
-      value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+      value.toLocaleString('en', { style: 'currency', currency: 'USD' });
 
     function updateBagEstimate() {
       const mode = (document.querySelector('input[name="rrb-area-mode"]:checked') as HTMLInputElement).value;
       const required = mode === 'known'
         ? ['rrb-area', 'rrb-depth', 'rrb-extra', 'rrb-bag-volume']
         : ['rrb-length', 'rrb-width', 'rrb-depth', 'rrb-extra', 'rrb-bag-volume'];
-      const optional = ['rrb-bag-weight', 'rrb-bag-price', 'rrb-bulk-price', 'rrb-delivery', 'rrb-minimum'];
+      const optional = ['rrb-bag-weight', 'rrb-bag-price', 'rrb-pallet-size', 'rrb-bulk-price', 'rrb-delivery', 'rrb-minimum'];
       const inactive = mode === 'known' ? ['rrb-length', 'rrb-width'] : ['rrb-area'];
       inactive.forEach(id => field(id).removeAttribute('aria-invalid'));
       const invalidRequired: string[] = [];
@@ -328,7 +306,7 @@ const supportGuides = [
       for (const id of required) {
         const input = field(id);
         const value = Number(input.value);
-        const valid = !input.validity.badInput && input.value.trim() !== '' && Number.isFinite(value) && value >= Number(input.min || 0) &&
+        const valid = !input.validity.badInput && input.validity.valid && input.value.trim() !== '' && Number.isFinite(value) && value >= Number(input.min || 0) &&
           (!input.max || value <= Number(input.max));
         input.setAttribute('aria-invalid', String(!valid));
         if (!valid) invalidRequired.push(id);
@@ -337,7 +315,7 @@ const supportGuides = [
         const input = field(id);
         const value = Number(input.value);
         const valid = !input.validity.badInput && (input.value.trim() === '' ||
-          (Number.isFinite(value) && value >= Number(input.min || 0) && (!input.max || value <= Number(input.max))));
+          (input.validity.valid && Number.isFinite(value) && value >= Number(input.min || 0) && (!input.max || value <= Number(input.max))));
         input.setAttribute('aria-invalid', String(!valid));
         if (!valid) invalidOptional.push(id);
       }
@@ -352,6 +330,7 @@ const supportGuides = [
         output('rrb-coverage-depth', '');
         output('rrb-volume-line', 'Correct the highlighted input to see the volume.');
         output('rrb-rounding-line', '');
+        output('rrb-pallet-line', '');
         output('rrb-quote-text', 'Correct the input to compare costs.');
         return;
       }
@@ -380,6 +359,17 @@ const supportGuides = [
       output('rrb-rounding-line', numberText(orderVolume) + ' cu ft ÷ ' + numberText(bagVolume) +
         ' cu ft per bag = ' + numberText(orderVolume / bagVolume) + '; round up to ' +
         numberText(bagCount, 0) + ' whole bags.');
+      const palletRaw = field('rrb-pallet-size').value.trim();
+      const palletCount = Number(palletRaw);
+      if (palletRaw !== '' && !invalidOptional.includes('rrb-pallet-size') && Number.isInteger(palletCount) && palletCount >= 1 && Number.isSafeInteger(bagCount)) {
+        const pallets = Math.floor(bagCount / palletCount);
+        const loose = bagCount % palletCount;
+        output('rrb-pallet-line', 'At ' + numberText(palletCount, 0) + ' bags per pallet: ' +
+          numberText(pallets, 0) + ' full pallet' + (pallets === 1 ? '' : 's') +
+          (loose > 0 ? ' + ' + numberText(loose, 0) + ' loose bag' + (loose === 1 ? '' : 's') : '') + '.');
+      } else {
+        output('rrb-pallet-line', 'Add your supplier\'s bags-per-pallet count to split full pallets and loose bags.');
+      }
 
       const bagPriceRaw = field('rrb-bag-price').value.trim();
       const bulkPriceRaw = field('rrb-bulk-price').value.trim();
@@ -461,9 +451,9 @@ const supportGuides = [
   .quote-fields p { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.5; }
   .quote-fields .dim-grid { margin-bottom: 0; }
   .quote-fields select { width: 100%; padding: .75rem .8rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); color: var(--text-primary); font: inherit; }
-  .input-error { color: #b91c1c; background: #fef2f2; border: 1px solid #fecaca; border-radius: var(--radius-md); padding: var(--space-3); margin-top: var(--space-4); }
+  .input-error { color: var(--color-error); background: color-mix(in srgb, var(--color-error) 8%, transparent); border: 1px solid var(--color-error); border-radius: var(--radius-md); padding: var(--space-3); margin-top: var(--space-4); }
   .input-error[hidden] { display: none; }
-  #bag-tool input[aria-invalid="true"] { border-color: #dc2626; }
+  #bag-tool input[aria-invalid="true"] { border-color: var(--color-error); }
   .kpi-grid { margin-bottom: var(--space-5); }
   .kpi-hero .kpi-value { color: var(--accent-gold); }
   .result-explainer, .quote-result { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-4); }

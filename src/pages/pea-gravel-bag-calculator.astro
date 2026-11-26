@@ -47,29 +47,6 @@ const faqItems = [
   }
 ];
 
-const upLinks = [
-  { title: 'Pea Gravel Calculator (Material Parent)', slug: '/pea-gravel-calculator', badge: 'Material' },
-  { title: 'Rock Bag Calculator (Unit Parent)', slug: '/rock-bag-calculator', badge: 'Unit' },
-  { title: 'Rock Coverage Chart (Conversion Hub)', slug: '/rock-coverage-chart', badge: 'Hub' }
-];
-
-const lateralLinks = [
-  { title: 'Pea Gravel Cubic Yard Calculator', slug: '/pea-gravel-cubic-yard-calculator', badge: 'Bulk Yards' },
-  { title: 'Pea Gravel Coverage Calculator', slug: '/pea-gravel-coverage-calculator', badge: 'Coverage' },
-  { title: 'Pea Gravel Patio Calculator', slug: '/pea-gravel-patio-calculator', badge: 'Patio' }
-];
-
-const bridgeLinks = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Rock Depth Guide', slug: '/rock-depth-guide', badge: 'Depth' },
-  { title: 'Angular vs Rounded Rock', slug: '/angular-vs-rounded-rock', badge: 'Surface Choice' }
-];
-
-const supportGuides = [
-  { title: 'Bulk vs Bagged Rock', slug: '/bulk-vs-bagged-rock', badge: 'Cost Guide' },
-  { title: 'Gravel Size and Sieve Guide', slug: '/gravel-sizes', badge: 'Stone Size' },
-  { title: 'How to Install Landscape Rock', slug: '/how-to-install-landscape-rock', badge: 'Installation' }
-];
 ---
 
 <BaseLayout
@@ -86,7 +63,7 @@ const supportGuides = [
       description: 'Calculates bagged pea gravel from area, depth, labeled bag volume and optional extra allowance.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Web',
-      inLanguage: 'en-US'
+      inLanguage: 'en'
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -181,6 +158,10 @@ const supportGuides = [
                 <label for="pgb-bulk">Delivered bulk quote ($)</label>
                 <input type="number" id="pgb-bulk" min="0" step="any" inputmode="decimal" placeholder="Same quantity" />
               </div>
+              <div class="input-field">
+                <label for="pgb-pallet">Bags per pallet</label>
+                <input type="number" id="pgb-pallet" min="1" step="1" inputmode="numeric" placeholder="Optional pallet count" />
+              </div>
             </div>
             <p class="field-note">For a fair comparison, include your bag order's tax and transport and use a bulk quote that includes the supplier's minimum, delivery, taxes and fees for at least the planned volume.</p>
             <p id="pgb-error" class="dimension-error" role="alert" hidden></p>
@@ -204,6 +185,7 @@ const supportGuides = [
                 <div class="result-item"><span>Planned cubic yards</span><strong id="pgb-yards">0.98 yd³</strong></div>
                 <div class="result-item"><span>One bag covers</span><strong id="pgb-coverage">3.0 sq ft</strong></div>
                 <div class="result-item"><span>Bag order total</span><strong id="pgb-cost">Add price</strong></div>
+                <div class="result-item"><span>Pallet split</span><strong id="pgb-pallet-result">Add pallet size</strong></div>
               </div>
               <p class="result-note" id="pgb-weight-result">Enter the labeled bag weight to estimate your carry load.</p>
               <p class="quote-note" id="pgb-compare">Enter both a bag price and a delivered bulk quote to compare this order.</p>
@@ -257,7 +239,7 @@ const supportGuides = [
             <code>Bags = round up (planned ft³ ÷ labeled ft³ per bag)</code>
           </div>
           <p>For a <strong>12 × 12 ft</strong> space at <strong>2 inches</strong>, the surface requires 144 × 2 ÷ 12 = <strong>24 ft³</strong>. A chosen 10% extra makes that <strong>26.4 ft³</strong>. With a bag labeled 0.5 ft³, 26.4 ÷ 0.5 = 52.8, so buy <strong>53 whole bags</strong>. Without extra, the same space needs 48 bags.</p>
-          <p>For a curved bed, divide it into measured sections or use its known square footage in the calculator. If the subgrade has low spots, measure the extra fill separately; a flat-area formula cannot discover them. The <a href="/pea-gravel-coverage-calculator">pea gravel coverage calculator</a> solves the reverse question when you already know the quantity on hand.</p>
+          <p>For a curved bed, divide it into measured sections or use its known square footage in the calculator. If the subgrade has low spots, measure the extra fill separately; a flat-area formula cannot discover them. The <a href="/pea-gravel-calculator">pea gravel calculator</a> also solves reverse coverage when you already know the quantity on hand.</p>
         </section>
 
         <section class="content-card buying-card" aria-labelledby="buying-heading">
@@ -274,7 +256,7 @@ const supportGuides = [
           <p class="eyebrow">Bagged or delivered loose?</p>
           <h2 id="bulk-heading">Compare the full local quotes</h2>
           <p>There is no universal bag count where bulk becomes cheaper. Bag prices, pallet discounts, a supplier's minimum order and delivery distance change the answer. Enter your local bag price, any bag pickup or delivery costs and a delivered bulk quote for at least the planned volume to compare like for like.</p>
-          <p>As a hypothetical example, 53 bags at $5.75 each cost $304.75 before sales tax and transport. A $240 delivered loose quote for the same volume would be $64.75 less before any taxes or bag transport costs. Bags may still help when access is narrow or the job is spread across several small beds. The <a href="/bulk-vs-bagged-rock">bulk versus bagged guide</a> covers handling and delivery tradeoffs; the <a href="/pea-gravel-cubic-yard-calculator">pea gravel cubic yard calculator</a> converts larger orders.</p>
+          <p>As a hypothetical example, 53 bags at $5.75 each cost $304.75 before sales tax and transport. A $240 delivered loose quote for the same volume would be $64.75 less before any taxes or bag transport costs. Bags may still help when access is narrow or the job is spread across several small beds. The <a href="/bulk-vs-bagged-rock">bulk versus bagged guide</a> covers handling and delivery tradeoffs; the <a href="/pea-gravel-calculator">pea gravel calculator</a> converts larger yard and ton orders.</p>
         </section>
 
         <section class="content-card faq-card" aria-labelledby="faq-heading">
@@ -292,40 +274,33 @@ const supportGuides = [
       </div>
     </article>
 
-    <TopicClusterNav
-      currentPage="/pea-gravel-bag-calculator"
-      category="quantity"
-      upLinks={upLinks}
-      lateralLinks={lateralLinks}
-      bridgeLinks={bridgeLinks}
-      supportGuides={supportGuides}
-    />
+    <TopicClusterNav />
   </main>
   <Footer />
 
   <script>
-    type InputId = 'pgb-length' | 'pgb-width' | 'pgb-area' | 'pgb-depth' | 'pgb-capacity' | 'pgb-extra' | 'pgb-price' | 'pgb-bagfees' | 'pgb-weight' | 'pgb-bulk';
+    type InputId = 'pgb-length' | 'pgb-width' | 'pgb-area' | 'pgb-depth' | 'pgb-capacity' | 'pgb-extra' | 'pgb-price' | 'pgb-bagfees' | 'pgb-weight' | 'pgb-bulk' | 'pgb-pallet';
     const input = (id: InputId) => document.getElementById(id) as HTMLInputElement;
     const output = (id: string, value: string) => { const element = document.getElementById(id); if (element) element.textContent = value; };
     const value = (id: InputId) => {
       const raw = input(id).value.trim();
       return raw === '' ? NaN : Number(raw);
     };
-    const money = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+    const money = (amount: number) => new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(amount);
     let areaMode: 'dimensions' | 'square-feet' = 'dimensions';
 
     function updatePGB() {
       const required: InputId[] = areaMode === 'dimensions'
         ? ['pgb-length', 'pgb-width', 'pgb-depth', 'pgb-capacity', 'pgb-extra']
         : ['pgb-area', 'pgb-depth', 'pgb-capacity', 'pgb-extra'];
-      const optional: InputId[] = ['pgb-price', 'pgb-bagfees', 'pgb-weight', 'pgb-bulk'];
+      const optional: InputId[] = ['pgb-price', 'pgb-bagfees', 'pgb-weight', 'pgb-bulk', 'pgb-pallet'];
       const invalid = [...required, ...optional].find(id => {
         const field = input(id);
         const number = value(id);
         if (optional.includes(id) && field.value.trim() === '') return false;
         const minimum = Number(field.min);
         const maximum = field.max === '' ? Infinity : Number(field.max);
-        return !Number.isFinite(number) || number < minimum || number > maximum;
+        return !field.validity.valid || !Number.isFinite(number) || number < minimum || number > maximum;
       });
       [...required, ...optional].forEach(id => {
         const field = input(id);
@@ -358,6 +333,7 @@ const supportGuides = [
       const bagFees = value('pgb-bagfees');
       const weight = value('pgb-weight');
       const bulk = value('pgb-bulk');
+      const pallet = value('pgb-pallet');
       const bagCost = Number.isFinite(price) ? bags * price + (Number.isFinite(bagFees) ? bagFees : 0) : NaN;
 
       if (![area, net, planned, bags].every(Number.isFinite) || !Number.isSafeInteger(bags)) {
@@ -368,16 +344,23 @@ const supportGuides = [
         return;
       }
 
-      output('pgb-bags', bags.toLocaleString('en-US'));
-      output('pgb-bag-size', 'at ' + capacity.toLocaleString('en-US', { maximumFractionDigits: 3 }) + ' ft³ per bag');
-      output('pgb-area-result', area.toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' sq ft');
-      output('pgb-net', net.toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' ft³');
-      output('pgb-planned', planned.toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' ft³');
-      output('pgb-yards', (planned / 27).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' yd³');
-      output('pgb-coverage', (capacity * 12 / depth).toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' sq ft');
+      output('pgb-bags', bags.toLocaleString('en'));
+      output('pgb-bag-size', 'at ' + capacity.toLocaleString('en', { maximumFractionDigits: 3 }) + ' ft³ per bag');
+      output('pgb-area-result', area.toLocaleString('en', { maximumFractionDigits: 2 }) + ' sq ft');
+      output('pgb-net', net.toLocaleString('en', { maximumFractionDigits: 2 }) + ' ft³');
+      output('pgb-planned', planned.toLocaleString('en', { maximumFractionDigits: 2 }) + ' ft³');
+      output('pgb-yards', (planned / 27).toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' yd³');
+      output('pgb-coverage', (capacity * 12 / depth).toLocaleString('en', { maximumFractionDigits: 2 }) + ' sq ft');
       output('pgb-cost', Number.isFinite(bagCost) ? money(bagCost) : 'Add price');
+      if (Number.isInteger(pallet) && pallet >= 1) {
+        const pallets = Math.floor(bags / pallet);
+        const loose = bags % pallet;
+        output('pgb-pallet-result', pallets.toLocaleString('en') + ' full' + (loose > 0 ? ' + ' + loose.toLocaleString('en') + ' bag' + (loose === 1 ? '' : 's') : ' pallet' + (pallets === 1 ? '' : 's')));
+      } else {
+        output('pgb-pallet-result', 'Add pallet size');
+      }
       output('pgb-weight-result', Number.isFinite(weight)
-        ? 'Carry load: ' + (bags * weight).toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' lb of bagged product at your labeled weight.'
+        ? 'Carry load: ' + (bags * weight).toLocaleString('en', { maximumFractionDigits: 1 }) + ' lb of bagged product at your labeled weight.'
         : 'Enter the labeled bag weight to estimate your carry load.');
       const comparison = !Number.isFinite(bagCost) || !Number.isFinite(bulk)
         ? 'Enter both a bag price and a delivered bulk quote to compare this order.'
@@ -405,8 +388,9 @@ const supportGuides = [
 
     document.getElementById('pgb-mode-dims')?.addEventListener('click', () => setMode('dimensions'));
     document.getElementById('pgb-mode-area')?.addEventListener('click', () => setMode('square-feet'));
-    (['pgb-length', 'pgb-width', 'pgb-area', 'pgb-depth', 'pgb-capacity', 'pgb-extra', 'pgb-price', 'pgb-bagfees', 'pgb-weight', 'pgb-bulk'] as InputId[]).forEach(id => {
+    (['pgb-length', 'pgb-width', 'pgb-area', 'pgb-depth', 'pgb-capacity', 'pgb-extra', 'pgb-price', 'pgb-bagfees', 'pgb-weight', 'pgb-bulk', 'pgb-pallet'] as InputId[]).forEach(id => {
       input(id).addEventListener('input', updatePGB);
+      input(id).addEventListener('change', updatePGB);
     });
     updatePGB();
   </script>
@@ -425,7 +409,7 @@ const supportGuides = [
   .field-note { margin: calc(var(--space-4) * -1) 0 var(--space-5); font-size: .82rem; line-height: 1.5; color: var(--text-muted); }
   .optional-heading { color: var(--text-primary); font-size: .88rem; margin: var(--space-5) 0 var(--space-3); }
   .optional-grid { margin-bottom: var(--space-6); }
-  .input-field input[aria-invalid="true"] { border-color: #dc2626; }
+  .input-field input[aria-invalid="true"] { border-color: var(--color-error); }
   .bag-count { display: flex; flex-direction: column; align-items: center; text-align: center; padding: var(--space-5); margin-bottom: var(--space-4); border: 1px solid rgba(212, 168, 83, .4); border-radius: var(--radius-lg); background: rgba(212, 168, 83, .08); }
   .bag-count-label { text-transform: uppercase; letter-spacing: .08em; font-size: .72rem; font-weight: 700; color: var(--text-muted); }
   .bag-count strong { font: 800 clamp(2.6rem, 6vw, 4.5rem)/1.1 var(--font-mono); color: var(--accent-gold); margin: var(--space-2) 0; }

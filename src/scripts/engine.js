@@ -89,6 +89,8 @@ export const RockEngine = {
         return this.areaTrapezoid(dims.top, dims.bottom, dims.height);
       case 'lshape':
         return this.areaLShape(dims.length1, dims.width1, dims.length2, dims.width2);
+      case 'sqft':
+        return Number(dims.sqFt) || 0;
       default:
         return 0;
     }
@@ -253,8 +255,8 @@ export const RockEngine = {
 
   formatNumber(num) {
     if (num >= 1000) {
-      return num.toLocaleString('en-US', { maximumFractionDigits: 0 });
+      return num.toLocaleString('en', { maximumFractionDigits: 0 });
     }
-    return num.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    return num.toLocaleString('en', { maximumFractionDigits: 2 });
   }
 };

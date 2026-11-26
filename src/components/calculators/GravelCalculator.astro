@@ -8,9 +8,9 @@ const peaDensity = getMaterialById('pea-gravel').tonsPerCuYd;
 <section class="section" id="gravel-calc">
   <div class="container">
     <div class="section-header">
-      <h2>Estimate one gravel layer</h2>
+      <h2>Estimate one gravel layer or convert yards to tons</h2>
       <div class="section-divider"></div>
-      <p>Enter dimensions for a finished layer, select a material, and adjust the allowance and bulk density to estimate what to order. Calculate base and surface layers separately.</p>
+      <p>Measure a rectangle, circular pad, known square footage, or enter bulk cubic yards to convert directly to short tons. Calculate compacted base and surface courses separately.</p>
     </div>
 
     <div class="calc-wrapper">
@@ -18,15 +18,17 @@ const peaDensity = getMaterialById('pea-gravel').tonsPerCuYd;
       <div class="calc-panel animate-fade-in-up">
         <div class="calc-panel-title">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <h3>Project starting point</h3>
+          <h3>Measurement &amp; project starting point</h3>
         </div>
 
-        <div class="unit-toggle mode-toggle" aria-label="Project starting point">
-          <button class="active" aria-pressed="true" id="gravel-mode-drive" type="button">Driveway example</button>
-          <button aria-pressed="false" id="gravel-mode-walk" type="button">Walkway example</button>
+        <div class="unit-toggle mode-toggle" role="tablist" aria-label="Area measurement mode">
+          <button class="active" aria-selected="true" id="gravel-shape-rect" data-shape="rect" type="button" role="tab">Length &times; Width</button>
+          <button aria-selected="false" id="gravel-shape-circle" data-shape="circle" type="button" role="tab">Circle</button>
+          <button aria-selected="false" id="gravel-shape-area" data-shape="area" type="button" role="tab">Known Sq Ft</button>
+          <button aria-selected="false" id="gravel-shape-yards" data-shape="yards" type="button" role="tab">Cubic Yards &rarr; Tons</button>
         </div>
 
-        <div class="dim-grid">
+        <div class="dim-grid" id="grv-rect-fields">
           <div class="input-field">
             <label for="gravel-length">Length</label>
             <input type="number" id="gravel-length" value="50" min="0.01" step="any" />
@@ -39,45 +41,86 @@ const peaDensity = getMaterialById('pea-gravel').tonsPerCuYd;
           </div>
         </div>
 
-        <div class="dim-grid">
+        <div class="dim-grid single" id="grv-circle-fields" hidden>
           <div class="input-field">
+            <label for="gravel-diameter">Circle diameter</label>
+            <input type="number" id="gravel-diameter" value="16" min="0.01" step="any" />
+            <span class="unit-label">feet</span>
+          </div>
+        </div>
+
+        <div class="dim-grid single" id="grv-area-fields" hidden>
+          <div class="input-field">
+            <label for="gravel-area-input">Measured coverage area</label>
+            <input type="number" id="gravel-area-input" value="600" min="0.01" step="any" />
+            <span class="unit-label">sq ft</span>
+          </div>
+        </div>
+
+        <div class="dim-grid single" id="grv-yards-fields" hidden>
+          <div class="input-field">
+            <label for="gravel-yards-input">Bulk gravel volume</label>
+            <input type="number" id="gravel-yards-input" value="7.41" min="0.01" step="any" />
+            <span class="unit-label">yd³</span>
+          </div>
+        </div>
+
+        <div class="dim-grid">
+          <div class="input-field" id="grv-depth-wrap">
             <label for="gravel-depth">Finished layer depth</label>
-            <input type="number" id="gravel-depth" value="4.0" min="0.01" step="any" />
+            <input type="number" id="gravel-depth" value="4.0" min="0.01" max="36" step="any" />
             <span class="unit-label">inches</span>
           </div>
           <div class="input-field">
             <label for="gravel-waste">Order allowance</label>
-            <input type="number" id="gravel-waste" value="15" min="0" step="any" />
+            <input type="number" id="gravel-waste" value="15" min="0" max="100" step="any" />
             <span class="unit-label">% extra</span>
           </div>
+        </div>
+
+        <div class="dim-grid">
+          <div class="input-field select-field">
+            <label for="gravel-increment">Seller yard rounding</label>
+            <select id="gravel-increment">
+              <option value="0">Exact decimal</option>
+              <option value="0.25">Round up to 0.25 yd³</option>
+              <option value="0.5">Round up to 0.50 yd³</option>
+              <option value="1">Round up to 1.00 yd³</option>
+            </select>
+          </div>
+          <div class="input-field">
+            <label for="gravel-density">Loose bulk density</label>
+            <input type="number" id="gravel-density" value={crushedDensity} min="0.01" max="3.5" step="any" />
+            <span class="unit-label">tons/yd³</span>
+          </div>
+        </div>
+
+        <div class="preset-quick">
+          <button type="button" class="mini-preset" id="gravel-mode-drive">Preset: Driveway (50&times;12 ft, 4", +15%)</button>
+          <button type="button" class="mini-preset" id="gravel-mode-walk">Preset: Walkway (30&times;4 ft, 3", +10%)</button>
         </div>
 
         <!-- Gravel Type Selector -->
         <div class="calc-panel-title" style="margin-top: var(--space-4);">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          <h3>Material and bulk density</h3>
+          <h3>Material &amp; density presets</h3>
         </div>
 
         <div class="gravel-type-grid" aria-label="Gravel material">
           <button type="button" class="grv-btn active" aria-pressed="true" data-density={crushedDensity} data-name="Crushed stone">
             <div class="grv-title">Crushed stone</div>
-            <div class="grv-spec">Starts at {crushedDensity.toFixed(2)} US tons/yd³ | Check the supplier's size and fines</div>
+            <div class="grv-spec">Starts at {crushedDensity.toFixed(2)} short tons/yd³ &bull; Check supplier size &amp; fines</div>
           </button>
-          <button type="button" class="grv-btn" aria-pressed="false" data-density={baseDensity} data-name="Crusher run / dense graded base">
+          <button type="button" class="grv-btn" aria-pressed="false" data-density={baseDensity} data-name="Crusher run / dense base">
             <div class="grv-title">Crusher run / dense graded base</div>
-            <div class="grv-spec">Starts at {baseDensity.toFixed(2)} US tons/yd³ | Mix of stone sizes and fines</div>
+            <div class="grv-spec">Starts at {baseDensity.toFixed(2)} short tons/yd³ &bull; Crushed stone + fines blend</div>
           </button>
           <button type="button" class="grv-btn" aria-pressed="false" data-density={peaDensity} data-name="Pea gravel">
             <div class="grv-title">Pea gravel</div>
-            <div class="grv-spec">Starts at {peaDensity.toFixed(2)} US tons/yd³ | Rounded path and patio gravel</div>
+            <div class="grv-spec">Starts at {peaDensity.toFixed(2)} short tons/yd³ &bull; Rounded path and patio gravel</div>
           </button>
         </div>
-        <div class="input-field density-field">
-          <label for="gravel-density">Bulk density (use supplier figure if known)</label>
-          <input type="number" id="gravel-density" value={crushedDensity} min="0.01" step="any" />
-          <span class="unit-label">tons/yd³</span>
-        </div>
-        <p class="input-note">Preset densities are planning estimates. Change this number if your supplier gives a conversion for your material.</p>
+        <p class="input-note">Preset weights are planning estimates. Replace with your supplier’s loose bulk weight when quoted.</p>
       </div>
 
       <!-- Output Panel -->
@@ -86,12 +129,12 @@ const peaDensity = getMaterialById('pea-gravel').tonsPerCuYd;
           <div class="results-title">Estimated gravel order</div>
           <div class="results-badge" id="gravel-badge">Crushed stone</div>
         </div>
-        <p id="gravel-input-error" class="input-note" role="alert" style="display: none;">Enter positive dimensions and density. The order allowance can be zero or more.</p>
+        <p id="gravel-input-error" class="calc-error" role="alert" hidden>Enter positive measurements, depth (up to 36 in), density (0.01–3.5 tons/yd³), and non-negative allowance.</p>
 
         <div class="kpi-grid">
           <div class="kpi-card highlight">
             <div class="kpi-value" id="kpi-grv-tons">0.00</div>
-            <div class="kpi-label">Order weight (US tons)</div>
+            <div class="kpi-label">Order weight (short tons)</div>
             <div class="kpi-subtext" id="kpi-grv-lbs">0 lb estimated weight</div>
           </div>
           <div class="kpi-card">
@@ -106,28 +149,34 @@ const peaDensity = getMaterialById('pea-gravel').tonsPerCuYd;
           </div>
           <div class="kpi-card">
             <div class="kpi-value" id="kpi-grv-area">0</div>
-            <div class="kpi-label">Surface area (sq ft)</div>
-            <div class="kpi-subtext">Length × width</div>
+            <div class="kpi-label" id="kpi-grv-area-lbl">Surface area (sq ft)</div>
+            <div class="kpi-subtext" id="kpi-grv-area-sub">Calculated footprint</div>
           </div>
         </div>
 
-        <!-- One-layer calculation note -->
         <div class="driveway-guide-card">
-          <div class="guide-title">Use this estimate</div>
+          <div class="guide-title">Ordering breakdown</div>
           <p class="guide-text" id="gravel-guide-text">
-            This is one gravel layer. For a driveway with a separate base and surface, calculate each layer using its own depth, density, and allowance.
+            One layer at a time. For driveways with separate compacted subbase and wearing courses, run base and surface independently.
           </p>
         </div>
 
-        <!-- Breakdown Rows -->
         <div class="breakdown-list">
           <div class="breakdown-row">
-            <span>Surface Coverage Dimensions</span>
-            <span class="breakdown-val" id="row-grv-area">600 sq ft (50' × 12')</span>
+            <span>Footprint summary</span>
+            <span class="breakdown-val" id="row-grv-area">600 sq ft</span>
           </div>
           <div class="breakdown-row">
-            <span>Allowance applied to finished volume</span>
-            <span class="breakdown-val" id="row-grv-compaction">15% included in order estimate</span>
+            <span>Allowance applied</span>
+            <span class="breakdown-val" id="row-grv-compaction">15% extra</span>
+          </div>
+          <div class="breakdown-row">
+            <span>0.5 cu ft bag equivalent</span>
+            <span class="breakdown-val" id="row-grv-bags">0 bags</span>
+          </div>
+          <div class="breakdown-row">
+            <span>1 short ton covers at depth</span>
+            <span class="breakdown-val" id="row-grv-yield">—</span>
           </div>
         </div>
       </div>
@@ -136,403 +185,224 @@ const peaDensity = getMaterialById('pea-gravel').tonsPerCuYd;
 </section>
 
 <style>
-.calc-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-6);
-  margin-top: var(--space-6);
-}
-
-@media (max-width: 900px) {
-  .calc-wrapper {
-    grid-template-columns: 1fr;
-  }
-}
-
-.calc-panel, .calc-results-panel {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-6);
-}
-
-.calc-panel-title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-  color: var(--color-text);
-}
-
-.calc-panel-title svg {
-  color: var(--color-primary);
-}
-
-.calc-panel-title h3 {
-  font-size: var(--text-base);
-  font-weight: 600;
-  margin: 0;
-}
-
-.unit-toggle {
-  display: flex;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 3px;
-  margin-bottom: var(--space-4);
-}
-
-.unit-toggle button {
-  flex: 1;
-  padding: 0.5rem;
-  border: none;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.unit-toggle button.active {
-  background: var(--color-primary);
-  color: #000;
-}
-
-.dim-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
-  margin-bottom: var(--space-3);
-}
-
-.input-field {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.input-field label {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-1);
-}
-
-.input-field input {
-  padding: 0.65rem 0.75rem;
-  padding-right: 3.5rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-  font-size: var(--text-base);
-  font-weight: 600;
-  outline: none;
-  transition: border-color var(--transition-fast);
-}
-
-.input-field input:focus {
-  border-color: var(--color-primary);
-}
-
-.input-field .unit-label {
-  position: absolute;
-  right: 0.75rem;
-  bottom: 0.65rem;
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  pointer-events: none;
-}
-
-.gravel-type-grid {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  margin-bottom: var(--space-4);
-}
-
-.density-field {
-  max-width: 260px;
-  margin-bottom: var(--space-2);
-}
-
-.input-note {
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  line-height: 1.5;
-  margin: 0;
-}
-
-.grv-btn {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 0.6rem 0.8rem;
-  text-align: left;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.grv-btn:hover {
-  border-color: var(--color-primary-light);
-}
-
-.grv-btn.active {
-  border-color: var(--color-primary);
-  background: rgba(202, 138, 4, 0.08);
-}
-
-.grv-title {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.grv-spec {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-}
-
-.results-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.results-title {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.results-badge {
-  font-size: var(--text-xs);
-  padding: 0.25rem 0.6rem;
-  background: rgba(202, 138, 4, 0.12);
-  color: var(--color-primary);
-  border-radius: 9999px;
-  font-weight: 600;
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-  margin-bottom: var(--space-4);
-}
-
-.kpi-card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-3) var(--space-4);
-}
-
-.kpi-card.highlight {
-  border-color: var(--color-primary);
-  background: rgba(202, 138, 4, 0.05);
-}
-
-.kpi-value {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  color: var(--color-primary);
-  line-height: 1.1;
-}
-
-.kpi-label {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  margin-top: var(--space-1);
-}
-
-.kpi-subtext {
-  font-size: 0.75rem;
-  color: var(--color-text);
-  opacity: 0.8;
-  margin-top: 0.15rem;
-}
-
-.driveway-guide-card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  margin-bottom: var(--space-3);
-}
-
-.guide-title {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-2);
-}
-
-.guide-text {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  line-height: 1.4;
-  margin: 0;
-}
-
-.breakdown-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.breakdown-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: var(--text-xs);
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid var(--color-border);
-  color: var(--color-text-muted);
-}
-
-.breakdown-row:last-child {
-  border-bottom: none;
-}
-
-.breakdown-val {
-  font-weight: 600;
-  color: var(--color-text);
-}
+.calc-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); margin-top: var(--space-6); }
+@media (max-width: 900px) { .calc-wrapper { grid-template-columns: 1fr; } }
+.calc-panel, .calc-results-panel { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); }
+.calc-panel-title { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); color: var(--color-text); }
+.calc-panel-title svg { color: var(--color-primary); }
+.calc-panel-title h3 { font-size: var(--text-base); font-weight: 600; margin: 0; }
+.unit-toggle { display: flex; flex-wrap: wrap; gap: 4px; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 4px; margin-bottom: var(--space-4); }
+.unit-toggle button { flex: 1 1 auto; padding: 0.48rem 0.6rem; border: none; background: transparent; color: var(--color-text-muted); font-size: var(--text-xs); font-weight: 600; border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition-fast); }
+.unit-toggle button.active { background: var(--color-primary); color: var(--text-inverse); }
+.dim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-3); }
+.dim-grid.single { grid-template-columns: 1fr; }
+.dim-grid[hidden], [hidden] { display: none !important; }
+.input-field { position: relative; display: flex; flex-direction: column; }
+.input-field label { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); margin-bottom: var(--space-1); }
+.input-field input, .input-field select { padding: 0.65rem 0.75rem; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font-size: var(--text-base); font-weight: 600; outline: none; transition: border-color var(--transition-fast); }
+.input-field input { padding-right: 4.5rem; }
+.input-field input[aria-invalid="true"] { border-color: var(--color-error); }
+.input-field input:focus, .input-field select:focus { border-color: var(--color-primary); }
+.input-field .unit-label { position: absolute; right: 0.75rem; bottom: 0.68rem; font-size: var(--text-xs); color: var(--color-text-muted); pointer-events: none; }
+.preset-quick { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-2) 0 var(--space-3); }
+.mini-preset { font-size: var(--text-xs); padding: 0.35rem 0.65rem; border-radius: 999px; border: 1px solid var(--color-border); background: var(--color-bg); color: var(--color-text-muted); cursor: pointer; font-weight: 600; }
+.mini-preset:hover { border-color: var(--color-primary); color: var(--color-text); }
+.gravel-type-grid { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-3); }
+.input-note { color: var(--color-text-muted); font-size: var(--text-xs); line-height: 1.5; margin: 0; }
+.calc-error { color: var(--color-error); font-size: var(--text-sm); font-weight: 600; margin: 0 0 var(--space-3); }
+.grv-btn { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.6rem 0.8rem; text-align: left; cursor: pointer; transition: all var(--transition-fast); }
+.grv-btn:hover { border-color: var(--color-primary-light); }
+.grv-btn.active { border-color: var(--color-primary); background: rgba(202, 138, 4, 0.1); }
+.grv-title { font-size: var(--text-sm); font-weight: 600; color: var(--color-text); }
+.grv-spec { font-size: var(--text-xs); color: var(--color-text-muted); }
+.results-header { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border); }
+.results-title { font-size: var(--text-base); font-weight: 600; color: var(--color-text); }
+.results-badge { font-size: var(--text-xs); padding: 0.25rem 0.6rem; background: rgba(202, 138, 4, 0.14); color: var(--color-primary); border-radius: 9999px; font-weight: 600; }
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-4); }
+.kpi-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4); }
+.kpi-card.highlight { border-color: var(--color-primary); background: rgba(202, 138, 4, 0.06); }
+.kpi-value { font-size: var(--text-2xl); font-weight: 700; color: var(--color-primary); line-height: 1.1; }
+.kpi-label { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
+.kpi-subtext { font-size: 0.75rem; color: var(--color-text); opacity: 0.82; margin-top: 0.15rem; }
+.driveway-guide-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-3); }
+.guide-title { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin-bottom: var(--space-2); }
+.guide-text { font-size: 0.75rem; color: var(--color-text-muted); line-height: 1.5; margin: 0; }
+.breakdown-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.breakdown-row { display: flex; justify-content: space-between; font-size: var(--text-xs); padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border); color: var(--color-text-muted); }
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-val { font-weight: 600; color: var(--color-text); }
 </style>
 
 <script>
 function initGravelCalculator() {
-  const modeDriveBtn = document.getElementById('gravel-mode-drive');
-  const modeWalkBtn = document.getElementById('gravel-mode-walk');
+  const shapeBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('#gravel-calc .mode-toggle button'));
+  const rectFields = document.getElementById('grv-rect-fields');
+  const circleFields = document.getElementById('grv-circle-fields');
+  const areaFields = document.getElementById('grv-area-fields');
+  const yardsFields = document.getElementById('grv-yards-fields');
+  const depthWrap = document.getElementById('grv-depth-wrap');
 
   const lengthInput = document.getElementById('gravel-length') as HTMLInputElement | null;
   const widthInput = document.getElementById('gravel-width') as HTMLInputElement | null;
+  const diameterInput = document.getElementById('gravel-diameter') as HTMLInputElement | null;
+  const areaInput = document.getElementById('gravel-area-input') as HTMLInputElement | null;
+  const yardsInput = document.getElementById('gravel-yards-input') as HTMLInputElement | null;
   const depthInput = document.getElementById('gravel-depth') as HTMLInputElement | null;
   const wasteInput = document.getElementById('gravel-waste') as HTMLInputElement | null;
   const densityInput = document.getElementById('gravel-density') as HTMLInputElement | null;
+  const incSelect = document.getElementById('gravel-increment') as HTMLSelectElement | null;
+  const grvBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.grv-btn'));
 
-  const grvBtns = document.querySelectorAll('.grv-btn');
-
+  let activeShape = 'rect';
   let activeGravelName = 'Crushed stone';
 
-  function calculate() {
-    if (!lengthInput || !widthInput || !depthInput || !wasteInput || !densityInput) return;
+  const setText = (id: string, txt: string) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = txt;
+  };
 
-    const inputs = [lengthInput, widthInput, depthInput, wasteInput, densityInput];
-    const values = inputs.map(input => Number(input.value));
-    const [length, width, depthInches, wastePercent, density] = values;
-    const valid = inputs.every(input => input.value.trim() !== '' && input.validity.valid)
-      && values.every(Number.isFinite) && length > 0 && width > 0 && depthInches > 0 && wastePercent >= 0 && density > 0;
-    const error = document.getElementById('gravel-input-error');
-    if (error) error.style.display = valid ? 'none' : 'block';
+  function calculate() {
+    if (!lengthInput || !widthInput || !diameterInput || !areaInput || !yardsInput || !depthInput || !wasteInput || !densityInput) return;
+
+    const l = Number(lengthInput.value);
+    const w = Number(widthInput.value);
+    const d = Number(diameterInput.value);
+    const aKnown = Number(areaInput.value);
+    const yKnown = Number(yardsInput.value);
+    const depth = Number(depthInput.value);
+    const extra = Number(wasteInput.value);
+    const density = Number(densityInput.value);
+    const inc = Number(incSelect?.value || 0);
+
+    let area = 0;
+    let finishedYards = 0;
+    let measureOk = false;
+
+    if (activeShape === 'rect') {
+      area = l * w;
+      measureOk = lengthInput.value.trim() !== '' && widthInput.value.trim() !== '' && Number.isFinite(l) && l > 0 && Number.isFinite(w) && w > 0 && Number.isFinite(area) && area <= 1e7;
+      lengthInput.setAttribute('aria-invalid', String(!(Number.isFinite(l) && l > 0)));
+      widthInput.setAttribute('aria-invalid', String(!(Number.isFinite(w) && w > 0)));
+    } else if (activeShape === 'circle') {
+      const r = d / 2;
+      area = Math.PI * r * r;
+      measureOk = diameterInput.value.trim() !== '' && Number.isFinite(d) && d > 0 && Number.isFinite(area) && area <= 1e7;
+      diameterInput.setAttribute('aria-invalid', String(!(Number.isFinite(d) && d > 0)));
+    } else if (activeShape === 'area') {
+      area = aKnown;
+      measureOk = areaInput.value.trim() !== '' && Number.isFinite(aKnown) && aKnown > 0 && aKnown <= 1e7;
+      areaInput.setAttribute('aria-invalid', String(!measureOk));
+    } else {
+      measureOk = yardsInput.value.trim() !== '' && Number.isFinite(yKnown) && yKnown > 0 && yKnown <= 1e6;
+      yardsInput.setAttribute('aria-invalid', String(!measureOk));
+      finishedYards = yKnown;
+    }
+
+    const depthOk = activeShape === 'yards' || (depthInput.value.trim() !== '' && Number.isFinite(depth) && depth > 0 && depth <= 36);
+    const extraOk = wasteInput.value.trim() !== '' && Number.isFinite(extra) && extra >= 0 && extra <= 100;
+    const densOk = densityInput.value.trim() !== '' && Number.isFinite(density) && density >= 0.01 && density <= 3.5;
+
+    depthInput.setAttribute('aria-invalid', String(!depthOk));
+    wasteInput.setAttribute('aria-invalid', String(!extraOk));
+    densityInput.setAttribute('aria-invalid', String(!densOk));
+
+    const valid = measureOk && depthOk && extraOk && densOk;
+    const errorEl = document.getElementById('gravel-input-error');
+    if (errorEl) errorEl.hidden = valid;
+
     if (!valid) {
-      ['kpi-grv-tons', 'kpi-grv-lbs', 'kpi-grv-yards', 'kpi-grv-cuft', 'kpi-grv-finished', 'kpi-grv-area', 'row-grv-area', 'row-grv-compaction'].forEach(id => {
-        const output = document.getElementById(id);
-        if (output) output.textContent = '—';
-      });
+      ['kpi-grv-tons', 'kpi-grv-lbs', 'kpi-grv-yards', 'kpi-grv-cuft', 'kpi-grv-finished', 'kpi-grv-area', 'row-grv-area', 'row-grv-compaction', 'row-grv-bags', 'row-grv-yield'].forEach(id => setText(id, '—'));
       return;
     }
 
-    const area = length * width;
-    const netCuFt = area * (depthInches / 12);
-    const finishedYards = netCuFt / 27;
-    const totalCuFt = netCuFt * (1 + wastePercent / 100);
-    const totalYards = totalCuFt / 27;
+    if (activeShape !== 'yards') {
+      finishedYards = (area * depth) / 324;
+    } else if (depthOk) {
+      area = finishedYards * (324 / (Number.isFinite(depth) && depth > 0 ? depth : 3));
+    }
 
-    const totalTons = totalYards * density;
-    const totalLbs = totalTons * 2000;
+    const rawOrderYards = finishedYards * (1 + extra / 100);
+    const orderYards = inc > 0 ? Math.ceil((rawOrderYards - 1e-9) / inc) * inc : rawOrderYards;
+    const orderCuFt = orderYards * 27;
+    const orderTons = orderYards * density;
+    const orderLbs = orderTons * 2000;
+    const bags = Math.max(1, Math.ceil(orderCuFt / 0.5 - 1e-9));
 
-    // Update KPIs
-    const kpiTons = document.getElementById('kpi-grv-tons');
-    const kpiLbs = document.getElementById('kpi-grv-lbs');
-    const kpiYards = document.getElementById('kpi-grv-yards');
-    const kpiCuFt = document.getElementById('kpi-grv-cuft');
-    const kpiFinished = document.getElementById('kpi-grv-finished');
-    const kpiArea = document.getElementById('kpi-grv-area');
-    const badge = document.getElementById('gravel-badge');
-
-    const rowArea = document.getElementById('row-grv-area');
-    const rowCompaction = document.getElementById('row-grv-compaction');
-
-    if (kpiTons) kpiTons.textContent = totalTons.toFixed(2);
-    if (kpiLbs) kpiLbs.textContent = `${Math.round(totalLbs).toLocaleString()} lb estimated weight`;
-    if (kpiYards) kpiYards.textContent = totalYards.toFixed(2);
-    if (kpiCuFt) kpiCuFt.textContent = `${totalCuFt.toFixed(1)} cu ft including allowance`;
-    if (kpiFinished) kpiFinished.textContent = finishedYards.toFixed(2);
-    if (kpiArea) kpiArea.textContent = Math.round(area).toLocaleString();
-    if (badge) badge.textContent = activeGravelName;
-
-    if (rowArea) rowArea.textContent = `${Math.round(area).toLocaleString()} sq ft (${length}' × ${width}')`;
-    if (rowCompaction) rowCompaction.textContent = `${wastePercent}% included in order estimate`;
+    setText('kpi-grv-tons', orderTons.toFixed(2));
+    setText('kpi-grv-lbs', `${Math.round(orderLbs).toLocaleString('en')} lb estimated`);
+    setText('kpi-grv-yards', orderYards.toFixed(2));
+    setText('kpi-grv-cuft', `${orderCuFt.toFixed(1)} cu ft${inc > 0 ? ` (rounded ${inc} yd³)` : ''}`);
+    setText('kpi-grv-finished', finishedYards.toFixed(2));
+    setText('kpi-grv-area', Math.round(area).toLocaleString('en'));
+    setText('kpi-grv-area-lbl', activeShape === 'yards' ? 'Equivalent 1-layer area' : 'Surface area (sq ft)');
+    setText('kpi-grv-area-sub', activeShape === 'circle' ? `${d} ft diameter` : activeShape === 'yards' ? `At ${depth} in depth` : 'Measured footprint');
+    setText('gravel-badge', activeGravelName);
+    setText('row-grv-area', `${area.toLocaleString('en', { maximumFractionDigits: 1 })} sq ft`);
+    setText('row-grv-compaction', `${extra}% extra`);
+    setText('row-grv-bags', `${bags.toLocaleString('en')} bags`);
+    setText('row-grv-yield', depthOk && depth > 0 ? `${Math.round(324 / (depth * density)).toLocaleString('en')} sq ft` : '—');
   }
 
-  if (modeDriveBtn && modeWalkBtn && lengthInput && widthInput && depthInput && wasteInput) {
-    modeDriveBtn.addEventListener('click', () => {
-      modeDriveBtn.classList.add('active');
-      modeWalkBtn.classList.remove('active');
-      modeDriveBtn.setAttribute('aria-pressed', 'true');
-      modeWalkBtn.setAttribute('aria-pressed', 'false');
-      lengthInput.value = '50';
-      widthInput.value = '12';
-      depthInput.value = '4.0';
-      wasteInput.value = '15';
-      (grvBtns[0] as HTMLButtonElement | undefined)?.click();
-      const guideText = document.getElementById('gravel-guide-text');
-      if (guideText) {
-        guideText.textContent = 'This is one gravel layer. For a driveway with a separate base and surface, calculate each layer using its own depth, density, and allowance.';
-      }
+  shapeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeShape = btn.dataset.shape || 'rect';
+      shapeBtns.forEach(b => {
+        const on = b === btn;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', String(on));
+      });
+      if (rectFields) rectFields.hidden = activeShape !== 'rect';
+      if (circleFields) circleFields.hidden = activeShape !== 'circle';
+      if (areaFields) areaFields.hidden = activeShape !== 'area';
+      if (yardsFields) yardsFields.hidden = activeShape !== 'yards';
+      if (depthWrap) depthWrap.hidden = activeShape === 'yards';
       calculate();
     });
+  });
 
-    modeWalkBtn.addEventListener('click', () => {
-      modeWalkBtn.classList.add('active');
-      modeDriveBtn.classList.remove('active');
-      modeWalkBtn.setAttribute('aria-pressed', 'true');
-      modeDriveBtn.setAttribute('aria-pressed', 'false');
-      lengthInput.value = '30';
-      widthInput.value = '4';
-      depthInput.value = '2.5';
-      wasteInput.value = '10';
-      (grvBtns[2] as HTMLButtonElement | undefined)?.click();
-      const guideText = document.getElementById('gravel-guide-text');
-      if (guideText) {
-        guideText.textContent = 'For a path or patio, use the finished depth you plan to install. Edging can help contain loose rounded stone; adjust the allowance for low spots and handling loss.';
-      }
-      calculate();
-    });
-  }
+  document.getElementById('gravel-mode-drive')?.addEventListener('click', () => {
+    shapeBtns.find(b => b.dataset.shape === 'rect')?.click();
+    if (lengthInput) lengthInput.value = '50';
+    if (widthInput) widthInput.value = '12';
+    if (depthInput) depthInput.value = '4.0';
+    if (wasteInput) wasteInput.value = '15';
+    calculate();
+  });
+
+  document.getElementById('gravel-mode-walk')?.addEventListener('click', () => {
+    shapeBtns.find(b => b.dataset.shape === 'rect')?.click();
+    if (lengthInput) lengthInput.value = '30';
+    if (widthInput) widthInput.value = '4';
+    if (depthInput) depthInput.value = '3.0';
+    if (wasteInput) wasteInput.value = '10';
+    calculate();
+  });
 
   grvBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      grvBtns.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed', 'false');
-      });
+      grvBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
       btn.setAttribute('aria-pressed', 'true');
       if (densityInput) densityInput.value = btn.getAttribute('data-density') || densityInput.value;
-      const titleEl = btn.querySelector('.grv-title');
-      if (titleEl) activeGravelName = titleEl.textContent || 'Gravel';
+      activeGravelName = btn.getAttribute('data-name') || 'Crushed stone';
       calculate();
     });
   });
 
-  [lengthInput, widthInput, depthInput, wasteInput, densityInput].forEach(input => {
-    if (input) {
-      input.addEventListener('input', calculate);
-    }
+  densityInput?.addEventListener('input', () => {
+    grvBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+    activeGravelName = 'Custom bulk density';
+    calculate();
   });
 
+  [lengthInput, widthInput, diameterInput, areaInput, yardsInput, depthInput, wasteInput].forEach(inp => inp?.addEventListener('input', calculate));
+  incSelect?.addEventListener('change', calculate);
   calculate();
 }
 
-document.addEventListener('DOMContentLoaded', initGravelCalculator);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initGravelCalculator);
+} else {
+  initGravelCalculator();
+}
 </script>

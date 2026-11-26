@@ -61,12 +61,56 @@ const tradeData = [
     "terms": "DGA; dense-graded aggregate; quarry process (QP)",
     "check": "Ask for the specified DGA or actual QP grading. A trade phrase alone does not establish compliance with an agency specification.",
     "url": "https://nj.gov/transportation/eng/documents/BDC/pdf/attachmentbdc07s03.pdf",
+    "refLabel": "Read the agency reference",
+    "calcSlug": "/crusher-run-calculator"
+  },
+  {
+    "state": "North Carolina",
+    "terms": "ABC; Aggregate Base Course; Class II aggregate base",
+    "check": "Verify the NCDOT Section 1010 ABC type and gradation table rather than treating every crusher run as identical to state base.",
+    "url": "",
+    "refLabel": "Check NCDOT Standard Specifications § 1010",
+    "calcSlug": "/crusher-run-calculator"
+  },
+  {
+    "state": "California",
+    "terms": "Class 2 Aggregate Base; 3/4-inch Class 2 AB",
+    "check": "Confirm Caltrans Section 26 grading and R-value compliance separately from recycled-concrete vs. virgin rock quotes.",
+    "url": "",
+    "refLabel": "Check Caltrans Standard Specifications § 26",
+    "calcSlug": "/crusher-run-calculator"
+  },
+  {
+    "state": "Indiana",
+    "terms": "#53 Compacted Aggregate Base; #73 stone",
+    "check": "INDOT #53 carries higher fines for compactable base layers, while #73 serves different bedding and shoulder stabilization specs.",
+    "url": "",
+    "refLabel": "Check INDOT Standard Specifications § 301 / 904",
+    "calcSlug": "/crusher-run-calculator"
+  },
+  {
+    "state": "Texas",
+    "terms": "Flexbase (Flexible Base Type A/D, Grade 1-2); Caliche base",
+    "check": "TxDOT Item 247 grades differ significantly in carbonate content, plasticity index, and compaction shrinkage across regions.",
+    "url": "",
+    "refLabel": "Check TxDOT Standard Specifications Item 247",
     "calcSlug": "/crusher-run-calculator"
   }
 ];
 ---
 
 <BaseLayout title={title} metaDescription={metaDescription} canonicalPath="/gravel-trade-names-by-state">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: 'Regional Gravel & Aggregate Trade Names by State',
+      description: metaDescription,
+      mainEntityOfPage: 'https://rockcoveragecalculator.com/gravel-trade-names-by-state',
+      inLanguage: 'en',
+      dateModified: '2026-11-25'
+    })} />
+  </Fragment>
   <Header />
 
   <main id="main-content">
@@ -94,7 +138,7 @@ const tradeData = [
           </div>
           <div class="search-stats-row">
             <span id="search-count-label">Showing {tradeData.length} regional examples</span>
-            <div class="quick-tags">{['21-A','CA-6','304','Class 5','2A','Item 4','DGA'].map(term=><button type="button" class="btn-tag" data-tag={term}>{term}</button>)}</div>
+            <div class="quick-tags">{['21-A','CA-6','304','Class 5','2A','Item 4','DGA','ABC','Class 2','#53','Flexbase'].map(term=><button type="button" class="btn-tag" data-tag={term}>{term}</button>)}</div>
           </div>
         </div>
 
@@ -105,7 +149,7 @@ const tradeData = [
 <thead><tr><th scope="col">State</th><th scope="col">Names you may encounter</th><th scope="col">Check before ordering</th><th scope="col">Reference and quantity tool</th></tr></thead>
 <tbody id="trade-table-body">{tradeData.map(item=><tr class="trade-row" data-search={(item.state+' '+item.terms+' '+item.check).toLowerCase()}>
 <th scope="row">{item.state}</th><td class="quarry-name-cell">{item.terms}</td><td>{item.check}</td>
-<td><a href={item.url}>Read the agency reference</a><br/><a href={item.calcSlug}>Estimate the selected material</a></td>
+<td>{item.url ? <a href={item.url} rel="noopener noreferrer">{item.refLabel || 'Read the agency reference'}</a> : <span>{item.refLabel}</span>}<br/><a href={item.calcSlug}>Estimate the selected material</a></td>
 </tr>)}</tbody></table>
           </div>
         </div>
